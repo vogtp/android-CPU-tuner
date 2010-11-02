@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="labelCpuFreq">Frequency</string>
+    <string name="labelCpuGov">Govenor</string>
+    <string name="labelCurrent">Current</string>
+    <string name="labelMax">Max</string>
+    <string name="labelMin">Min</string>
+    <string name="app_name">CPU tuner</string>
+<string name="cbApplyOnBoot">Apply settings on boot</string>
+</resources>
