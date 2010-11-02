@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.service.BatteryService;
 
 public class BatteryReceiver extends BroadcastReceiver {
 
@@ -48,6 +49,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			if (level > -1) {
 				// handle battery event
 			}
+			context.startService(new Intent(context, BatteryService.class));
 		}
 	}
 }
