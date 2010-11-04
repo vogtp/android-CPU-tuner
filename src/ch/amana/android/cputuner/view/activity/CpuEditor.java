@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.view;
+package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,56 +6,56 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.RootHandler;
-import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.Cpu;
+import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.PowerProfiles;
 
-public class TuneCpu extends Activity {
+public class CpuEditor extends Activity {
 
-	private Cpu cpu;
+	private CpuModel cpu;
+	private CpuHandler cpuHandler;
 	private Spinner spinnerSetGov;
-	private TextView tvCpuFreq;
 	private SeekBar sbCpuFreqMax;
 	private TextView tvCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
 	private TextView tvCpuFreqMin;
+	private int profile;
+	private String[] availCpuGovs;
+	private String[] availCpuFreqs;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		cpu = new Cpu();
+		setContentView(R.layout.cpu_editor);
+		cpuHandler = CpuHandler.getInstance();
 
-		tvCpuFreq = (TextView) findViewById(R.id.tvCpuFreq);
+		profile = getIntent().getIntExtra(CpuModel.INTENT_EXTRA, -1);
+		cpu = PowerProfiles.getCpuModelForProfile(profile);
+
+		((TextView) findViewById(R.id.tvPowerProfile)).setText(cpu.getProfileName());
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 
-		sbCpuFreqMax.setMax(cpu.getAvailCpuFreq().length - 1);
+		availCpuFreqs = cpuHandler.getAvailCpuFreq();
+		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = cpu.getAvailCpuFreq()[seekBar.getProgress()];
-				if (!val.equals(cpu.getMaxCpuFreq())) {
-					if (cpu.setMaxCpuFreq(val)) {
-						Toast.makeText(TuneCpu.this, "Setting CPU max freq to " + val, Toast.LENGTH_LONG).show();
-					}
-					updateView();
-				}
+				String val = availCpuFreqs[seekBar.getProgress()];
+				cpu.setMaxFreq(val);
+				updateView();
+
 			}
 
 			@Override
@@ -67,19 +67,15 @@ public class TuneCpu extends Activity {
 			}
 		});
 
-		sbCpuFreqMin.setMax(cpu.getAvailCpuFreq().length - 1);
+		sbCpuFreqMin.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = cpu.getAvailCpuFreq()[seekBar.getProgress()];
-				if (!val.equals(cpu.getMinCpuFreq())) {
-					if (cpu.setMinCpuFreq(val)) {
-						Toast.makeText(TuneCpu.this, "Setting CPU min freq to " + val, Toast.LENGTH_LONG).show();
-					}
-					updateView();
-				}
+				String val = availCpuFreqs[seekBar.getProgress()];
+				cpu.setMinFreq(val);
+				updateView();
 			}
 
 			@Override
@@ -91,19 +87,15 @@ public class TuneCpu extends Activity {
 			}
 		});
 
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cpu.getAvailCpuGov());
+		availCpuGovs = cpuHandler.getAvailCpuGov();
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, availCpuGovs);
 		spinnerSetGov.setAdapter(arrayAdapter);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				String gov = parent.getItemAtPosition(pos).toString();
-				if (gov != cpu.getCurCpuGov()) {
-					boolean ret = cpu.setCurGov(gov);
-					if (ret) {
-						Toast.makeText(parent.getContext(), "Setting govenor to " + gov, Toast.LENGTH_LONG).show();
-					}
-				}
+				cpu.setGov(gov);
 				updateView();
 			}
 
@@ -115,16 +107,6 @@ public class TuneCpu extends Activity {
 
 		});
 
-		CheckBox cbApplyOnBoot = (CheckBox) findViewById(R.id.cbApplyOnBoot);
-		cbApplyOnBoot.setChecked(SettingsStorage.getInstance().isApplyOnBoot());
-		cbApplyOnBoot.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				SettingsStorage.getInstance().setApplyOnBoot(isChecked);
-			}
-		});
-		spinnerSetGov.setEnabled(RootHandler.isRoot() && cpu.hasGov());
 	}
 
 	@Override
@@ -133,11 +115,22 @@ public class TuneCpu extends Activity {
 		updateView();
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		cpu.save();
+	}
+
 	private void updateView() {
-		tvCpuFreq.setText(cpu.getCurCpuFreq());
-		String[] availCpuFreq = cpu.getAvailCpuFreq();
-		setSeekbar(cpu.getMaxCpuFreq(), availCpuFreq, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpu.getMinCpuFreq(), availCpuFreq, sbCpuFreqMin, tvCpuFreqMin);
+		setSeekbar(cpu.getMaxFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
+		setSeekbar(cpu.getMinFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
+		String curGov = cpu.getGov();
+		for (int i = 0; i < availCpuGovs.length; i++) {
+			if (curGov.equals(availCpuGovs[i])) {
+				spinnerSetGov.setSelection(i);
+			}
+		}
+
 	}
 
 	private void setSeekbar(String val, String[] valList, SeekBar seekBar, TextView textView) {

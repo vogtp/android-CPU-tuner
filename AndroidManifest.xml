@@ -7,7 +7,7 @@
 		android:allowClearUserData="true" android:allowBackup="true">
 		<meta-data android:name="com.google.android.backup.api_key"
 			android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
-		<activity android:label="@string/app_name" android:name=".view.TuneCpu">
+		<activity android:label="@string/app_name" android:name=".view.activity.TuneCpu">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -20,7 +20,20 @@
 			</intent-filter>
 
 		</receiver>
-	<service android:name=".service.BatteryService"></service>
+	<service android:name=".service.BatteryService"><intent-filter><action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
+</intent-filter><intent-filter><action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
+</intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_LOW"></action>
+</intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_OK"></action>
+</intent-filter>
+</service>
+<activity android:name=".view.preference.CpuProfilePreferenceActivity"></activity>
+<activity android:name=".view.activity.CpuEditor"></activity>
+<activity android:name=".view.preference.CpuProfilePreferenceScreen"></activity>
+<receiver android:name=".receiver.BatteryReceiver"><intent-filter><action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
+</intent-filter><intent-filter><action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
+</intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_LOW"></action>
+</intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_OK"></action>
+</intent-filter></receiver>
 </application>
 	<uses-sdk android:minSdkVersion="5" />
 

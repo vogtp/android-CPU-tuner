@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.helper;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -7,9 +8,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class SettingsStorage {
 
+	public static final String NO_VALUE = "noValue";
 	private static final String APPLY_ON_BOOT = "applyCpuSettingsOnBoot";
 	private static SettingsStorage instance;
 	private Context context;
@@ -24,7 +27,7 @@ public class SettingsStorage {
 		return instance;
 	}
 
-	public SettingsStorage(Context ctx) {
+	protected SettingsStorage(Context ctx) {
 		super();
 		context = ctx;
 	}
@@ -40,7 +43,7 @@ public class SettingsStorage {
 	}
 
 	public String getValue(String key) {
-		return getPreferences().getString(key, "");
+		return getPreferences().getString(key, NO_VALUE);
 	}
 
 	public void setApplyOnBoot(boolean applyOnBoot) {
@@ -57,5 +60,14 @@ public class SettingsStorage {
 		Map<String, ?> all = getPreferences().getAll();
 		all.remove(APPLY_ON_BOOT);
 		return all.keySet();
+	}
+
+	public void dumpPerferences() {
+		Map<String, ?> all = getPreferences().getAll();
+		for (Iterator<String> iterator = all.keySet().iterator(); iterator.hasNext();) {
+			String key = iterator.next();
+			String val = all.get(key).toString();
+			Log.d(Logger.TAG, key + " -> " + val);
+		}
 	}
 }

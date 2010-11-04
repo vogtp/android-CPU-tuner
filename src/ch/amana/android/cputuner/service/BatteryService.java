@@ -12,8 +12,7 @@ public class BatteryService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		super.onStartCommand(intent, flags, startId);
-		Log.d(Logger.TAG, "Starting BatteryService");
-		// BatteryReceiver.unregisterBatteryReceiver(this);
+		Log.i(Logger.TAG, "Starting BatteryService: got action " + intent.getAction());
 		BatteryReceiver.registerBatteryReceiver(this);
 		return START_STICKY;
 	}

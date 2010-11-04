@@ -6,24 +6,25 @@ import android.content.Intent;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.Cpu;
+import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.service.BatteryService;
 
 public class BootReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-			handleBootCompleted();
-			BatteryReceiver.registerBatteryReceiver(context);
+			handleBootCompleted(context);
 		}
 	}
 
-	private void handleBootCompleted() {
+	private void handleBootCompleted(Context context) {
 		SettingsStorage storage = SettingsStorage.getInstance();
 		if (storage.isApplyOnBoot()) {
-			Log.w(Logger.TAG, "Appling CPU settings on boot");
-			Cpu cpu = new Cpu();
-			cpu.applyFromStorage();
+			Log.w(Logger.TAG, "Starting CPU tuner on boot");
+			context.startService(new Intent(context, BatteryService.class));
+			CpuHandler cpuHandler = new CpuHandler();
+			cpuHandler.applyFromStorage();
 		}
 	}
 

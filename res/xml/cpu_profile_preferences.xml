@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:key="prefKeyPowerProfiles" android:title="@string/prefPowerProfiles">
+	<PreferenceCategory android:title="@string/prefSystemPowerProfiles">
+		<Preference android:key="prefKeyAcPower" android:title="@string/profileAcPower"></Preference>
+		<Preference android:title="@string/profileBatteryPower" android:key="prefKeyBatteryPower"></Preference>
+		<Preference android:title="@string/profileBatteryCrtitical" android:key="prefKeyBatteryCrtitical"></Preference>
+	</PreferenceCategory>
+
+
+	
+</PreferenceScreen>

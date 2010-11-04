@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefSetCpuSetting">CPU Settings</string>
+    <string name="profileBatteryGood">Good Battery</string>
+    <string name="profileBatteryCrtitical">Critical Battery</string>
+    <string name="profileBatteryPower">Battery Power</string>
+    <string name="profileAcPower">AC Power</string>
+    <string name="prefSystemPowerProfiles">System Power Profiles</string>
+    <string name="prefPowerProfiles">Power Profiles</string>
+    <string name="prefCustomPowerProfiles">Custom Power Profiles</string>
     <string name="labelCpuFreq">Frequency</string>
-    <string name="labelCpuGov">Govenor</string>
+    <string name="labelCpuGov">Governor</string>
     <string name="labelCurrent">Current</string>
+    <string name="labelCurrentBattery">Current Battery Level: </string>
+    <string name="labelAcPower">AC Power: </string>
     <string name="labelMax">Max</string>
     <string name="labelMin">Min</string>
     <string name="app_name">CPU tuner</string>
 <string name="cbApplyOnBoot">Apply settings on boot</string>
+<string name="labelPowerProfile">Power Profile: </string>
 </resources>

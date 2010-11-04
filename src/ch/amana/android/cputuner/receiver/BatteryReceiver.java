@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 
 public class BatteryReceiver extends BroadcastReceiver {
@@ -48,8 +50,21 @@ public class BatteryReceiver extends BroadcastReceiver {
 			Log.d(Logger.TAG, "Battery Level Remaining: " + level + "%");
 			if (level > -1) {
 				// handle battery event
+				PowerProfiles.setBatteryLevel(level);
 			}
 			context.startService(new Intent(context, BatteryService.class));
+		} else if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
+			Notifier.notify(context, "CPU tuner: Power connected", 2);
+			PowerProfiles.setAcPower(true);
+		} else if (Intent.ACTION_POWER_DISCONNECTED.equals(intent.getAction())) {
+			Notifier.notify(context, "CPU tuner: Power disconnected", 2);
+			PowerProfiles.setAcPower(false);
+		} else if (Intent.ACTION_BATTERY_LOW.equals(intent.getAction())) {
+			Notifier.notify(context, "CPU tuner: Battery low", 2);
+			PowerProfiles.setBatteryLow(true);
+		} else if (Intent.ACTION_BATTERY_OKAY.equals(intent.getAction())) {
+			Notifier.notify(context, "CPU tuner: Battery OK", 2);
+			PowerProfiles.setBatteryLow(false);
 		}
 	}
 }
