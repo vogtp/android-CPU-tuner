@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ch.amana.android.cputuner" android:versionCode="201011020"
-	android:versionName="0.4.2">
+	package="ch.amana.android.cputuner" android:versionName="0.5.0" android:versionCode="201011040">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication" android:backupAgent="ch.amana.android.cputuner.helper.BackupAgent"
 		android:allowClearUserData="true" android:allowBackup="true">
