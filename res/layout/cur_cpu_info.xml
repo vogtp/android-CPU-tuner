@@ -93,10 +93,8 @@
 <LinearLayout android:id="@+id/LinearLayoutSettings"
 	android:layout_width="fill_parent"
 	android:orientation="vertical" android:layout_gravity="bottom" android:layout_height="fill_parent">
-	<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight=".5"></TextView><Button android:layout_height="wrap_content" android:id="@+id/ButtonProfiles"
-		android:text="Profiles" android:layout_width="fill_parent" android:layout_gravity="bottom"></Button>
-	<CheckBox android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:text="@string/cbApplyOnBoot" android:id="@+id/cbApplyOnBoot" android:layout_gravity="bottom"></CheckBox>
+	<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight=".5"></TextView><Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_gravity="bottom" android:id="@+id/ButtonApplyCurProfile" android:text="@string/buApplyCurProfile"></Button>
+	
 
 </LinearLayout>
 </LinearLayout>

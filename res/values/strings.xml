@@ -17,7 +17,10 @@
     <string name="labelMax">Max</string>
     <string name="labelMin">Min</string>
     <string name="app_name">CPU tuner</string>
-<string name="cbApplyOnBoot">Start on boot</string>
+<string name="prefApplyOnBoot">Start on boot</string>
+<string name="prefApplyOnBootOn">CPU tuner will continue set CPU profiles after a restart.</string>
+<string name="prefApplyOnBootOff">CPU tuner not is started at boot time, no automatic management of CPU profiles is active.</string>
 <string name="labelPowerProfile">Power Profile: </string>
 <string name="spinnerPromptGov">Select governor</string>
+<string name="buApplyCurProfile">Apply values to current CPU profile</string>
 </resources>

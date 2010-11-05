@@ -25,10 +25,11 @@ public class CpuProfilePreferenceActivity extends PreferenceActivity {
 
 	}
 
-	private void initPowerProfile(String prefKey, int profile, boolean hasPercentage) {
+	private void initPowerProfile(String prefKey, final int profile, boolean hasPercentage) {
 		Preference prefGoodWidget = findPreference(prefKey);
 		Intent i = new Intent(this, CpuEditor.class);
 		i.putExtra(CpuModel.INTENT_EXTRA, profile);
 		prefGoodWidget.setIntent(i);
+
 	}
 }

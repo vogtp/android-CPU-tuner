@@ -1,7 +1,6 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,21 +8,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.model.IProfileChangeCallback;
 import ch.amana.android.cputuner.model.PowerProfiles;
-import ch.amana.android.cputuner.view.preference.CpuProfilePreferenceActivity;
 
 public class TuneCpu extends Activity implements IProfileChangeCallback {
 
@@ -37,6 +32,9 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
 	private TextView tvCurrentProfile;
+	private Button buApplyCurProfile;
+	private String[] availCpuFreqs;
+	private String[] availCpuGovs;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -44,6 +42,9 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cur_cpu_info);
 		cpuHandler = CpuHandler.getInstance();
+
+		availCpuGovs = cpuHandler.getAvailCpuGov();
+		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
 		tvCurrentProfile = (TextView) findViewById(R.id.tvCurrentProfile);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
@@ -57,13 +58,13 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 
-		sbCpuFreqMax.setMax(cpuHandler.getAvailCpuFreq().length - 1);
+		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = cpuHandler.getAvailCpuFreq()[seekBar.getProgress()];
+				String val = availCpuFreqs[seekBar.getProgress()];
 				if (!val.equals(cpuHandler.getMaxCpuFreq())) {
 					if (cpuHandler.setMaxCpuFreq(val)) {
 						Toast.makeText(TuneCpu.this, "Setting CPU max freq to " + val, Toast.LENGTH_LONG).show();
@@ -81,13 +82,13 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			}
 		});
 
-		sbCpuFreqMin.setMax(cpuHandler.getAvailCpuFreq().length - 1);
+		sbCpuFreqMin.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = cpuHandler.getAvailCpuFreq()[seekBar.getProgress()];
+				String val = availCpuFreqs[seekBar.getProgress()];
 				if (!val.equals(cpuHandler.getMinCpuFreq())) {
 					if (cpuHandler.setMinCpuFreq(val)) {
 						Toast.makeText(TuneCpu.this, "Setting CPU min freq to " + val, Toast.LENGTH_LONG).show();
@@ -105,7 +106,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			}
 		});
 
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cpuHandler.getAvailCpuGov());
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, availCpuGovs);
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -130,22 +131,15 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 		});
 
-		CheckBox cbApplyOnBoot = (CheckBox) findViewById(R.id.cbApplyOnBoot);
-		cbApplyOnBoot.setChecked(SettingsStorage.getInstance().isApplyOnBoot());
-		cbApplyOnBoot.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				SettingsStorage.getInstance().setApplyOnBoot(isChecked);
-			}
-		});
 		spinnerSetGov.setEnabled(RootHandler.isRoot() && cpuHandler.hasGov());
 
-		((Button) findViewById(R.id.ButtonProfiles)).setOnClickListener(new OnClickListener() {
+		buApplyCurProfile = ((Button) findViewById(R.id.ButtonApplyCurProfile));
+		buApplyCurProfile.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(TuneCpu.this, CpuProfilePreferenceActivity.class));
+				CpuModel cpu = cpuHandler.getCurrentCpuSettings();
+				cpu.save(PowerProfiles.getCurrentProfile());
 			}
 		});
 	}
@@ -188,11 +182,18 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 	@Override
 	public void profileChanged() {
-		tvCurrentProfile.setText(PowerProfiles.getCurrentProfile());
+		CharSequence profile = PowerProfiles.getCurrentProfile();
+		tvCurrentProfile.setText(profile);
+		buApplyCurProfile.setEnabled(!PowerProfiles.NO_PROFILE.equals(profile));
 		tvCpuFreq.setText(cpuHandler.getCurCpuFreq());
-		String[] availCpuFreq = cpuHandler.getAvailCpuFreq();
-		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreq, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreq, sbCpuFreqMin, tvCpuFreqMin);
+		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
+		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
+		String curGov = cpuHandler.getCurCpuGov();
+		for (int i = 0; i < availCpuGovs.length; i++) {
+			if (curGov.equals(availCpuGovs[i])) {
+				spinnerSetGov.setSelection(i);
+			}
+		}
 	}
 
 	@Override

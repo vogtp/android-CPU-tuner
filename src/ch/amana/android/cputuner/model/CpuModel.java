@@ -41,13 +41,17 @@ public class CpuModel {
 	}
 
 	public void save() {
-		if (NO_PROFILE.equals(NO_PROFILE)) {
-			Log.w(Logger.TAG, "Not saving since profile is " + NO_PROFILE);
+		save(profile);
+	}
+
+	public void save(CharSequence currentProfile) {
+		if (NO_PROFILE.equals(currentProfile)) {
+			Log.w(Logger.TAG, "Not saving since profile is " + currentProfile);
 		}
 		SettingsStorage store = SettingsStorage.getInstance();
-		store.writeValue(profile + "_" + CpuHandler.SCALING_GOVERNOR, gov);
-		store.writeValue(profile + "_" + CpuHandler.SCALING_MAX_FREQ, maxFreq);
-		store.writeValue(profile + "_" + CpuHandler.SCALING_MIN_FREQ, minFreq);
+		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_GOVERNOR, gov);
+		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MAX_FREQ, maxFreq);
+		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MIN_FREQ, minFreq);
 	}
 
 	public String getGov() {

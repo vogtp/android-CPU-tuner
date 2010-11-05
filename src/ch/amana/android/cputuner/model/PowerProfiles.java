@@ -11,6 +11,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 
 public class PowerProfiles {
 
+	public static final String NO_PROFILE = "Unknown";
 	public static final int PROFILE_AC = 100;
 	public static final int PROFILE_BATTERY = 101;
 	public static final int PROFILE_BATTERY_CRITICAL = 102;
@@ -21,7 +22,7 @@ public class PowerProfiles {
 	private static boolean batteryLow;
 	private static boolean userProfiles = false;
 	private static Context context;
-	private static CharSequence currentProfile = "Unknown";
+	private static CharSequence currentProfile = NO_PROFILE;
 	private static List<IProfileChangeCallback> listeners;
 
 	public static void initContext(Context ctx) {
@@ -55,7 +56,13 @@ public class PowerProfiles {
 		return profileString;
 	}
 
-	private static void applyPowerProfile() {
+	public static void reapplyCurProfile(CharSequence profile) {
+		if (currentProfile.equals(profile)) {
+			applyPowerProfile(true);
+		}
+	}
+
+	private static void applyPowerProfile(boolean force) {
 		CpuModel cpu;
 		if (acPower) {
 			cpu = getCpuModelForProfile(PROFILE_AC);
@@ -64,12 +71,19 @@ public class PowerProfiles {
 		} else {
 			cpu = applySystemPowerProfile();
 		}
-		if (!currentProfile.equals(cpu.getProfileName())) {
+		if (force || !currentProfile.equals(cpu.getProfileName())) {
 			currentProfile = cpu.getProfileName();
 			CpuHandler cpuHandler = new CpuHandler();
 			cpuHandler.applyCpuSettings(cpu);
+			StringBuilder sb = new StringBuilder(50);
+			if (force) {
+				sb.append("Reappling power profile ");
+			} else {
+				sb.append("Setting power profile to ");
+			}
+			sb.append(cpu.getProfileName());
 			notifyProfile();
-			Notifier.notify(context, "Setting power profile to " + cpu.getProfileName(), 1);
+			Notifier.notify(context, sb.toString(), 1);
 		}
 	}
 
@@ -93,7 +107,7 @@ public class PowerProfiles {
 				setBatteryLow(true);
 			}
 			if (userProfiles) {
-				applyPowerProfile();
+				applyPowerProfile(false);
 			}
 		}
 	}
@@ -106,7 +120,7 @@ public class PowerProfiles {
 		if (acPower != power) {
 			acPower = power;
 			notifyAcPower();
-			applyPowerProfile();
+			applyPowerProfile(false);
 		}
 	}
 
@@ -118,7 +132,7 @@ public class PowerProfiles {
 		if (batteryLow != b) {
 			batteryLow = b;
 			notifyBatteryLevel();
-			applyPowerProfile();
+			applyPowerProfile(false);
 		}
 	}
 

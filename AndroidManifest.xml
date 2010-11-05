@@ -7,10 +7,7 @@
 		<meta-data android:name="com.google.android.backup.api_key"
 			android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
 		<activity android:label="@string/app_name" android:name=".view.activity.TuneCpu">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
+			
 		</activity>
 
 		<receiver android:name=".receiver.BootReceiver">
@@ -33,6 +30,11 @@
 </intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_LOW"></action>
 </intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_OK"></action>
 </intent-filter></receiver>
+<activity android:name=".view.activity.CpuTunerTabActivity"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter></activity>
+<activity android:name=".view.preference.SettingsPreferenceActivity"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="5" />
 
