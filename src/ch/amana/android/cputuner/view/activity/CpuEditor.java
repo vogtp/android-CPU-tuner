@@ -11,6 +11,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.model.PowerProfiles;
@@ -33,10 +34,20 @@ public class CpuEditor extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cpu_editor);
-		cpuHandler = CpuHandler.getInstance();
 
 		profile = getIntent().getIntExtra(CpuModel.INTENT_EXTRA, -1);
+
+		cpuHandler = CpuHandler.getInstance();
 		cpu = PowerProfiles.getCpuModelForProfile(profile);
+		availCpuGovs = cpuHandler.getAvailCpuGov();
+		availCpuFreqs = cpuHandler.getAvailCpuFreq();
+
+		if (SettingsStorage.NO_VALUE.equals(cpu.getMinFreq()) && availCpuFreqs.length > 0) {
+			cpu.setMinFreq(cpuHandler.getMinCpuFreq());
+		}
+		if (SettingsStorage.NO_VALUE.equals(cpu.getMaxFreq()) && availCpuFreqs.length > 0) {
+			cpu.setMaxFreq(cpuHandler.getMaxCpuFreq());
+		}
 
 		((TextView) findViewById(R.id.tvPowerProfile)).setText(cpu.getProfileName());
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
@@ -45,7 +56,6 @@ public class CpuEditor extends Activity {
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 
-		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -87,7 +97,6 @@ public class CpuEditor extends Activity {
 			}
 		});
 
-		availCpuGovs = cpuHandler.getAvailCpuGov();
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, availCpuGovs);
 		spinnerSetGov.setAdapter(arrayAdapter);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
