@@ -22,5 +22,5 @@
 <string name="prefApplyOnBootOff">CPU tuner not is started at boot time, no automatic management of CPU profiles is active.</string>
 <string name="labelPowerProfile">Power Profile: </string>
 <string name="spinnerPromptGov">Select governor</string>
-<string name="buApplyCurProfile">Apply values to current CPU profile</string>
+<string name="buApplyCurProfile">Apply to current CPU profile</string>
 </resources>
