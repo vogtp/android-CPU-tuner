@@ -69,7 +69,7 @@ public class RootHandler {
 
 	public static boolean isRoot() {
 		if (!isRoot) {
-			isRoot = execute("ls /");
+			isRoot = execute("ls -ld /");
 		}
 		return isRoot;
 	}
