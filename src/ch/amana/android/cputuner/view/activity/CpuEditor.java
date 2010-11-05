@@ -98,6 +98,7 @@ public class CpuEditor extends Activity {
 		});
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, availCpuGovs);
+		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 

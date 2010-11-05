@@ -19,4 +19,5 @@
     <string name="app_name">CPU tuner</string>
 <string name="cbApplyOnBoot">Start on boot</string>
 <string name="labelPowerProfile">Power Profile: </string>
+<string name="spinnerPromptGov">Select governor</string>
 </resources>

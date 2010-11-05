@@ -42,7 +42,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.cur_cpu_info);
 		cpuHandler = CpuHandler.getInstance();
 
 		tvCurrentProfile = (TextView) findViewById(R.id.tvCurrentProfile);
@@ -106,6 +106,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		});
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cpuHandler.getAvailCpuGov());
+		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 

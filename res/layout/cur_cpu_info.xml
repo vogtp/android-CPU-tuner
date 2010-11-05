@@ -43,7 +43,7 @@
 			android:layout_height="wrap_content" android:text="@string/labelCpuGov"
 			android:paddingRight="5dp" android:textSize="20sp" />
 		<Spinner android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"></Spinner>
+			android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov" android:prompt="@string/spinnerPromptGov"></Spinner>
 	</LinearLayout>
 	<TextView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:text="@string/labelCpuFreq"
