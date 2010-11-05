@@ -17,6 +17,7 @@ public class PowerProfiles {
 	private static boolean batteryLow;
 	private static boolean userProfiles = false;
 	private static Context context;
+	private static CharSequence currentProfile = "Unknown";
 
 	public static void initContext(Context ctx) {
 		context = ctx;
@@ -60,6 +61,7 @@ public class PowerProfiles {
 		}
 		CpuHandler cpuHandler = new CpuHandler();
 		cpuHandler.applyCpuSettings(cpu);
+		currentProfile = cpu.getProfileName();
 		Notifier.notify(context, "Setting power profile to " + cpu.getProfileName(), 1);
 	}
 
@@ -102,6 +104,10 @@ public class PowerProfiles {
 
 	public static boolean getBatteryLow() {
 		return batteryLow;
+	}
+
+	public static CharSequence getCurrentProfile() {
+		return currentProfile;
 	}
 
 }

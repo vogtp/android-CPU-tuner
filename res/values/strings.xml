@@ -11,11 +11,12 @@
     <string name="labelCpuFreq">Frequency</string>
     <string name="labelCpuGov">Governor</string>
     <string name="labelCurrent">Current</string>
-    <string name="labelCurrentBattery">Current Battery Level: </string>
-    <string name="labelAcPower">AC Power: </string>
+    <string name="labelCurrentProfile">Current Profile:</string>
+    <string name="labelCurrentBattery">Current Battery:</string>
+    <string name="labelAcPower">AC Power:</string>
     <string name="labelMax">Max</string>
     <string name="labelMin">Min</string>
     <string name="app_name">CPU tuner</string>
-<string name="cbApplyOnBoot">Apply settings on boot</string>
+<string name="cbApplyOnBoot">Start on boot</string>
 <string name="labelPowerProfile">Power Profile: </string>
 </resources>

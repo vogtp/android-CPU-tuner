@@ -35,6 +35,7 @@ public class TuneCpu extends Activity {
 	private TextView tvCpuFreqMin;
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
+	private TextView tvCurrentProfile;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,6 +44,7 @@ public class TuneCpu extends Activity {
 		setContentView(R.layout.main);
 		cpuHandler = CpuHandler.getInstance();
 
+		tvCurrentProfile = (TextView) findViewById(R.id.tvCurrentProfile);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
 		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
@@ -153,8 +155,12 @@ public class TuneCpu extends Activity {
 	}
 
 	private void updateView() {
+		tvCurrentProfile.setText(PowerProfiles.getCurrentProfile());
 		tvCpuFreq.setText(cpuHandler.getCurCpuFreq());
-		tvBatteryLevel.setText(PowerProfiles.getBatteryLevel() + "%");
+		StringBuilder sb = new StringBuilder(10);
+		sb.append(PowerProfiles.getBatteryLow() ? "Low" : "OK");
+		sb.append(" (").append(PowerProfiles.getBatteryLevel()).append("%)");
+		tvBatteryLevel.setText(sb.toString());
 		tvAcPower.setText(PowerProfiles.getAcPower() ? "Yes" : "No");
 		String[] availCpuFreq = cpuHandler.getAvailCpuFreq();
 		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreq, sbCpuFreqMax, tvCpuFreqMax);
