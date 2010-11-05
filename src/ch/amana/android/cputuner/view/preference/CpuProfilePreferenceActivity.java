@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuEditor;
@@ -30,6 +31,6 @@ public class CpuProfilePreferenceActivity extends PreferenceActivity {
 		Intent i = new Intent(this, CpuEditor.class);
 		i.putExtra(CpuModel.INTENT_EXTRA, profile);
 		prefGoodWidget.setIntent(i);
-
+		prefGoodWidget.setEnabled(SettingsStorage.getInstance().isEnableProfiles());
 	}
 }

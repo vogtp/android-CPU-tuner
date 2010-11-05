@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 
 public class PowerProfiles {
@@ -56,13 +57,22 @@ public class PowerProfiles {
 		return profileString;
 	}
 
-	public static void reapplyCurProfile(CharSequence profile) {
+	public static void reapplyCurProfile() {
+		applyPowerProfile(true, true);
+	}
+
+	public static void reapplyProfile(CharSequence profile) {
 		if (currentProfile.equals(profile)) {
-			applyPowerProfile(true);
+			applyPowerProfile(true, false);
 		}
 	}
 
-	private static void applyPowerProfile(boolean force) {
+	private static void applyPowerProfile(boolean force, boolean ignoreSettings) {
+		if (!SettingsStorage.getInstance().isEnableProfiles()) {
+			if (!ignoreSettings) {
+				return;
+			}
+		}
 		CpuModel cpu;
 		if (acPower) {
 			cpu = getCpuModelForProfile(PROFILE_AC);
@@ -107,7 +117,7 @@ public class PowerProfiles {
 				setBatteryLow(true);
 			}
 			if (userProfiles) {
-				applyPowerProfile(false);
+				applyPowerProfile(false, false);
 			}
 		}
 	}
@@ -120,7 +130,7 @@ public class PowerProfiles {
 		if (acPower != power) {
 			acPower = power;
 			notifyAcPower();
-			applyPowerProfile(false);
+			applyPowerProfile(false, false);
 		}
 	}
 
@@ -132,7 +142,7 @@ public class PowerProfiles {
 		if (batteryLow != b) {
 			batteryLow = b;
 			notifyBatteryLevel();
-			applyPowerProfile(false);
+			applyPowerProfile(false, false);
 		}
 	}
 
@@ -141,6 +151,13 @@ public class PowerProfiles {
 	}
 
 	public static CharSequence getCurrentProfile() {
+		if (NO_PROFILE.equals(currentProfile)) {
+			if (acPower) {
+				currentProfile = context.getString(R.string.profileAcPower);
+			} else {
+				currentProfile = context.getString(R.string.profileBatteryPower);
+			}
+		}
 		return currentProfile;
 	}
 

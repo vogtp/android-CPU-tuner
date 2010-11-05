@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 
@@ -32,7 +33,11 @@ public class BatteryReceiver extends BroadcastReceiver {
 	public static void unregisterBatteryReceiver(Context context) {
 		synchronized (lock) {
 			if (receiver != null) {
-				context.unregisterReceiver(receiver);
+				try {
+					context.unregisterReceiver(receiver);
+				} catch (Throwable e) {
+					Log.w(Logger.TAG, "Could not unregister BatteryReceiver", e);
+				}
 			}
 		}
 	}
@@ -57,7 +62,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 				// handle battery event
 				PowerProfiles.setBatteryLevel(level);
 			}
-			context.startService(new Intent(context, BatteryService.class));
+			if (SettingsStorage.getInstance().isEnableProfiles()) {
+				context.startService(new Intent(context, BatteryService.class));
+			}
 		} else if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
 			Notifier.notify(context, "CPU tuner: Power connected", 2);
 			PowerProfiles.setAcPower(true);
@@ -71,6 +78,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			Notifier.notify(context, "CPU tuner: Battery OK", 2);
 			PowerProfiles.setBatteryLow(false);
 		}
-		// reemmit broadcast?
+		// android.intent.action.SCREEN_OFF
+		// android.intent.action.SCREEN_ON
 	}
 }

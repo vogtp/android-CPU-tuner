@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefEnableProfiles">Enable profiles</string>
+    <string name="prefEnableProfilesOn">CPU tuner will start a background process to manage CPU profiles.</string>
+    <string name="prefEnableProfilesOff">No CPU profiles will be managed.</string>
     <string name="prefSetCpuSetting">CPU Settings</string>
     <string name="profileBatteryGood">Good Battery</string>
     <string name="profileBatteryCrtitical">Critical Battery</string>
@@ -23,4 +26,5 @@
 <string name="labelPowerProfile">Power Profile: </string>
 <string name="spinnerPromptGov">Select governor</string>
 <string name="buApplyCurProfile">Apply to current CPU profile</string>
+<string name="profilesNotEnabled">not enabled</string>
 </resources>

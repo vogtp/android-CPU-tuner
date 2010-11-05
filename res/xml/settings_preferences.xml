@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
-<CheckBoxPreference android:key="applyCpuSettingsOnBoot" android:title="@string/prefApplyOnBoot" android:summaryOn="@string/prefApplyOnBootOn" android:summaryOff="@string/prefApplyOnBootOff"></CheckBoxPreference>
+<CheckBoxPreference android:title="@string/prefEnableProfiles" android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles" android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference><CheckBoxPreference android:key="applyCpuSettingsOnBoot" android:title="@string/prefApplyOnBoot" android:summaryOn="@string/prefApplyOnBootOn" android:summaryOff="@string/prefApplyOnBootOff"></CheckBoxPreference>
+
 </PreferenceScreen>

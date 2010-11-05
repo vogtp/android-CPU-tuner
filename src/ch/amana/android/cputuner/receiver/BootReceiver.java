@@ -22,7 +22,9 @@ public class BootReceiver extends BroadcastReceiver {
 		SettingsStorage storage = SettingsStorage.getInstance();
 		if (storage.isApplyOnBoot()) {
 			Log.w(Logger.TAG, "Starting CPU tuner on boot");
-			context.startService(new Intent(context, BatteryService.class));
+			if (SettingsStorage.getInstance().isEnableProfiles()) {
+				context.startService(new Intent(context, BatteryService.class));
+			}
 			CpuHandler cpuHandler = new CpuHandler();
 			cpuHandler.applyFromStorage();
 		}

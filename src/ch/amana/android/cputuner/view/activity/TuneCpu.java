@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
@@ -139,7 +141,9 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			@Override
 			public void onClick(View v) {
 				CpuModel cpu = cpuHandler.getCurrentCpuSettings();
-				cpu.save(PowerProfiles.getCurrentProfile());
+				CharSequence currentProfile = PowerProfiles.getCurrentProfile();
+				cpu.save(currentProfile);
+				Notifier.notify(TuneCpu.this, currentProfile + " changed", 1);
 			}
 		});
 	}
@@ -158,6 +162,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	}
 
 	private void updateView() {
+		buApplyCurProfile.setVisibility(SettingsStorage.getInstance().isEnableProfiles() ? Button.VISIBLE : Button.INVISIBLE);
 		batteryLevelChanged();
 		profileChanged();
 		acPowerChanged();
@@ -176,14 +181,20 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	public void batteryLevelChanged() {
 		StringBuilder sb = new StringBuilder(10);
 		sb.append(PowerProfiles.getBatteryLow() ? "Low" : "OK");
-		sb.append(" (").append(PowerProfiles.getBatteryLevel()).append("%)");
+		if (SettingsStorage.getInstance().isEnableProfiles()) {
+			sb.append(" (").append(PowerProfiles.getBatteryLevel()).append("%)");
+		}
 		tvBatteryLevel.setText(sb.toString());
 	}
 
 	@Override
 	public void profileChanged() {
 		CharSequence profile = PowerProfiles.getCurrentProfile();
-		tvCurrentProfile.setText(profile);
+		if (SettingsStorage.getInstance().isEnableProfiles()) {
+			tvCurrentProfile.setText(profile);
+		} else {
+			tvCurrentProfile.setText(R.string.profilesNotEnabled);
+		}
 		buApplyCurProfile.setEnabled(!PowerProfiles.NO_PROFILE.equals(profile));
 		tvCpuFreq.setText(cpuHandler.getCurCpuFreq());
 		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);

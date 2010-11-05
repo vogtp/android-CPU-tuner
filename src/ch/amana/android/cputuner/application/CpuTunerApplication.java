@@ -12,6 +12,8 @@ public class CpuTunerApplication extends Application {
 		super.onCreate();
 		SettingsStorage.initInstance(this);
 		PowerProfiles.initContext(this);
-		startService(new Intent(this, BatteryService.class));
+		if (SettingsStorage.getInstance().isEnableProfiles()) {
+			startService(new Intent(this, BatteryService.class));
+		}
 	}
 }

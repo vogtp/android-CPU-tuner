@@ -129,7 +129,7 @@ public class CpuEditor extends Activity {
 	protected void onPause() {
 		super.onPause();
 		cpu.save();
-		PowerProfiles.reapplyCurProfile(cpu.getProfileName());
+		PowerProfiles.reapplyProfile(cpu.getProfileName());
 	}
 
 	private void updateView() {

@@ -14,8 +14,9 @@ public class SettingsStorage {
 
 	public static final String NO_VALUE = "noValue";
 	private static final String APPLY_ON_BOOT = "applyCpuSettingsOnBoot";
+	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
 	private static SettingsStorage instance;
-	private Context context;
+	private final Context context;
 
 	public static void initInstance(Context ctx) {
 		if (instance == null) {
@@ -46,10 +47,14 @@ public class SettingsStorage {
 		return getPreferences().getString(key, NO_VALUE);
 	}
 
-	public void setApplyOnBoot(boolean applyOnBoot) {
-		Editor editor = getPreferences().edit();
-		editor.putBoolean(APPLY_ON_BOOT, applyOnBoot);
-		editor.commit();
+	// private void setApplyOnBoot(boolean applyOnBoot) {
+	// Editor editor = getPreferences().edit();
+	// editor.putBoolean(APPLY_ON_BOOT, applyOnBoot);
+	// editor.commit();
+	// }
+
+	public boolean isEnableProfiles() {
+		return getPreferences().getBoolean(ENABLE_PROFILES, true);
 	}
 
 	public boolean isApplyOnBoot() {
