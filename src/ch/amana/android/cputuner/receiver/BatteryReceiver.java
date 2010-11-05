@@ -39,10 +39,15 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+
 		Log.d(Logger.TAG, "BatteryReceiver got intent: " + intent.getAction());
 		if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
 			int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+			if (plugged > -1) {
+				PowerProfiles.setAcPower(plugged > 0);
+			}
 			int level = -1;
 			if (rawlevel >= 0 && scale > 0) {
 				level = (rawlevel * 100) / scale;
@@ -66,5 +71,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 			Notifier.notify(context, "CPU tuner: Battery OK", 2);
 			PowerProfiles.setBatteryLow(false);
 		}
+		// reemmit broadcast?
 	}
 }
