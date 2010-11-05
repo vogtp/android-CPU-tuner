@@ -18,6 +18,12 @@ public class BatteryService extends Service {
 	}
 
 	@Override
+	public void onDestroy() {
+		BatteryReceiver.unregisterBatteryReceiver(this);
+		super.onDestroy();
+	}
+
+	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
 		return null;

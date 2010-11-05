@@ -1,5 +1,9 @@
 package ch.amana.android.cputuner.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import android.content.Context;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -18,6 +22,7 @@ public class PowerProfiles {
 	private static boolean userProfiles = false;
 	private static Context context;
 	private static CharSequence currentProfile = "Unknown";
+	private static List<IProfileChangeCallback> listeners;
 
 	public static void initContext(Context ctx) {
 		context = ctx;
@@ -59,10 +64,13 @@ public class PowerProfiles {
 		} else {
 			cpu = applySystemPowerProfile();
 		}
-		CpuHandler cpuHandler = new CpuHandler();
-		cpuHandler.applyCpuSettings(cpu);
-		currentProfile = cpu.getProfileName();
-		Notifier.notify(context, "Setting power profile to " + cpu.getProfileName(), 1);
+		if (!currentProfile.equals(cpu.getProfileName())) {
+			currentProfile = cpu.getProfileName();
+			CpuHandler cpuHandler = new CpuHandler();
+			cpuHandler.applyCpuSettings(cpu);
+			notifyProfile();
+			Notifier.notify(context, "Setting power profile to " + cpu.getProfileName(), 1);
+		}
 	}
 
 	private static CpuModel applyUserPowerProfile() {
@@ -78,9 +86,15 @@ public class PowerProfiles {
 	}
 
 	public static void setBatteryLevel(int level) {
-		batteryLevel = level;
-		if (userProfiles) {
-			applyPowerProfile();
+		if (batteryLevel != level) {
+			batteryLevel = level;
+			notifyBatteryLevel();
+			if (!batteryLow && batteryLevel < 30) {
+				setBatteryLow(true);
+			}
+			if (userProfiles) {
+				applyPowerProfile();
+			}
 		}
 	}
 
@@ -89,8 +103,11 @@ public class PowerProfiles {
 	}
 
 	public static void setAcPower(boolean power) {
-		acPower = power;
-		applyPowerProfile();
+		if (acPower != power) {
+			acPower = power;
+			notifyAcPower();
+			applyPowerProfile();
+		}
 	}
 
 	public static boolean getAcPower() {
@@ -98,8 +115,11 @@ public class PowerProfiles {
 	}
 
 	public static void setBatteryLow(boolean b) {
-		batteryLow = b;
-		applyPowerProfile();
+		if (batteryLow != b) {
+			batteryLow = b;
+			notifyBatteryLevel();
+			applyPowerProfile();
+		}
 	}
 
 	public static boolean getBatteryLow() {
@@ -110,4 +130,47 @@ public class PowerProfiles {
 		return currentProfile;
 	}
 
+	public static void registerCallback(IProfileChangeCallback callback) {
+		if (listeners == null) {
+			listeners = new ArrayList<IProfileChangeCallback>();
+		}
+		listeners.add(callback);
+	}
+
+	public static void unregisterCallback(IProfileChangeCallback callback) {
+		if (listeners == null) {
+			return;
+		}
+		listeners.remove(callback);
+	}
+
+	private static void notifyBatteryLevel() {
+		if (listeners == null) {
+			return;
+		}
+		for (Iterator<IProfileChangeCallback> iterator = listeners.iterator(); iterator.hasNext();) {
+			IProfileChangeCallback callback = iterator.next();
+			callback.batteryLevelChanged();
+		}
+	}
+
+	private static void notifyProfile() {
+		if (listeners == null) {
+			return;
+		}
+		for (Iterator<IProfileChangeCallback> iterator = listeners.iterator(); iterator.hasNext();) {
+			IProfileChangeCallback callback = iterator.next();
+			callback.profileChanged();
+		}
+	}
+
+	private static void notifyAcPower() {
+		if (listeners == null) {
+			return;
+		}
+		for (Iterator<IProfileChangeCallback> iterator = listeners.iterator(); iterator.hasNext();) {
+			IProfileChangeCallback callback = iterator.next();
+			callback.acPowerChanged();
+		}
+	}
 }

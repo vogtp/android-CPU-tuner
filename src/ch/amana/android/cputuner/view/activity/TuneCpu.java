@@ -21,10 +21,11 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.model.IProfileChangeCallback;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.view.preference.CpuProfilePreferenceActivity;
 
-public class TuneCpu extends Activity {
+public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 	private CpuHandler cpuHandler;
 	private Spinner spinnerSetGov;
@@ -151,20 +152,20 @@ public class TuneCpu extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		PowerProfiles.registerCallback(this);
 		updateView();
 	}
 
+	@Override
+	protected void onPause() {
+		PowerProfiles.unregisterCallback(this);
+		super.onPause();
+	}
+
 	private void updateView() {
-		tvCurrentProfile.setText(PowerProfiles.getCurrentProfile());
-		tvCpuFreq.setText(cpuHandler.getCurCpuFreq());
-		StringBuilder sb = new StringBuilder(10);
-		sb.append(PowerProfiles.getBatteryLow() ? "Low" : "OK");
-		sb.append(" (").append(PowerProfiles.getBatteryLevel()).append("%)");
-		tvBatteryLevel.setText(sb.toString());
-		tvAcPower.setText(PowerProfiles.getAcPower() ? "Yes" : "No");
-		String[] availCpuFreq = cpuHandler.getAvailCpuFreq();
-		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreq, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreq, sbCpuFreqMin, tvCpuFreqMin);
+		batteryLevelChanged();
+		profileChanged();
+		acPowerChanged();
 	}
 
 	private void setSeekbar(String val, String[] valList, SeekBar seekBar, TextView textView) {
@@ -174,5 +175,27 @@ public class TuneCpu extends Activity {
 				seekBar.setProgress(i);
 			}
 		}
+	}
+
+	@Override
+	public void batteryLevelChanged() {
+		StringBuilder sb = new StringBuilder(10);
+		sb.append(PowerProfiles.getBatteryLow() ? "Low" : "OK");
+		sb.append(" (").append(PowerProfiles.getBatteryLevel()).append("%)");
+		tvBatteryLevel.setText(sb.toString());
+	}
+
+	@Override
+	public void profileChanged() {
+		tvCurrentProfile.setText(PowerProfiles.getCurrentProfile());
+		tvCpuFreq.setText(cpuHandler.getCurCpuFreq());
+		String[] availCpuFreq = cpuHandler.getAvailCpuFreq();
+		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreq, sbCpuFreqMax, tvCpuFreqMax);
+		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreq, sbCpuFreqMin, tvCpuFreqMin);
+	}
+
+	@Override
+	public void acPowerChanged() {
+		tvAcPower.setText(PowerProfiles.getAcPower() ? "Yes" : "No");
 	}
 }
