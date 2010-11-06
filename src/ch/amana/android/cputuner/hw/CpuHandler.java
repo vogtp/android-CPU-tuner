@@ -2,7 +2,6 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -24,7 +23,7 @@ public class CpuHandler {
 	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
 	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
 
-	private Object semaphore = new Object();
+	private final Object semaphore = new Object();
 
 	private static CpuHandler instance = null;
 
@@ -119,7 +118,7 @@ public class CpuHandler {
 					line = reader.readLine();
 				}
 				reader.close();
-			} catch (IOException e) {
+			} catch (Throwable e) {
 				Log.e(Logger.TAG, "Cannot open for reading " + filename, e);
 			}
 			if (val.trim().equals("")) {
