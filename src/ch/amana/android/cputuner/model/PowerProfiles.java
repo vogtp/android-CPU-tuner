@@ -94,6 +94,7 @@ public class PowerProfiles {
 			sb.append(cpu.getProfileName());
 			notifyProfile();
 			Notifier.notify(context, sb.toString(), 1);
+			Notifier.notifyProfile(cpu.getProfileName());
 		}
 	}
 

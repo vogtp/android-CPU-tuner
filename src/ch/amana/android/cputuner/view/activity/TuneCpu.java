@@ -169,7 +169,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	}
 
 	private void setSeekbar(String val, String[] valList, SeekBar seekBar, TextView textView) {
-		textView.setText(val);
+		textView.setText(CpuModel.convertFreq2GHz(val));
 		for (int i = 0; i < valList.length; i++) {
 			if (val.equals(valList[i])) {
 				seekBar.setProgress(i);

@@ -37,5 +37,19 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+		Preference enableStatusBarPreference = findPreference(SettingsStorage.ENABLE_STATUSBAR_NOTI);
+		enableStatusBarPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				if (newValue instanceof Boolean) {
+					if (SettingsStorage.getInstance().isEnableProfiles()) {
+						Intent intent = new Intent(SettingsPreferenceActivity.this, BatteryService.class);
+						startService(intent);
+					}
+				}
+				return true;
+			}
+		});
 	}
 }

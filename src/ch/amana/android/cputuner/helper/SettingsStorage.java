@@ -15,6 +15,8 @@ public class SettingsStorage {
 	public static final String NO_VALUE = "noValue";
 	private static final String APPLY_ON_BOOT = "applyCpuSettingsOnBoot";
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
+	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
+	public static final String ENABLE_TOAST_NOTI = "prefKeyToastNotifications";
 	private static SettingsStorage instance;
 	private final Context context;
 
@@ -59,6 +61,14 @@ public class SettingsStorage {
 
 	public boolean isApplyOnBoot() {
 		return getPreferences().getBoolean(APPLY_ON_BOOT, false);
+	}
+
+	public boolean isStatusbarNotifications() {
+		return getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, true);
+	}
+
+	public boolean isToastNotifications() {
+		return getPreferences().getBoolean(ENABLE_TOAST_NOTI, true);
 	}
 
 	public Set<String> getKeys() {

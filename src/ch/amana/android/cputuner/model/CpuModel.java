@@ -82,4 +82,20 @@ public class CpuModel {
 		return profile;
 	}
 
+	@Override
+	public String toString() {
+		return gov + "; " + convertFreq2GHz(minFreq) + " - " + convertFreq2GHz(maxFreq);
+	}
+
+	public static String convertFreq2GHz(String freq) {
+		try {
+			int i = Integer.parseInt(freq);
+			i = Math.round(i / 1000f);
+			return i + " MHz";
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot convert freq", e);
+		}
+		return "NaN";
+	}
+
 }

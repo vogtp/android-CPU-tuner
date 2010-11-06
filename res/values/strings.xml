@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefToastNotifications">Toast notifications</string>
+    <string name="prefStatusbarNotifications">Statusbar notifications</string>
+    <string name="prefCatNotifications">Notifications</string>
+    <string name="prefCatSystem">System</string>
     <string name="prefEnableProfiles">Enable profiles</string>
     <string name="prefEnableProfilesOn">CPU tuner will start a background process to manage CPU profiles.</string>
     <string name="prefEnableProfilesOff">No CPU profiles will be managed.</string>
