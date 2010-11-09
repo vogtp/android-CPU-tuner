@@ -27,6 +27,7 @@ public class CpuProfilePreferenceActivity extends PreferenceActivity {
 		initPowerProfile("prefKeyAcPower", PowerProfiles.PROFILE_AC, true);
 		initPowerProfile("prefKeyBatteryPower", PowerProfiles.PROFILE_BATTERY, true);
 		initPowerProfile("prefKeyBatteryCrtitical", PowerProfiles.PROFILE_BATTERY_CRITICAL, true);
+		initPowerProfile("prefKeyScreenOff", PowerProfiles.PROFILE_SCEENOFF, true);
 		// initPowerProfile("prefKeyBatteryGood",
 		// PowerProfiles.PROFILE_BATTERY_GOOD, true);
 

@@ -21,8 +21,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 		synchronized (lock) {
 			if (receiver == null) {
 				IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+				IntentFilter screenOnFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+				IntentFilter screenOffFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
 				receiver = new BatteryReceiver();
 				context.registerReceiver(receiver, batteryLevelFilter);
+				context.registerReceiver(receiver, screenOnFilter);
+				context.registerReceiver(receiver, screenOffFilter);
 				Log.w(Logger.TAG, "Registered BatteryReceiver");
 			} else {
 				Log.i(Logger.TAG, "BatteryReceiver allready registered, not registering again");
@@ -45,8 +49,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		Log.d(Logger.TAG, "BatteryReceiver got intent: " + intent.getAction());
-		if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
+		String action = intent.getAction();
+		Log.d(Logger.TAG, "BatteryReceiver got intent: " + action);
+		if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
 			int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
@@ -65,20 +70,24 @@ public class BatteryReceiver extends BroadcastReceiver {
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}
-		} else if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
+		} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
 			Notifier.notify(context, "CPU tuner: Power connected", 2);
 			PowerProfiles.setAcPower(true);
-		} else if (Intent.ACTION_POWER_DISCONNECTED.equals(intent.getAction())) {
+		} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
 			Notifier.notify(context, "CPU tuner: Power disconnected", 2);
 			PowerProfiles.setAcPower(false);
-		} else if (Intent.ACTION_BATTERY_LOW.equals(intent.getAction())) {
+		} else if (Intent.ACTION_BATTERY_LOW.equals(action)) {
 			Notifier.notify(context, "CPU tuner: Battery low", 2);
 			PowerProfiles.setBatteryLow(true);
-		} else if (Intent.ACTION_BATTERY_OKAY.equals(intent.getAction())) {
+		} else if (Intent.ACTION_BATTERY_OKAY.equals(action)) {
 			Notifier.notify(context, "CPU tuner: Battery OK", 2);
 			PowerProfiles.setBatteryLow(false);
+		} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+			Notifier.notify(context, "Screen turned off", 2);
+			PowerProfiles.setScreenOff(true);
+		} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
+			Notifier.notify(context, "Screen turned on", 2);
+			PowerProfiles.setScreenOff(false);
 		}
-		// android.intent.action.SCREEN_OFF
-		// android.intent.action.SCREEN_ON
 	}
 }

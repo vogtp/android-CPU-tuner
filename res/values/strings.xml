@@ -12,6 +12,7 @@
     <string name="profileBatteryCrtitical">Critical Battery</string>
     <string name="profileBatteryPower">Battery Power</string>
     <string name="profileAcPower">AC Power</string>
+    <string name="profileScreenOff">Screen is off</string>
     <string name="prefSystemPowerProfiles">System Power Profiles</string>
     <string name="prefPowerProfiles">Power Profiles</string>
     <string name="prefCustomPowerProfiles">Custom Power Profiles</string>

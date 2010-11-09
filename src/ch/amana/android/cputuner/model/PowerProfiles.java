@@ -16,6 +16,7 @@ public class PowerProfiles {
 	public static final int PROFILE_AC = 100;
 	public static final int PROFILE_BATTERY = 101;
 	public static final int PROFILE_BATTERY_CRITICAL = 102;
+	public static final int PROFILE_SCEENOFF = 103;
 
 	public static final int PROFILE_BATTERY_GOOD = 1;
 	private static int batteryLevel;
@@ -25,6 +26,7 @@ public class PowerProfiles {
 	private static Context context;
 	private static CharSequence currentProfile = NO_PROFILE;
 	private static List<IProfileChangeCallback> listeners;
+	private static boolean screenOff;
 
 	public static void initContext(Context ctx) {
 		context = ctx;
@@ -50,7 +52,9 @@ public class PowerProfiles {
 		case PROFILE_BATTERY_GOOD:
 			profileString = context.getString(R.string.profileBatteryGood);
 			break;
-
+		case PROFILE_SCEENOFF:
+			profileString = context.getString(R.string.profileScreenOff);
+			break;
 		default:
 			break;
 		}
@@ -74,9 +78,7 @@ public class PowerProfiles {
 			}
 		}
 		CpuModel cpu;
-		if (acPower) {
-			cpu = getCpuModelForProfile(PROFILE_AC);
-		} else if (userProfiles) {
+		if (userProfiles) {
 			cpu = applyUserPowerProfile();
 		} else {
 			cpu = applySystemPowerProfile();
@@ -105,9 +107,14 @@ public class PowerProfiles {
 	private static CpuModel applySystemPowerProfile() {
 		if (batteryLow) {
 			return getCpuModelForProfile(PROFILE_BATTERY_CRITICAL);
-		} else {
-			return getCpuModelForProfile(PROFILE_BATTERY);
 		}
+		if (screenOff) {
+			return getCpuModelForProfile(PROFILE_SCEENOFF);
+		}
+		if (acPower) {
+			return getCpuModelForProfile(PROFILE_AC);
+		}
+		return getCpuModelForProfile(PROFILE_BATTERY);
 	}
 
 	public static void setBatteryLevel(int level) {
@@ -133,6 +140,15 @@ public class PowerProfiles {
 			notifyAcPower();
 			applyPowerProfile(false, false);
 		}
+	}
+
+	public static void setScreenOff(boolean b) {
+
+		if (screenOff != b) {
+			screenOff = b;
+			applyPowerProfile(false, false);
+		}
+
 	}
 
 	public static boolean getAcPower() {

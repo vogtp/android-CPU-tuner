@@ -5,7 +5,8 @@
 		<Preference android:key="prefKeyAcPower" android:title="@string/profileAcPower"></Preference>
 		<Preference android:title="@string/profileBatteryPower" android:key="prefKeyBatteryPower"></Preference>
 		<Preference android:title="@string/profileBatteryCrtitical" android:key="prefKeyBatteryCrtitical"></Preference>
-	</PreferenceCategory>
+	<Preference android:title="@string/profileScreenOff" android:key="prefKeyScreenOff"></Preference>
+</PreferenceCategory>
 
 
 	

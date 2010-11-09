@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ch.amana.android.cputuner" android:versionName="0.6.1" android:versionCode="201011060">
+	package="ch.amana.android.cputuner" android:versionName="0.6.2" android:versionCode="201011061">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication" android:backupAgent="ch.amana.android.cputuner.helper.BackupAgent"
 		android:allowClearUserData="true" android:allowBackup="true">
@@ -25,11 +25,14 @@
 <activity android:name=".view.preference.CpuProfilePreferenceActivity"></activity>
 <activity android:name=".view.activity.CpuEditor"></activity>
 <activity android:name=".view.preference.CpuProfilePreferenceScreen"></activity>
-<receiver android:name=".receiver.BatteryReceiver"><intent-filter><action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
+<receiver android:name=".receiver.BatteryReceiver"><intent-filter><action android:name="android.intent.action.SCREEN_OFF"></action>
+</intent-filter><intent-filter><action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
 </intent-filter><intent-filter><action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
 </intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_LOW"></action>
 </intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_OK"></action>
-</intent-filter></receiver>
+</intent-filter><intent-filter><action android:name="android.intent.action.SCREEN_ON"></action>
+</intent-filter>
+</receiver>
 <activity android:name=".view.activity.CpuTunerTabActivity"><intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
