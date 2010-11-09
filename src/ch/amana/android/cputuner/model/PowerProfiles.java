@@ -141,9 +141,11 @@ public class PowerProfiles {
 
 	public static void setBatteryLow(boolean b) {
 		if (batteryLow != b) {
-			batteryLow = b;
-			notifyBatteryLevel();
-			applyPowerProfile(false, false);
+			if (b && batteryLevel > 40) {
+				batteryLow = b;
+				notifyBatteryLevel();
+				applyPowerProfile(false, false);
+			}
 		}
 	}
 
