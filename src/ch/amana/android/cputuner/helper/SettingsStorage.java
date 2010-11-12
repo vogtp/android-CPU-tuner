@@ -68,7 +68,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isToastNotifications() {
-		return getPreferences().getBoolean(ENABLE_TOAST_NOTI, true);
+		return getPreferences().getBoolean(ENABLE_TOAST_NOTI, false);
 	}
 
 	public Set<String> getKeys() {
