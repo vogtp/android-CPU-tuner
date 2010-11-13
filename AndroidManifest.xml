@@ -38,6 +38,8 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter></activity>
 <activity android:name=".view.preference.SettingsPreferenceActivity"></activity>
+<activity android:name=".view.activity.TriggerEditor"></activity>
+<provider android:name=".provider.CpuTunerProvider" android:authorities="ch.amana.android.cputuner"></provider>
 </application>
 	<uses-sdk android:minSdkVersion="5" />
 

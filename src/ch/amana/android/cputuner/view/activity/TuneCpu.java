@@ -35,7 +35,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView tvAcPower;
 	private TextView tvCurrentProfile;
 	private Button buApplyCurProfile;
-	private String[] availCpuFreqs;
+	private int[] availCpuFreqs;
 	private String[] availCpuGovs;
 
 	/** Called when the activity is first created. */
@@ -66,8 +66,8 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = availCpuFreqs[seekBar.getProgress()];
-				if (!val.equals(cpuHandler.getMaxCpuFreq())) {
+				int val = availCpuFreqs[seekBar.getProgress()];
+				if (val != cpuHandler.getMaxCpuFreq()) {
 					if (cpuHandler.setMaxCpuFreq(val)) {
 						Toast.makeText(TuneCpu.this, "Setting CPU max freq to " + val, Toast.LENGTH_LONG).show();
 					}
@@ -90,8 +90,8 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = availCpuFreqs[seekBar.getProgress()];
-				if (!val.equals(cpuHandler.getMinCpuFreq())) {
+				int val = availCpuFreqs[seekBar.getProgress()];
+				if (val != cpuHandler.getMinCpuFreq()) {
 					if (cpuHandler.setMinCpuFreq(val)) {
 						Toast.makeText(TuneCpu.this, "Setting CPU min freq to " + val, Toast.LENGTH_LONG).show();
 					}
@@ -168,10 +168,10 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		acPowerChanged();
 	}
 
-	private void setSeekbar(String val, String[] valList, SeekBar seekBar, TextView textView) {
+	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
 		textView.setText(CpuModel.convertFreq2GHz(val));
 		for (int i = 0; i < valList.length; i++) {
-			if (val.equals(valList[i])) {
+			if (val == valList[i]) {
 				seekBar.setProgress(i);
 			}
 		}

@@ -27,7 +27,7 @@ public class CpuEditor extends Activity {
 	private TextView tvCpuFreqMin;
 	private int profile;
 	private String[] availCpuGovs;
-	private String[] availCpuFreqs;
+	private int[] availCpuFreqs;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -62,7 +62,7 @@ public class CpuEditor extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = availCpuFreqs[seekBar.getProgress()];
+				int val = availCpuFreqs[seekBar.getProgress()];
 				cpu.setMaxFreq(val);
 				updateView();
 
@@ -83,7 +83,7 @@ public class CpuEditor extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
-				String val = availCpuFreqs[seekBar.getProgress()];
+				int val = availCpuFreqs[seekBar.getProgress()];
 				cpu.setMinFreq(val);
 				updateView();
 			}
@@ -120,6 +120,22 @@ public class CpuEditor extends Activity {
 	}
 
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		cpu.saveToBundle(outState);
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		if (cpu == null) {
+			cpu = new CpuModel(savedInstanceState);
+		} else {
+			cpu.readFromBundle(savedInstanceState);
+		}
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
 		updateView();
@@ -144,10 +160,10 @@ public class CpuEditor extends Activity {
 
 	}
 
-	private void setSeekbar(String val, String[] valList, SeekBar seekBar, TextView textView) {
+	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
 		textView.setText(CpuModel.convertFreq2GHz(val));
 		for (int i = 0; i < valList.length; i++) {
-			if (val.equals(valList[i])) {
+			if (val == valList[i]) {
 				seekBar.setProgress(i);
 			}
 		}

@@ -1,21 +1,25 @@
 package ch.amana.android.cputuner.model;
 
+import android.database.Cursor;
+import android.os.Bundle;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.provider.db.DB;
 
 public class CpuModel {
 
 	public static final String INTENT_EXTRA = "CpuModelData";
 	public static final String NO_PROFILE = "None";
 
+	private String profileName = NO_PROFILE;
 	private String gov;
-	private String maxFreq;
-	private String minFreq;
-	private String profile = NO_PROFILE;
+	private int maxFreq;
+	private int minFreq;
+	private long id;
 
-	public CpuModel(String gov, String maxFreq, String minFreq) {
+	public CpuModel(String gov, int maxFreq, int minFreq) {
 		super();
 		this.gov = gov;
 		this.maxFreq = maxFreq;
@@ -26,10 +30,53 @@ public class CpuModel {
 		super();
 		SettingsStorage store = SettingsStorage.getInstance();
 		store.dumpPerferences();
-		this.profile = profile;
+		this.profileName = profile;
 		this.gov = getFromStore(store, profile, CpuHandler.SCALING_GOVERNOR);
-		this.maxFreq = getFromStore(store, profile, CpuHandler.SCALING_MAX_FREQ);
-		this.minFreq = getFromStore(store, profile, CpuHandler.SCALING_MIN_FREQ);
+		this.maxFreq = str2int(getFromStore(store, profile, CpuHandler.SCALING_MAX_FREQ));
+		this.minFreq = str2int(getFromStore(store, profile, CpuHandler.SCALING_MIN_FREQ));
+	}
+
+	private int str2int(String str) {
+		try {
+			return Integer.parseInt(str);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return 0;
+	}
+
+	public CpuModel(Cursor c) {
+		super();
+		this.id = c.getLong(DB.INDEX_ID);
+		this.profileName = c.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
+		this.gov = c.getString(DB.CpuProfile.INDEX_GOVERNOR);
+		this.maxFreq = c.getInt(DB.CpuProfile.INDEX_FREQUENCY_MAX);
+		this.minFreq = c.getInt(DB.CpuProfile.INDEX_FREQUENCY_MIN);
+	}
+
+	public CpuModel(Bundle bundle) {
+		super();
+		readFromBundle(bundle);
+	}
+
+	public void saveToBundle(Bundle bundle) {
+		if (id > -1) {
+			bundle.putLong(DB.NAME_ID, id);
+		} else {
+			bundle.putLong(DB.NAME_ID, -1);
+		}
+		bundle.putString(DB.CpuProfile.NAME_PROFILE_NAME, getProfileName());
+		bundle.putString(DB.CpuProfile.NAME_GOVERNOR, getGov());
+		bundle.putInt(DB.CpuProfile.NAME_FREQUENCY_MAX, getMaxFreq());
+		bundle.putInt(DB.CpuProfile.NAME_FREQUENCY_MIN, getMinFreq());
+	}
+
+	public void readFromBundle(Bundle bundle) {
+		id = bundle.getLong(DB.NAME_ID);
+		profileName = bundle.getString(DB.CpuProfile.NAME_PROFILE_NAME);
+		gov = bundle.getString(DB.CpuProfile.NAME_GOVERNOR);
+		maxFreq = bundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MAX);
+		minFreq = bundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MIN);
 	}
 
 	private String getFromStore(SettingsStorage store, String profile, String key) {
@@ -41,7 +88,7 @@ public class CpuModel {
 	}
 
 	public void save() {
-		save(profile);
+		save(getProfileName());
 	}
 
 	public void save(CharSequence currentProfile) {
@@ -50,8 +97,8 @@ public class CpuModel {
 		}
 		SettingsStorage store = SettingsStorage.getInstance();
 		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_GOVERNOR, gov);
-		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MAX_FREQ, maxFreq);
-		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MIN_FREQ, minFreq);
+		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MAX_FREQ, maxFreq + "");
+		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MIN_FREQ, minFreq + "");
 	}
 
 	public String getGov() {
@@ -62,24 +109,28 @@ public class CpuModel {
 		this.gov = gov;
 	}
 
-	public String getMaxFreq() {
+	public int getMaxFreq() {
 		return maxFreq;
 	}
 
-	public void setMaxFreq(String maxFreq) {
+	public void setMaxFreq(int maxFreq) {
 		this.maxFreq = maxFreq;
 	}
 
-	public String getMinFreq() {
+	public int getMinFreq() {
 		return minFreq;
 	}
 
-	public void setMinFreq(String minFreq) {
+	public void setMinFreq(int minFreq) {
 		this.minFreq = minFreq;
 	}
 
-	public CharSequence getProfileName() {
-		return profile;
+	public String getProfileName() {
+		return profileName;
+	}
+
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
 	}
 
 	@Override
@@ -87,10 +138,9 @@ public class CpuModel {
 		return gov + "; " + convertFreq2GHz(minFreq) + " - " + convertFreq2GHz(maxFreq);
 	}
 
-	public static String convertFreq2GHz(String freq) {
+	public static String convertFreq2GHz(int freq) {
 		try {
-			int i = Integer.parseInt(freq);
-			i = Math.round(i / 1000f);
+			int i = Math.round(freq / 1000f);
 			return i + " MHz";
 		} catch (Exception e) {
 			Log.w(Logger.TAG, "Cannot convert freq", e);

@@ -15,6 +15,7 @@ public class CpuTunerTabActivity extends TabActivity {
 
 		final TabHost tabHost = getTabHost();
 
+		tabHost.addTab(tabHost.newTabSpec("tabTriggers").setIndicator("Triggers").setContent(new Intent(this, TriggerEditor.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("tabCurrent").setIndicator("Current").setContent(new Intent(this, TuneCpu.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("tabProfiles").setIndicator("Profiles")
 				.setContent(new Intent(this, CpuProfilePreferenceActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));

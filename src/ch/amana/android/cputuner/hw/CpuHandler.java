@@ -57,27 +57,41 @@ public class CpuHandler {
 	}
 
 	public String[] getAvailCpuGov() {
-		return moveCurListElementTop(createList(readFile(SCALING_AVAILABLE_GOVERNORS)), getCurCpuGov());
+		return moveCurListElementTop(createListStr(readFile(SCALING_AVAILABLE_GOVERNORS)), getCurCpuGov());
 	}
 
-	public String getMaxCpuFreq() {
-		return readFile(SCALING_MAX_FREQ);
+	public int getMaxCpuFreq() {
+		int i = -1;
+		String intString = readFile(SCALING_MAX_FREQ);
+		try {
+			i = Integer.parseInt(intString);
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
+		}
+		return i;
 	}
 
-	public boolean setMaxCpuFreq(String val) {
-		return writeFile(SCALING_MAX_FREQ, val);
+	public boolean setMaxCpuFreq(int val) {
+		return writeFile(SCALING_MAX_FREQ, val + "");
 	}
 
-	public String getMinCpuFreq() {
-		return readFile(SCALING_MIN_FREQ);
+	public int getMinCpuFreq() {
+		int i = -1;
+		String intString = readFile(SCALING_MIN_FREQ);
+		try {
+			i = Integer.parseInt(intString);
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
+		}
+		return i;
 	}
 
-	public boolean setMinCpuFreq(String val) {
-		return writeFile(SCALING_MIN_FREQ, val);
+	public boolean setMinCpuFreq(int i) {
+		return writeFile(SCALING_MIN_FREQ, i + "");
 	}
 
-	public String[] getAvailCpuFreq() {
-		return createList(readFile(SCALING_AVAILABLE_FREQUENCIES));
+	public int[] getAvailCpuFreq() {
+		return createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
 	}
 
 	private String[] moveCurListElementTop(String[] list, String topElement) {
@@ -94,7 +108,26 @@ public class CpuHandler {
 		return list;
 	}
 
-	private String[] createList(String listString) {
+	private int[] createListInt(String listString) {
+		Log.d(Logger.TAG, "Creating array from >" + listString + "<");
+		if (NOT_AVAILABLE.equals(listString)) {
+			int[] list = new int[1];
+			list[0] = -1;
+			return list;
+		}
+		String[] strList = listString.split(" ");
+		int[] lst = new int[strList.length];
+		for (int i = 0; i < strList.length; i++) {
+			try {
+				lst[i] = Integer.parseInt(strList[i]);
+			} catch (Exception e) {
+				lst[i] = -1;
+			}
+		}
+		return lst;
+	}
+
+	private String[] createListStr(String listString) {
 		Log.d(Logger.TAG, "Creating array from >" + listString + "<");
 		if (NOT_AVAILABLE.equals(listString)) {
 			String[] list = new String[1];
