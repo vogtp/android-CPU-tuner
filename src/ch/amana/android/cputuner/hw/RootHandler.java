@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,8 +44,10 @@ public class RootHandler {
 			} catch (InterruptedException e) {
 				Log.e(Logger.TAG, "Interrupt while waiting from cmd " + cmd + " to finish", e);
 			}
+		} catch (FileNotFoundException e) {
+			Log.e(Logger.TAG, "File not found in " + cmd);
 		} catch (IOException e) {
-			Log.e(Logger.TAG, "Error while waiting from cmd " + cmd + " to finish", e);
+			Log.e(Logger.TAG, "IO error from: " + cmd, e);
 		}
 		return success;
 	}

@@ -36,12 +36,12 @@ public class InstallHelper {
 			long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
 			long profileNormal = createCpuProfile(resolver, "Normal", getPowerGov(availGov, gov), freqMax, freqMin);
 			long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin);
-			long profileScreenOff = createCpuProfile(resolver, "Extrem powersave", getSaveGov(availGov, gov), freqMax, freqMin);
+			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getSaveGov(availGov, gov), freqMax, freqMin);
 
-			createTrigger(resolver, "Full", 100, profileScreenOff, profileNormal, profilePerformance);
-			createTrigger(resolver, "75%", 80, profileScreenOff, profileNormal, profilePerformance);
-			createTrigger(resolver, "50%", 50, profileScreenOff, profilePowersave, profileNormal);
-			createTrigger(resolver, "25&", 25, profileScreenOff, profilePowersave, profilePowersave);
+			createTrigger(resolver, "Battery full", 100, profilePowersave, profileNormal, profilePerformance);
+			createTrigger(resolver, "Battery used", 80, profilePowersave, profileNormal, profilePerformance);
+			createTrigger(resolver, "Battery empty", 50, profileExtremPowersave, profilePowersave, profileNormal);
+			createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
 
 		}
 
@@ -51,6 +51,27 @@ public class InstallHelper {
 		if (cT != null && !cT.isClosed()) {
 			cT.close();
 		}
+	}
+
+	private static void createTrigger(ContentResolver resolver, String name, int batLevel, long screenOff, long battery, long power) {
+
+		ContentValues values = new ContentValues();
+		values.put(DB.Trigger.NAME_TRIGGER_NAME, name);
+		values.put(DB.Trigger.NAME_BATTERY_LEVEL, batLevel);
+		values.put(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, screenOff);
+		values.put(DB.Trigger.NAME_BATTERY_PROFILE_ID, battery);
+		values.put(DB.Trigger.NAME_POWER_PROFILE_ID, power);
+		insertOrUpdate(resolver, DB.Trigger.CONTENT_URI, values);
+	}
+
+	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin) {
+
+		ContentValues values = new ContentValues();
+		values.put(DB.CpuProfile.NAME_PROFILE_NAME, name);
+		values.put(DB.CpuProfile.NAME_GOVERNOR, gov);
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, freqMax);
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, freqMin);
+		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
 	private static String getSaveGov(List<String> list, String gov) {
@@ -75,27 +96,6 @@ public class InstallHelper {
 			return POWERSAVE;
 		}
 		return gov;
-	}
-
-	private static void createTrigger(ContentResolver resolver, String name, int batLevel, long screenOff, long battery, long power) {
-
-		ContentValues values = new ContentValues();
-		values.put(DB.Trigger.NAME_TRIGGER_NAME, name);
-		values.put(DB.Trigger.NAME_BATTERY_LEVEL, batLevel);
-		values.put(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, screenOff);
-		values.put(DB.Trigger.NAME_BATTERY_PROFILE_ID, battery);
-		values.put(DB.Trigger.NAME_POWER_PROFILE_ID, power);
-		insertOrUpdate(resolver, DB.Trigger.CONTENT_URI, values);
-	}
-
-	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin) {
-
-		ContentValues values = new ContentValues();
-		values.put(DB.CpuProfile.NAME_PROFILE_NAME, name);
-		values.put(DB.CpuProfile.NAME_GOVERNOR, gov);
-		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, freqMax);
-		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, freqMin);
-		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
 	public static long insertOrUpdate(ContentResolver resolver, Uri contentUri, ContentValues values) {

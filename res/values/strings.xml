@@ -32,4 +32,5 @@
 <string name="spinnerPromptGov">Select governor</string>
 <string name="buApplyCurProfile">Apply to current CPU profile</string>
 <string name="profilesNotEnabled">not enabled</string>
+<string name="triggersExplain">Triggers define depending on a battery level, what profiles should be applied.  For different stated (i.e. the device is on battery, on power or the display is locked) different profiles can be applied.</string>
 </resources>

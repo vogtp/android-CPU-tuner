@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -23,6 +27,7 @@ public class TriggerEditor extends Activity {
 	private EditText etName;
 	private EditText etBatteryLevel;
 	private SeekBar sbBatteryLevel;
+	private Object origTriggerModel;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -38,24 +43,62 @@ public class TriggerEditor extends Activity {
 			Cursor c = managedQuery(getIntent().getData(), DB.Trigger.PROJECTION_DEFAULT, null, null, null);
 			if (c.moveToFirst()) {
 				triggerModel = new TriggerModel(c);
+				origTriggerModel = new TriggerModel(c);
 			}
 			c.close();
 		}
 
 		if (triggerModel == null) {
 			triggerModel = new TriggerModel();
+			origTriggerModel = new TriggerModel();
 		}
 
 		etName = (EditText) findViewById(R.id.etName);
 		etBatteryLevel = (EditText) findViewById(R.id.etBatteryLevel);
 		sbBatteryLevel = (SeekBar) findViewById(R.id.sbBatteryLevel);
+		// FIXME
+		sbBatteryLevel.setVisibility(View.INVISIBLE);
 		spBattery = (Spinner) findViewById(R.id.spBattery);
 		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
 		spPower = (Spinner) findViewById(R.id.spPower);
 
+		sbBatteryLevel.setMax(100);
+
 		setProfilesAdapter(spBattery);
 		setProfilesAdapter(spScreenLocked);
 		setProfilesAdapter(spPower);
+		updateView();
+	}
+
+	private void updateView() {
+		etName.setText(triggerModel.getName());
+		etBatteryLevel.setText(triggerModel.getBatteryLevel() + "");
+		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());
+		setSpinner(spBattery, triggerModel.getBatteryProfileId());
+		setSpinner(spScreenLocked, triggerModel.getScreenOffProfileId());
+		setSpinner(spPower, triggerModel.getPowerProfileId());
+	}
+
+	private void updateModel() {
+		triggerModel.setName(etName.getText().toString());
+		try {
+			triggerModel.setBatteryLevel(Integer.parseInt(etBatteryLevel.getText().toString()));
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot parse int from input " + etBatteryLevel.getText(), e);
+		}
+		triggerModel.setBatteryProfileId(spBattery.getSelectedItemId());
+		triggerModel.setScreenOffProfileId(spScreenLocked.getSelectedItemId());
+		triggerModel.setPowerProfileId(spPower.getSelectedItemId());
+	}
+
+	private void setSpinner(Spinner spinner, long dbId) {
+		SpinnerAdapter adapter = spinner.getAdapter();
+		for (int i = 0; i < adapter.getCount(); i++) {
+			if (adapter.getItemId(i) == dbId) {
+				spinner.setSelection(i);
+				return;
+			}
+		}
 
 	}
 
@@ -83,6 +126,26 @@ public class TriggerEditor extends Activity {
 				new int[] { android.R.id.text1 });
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
+	}
+
+	@Override
+	protected void onPause() {
+		updateModel();
+		try {
+			String action = getIntent().getAction();
+			if (Intent.ACTION_INSERT.equals(action)) {
+				// not yet implemented
+			} else if (Intent.ACTION_EDIT.equals(action)) {
+				if (origTriggerModel.equals(triggerModel)) {
+					return;
+				}
+				getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
+			}
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot insert or update", e);
+
+		}
+		super.onPause();
 	}
 
 }

@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.model;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -62,6 +63,21 @@ public class TriggerModel {
 		powerProfileId = bundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
 	}
 
+	public ContentValues getValues() {
+		ContentValues values = new ContentValues();
+		if (id > -1) {
+			values.put(DB.NAME_ID, id);
+		} else {
+			values.put(DB.NAME_ID, -1);
+		}
+		values.put(DB.Trigger.NAME_TRIGGER_NAME, getName());
+		values.put(DB.Trigger.NAME_BATTERY_LEVEL, getBatteryLevel());
+		values.put(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, getScreenOffProfileId());
+		values.put(DB.Trigger.NAME_BATTERY_PROFILE_ID, getBatteryProfileId());
+		values.put(DB.Trigger.NAME_POWER_PROFILE_ID, getPowerProfileId());
+		return values;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -86,20 +102,29 @@ public class TriggerModel {
 		this.name = name;
 	}
 
-	public void setBatteryLevel(int batteryLevel) {
-		this.batteryLevel = batteryLevel;
+	public void setBatteryLevel(int batLevel) {
+		if (batLevel > 100) {
+			batLevel = 100;
+		} else if (batLevel < 0) {
+			batLevel = 0;
+		}
+		this.batteryLevel = batLevel;
 	}
 
-	public void setScreenOffProfileId(int screenOffProfileId) {
+	public void setScreenOffProfileId(long screenOffProfileId) {
 		this.screenOffProfileId = screenOffProfileId;
 	}
 
-	public void setBatteryProfileId(int batteryProfileId) {
+	public void setBatteryProfileId(long batteryProfileId) {
 		this.batteryProfileId = batteryProfileId;
 	}
 
-	public void setPowerProfileId(int powerProfileId) {
+	public void setPowerProfileId(long powerProfileId) {
 		this.powerProfileId = powerProfileId;
+	}
+
+	public long getDbId() {
+		return id;
 	}
 
 }
