@@ -6,6 +6,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -68,6 +70,8 @@ public class PowerProfiles {
 				currentProfile = new CpuModel(c);
 				CpuHandler cpuHandler = new CpuHandler();
 				cpuHandler.applyCpuSettings(currentProfile);
+				Log.i(Logger.TAG, "Changed to profile " + currentProfile.getProfileName() + " using trigger " + currentTrigger.getName() + " on batterylevel "
+						+ batteryLevel);
 				StringBuilder sb = new StringBuilder(50);
 				if (force) {
 					sb.append("Reappling power profile ");
@@ -88,6 +92,7 @@ public class PowerProfiles {
 		if (cursor != null && cursor.moveToFirst()) {
 			if (currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 				currentTrigger = new TriggerModel(cursor);
+				Log.i(Logger.TAG, "Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
 			}
 		}
 	}
