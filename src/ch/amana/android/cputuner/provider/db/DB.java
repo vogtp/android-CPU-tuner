@@ -121,7 +121,7 @@ public interface DB {
 		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
 
-		public static final String SORTORDER_DEFAULT = NAME_PROFILE_NAME + " DESC";
+		public static final String SORTORDER_DEFAULT = NAME_FREQUENCY_MAX + " DESC";
 
 		static final String SORTORDER_REVERSE = NAME_PROFILE_NAME + " ASC";
 
