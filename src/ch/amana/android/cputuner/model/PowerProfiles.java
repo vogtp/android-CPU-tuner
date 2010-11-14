@@ -64,24 +64,33 @@ public class PowerProfiles {
 		}
 
 		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
-			Cursor c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
-					DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
-			if (c != null && c.moveToFirst()) {
-				currentProfile = new CpuModel(c);
-				CpuHandler cpuHandler = new CpuHandler();
-				cpuHandler.applyCpuSettings(currentProfile);
-				Log.i(Logger.TAG, "Changed to profile " + currentProfile.getProfileName() + " using trigger " + currentTrigger.getName() + " on batterylevel "
-						+ batteryLevel);
-				StringBuilder sb = new StringBuilder(50);
-				if (force) {
-					sb.append("Reappling power profile ");
-				} else {
-					sb.append("Setting power profile to ");
+			Cursor c = null;
+			try {
+				c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
+						DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
+				if (c != null && c.moveToFirst()) {
+					currentProfile = new CpuModel(c);
+
+					CpuHandler cpuHandler = new CpuHandler();
+					cpuHandler.applyCpuSettings(currentProfile);
+					Log.i(Logger.TAG, "Changed to profile " + currentProfile.getProfileName() + " using trigger " + currentTrigger.getName()
+							+ " on batterylevel "
+							+ batteryLevel);
+					StringBuilder sb = new StringBuilder(50);
+					if (force) {
+						sb.append("Reappling power profile ");
+					} else {
+						sb.append("Setting power profile to ");
+					}
+					sb.append(currentProfile.getProfileName());
+					notifyProfile();
+					Notifier.notify(context, sb.toString(), 1);
+					Notifier.notifyProfile(currentProfile.getProfileName());
 				}
-				sb.append(currentProfile.getProfileName());
-				notifyProfile();
-				Notifier.notify(context, sb.toString(), 1);
-				Notifier.notifyProfile(currentProfile.getProfileName());
+			} finally {
+				if (c != null && !c.isClosed()) {
+					c.close();
+				}
 			}
 		}
 	}
