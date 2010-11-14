@@ -18,6 +18,7 @@ public class InstallHelper {
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
 	private static final String ONDEMAND = "ondemand";
 	private static final String POWERSAVE = "powersave";
+	private static final String CONSERVATIVE = "conservative";
 
 	public static void populateDb(Context ctx) {
 		Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
@@ -34,9 +35,9 @@ public class InstallHelper {
 			List<String> availGov = Arrays.asList(CpuHandler.getInstance().getAvailCpuGov());
 
 			long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
-			long profileNormal = createCpuProfile(resolver, "Normal", getPowerGov(availGov, gov), freqMax, freqMin);
+			long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
 			long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin);
-			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getSaveGov(availGov, gov), freqMax, freqMin);
+			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin);
 
 			createTrigger(resolver, "Battery full", 100, profilePowersave, profileNormal, profilePerformance);
 			createTrigger(resolver, "Battery used", 75, profilePowersave, profilePowersave, profileNormal);
@@ -78,9 +79,13 @@ public class InstallHelper {
 		if (list == null || list.size() < 1) {
 			return "";
 		}
+		if (list.contains(CONSERVATIVE)) {
+			return CONSERVATIVE;
+		}
 		if (list.contains(POWERSAVE)) {
 			return POWERSAVE;
-		} else if (list.contains(ONDEMAND)) {
+		}
+		if (list.contains(ONDEMAND)) {
 			return ONDEMAND;
 		}
 		return gov;
@@ -92,8 +97,28 @@ public class InstallHelper {
 		}
 		if (list.contains(ONDEMAND)) {
 			return ONDEMAND;
-		} else if (list.contains(POWERSAVE)) {
+		}
+		if (list.contains(CONSERVATIVE)) {
+			return CONSERVATIVE;
+		}
+		if (list.contains(POWERSAVE)) {
 			return POWERSAVE;
+		}
+		return gov;
+	}
+
+	private static String getExtremSaveGov(List<String> list, String gov) {
+		if (list == null || list.size() < 1) {
+			return "";
+		}
+		if (list.contains(POWERSAVE)) {
+			return POWERSAVE;
+		}
+		if (list.contains(CONSERVATIVE)) {
+			return CONSERVATIVE;
+		}
+		if (list.contains(ONDEMAND)) {
+			return ONDEMAND;
 		}
 		return gov;
 	}
