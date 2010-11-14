@@ -23,7 +23,11 @@
 </intent-filter>
 </service>
 <activity android:name=".view.preference.CpuProfilePreferenceActivity"></activity>
-<activity android:name=".view.activity.CpuEditor"></activity>
+<activity android:name=".view.activity.CpuEditor"><intent-filter>
+				<action android:name="android.intent.action.EDIT"></action>
+				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile"></data>
+				<category android:name="android.intent.category.DEFAULT"></category>
+			</intent-filter></activity>
 <activity android:name=".view.preference.CpuProfilePreferenceScreen"></activity>
 <receiver android:name=".receiver.BatteryReceiver"><intent-filter><action android:name="android.intent.action.SCREEN_OFF"></action>
 </intent-filter><intent-filter><action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
@@ -45,6 +49,7 @@
 			</intent-filter></activity>
 <provider android:name=".provider.CpuTunerProvider" android:authorities="ch.amana.android.cputuner"></provider>
 <activity android:name=".view.activity.TriggersListActivity"></activity>
+<activity android:name=".view.activity.ProfilesListActivity"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="5" />
 
