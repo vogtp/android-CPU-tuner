@@ -131,7 +131,7 @@ public class CpuEditor extends Activity {
 			}
 
 		});
-
+		updateView();
 	}
 
 	@Override

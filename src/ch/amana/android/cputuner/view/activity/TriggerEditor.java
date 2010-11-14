@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.TriggerModel;
@@ -74,9 +74,9 @@ public class TriggerEditor extends Activity {
 		etName.setText(triggerModel.getName());
 		etBatteryLevel.setText(triggerModel.getBatteryLevel() + "");
 		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());
-		setSpinner(spBattery, triggerModel.getBatteryProfileId());
-		setSpinner(spScreenLocked, triggerModel.getScreenOffProfileId());
-		setSpinner(spPower, triggerModel.getPowerProfileId());
+		GuiUtils.setSpinner(spBattery, triggerModel.getBatteryProfileId());
+		GuiUtils.setSpinner(spScreenLocked, triggerModel.getScreenOffProfileId());
+		GuiUtils.setSpinner(spPower, triggerModel.getPowerProfileId());
 	}
 
 	private void updateModel() {
@@ -89,17 +89,6 @@ public class TriggerEditor extends Activity {
 		triggerModel.setBatteryProfileId(spBattery.getSelectedItemId());
 		triggerModel.setScreenOffProfileId(spScreenLocked.getSelectedItemId());
 		triggerModel.setPowerProfileId(spPower.getSelectedItemId());
-	}
-
-	private void setSpinner(Spinner spinner, long dbId) {
-		SpinnerAdapter adapter = spinner.getAdapter();
-		for (int i = 0; i < adapter.getCount(); i++) {
-			if (adapter.getItemId(i) == dbId) {
-				spinner.setSelection(i);
-				return;
-			}
-		}
-
 	}
 
 	@Override
