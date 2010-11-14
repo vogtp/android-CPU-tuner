@@ -39,8 +39,8 @@ public class InstallHelper {
 			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getSaveGov(availGov, gov), freqMax, freqMin);
 
 			createTrigger(resolver, "Battery full", 100, profilePowersave, profileNormal, profilePerformance);
-			createTrigger(resolver, "Battery used", 80, profilePowersave, profileNormal, profilePerformance);
-			createTrigger(resolver, "Battery empty", 50, profileExtremPowersave, profilePowersave, profileNormal);
+			createTrigger(resolver, "Battery used", 75, profilePowersave, profilePowersave, profileNormal);
+			createTrigger(resolver, "Battery empty", 50, profileExtremPowersave, profilePowersave, profilePowersave);
 			createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
 
 		}
