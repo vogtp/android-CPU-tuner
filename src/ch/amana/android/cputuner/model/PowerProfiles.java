@@ -96,12 +96,19 @@ public class PowerProfiles {
 	}
 
 	private static void changeTrigger() {
-		Cursor cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
-				DB.Trigger.NAME_BATTERY_LEVEL + ">?", new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
-		if (cursor != null && cursor.moveToFirst()) {
-			if (currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
-				currentTrigger = new TriggerModel(cursor);
-				Log.i(Logger.TAG, "Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
+		Cursor cursor = null;
+		try {
+			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
+					DB.Trigger.NAME_BATTERY_LEVEL + ">?", new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
+			if (cursor != null && cursor.moveToFirst()) {
+				if (currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
+					currentTrigger = new TriggerModel(cursor);
+					Log.i(Logger.TAG, "Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
+				}
+			}
+		} finally {
+			if (cursor != null && !cursor.isClosed()) {
+				cursor.close();
 			}
 		}
 	}
