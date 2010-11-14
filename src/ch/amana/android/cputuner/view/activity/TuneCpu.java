@@ -3,18 +3,15 @@ package ch.amana.android.cputuner.view.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -26,7 +23,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 	private CpuHandler cpuHandler;
 	private Spinner spinnerSetGov;
-	private TextView tvCpuFreq;
 	private SeekBar sbCpuFreqMax;
 	private TextView tvCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
@@ -34,7 +30,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
 	private TextView tvCurrentProfile;
-	private Button buApplyCurProfile;
+	private TextView tvCurrentTrigger;
 	private int[] availCpuFreqs;
 	private String[] availCpuGovs;
 
@@ -48,12 +44,11 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
+		tvCurrentTrigger = (TextView) findViewById(R.id.tvCurrentTrigger);
 		tvCurrentProfile = (TextView) findViewById(R.id.tvCurrentProfile);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
 		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
-		tvCpuFreq = (TextView) findViewById(R.id.tvCpuFreq);
-		tvCpuFreq = (TextView) findViewById(R.id.tvCpuFreq);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
@@ -127,7 +122,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 				updateView();
 			}
 
@@ -135,17 +129,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 		spinnerSetGov.setEnabled(RootHandler.isRoot() && cpuHandler.hasGov());
 
-		buApplyCurProfile = ((Button) findViewById(R.id.ButtonApplyCurProfile));
-		buApplyCurProfile.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				CpuModel cpu = cpuHandler.getCurrentCpuSettings();
-				CharSequence currentProfile = PowerProfiles.getCurrentProfile();
-				cpu.save(currentProfile);
-				Notifier.notify(TuneCpu.this, currentProfile + " changed", 1);
-			}
-		});
 	}
 
 	@Override
@@ -162,7 +145,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	}
 
 	private void updateView() {
-		buApplyCurProfile.setVisibility(SettingsStorage.getInstance().isEnableProfiles() ? Button.VISIBLE : Button.INVISIBLE);
 		batteryLevelChanged();
 		profileChanged();
 		acPowerChanged();
@@ -179,24 +161,19 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 	@Override
 	public void batteryLevelChanged() {
-		StringBuilder sb = new StringBuilder(10);
-		sb.append(PowerProfiles.getBatteryLow() ? "Low" : "OK");
-		if (SettingsStorage.getInstance().isEnableProfiles()) {
-			sb.append(" (").append(PowerProfiles.getBatteryLevel()).append("%)");
-		}
-		tvBatteryLevel.setText(sb.toString());
+		tvBatteryLevel.setText(PowerProfiles.getBatteryLevel() + "%");
 	}
 
 	@Override
 	public void profileChanged() {
-		CharSequence profile = PowerProfiles.getCurrentProfile();
+		CharSequence profile = PowerProfiles.getCurrentProfileName();
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			tvCurrentProfile.setText(profile);
+			tvCurrentTrigger.setText(PowerProfiles.getCurrentTriggerName());
 		} else {
-			tvCurrentProfile.setText(R.string.profilesNotEnabled);
+			tvCurrentProfile.setText(R.string.notEnabled);
+			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
-		buApplyCurProfile.setEnabled(!PowerProfiles.NO_PROFILE.equals(profile));
-		tvCpuFreq.setText(cpuHandler.getCurCpuFreq());
 		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
 		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
 		String curGov = cpuHandler.getCurCpuGov();

@@ -29,7 +29,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 					Intent intent = new Intent(SettingsPreferenceActivity.this, BatteryService.class);
 					if (enableProfile) {
 						startService(intent);
-						PowerProfiles.reapplyCurProfile();
+						PowerProfiles.reapplyProfile(true);
 					} else {
 						stopService(intent);
 					}

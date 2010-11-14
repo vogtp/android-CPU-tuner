@@ -28,7 +28,7 @@ public class Notifier {
 		if (instance == null) {
 			instance = new Notifier(ctx);
 		}
-		instance.notifyStatus(PowerProfiles.getCurrentProfile());
+		instance.notifyStatus(PowerProfiles.getCurrentProfileName());
 	}
 
 	public Notifier(final Context ctx) {
@@ -46,7 +46,7 @@ public class Notifier {
 	}
 
 	private void notifyStatus(CharSequence profileName) {
-		if (!PowerProfiles.NO_PROFILE.equals(profileName)) {
+		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			contentTitle = context.getString(R.string.app_name);
 			String contentText = contentTitle + " profile: " + profileName;
 			Notification notification = new Notification(R.drawable.icon, contentText, System.currentTimeMillis());

@@ -1,7 +1,10 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -11,10 +14,10 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.CpuModel;
-import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.provider.db.DB;
 
 public class CpuEditor extends Activity {
 
@@ -28,6 +31,7 @@ public class CpuEditor extends Activity {
 	private int profile;
 	private String[] availCpuGovs;
 	private int[] availCpuFreqs;
+	private CpuModel origCpu;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -35,17 +39,29 @@ public class CpuEditor extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cpu_editor);
 
-		profile = getIntent().getIntExtra(CpuModel.INTENT_EXTRA, -1);
+		String action = getIntent().getAction();
+		if (Intent.ACTION_EDIT.equals(action)) {
+			Cursor c = managedQuery(getIntent().getData(), DB.CpuProfile.PROJECTION_DEFAULT, null, null, null);
+			if (c.moveToFirst()) {
+				cpu = new CpuModel(c);
+				origCpu = new CpuModel(c);
+			}
+			c.close();
+		}
+
+		if (cpu == null) {
+			cpu = new CpuModel();
+			origCpu = new CpuModel();
+		}
 
 		cpuHandler = CpuHandler.getInstance();
-		cpu = PowerProfiles.getCpuModelForProfile(profile);
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
-		if (SettingsStorage.NO_VALUE.equals(cpu.getMinFreq()) && availCpuFreqs.length > 0) {
+		if (CpuModel.NO_VALUE_INT == cpu.getMinFreq() && availCpuFreqs.length > 0) {
 			cpu.setMinFreq(cpuHandler.getMinCpuFreq());
 		}
-		if (SettingsStorage.NO_VALUE.equals(cpu.getMaxFreq()) && availCpuFreqs.length > 0) {
+		if (CpuModel.NO_VALUE_INT == cpu.getMaxFreq() && availCpuFreqs.length > 0) {
 			cpu.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
@@ -111,7 +127,6 @@ public class CpuEditor extends Activity {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 				updateView();
 			}
 
@@ -143,9 +158,21 @@ public class CpuEditor extends Activity {
 
 	@Override
 	protected void onPause() {
+		try {
+			String action = getIntent().getAction();
+			if (Intent.ACTION_INSERT.equals(action)) {
+				// not yet implemented
+			} else if (Intent.ACTION_EDIT.equals(action)) {
+				if (origCpu.equals(cpu)) {
+					return;
+				}
+				getContentResolver().update(DB.CpuProfile.CONTENT_URI, cpu.getValues(), DB.NAME_ID + "=?", new String[] { cpu.getDbId() + "" });
+			}
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot insert or update", e);
+
+		}
 		super.onPause();
-		cpu.save();
-		PowerProfiles.reapplyProfile(cpu.getProfileName());
 	}
 
 	private void updateView() {

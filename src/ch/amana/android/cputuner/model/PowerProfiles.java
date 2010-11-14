@@ -5,70 +5,43 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
-import ch.amana.android.cputuner.R;
+import android.database.Cursor;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.provider.db.DB;
 
 public class PowerProfiles {
 
-	public static final String NO_PROFILE = "Unknown";
-	public static final int PROFILE_AC = 100;
-	public static final int PROFILE_BATTERY = 101;
-	public static final int PROFILE_BATTERY_CRITICAL = 102;
-	public static final int PROFILE_SCEENOFF = 103;
+	public static final String UNKNOWN = "Unknown";
 
-	public static final int PROFILE_BATTERY_GOOD = 1;
+	private static Context context;
+
 	private static int batteryLevel;
 	private static boolean acPower;
-	private static boolean batteryLow;
-	private static boolean userProfiles = false;
-	private static Context context;
-	private static CharSequence currentProfile = NO_PROFILE;
-	private static List<IProfileChangeCallback> listeners;
 	private static boolean screenOff;
+
+	private static CpuModel currentProfile;
+	private static TriggerModel currentTrigger;
+
+	private static List<IProfileChangeCallback> listeners;
 
 	public static void initContext(Context ctx) {
 		context = ctx;
 	}
 
-	public static CpuModel getCpuModelForProfile(int profile) {
-		String profileName = getProfileName(profile);
-		return new CpuModel(profileName);
-	}
-
-	private static String getProfileName(int profile) {
-		String profileString = CpuModel.NO_PROFILE;
-		switch (profile) {
-		case PROFILE_AC:
-			profileString = context.getString(R.string.profileAcPower);
-			break;
-		case PROFILE_BATTERY:
-			profileString = context.getString(R.string.profileBatteryPower);
-			break;
-		case PROFILE_BATTERY_CRITICAL:
-			profileString = context.getString(R.string.profileBatteryCrtitical);
-			break;
-		case PROFILE_BATTERY_GOOD:
-			profileString = context.getString(R.string.profileBatteryGood);
-			break;
-		case PROFILE_SCEENOFF:
-			profileString = context.getString(R.string.profileScreenOff);
-			break;
-		default:
-			break;
+	public static void reapplyProfile(boolean force) {
+		if (force) {
+			changeTrigger();
 		}
-		return profileString;
+		applyPowerProfile(force, force);
 	}
 
-	public static void reapplyCurProfile() {
-		applyPowerProfile(true, true);
-	}
-
-	public static void reapplyProfile(CharSequence profile) {
-		if (currentProfile.equals(profile)) {
-			applyPowerProfile(true, false);
-		}
+	public static void reapplyProfile() {
+		// FIXME
+		// if (currentProfile.equals("")) {
+		applyPowerProfile(true, false);
+		// }
 	}
 
 	private static void applyPowerProfile(boolean force, boolean ignoreSettings) {
@@ -77,56 +50,54 @@ public class PowerProfiles {
 				return;
 			}
 		}
-		CpuModel cpu;
-		if (userProfiles) {
-			cpu = applyUserPowerProfile();
-		} else {
-			cpu = applySystemPowerProfile();
+		if (currentTrigger == null) {
+			return;
 		}
-		if (force || !currentProfile.equals(cpu.getProfileName())) {
-			currentProfile = cpu.getProfileName();
-			CpuHandler cpuHandler = new CpuHandler();
-			cpuHandler.applyCpuSettings(cpu);
-			StringBuilder sb = new StringBuilder(50);
-			if (force) {
-				sb.append("Reappling power profile ");
-			} else {
-				sb.append("Setting power profile to ");
-			}
-			sb.append(cpu.getProfileName());
-			notifyProfile();
-			Notifier.notify(context, sb.toString(), 1);
-			Notifier.notifyProfile(cpu.getProfileName());
-		}
-	}
 
-	private static CpuModel applyUserPowerProfile() {
-		throw new Error("User power profiles not yet implemented");
-	}
-
-	private static CpuModel applySystemPowerProfile() {
-		if (batteryLow) {
-			return getCpuModelForProfile(PROFILE_BATTERY_CRITICAL);
-		}
+		long profileId = currentTrigger.getBatteryProfileId();
 		if (screenOff) {
-			return getCpuModelForProfile(PROFILE_SCEENOFF);
+			profileId = currentTrigger.getScreenOffProfileId();
+		} else if (acPower) {
+			profileId = currentTrigger.getPowerProfileId();
 		}
-		if (acPower) {
-			return getCpuModelForProfile(PROFILE_AC);
+
+		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
+			Cursor c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
+					DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
+			if (c != null && c.moveToFirst()) {
+				currentProfile = new CpuModel(c);
+				CpuHandler cpuHandler = new CpuHandler();
+				cpuHandler.applyCpuSettings(currentProfile);
+				StringBuilder sb = new StringBuilder(50);
+				if (force) {
+					sb.append("Reappling power profile ");
+				} else {
+					sb.append("Setting power profile to ");
+				}
+				sb.append(currentProfile.getProfileName());
+				notifyProfile();
+				Notifier.notify(context, sb.toString(), 1);
+				Notifier.notifyProfile(currentProfile.getProfileName());
+			}
 		}
-		return getCpuModelForProfile(PROFILE_BATTERY);
+	}
+
+	private static void changeTrigger() {
+		Cursor cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
+				DB.Trigger.NAME_BATTERY_LEVEL + ">?", new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
+		if (cursor != null && cursor.moveToFirst()) {
+			if (currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
+				currentTrigger = new TriggerModel(cursor);
+			}
+		}
 	}
 
 	public static void setBatteryLevel(int level) {
 		if (batteryLevel != level) {
 			batteryLevel = level;
 			notifyBatteryLevel();
-			if (!batteryLow && batteryLevel < 30) {
-				setBatteryLow(true);
-			}
-			if (userProfiles) {
-				applyPowerProfile(false, false);
-			}
+			changeTrigger();
+			applyPowerProfile(false, false);
 		}
 	}
 
@@ -143,41 +114,28 @@ public class PowerProfiles {
 	}
 
 	public static void setScreenOff(boolean b) {
-
 		if (screenOff != b) {
 			screenOff = b;
 			applyPowerProfile(false, false);
 		}
-
 	}
 
 	public static boolean getAcPower() {
 		return acPower;
 	}
 
-	public static void setBatteryLow(boolean b) {
-		if (batteryLow != b) {
-			if (b && batteryLevel > 40) {
-				batteryLow = b;
-				notifyBatteryLevel();
-				applyPowerProfile(false, false);
-			}
+	public static CharSequence getCurrentProfileName() {
+		if (currentProfile == null) {
+			return UNKNOWN;
 		}
+		return currentProfile.getProfileName();
 	}
 
-	public static boolean getBatteryLow() {
-		return batteryLow;
-	}
-
-	public static CharSequence getCurrentProfile() {
-		if (NO_PROFILE.equals(currentProfile)) {
-			if (acPower) {
-				currentProfile = context.getString(R.string.profileAcPower);
-			} else {
-				currentProfile = context.getString(R.string.profileBatteryPower);
-			}
+	public static CharSequence getCurrentTriggerName() {
+		if (currentTrigger == null) {
+			return UNKNOWN;
 		}
-		return currentProfile;
+		return currentTrigger.getName();
 	}
 
 	public static void registerCallback(IProfileChangeCallback callback) {

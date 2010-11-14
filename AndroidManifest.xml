@@ -18,8 +18,6 @@
 		</receiver>
 	<service android:name=".service.BatteryService"><intent-filter><action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
 </intent-filter><intent-filter><action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
-</intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_LOW"></action>
-</intent-filter><intent-filter><action android:name="android.intent.action.BATTERY_OK"></action>
 </intent-filter>
 </service>
 <activity android:name=".view.preference.CpuProfilePreferenceActivity"></activity>

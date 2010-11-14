@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 import ch.amana.android.cputuner.provider.db.DBBackendCpuProfile;
@@ -114,6 +115,7 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	private void notifyChange(Uri uri) {
+		PowerProfiles.reapplyProfile(true);
 		getContext().getContentResolver().notifyChange(uri, null);
 	}
 

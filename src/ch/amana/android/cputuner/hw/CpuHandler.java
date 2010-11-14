@@ -57,7 +57,9 @@ public class CpuHandler {
 	}
 
 	public String[] getAvailCpuGov() {
-		return moveCurListElementTop(createListStr(readFile(SCALING_AVAILABLE_GOVERNORS)), getCurCpuGov());
+		String govs = readFile(SCALING_AVAILABLE_GOVERNORS);
+		govs = govs.replace("userspace", "");
+		return moveCurListElementTop(createListStr(govs), getCurCpuGov());
 	}
 
 	public int getMaxCpuFreq() {
@@ -134,7 +136,7 @@ public class CpuHandler {
 			list[0] = listString;
 			return list;
 		}
-		return listString.split(" ");
+		return listString.split(" +");
 	}
 
 	private String readFile(String filename) {

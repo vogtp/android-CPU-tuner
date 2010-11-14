@@ -1,52 +1,37 @@
 package ch.amana.android.cputuner.model;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class CpuModel {
 
-	public static final String INTENT_EXTRA = "CpuModelData";
-	public static final String NO_PROFILE = "None";
+	public static final String NO_VALUE_STR = "None";
 
-	private String profileName = NO_PROFILE;
-	private String gov;
-	private int maxFreq;
-	private int minFreq;
-	private long id;
+	public static final int NO_VALUE_INT = -1;
+
+	private String profileName = NO_VALUE_STR;
+	private String gov = NO_VALUE_STR;
+	private int maxFreq = NO_VALUE_INT;
+	private int minFreq = NO_VALUE_INT;
+	private long id = -1;
+
+	public CpuModel() {
+		super();
+	}
 
 	public CpuModel(String gov, int maxFreq, int minFreq) {
-		super();
+		this();
 		this.gov = gov;
 		this.maxFreq = maxFreq;
 		this.minFreq = minFreq;
 	}
 
-	public CpuModel(String profile) {
-		super();
-		SettingsStorage store = SettingsStorage.getInstance();
-		store.dumpPerferences();
-		this.profileName = profile;
-		this.gov = getFromStore(store, profile, CpuHandler.SCALING_GOVERNOR);
-		this.maxFreq = str2int(getFromStore(store, profile, CpuHandler.SCALING_MAX_FREQ));
-		this.minFreq = str2int(getFromStore(store, profile, CpuHandler.SCALING_MIN_FREQ));
-	}
-
-	private int str2int(String str) {
-		try {
-			return Integer.parseInt(str);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return 0;
-	}
-
 	public CpuModel(Cursor c) {
-		super();
+		this();
 		this.id = c.getLong(DB.INDEX_ID);
 		this.profileName = c.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
 		this.gov = c.getString(DB.CpuProfile.INDEX_GOVERNOR);
@@ -55,7 +40,7 @@ public class CpuModel {
 	}
 
 	public CpuModel(Bundle bundle) {
-		super();
+		this();
 		readFromBundle(bundle);
 	}
 
@@ -79,26 +64,19 @@ public class CpuModel {
 		minFreq = bundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MIN);
 	}
 
-	private String getFromStore(SettingsStorage store, String profile, String key) {
-		String value = store.getValue(profile + "_" + key);
-		if (value.equals(SettingsStorage.NO_VALUE)) {
-			value = store.getValue(key);
+	public ContentValues getValues() {
+		ContentValues values = new ContentValues();
+		if (id > -1) {
+			values.put(DB.NAME_ID, id);
+		} else {
+			values.put(DB.NAME_ID, -1);
 		}
-		return value;
-	}
 
-	public void save() {
-		save(getProfileName());
-	}
-
-	public void save(CharSequence currentProfile) {
-		if (NO_PROFILE.equals(currentProfile)) {
-			Log.w(Logger.TAG, "Not saving since profile is " + currentProfile);
-		}
-		SettingsStorage store = SettingsStorage.getInstance();
-		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_GOVERNOR, gov);
-		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MAX_FREQ, maxFreq + "");
-		store.writeValue(currentProfile + "_" + CpuHandler.SCALING_MIN_FREQ, minFreq + "");
+		values.put(DB.CpuProfile.NAME_PROFILE_NAME, getProfileName());
+		values.put(DB.CpuProfile.NAME_GOVERNOR, getGov());
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, getMaxFreq());
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, getMinFreq());
+		return values;
 	}
 
 	public String getGov() {
@@ -131,6 +109,10 @@ public class CpuModel {
 
 	public void setProfileName(String profileName) {
 		this.profileName = profileName;
+	}
+
+	public long getDbId() {
+		return id;
 	}
 
 	@Override

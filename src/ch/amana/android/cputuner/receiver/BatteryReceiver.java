@@ -76,12 +76,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 		} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
 			Notifier.notify(context, "CPU tuner: Power disconnected", 2);
 			PowerProfiles.setAcPower(false);
-		} else if (Intent.ACTION_BATTERY_LOW.equals(action)) {
-			Notifier.notify(context, "CPU tuner: Battery low", 2);
-			PowerProfiles.setBatteryLow(true);
-		} else if (Intent.ACTION_BATTERY_OKAY.equals(action)) {
-			Notifier.notify(context, "CPU tuner: Battery OK", 2);
-			PowerProfiles.setBatteryLow(false);
 		} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
 			Notifier.notify(context, "Screen turned off", 2);
 			PowerProfiles.setScreenOff(true);
