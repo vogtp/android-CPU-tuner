@@ -29,7 +29,6 @@ public class CpuEditor extends Activity {
 	private TextView tvCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
 	private TextView tvCpuFreqMin;
-	private int profile;
 	private String[] availCpuGovs;
 	private int[] availCpuFreqs;
 	private CpuModel origCpu;
