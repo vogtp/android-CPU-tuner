@@ -16,9 +16,6 @@ import ch.amana.android.cputuner.provider.db.DB;
 public class InstallHelper {
 
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
-	private static final String ONDEMAND = "ondemand";
-	private static final String POWERSAVE = "powersave";
-	private static final String CONSERVATIVE = "conservative";
 
 	public static void populateDb(Context ctx) {
 		Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
@@ -55,7 +52,6 @@ public class InstallHelper {
 	}
 
 	private static void createTrigger(ContentResolver resolver, String name, int batLevel, long screenOff, long battery, long power) {
-
 		ContentValues values = new ContentValues();
 		values.put(DB.Trigger.NAME_TRIGGER_NAME, name);
 		values.put(DB.Trigger.NAME_BATTERY_LEVEL, batLevel);
@@ -79,14 +75,14 @@ public class InstallHelper {
 		if (list == null || list.size() < 1) {
 			return "";
 		}
-		if (list.contains(CONSERVATIVE)) {
-			return CONSERVATIVE;
+		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			return CpuHandler.GOV_CONSERVATIVE;
 		}
-		if (list.contains(POWERSAVE)) {
-			return POWERSAVE;
+		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
+			return CpuHandler.GOV_POWERSAVE;
 		}
-		if (list.contains(ONDEMAND)) {
-			return ONDEMAND;
+		if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			return CpuHandler.GOV_ONDEMAND;
 		}
 		return gov;
 	}
@@ -95,14 +91,14 @@ public class InstallHelper {
 		if (list == null || list.size() < 1) {
 			return "";
 		}
-		if (list.contains(ONDEMAND)) {
-			return ONDEMAND;
+		if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			return CpuHandler.GOV_ONDEMAND;
 		}
-		if (list.contains(CONSERVATIVE)) {
-			return CONSERVATIVE;
+		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			return CpuHandler.GOV_CONSERVATIVE;
 		}
-		if (list.contains(POWERSAVE)) {
-			return POWERSAVE;
+		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
+			return CpuHandler.GOV_POWERSAVE;
 		}
 		return gov;
 	}
@@ -111,14 +107,14 @@ public class InstallHelper {
 		if (list == null || list.size() < 1) {
 			return "";
 		}
-		if (list.contains(POWERSAVE)) {
-			return POWERSAVE;
+		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
+			return CpuHandler.GOV_POWERSAVE;
 		}
-		if (list.contains(CONSERVATIVE)) {
-			return CONSERVATIVE;
+		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			return CpuHandler.GOV_CONSERVATIVE;
 		}
-		if (list.contains(ONDEMAND)) {
-			return ONDEMAND;
+		if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			return CpuHandler.GOV_ONDEMAND;
 		}
 		return gov;
 	}

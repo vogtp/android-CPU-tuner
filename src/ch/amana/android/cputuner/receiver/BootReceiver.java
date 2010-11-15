@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.service.BatteryService;
 
 public class BootReceiver extends BroadcastReceiver {
@@ -25,12 +24,12 @@ public class BootReceiver extends BroadcastReceiver {
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}
-			CpuHandler cpuHandler = new CpuHandler();
-			try {
-				cpuHandler.applyFromStorage();
-			} catch (Throwable e) {
-				Log.w(Logger.TAG, "Error appling on boot", e);
-			}
+			// CpuHandler cpuHandler = new CpuHandler();
+			// try {
+			// cpuHandler.applyFromStorage();
+			// } catch (Throwable e) {
+			// Log.w(Logger.TAG, "Error appling on boot", e);
+			// }
 		}
 	}
 

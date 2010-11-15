@@ -1,14 +1,8 @@
 package ch.amana.android.cputuner.helper;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class SettingsStorage {
 
@@ -39,15 +33,15 @@ public class SettingsStorage {
 		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
-	public void writeValue(String key, String val) {
-		Editor editor = getPreferences().edit();
-		editor.putString(key, val);
-		editor.commit();
-	}
-
-	public String getValue(String key) {
-		return getPreferences().getString(key, NO_VALUE);
-	}
+	// public void writeValue(String key, String val) {
+	// Editor editor = getPreferences().edit();
+	// editor.putString(key, val);
+	// editor.commit();
+	// }
+	//
+	// public String getValue(String key) {
+	// return getPreferences().getString(key, NO_VALUE);
+	// }
 
 	// private void setApplyOnBoot(boolean applyOnBoot) {
 	// Editor editor = getPreferences().edit();
@@ -70,19 +64,20 @@ public class SettingsStorage {
 	public boolean isToastNotifications() {
 		return getPreferences().getBoolean(ENABLE_TOAST_NOTI, false);
 	}
-
-	public Set<String> getKeys() {
-		Map<String, ?> all = getPreferences().getAll();
-		all.remove(APPLY_ON_BOOT);
-		return all.keySet();
-	}
-
-	public void dumpPerferences() {
-		Map<String, ?> all = getPreferences().getAll();
-		for (Iterator<String> iterator = all.keySet().iterator(); iterator.hasNext();) {
-			String key = iterator.next();
-			String val = all.get(key).toString();
-			Log.d(Logger.TAG, key + " -> " + val);
-		}
-	}
+	//
+	// public Set<String> getKeys() {
+	// Map<String, ?> all = getPreferences().getAll();
+	// all.remove(APPLY_ON_BOOT);
+	// return all.keySet();
+	// }
+	//
+	// public void dumpPerferences() {
+	// Map<String, ?> all = getPreferences().getAll();
+	// for (Iterator<String> iterator = all.keySet().iterator();
+	// iterator.hasNext();) {
+	// String key = iterator.next();
+	// String val = all.get(key).toString();
+	// Log.d(Logger.TAG, key + " -> " + val);
+	// }
+	// }
 }

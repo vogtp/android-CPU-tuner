@@ -2,12 +2,9 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Iterator;
-import java.util.Set;
 
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.CpuModel;
 
 public class CpuHandler {
@@ -16,6 +13,12 @@ public class CpuHandler {
 	public static final String SCALING_GOVERNOR = "scaling_governor";
 	public static final String SCALING_MAX_FREQ = "scaling_max_freq";
 	public static final String SCALING_MIN_FREQ = "scaling_min_freq";
+
+	public static final String GOV_ONDEMAND = "ondemand";
+	public static final String GOV_POWERSAVE = "powersave";
+	public static final String GOV_CONSERVATIVE = "conservative";
+	public static final String GOV_PERFORMANCE = "performance";
+	public static final String GOV_INTERACTIVE = "interactive";
 
 	private static final String CPU_DIR = "/sys/devices/system/cpu/cpu0/cpufreq/";
 
@@ -169,7 +172,6 @@ public class CpuHandler {
 		}
 		synchronized (semaphore) {
 			String path = CPU_DIR + filename;
-			SettingsStorage.getInstance().writeValue(filename, val);
 			Log.w(Logger.TAG, "Setting " + path + " to " + val);
 			return RootHandler.execute("echo " + val + " > " + path);
 		}
@@ -179,13 +181,13 @@ public class CpuHandler {
 		return !NOT_AVAILABLE.equals(getCurCpuGov());
 	}
 
-	public void applyFromStorage() {
-		SettingsStorage storage = SettingsStorage.getInstance();
-		Set<String> keys = storage.getKeys();
-		for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
-			String key = iterator.next();
-			writeFile(key, storage.getValue(key));
-		}
-	}
+	// public void applyFromStorage() {
+	// SettingsStorage storage = SettingsStorage.getInstance();
+	// Set<String> keys = storage.getKeys();
+	// for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
+	// String key = iterator.next();
+	// writeFile(key, storage.getValue(key));
+	// }
+	// }
 
 }
