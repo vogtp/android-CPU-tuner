@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -33,6 +34,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView tvCurrentTrigger;
 	private int[] availCpuFreqs;
 	private String[] availCpuGovs;
+	private TextView tvExplainGov;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -47,6 +49,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		tvCurrentTrigger = (TextView) findViewById(R.id.tvCurrentTrigger);
 		tvCurrentProfile = (TextView) findViewById(R.id.tvCurrentProfile);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
+		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
 		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
@@ -148,6 +151,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		batteryLevelChanged();
 		profileChanged();
 		acPowerChanged();
+		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

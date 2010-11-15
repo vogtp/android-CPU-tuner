@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="govPowersave">powersave</string>
+    <string name="govOndemand">ondemand</string>
     <string name="prefToastNotifications">Toast notifications</string>
     <string name="prefStatusbarNotifications">Statusbar notifications</string>
     <string name="prefCatNotifications">Notifications</string>
@@ -34,4 +36,10 @@
 <string name="buApplyCurProfile">Apply to current CPU profile</string>
 <string name="notEnabled">not enabled</string>
 <string name="triggersExplain">Triggers define depending on a battery level, what profiles should be applied.  For different stated (i.e. the device is on battery, on power or the display is locked) different profiles can be applied.</string>
+
+<string name="explainGovOnDemand">Dynamically changes frequency based on the CPU utilization with a focus on performance.</string>
+<string name="explainGovConservative">Dynamically changes frequency based on the CPU utilization with a focus on saving power.</string>
+<string name="explainGovPerformance">Sets the frequency statically to the highest available CPU frequency.</string>
+<string name="explainGovPowersave">Sets the frequency statically to the lowest available CPU frequency.</string>
+<string name="explainGovInteractive">Designed for low latency burst workloads. Scaling is done when coming out of idle instead of polling.</string>
 </resources>

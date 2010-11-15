@@ -4,8 +4,7 @@
 	android:layout_height="fill_parent" android:padding="5dp">
 
 	<LinearLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/LinearLayoutProfile"
-		android:paddingBottom="20dp">
+		android:layout_height="wrap_content" android:id="@+id/LinearLayoutProfile">
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/labelPowerProfile"
 			android:text="@string/labelPowerProfile" android:paddingRight="5dp"
@@ -16,7 +15,7 @@
 	</LinearLayout>
 	<LinearLayout android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:id="@+id/llCpuGov"
-		android:padding="5dp" android:orientation="vertical">
+		android:orientation="vertical" android:paddingTop="20dp">
 		<TextView android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:text="@string/labelCpuGov"
 			android:paddingRight="5dp" android:textSize="20sp" />
@@ -24,9 +23,9 @@
 			android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
 			android:prompt="@string/spinnerPromptGov"></Spinner>
 	</LinearLayout>
-	<TextView android:layout_width="fill_parent"
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Explain Gov" android:id="@+id/tvExplainGov"></TextView><TextView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:text="@string/labelCpuFreq"
-		android:paddingRight="5dp" android:textSize="20sp" />
+		android:paddingRight="5dp" android:textSize="20sp" android:paddingTop="20dp"/>
 	<TableLayout android:layout_height="wrap_content"
 		android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
 		<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"

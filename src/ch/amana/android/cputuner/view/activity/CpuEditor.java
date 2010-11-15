@@ -14,6 +14,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.CpuModel;
@@ -32,6 +33,7 @@ public class CpuEditor extends Activity {
 	private String[] availCpuGovs;
 	private int[] availCpuFreqs;
 	private CpuModel origCpu;
+	private TextView tvExplainGov;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -68,6 +70,7 @@ public class CpuEditor extends Activity {
 		((TextView) findViewById(R.id.tvPowerProfile)).setText(cpu.getProfileName());
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
+		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
@@ -184,7 +187,7 @@ public class CpuEditor extends Activity {
 				spinnerSetGov.setSelection(i);
 			}
 		}
-
+		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, curGov));
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

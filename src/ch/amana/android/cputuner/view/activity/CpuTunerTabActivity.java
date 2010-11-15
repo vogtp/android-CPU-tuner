@@ -4,6 +4,7 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.view.preference.SettingsPreferenceActivity;
 
 public class CpuTunerTabActivity extends TabActivity {
@@ -14,13 +15,14 @@ public class CpuTunerTabActivity extends TabActivity {
 
 		final TabHost tabHost = getTabHost();
 
-		tabHost.addTab(tabHost.newTabSpec("tabCurrent").setIndicator("Current")
+		tabHost.addTab(tabHost.newTabSpec("tabCurrent").setIndicator("Current", getResources().getDrawable(R.drawable.phone))
 				.setContent(new Intent(this, TuneCpu.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-		tabHost.addTab(tabHost.newTabSpec("tabTriggers").setIndicator("Triggers")
+		tabHost.addTab(tabHost.newTabSpec("tabTriggers").setIndicator("Triggers", getResources().getDrawable(R.drawable.battery))
 				.setContent(new Intent(this, TriggersListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-		tabHost.addTab(tabHost.newTabSpec("tabProfiles").setIndicator("Profiles")
+		tabHost.addTab(tabHost.newTabSpec("tabProfiles").setIndicator("Profiles", getResources().getDrawable(R.drawable.cpu))
 				.setContent(new Intent(this, ProfilesListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-		tabHost.addTab(tabHost.newTabSpec("tabSettings").setIndicator("Settings").setContent(new Intent(this, SettingsPreferenceActivity.class)));
+		tabHost.addTab(tabHost.newTabSpec("tabSettings").setIndicator("Settings", getResources().getDrawable(R.drawable.configure))
+				.setContent(new Intent(this, SettingsPreferenceActivity.class)));
 
 	}
 }
