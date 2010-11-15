@@ -50,7 +50,10 @@
 </application>
 	<uses-sdk android:minSdkVersion="7"/>
 
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
-	
-
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" android:required="false"/>
+	<uses-permission android:name="android.permission.READ_SECURE_SETTINGS" android:required="false"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
 </manifest> 

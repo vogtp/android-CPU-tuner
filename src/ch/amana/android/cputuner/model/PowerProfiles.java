@@ -11,6 +11,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class PowerProfiles {
@@ -19,9 +20,9 @@ public class PowerProfiles {
 
 	private static Context context;
 
-	private static int batteryLevel;
-	private static boolean acPower;
-	private static boolean screenOff;
+	private static int batteryLevel = 80;
+	private static boolean acPower = false;
+	private static boolean screenOff = false;
 
 	private static CpuModel currentProfile;
 	private static TriggerModel currentTrigger;
@@ -73,6 +74,10 @@ public class PowerProfiles {
 
 					CpuHandler cpuHandler = new CpuHandler();
 					cpuHandler.applyCpuSettings(currentProfile);
+					applyWifiState(currentProfile.getWifiState());
+					applyGpsState(currentProfile.getGpsState());
+					applyBluetoothState(currentProfile.getBluetoothState());
+					applyMobiledataState(currentProfile.getMobiledataState());
 					Log.i(Logger.TAG, "Changed to profile " + currentProfile.getProfileName() + " using trigger " + currentTrigger.getName()
 							+ " on batterylevel "
 							+ batteryLevel);
@@ -92,6 +97,30 @@ public class PowerProfiles {
 					c.close();
 				}
 			}
+		}
+	}
+
+	private static void applyWifiState(int state) {
+		if (state > 0) {
+			ServicesHandler.wifi(context, state == 1 ? true : false);
+		}
+	}
+
+	private static void applyGpsState(int state) {
+		if (state > 0) {
+			ServicesHandler.gps(context, state == 1 ? true : false);
+		}
+	}
+
+	private static void applyBluetoothState(int state) {
+		if (state > 0) {
+			ServicesHandler.bluetooth(context, state == 1 ? true : false);
+		}
+	}
+
+	private static void applyMobiledataState(int state) {
+		if (state > 0) {
+			ServicesHandler.mobiledata(context, state == 1 ? true : false);
 		}
 	}
 

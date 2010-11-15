@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class CpuEditor extends Activity {
 	private int[] availCpuFreqs;
 	private CpuModel origCpu;
 	private TextView tvExplainGov;
+	private Spinner spWifi;
+	private Spinner spGps;
+	private Spinner spBluetooth;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -100,7 +104,6 @@ public class CpuEditor extends Activity {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-
 				int val = availCpuFreqs[seekBar.getProgress()];
 				cpu.setMinFreq(val);
 				updateView();
@@ -133,7 +136,59 @@ public class CpuEditor extends Activity {
 			}
 
 		});
+
+		spWifi = (Spinner) findViewById(R.id.spWifi);
+		spWifi.setAdapter(getSystemsAdapter());
+		spWifi.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				cpu.setWifiState(pos);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+
+		spGps = (Spinner) findViewById(R.id.spGps);
+		spGps.setAdapter(getSystemsAdapter());
+		spGps.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				cpu.setGpsState(pos);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+
+		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
+		if (BluetoothAdapter.getDefaultAdapter() != null) {
+			spBluetooth.setAdapter(getSystemsAdapter());
+			spBluetooth.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+					cpu.setBluetoothState(pos);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		} else {
+			findViewById(R.id.TableRowBluetooth).setVisibility(View.INVISIBLE);
+		}
+
 		updateView();
+	}
+
+	private ArrayAdapter<CharSequence> getSystemsAdapter() {
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.deviceStates, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		return adapter;
 	}
 
 	@Override
@@ -187,6 +242,9 @@ public class CpuEditor extends Activity {
 			}
 		}
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, curGov));
+		spWifi.setSelection(cpu.getWifiState());
+		spGps.setSelection(cpu.getGpsState());
+		spBluetooth.setSelection(cpu.getBluetoothState());
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

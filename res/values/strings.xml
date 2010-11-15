@@ -42,4 +42,9 @@
 <string name="explainGovPerformance">Sets the frequency statically to the highest available CPU frequency.</string>
 <string name="explainGovPowersave">Sets the frequency statically to the lowest available CPU frequency.</string>
 <string name="explainGovInteractive">Designed for low latency burst workloads. Scaling is done when coming out of idle instead of polling.</string>
+<string-array name="deviceStates">
+<item>leave unchanged</item>
+<item>Enable</item>
+<item>Disable</item>
+</string-array>
 </resources>

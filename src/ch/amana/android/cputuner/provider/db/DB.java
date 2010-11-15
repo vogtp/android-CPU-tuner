@@ -17,7 +17,7 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 1;
+		private static final int DATABASE_VERSION = 2;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -26,7 +26,8 @@ public interface DB {
 		private static final String CREATE_CPUPROFILES_TABLE = "create table if not exists " + CpuProfile.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
 				+ DB.CpuProfile.NAME_PROFILE_NAME + " text, " + DB.CpuProfile.NAME_GOVERNOR + " text," + DB.CpuProfile.NAME_FREQUENCY_MAX + " int,"
-				+ DB.CpuProfile.NAME_FREQUENCY_MIN + " int)";
+				+ DB.CpuProfile.NAME_FREQUENCY_MIN + " int," + DB.CpuProfile.NAME_WIFI_STATE + " int," + DB.CpuProfile.NAME_GPS_STATE + " int,"
+				+ DB.CpuProfile.NAME_BLUETOOTH_STATE + " int," + DB.CpuProfile.NAME_MOBILEDATA_STATE + " int)";
 
 		private static final String LOG_TAG = Logger.TAG;
 
@@ -48,7 +49,10 @@ public interface DB {
 			switch (oldVersion) {
 			case 1:
 				Log.w(LOG_TAG, "Upgrading to DB Version 2...");
-				throw new Error("not implemented");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_WIFI_STATE + " int;");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GPS_STATE + " int;");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_BLUETOOTH_STATE + " int;");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_MOBILEDATA_STATE + " int;");
 				// nobreak
 
 			default:
@@ -110,14 +114,22 @@ public interface DB {
 		public static final String NAME_GOVERNOR = "governor";
 		public static final String NAME_FREQUENCY_MAX = "frequencyMax";
 		public static final String NAME_FREQUENCY_MIN = "frequencyMin";
+		public static final String NAME_WIFI_STATE = "wifiState";
+		public static final String NAME_GPS_STATE = "gpsState";
+		public static final String NAME_BLUETOOTH_STATE = "bluetoothState";
+		public static final String NAME_MOBILEDATA_STATE = "mobiledataState";
 
 		public static final int INDEX_PROFILE_NAME = 1;
 		public static final int INDEX_GOVERNOR = 2;
 		public static final int INDEX_FREQUENCY_MAX = 3;
 		public static final int INDEX_FREQUENCY_MIN = 4;
+		public static final int INDEX_WIFI_STATE = 5;
+		public static final int INDEX_GPS_STATE = 6;
+		public static final int INDEX_BLUETOOTH_STATE = 7;
+		public static final int INDEX_MOBILEDATA_STATE = 8;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
-				NAME_FREQUENCY_MIN };
+				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_STATE };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
 

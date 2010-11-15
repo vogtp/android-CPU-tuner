@@ -14,10 +14,17 @@ public class CpuModel {
 	public static final int NO_VALUE_INT = -1;
 
 	private String profileName = NO_VALUE_STR;
+
+	private long id = -1;
+
 	private String gov = NO_VALUE_STR;
 	private int maxFreq = NO_VALUE_INT;
 	private int minFreq = NO_VALUE_INT;
-	private long id = -1;
+
+	private int wifiState = 0;
+	private int gpsState = 0;
+	private int bluetoothState = 0;
+	private int mobiledataState = 0;
 
 	public CpuModel() {
 		super();
@@ -37,6 +44,10 @@ public class CpuModel {
 		this.gov = c.getString(DB.CpuProfile.INDEX_GOVERNOR);
 		this.maxFreq = c.getInt(DB.CpuProfile.INDEX_FREQUENCY_MAX);
 		this.minFreq = c.getInt(DB.CpuProfile.INDEX_FREQUENCY_MIN);
+		this.wifiState = c.getInt(DB.CpuProfile.INDEX_WIFI_STATE);
+		this.gpsState = c.getInt(DB.CpuProfile.INDEX_GPS_STATE);
+		this.bluetoothState = c.getInt(DB.CpuProfile.INDEX_BLUETOOTH_STATE);
+		this.mobiledataState = c.getInt(DB.CpuProfile.INDEX_MOBILEDATA_STATE);
 	}
 
 	public CpuModel(Bundle bundle) {
@@ -54,6 +65,10 @@ public class CpuModel {
 		bundle.putString(DB.CpuProfile.NAME_GOVERNOR, getGov());
 		bundle.putInt(DB.CpuProfile.NAME_FREQUENCY_MAX, getMaxFreq());
 		bundle.putInt(DB.CpuProfile.NAME_FREQUENCY_MIN, getMinFreq());
+		bundle.putInt(DB.CpuProfile.NAME_WIFI_STATE, getWifiState());
+		bundle.putInt(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
+		bundle.putInt(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
+		bundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -62,6 +77,10 @@ public class CpuModel {
 		gov = bundle.getString(DB.CpuProfile.NAME_GOVERNOR);
 		maxFreq = bundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MAX);
 		minFreq = bundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MIN);
+		wifiState = bundle.getInt(DB.CpuProfile.NAME_WIFI_STATE);
+		gpsState = bundle.getInt(DB.CpuProfile.NAME_GPS_STATE);
+		bluetoothState = bundle.getInt(DB.CpuProfile.NAME_BLUETOOTH_STATE);
+		mobiledataState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_STATE);
 	}
 
 	public ContentValues getValues() {
@@ -76,6 +95,10 @@ public class CpuModel {
 		values.put(DB.CpuProfile.NAME_GOVERNOR, getGov());
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, getMaxFreq());
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, getMinFreq());
+		values.put(DB.CpuProfile.NAME_WIFI_STATE, getWifiState());
+		values.put(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
+		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
+		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
 		return values;
 	}
 
@@ -128,6 +151,38 @@ public class CpuModel {
 			Log.w(Logger.TAG, "Cannot convert freq", e);
 		}
 		return "NaN";
+	}
+
+	public void setWifiState(int wifiState) {
+		this.wifiState = wifiState;
+	}
+
+	public int getWifiState() {
+		return wifiState;
+	}
+
+	public void setGpsState(int gpsState) {
+		this.gpsState = gpsState;
+	}
+
+	public int getGpsState() {
+		return gpsState;
+	}
+
+	public void setBluetoothState(int bluetoothState) {
+		this.bluetoothState = bluetoothState;
+	}
+
+	public int getBluetoothState() {
+		return bluetoothState;
+	}
+
+	public void setMobiledataState(int mobiledataState) {
+		this.mobiledataState = mobiledataState;
+	}
+
+	public int getMobiledataState() {
+		return mobiledataState;
 	}
 
 }

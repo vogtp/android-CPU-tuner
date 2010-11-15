@@ -33,8 +33,8 @@ public class InstallHelper {
 
 			long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
 			long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
-			long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin);
-			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin);
+			long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
+			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
 
 			createTrigger(resolver, "Battery full", 100, profilePowersave, profileNormal, profilePerformance);
 			createTrigger(resolver, "Battery used", 75, profilePowersave, profilePowersave, profileNormal);
@@ -62,12 +62,21 @@ public class InstallHelper {
 	}
 
 	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin) {
+		return createCpuProfile(resolver, name, gov, freqMax, freqMin, 0, 0, 0, 0);
+	}
+
+	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin,
+			int wifiState, int gpsState, int btState, int mbState) {
 
 		ContentValues values = new ContentValues();
 		values.put(DB.CpuProfile.NAME_PROFILE_NAME, name);
 		values.put(DB.CpuProfile.NAME_GOVERNOR, gov);
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, freqMax);
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, freqMin);
+		values.put(DB.CpuProfile.NAME_WIFI_STATE, wifiState);
+		values.put(DB.CpuProfile.NAME_GPS_STATE, gpsState);
+		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, btState);
+		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, mbState);
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
