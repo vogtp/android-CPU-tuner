@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefStatusbarAddToOff">The status bar does not show any information about cpu tuner.</string>
+    <string name="prefStatusbarAddToOn">The status bar shows a entry displaing the current profile.</string>
+    <string name="prefStatusbarAddTo">Add to status bar</string>
+    <string name="prefStatusbarNotificationsOff">Not showing messages in the status bar for profile changes.</string>
+    <string name="prefKeyEnableProfilesOn">Showing a message in the status bar for every profile change.</string>
     <string name="prefSystemAppOff">Not installed as system app, it will not have access to system settings as gps.</string>
     <string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
     <string name="prefSystemApp">Install as System App</string>

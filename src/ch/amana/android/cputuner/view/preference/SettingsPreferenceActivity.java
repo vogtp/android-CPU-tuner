@@ -40,7 +40,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-		Preference enableStatusBarPreference = findPreference(SettingsStorage.ENABLE_STATUSBAR_NOTI);
+		Preference enableStatusBarPreference = findPreference(SettingsStorage.ENABLE_STATUSBAR_ADDTO);
 		enableStatusBarPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override

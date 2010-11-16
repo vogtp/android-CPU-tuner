@@ -15,7 +15,7 @@ public class BatteryService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		super.onStartCommand(intent, flags, startId);
 		Log.i(Logger.TAG, "Starting BatteryService");
-		if (SettingsStorage.getInstance().isStatusbarNotifications()) {
+		if (SettingsStorage.getInstance().isStatusbarAddto()) {
 			Notifier.startStatusbarNotifications(this);
 		} else {
 			Notifier.stopStatusbarNotifications();

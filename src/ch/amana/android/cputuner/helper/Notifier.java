@@ -23,6 +23,7 @@ public class Notifier {
 	private static int curLevel = 1;
 
 	private static Notifier instance;
+	private Notification notification;
 
 	public static void startStatusbarNotifications(Context ctx) {
 		if (instance == null) {
@@ -49,16 +50,27 @@ public class Notifier {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			contentTitle = context.getString(R.string.app_name);
 			String contentText = contentTitle + " profile: " + profileName;
-			Notification notification = new Notification(R.drawable.icon, contentText, System.currentTimeMillis());
+			Notification notification = getNotification(contentText);
+			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+			notificationManager.notify(NOTIFICATION_PROFILE, notification);
+		}
+	}
+
+	private Notification getNotification(String contentText) {
+		if (SettingsStorage.getInstance().isStatusbarNotifications() || notification == null) {
+
+			notification = new Notification(R.drawable.icon, contentText, System.currentTimeMillis());
+			// notification.icon = icon;
+			// notification.when = System.currentTimeMillis();
+			// notification.contentView = new
+			// RemoteViews(context.getPackageName(), R.layout.statusbar_item);
 			Intent notificationIntent = new Intent(context, CpuTunerTabActivity.class);
 			contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
 			notification.flags |= Notification.FLAG_NO_CLEAR;
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;
-			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-			notificationManager.notify(NOTIFICATION_PROFILE, notification);
-
 		}
+		return notification;
 	}
 
 	public static void notifyProfile(CharSequence profileName) {
