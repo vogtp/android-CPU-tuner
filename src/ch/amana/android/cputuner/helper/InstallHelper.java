@@ -21,34 +21,35 @@ public class InstallHelper {
 		ContentResolver resolver = ctx.getContentResolver();
 
 		Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
-		Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
+		if (cP == null || cP.getCount() < 1) {
+			Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
+			if (cT == null || cT.getCount() < 1) {
+				Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
+				int freqMax = CpuHandler.getInstance().getMaxCpuFreq();
+				int freqMin = CpuHandler.getInstance().getMinCpuFreq();
+				String gov = CpuHandler.getInstance().getCurCpuGov();
 
-		if (cP == null || cT == null || (cP.getCount() < 1 && cT.getCount() < 1)) {
-			Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
-			int freqMax = CpuHandler.getInstance().getMaxCpuFreq();
-			int freqMin = CpuHandler.getInstance().getMinCpuFreq();
-			String gov = CpuHandler.getInstance().getCurCpuGov();
+				List<String> availGov = Arrays.asList(CpuHandler.getInstance().getAvailCpuGov());
 
-			List<String> availGov = Arrays.asList(CpuHandler.getInstance().getAvailCpuGov());
+				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
+				long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
+				long profileScreenOff = createCpuProfile(resolver, "Screen off", getSaveGov(availGov, gov), freqMax, freqMin);
+				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
+				long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
 
-			long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
-			long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
-			long profileScreenOff = createCpuProfile(resolver, "Screen off", getSaveGov(availGov, gov), freqMax, freqMin);
-			long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
-			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
+				createTrigger(resolver, "Battery full", 100, profileScreenOff, profileNormal, profilePerformance);
+				createTrigger(resolver, "Battery used", 75, profileScreenOff, profilePowersave, profileNormal);
+				createTrigger(resolver, "Battery empty", 50, profileExtremPowersave, profilePowersave, profilePowersave);
+				createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
 
-			createTrigger(resolver, "Battery full", 100, profileScreenOff, profileNormal, profilePerformance);
-			createTrigger(resolver, "Battery used", 75, profileScreenOff, profilePowersave, profileNormal);
-			createTrigger(resolver, "Battery empty", 50, profileExtremPowersave, profilePowersave, profilePowersave);
-			createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
+			}
 
-		}
-
-		if (cP != null && !cP.isClosed()) {
-			cP.close();
-		}
-		if (cT != null && !cT.isClosed()) {
-			cT.close();
+			if (cP != null && !cP.isClosed()) {
+				cP.close();
+			}
+			if (cT != null && !cT.isClosed()) {
+				cT.close();
+			}
 		}
 	}
 
