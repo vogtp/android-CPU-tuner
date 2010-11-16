@@ -16,20 +16,15 @@ import ch.amana.android.cputuner.provider.db.DB;
 public class InstallHelper {
 
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
-	private static int startCount = 0;
 
 	public static void populateDb(Context ctx) {
-		if (startCount > 2) {
-			return;
-		}
-		startCount++;
-		Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
 		ContentResolver resolver = ctx.getContentResolver();
 
 		Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 		Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
 
 		if (cP == null || cT == null || (cP.getCount() < 1 && cT.getCount() < 1)) {
+			Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
 			int freqMax = CpuHandler.getInstance().getMaxCpuFreq();
 			int freqMin = CpuHandler.getInstance().getMinCpuFreq();
 			String gov = CpuHandler.getInstance().getCurCpuGov();
