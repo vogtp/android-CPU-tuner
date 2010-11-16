@@ -16,8 +16,13 @@ import ch.amana.android.cputuner.provider.db.DB;
 public class InstallHelper {
 
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
+	private static int startCount = 0;
 
 	public static void populateDb(Context ctx) {
+		if (startCount > 2) {
+			return;
+		}
+		startCount++;
 		Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
 		ContentResolver resolver = ctx.getContentResolver();
 
@@ -33,11 +38,12 @@ public class InstallHelper {
 
 			long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
 			long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
+			long profileScreenOff = createCpuProfile(resolver, "Screen off", getSaveGov(availGov, gov), freqMax, freqMin);
 			long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
 			long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
 
-			createTrigger(resolver, "Battery full", 100, profilePowersave, profileNormal, profilePerformance);
-			createTrigger(resolver, "Battery used", 75, profilePowersave, profilePowersave, profileNormal);
+			createTrigger(resolver, "Battery full", 100, profileScreenOff, profileNormal, profilePerformance);
+			createTrigger(resolver, "Battery used", 75, profileScreenOff, profilePowersave, profileNormal);
 			createTrigger(resolver, "Battery empty", 50, profileExtremPowersave, profilePowersave, profilePowersave);
 			createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
 
