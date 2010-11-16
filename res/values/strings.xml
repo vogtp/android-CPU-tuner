@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefSystemAppOff">Not installed as system app, it will not have access to system settings as gps.</string>
+    <string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
+    <string name="prefSystemApp">Install as System App</string>
     <string name="govPowersave">powersave</string>
     <string name="govOndemand">ondemand</string>
     <string name="prefToastNotifications">Toast notifications</string>

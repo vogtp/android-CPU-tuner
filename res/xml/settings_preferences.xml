@@ -3,7 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<PreferenceCategory android:title="@string/prefCatSystem"><CheckBoxPreference android:title="@string/prefEnableProfiles" android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles" android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference><CheckBoxPreference android:key="applyCpuSettingsOnBoot" android:title="@string/prefApplyOnBoot" android:summaryOn="@string/prefApplyOnBootOn" android:summaryOff="@string/prefApplyOnBootOff" android:defaultValue="true"></CheckBoxPreference></PreferenceCategory>
+<PreferenceCategory android:title="@string/prefCatSystem"><CheckBoxPreference android:title="@string/prefEnableProfiles" android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles" android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference><CheckBoxPreference android:key="applyCpuSettingsOnBoot" android:title="@string/prefApplyOnBoot" android:summaryOn="@string/prefApplyOnBootOn" android:summaryOff="@string/prefApplyOnBootOff" android:defaultValue="true"></CheckBoxPreference><CheckBoxPreference android:key="prefKeySystemApp" android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp" android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
+</PreferenceCategory>
 <PreferenceCategory android:title="@string/prefCatNotifications"><CheckBoxPreference android:key="prefKeyStatusbarNotifications" android:defaultValue="true" android:dependency="prefKeyEnableProfiles" android:title="@string/prefStatusbarNotifications"></CheckBoxPreference>
 <CheckBoxPreference android:key="prefKeyToastNotifications" android:title="@string/prefToastNotifications" android:defaultValue="false"></CheckBoxPreference>
 </PreferenceCategory>

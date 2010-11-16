@@ -2,11 +2,14 @@ package ch.amana.android.cputuner.view.preference;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.helper.SystemAppHelper;
+import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 
@@ -50,6 +53,16 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				}
 				return true;
 			}
+		});
+		CheckBoxPreference systemAppPreference = (CheckBoxPreference) findPreference("prefKeySystemApp");
+		systemAppPreference.setChecked(RootHandler.isSystemApp(this));
+		systemAppPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				return SystemAppHelper.install(SettingsPreferenceActivity.this, (Boolean) newValue);
+			}
+
 		});
 	}
 }

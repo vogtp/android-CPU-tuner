@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ch.amana.android.cputuner" android:versionCode="201011160" android:versionName="0.9.1">
+	package="ch.amana.android.cputuner" android:versionCode="201011161" android:versionName="0.9.2-rc1">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication" android:allowClearUserData="true">
-		<meta-data android:name="com.google.android.backup.api_key"
-			android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
-		<activity android:label="@string/app_name" android:name=".view.activity.TuneCpu">
+		
+		<activity android:label="@string/app_name" android:name=".view.activity.TuneCpu" android:screenOrientation="portrait">
 			
 		</activity>
 
@@ -19,8 +18,8 @@
 </intent-filter><intent-filter><action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
 </intent-filter>
 </service>
-<activity android:name=".view.preference.CpuProfilePreferenceActivity"></activity>
-<activity android:name=".view.activity.CpuEditor"><intent-filter>
+
+<activity android:name=".view.activity.CpuEditor" android:screenOrientation="portrait"><intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>
@@ -34,12 +33,12 @@
 </intent-filter><intent-filter><action android:name="android.intent.action.SCREEN_ON"></action>
 </intent-filter>
 </receiver>
-<activity android:name=".view.activity.CpuTunerTabActivity"><intent-filter>
+<activity android:name=".view.activity.CpuTunerTabActivity" android:screenOrientation="portrait"><intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter></activity>
 <activity android:name=".view.preference.SettingsPreferenceActivity"></activity>
-<activity android:name=".view.activity.TriggerEditor"><intent-filter>
+<activity android:name=".view.activity.TriggerEditor" android:screenOrientation="portrait"><intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.trigger"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>
@@ -57,4 +56,5 @@
 	<uses-permission android:name="android.permission.READ_SECURE_SETTINGS" android:required="false"/>
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+<uses-permission android:name="android.permission.REBOOT"></uses-permission>
 </manifest> 

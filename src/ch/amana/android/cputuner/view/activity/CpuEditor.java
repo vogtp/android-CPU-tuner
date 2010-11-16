@@ -13,11 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -77,6 +79,11 @@ public class CpuEditor extends Activity {
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
+		spWifi = (Spinner) findViewById(R.id.spWifi);
+		spGps = (Spinner) findViewById(R.id.spGps);
+		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
+
+		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
 
 		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -137,7 +144,6 @@ public class CpuEditor extends Activity {
 
 		});
 
-		spWifi = (Spinner) findViewById(R.id.spWifi);
 		spWifi.setAdapter(getSystemsAdapter());
 		spWifi.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
@@ -150,21 +156,23 @@ public class CpuEditor extends Activity {
 			}
 		});
 
-		spGps = (Spinner) findViewById(R.id.spGps);
-		spGps.setAdapter(getSystemsAdapter());
-		spGps.setOnItemSelectedListener(new OnItemSelectedListener() {
+		if (RootHandler.isSystemApp(this)) {
+			spGps.setAdapter(getSystemsAdapter());
+			spGps.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				cpu.setGpsState(pos);
-			}
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+					cpu.setGpsState(pos);
+				}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		} else {
+			tlServices.removeView(findViewById(R.id.TableRowGps));
+		}
 
-		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
 		if (BluetoothAdapter.getDefaultAdapter() != null) {
 			spBluetooth.setAdapter(getSystemsAdapter());
 			spBluetooth.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -179,7 +187,7 @@ public class CpuEditor extends Activity {
 				}
 			});
 		} else {
-			findViewById(R.id.TableRowBluetooth).setVisibility(View.INVISIBLE);
+			tlServices.removeView(findViewById(R.id.TableRowBluetooth));
 		}
 
 		updateView();

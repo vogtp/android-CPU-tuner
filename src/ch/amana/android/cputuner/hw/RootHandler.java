@@ -2,11 +2,15 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 
@@ -15,6 +19,9 @@ public class RootHandler {
 	private static final String NEW_LINE = "\n";
 
 	private static boolean isRoot = false;
+
+	private static boolean checkedSystemApp = false;
+	private static boolean isSystemApp = false;
 
 	public static boolean execute(String cmd) {
 		Process p;
@@ -75,5 +82,31 @@ public class RootHandler {
 			isRoot = execute("ls -ld /");
 		}
 		return isRoot;
+	}
+
+	public static boolean isSystemApp(Context ctx) {
+		if (!checkedSystemApp) {
+			String[] fileList = findAppPath(ctx, Environment.getRootDirectory());
+			isSystemApp = fileList.length > 0;
+			checkedSystemApp = true;
+		}
+		Log.i(Logger.TAG, "Is system app: " + isSystemApp);
+		return isSystemApp;
+	}
+
+	public static String[] findAppPath(Context ctx, File root) {
+		if (!root.isDirectory()) {
+			return new String[] {};
+		}
+		File appsRoot = new File(root, "app");
+		final String packageName = ctx.getPackageName();
+		String[] fileList1 = appsRoot.list();
+		String[] fileList = appsRoot.list(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String filename) {
+				return filename.contains(packageName);
+			}
+		});
+		return fileList;
 	}
 }
