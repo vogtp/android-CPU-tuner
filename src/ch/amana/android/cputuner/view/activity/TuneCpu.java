@@ -35,6 +35,8 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private int[] availCpuFreqs;
 	private String[] availCpuGovs;
 	private TextView tvExplainGov;
+	private TextView labelCpuFreqMin;
+	private TextView labelCpuFreqMax;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -54,6 +56,8 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
+		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
+		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
@@ -111,12 +115,17 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		spinnerSetGov.setAdapter(arrayAdapter);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 
+			private int maxCpuFreq;
+
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				String gov = parent.getItemAtPosition(pos).toString();
 				if (gov != cpuHandler.getCurCpuGov()) {
 					boolean ret = cpuHandler.setCurGov(gov);
 					if (ret) {
+						if (CpuHandler.GOV_USERSPACE.equals(gov)) {
+							setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
+						}
 						Toast.makeText(parent.getContext(), "Setting govenor to " + gov, Toast.LENGTH_LONG).show();
 					}
 				}
@@ -185,6 +194,17 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			if (curGov.equals(availCpuGovs[i])) {
 				spinnerSetGov.setSelection(i);
 			}
+		}
+		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
+			labelCpuFreqMax.setText(R.string.labelCpuFreq);
+			labelCpuFreqMin.setVisibility(View.INVISIBLE);
+			tvCpuFreqMin.setVisibility(View.INVISIBLE);
+			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+		} else {
+			labelCpuFreqMax.setText(R.string.labelMax);
+			labelCpuFreqMin.setVisibility(View.VISIBLE);
+			tvCpuFreqMin.setVisibility(View.VISIBLE);
+			sbCpuFreqMin.setVisibility(View.VISIBLE);
 		}
 	}
 

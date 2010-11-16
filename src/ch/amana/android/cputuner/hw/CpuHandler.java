@@ -10,18 +10,20 @@ import ch.amana.android.cputuner.model.CpuModel;
 public class CpuHandler {
 
 	public static final String NOT_AVAILABLE = "not available";
-	public static final String SCALING_GOVERNOR = "scaling_governor";
-	public static final String SCALING_MAX_FREQ = "scaling_max_freq";
-	public static final String SCALING_MIN_FREQ = "scaling_min_freq";
 
 	public static final String GOV_ONDEMAND = "ondemand";
 	public static final String GOV_POWERSAVE = "powersave";
 	public static final String GOV_CONSERVATIVE = "conservative";
 	public static final String GOV_PERFORMANCE = "performance";
 	public static final String GOV_INTERACTIVE = "interactive";
+	public static final String GOV_USERSPACE = "userspace";
 
 	private static final String CPU_DIR = "/sys/devices/system/cpu/cpu0/cpufreq/";
 
+	private static final String SCALING_GOVERNOR = "scaling_governor";
+	private static final String SCALING_MAX_FREQ = "scaling_max_freq";
+	private static final String SCALING_MIN_FREQ = "scaling_min_freq";
+	private static final String SCALING_SETSPEED = "scaling_setspeed";
 	private static final String SCALING_CUR_FREQ = "scaling_cur_freq";
 	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
 	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
@@ -43,12 +45,23 @@ public class CpuHandler {
 
 	public void applyCpuSettings(CpuModel cpu) {
 		setCurGov(cpu.getGov());
-		setMaxCpuFreq(cpu.getMaxFreq());
-		setMinCpuFreq(cpu.getMinFreq());
+		if (GOV_USERSPACE.equals(cpu.getGov())) {
+			setUserCpuFreq(cpu.getMaxFreq());
+		} else {
+			setMaxCpuFreq(cpu.getMaxFreq());
+			setMinCpuFreq(cpu.getMinFreq());
+		}
 	}
 
-	public String getCurCpuFreq() {
-		return readFile(SCALING_CUR_FREQ);
+	public int getCurCpuFreq() {
+		int i = -1;
+		String intString = readFile(SCALING_CUR_FREQ);
+		try {
+			i = Integer.parseInt(intString);
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
+		}
+		return i;
 	}
 
 	public String getCurCpuGov() {
@@ -60,9 +73,7 @@ public class CpuHandler {
 	}
 
 	public String[] getAvailCpuGov() {
-		String govs = readFile(SCALING_AVAILABLE_GOVERNORS);
-		govs = govs.replace("userspace", "");
-		return moveCurListElementTop(createListStr(govs), getCurCpuGov());
+		return moveCurListElementTop(createListStr(readFile(SCALING_AVAILABLE_GOVERNORS)), getCurCpuGov());
 	}
 
 	public int getMaxCpuFreq() {
@@ -74,6 +85,10 @@ public class CpuHandler {
 			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
 		}
 		return i;
+	}
+
+	public boolean setUserCpuFreq(int val) {
+		return writeFile(SCALING_SETSPEED, val + "");
 	}
 
 	public boolean setMaxCpuFreq(int val) {

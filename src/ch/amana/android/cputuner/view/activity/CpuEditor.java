@@ -39,6 +39,8 @@ public class CpuEditor extends Activity {
 	private Spinner spWifi;
 	private Spinner spGps;
 	private Spinner spBluetooth;
+	private TextView labelCpuFreqMin;
+	private TextView labelCpuFreqMax;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -76,6 +78,8 @@ public class CpuEditor extends Activity {
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
 		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
+		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
+		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
@@ -111,8 +115,10 @@ public class CpuEditor extends Activity {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				int val = availCpuFreqs[seekBar.getProgress()];
-				cpu.setMinFreq(val);
+				if (!CpuHandler.GOV_USERSPACE.equals(cpu.getGov())) {
+					int val = availCpuFreqs[seekBar.getProgress()];
+					cpu.setMinFreq(val);
+				}
 				updateView();
 			}
 
@@ -253,6 +259,17 @@ public class CpuEditor extends Activity {
 		spWifi.setSelection(cpu.getWifiState());
 		spGps.setSelection(cpu.getGpsState());
 		spBluetooth.setSelection(cpu.getBluetoothState());
+		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
+			labelCpuFreqMax.setText(R.string.labelCpuFreq);
+			labelCpuFreqMin.setVisibility(View.INVISIBLE);
+			tvCpuFreqMin.setVisibility(View.INVISIBLE);
+			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+		} else {
+			labelCpuFreqMax.setText(R.string.labelMax);
+			labelCpuFreqMin.setVisibility(View.VISIBLE);
+			tvCpuFreqMin.setVisibility(View.VISIBLE);
+			sbCpuFreqMin.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

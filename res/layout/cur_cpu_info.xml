@@ -68,8 +68,7 @@
 		<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
 			android:layout_width="fill_parent">
 			<TextView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/labelMax"
-				android:paddingRight="5dp" android:text="@+string/labelMax"></TextView>
+				android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"></TextView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax"
 				android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax"
@@ -82,7 +81,7 @@
 			android:layout_width="fill_parent">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
-				android:id="@+id/labelMin" android:text="@+string/labelMin"></TextView>
+				android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin"></TextView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
 				android:text="99999" android:id="@+id/tvCpuFreqMin"
