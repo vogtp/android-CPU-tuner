@@ -87,7 +87,7 @@ public class RootHandler {
 	public static boolean isSystemApp(Context ctx) {
 		if (!checkedSystemApp) {
 			String[] fileList = findAppPath(ctx, Environment.getRootDirectory());
-			isSystemApp = fileList.length > 0;
+			isSystemApp = fileList != null && fileList.length > 0;
 			checkedSystemApp = true;
 		}
 		Log.i(Logger.TAG, "Is system app: " + isSystemApp);
