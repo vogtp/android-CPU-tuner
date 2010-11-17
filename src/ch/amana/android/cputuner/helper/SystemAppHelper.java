@@ -78,10 +78,10 @@ public class SystemAppHelper implements OnClickListener {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
 		alertBuilder.setTitle("Reboot");
 		alertBuilder
-				.setMessage("Your android version does not support rebooting.  Please do a manualy reboot otherwise cpu tuner will not work.");
+				.setMessage("The automatic (save) reboot failed.  Please do a manualy reboot by long pressing the power button, otherwise cpu tuner will not work.");
 		alertBuilder.setCancelable(false);
-		alertBuilder.setPositiveButton("Manual reboot", null);
-		alertBuilder.setNegativeButton("Reboot (not recomentded)", new OnClickListener() {
+		// alertBuilder.setPositiveButton("Manual reboot", null);
+		alertBuilder.setNegativeButton("System reboot (not recomentded)", new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
