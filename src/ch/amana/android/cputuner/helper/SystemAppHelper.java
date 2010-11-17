@@ -69,6 +69,7 @@ public class SystemAppHelper implements OnClickListener {
 			PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
 			pm.reboot(null);
 		} catch (Throwable e) {
+			Log.w(Logger.TAG, "Cannot do a PowerManager reboot.", e);
 			rebootHard();
 		}
 	}
