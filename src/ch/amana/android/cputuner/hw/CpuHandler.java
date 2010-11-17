@@ -95,6 +95,17 @@ public class CpuHandler {
 		return writeFile(SCALING_MAX_FREQ, val + "");
 	}
 
+	public int getUserCpuFreq() {
+		int i = -1;
+		String intString = readFile(SCALING_SETSPEED);
+		try {
+			i = Integer.parseInt(intString);
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
+		}
+		return i;
+	}
+
 	public int getMinCpuFreq() {
 		int i = -1;
 		String intString = readFile(SCALING_MIN_FREQ);
@@ -195,14 +206,5 @@ public class CpuHandler {
 	public boolean hasGov() {
 		return !NOT_AVAILABLE.equals(getCurCpuGov());
 	}
-
-	// public void applyFromStorage() {
-	// SettingsStorage storage = SettingsStorage.getInstance();
-	// Set<String> keys = storage.getKeys();
-	// for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
-	// String key = iterator.next();
-	// writeFile(key, storage.getValue(key));
-	// }
-	// }
 
 }

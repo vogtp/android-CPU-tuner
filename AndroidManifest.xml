@@ -4,7 +4,7 @@
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication" android:allowClearUserData="true">
 		
-		<activity android:label="@string/app_name" android:name=".view.activity.TuneCpu" android:screenOrientation="portrait">
+		<activity android:label="@string/app_name" android:name=".view.activity.TuneCpu">
 			
 		</activity>
 
@@ -19,7 +19,7 @@
 </intent-filter>
 </service>
 
-<activity android:name=".view.activity.CpuEditor" android:screenOrientation="portrait"><intent-filter>
+<activity android:name=".view.activity.CpuEditor"><intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>
@@ -33,12 +33,12 @@
 </intent-filter><intent-filter><action android:name="android.intent.action.SCREEN_ON"></action>
 </intent-filter>
 </receiver>
-<activity android:name=".view.activity.CpuTunerTabActivity" android:screenOrientation="portrait"><intent-filter>
+<activity android:name=".view.activity.CpuTunerTabActivity"><intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter></activity>
 <activity android:name=".view.preference.SettingsPreferenceActivity"></activity>
-<activity android:name=".view.activity.TriggerEditor" android:screenOrientation="portrait"><intent-filter>
+<activity android:name=".view.activity.TriggerEditor"><intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.trigger"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>

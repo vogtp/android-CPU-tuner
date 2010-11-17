@@ -1,48 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:padding="5dp">
+<ScrollView android:id="@+id/ScrollView01"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="wrap_content">
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:padding="5dp">
 
-	<LinearLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/LinearLayoutProfile">
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/LinearLayoutProfile">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/labelPowerProfile"
+				android:text="@string/labelPowerProfile" android:paddingRight="5dp"
+				android:textSize="22sp"></TextView>
+			<TextView android:text="@+id/TextView01"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:id="@+id/tvPowerProfile" android:textSize="22sp"></TextView>
+		</LinearLayout>
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/llCpuGov"
+			android:orientation="vertical" android:paddingTop="20dp">
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="@string/labelCpuGov"
+				android:paddingRight="5dp" android:textSize="20sp" />
+			<Spinner android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
+				android:prompt="@string/spinnerPromptGov"></Spinner>
+		</LinearLayout>
 		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/labelPowerProfile"
-			android:text="@string/labelPowerProfile" android:paddingRight="5dp"
-			android:textSize="22sp"></TextView>
-		<TextView android:text="@+id/TextView01"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:id="@+id/tvPowerProfile" android:textSize="22sp"></TextView>
-	</LinearLayout>
-	<LinearLayout android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/llCpuGov"
-		android:orientation="vertical" android:paddingTop="20dp">
+			android:layout_height="wrap_content" android:text="Explain Gov"
+			android:id="@+id/tvExplainGov"></TextView>
 		<TextView android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="@string/labelCpuGov"
-			android:paddingRight="5dp" android:textSize="20sp" />
-		<Spinner android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
-			android:prompt="@string/spinnerPromptGov"></Spinner>
-	</LinearLayout>
-	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Explain Gov" android:id="@+id/tvExplainGov"></TextView><TextView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:text="@string/labelCpuFreq"
-		android:paddingRight="5dp" android:textSize="20sp" android:paddingTop="20dp"/>
-	<TableLayout android:layout_height="wrap_content"
-		android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
-		<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq" android:layout_width="fill_parent">
-			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"></TextView>
-			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax" android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax" android:layout_gravity="right"></TextView>
-			<SeekBar android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax" android:layout_weight=".3"></SeekBar>
-		</TableRow><TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMinFreq" android:layout_width="fill_parent">
-			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin"></TextView>
-			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="99999" android:id="@+id/tvCpuFreqMin" android:layout_gravity="right"></TextView>
-			<SeekBar android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMin" android:layout_weight=".3"></SeekBar>
-		</TableRow>
-		
-	</TableLayout><TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingRight="5dp" android:textSize="20sp" android:paddingTop="10dp" android:text="Services" /><TableLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableLayoutServices"><TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowGps"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="GPS"></TextView><Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spGps"></Spinner>
-</TableRow><TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowWifi"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wifi" android:paddingRight="5dp" android:layout_gravity="center_vertical"></TextView><Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spWifi"></Spinner>
-</TableRow><TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Bluetooth"></TextView><Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spBluetooth"></Spinner>
+			android:layout_height="wrap_content" android:text="@string/labelCpuFreq"
+			android:paddingRight="5dp" android:textSize="20sp"
+			android:paddingTop="20dp" />
+		<TableLayout android:layout_height="wrap_content"
+			android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
+				android:layout_width="fill_parent">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"></TextView>
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax"
+					android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax"
+					android:layout_gravity="right"></TextView>
+				<SeekBar android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
+					android:layout_weight=".3"></SeekBar>
+			</TableRow>
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMinFreq"
+				android:layout_width="fill_parent">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin"></TextView>
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:text="99999" android:id="@+id/tvCpuFreqMin"
+					android:layout_gravity="right"></TextView>
+				<SeekBar android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMin"
+					android:layout_weight=".3"></SeekBar>
+			</TableRow>
 
-</TableRow></TableLayout>
+		</TableLayout>
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:paddingRight="5dp"
+			android:textSize="20sp" android:paddingTop="10dp" android:text="Services" />
+		<TableLayout android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/TableLayoutServices">
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/TableRowGps">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:paddingRight="5dp" android:layout_gravity="center_vertical"
+					android:text="GPS"></TextView>
+				<Spinner android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/spGps"></Spinner>
+			</TableRow>
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/TableRowWifi">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Wifi" android:paddingRight="5dp"
+					android:layout_gravity="center_vertical"></TextView>
+				<Spinner android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/spWifi"></Spinner>
+			</TableRow>
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:paddingRight="5dp" android:layout_gravity="center_vertical"
+					android:text="Bluetooth"></TextView>
+				<Spinner android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/spBluetooth"></Spinner>
+
+</TableRow>
+		</TableLayout>
+
 
 
 
@@ -50,3 +105,4 @@
 
 
 </LinearLayout>
+</ScrollView>

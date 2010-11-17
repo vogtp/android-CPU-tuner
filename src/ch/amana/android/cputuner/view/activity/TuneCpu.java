@@ -1,17 +1,20 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -37,6 +40,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView tvExplainGov;
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
+	private TextView tvMessage;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -44,6 +48,11 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cur_cpu_info);
 		cpuHandler = CpuHandler.getInstance();
+
+		CapabilityChecker capabilityChecker = CapabilityChecker.getInstance();
+		if (capabilityChecker.hasIssues()) {
+			getMessageTextView().setText("Found some issues, some features might not work.");
+		}
 
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
@@ -114,8 +123,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			private int maxCpuFreq;
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -196,6 +203,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			}
 		}
 		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
+			setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
 			labelCpuFreqMax.setText(R.string.labelCpuFreq);
 			labelCpuFreqMin.setVisibility(View.INVISIBLE);
 			tvCpuFreqMin.setVisibility(View.INVISIBLE);
@@ -212,4 +220,16 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	public void acPowerChanged() {
 		tvAcPower.setText(PowerProfiles.getAcPower() ? "Yes" : "No");
 	}
+
+	private TextView getMessageTextView() {
+		if (tvMessage == null) {
+			tvMessage = new TextView(this);
+			tvMessage.setTextColor(Color.RED);
+			tvMessage.setTextSize(20);
+			LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
+			ll.addView(tvMessage);
+		}
+		return tvMessage;
+	}
+
 }
