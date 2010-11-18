@@ -57,7 +57,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isDisableDisplayIssues() {
-		return getPreferences().getBoolean(DISABLE_DISPLAY_ISSUES, true);
+		return getPreferences().getBoolean(DISABLE_DISPLAY_ISSUES, false);
 	}
 
 	public void setDisableDisplayIssues(boolean display) {
