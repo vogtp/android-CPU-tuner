@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="fill_parent" android:layout_width="fill_parent">
+	<LinearLayout android:layout_height="fill_parent"
+		android:layout_width="fill_parent" android:id="@+id/llTop"
+		android:orientation="vertical">
+		<TextView android:layout_height="wrap_content" android:id="@+id/tvSummary"
+			android:text="No issues found." android:layout_width="fill_parent"></TextView>
+		<TableLayout android:id="@+id/tlCapabilities"
+			android:layout_height="fill_parent" android:layout_width="fill_parent" android:paddingTop="20dp">
+
+<TableRow android:id="@+id/TableRow01" android:layout_height="wrap_content" android:layout_width="fill_parent"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Capability" android:paddingRight="10dp" android:textStyle="bold"></TextView><TextView android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Read" android:paddingRight="10dp" android:textStyle="bold"></TextView><TextView android:id="@+id/TextView03" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Write" android:paddingRight="10dp" android:textStyle="bold"></TextView>
+</TableRow>
+</TableLayout>
+
+<CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Acknowledge issues and hide from main screen." android:id="@+id/cbAcknowledge" android:layout_weight=".2" android:layout_gravity="bottom" android:paddingTop="20dp"></CheckBox>
+</LinearLayout>
+
+
+</ScrollView>

@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 public class SettingsStorage {
@@ -12,6 +13,7 @@ public class SettingsStorage {
 	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
 	public static final String ENABLE_TOAST_NOTI = "prefKeyToastNotifications";
+	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
 	private static SettingsStorage instance;
 	private final Context context;
 
@@ -54,4 +56,13 @@ public class SettingsStorage {
 		return getPreferences().getBoolean(ENABLE_TOAST_NOTI, false);
 	}
 
+	public boolean isDisableDisplayIssues() {
+		return getPreferences().getBoolean(DISABLE_DISPLAY_ISSUES, true);
+	}
+
+	public void setDisableDisplayIssues(boolean display) {
+		Editor edit = getPreferences().edit();
+		edit.putBoolean(DISABLE_DISPLAY_ISSUES, display);
+		edit.commit();
+	}
 }

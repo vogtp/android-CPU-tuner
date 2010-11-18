@@ -1,9 +1,11 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -48,11 +50,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cur_cpu_info);
 		cpuHandler = CpuHandler.getInstance();
-
-		CapabilityChecker capabilityChecker = CapabilityChecker.getInstance();
-		if (capabilityChecker.hasIssues()) {
-			getMessageTextView().setText("Found some issues, some features might not work.");
-		}
 
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
@@ -155,6 +152,19 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		super.onResume();
 		PowerProfiles.registerCallback(this);
 		updateView();
+
+		if (SettingsStorage.getInstance().isDisableDisplayIssues()) {
+			if (tvMessage != null) {
+				LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
+				ll.removeView(tvMessage);
+				tvMessage = null;
+			}
+		} else {
+			CapabilityChecker capabilityChecker = CapabilityChecker.getInstance();
+			if (capabilityChecker.hasIssues()) {
+				getMessageTextView().setText(capabilityChecker.getSummary() + "(Tap for more information.)");
+			}
+		}
 	}
 
 	@Override
@@ -225,11 +235,17 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		if (tvMessage == null) {
 			tvMessage = new TextView(this);
 			tvMessage.setTextColor(Color.RED);
-			tvMessage.setTextSize(20);
+			tvMessage.setTextSize(18);
+			tvMessage.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					startActivity(new Intent(TuneCpu.this, CapabilityCheckerActivity.class));
+				}
+			});
 			LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
 			ll.addView(tvMessage);
 		}
 		return tvMessage;
 	}
-
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -12,6 +13,7 @@ import ch.amana.android.cputuner.helper.SystemAppHelper;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
+import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
@@ -21,6 +23,18 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.settings_preferences);
+
+		Preference capabilityPreference = findPreference("prefKeyCapabilities");
+		capabilityPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent intent = new Intent(SettingsPreferenceActivity.this, CapabilityCheckerActivity.class);
+				intent.putExtra(CapabilityCheckerActivity.EXTRA_RECHEK, true);
+				startActivity(intent);
+				return true;
+			}
+		});
 
 		Preference enableProfilePreference = findPreference(SettingsStorage.ENABLE_PROFILES);
 		enableProfilePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {

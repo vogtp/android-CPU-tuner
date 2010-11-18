@@ -166,14 +166,27 @@ public class CapabilityChecker {
 	}
 
 	public static CapabilityChecker getInstance() {
-		if (instance == null) {
+		return getInstance(false);
+	}
+
+	public static CapabilityChecker getInstance(boolean recheck) {
+		if (instance == null || recheck) {
 			instance = new CapabilityChecker();
 		}
 		return instance;
 	}
 
-	public boolean isReadCurFreq() {
-		return readUserCpuFreq = false;
+	public CharSequence getSummary() {
+		if (!rooted) {
+			return "The device does not seem to be rooted. All CPU related features will not work.";
+		} else if (hasIssues()) {
+			return "Found some issues... Some features might not work.";
+		}
+		return "No issues found...";
+	}
+
+	public boolean isReadUserCpuFreq() {
+		return readUserCpuFreq;
 	}
 
 }
