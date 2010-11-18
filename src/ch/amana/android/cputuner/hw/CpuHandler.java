@@ -76,6 +76,10 @@ public class CpuHandler {
 		return moveCurListElementTop(createListStr(readFile(SCALING_AVAILABLE_GOVERNORS)), getCurCpuGov());
 	}
 
+	public boolean hasGovernor(String governor) {
+		return readFile(SCALING_AVAILABLE_GOVERNORS).contains(governor);
+	}
+
 	public int getMaxCpuFreq() {
 		int i = -1;
 		String intString = readFile(SCALING_MAX_FREQ);
