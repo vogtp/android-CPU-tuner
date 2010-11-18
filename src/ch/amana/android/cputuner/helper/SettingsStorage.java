@@ -65,4 +65,8 @@ public class SettingsStorage {
 		edit.putBoolean(DISABLE_DISPLAY_ISSUES, display);
 		edit.commit();
 	}
+
+	public boolean isEnableBeta() {
+		return "speedup".equals(getPreferences().getString("prefKeyEnableBeta", ""));
+	}
 }

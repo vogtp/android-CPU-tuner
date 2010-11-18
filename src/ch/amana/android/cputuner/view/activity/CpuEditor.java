@@ -18,6 +18,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
@@ -162,7 +163,7 @@ public class CpuEditor extends Activity {
 			}
 		});
 
-		if (RootHandler.isSystemApp(this)) {
+		if (SettingsStorage.getInstance().isEnableBeta() || RootHandler.isSystemApp(this)) {
 			spGps.setAdapter(getSystemsAdapter());
 			spGps.setOnItemSelectedListener(new OnItemSelectedListener() {
 
