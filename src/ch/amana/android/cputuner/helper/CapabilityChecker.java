@@ -56,6 +56,12 @@ public class CapabilityChecker {
 			readGovernor = false;
 			return;
 		}
+
+		// MDJ Clean 2.4 + Kernel S6.1
+		if ("smartass".equals(activeGov)) {
+			readGovernor = false;
+			return;
+		}
 		readGovernor = true;
 		String newGov = activeGov;
 		for (int i = 0; activeGov.equals(newGov) && i < govs.length; i++) {
