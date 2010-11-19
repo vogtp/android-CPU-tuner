@@ -75,6 +75,13 @@ public class CpuEditor extends Activity {
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
+		if (cpu.getMinFreq() < cpuHandler.getMinimumSensibleFrequency()
+				&& !SettingsStorage.getInstance().isPowerUser()) {
+			if (availCpuFreqs != null && availCpuFreqs.length > 0) {
+				cpu.setMinFreq(availCpuFreqs[0]);
+			}
+		}
+
 		if (CpuModel.NO_VALUE_INT == cpu.getMinFreq() && availCpuFreqs.length > 0) {
 			cpu.setMinFreq(cpuHandler.getMinCpuFreq());
 		}
