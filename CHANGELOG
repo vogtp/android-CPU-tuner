@@ -1,0 +1,10 @@
+V 
+* features
+- user definable triggers and profiles
+- possibility from beta feature
+- settings rework
+- power user mode
+* bugfixes
+- remove capabilities check from main screen
+- install is system app is beta 
+- 'minor' things
