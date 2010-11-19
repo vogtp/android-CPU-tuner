@@ -99,11 +99,19 @@ public class SystemAppHelper implements OnClickListener {
 
 	public static boolean install(Context ctx, boolean toSystem) {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
-		alertBuilder.setTitle(toSystem ? "Install cpu tuner as system app" : "Uninstall cpu tuner as system app");
-		alertBuilder.setMessage("Requires a reboot, by pressing 'install and reboot' the device will reboot.");
+		String title = "Unnstall cpu tuner as system app";
+		String yesButton = "Unnstall and reboot";
+		String message = "Requires a reboot, by pressing 'Unnstall and reboot' the device will reboot.";
+		if (toSystem) {
+			title = "Install cpu tuner as system app";
+			yesButton = "Install and reboot";
+			message = "Requires a reboot, by pressing 'install and reboot' the device will reboot.";
+		}
+		alertBuilder.setTitle(title);
+		alertBuilder.setMessage(message);
 		alertBuilder.setCancelable(false);
 		SystemAppHelper listener = new SystemAppHelper(ctx, toSystem);
-		alertBuilder.setPositiveButton("Install and reboot", listener);
+		alertBuilder.setPositiveButton(yesButton, listener);
 		alertBuilder.setNegativeButton("Cancel", null);
 		AlertDialog alert = alertBuilder.create();
 		alert.show();
