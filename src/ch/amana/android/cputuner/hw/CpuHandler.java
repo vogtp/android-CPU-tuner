@@ -2,9 +2,13 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.CpuModel;
 
 public class CpuHandler {
@@ -126,7 +130,27 @@ public class CpuHandler {
 	}
 
 	public int[] getAvailCpuFreq() {
-		return createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
+		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
+		if (SettingsStorage.getInstance().isPowerUser()) {
+			return freqs;
+		}
+
+		List<Integer> freqList = new ArrayList<Integer>(freqs.length);
+		for (int i = 0; i < freqs.length; i++) {
+			if (freqs[i] > getMinimumSensibleFrequency()) {
+				freqList.add(freqs[i]);
+			}
+		}
+		freqs = new int[freqList.size()];
+		int i = 0;
+		for (Iterator<Integer> iterator = freqList.iterator(); iterator.hasNext();) {
+			freqs[i++] = iterator.next();
+		}
+		return freqs;
+	}
+
+	private int getMinimumSensibleFrequency() {
+		return 400;
 	}
 
 	private String[] moveCurListElementTop(String[] list, String topElement) {
