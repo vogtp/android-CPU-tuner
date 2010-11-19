@@ -78,9 +78,9 @@ public class PowerProfiles {
 					applyGpsState(currentProfile.getGpsState());
 					applyBluetoothState(currentProfile.getBluetoothState());
 					applyMobiledataState(currentProfile.getMobiledataState());
-					Log.i(Logger.TAG, "Changed to profile " + currentProfile.getProfileName() + " using trigger " + currentTrigger.getName()
-							+ " on batterylevel "
-							+ batteryLevel);
+					Log.w(Logger.TAG, "Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
+							+ "< on batterylevel "
+							+ batteryLevel + "%");
 					StringBuilder sb = new StringBuilder(50);
 					if (force) {
 						sb.append("Reappling power profile ");
