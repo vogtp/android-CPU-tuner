@@ -69,4 +69,9 @@ public class SettingsStorage {
 	public boolean isEnableBeta() {
 		return "speedup".equals(getPreferences().getString("prefKeyEnableBeta", ""));
 	}
+
+	public boolean isPowerUser() {
+		return getPreferences().getBoolean("prefKeyPowerUser", false);
+	}
+
 }
