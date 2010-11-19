@@ -67,8 +67,6 @@ public class TriggerModel {
 		ContentValues values = new ContentValues();
 		if (id > -1) {
 			values.put(DB.NAME_ID, id);
-		} else {
-			values.put(DB.NAME_ID, -1);
 		}
 		values.put(DB.Trigger.NAME_TRIGGER_NAME, getName());
 		values.put(DB.Trigger.NAME_BATTERY_LEVEL, getBatteryLevel());
@@ -125,6 +123,10 @@ public class TriggerModel {
 
 	public long getDbId() {
 		return id;
+	}
+
+	public void setDbId(long id) {
+		this.id = id;
 	}
 
 }

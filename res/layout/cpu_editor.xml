@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:id="@+id/ScrollView01"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="wrap_content">
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
 	<LinearLayout android:orientation="vertical"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:padding="5dp">
 
-		<LinearLayout android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/LinearLayoutProfile">
+		<LinearLayout android:layout_height="wrap_content"
+			android:id="@+id/LinearLayoutProfile" android:layout_width="fill_parent">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/labelPowerProfile"
 				android:text="@string/labelPowerProfile" android:paddingRight="5dp"
 				android:textSize="22sp"></TextView>
-			<TextView android:text="@+id/TextView01"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:id="@+id/tvPowerProfile" android:textSize="22sp"></TextView>
+			<EditText android:layout_height="wrap_content" android:id="@+id/etName"
+				android:layout_width="fill_parent"></EditText>
+
 		</LinearLayout>
 		<LinearLayout android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/llCpuGov"
@@ -95,7 +95,7 @@
 				<Spinner android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:id="@+id/spBluetooth"></Spinner>
 
-</TableRow>
+			</TableRow>
 		</TableLayout>
 
 
@@ -104,5 +104,5 @@
 
 
 
-</LinearLayout>
+	</LinearLayout>
 </ScrollView>

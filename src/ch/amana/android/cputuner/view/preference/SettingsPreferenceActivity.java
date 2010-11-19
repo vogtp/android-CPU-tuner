@@ -68,8 +68,11 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+
 		CheckBoxPreference systemAppPreference = (CheckBoxPreference) findPreference("prefKeySystemApp");
-		systemAppPreference.setChecked(RootHandler.isSystemApp(this));
+		boolean isRooted = RootHandler.isSystemApp(this);
+		systemAppPreference.setEnabled(isRooted || SettingsStorage.getInstance().isEnableBeta());
+		systemAppPreference.setChecked(isRooted);
 		systemAppPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override

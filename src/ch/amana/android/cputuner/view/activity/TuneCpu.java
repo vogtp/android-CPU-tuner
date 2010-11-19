@@ -153,16 +153,18 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		PowerProfiles.registerCallback(this);
 		updateView();
 
-		if (SettingsStorage.getInstance().isDisableDisplayIssues()) {
-			if (tvMessage != null) {
-				LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
-				ll.removeView(tvMessage);
-				tvMessage = null;
-			}
-		} else {
-			CapabilityChecker capabilityChecker = CapabilityChecker.getInstance();
-			if (capabilityChecker.hasIssues()) {
-				getMessageTextView().setText(capabilityChecker.getSummary() + "(Tap for more information.)");
+		if (SettingsStorage.getInstance().isEnableBeta()) {
+			if (SettingsStorage.getInstance().isDisableDisplayIssues()) {
+				if (tvMessage != null) {
+					LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
+					ll.removeView(tvMessage);
+					tvMessage = null;
+				}
+			} else {
+				CapabilityChecker capabilityChecker = CapabilityChecker.getInstance();
+				if (capabilityChecker.hasIssues()) {
+					getMessageTextView().setText(capabilityChecker.getSummary() + "(Tap for more information.)");
+				}
 			}
 		}
 	}
@@ -204,6 +206,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 			tvCurrentProfile.setText(R.string.notEnabled);
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
+
 		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
 		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
 		String curGov = cpuHandler.getCurCpuGov();
@@ -212,6 +215,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 				spinnerSetGov.setSelection(i);
 			}
 		}
+
 		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
 			setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
 			labelCpuFreqMax.setText(R.string.labelCpuFreq);

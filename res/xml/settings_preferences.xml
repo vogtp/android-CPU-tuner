@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-
-
 	<Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities"
 		android:summary="@string/prefCapabilitiesLong"></Preference>
 	<PreferenceScreen android:title="@string/prefCatSystem">
@@ -30,5 +27,7 @@
 			android:title="@string/prefToastNotifications" android:defaultValue="false"></CheckBoxPreference>
 
 	</PreferenceScreen>
-	<EditTextPreference android:key="prefKeyEnableBeta" android:title="@string/prefEnableBeta"></EditTextPreference>
+	<EditTextPreference android:key="prefKeyEnableBeta"
+		android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage"
+		android:dialogTitle="@string/prefEnableBeta"></EditTextPreference>
 </PreferenceScreen>

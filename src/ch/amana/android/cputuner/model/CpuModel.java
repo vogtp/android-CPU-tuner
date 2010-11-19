@@ -87,8 +87,6 @@ public class CpuModel {
 		ContentValues values = new ContentValues();
 		if (id > -1) {
 			values.put(DB.NAME_ID, id);
-		} else {
-			values.put(DB.NAME_ID, -1);
 		}
 
 		values.put(DB.CpuProfile.NAME_PROFILE_NAME, getProfileName());
@@ -183,6 +181,10 @@ public class CpuModel {
 
 	public int getMobiledataState() {
 		return mobiledataState;
+	}
+
+	public void setDbId(long id) {
+		this.id = id;
 	}
 
 }

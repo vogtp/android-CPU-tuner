@@ -1,17 +1,28 @@
 package ch.amana.android.cputuner.view.activity;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.content.ContentUris;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggersListActivity extends ListActivity {
@@ -21,10 +32,6 @@ public class TriggersListActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle("Triggers");
-
-		// setContentView(R.layout.listview);
-		// ((TextView)
-		// findViewById(R.id.tvExplain)).setText(R.string.triggersExplain);
 
 		Cursor c = managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 
@@ -54,6 +61,7 @@ public class TriggersListActivity extends ListActivity {
 		});
 
 		getListView().setAdapter(adapter);
+		getListView().setOnCreateContextMenuListener(this);
 	}
 
 	@Override
@@ -63,6 +71,76 @@ public class TriggersListActivity extends ListActivity {
 
 		startActivity(new Intent(Intent.ACTION_EDIT, uri));
 
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.list_context, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		super.onContextItemSelected(item);
+
+		AdapterView.AdapterContextMenuInfo info;
+		try {
+			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+		} catch (ClassCastException e) {
+			Log.e(Logger.TAG, "bad menuInfo", e);
+			return false;
+		}
+
+		final Uri uri = ContentUris.withAppendedId(DB.Trigger.CONTENT_URI, info.id);
+		switch (item.getItemId()) {
+		case R.id.menuItemDelete:
+			deleteTrigger(uri);
+			return true;
+
+		case R.id.menuItemEdit:
+			startActivity(new Intent(Intent.ACTION_EDIT, uri));
+			return true;
+
+		default:
+			return handleCommonMenu(item);
+		}
+
+	}
+
+	private void deleteTrigger(final Uri uri) {
+		Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setTitle("Delete");
+		alertBuilder.setMessage("Delete selected item?");
+		alertBuilder.setNegativeButton(android.R.string.no, null);
+		alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				getContentResolver().delete(uri, null, null);
+			}
+		});
+		AlertDialog alert = alertBuilder.create();
+		alert.show();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.list_option, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return handleCommonMenu(item);
+	}
+
+	private boolean handleCommonMenu(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menuItemInsert:
+			startActivity(new Intent(Intent.ACTION_INSERT, DB.Trigger.CONTENT_URI));
+			break;
+		}
+		return false;
 	}
 
 }

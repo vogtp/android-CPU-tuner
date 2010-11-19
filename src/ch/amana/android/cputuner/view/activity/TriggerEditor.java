@@ -35,7 +35,6 @@ public class TriggerEditor extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trigger_editor);
 
-		// FIXME get profiles
 		availProfiles = CpuHandler.getInstance().getAvailCpuGov();
 
 		String action = getIntent().getAction();
@@ -93,6 +92,7 @@ public class TriggerEditor extends Activity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		updateModel();
 		triggerModel.saveToBundle(outState);
 		super.onSaveInstanceState(outState);
 	}

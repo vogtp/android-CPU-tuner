@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="menuItemInsert">Insert</string>
+    <string name="menuItemEdit">Edit</string>
+    <string name="menuItemDelete">Delete</string>
+    <string name="prefEnableBetaMessage">Enable some features wich are in beta state.</string>
     <string name="prefEnableBeta">Enable beta features</string>
     <string name="prefCapabilitiesLong">Check if the devices supports API needed or if there are any issues.</string>
     <string name="prefCapabilities">Check Capabilities</string>

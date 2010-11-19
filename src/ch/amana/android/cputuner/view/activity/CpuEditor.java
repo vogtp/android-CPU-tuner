@@ -2,14 +2,17 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -42,6 +45,7 @@ public class CpuEditor extends Activity {
 	private Spinner spBluetooth;
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
+	private EditText etName;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -57,6 +61,9 @@ public class CpuEditor extends Activity {
 				origCpu = new CpuModel(c);
 			}
 			c.close();
+		} else if (Intent.ACTION_EDIT.equals(action)) {
+			cpu = CpuHandler.getInstance().getCurrentCpuSettings();
+			origCpu = CpuHandler.getInstance().getCurrentCpuSettings();
 		}
 
 		if (cpu == null) {
@@ -75,7 +82,7 @@ public class CpuEditor extends Activity {
 			cpu.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
-		((TextView) findViewById(R.id.tvPowerProfile)).setText(cpu.getProfileName());
+		etName = (EditText) findViewById(R.id.etName);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
 		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
@@ -208,8 +215,13 @@ public class CpuEditor extends Activity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		updateModel();
 		cpu.saveToBundle(outState);
 		super.onSaveInstanceState(outState);
+	}
+
+	private void updateModel() {
+		cpu.setProfileName(etName.getText().toString());
 	}
 
 	@Override
@@ -230,10 +242,15 @@ public class CpuEditor extends Activity {
 
 	@Override
 	protected void onPause() {
+		updateModel();
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
-				// not yet implemented
+				Uri uri = getContentResolver().insert(DB.CpuProfile.CONTENT_URI, cpu.getValues());
+				long id = ContentUris.parseId(uri);
+				if (id > 0) {
+					cpu.setDbId(id);
+				}
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (origCpu.equals(cpu)) {
 					return;
@@ -248,6 +265,7 @@ public class CpuEditor extends Activity {
 	}
 
 	private void updateView() {
+		etName.setText(cpu.getProfileName());
 		setSeekbar(cpu.getMaxFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
 		setSeekbar(cpu.getMinFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
 		String curGov = cpu.getGov();
