@@ -17,13 +17,14 @@ import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
+	private CheckBoxPreference systemAppPreference;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.settings_preferences);
-		final SettingsStorage settings = SettingsStorage.getInstance();
 
 		Preference capabilityPreference = findPreference("prefKeyCapabilities");
 		capabilityPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -61,7 +62,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				if (newValue instanceof Boolean) {
-					if (settings.isEnableProfiles()) {
+					if (SettingsStorage.getInstance().isEnableProfiles()) {
 						Intent intent = new Intent(SettingsPreferenceActivity.this, BatteryService.class);
 						startService(intent);
 					}
@@ -70,10 +71,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
-		CheckBoxPreference systemAppPreference = (CheckBoxPreference) findPreference("prefKeySystemApp");
-		boolean isSystemApp = RootHandler.isSystemApp(this);
-		systemAppPreference.setEnabled(settings.isEnableBeta() || isSystemApp || settings.isPowerUser());
-		systemAppPreference.setChecked(isSystemApp);
+		systemAppPreference = (CheckBoxPreference) findPreference("prefKeySystemApp");
+		systemAppPreference.setChecked(RootHandler.isSystemApp(this));
 		systemAppPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override
@@ -82,5 +81,12 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		systemAppPreference.setEnabled(RootHandler.isSystemApp(this)
+				|| (SettingsStorage.getInstance().isEnableBeta() && SettingsStorage.getInstance().isPowerUser()));
 	}
 }
