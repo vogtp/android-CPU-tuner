@@ -25,16 +25,23 @@ public class InstallHelper {
 			Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
 			if (cT == null || cT.getCount() < 1) {
 				Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
-				int freqMax = CpuHandler.getInstance().getMaxCpuFreq();
-				int freqMin = CpuHandler.getInstance().getMinCpuFreq();
-				String gov = CpuHandler.getInstance().getCurCpuGov();
+				CpuHandler cpuHandler = CpuHandler.getInstance();
+				int freqMax = cpuHandler.getMaxCpuFreq();
+				int freqMin = cpuHandler.getMinCpuFreq();
+				if (freqMin < cpuHandler.getMinimumSensibleFrequency()) {
+					int[] availCpuFreq = cpuHandler.getAvailCpuFreq();
+					if (availCpuFreq != null && availCpuFreq.length > 0) {
+						freqMin = availCpuFreq[0];
+					}
+				}
+				String gov = cpuHandler.getCurCpuGov();
 
-				List<String> availGov = Arrays.asList(CpuHandler.getInstance().getAvailCpuGov());
+				List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
 				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
 				long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
 				long profileScreenOff = createCpuProfile(resolver, "Screen off", getSaveGov(availGov, gov), freqMax, freqMin);
-				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
+				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin);
 				long profileExtremPowersave = createCpuProfile(resolver, "Extrem powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
 
 				createTrigger(resolver, "Battery full", 100, profileScreenOff, profileNormal, profilePerformance);

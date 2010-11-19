@@ -144,7 +144,7 @@ public class CpuHandler {
 		return freqs;
 	}
 
-	private int getMinimumSensibleFrequency() {
+	public int getMinimumSensibleFrequency() {
 		return 400000;
 	}
 
