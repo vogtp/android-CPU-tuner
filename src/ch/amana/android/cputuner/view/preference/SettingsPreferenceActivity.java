@@ -23,6 +23,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.settings_preferences);
+		final SettingsStorage settings = SettingsStorage.getInstance();
 
 		Preference capabilityPreference = findPreference("prefKeyCapabilities");
 		capabilityPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -60,7 +61,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				if (newValue instanceof Boolean) {
-					if (SettingsStorage.getInstance().isEnableProfiles()) {
+					if (settings.isEnableProfiles()) {
 						Intent intent = new Intent(SettingsPreferenceActivity.this, BatteryService.class);
 						startService(intent);
 					}
@@ -70,9 +71,9 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		});
 
 		CheckBoxPreference systemAppPreference = (CheckBoxPreference) findPreference("prefKeySystemApp");
-		boolean isRooted = RootHandler.isSystemApp(this);
-		systemAppPreference.setEnabled(isRooted || SettingsStorage.getInstance().isEnableBeta());
-		systemAppPreference.setChecked(isRooted);
+		boolean isSystemApp = RootHandler.isSystemApp(this);
+		systemAppPreference.setEnabled(settings.isEnableBeta() || isSystemApp || settings.isPowerUser());
+		systemAppPreference.setChecked(isSystemApp);
 		systemAppPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override
