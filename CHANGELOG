@@ -1,9 +1,10 @@
-V 
+V 0.9.5
 * features
 - user definable triggers and profiles
 - possibility from beta feature
 - settings rework
 - power user mode
+- remove frequencies < 400 MHz for non power users
 * bugfixes
 - remove capabilities check from main screen
 - install is system app is beta 

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefPowerUserOn">You\'re the boss!</string>
+    <string name="prefPowerUserOff">cpu tuner tries to be clever...</string>
+    <string name="prefPowerUser">Power user mode</string>
     <string name="menuItemInsert">Insert</string>
     <string name="menuItemEdit">Edit</string>
     <string name="menuItemDelete">Delete</string>

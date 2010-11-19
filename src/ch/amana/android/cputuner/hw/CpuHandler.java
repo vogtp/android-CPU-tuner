@@ -150,7 +150,7 @@ public class CpuHandler {
 	}
 
 	private int getMinimumSensibleFrequency() {
-		return 400;
+		return 400000;
 	}
 
 	private String[] moveCurListElementTop(String[] list, String topElement) {
