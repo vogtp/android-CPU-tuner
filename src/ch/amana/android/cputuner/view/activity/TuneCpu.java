@@ -43,6 +43,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private TextView tvMessage;
+	private TextView tvBatteryCurrent;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -59,6 +60,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
 		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
 		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
+		tvBatteryCurrent = (TextView) findViewById(R.id.tvBatteryCurrent);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
@@ -180,6 +182,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		profileChanged();
 		acPowerChanged();
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
+		tvBatteryCurrent.setText(cpuHandler.getBatteryCurrentNow() + " mA (avg: " + cpuHandler.getBatteryCurrentAverage() + " mA)");
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

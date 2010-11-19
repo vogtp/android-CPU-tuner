@@ -32,6 +32,11 @@ public class CpuHandler {
 	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
 	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
 
+	private static final String CURRENT_NOW = "current_now";
+	private static final String CURRENT_AVG = "current_avg";
+
+	private static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
+
 	private final Object semaphore = new Object();
 
 	private static CpuHandler instance = null;
@@ -57,15 +62,18 @@ public class CpuHandler {
 		}
 	}
 
-	public int getCurCpuFreq() {
+	public int getIntFromStr(String intString) {
 		int i = -1;
-		String intString = readFile(SCALING_CUR_FREQ);
 		try {
 			i = Integer.parseInt(intString);
 		} catch (Exception e) {
 			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
 		}
 		return i;
+	}
+
+	public int getCurCpuFreq() {
+		return getIntFromStr(readFile(SCALING_CUR_FREQ));
 	}
 
 	public String getCurCpuGov() {
@@ -85,14 +93,7 @@ public class CpuHandler {
 	}
 
 	public int getMaxCpuFreq() {
-		int i = -1;
-		String intString = readFile(SCALING_MAX_FREQ);
-		try {
-			i = Integer.parseInt(intString);
-		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
-		}
-		return i;
+		return getIntFromStr(readFile(SCALING_MAX_FREQ));
 	}
 
 	public boolean setUserCpuFreq(int val) {
@@ -104,25 +105,19 @@ public class CpuHandler {
 	}
 
 	public int getUserCpuFreq() {
-		int i = -1;
-		String intString = readFile(SCALING_SETSPEED);
-		try {
-			i = Integer.parseInt(intString);
-		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
-		}
-		return i;
+		return getIntFromStr(readFile(SCALING_SETSPEED));
 	}
 
 	public int getMinCpuFreq() {
-		int i = -1;
-		String intString = readFile(SCALING_MIN_FREQ);
-		try {
-			i = Integer.parseInt(intString);
-		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
-		}
-		return i;
+		return getIntFromStr(readFile(SCALING_MIN_FREQ));
+	}
+
+	public int getBatteryCurrentNow() {
+		return getIntFromStr(readFile(BATTERY_DIR, CURRENT_NOW)) / 1000;
+	}
+
+	public int getBatteryCurrentAverage() {
+		return getIntFromStr(readFile(BATTERY_DIR, CURRENT_AVG)) / 1000;
 	}
 
 	public boolean setMinCpuFreq(int i) {
@@ -197,12 +192,16 @@ public class CpuHandler {
 	}
 
 	private String readFile(String filename) {
+		return readFile(CPU_DIR, filename);
+	}
+
+	private String readFile(String directory, String filename) {
 		synchronized (semaphore) {
 			String val = "";
 			BufferedReader reader;
 			try {
 				Log.v(Logger.TAG, "Reading file >" + filename + "<");
-				reader = new BufferedReader(new FileReader(CPU_DIR + filename));
+				reader = new BufferedReader(new FileReader(directory + filename));
 				String line = reader.readLine();
 				while (line != null && !line.trim().equals("")) {
 					Log.v(Logger.TAG, "Read line >" + line + "<");

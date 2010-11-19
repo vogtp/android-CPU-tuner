@@ -40,14 +40,17 @@
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryLevel"></TextView>
 		</TableRow>
-		<TableRow android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/TableRowPower">
+		<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowPower">
+			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/labelAcPower" android:text="@+string/labelAcPower"></TextView>
+			<TextView android:text="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvAcPower"></TextView>
+		</TableRow><TableRow android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/TableRowBatteryCurrent">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
-				android:textSize="18sp" android:id="@+id/labelAcPower" android:text="@+string/labelAcPower"></TextView>
+				android:textSize="18sp" android:id="@+id/labelBatteryCurrent" android:text="Battery current:"></TextView>
 			<TextView android:text="@+id/TextView01"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvAcPower"></TextView>
+				android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryCurrent"></TextView>
 		</TableRow>
 	</TableLayout>
 	<LinearLayout android:layout_width="wrap_content"
