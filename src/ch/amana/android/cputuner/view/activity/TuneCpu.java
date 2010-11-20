@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.GuiUtils;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -75,13 +77,16 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-
-				int val = availCpuFreqs[seekBar.getProgress()];
-				if (val != cpuHandler.getMaxCpuFreq()) {
-					if (cpuHandler.setMaxCpuFreq(val)) {
-						Toast.makeText(TuneCpu.this, "Setting CPU max freq to " + val, Toast.LENGTH_LONG).show();
+				try {
+					int val = availCpuFreqs[seekBar.getProgress()];
+					if (val != cpuHandler.getMaxCpuFreq()) {
+						if (cpuHandler.setMaxCpuFreq(val)) {
+							Toast.makeText(TuneCpu.this, "Setting CPU max freq to " + val, Toast.LENGTH_LONG).show();
+						}
+						updateView();
 					}
-					updateView();
+				} catch (ArrayIndexOutOfBoundsException e) {
+					Log.e(Logger.TAG, "Cannot set max freq in gui", e);
 				}
 			}
 
@@ -99,13 +104,16 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-
-				int val = availCpuFreqs[seekBar.getProgress()];
-				if (val != cpuHandler.getMinCpuFreq()) {
-					if (cpuHandler.setMinCpuFreq(val)) {
-						Toast.makeText(TuneCpu.this, "Setting CPU min freq to " + val, Toast.LENGTH_LONG).show();
+				try {
+					int val = availCpuFreqs[seekBar.getProgress()];
+					if (val != cpuHandler.getMinCpuFreq()) {
+						if (cpuHandler.setMinCpuFreq(val)) {
+							Toast.makeText(TuneCpu.this, "Setting CPU min freq to " + val, Toast.LENGTH_LONG).show();
+						}
+						updateView();
 					}
-					updateView();
+				} catch (ArrayIndexOutOfBoundsException e) {
+					Log.e(Logger.TAG, "Cannot set min freq in gui", e);
 				}
 			}
 

@@ -109,11 +109,14 @@ public class CpuEditor extends Activity {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
+				try {
+					int val = availCpuFreqs[seekBar.getProgress()];
+					cpu.setMaxFreq(val);
+					updateView();
 
-				int val = availCpuFreqs[seekBar.getProgress()];
-				cpu.setMaxFreq(val);
-				updateView();
-
+				} catch (ArrayIndexOutOfBoundsException e) {
+					Log.e(Logger.TAG, "Cannot set max freq in gui", e);
+				}
 			}
 
 			@Override
@@ -130,11 +133,15 @@ public class CpuEditor extends Activity {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				if (!CpuHandler.GOV_USERSPACE.equals(cpu.getGov())) {
-					int val = availCpuFreqs[seekBar.getProgress()];
-					cpu.setMinFreq(val);
+				try {
+					if (!CpuHandler.GOV_USERSPACE.equals(cpu.getGov())) {
+						int val = availCpuFreqs[seekBar.getProgress()];
+						cpu.setMinFreq(val);
+					}
+					updateView();
+				} catch (ArrayIndexOutOfBoundsException e) {
+					Log.e(Logger.TAG, "Cannot set max freq in gui", e);
 				}
-				updateView();
 			}
 
 			@Override
