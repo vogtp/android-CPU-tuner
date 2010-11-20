@@ -37,8 +37,6 @@ public class CpuHandler {
 
 	private static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
 
-	private final Object semaphore = new Object();
-
 	private static CpuHandler instance = null;
 
 	public static CpuHandler getInstance() {
@@ -101,6 +99,9 @@ public class CpuHandler {
 	}
 
 	public boolean setMaxCpuFreq(int val) {
+		if (val < getMinCpuFreq()) {
+			return false;
+		}
 		return writeFile(SCALING_MAX_FREQ, val + "");
 	}
 
@@ -121,6 +122,9 @@ public class CpuHandler {
 	}
 
 	public boolean setMinCpuFreq(int i) {
+		if (i < getMaxCpuFreq()) {
+			return false;
+		}
 		return writeFile(SCALING_MIN_FREQ, i + "");
 	}
 
@@ -196,7 +200,7 @@ public class CpuHandler {
 	}
 
 	private String readFile(String directory, String filename) {
-		synchronized (semaphore) {
+		synchronized (filename) {
 			String val = "";
 			BufferedReader reader;
 			try {
@@ -223,7 +227,7 @@ public class CpuHandler {
 		if (val == null || val.equals(readFile(filename))) {
 			return false;
 		}
-		synchronized (semaphore) {
+		synchronized (filename) {
 			String path = CPU_DIR + filename;
 			Log.w(Logger.TAG, "Setting " + path + " to " + val);
 			return RootHandler.execute("echo " + val + " > " + path);
