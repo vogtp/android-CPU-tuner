@@ -8,8 +8,9 @@ V 0.9.6
 * features
 - force frequencies > 400 MHz for non power users
 - calculate power per trigger/profile combinations
+- get battery level on start
 * bug fixes
-- 
+- set min cpu freq
 
 V 0.9.5
 * features
