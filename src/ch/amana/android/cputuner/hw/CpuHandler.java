@@ -81,7 +81,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setMaxCpuFreq(int val) {
-		if (val < getMinCpuFreq()) {
+		if (val <= getMinCpuFreq()) {
 			return false;
 		}
 		return writeFile(SCALING_MAX_FREQ, val + "");
@@ -96,7 +96,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setMinCpuFreq(int i) {
-		if (i < getMaxCpuFreq()) {
+		if (i >= getMaxCpuFreq()) {
 			return false;
 		}
 		return writeFile(SCALING_MIN_FREQ, i + "");
