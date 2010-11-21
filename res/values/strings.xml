@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menuItemClearPowerCurrent">Clear power consumption</string>
+    <string name="prefKeyCalcPowerUsageLong">This might cost some battery</string>
+    <string name="prefKeyCalcPowerUsage">Calculate power usage</string>
+    <string name="menuItemClearPowerCurrent">Clear power usage</string>
     <string name="prefPowerUserOn">You\'re the boss!</string>
     <string name="prefPowerUserOff">cpu tuner tries to be clever...</string>
     <string name="prefPowerUser">Power user mode</string>
@@ -40,8 +42,8 @@
     <string name="labelCpuFreq">Frequency</string>
     <string name="labelCpuGov">Governor</string>
     <string name="labelCurrent">Current</string>
-    <string name="labelCurrentTrigger">Current Trigger:</string>
-    <string name="labelCurrentProfile">Current Profile:</string>
+    <string name="labelCurrentTrigger">Trigger:</string>
+    <string name="labelCurrentProfile">Profile:</string>
     <string name="labelCurrentBattery">Battery:</string>
     <string name="labelAcPower">AC Power:</string>
     <string name="labelMax">Max</string>

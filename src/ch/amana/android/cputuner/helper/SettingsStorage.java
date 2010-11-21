@@ -75,8 +75,8 @@ public class SettingsStorage {
 	}
 
 	public boolean isTrackCurrent() {
-		// TODO Auto-generated method stub
-		return true;
+		boolean boolean1 = getPreferences().getBoolean("prefKeyCalcPowerUsage", true);
+		return boolean1;
 	}
 
 }

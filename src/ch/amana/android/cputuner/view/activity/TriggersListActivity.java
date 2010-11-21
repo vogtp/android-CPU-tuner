@@ -24,6 +24,7 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -63,6 +64,12 @@ public class TriggersListActivity extends ListActivity {
 				} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_POW
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT) {
+
+					if (!SettingsStorage.getInstance().isTrackCurrent()) {
+						((TextView) view).setText("");
+						return true;
+					}
+
 					long cnt = 0;
 					double current = 0;
 					if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_POW) {
@@ -207,4 +214,13 @@ public class TriggersListActivity extends ListActivity {
 		return false;
 	}
 
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+
+		MenuItem menuItemClearPowerCurrent = menu.findItem(R.id.menuItemClearPowerCurrent);
+		menuItemClearPowerCurrent.setVisible(SettingsStorage.getInstance().isTrackCurrent());
+
+		return true;
+	}
 }
