@@ -41,7 +41,7 @@
     <string name="labelCurrent">Current</string>
     <string name="labelCurrentTrigger">Current Trigger:</string>
     <string name="labelCurrentProfile">Current Profile:</string>
-    <string name="labelCurrentBattery">Current Battery:</string>
+    <string name="labelCurrentBattery">Battery:</string>
     <string name="labelAcPower">AC Power:</string>
     <string name="labelMax">Max</string>
     <string name="labelMin">Min</string>

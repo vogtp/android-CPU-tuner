@@ -29,6 +29,8 @@ public class PowerProfiles {
 
 	private static List<IProfileChangeCallback> listeners;
 
+	private static boolean updateTrigger = true;;
+
 	public static void initContext(Context ctx) {
 		context = ctx;
 	}
@@ -48,6 +50,9 @@ public class PowerProfiles {
 	}
 
 	private static void applyPowerProfile(boolean force, boolean ignoreSettings) {
+		if (!updateTrigger) {
+			return;
+		}
 		if (!SettingsStorage.getInstance().isEnableProfiles()) {
 			if (!ignoreSettings) {
 				return;
@@ -56,6 +61,7 @@ public class PowerProfiles {
 		if (currentTrigger == null) {
 			return;
 		}
+		trackCurrent();
 
 		long profileId = currentTrigger.getBatteryProfileId();
 		if (screenOff) {
@@ -145,10 +151,49 @@ public class PowerProfiles {
 	public static void setBatteryLevel(int level) {
 		if (batteryLevel != level) {
 			batteryLevel = level;
+			if (SettingsStorage.getInstance().isTrackCurrent()) {
+				trackCurrent();
+			}
 			notifyBatteryLevel();
 			changeTrigger();
 			applyPowerProfile(false, false);
 		}
+	}
+
+	private static void trackCurrent() {
+		if (currentTrigger == null) {
+			return;
+		}
+		long powerCurrentSum = 0;
+		long powerCurrentCnt = 0;
+		if (screenOff) {
+			powerCurrentSum = currentTrigger.getPowerCurrentSumScreenLocked();
+			powerCurrentCnt = currentTrigger.getPowerCurrentCntScreenLocked();
+		} else if (acPower) {
+			powerCurrentSum = currentTrigger.getPowerCurrentSumPower();
+			powerCurrentCnt = currentTrigger.getPowerCurrentCntPower();
+		} else {
+			powerCurrentSum = currentTrigger.getPowerCurrentSumBattery();
+			powerCurrentCnt = currentTrigger.getPowerCurrentCntBattery();
+
+		}
+		// powerCurrentSum *= powerCurrentCnt;
+		powerCurrentSum += CpuHandler.getInstance().getBatteryCurrentNow();
+		powerCurrentCnt++;
+		if (screenOff) {
+			currentTrigger.setPowerCurrentSumScreenLocked(powerCurrentSum);
+			currentTrigger.setPowerCurrentCntScreenLocked(powerCurrentCnt);
+		} else if (acPower) {
+			currentTrigger.setPowerCurrentSumPower(powerCurrentSum);
+			currentTrigger.setPowerCurrentCntPower(powerCurrentCnt);
+		} else {
+			currentTrigger.setPowerCurrentSumBattery(powerCurrentSum);
+			currentTrigger.setPowerCurrentCntBattery(powerCurrentCnt);
+		}
+		updateTrigger = false;
+		context.getContentResolver().update(DB.Trigger.CONTENT_URI, currentTrigger.getValues(), DB.NAME_ID + "=?",
+				new String[] { currentTrigger.getDbId() + "" });
+		updateTrigger = true;
 	}
 
 	public static int getBatteryLevel() {

@@ -17,11 +17,14 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 2;
+		private static final int DATABASE_VERSION = 3;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
-				+ DB.Trigger.NAME_BATTERY_PROFILE_ID + " long," + DB.Trigger.NAME_POWER_PROFILE_ID + " long)";
+				+ DB.Trigger.NAME_BATTERY_PROFILE_ID + " long," + DB.Trigger.NAME_POWER_PROFILE_ID + " long,"
+				+ DB.Trigger.NAME_POWER_CURRENT_SUM_POW + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_POW + " long,"
+				+ DB.Trigger.NAME_POWER_CURRENT_SUM_BAT + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_BAT + " long,"
+				+ DB.Trigger.NAME_POWER_CURRENT_SUM_LCK + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_LCK + " long)";
 
 		private static final String CREATE_CPUPROFILES_TABLE = "create table if not exists " + CpuProfile.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
@@ -55,6 +58,14 @@ public interface DB {
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_MOBILEDATA_STATE + " int;");
 				// nobreak
 
+			case 2:
+				Log.w(LOG_TAG, "Upgrading to DB Version 3...");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_SUM_POW + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_CNT_POW + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_SUM_BAT + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_CNT_BAT + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_SUM_LCK + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_CNT_LCK + " long;");
 			default:
 				Log.w(LOG_TAG, "Finished DB upgrading!");
 				break;
@@ -80,16 +91,28 @@ public interface DB {
 		public static final String NAME_SCREEN_OFF_PROFILE_ID = "screenOffProfileId";
 		public static final String NAME_BATTERY_PROFILE_ID = "batteryProfileId";
 		public static final String NAME_POWER_PROFILE_ID = "powerProfileId";
+		public static final String NAME_POWER_CURRENT_SUM_POW = "powerCurrentSumPower";
+		public static final String NAME_POWER_CURRENT_CNT_POW = "powerCurrentCntPower";
+		public static final String NAME_POWER_CURRENT_SUM_BAT = "powerCurrentSumBattery";
+		public static final String NAME_POWER_CURRENT_CNT_BAT = "powerCurrentCntBattery";
+		public static final String NAME_POWER_CURRENT_SUM_LCK = "powerCurrentSumLocked";
+		public static final String NAME_POWER_CURRENT_CNT_LCK = "powerCurrentCntLocked";
 
 		public static final int INDEX_TRIGGER_NAME = 1;
 		public static final int INDEX_BATTERY_LEVEL = 2;
 		public static final int INDEX_SCREEN_OFF_PROFILE_ID = 3;
 		public static final int INDEX_BATTERY_PROFILE_ID = 4;
 		public static final int INDEX_POWER_PROFILE_ID = 5;
+		public static final int INDEX_POWER_CURRENT_SUM_POW = 6;
+		public static final int INDEX_POWER_CURRENT_CNT_POW = 7;
+		public static final int INDEX_POWER_CURRENT_SUM_BAT = 8;
+		public static final int INDEX_POWER_CURRENT_CNT_BAT = 9;
+		public static final int INDEX_POWER_CURRENT_SUM_LCK = 10;
+		public static final int INDEX_POWER_CURRENT_CNT_LCK = 11;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
-				NAME_BATTERY_PROFILE_ID,
-				NAME_POWER_PROFILE_ID };
+				NAME_BATTERY_PROFILE_ID, NAME_POWER_PROFILE_ID, NAME_POWER_CURRENT_SUM_POW, NAME_POWER_CURRENT_CNT_POW, NAME_POWER_CURRENT_SUM_BAT,
+				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String SORTORDER_DEFAULT = NAME_BATTERY_LEVEL + " DESC";

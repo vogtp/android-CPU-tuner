@@ -74,4 +74,9 @@ public class SettingsStorage {
 		return getPreferences().getBoolean("prefKeyPowerUser", false);
 	}
 
+	public boolean isTrackCurrent() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

@@ -39,6 +39,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			if (receiver != null) {
 				try {
 					context.unregisterReceiver(receiver);
+					receiver = null;
 				} catch (Throwable e) {
 					Log.w(Logger.TAG, "Could not unregister BatteryReceiver", e);
 				}

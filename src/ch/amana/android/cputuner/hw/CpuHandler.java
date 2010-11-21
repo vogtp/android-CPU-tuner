@@ -114,11 +114,11 @@ public class CpuHandler {
 	}
 
 	public int getBatteryCurrentNow() {
-		return getIntFromStr(readFile(BATTERY_DIR, CURRENT_NOW)) / 1000;
+		return Math.abs(getIntFromStr(readFile(BATTERY_DIR, CURRENT_NOW)) / 1000);
 	}
 
 	public int getBatteryCurrentAverage() {
-		return getIntFromStr(readFile(BATTERY_DIR, CURRENT_AVG)) / 1000;
+		return Math.abs(getIntFromStr(readFile(BATTERY_DIR, CURRENT_AVG)) / 1000);
 	}
 
 	public boolean setMinCpuFreq(int i) {

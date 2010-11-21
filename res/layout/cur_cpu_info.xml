@@ -47,7 +47,7 @@
 			android:layout_height="wrap_content" android:id="@+id/TableRowBatteryCurrent">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
-				android:textSize="18sp" android:id="@+id/labelBatteryCurrent" android:text="Battery current:"></TextView>
+				android:textSize="18sp" android:id="@+id/labelBatteryCurrent" android:text="Consumption:"></TextView>
 			<TextView android:text="@+id/TextView01"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryCurrent"></TextView>
