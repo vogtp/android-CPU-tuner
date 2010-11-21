@@ -5,7 +5,7 @@
 		android:layout_width="fill_parent" android:id="@+id/llTop"
 		android:orientation="vertical">
 		<TextView android:layout_height="wrap_content" android:id="@+id/tvSummary"
-			android:text="No issues found." android:layout_width="fill_parent"></TextView>
+			android:text="No issues found." android:layout_width="fill_parent" android:textSize="16sp"></TextView>
 		<TableLayout android:id="@+id/tlCapabilities"
 			android:layout_height="fill_parent" android:layout_width="fill_parent" android:paddingTop="20dp">
 
