@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -109,4 +110,30 @@ public class RootHandler {
 		});
 		return fileList;
 	}
+
+	static String readFile(String directory, String filename) {
+		synchronized (filename) {
+			String val = "";
+			BufferedReader reader;
+			try {
+				Log.v(Logger.TAG, "Reading file >" + filename + "<");
+				reader = new BufferedReader(new FileReader(directory + filename));
+				String line = reader.readLine();
+				while (line != null && !line.trim().equals("")) {
+					Log.v(Logger.TAG, "Read line >" + line + "<");
+					val += line;
+					line = reader.readLine();
+				}
+				reader.close();
+			} catch (Throwable e) {
+				Log.e(Logger.TAG, "Cannot open for reading " + filename, e);
+			}
+			if (val.trim().equals("")) {
+				val = NOT_AVAILABLE;
+			}
+			return val;
+		}
+	}
+
+	public static final String NOT_AVAILABLE = "not available";
 }

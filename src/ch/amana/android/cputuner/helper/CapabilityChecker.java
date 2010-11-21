@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.helper;
 
 import android.util.Log;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 public class CapabilityChecker {
@@ -52,7 +53,7 @@ public class CapabilityChecker {
 	private void checkSetGovernor() {
 		String[] govs = cpuHandler.getAvailCpuGov();
 		String activeGov = cpuHandler.getCurCpuGov();
-		if (CpuHandler.NOT_AVAILABLE.equals(activeGov)) {
+		if (RootHandler.NOT_AVAILABLE.equals(activeGov)) {
 			readGovernor = false;
 			return;
 		}
@@ -163,7 +164,7 @@ public class CapabilityChecker {
 		return readMinFreq;
 	}
 
-	public CpuHandler getCpuHandler() {
+	public HardwareHandler getCpuHandler() {
 		return cpuHandler;
 	}
 

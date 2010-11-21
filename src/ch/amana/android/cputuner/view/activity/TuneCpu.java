@@ -21,6 +21,7 @@ import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
@@ -190,7 +191,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		profileChanged();
 		acPowerChanged();
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
-		tvBatteryCurrent.setText(cpuHandler.getBatteryCurrentNow() + " mA (avg: " + cpuHandler.getBatteryCurrentAverage() + " mA)");
+		tvBatteryCurrent.setText(BatteryHandler.getBatteryCurrentNow() + " mA (avg: " + BatteryHandler.getBatteryCurrentAverage() + " mA)");
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

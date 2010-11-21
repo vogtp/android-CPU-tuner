@@ -10,6 +10,7 @@ import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -20,9 +21,9 @@ public class PowerProfiles {
 
 	private static Context context;
 
-	private static int batteryLevel = 80;
-	private static boolean acPower = false;
-	private static boolean screenOff = false;
+	private static int batteryLevel;
+	private static boolean acPower;
+	private static boolean screenOff;
 
 	private static CpuModel currentProfile;
 	private static TriggerModel currentTrigger;
@@ -31,8 +32,13 @@ public class PowerProfiles {
 
 	private static boolean updateTrigger = true;;
 
+	// FIXME make singelton class
+
 	public static void initContext(Context ctx) {
 		context = ctx;
+		batteryLevel = BatteryHandler.getBatteryLevel();
+		acPower = BatteryHandler.isOnAcPower();
+		screenOff = false;
 	}
 
 	public static void reapplyProfile(boolean force) {
@@ -182,7 +188,7 @@ public class PowerProfiles {
 
 		}
 		// powerCurrentSum *= powerCurrentCnt;
-		powerCurrentSum += CpuHandler.getInstance().getBatteryCurrentNow();
+		powerCurrentSum += BatteryHandler.getBatteryCurrentNow();
 		powerCurrentCnt++;
 		if (screenOff) {
 			currentTrigger.setPowerCurrentSumScreenLocked(powerCurrentSum);

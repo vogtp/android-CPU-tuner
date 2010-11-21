@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.hw;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,9 +9,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.CpuModel;
 
-public class CpuHandler {
-
-	public static final String NOT_AVAILABLE = "not available";
+public class CpuHandler extends HardwareHandler {
 
 	public static final String GOV_ONDEMAND = "ondemand";
 	public static final String GOV_POWERSAVE = "powersave";
@@ -32,11 +28,7 @@ public class CpuHandler {
 	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
 	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
 
-	private static final String CURRENT_NOW = "current_now";
-	private static final String CURRENT_AVG = "current_avg";
-
-	private static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
-
+	// FIXME convert to static helper
 	private static CpuHandler instance = null;
 
 	public static CpuHandler getInstance() {
@@ -58,16 +50,6 @@ public class CpuHandler {
 			setMaxCpuFreq(cpu.getMaxFreq());
 			setMinCpuFreq(cpu.getMinFreq());
 		}
-	}
-
-	public int getIntFromStr(String intString) {
-		int i = -1;
-		try {
-			i = Integer.parseInt(intString);
-		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
-		}
-		return i;
 	}
 
 	public int getCurCpuFreq() {
@@ -113,14 +95,6 @@ public class CpuHandler {
 		return getIntFromStr(readFile(SCALING_MIN_FREQ));
 	}
 
-	public int getBatteryCurrentNow() {
-		return Math.abs(getIntFromStr(readFile(BATTERY_DIR, CURRENT_NOW)) / 1000);
-	}
-
-	public int getBatteryCurrentAverage() {
-		return Math.abs(getIntFromStr(readFile(BATTERY_DIR, CURRENT_AVG)) / 1000);
-	}
-
 	public boolean setMinCpuFreq(int i) {
 		if (i < getMaxCpuFreq()) {
 			return false;
@@ -152,75 +126,8 @@ public class CpuHandler {
 		return 400000;
 	}
 
-	private String[] moveCurListElementTop(String[] list, String topElement) {
-		if (list == null || list.length < 2) {
-			return list;
-		}
-		String firstElement = list[0];
-		for (int i = 0; i < list.length; i++) {
-			if (topElement.equals(list[i])) {
-				list[i] = firstElement;
-				list[0] = topElement;
-			}
-		}
-		return list;
-	}
-
-	private int[] createListInt(String listString) {
-		Log.d(Logger.TAG, "Creating array from >" + listString + "<");
-		if (NOT_AVAILABLE.equals(listString)) {
-			int[] list = new int[1];
-			list[0] = -1;
-			return list;
-		}
-		String[] strList = listString.split(" ");
-		int[] lst = new int[strList.length];
-		for (int i = 0; i < strList.length; i++) {
-			try {
-				lst[i] = Integer.parseInt(strList[i]);
-			} catch (Exception e) {
-				lst[i] = -1;
-			}
-		}
-		return lst;
-	}
-
-	private String[] createListStr(String listString) {
-		Log.d(Logger.TAG, "Creating array from >" + listString + "<");
-		if (NOT_AVAILABLE.equals(listString)) {
-			String[] list = new String[1];
-			list[0] = listString;
-			return list;
-		}
-		return listString.split(" +");
-	}
-
 	private String readFile(String filename) {
-		return readFile(CPU_DIR, filename);
-	}
-
-	private String readFile(String directory, String filename) {
-		synchronized (filename) {
-			String val = "";
-			BufferedReader reader;
-			try {
-				Log.v(Logger.TAG, "Reading file >" + filename + "<");
-				reader = new BufferedReader(new FileReader(directory + filename));
-				String line = reader.readLine();
-				while (line != null && !line.trim().equals("")) {
-					Log.v(Logger.TAG, "Read line >" + line + "<");
-					val += line;
-					line = reader.readLine();
-				}
-				reader.close();
-			} catch (Throwable e) {
-				Log.e(Logger.TAG, "Cannot open for reading " + filename, e);
-			}
-			if (val.trim().equals("")) {
-				val = NOT_AVAILABLE;
-			}
-			return val;
-		}
+		return RootHandler.readFile(CPU_DIR, filename);
 	}
 
 	private boolean writeFile(String filename, String val) {
@@ -235,7 +142,7 @@ public class CpuHandler {
 	}
 
 	public boolean hasGov() {
-		return !NOT_AVAILABLE.equals(getCurCpuGov());
+		return !RootHandler.NOT_AVAILABLE.equals(getCurCpuGov());
 	}
 
 }
