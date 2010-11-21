@@ -89,7 +89,7 @@ public class ProfilesListActivity extends ListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		getMenuInflater().inflate(R.menu.list_context, menu);
+		getMenuInflater().inflate(R.menu.profilelist_context, menu);
 	}
 
 	@Override

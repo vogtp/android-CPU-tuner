@@ -228,4 +228,12 @@ public class TriggerModel {
 		this.powerCurrentCntScreenLocked = powerCurrentCntScreenLocked;
 	}
 
+	public void clearPowerCurrent() {
+		powerCurrentSumPower = 0;
+		powerCurrentCntPower = 0;
+		powerCurrentSumBattery = 0;
+		powerCurrentCntBattery = 0;
+		powerCurrentSumScreenLocked = 0;
+		powerCurrentCntScreenLocked = 0;
+	}
 }

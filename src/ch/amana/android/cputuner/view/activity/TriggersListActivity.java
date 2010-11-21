@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.view.activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -23,6 +24,8 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggersListActivity extends ListActivity {
@@ -100,7 +103,7 @@ public class TriggersListActivity extends ListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		getMenuInflater().inflate(R.menu.list_context, menu);
+		getMenuInflater().inflate(R.menu.triggerlist_context, menu);
 	}
 
 	@Override
@@ -125,15 +128,52 @@ public class TriggersListActivity extends ListActivity {
 			startActivity(new Intent(Intent.ACTION_EDIT, uri));
 			return true;
 
+		case R.id.menuItemClearPowerCurrent:
+			clearPowerConsumtion(uri);
+			return true;
+
 		default:
 			return handleCommonMenu(item);
 		}
 
 	}
 
+	private void clearPowerConsumtion(final Uri uri) {
+		final ContentResolver resolver = getContentResolver();
+		Cursor c = resolver.query(uri, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+		if (c.moveToFirst()) {
+			final TriggerModel triggerModel = new TriggerModel(c);
+			Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle(R.string.menuItemClearPowerCurrent);
+			alertBuilder.setMessage("Clear power consumption of \"" + triggerModel.getName() + "\" trigger?");
+			alertBuilder.setNegativeButton(android.R.string.no, null);
+			alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					triggerModel.clearPowerCurrent();
+					try {
+						PowerProfiles.setUpdateTrigger(false);
+						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
+					} catch (Exception e) {
+						Log.w(Logger.TAG, "Cannot reset trigger power consumption", e);
+					} finally {
+						PowerProfiles.setUpdateTrigger(true);
+					}
+
+				}
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+		}
+		if (c != null && !c.isClosed()) {
+			c.close();
+		}
+		PowerProfiles.reapplyProfile(true);
+	}
+
 	private void deleteTrigger(final Uri uri) {
 		Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setTitle("Delete");
+		alertBuilder.setTitle(R.string.menuItemDelete);
 		alertBuilder.setMessage("Delete selected item?");
 		alertBuilder.setNegativeButton(android.R.string.no, null);
 		alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {

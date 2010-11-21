@@ -7,7 +7,7 @@ V
 V 0.9.6
 * features
 - force frequencies > 400 MHz for non power users
-- calculate power for trigger/profile combinations
+- calculate power per trigger/profile combinations
 * bug fixes
 - 
 

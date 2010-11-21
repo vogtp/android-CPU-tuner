@@ -37,7 +37,7 @@ public class PowerProfiles {
 
 	public static void reapplyProfile(boolean force) {
 		if (force) {
-			changeTrigger();
+			changeTrigger(force);
 		}
 		applyPowerProfile(force, force);
 	}
@@ -130,13 +130,13 @@ public class PowerProfiles {
 		}
 	}
 
-	private static void changeTrigger() {
+	private static void changeTrigger(boolean force) {
 		Cursor cursor = null;
 		try {
 			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
 					DB.Trigger.NAME_BATTERY_LEVEL + ">?", new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
 			if (cursor != null && cursor.moveToFirst()) {
-				if (currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
+				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
 					Log.i(Logger.TAG, "Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
 				}
@@ -155,7 +155,7 @@ public class PowerProfiles {
 				trackCurrent();
 			}
 			notifyBatteryLevel();
-			changeTrigger();
+			changeTrigger(false);
 			applyPowerProfile(false, false);
 		}
 	}
@@ -275,6 +275,10 @@ public class PowerProfiles {
 			IProfileChangeCallback callback = iterator.next();
 			callback.acPowerChanged();
 		}
+	}
+
+	public static void setUpdateTrigger(boolean updateTrigger) {
+		PowerProfiles.updateTrigger = updateTrigger;
 	}
 
 }
