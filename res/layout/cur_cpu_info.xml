@@ -82,7 +82,7 @@
 				android:layout_gravity="right"></TextView>
 			<SeekBar android:layout_height="wrap_content"
 				android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
-				android:layout_weight=".3"></SeekBar>
+				android:layout_weight=".3" android:paddingRight="5dp"></SeekBar>
 		</TableRow>
 		<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMinFreq"
 			android:layout_width="fill_parent">
@@ -95,7 +95,7 @@
 				android:layout_gravity="right"></TextView>
 			<SeekBar android:layout_height="wrap_content"
 				android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMin"
-				android:layout_weight=".3"></SeekBar>
+				android:layout_weight=".3" android:paddingRight="5dp"></SeekBar>
 		</TableRow>
 	</TableLayout>
 </LinearLayout>
