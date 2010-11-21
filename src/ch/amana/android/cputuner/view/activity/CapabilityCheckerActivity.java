@@ -44,10 +44,11 @@ public class CapabilityCheckerActivity extends Activity {
 		tvSummary.setText(checker.getSummary());
 		if (checker.hasIssues()) {
 			tvSummary.setTextColor(Color.RED);
-			tvSummary.setTextSize(16);
+		} else {
+			tvSummary.setTextColor(Color.LTGRAY);
 		}
 		addTableRow("Governor", checker.isReadGovernor(), checker.isWriteGovernor());
-		addTableRow("Min frequency", checker.isReadMinFreq(), checker.isWriteMaxFreq());
+		addTableRow("Min frequency", checker.isReadMinFreq(), checker.isWriteMinFreq());
 		addTableRow("Max frequency", checker.isReadMaxFreq(), checker.isWriteMaxFreq());
 		addTableRow("User frequency", checker.isReadUserCpuFreq(), checker.isWriteUserCpuFreq());
 		// addTableRow("", checker.isRead, checker.isWrite);
