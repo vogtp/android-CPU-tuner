@@ -40,9 +40,9 @@ public class Notifier {
 	}
 
 	public static void notify(Context context, String msg, int level) {
-		Log.i(Logger.TAG, msg);
+		Log.i(Logger.TAG, "Notifier: " + msg);
 		if (level <= curLevel && SettingsStorage.getInstance().isToastNotifications()) {
-			Toast.makeText(context, "Notifier: " + msg, Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
 
