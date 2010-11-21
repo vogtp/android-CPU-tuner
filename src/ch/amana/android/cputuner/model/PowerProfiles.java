@@ -61,7 +61,8 @@ public class PowerProfiles {
 		if (currentTrigger == null) {
 			return;
 		}
-		trackCurrent();
+		// does cross contamination
+		// trackCurrent();
 
 		long profileId = currentTrigger.getBatteryProfileId();
 		if (screenOff) {
@@ -151,9 +152,7 @@ public class PowerProfiles {
 	public static void setBatteryLevel(int level) {
 		if (batteryLevel != level) {
 			batteryLevel = level;
-			if (SettingsStorage.getInstance().isTrackCurrent()) {
-				trackCurrent();
-			}
+			trackCurrent();
 			notifyBatteryLevel();
 			changeTrigger(false);
 			applyPowerProfile(false, false);
@@ -161,7 +160,7 @@ public class PowerProfiles {
 	}
 
 	private static void trackCurrent() {
-		if (currentTrigger == null) {
+		if (currentTrigger == null || !SettingsStorage.getInstance().isTrackCurrent()) {
 			return;
 		}
 		long powerCurrentSum = 0;
