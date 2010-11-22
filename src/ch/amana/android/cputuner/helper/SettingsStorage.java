@@ -75,8 +75,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isTrackCurrent() {
-		boolean boolean1 = getPreferences().getBoolean("prefKeyCalcPowerUsage", true);
-		return boolean1;
+		return getPreferences().getBoolean("prefKeyCalcPowerUsage", true);
 	}
 
 }

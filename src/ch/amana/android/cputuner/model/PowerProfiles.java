@@ -188,7 +188,7 @@ public class PowerProfiles {
 
 		}
 		// powerCurrentSum *= powerCurrentCnt;
-		powerCurrentSum += BatteryHandler.getBatteryCurrentNow();
+		powerCurrentSum += BatteryHandler.getBatteryCurrentAverage();
 		powerCurrentCnt++;
 		if (screenOff) {
 			currentTrigger.setPowerCurrentSumScreenLocked(powerCurrentSum);

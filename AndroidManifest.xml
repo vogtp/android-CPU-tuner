@@ -55,6 +55,7 @@
 <activity android:name=".view.activity.TriggersListActivity"></activity>
 <activity android:name=".view.activity.ProfilesListActivity"></activity>
 <activity android:name=".view.activity.CapabilityCheckerActivity"></activity>
+<activity android:name=".view.activity.HelpActivity"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="7"/>
 
