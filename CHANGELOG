@@ -4,12 +4,14 @@ V
 * bug fixes
 - 
 
-V 
+V 0.9.7
 * features
 - help pages
+- display message on error setting value
 * bug fixes
-- notifcation time
+- display notification time in status base
 - get power usage from current_avg
+- apply profile on start
  
 V 0.9.6
 * features

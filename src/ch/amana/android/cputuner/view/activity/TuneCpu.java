@@ -254,7 +254,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		if (tvMessage == null) {
 			tvMessage = new TextView(this);
 			tvMessage.setTextColor(Color.RED);
-			tvMessage.setTextSize(18);
+			// tvMessage.setTextSize(18);
 			tvMessage.setOnClickListener(new OnClickListener() {
 
 				@Override
