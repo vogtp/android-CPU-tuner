@@ -182,7 +182,9 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		acPowerChanged();
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
 		tvBatteryCurrent.setText(BatteryHandler.getBatteryCurrentNow() + " mA (avg: " + BatteryHandler.getBatteryCurrentAverage() + " mA)");
-		if (!cpuHandler.getCurrentCpuSettings().equals(cpuModel)) {
+		if (!cpuHandler.getCurrentCpuSettings().equals(cpuModel)
+				|| RootHandler.NOT_AVAILABLE.equals(cpuModel.getGov())
+				|| cpuModel.getMaxFreq() < 1 || cpuModel.getMinFreq() < 1) {
 			if (SettingsStorage.getInstance().isDisableDisplayIssues()) {
 				if (tvMessage != null) {
 					LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
