@@ -20,6 +20,11 @@ public class HelpActivity extends Activity {
 		webSettings.setBuiltInZoomControls(true);
 		webSettings.setDefaultFontSize(16);
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		wvHelp.loadUrl("file:///android_asset/help/index.html");
 	}
 
