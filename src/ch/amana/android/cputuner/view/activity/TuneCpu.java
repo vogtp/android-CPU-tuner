@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -47,6 +46,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView labelCpuFreqMax;
 	private TextView tvMessage;
 	private TextView tvBatteryCurrent;
+	private CpuModel cpuModel;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -73,6 +73,8 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 
+		cpuModel = cpuHandler.getCurrentCpuSettings();
+
 		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -84,6 +86,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 						if (cpuHandler.setMaxCpuFreq(val)) {
 							Toast.makeText(TuneCpu.this, "Setting CPU max freq to " + val, Toast.LENGTH_LONG).show();
 						}
+						cpuModel.setMaxFreq(val);
 						updateView();
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -111,6 +114,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 						if (cpuHandler.setMinCpuFreq(val)) {
 							Toast.makeText(TuneCpu.this, "Setting CPU min freq to " + val, Toast.LENGTH_LONG).show();
 						}
+						cpuModel.setMinFreq(val);
 						updateView();
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -144,6 +148,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 						Toast.makeText(parent.getContext(), "Setting govenor to " + gov, Toast.LENGTH_LONG).show();
 					}
 				}
+				cpuModel.setGov(gov);
 				updateView();
 			}
 
@@ -163,21 +168,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		super.onResume();
 		PowerProfiles.registerCallback(this);
 		updateView();
-
-		if (SettingsStorage.getInstance().isEnableBeta()) {
-			if (SettingsStorage.getInstance().isDisableDisplayIssues()) {
-				if (tvMessage != null) {
-					LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
-					ll.removeView(tvMessage);
-					tvMessage = null;
-				}
-			} else {
-				CapabilityChecker capabilityChecker = CapabilityChecker.getInstance();
-				if (capabilityChecker.hasIssues()) {
-					getMessageTextView().setText(capabilityChecker.getSummary() + "(Tap for more information.)");
-				}
-			}
-		}
 	}
 
 	@Override
@@ -192,6 +182,17 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		acPowerChanged();
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
 		tvBatteryCurrent.setText(BatteryHandler.getBatteryCurrentNow() + " mA (avg: " + BatteryHandler.getBatteryCurrentAverage() + " mA)");
+		if (!cpuHandler.getCurrentCpuSettings().equals(cpuModel)) {
+			if (SettingsStorage.getInstance().isDisableDisplayIssues()) {
+				if (tvMessage != null) {
+					LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
+					ll.removeView(tvMessage);
+					tvMessage = null;
+				}
+			} else {
+				getMessageTextView().setText("Found some issues... Some features might not work. (Tap for more information.)");
+			}
+		}
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

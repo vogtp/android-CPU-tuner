@@ -187,4 +187,56 @@ public class CpuModel {
 		this.id = id;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + bluetoothState;
+		result = prime * result + ((gov == null) ? 0 : gov.hashCode());
+		result = prime * result + gpsState;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + maxFreq;
+		result = prime * result + minFreq;
+		result = prime * result + mobiledataState;
+		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
+		result = prime * result + wifiState;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CpuModel other = (CpuModel) obj;
+		if (bluetoothState != other.bluetoothState)
+			return false;
+		if (gov == null) {
+			if (other.gov != null)
+				return false;
+		} else if (!gov.equals(other.gov))
+			return false;
+		if (gpsState != other.gpsState)
+			return false;
+		if (id != other.id)
+			return false;
+		if (maxFreq != other.maxFreq)
+			return false;
+		if (minFreq != other.minFreq)
+			return false;
+		if (mobiledataState != other.mobiledataState)
+			return false;
+		if (profileName == null) {
+			if (other.profileName != null)
+				return false;
+		} else if (!profileName.equals(other.profileName))
+			return false;
+		if (wifiState != other.wifiState)
+			return false;
+		return true;
+	}
+
 }

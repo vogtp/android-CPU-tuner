@@ -39,6 +39,7 @@ public class PowerProfiles {
 		batteryLevel = BatteryHandler.getBatteryLevel();
 		acPower = BatteryHandler.isOnAcPower();
 		screenOff = false;
+		changeTrigger(true);
 	}
 
 	public static void reapplyProfile(boolean force) {
