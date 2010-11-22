@@ -51,6 +51,7 @@ public class Notifier {
 			contentTitle = context.getString(R.string.app_name);
 			String contentText = contentTitle + " profile: " + profileName;
 			Notification notification = getNotification(contentText);
+			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 			notificationManager.notify(NOTIFICATION_PROFILE, notification);
 		}

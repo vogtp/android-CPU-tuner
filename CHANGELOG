@@ -4,6 +4,13 @@ V
 * bug fixes
 - 
 
+V 
+* features
+- help pages
+* bug fixes
+- notifcation time
+- get power usage from current_avg
+ 
 V 0.9.6
 * features
 - force frequencies > 400 MHz for non power users
