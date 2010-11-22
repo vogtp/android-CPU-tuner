@@ -219,8 +219,9 @@ public class TriggersListActivity extends ListActivity {
 		super.onPrepareOptionsMenu(menu);
 
 		MenuItem menuItemClearPowerCurrent = menu.findItem(R.id.menuItemClearPowerCurrent);
-		menuItemClearPowerCurrent.setVisible(SettingsStorage.getInstance().isTrackCurrent());
-
+		if (menuItemClearPowerCurrent != null) {
+			menuItemClearPowerCurrent.setVisible(SettingsStorage.getInstance().isTrackCurrent());
+		}
 		return true;
 	}
 }
