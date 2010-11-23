@@ -172,8 +172,8 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 
 	@Override
 	protected void onPause() {
-		PowerProfiles.unregisterCallback(this);
 		super.onPause();
+		PowerProfiles.unregisterCallback(this);
 	}
 
 	private void updateView() {
