@@ -256,6 +256,7 @@ public class CpuEditor extends Activity {
 
 	@Override
 	protected void onPause() {
+		super.onPause();
 		updateModel();
 		try {
 			String action = getIntent().getAction();
@@ -275,7 +276,6 @@ public class CpuEditor extends Activity {
 			Log.w(Logger.TAG, "Cannot insert or update", e);
 
 		}
-		super.onPause();
 	}
 
 	private void updateView() {
