@@ -5,10 +5,12 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Writer;
 
 import android.content.Context;
 import android.os.Environment;
@@ -28,7 +30,7 @@ public class RootHandler {
 		Process p;
 		boolean success = false;
 		try {
-			Log.d(Logger.TAG, "Running " + cmd + " as root");
+			Log.v(Logger.TAG, "Running " + cmd);
 			p = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(p.getOutputStream());
 
@@ -41,13 +43,13 @@ public class RootHandler {
 			os.flush();
 			try {
 				p.waitFor();
+				String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
+				writeLog(msg);
+				Log.i(Logger.TAG, msg);
 				copyStreamToLog("OUT", p.getInputStream());
 				copyStreamToLog("ERR", p.getErrorStream());
 				if (p.exitValue() != 255) {
 					success = true;
-					Log.d(Logger.TAG, "Command " + cmd.trim() + " returned " + p.exitValue());
-				} else {
-					Log.w(Logger.TAG, "Command " + cmd.trim() + " returned " + p.exitValue());
 				}
 			} catch (InterruptedException e) {
 				Log.e(Logger.TAG, "Interrupt while waiting from cmd " + cmd + " to finish", e);
@@ -64,17 +66,25 @@ public class RootHandler {
 		if (in == null) {
 			return;
 		}
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		String line;
 		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			String line;
 			line = reader.readLine();
 			while (line != null && !line.trim().equals("")) {
 				Log.v(Logger.TAG, preAmp + ": " + line);
+				writeLog(line);
 				line = reader.readLine();
 			}
 			reader.close();
 		} catch (IOException e) {
 			Log.w(Logger.TAG, "Cannot read process stream", e);
+		}
+	}
+
+	private static void writeLog(String line) throws IOException {
+		if (logWriter != null) {
+			logWriter.write(line);
+			logWriter.write("\n");
 		}
 	}
 
@@ -101,7 +111,6 @@ public class RootHandler {
 		}
 		File appsRoot = new File(root, "app");
 		final String packageName = ctx.getPackageName();
-		String[] fileList1 = appsRoot.list();
 		String[] fileList = appsRoot.list(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String filename) {
@@ -117,10 +126,12 @@ public class RootHandler {
 			BufferedReader reader;
 			try {
 				Log.v(Logger.TAG, "Reading file >" + filename + "<");
+				writeLog("Reading file >" + filename + "<");
 				reader = new BufferedReader(new FileReader(directory + filename));
 				String line = reader.readLine();
 				while (line != null && !line.trim().equals("")) {
 					Log.v(Logger.TAG, "Read line >" + line + "<");
+					writeLog(line);
 					val += line;
 					line = reader.readLine();
 				}
@@ -136,4 +147,44 @@ public class RootHandler {
 	}
 
 	public static final String NOT_AVAILABLE = "not available";
+
+	private static Writer logWriter;
+
+	public static void setLogLocation(File file) {
+		if (file == null) {
+			logWriter = null;
+			return;
+		}
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				Log.w(Logger.TAG, "Cannot creat log file " + file.toString(), e);
+				logWriter = null;
+				return;
+			}
+		}
+		if (file.isFile() && file.canWrite()) {
+			Log.i(Logger.TAG, "Opening logfile " + file.getAbsolutePath());
+			try {
+				logWriter = new FileWriter(file);
+			} catch (IOException e) {
+				Log.w(Logger.TAG, "Cannot open logfile", e);
+			}
+		} else {
+			logWriter = null;
+		}
+	}
+
+	public static void clearLogLocation() {
+		if (logWriter != null) {
+			try {
+				logWriter.flush();
+				logWriter.close();
+			} catch (IOException e) {
+				Log.w(Logger.TAG, "Cannot close logfile", e);
+			}
+		}
+		logWriter = null;
+	}
 }

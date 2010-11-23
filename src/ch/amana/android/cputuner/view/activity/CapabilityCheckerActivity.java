@@ -1,5 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,24 +14,31 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.RootHandler;
 
 public class CapabilityCheckerActivity extends Activity {
 
+	private static final String FILE_GETPROP = "getProp.txt";
 	public static final String EXTRA_RECHEK = "extra_recheck";
+	private static final String FILE_CAPABILITIESCHECK = "capabilitiy_check.txt";
 	private CapabilityChecker checker;
 	private TextView tvSummary;
 	private TableLayout tlCapabilities;
 	private CheckBox cbAcknowledge;
+	private TextView tvDeviceInfo;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		openLogFile(FILE_CAPABILITIESCHECK);
 		checker = CapabilityChecker.getInstance(getIntent().getBooleanExtra(EXTRA_RECHEK, false));
+		closeLogFile();
 		setContentView(R.layout.capability_checker);
 
 		tvSummary = (TextView) findViewById(R.id.tvSummary);
+		tvDeviceInfo = (TextView) findViewById(R.id.tvDeviceInfo);
 		tlCapabilities = (TableLayout) findViewById(R.id.tlCapabilities);
 		cbAcknowledge = (CheckBox) findViewById(R.id.cbAcknowledge);
 		cbAcknowledge.setChecked(SettingsStorage.getInstance().isDisableDisplayIssues());
@@ -52,6 +61,31 @@ public class CapabilityCheckerActivity extends Activity {
 		addTableRow("Max frequency", checker.isReadMaxFreq(), checker.isWriteMaxFreq());
 		addTableRow("User frequency", checker.isReadUserCpuFreq(), checker.isWriteUserCpuFreq());
 		// addTableRow("", checker.isRead, checker.isWrite);
+
+		getDevieInfo();
+	}
+
+	private void closeLogFile() {
+		RootHandler.clearLogLocation();
+	}
+
+	private void openLogFile(String fileName) {
+
+		RootHandler.setLogLocation(new File(getCacheDir(), fileName));
+	}
+
+	private void getDevieInfo() {
+		StringBuffer info = new StringBuffer("Device Information:\n");
+
+		openLogFile(FILE_GETPROP);
+		RootHandler.execute("getprop");
+		closeLogFile();
+
+		// info.append("Phone type: ").append(tm.getPhoneType()).append("\n");
+
+		// info.append(": ").append().append("\n");
+
+		tvDeviceInfo.setText(info.toString());
 	}
 
 	private void addTableRow(String title, boolean read, boolean write) {
