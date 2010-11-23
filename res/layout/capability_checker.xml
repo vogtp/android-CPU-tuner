@@ -15,6 +15,7 @@
 
 <TextView android:text="@+id/TextView04" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tvDeviceInfo"></TextView><CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Acknowledge issues and hide from main screen." android:id="@+id/cbAcknowledge" android:layout_weight=".2" android:layout_gravity="bottom" android:paddingTop="20dp"></CheckBox>
 
+<Button android:layout_height="wrap_content" android:id="@+id/buSendBugreport" android:text="Send Bug Report" android:layout_width="fill_parent"></Button>
 </LinearLayout>
 
 
