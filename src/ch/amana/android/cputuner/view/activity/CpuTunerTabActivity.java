@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.preference.SettingsPreferenceActivity;
 
 public class CpuTunerTabActivity extends TabActivity {
@@ -22,11 +21,8 @@ public class CpuTunerTabActivity extends TabActivity {
 				.setContent(new Intent(this, TriggersListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("tabProfiles").setIndicator("Profiles", getResources().getDrawable(R.drawable.cpu))
 				.setContent(new Intent(this, ProfilesListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-		if (SettingsStorage.getInstance().isEnableBeta()) {
-			tabHost.addTab(tabHost.newTabSpec("tabHelp").setIndicator("Help", getResources().getDrawable(R.drawable.help))
+		tabHost.addTab(tabHost.newTabSpec("tabHelp").setIndicator("Help", getResources().getDrawable(R.drawable.help))
 					.setContent(new Intent(this, HelpActivity.class)));
-
-		}
 		tabHost.addTab(tabHost.newTabSpec("tabSettings").setIndicator("Settings", getResources().getDrawable(R.drawable.configure))
 				.setContent(new Intent(this, SettingsPreferenceActivity.class)));
 

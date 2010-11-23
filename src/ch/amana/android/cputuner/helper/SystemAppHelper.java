@@ -51,7 +51,7 @@ public class SystemAppHelper implements OnClickListener {
 			if (checkInstallLocation(to)) {
 				Log.w(Logger.TAG, "Successfully moved package from " + from + " to " + to + " rebooting now");
 				reboot();
-
+				return true;
 			} else {
 				Log.w(Logger.TAG, "Could not move package from " + from + " to "
 						+ to);
