@@ -17,25 +17,25 @@ public class CapabilityChecker {
 	private boolean readGovernor = false;
 	private boolean readMaxFreq = false;
 	private boolean readMinFreq = false;
-	private CpuHandler cpuHandler;
-	private int[] freqs;
+	private final CpuHandler cpuHandler;
+	private final int[] freqs;
 
 	public CapabilityChecker() {
 		super();
 		rooted = RootHandler.isRoot();
-		if (rooted) {
-			cpuHandler = new CpuHandler();
-			freqs = cpuHandler.getAvailCpuFreq();
-			checkSetGovernor();
-			checkSetMinFreq();
-			checkSetMaxFreq();
-			if (cpuHandler.hasGovernor(CpuHandler.GOV_USERSPACE)) {
-				checkSetUserCpuFreq();
-			} else {
-				readUserCpuFreq = true;
-				writeUserCpuFreq = true;
-			}
+		// if (rooted) {
+		cpuHandler = new CpuHandler();
+		freqs = cpuHandler.getAvailCpuFreq();
+		checkSetGovernor();
+		checkSetMinFreq();
+		checkSetMaxFreq();
+		if (cpuHandler.hasGovernor(CpuHandler.GOV_USERSPACE)) {
+			checkSetUserCpuFreq();
+		} else {
+			readUserCpuFreq = true;
+			writeUserCpuFreq = true;
 		}
+		// }
 	}
 
 	public boolean hasIssues() {

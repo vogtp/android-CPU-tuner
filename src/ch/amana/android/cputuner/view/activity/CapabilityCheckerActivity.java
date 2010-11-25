@@ -1,12 +1,18 @@
 package ch.amana.android.cputuner.view.activity;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,6 +38,7 @@ public class CapabilityCheckerActivity extends Activity {
 	private CheckBox cbAcknowledge;
 	private TextView tvDeviceInfo;
 	private Button buSendBugreport;
+	private File path;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -40,7 +47,6 @@ public class CapabilityCheckerActivity extends Activity {
 
 		openLogFile(FILE_CAPABILITIESCHECK);
 		checker = CapabilityChecker.getInstance(getIntent().getBooleanExtra(EXTRA_RECHEK, false));
-		getDeviceInfo();
 		closeLogFile();
 		setContentView(R.layout.capability_checker);
 
@@ -95,15 +101,21 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	private File getFilePath(String fileName) {
-		return new File(getCacheDir(), fileName);
+		if (path == null) {
+			path = new File(Environment.getExternalStorageDirectory(), getPackageName() + "/report");
+			if (!path.exists()) {
+				path.mkdirs();
+			}
+		}
+		return new File(path, fileName);
 	}
 
 	private void getDeviceInfo() {
-		StringBuffer info = new StringBuffer("Device Information:\n");
+		// StringBuffer info = new StringBuffer("Device Information:\n");
 
-		// openLogFile(FILE_GETPROP);
+		openLogFile(FILE_GETPROP);
 		RootHandler.execute("getprop");
-		// closeLogFile();
+		closeLogFile();
 
 		// info.append("Phone type: ").append(tm.getPhoneType()).append("\n");
 
@@ -139,9 +151,11 @@ public class CapabilityCheckerActivity extends Activity {
 	private void sendBugReport() {
 		Intent sendIntent = new Intent(Intent.ACTION_SEND);
 
+		getDeviceInfo();
+
 		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "patrick.vogt.pv@gmail.com" });
 		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner bug repport");
-		StringBuilder body = new StringBuilder("Please add some additional information");
+		StringBuilder body = new StringBuilder("Please add some additional information.\nEmpty e-mail will be ignored...");
 		// body.append(getString(R.string.TextViewOvertimeShort));
 		// body.append(": ");
 		// body.append(curInfo.getOvertimeString());
@@ -152,9 +166,44 @@ public class CapabilityCheckerActivity extends Activity {
 		// body.append("\n");
 
 		sendIntent.putExtra(Intent.EXTRA_TEXT, body.toString());
-		Uri uri = Uri.fromFile(getFilePath(FILE_CAPABILITIESCHECK));
-		sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
-		sendIntent.setType("text/plain");
-		startActivity(sendIntent);
+		File zipPath = new File(Environment.getExternalStorageDirectory(), getPackageName());
+		File file = new File(zipPath, "report.zip");
+
+		try {
+			ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(file));
+			addFileToZip(zip, FILE_CAPABILITIESCHECK);
+			addFileToZip(zip, FILE_GETPROP);
+			zip.flush();
+			zip.close();
+
+			Uri uri = Uri.fromFile(file);
+			sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+			sendIntent.setType("application/zip");
+			startActivity(sendIntent);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void addFileToZip(ZipOutputStream zip, String fileName) {
+		// TODO Auto-generated method stub
+		try {
+			zip.putNextEntry(new ZipEntry(fileName));
+			File filePath = getFilePath(fileName);
+			FileInputStream in = new FileInputStream(filePath);
+			byte[] buf = new byte[1024];
+
+			int len;
+			while ((len = in.read(buf)) > 0) {
+				zip.write(buf, 0, len);
+			}
+			zip.closeEntry();
+			in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
