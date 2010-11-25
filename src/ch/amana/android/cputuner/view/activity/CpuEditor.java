@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -105,6 +106,14 @@ public class CpuEditor extends Activity {
 		spWifi = (Spinner) findViewById(R.id.spWifi);
 		spGps = (Spinner) findViewById(R.id.spGps);
 		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
+
+		if (!SettingsStorage.getInstance().isPowerUser()) {
+			View llGovernorThresholds = findViewById(R.id.llGovernorThresholds);
+			if (llGovernorThresholds != null) {
+				LinearLayout top = (LinearLayout) findViewById(R.id.llTop);
+				top.removeView(llGovernorThresholds);
+			}
+		}
 
 		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
 
@@ -309,8 +318,8 @@ public class CpuEditor extends Activity {
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
 		}
-		etGovTreshUp.setText(cpu.getGovernorThresholdUp()+"");
-		etGovTreshDown.setText(cpu.getGovernorThresholdDown()+"");
+		etGovTreshUp.setText(cpu.getGovernorThresholdUp() + "");
+		etGovTreshDown.setText(cpu.getGovernorThresholdDown() + "");
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
