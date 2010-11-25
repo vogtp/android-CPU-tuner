@@ -13,7 +13,6 @@ import android.widget.Spinner;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -22,7 +21,6 @@ public class TriggerEditor extends Activity {
 	private Spinner spBattery;
 	private Spinner spPower;
 	private Spinner spScreenLocked;
-	private String[] availProfiles;
 	private TriggerModel triggerModel;
 	private EditText etName;
 	private EditText etBatteryLevel;
@@ -34,8 +32,6 @@ public class TriggerEditor extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trigger_editor);
-
-		availProfiles = CpuHandler.getInstance().getAvailCpuGov();
 
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
