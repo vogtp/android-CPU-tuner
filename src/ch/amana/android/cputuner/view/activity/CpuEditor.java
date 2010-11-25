@@ -309,8 +309,8 @@ public class CpuEditor extends Activity {
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
 		}
-		etGovTreshUp.setText(cpu.getGovernorTresholdUp() + "");
-		etGovTreshDown.setText(cpu.getGovernorTresholdDown() + "");
+		etGovTreshUp.setText(cpu.getGovernorTresholdUp()+"");
+		etGovTreshDown.setText(cpu.getGovernorTresholdDown()+"");
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
