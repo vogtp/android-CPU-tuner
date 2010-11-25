@@ -35,7 +35,7 @@
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
 				android:id="@+id/labelCurrentBattery" android:text="@+string/labelCurrentBattery"
-				android:textSize="18sp" android:paddingTop="20dp"></TextView>
+				android:textSize="18sp" android:paddingTop="10dp"></TextView>
 			<TextView android:text="@+id/TextView01"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryLevel"></TextView>
@@ -64,7 +64,9 @@
 			android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
 			android:prompt="@string/spinnerPromptGov"></Spinner>
 	
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Explain Gov" android:id="@+id/tvExplainGov"></TextView></LinearLayout>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:id="@+id/tvGovTreshholds"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Explain Gov" android:id="@+id/tvExplainGov" android:paddingTop="5dp"></TextView>
+
+</LinearLayout>
 	
 	
 	<TextView android:layout_width="fill_parent"

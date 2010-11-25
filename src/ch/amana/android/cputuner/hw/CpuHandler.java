@@ -28,6 +28,9 @@ public class CpuHandler extends HardwareHandler {
 	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
 	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
 
+	private static final String GOV_TRESHOLD_UP = "up_threshold";
+	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
+
 	// FIXME convert to static helper
 	private static CpuHandler instance = null;
 
@@ -50,6 +53,8 @@ public class CpuHandler extends HardwareHandler {
 			setMaxCpuFreq(cpu.getMaxFreq());
 			setMinCpuFreq(cpu.getMinFreq());
 		}
+		setGovThresholdUp(cpu.getGovernorTresholdUp());
+		setGovThresholdDown(cpu.getGovernorTresholdDown());
 	}
 
 	public int getCurCpuFreq() {
@@ -102,6 +107,28 @@ public class CpuHandler extends HardwareHandler {
 		return writeFile(SCALING_MIN_FREQ, i + "");
 	}
 
+	public int getGovThresholdUp() {
+		return getIntFromStr(readFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP));
+	}
+
+	public int getGovThresholdDown() {
+		return getIntFromStr(readFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN));
+	}
+
+	public boolean setGovThresholdUp(int i) {
+		if (i < 0 || i > 100 || i <= getGovThresholdDown()) {
+			return false;
+		}
+		return writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
+	}
+
+	public boolean setGovThresholdDown(int i) {
+		if (i < 0 || i > 100 || i >= getGovThresholdUp()) {
+			return false;
+		}
+		return writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
+	}
+
 	public int[] getAvailCpuFreq() {
 		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
 		if (SettingsStorage.getInstance().isPowerUser()) {
@@ -127,15 +154,23 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	private String readFile(String filename) {
-		return RootHandler.readFile(CPU_DIR, filename);
+		return readFile(CPU_DIR, filename);
+	}
+
+	private String readFile(String dir, String filename) {
+		return RootHandler.readFile(dir, filename);
 	}
 
 	private boolean writeFile(String filename, String val) {
-		if (val == null || val.equals(readFile(filename))) {
+		return writeFile(CPU_DIR, filename, val);
+	}
+
+	private boolean writeFile(String dir, String filename, String val) {
+		if (val == null || val.equals(readFile(dir, filename))) {
 			return false;
 		}
 		synchronized (filename) {
-			String path = CPU_DIR + filename;
+			String path = dir + "/" + filename;
 			Log.w(Logger.TAG, "Setting " + path + " to " + val);
 			return RootHandler.execute("echo " + val + " > " + path);
 		}

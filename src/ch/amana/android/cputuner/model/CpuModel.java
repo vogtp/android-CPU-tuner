@@ -25,6 +25,8 @@ public class CpuModel {
 	private int gpsState = 0;
 	private int bluetoothState = 0;
 	private int mobiledataState = 0;
+	private int governorTresholdUp = 98;
+	private int governorTresholdDown = 95;
 
 	public CpuModel() {
 		super();
@@ -48,6 +50,8 @@ public class CpuModel {
 		this.gpsState = c.getInt(DB.CpuProfile.INDEX_GPS_STATE);
 		this.bluetoothState = c.getInt(DB.CpuProfile.INDEX_BLUETOOTH_STATE);
 		this.mobiledataState = c.getInt(DB.CpuProfile.INDEX_MOBILEDATA_STATE);
+		this.governorTresholdUp = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_TRESHOLD_UP);
+		this.governorTresholdDown = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_TRESHOLD_DOWN);
 	}
 
 	public CpuModel(Bundle bundle) {
@@ -69,6 +73,8 @@ public class CpuModel {
 		bundle.putInt(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
 		bundle.putInt(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
 		bundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
+		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_UP, getGovernorTresholdUp());
+		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN, getGovernorTresholdDown());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -81,6 +87,8 @@ public class CpuModel {
 		gpsState = bundle.getInt(DB.CpuProfile.NAME_GPS_STATE);
 		bluetoothState = bundle.getInt(DB.CpuProfile.NAME_BLUETOOTH_STATE);
 		mobiledataState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_STATE);
+		governorTresholdUp = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_UP);
+		governorTresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN);
 	}
 
 	public ContentValues getValues() {
@@ -97,6 +105,8 @@ public class CpuModel {
 		values.put(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
 		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
+		values.put(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_UP, getGovernorTresholdUp());
+		values.put(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN, getGovernorTresholdDown());
 		return values;
 	}
 
@@ -193,12 +203,12 @@ public class CpuModel {
 		int result = 1;
 		result = prime * result + bluetoothState;
 		result = prime * result + ((gov == null) ? 0 : gov.hashCode());
+		result = prime * result + governorTresholdDown;
+		result = prime * result + governorTresholdUp;
 		result = prime * result + gpsState;
-		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + maxFreq;
 		result = prime * result + minFreq;
 		result = prime * result + mobiledataState;
-		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
 		result = prime * result + wifiState;
 		return result;
 	}
@@ -219,9 +229,11 @@ public class CpuModel {
 				return false;
 		} else if (!gov.equals(other.gov))
 			return false;
-		if (gpsState != other.gpsState)
+		if (governorTresholdDown != other.governorTresholdDown)
 			return false;
-		if (id != other.id)
+		if (governorTresholdUp != other.governorTresholdUp)
+			return false;
+		if (gpsState != other.gpsState)
 			return false;
 		if (maxFreq != other.maxFreq)
 			return false;
@@ -229,14 +241,44 @@ public class CpuModel {
 			return false;
 		if (mobiledataState != other.mobiledataState)
 			return false;
-		if (profileName == null) {
-			if (other.profileName != null)
-				return false;
-		} else if (!profileName.equals(other.profileName))
-			return false;
 		if (wifiState != other.wifiState)
 			return false;
 		return true;
 	}
 
+	public int getGovernorTresholdUp() {
+		return governorTresholdUp;
+	}
+
+	public void setGovernorTresholdUp(int i) {
+		if (i > -1 && i < 101) {
+			this.governorTresholdUp = i;
+		}
+	}
+
+	public int getGovernorTresholdDown() {
+		return governorTresholdDown;
+	}
+
+	public void setGovernorTresholdDown(int i) {
+		if (i > -1 && i < 101) {
+			this.governorTresholdDown = i;
+		}
+	}
+
+	public void setGovernorTresholdUp(String string) {
+		try {
+			setGovernorTresholdUp(Integer.parseInt(string));
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot parse " + string + " as int");
+		}
+	}
+
+	public void setGovernorTresholdDown(String string) {
+		try {
+			setGovernorTresholdDown(Integer.parseInt(string));
+		} catch (Exception e) {
+			Log.w(Logger.TAG, "Cannot parse " + string + " as int");
+		}
+	}
 }

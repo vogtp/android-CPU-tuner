@@ -46,6 +46,8 @@ public class CpuEditor extends Activity {
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private EditText etName;
+	private EditText etGovTreshUp;
+	private EditText etGovTreshDown;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -95,6 +97,8 @@ public class CpuEditor extends Activity {
 		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
+		etGovTreshUp = (EditText) findViewById(R.id.etGovTreshUp);
+		etGovTreshDown = (EditText) findViewById(R.id.etGovTreshDown);
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
@@ -236,6 +240,8 @@ public class CpuEditor extends Activity {
 
 	private void updateModel() {
 		cpu.setProfileName(etName.getText().toString());
+		cpu.setGovernorTresholdUp(etGovTreshUp.getText().toString());
+		cpu.setGovernorTresholdDown(etGovTreshDown.getText().toString());
 	}
 
 	@Override
@@ -303,6 +309,8 @@ public class CpuEditor extends Activity {
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
 		}
+		etGovTreshUp.setText(cpu.getGovernorTresholdUp() + "");
+		etGovTreshDown.setText(cpu.getGovernorTresholdDown() + "");
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

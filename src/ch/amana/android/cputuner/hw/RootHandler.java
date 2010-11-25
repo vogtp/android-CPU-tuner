@@ -125,9 +125,10 @@ public class RootHandler {
 			String val = "";
 			BufferedReader reader;
 			try {
-				Log.v(Logger.TAG, "Reading file >" + filename + "<");
+				String fqfn = directory + "/" + filename;
+				Log.v(Logger.TAG, "Reading file >" + fqfn + "<");
 				writeLog("Reading file >" + filename + "<");
-				reader = new BufferedReader(new FileReader(directory + filename));
+				reader = new BufferedReader(new FileReader(fqfn));
 				String line = reader.readLine();
 				while (line != null && !line.trim().equals("")) {
 					Log.v(Logger.TAG, "Read line >" + line + "<");

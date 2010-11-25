@@ -25,7 +25,9 @@
 			<Spinner android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
 				android:prompt="@string/spinnerPromptGov"></Spinner>
-		</LinearLayout>
+		</LinearLayout><LinearLayout android:id="@+id/LinearLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tresholds:  Up:" android:paddingRight="7dp"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/etGovTreshUp" android:text="98" android:height="16dp"></EditText>
+<TextView android:text="@+id/TextView02" android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:paddingLeft="7dp"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="95" android:id="@+id/etGovTreshDown" android:height="16dp"></EditText>
+</LinearLayout>
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="Explain Gov"
 			android:id="@+id/tvExplainGov"></TextView>
