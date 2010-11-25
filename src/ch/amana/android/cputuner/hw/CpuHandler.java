@@ -53,8 +53,8 @@ public class CpuHandler extends HardwareHandler {
 			setMaxCpuFreq(cpu.getMaxFreq());
 			setMinCpuFreq(cpu.getMinFreq());
 		}
-		setGovThresholdUp(cpu.getGovernorTresholdUp());
-		setGovThresholdDown(cpu.getGovernorTresholdDown());
+		setGovThresholdUp(cpu.getGovernorThresholdUp());
+		setGovThresholdDown(cpu.getGovernorThresholdDown());
 	}
 
 	public int getCurCpuFreq() {

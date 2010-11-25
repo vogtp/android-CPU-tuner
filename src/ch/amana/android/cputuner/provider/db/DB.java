@@ -31,7 +31,7 @@ public interface DB {
 				+ DB.CpuProfile.NAME_PROFILE_NAME + " text, " + DB.CpuProfile.NAME_GOVERNOR + " text," + DB.CpuProfile.NAME_FREQUENCY_MAX + " int,"
 				+ DB.CpuProfile.NAME_FREQUENCY_MIN + " int," + DB.CpuProfile.NAME_WIFI_STATE + " int," + DB.CpuProfile.NAME_GPS_STATE + " int,"
 				+ DB.CpuProfile.NAME_BLUETOOTH_STATE + " int," + DB.CpuProfile.NAME_MOBILEDATA_STATE + " int,"
-				+ DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_UP + " int," + DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN + " int)";
+				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int," + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int)";
 
 		private static final String LOG_TAG = Logger.TAG;
 
@@ -70,8 +70,8 @@ public interface DB {
 
 			case 3:
 				Log.w(LOG_TAG, "Upgrading to DB Version 3...");
-				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_TRESHOLD_UP + " int DEFAULT 98;");
-				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN + " int DEFAULT 95;");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98;");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95;");
 			default:
 				Log.w(LOG_TAG, "Finished DB upgrading!");
 				break;
@@ -147,8 +147,8 @@ public interface DB {
 		public static final String NAME_GPS_STATE = "gpsState";
 		public static final String NAME_BLUETOOTH_STATE = "bluetoothState";
 		public static final String NAME_MOBILEDATA_STATE = "mobiledataState";
-		public static final String NAME_GOVERNOR_TRESHOLD_UP = "governorTresholdUp";
-		public static final String NAME_GOVERNOR_TRESHOLD_DOWN = "governorTresholdDown";
+		public static final String NAME_GOVERNOR_THRESHOLD_UP = "governorThresholdUp";
+		public static final String NAME_GOVERNOR_THRESHOLD_DOWN = "governorThresholdDown";
 
 		public static final int INDEX_PROFILE_NAME = 1;
 		public static final int INDEX_GOVERNOR = 2;
@@ -158,12 +158,12 @@ public interface DB {
 		public static final int INDEX_GPS_STATE = 6;
 		public static final int INDEX_BLUETOOTH_STATE = 7;
 		public static final int INDEX_MOBILEDATA_STATE = 8;
-		public static final int INDEX_GOVERNOR_TRESHOLD_UP = 9;
-		public static final int INDEX_GOVERNOR_TRESHOLD_DOWN = 10;
+		public static final int INDEX_GOVERNOR_THRESHOLD_UP = 9;
+		public static final int INDEX_GOVERNOR_THRESHOLD_DOWN = 10;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
-				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_STATE, NAME_GOVERNOR_TRESHOLD_UP,
-				NAME_GOVERNOR_TRESHOLD_DOWN };
+				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_STATE, NAME_GOVERNOR_THRESHOLD_UP,
+				NAME_GOVERNOR_THRESHOLD_DOWN };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
 

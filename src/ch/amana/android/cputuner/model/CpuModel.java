@@ -25,8 +25,8 @@ public class CpuModel {
 	private int gpsState = 0;
 	private int bluetoothState = 0;
 	private int mobiledataState = 0;
-	private int governorTresholdUp = 98;
-	private int governorTresholdDown = 95;
+	private int governorThresholdUp = 98;
+	private int governorThresholdDown = 95;
 
 	public CpuModel() {
 		super();
@@ -50,8 +50,8 @@ public class CpuModel {
 		this.gpsState = c.getInt(DB.CpuProfile.INDEX_GPS_STATE);
 		this.bluetoothState = c.getInt(DB.CpuProfile.INDEX_BLUETOOTH_STATE);
 		this.mobiledataState = c.getInt(DB.CpuProfile.INDEX_MOBILEDATA_STATE);
-		this.governorTresholdUp = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_TRESHOLD_UP);
-		this.governorTresholdDown = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_TRESHOLD_DOWN);
+		this.governorThresholdUp = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_UP);
+		this.governorThresholdDown = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_DOWN);
 	}
 
 	public CpuModel(Bundle bundle) {
@@ -73,8 +73,8 @@ public class CpuModel {
 		bundle.putInt(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
 		bundle.putInt(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
 		bundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
-		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_UP, getGovernorTresholdUp());
-		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN, getGovernorTresholdDown());
+		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
+		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -87,8 +87,8 @@ public class CpuModel {
 		gpsState = bundle.getInt(DB.CpuProfile.NAME_GPS_STATE);
 		bluetoothState = bundle.getInt(DB.CpuProfile.NAME_BLUETOOTH_STATE);
 		mobiledataState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_STATE);
-		governorTresholdUp = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_UP);
-		governorTresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN);
+		governorThresholdUp = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP);
+		governorThresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN);
 	}
 
 	public ContentValues getValues() {
@@ -105,8 +105,8 @@ public class CpuModel {
 		values.put(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
 		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
-		values.put(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_UP, getGovernorTresholdUp());
-		values.put(DB.CpuProfile.NAME_GOVERNOR_TRESHOLD_DOWN, getGovernorTresholdDown());
+		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
+		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		return values;
 	}
 
@@ -203,8 +203,8 @@ public class CpuModel {
 		int result = 1;
 		result = prime * result + bluetoothState;
 		result = prime * result + ((gov == null) ? 0 : gov.hashCode());
-		result = prime * result + governorTresholdDown;
-		result = prime * result + governorTresholdUp;
+		result = prime * result + governorThresholdDown;
+		result = prime * result + governorThresholdUp;
 		result = prime * result + gpsState;
 		result = prime * result + maxFreq;
 		result = prime * result + minFreq;
@@ -229,9 +229,9 @@ public class CpuModel {
 				return false;
 		} else if (!gov.equals(other.gov))
 			return false;
-		if (governorTresholdDown != other.governorTresholdDown)
+		if (governorThresholdDown != other.governorThresholdDown)
 			return false;
-		if (governorTresholdUp != other.governorTresholdUp)
+		if (governorThresholdUp != other.governorThresholdUp)
 			return false;
 		if (gpsState != other.gpsState)
 			return false;
@@ -246,37 +246,37 @@ public class CpuModel {
 		return true;
 	}
 
-	public int getGovernorTresholdUp() {
-		return governorTresholdUp;
+	public int getGovernorThresholdUp() {
+		return governorThresholdUp;
 	}
 
-	public void setGovernorTresholdUp(int i) {
+	public void setGovernorThresholdUp(int i) {
 		if (i > -1 && i < 101) {
-			this.governorTresholdUp = i;
+			this.governorThresholdUp = i;
 		}
 	}
 
-	public int getGovernorTresholdDown() {
-		return governorTresholdDown;
+	public int getGovernorThresholdDown() {
+		return governorThresholdDown;
 	}
 
-	public void setGovernorTresholdDown(int i) {
+	public void setGovernorThresholdDown(int i) {
 		if (i > -1 && i < 101) {
-			this.governorTresholdDown = i;
+			this.governorThresholdDown = i;
 		}
 	}
 
-	public void setGovernorTresholdUp(String string) {
+	public void setGovernorThresholdUp(String string) {
 		try {
-			setGovernorTresholdUp(Integer.parseInt(string));
+			setGovernorThresholdUp(Integer.parseInt(string));
 		} catch (Exception e) {
 			Log.w(Logger.TAG, "Cannot parse " + string + " as int");
 		}
 	}
 
-	public void setGovernorTresholdDown(String string) {
+	public void setGovernorThresholdDown(String string) {
 		try {
-			setGovernorTresholdDown(Integer.parseInt(string));
+			setGovernorThresholdDown(Integer.parseInt(string));
 		} catch (Exception e) {
 			Log.w(Logger.TAG, "Cannot parse " + string + " as int");
 		}

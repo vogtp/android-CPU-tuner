@@ -240,8 +240,8 @@ public class CpuEditor extends Activity {
 
 	private void updateModel() {
 		cpu.setProfileName(etName.getText().toString());
-		cpu.setGovernorTresholdUp(etGovTreshUp.getText().toString());
-		cpu.setGovernorTresholdDown(etGovTreshDown.getText().toString());
+		cpu.setGovernorThresholdUp(etGovTreshUp.getText().toString());
+		cpu.setGovernorThresholdDown(etGovTreshDown.getText().toString());
 	}
 
 	@Override
@@ -309,8 +309,8 @@ public class CpuEditor extends Activity {
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
 		}
-		etGovTreshUp.setText(cpu.getGovernorTresholdUp()+"");
-		etGovTreshDown.setText(cpu.getGovernorTresholdDown()+"");
+		etGovTreshUp.setText(cpu.getGovernorThresholdUp()+"");
+		etGovTreshDown.setText(cpu.getGovernorThresholdDown()+"");
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
