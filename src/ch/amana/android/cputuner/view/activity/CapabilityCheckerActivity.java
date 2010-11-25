@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,13 +23,18 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import ch.almana.android.backupDb2Xml.DataXmlExporter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class CapabilityCheckerActivity extends Activity {
 
+	private static final String DIR_REPORT = "/report";
 	private static final String FILE_GETPROP = "getProp.txt";
 	public static final String EXTRA_RECHEK = "extra_recheck";
 	private static final String FILE_CAPABILITIESCHECK = "capabilitiy_check.txt";
@@ -55,10 +61,6 @@ public class CapabilityCheckerActivity extends Activity {
 		tlCapabilities = (TableLayout) findViewById(R.id.tlCapabilities);
 		cbAcknowledge = (CheckBox) findViewById(R.id.cbAcknowledge);
 		buSendBugreport = (Button) findViewById(R.id.buSendBugreport);
-
-		if (!SettingsStorage.getInstance().isEnableBeta()) {
-			buSendBugreport.setVisibility(View.INVISIBLE);
-		}
 
 		buSendBugreport.setOnClickListener(new OnClickListener() {
 
@@ -102,7 +104,7 @@ public class CapabilityCheckerActivity extends Activity {
 
 	private File getFilePath(String fileName) {
 		if (path == null) {
-			path = new File(Environment.getExternalStorageDirectory(), getPackageName() + "/report");
+			path = new File(Environment.getExternalStorageDirectory(), getPackageName() + DIR_REPORT);
 			if (!path.exists()) {
 				path.mkdirs();
 			}
@@ -149,12 +151,25 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	private void sendBugReport() {
+
+		File path = new File(Environment.getExternalStorageDirectory(), getPackageName());
+		File file = new File(path, "report.zip");
+
 		Intent sendIntent = new Intent(Intent.ACTION_SEND);
 
 		getDeviceInfo();
 
+		DB.OpenHelper oh = new OpenHelper(this);
+		DataXmlExporter dm = new DataXmlExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
+		try {
+			dm.export(DB.Trigger.TABLE_NAME);
+			dm.export(DB.CpuProfile.TABLE_NAME);
+		} catch (IOException e) {
+			Log.w(Logger.TAG, "Error exporting DB", e);
+		}
+
 		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "patrick.vogt.pv@gmail.com" });
-		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner bug repport");
+		// sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner bug repport");
 		StringBuilder body = new StringBuilder("Please add some additional information.\nEmpty e-mail will be ignored...");
 		// body.append(getString(R.string.TextViewOvertimeShort));
 		// body.append(": ");
@@ -166,13 +181,13 @@ public class CapabilityCheckerActivity extends Activity {
 		// body.append("\n");
 
 		sendIntent.putExtra(Intent.EXTRA_TEXT, body.toString());
-		File zipPath = new File(Environment.getExternalStorageDirectory(), getPackageName());
-		File file = new File(zipPath, "report.zip");
 
 		try {
 			ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(file));
 			addFileToZip(zip, FILE_CAPABILITIESCHECK);
 			addFileToZip(zip, FILE_GETPROP);
+			addFileToZip(zip, DB.Trigger.TABLE_NAME + ".xml");
+			addFileToZip(zip, DB.CpuProfile.TABLE_NAME + ".xml");
 			zip.flush();
 			zip.close();
 
@@ -181,13 +196,11 @@ public class CapabilityCheckerActivity extends Activity {
 			sendIntent.setType("application/zip");
 			startActivity(sendIntent);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.w(Logger.TAG, "Error zipping attachments", e);
 		}
 	}
 
 	private void addFileToZip(ZipOutputStream zip, String fileName) {
-		// TODO Auto-generated method stub
 		try {
 			zip.putNextEntry(new ZipEntry(fileName));
 			File filePath = getFilePath(fileName);
@@ -201,8 +214,7 @@ public class CapabilityCheckerActivity extends Activity {
 			zip.closeEntry();
 			in.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.w(Logger.TAG, "Error exporting adding file to zip", e);
 		}
 
 	}
