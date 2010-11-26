@@ -21,7 +21,7 @@ public class TriggerModel {
 	private long powerCurrentCntScreenLocked;
 
 	public TriggerModel() {
-		this("", 50, -1, -1, -1, 0, 0, 0, 0, 0, 0);
+		this("built in", 100, -1, -1, -1, 0, 0, 0, 0, 0, 0);
 	}
 
 	public TriggerModel(String name, int batteryLevel, long screenOffProfileId, long batteryProfileId,

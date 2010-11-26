@@ -142,7 +142,7 @@ public class PowerProfiles {
 		Cursor cursor = null;
 		try {
 			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
-					DB.Trigger.NAME_BATTERY_LEVEL + ">?", new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
+					DB.Trigger.NAME_BATTERY_LEVEL + ">=?", new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
 			if (cursor != null && cursor.moveToFirst()) {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
@@ -155,6 +155,7 @@ public class PowerProfiles {
 				cursor.close();
 			}
 		}
+		// FIXME get a default tigger if none found
 		return false;
 	}
 
