@@ -46,11 +46,30 @@ public class CapabilityChecker {
 				writeUserCpuFreq &&
 				readGovernor &&
 				readMaxFreq &&
-				readMinFreq;
+				readMinFreq &&
+				readUserCpuFreq;
 		return !ok;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("CapabilityChecker\n");
+		sb.append("rooted: ").append(rooted ? "Yes" : "No").append("\n");
+		sb.append("readGovernor: ").append(readGovernor ? "Yes" : "No").append("\n");
+		sb.append("writeGovernor: ").append(writeGovernor ? "Yes" : "No").append("\n");
+		sb.append("readMinFreq: ").append(readMinFreq ? "Yes" : "No").append("\n");
+		sb.append("writeMinFreq: ").append(writeMinFreq ? "Yes" : "No").append("\n");
+		sb.append("readMaxFreq: ").append(readMaxFreq ? "Yes" : "No").append("\n");
+		sb.append("writeMaxFreq: ").append(writeMaxFreq ? "Yes" : "No").append("\n");
+		sb.append("readUserCpuFreq: ").append(readUserCpuFreq ? "Yes" : "No").append("\n");
+		sb.append("writeUserCpuFreq: ").append(writeUserCpuFreq ? "Yes" : "No").append("\n");
+		return sb.toString();
+	}
+
 	private void checkSetGovernor() {
+		RootHandler.writeLog("********************************************");
+		RootHandler.writeLog("checkSetGovernor");
+		RootHandler.writeLog("********************************************");
 		String[] govs = cpuHandler.getAvailCpuGov();
 		String activeGov = cpuHandler.getCurCpuGov();
 		if (RootHandler.NOT_AVAILABLE.equals(activeGov)) {
@@ -68,6 +87,7 @@ public class CapabilityChecker {
 		for (int i = 0; activeGov.equals(newGov) && i < govs.length; i++) {
 			newGov = govs[i];
 		}
+		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setCurGov(newGov);
 		String finalGov = cpuHandler.getCurCpuGov();
 		Log.i(Logger.TAG, "Checking governor: acitiv: " + activeGov + " new: " + newGov + " final: " + finalGov);
@@ -76,6 +96,9 @@ public class CapabilityChecker {
 	}
 
 	private void checkSetMaxFreq() {
+		RootHandler.writeLog("********************************************");
+		RootHandler.writeLog("checkSetMaxFreq");
+		RootHandler.writeLog("********************************************");
 		int activeFreq = cpuHandler.getMaxCpuFreq();
 		if (activeFreq < 0) {
 			readMaxFreq = false;
@@ -86,6 +109,7 @@ public class CapabilityChecker {
 		for (int i = freqs.length - 1; activeFreq == newFreq && i > -1; i--) {
 			newFreq = freqs[i];
 		}
+		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setMaxCpuFreq(newFreq);
 		int finalFreq = cpuHandler.getMaxCpuFreq();
 		Log.i(Logger.TAG, "Checking maxCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
@@ -94,6 +118,9 @@ public class CapabilityChecker {
 	}
 
 	private void checkSetMinFreq() {
+		RootHandler.writeLog("********************************************");
+		RootHandler.writeLog("checkSetMinFreq");
+		RootHandler.writeLog("********************************************");
 		int activeFreq = cpuHandler.getMinCpuFreq();
 		if (activeFreq < 0) {
 			readMinFreq = false;
@@ -104,6 +131,7 @@ public class CapabilityChecker {
 		for (int i = 0; activeFreq == newFreq && i < freqs.length; i++) {
 			newFreq = freqs[i];
 		}
+		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setMinCpuFreq(newFreq);
 		int finalFreq = cpuHandler.getMinCpuFreq();
 		Log.i(Logger.TAG, "Checking minCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
@@ -112,6 +140,9 @@ public class CapabilityChecker {
 	}
 
 	private void checkSetUserCpuFreq() {
+		RootHandler.writeLog("********************************************");
+		RootHandler.writeLog("checkSetMinFreq");
+		RootHandler.writeLog("********************************************");
 		String gov = cpuHandler.getCurCpuGov();
 		cpuHandler.setCurGov(CpuHandler.GOV_USERSPACE);
 		int activeFreq = cpuHandler.getUserCpuFreq();
@@ -124,6 +155,7 @@ public class CapabilityChecker {
 		for (int i = 0; activeFreq == newFreq && i < freqs.length; i++) {
 			newFreq = freqs[i];
 		}
+		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setUserCpuFreq(newFreq);
 		int finalFreq = cpuHandler.getUserCpuFreq();
 		Log.i(Logger.TAG, "Checking userCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);

@@ -81,10 +81,15 @@ public class RootHandler {
 		}
 	}
 
-	private static void writeLog(String line) throws IOException {
+	public static void writeLog(String line) {
 		if (logWriter != null) {
-			logWriter.write(line);
-			logWriter.write("\n");
+			try {
+				logWriter.write(line);
+				logWriter.write("\n");
+				logWriter.flush();
+			} catch (IOException e) {
+				Log.w(Logger.TAG, "Cannot write >" + line + "< to log file", e);
+			}
 		}
 	}
 
