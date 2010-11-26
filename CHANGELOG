@@ -4,7 +4,7 @@ V
 * bug fixes
 -
 
-V 0.9.9
+V 0.10.0
 * features
 - governor up/down thresholds
 - send mail with attached device and debugging information
