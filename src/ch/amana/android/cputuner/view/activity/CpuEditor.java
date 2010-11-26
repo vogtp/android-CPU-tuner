@@ -49,6 +49,8 @@ public class CpuEditor extends Activity {
 	private EditText etName;
 	private EditText etGovTreshUp;
 	private EditText etGovTreshDown;
+	private TextView labelGovThreshUp;
+	private TextView labelGovThreshDown;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -98,6 +100,8 @@ public class CpuEditor extends Activity {
 		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
+		labelGovThreshUp = (TextView) findViewById(R.id.labelGovThreshUp);
+		labelGovThreshDown = (TextView) findViewById(R.id.labelGovThreshDown);
 		etGovTreshUp = (EditText) findViewById(R.id.etGovTreshUp);
 		etGovTreshDown = (EditText) findViewById(R.id.etGovTreshDown);
 		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
@@ -318,8 +322,42 @@ public class CpuEditor extends Activity {
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
 		}
-		etGovTreshUp.setText(cpu.getGovernorThresholdUp() + "");
-		etGovTreshDown.setText(cpu.getGovernorThresholdDown() + "");
+		updateGovernorFeatures();
+	}
+
+	private void updateGovernorFeatures() {
+		String gov = cpu.getGov();
+
+		boolean hasThreshholdUpFeature = true;
+		boolean hasThreshholdDownFeature = true;
+
+		if (CpuHandler.GOV_POWERSAVE.equals(gov)
+				|| CpuHandler.GOV_PERFORMANCE.equals(gov)
+				|| CpuHandler.GOV_USERSPACE.equals(gov)) {
+			hasThreshholdUpFeature = false;
+			hasThreshholdDownFeature = false;
+		} else if (CpuHandler.GOV_ONDEMAND.equals(gov)) {
+			hasThreshholdDownFeature = false;
+		}
+
+		if (hasThreshholdUpFeature) {
+			labelGovThreshUp.setVisibility(View.VISIBLE);
+			etGovTreshUp.setVisibility(View.VISIBLE);
+			etGovTreshUp.setText(cpu.getGovernorThresholdUp() + "");
+		} else {
+			labelGovThreshUp.setVisibility(View.INVISIBLE);
+			etGovTreshUp.setVisibility(View.INVISIBLE);
+		}
+
+		if (hasThreshholdDownFeature) {
+			labelGovThreshDown.setVisibility(View.VISIBLE);
+			etGovTreshDown.setVisibility(View.VISIBLE);
+			etGovTreshDown.setText(cpu.getGovernorThresholdDown() + "");
+		} else {
+			labelGovThreshDown.setVisibility(View.INVISIBLE);
+			etGovTreshDown.setVisibility(View.INVISIBLE);
+		}
+
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {

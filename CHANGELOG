@@ -9,7 +9,7 @@ V 0.9.9
 - governor up/down thresholds
 - send mail with attached device and debugging information
 * bug fixes
-- 
+- fix find trigger for battery full
 
 V 0.9.8
 * features

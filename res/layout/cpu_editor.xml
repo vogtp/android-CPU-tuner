@@ -25,8 +25,8 @@
 			<Spinner android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
 				android:prompt="@string/spinnerPromptGov"></Spinner>
-		</LinearLayout><LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/llGovernorThresholds"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:text="Thresholds:  Up:"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/etGovTreshUp" android:text="98" android:height="16dp"></EditText>
-<TextView android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:paddingLeft="7dp" android:text="Down:"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="95" android:id="@+id/etGovTreshDown" android:height="16dp"></EditText>
+		</LinearLayout><LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/llGovernorThresholds"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:text="Thresholds:  Up:" android:id="@+id/labelGovThreshUp"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/etGovTreshUp" android:text="98" android:height="16dp"></EditText>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:paddingLeft="7dp" android:text="Down:" android:id="@+id/labelGovThreshDown"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="95" android:id="@+id/etGovTreshDown" android:height="16dp"></EditText>
 </LinearLayout>
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="Explain Gov"
