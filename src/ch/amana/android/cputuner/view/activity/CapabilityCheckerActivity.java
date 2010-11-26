@@ -169,7 +169,7 @@ public class CapabilityCheckerActivity extends Activity {
 		}
 
 		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "patrick.vogt.pv@gmail.com" });
-		// sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner bug repport");
+		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner repport");
 		StringBuilder body = new StringBuilder("Please add some additional information.\nEmpty e-mail will be ignored...");
 		// body.append(getString(R.string.TextViewOvertimeShort));
 		// body.append(": ");
