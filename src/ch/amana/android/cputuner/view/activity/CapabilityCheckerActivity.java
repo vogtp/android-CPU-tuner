@@ -28,12 +28,15 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class CapabilityCheckerActivity extends Activity {
 
+	private static final String FILE_KERNEL_CPUFREQ_CONFIG = "kernel_cpufreq_config.txt";
+	private static final String FILE_DEVICE_INFO = "device_info.txt";
 	private static final String DIR_REPORT = "/report";
 	private static final String FILE_GETPROP = "getProp.txt";
 	public static final String EXTRA_RECHEK = "extra_recheck";
@@ -136,17 +139,9 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	private void getDeviceInfo() {
-		// StringBuffer info = new StringBuffer("Device Information:\n");
-
 		openLogFile(FILE_GETPROP);
 		RootHandler.execute("getprop");
 		closeLogFile();
-
-		// info.append("Phone type: ").append(tm.getPhoneType()).append("\n");
-
-		// info.append(": ").append().append("\n");
-
-		// tvDeviceInfo.setText(info.toString());
 	}
 
 	private void addTableRow(String title, boolean read, boolean write) {
@@ -181,6 +176,7 @@ public class CapabilityCheckerActivity extends Activity {
 		Intent sendIntent = new Intent(Intent.ACTION_SEND);
 
 		getDeviceInfo();
+		getKernelInfo();
 
 		DB.OpenHelper oh = new OpenHelper(this);
 		DataXmlExporter dm = new DataXmlExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
@@ -194,14 +190,24 @@ public class CapabilityCheckerActivity extends Activity {
 		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "patrick.vogt.pv@gmail.com" });
 		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner repport");
 		StringBuilder body = new StringBuilder("Please add some additional information.\nEmpty e-mail will be ignored...\n\n");
+		openLogFile(FILE_DEVICE_INFO);
+		body.append("Device model: ").append(DeviceInformation.getDeviceModel()).append('\n');
+		body.append("Manufacturer: ").append(DeviceInformation.getManufacturer()).append('\n');
+		body.append("Mod version: ").append(DeviceInformation.getModVersion()).append('\n');
+		body.append("Developer ID: ").append(DeviceInformation.getRomManagerDeveloperId()).append('\n');
+		body.append("Device nickname: ").append(DeviceInformation.getDeviceNick()).append('\n');
+		closeLogFile();
+		body.append("------------------------------------------").append('\n');
 		body.append(CapabilityChecker.getInstance().toString());
 
 		sendIntent.putExtra(Intent.EXTRA_TEXT, body.toString());
 
 		try {
 			ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(file));
+			addFileToZip(zip, FILE_DEVICE_INFO);
 			addFileToZip(zip, FILE_CAPABILITIESCHECK);
 			addFileToZip(zip, FILE_GETPROP);
+			addFileToZip(zip, FILE_KERNEL_CPUFREQ_CONFIG);
 			addFileToZip(zip, DB.Trigger.TABLE_NAME + ".xml");
 			addFileToZip(zip, DB.CpuProfile.TABLE_NAME + ".xml");
 			zip.flush();
@@ -214,6 +220,12 @@ public class CapabilityCheckerActivity extends Activity {
 		} catch (IOException e) {
 			Log.w(Logger.TAG, "Error zipping attachments", e);
 		}
+	}
+
+	private void getKernelInfo() {
+		openLogFile(FILE_KERNEL_CPUFREQ_CONFIG);
+		RootHandler.execute("gunzip< /proc/config.gz | grep CONFIG_CPU_FREQ");
+		closeLogFile();
 	}
 
 	private void addFileToZip(ZipOutputStream zip, String fileName) {

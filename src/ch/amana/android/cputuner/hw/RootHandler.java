@@ -27,6 +27,10 @@ public class RootHandler {
 	private static boolean isSystemApp = false;
 
 	public static boolean execute(String cmd) {
+		return execute(cmd, null);
+	}
+
+	public static boolean execute(String cmd, StringBuilder result) {
 		Process p;
 		boolean success = false;
 		try {
@@ -46,8 +50,8 @@ public class RootHandler {
 				String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
 				writeLog(msg);
 				Log.i(Logger.TAG, msg);
-				copyStreamToLog("OUT", p.getInputStream());
-				copyStreamToLog("ERR", p.getErrorStream());
+				copyStreamToLog("OUT", p.getInputStream(), result);
+				copyStreamToLog("ERR", p.getErrorStream(), result);
 				if (p.exitValue() != 255) {
 					success = true;
 				}
@@ -62,7 +66,7 @@ public class RootHandler {
 		return success;
 	}
 
-	private static void copyStreamToLog(String preAmp, InputStream in) {
+	private static void copyStreamToLog(String preAmp, InputStream in, StringBuilder result) {
 		if (in == null) {
 			return;
 		}
@@ -73,6 +77,9 @@ public class RootHandler {
 			while (line != null && !line.trim().equals("")) {
 				Log.v(Logger.TAG, preAmp + ": " + line);
 				writeLog(line);
+				if (result != null) {
+					result.append(line);
+				}
 				line = reader.readLine();
 			}
 			reader.close();
