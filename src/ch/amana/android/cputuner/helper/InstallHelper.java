@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.widget.Toast;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class InstallHelper {
 
@@ -57,6 +58,16 @@ public class InstallHelper {
 			if (cT != null && !cT.isClosed()) {
 				cT.close();
 			}
+		}
+		Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<10", null, SORT_ORDER);
+		if (cT == null || cT.getCount() > 1) {
+			OpenHelper oh = new OpenHelper(ctx);
+			oh.getReadableDatabase().execSQL(
+					"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where "
+							+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " < 1");
+			oh.getReadableDatabase().execSQL(
+					"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where "
+							+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " < 1");
 		}
 	}
 
