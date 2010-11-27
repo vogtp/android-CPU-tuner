@@ -45,6 +45,7 @@ public class CapabilityCheckerActivity extends Activity {
 	private TextView tvDeviceInfo;
 	private Button buSendBugreport;
 	private File path;
+	private TextView tvMailMessage;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -57,6 +58,7 @@ public class CapabilityCheckerActivity extends Activity {
 		setContentView(R.layout.capability_checker);
 
 		tvSummary = (TextView) findViewById(R.id.tvSummary);
+		tvMailMessage = (TextView) findViewById(R.id.tvMailMessage);
 		tvDeviceInfo = (TextView) findViewById(R.id.tvDeviceInfo);
 		tlCapabilities = (TableLayout) findViewById(R.id.tlCapabilities);
 		cbAcknowledge = (CheckBox) findViewById(R.id.cbAcknowledge);
@@ -91,6 +93,27 @@ public class CapabilityCheckerActivity extends Activity {
 		addTableRow("User frequency", checker.isReadUserCpuFreq(), checker.isWriteUserCpuFreq());
 		// addTableRow("", checker.isRead, checker.isWrite);
 
+		String mailMessage = "No issues have been found...\n" +
+				"If you are pleased and want to give feedback:\n" +
+				"Comments and good ratings on the market are highly appreciated...\n\n" +
+				"Please do not write empty e-mails!";
+		if (!RootHandler.isRoot()) {
+			mailMessage = "Your device is not rooted!\n" +
+					"Cpu tuner cannot do anything!\n\n" +
+					"Please do not write e-mails unless you think there is something wrong with the check or the app.\n\n" +
+					"Please do not write empty e-mails!";
+		} else if (CapabilityChecker.getInstance().hasIssues()) {
+			mailMessage = "You configuration has issues...\n" +
+					"This is most likely due to the kernel/ROM." +
+					"You have two possibilities:\n\n" +
+					"1) Flash a new kernel\n\n" +
+					"2) Flash a new ROM\n" +
+					"You might want to have a look at http://wiki.cyanogenmod.com they do very nice ROMS\n\n" +
+					"Please do not write e-mails unless you think there is something wrong with the check or the app.\n\n" +
+					"Please do not write empty e-mails!";
+		}
+
+		tvMailMessage.setText(mailMessage);
 	}
 
 	private void closeLogFile() {

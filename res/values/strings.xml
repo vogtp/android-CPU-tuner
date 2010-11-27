@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="mailMessageOK">"No issues have been found...\n" +
+				"If you are pleased and what to give feedback, comments and good ratings on the market are highly appreciated..."</string>
+    <string name="mailMessage"></string>
+    <string name="prefEnableBetaLong">e-mail me</string>
     <string name="prefKeyCalcPowerUsageLong">This might cost some battery</string>
     <string name="prefKeyCalcPowerUsage">Calculate power usage</string>
     <string name="menuItemClearPowerCurrent">Clear power usage</string>

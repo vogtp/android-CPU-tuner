@@ -5,18 +5,39 @@
 		android:layout_width="fill_parent" android:id="@+id/llTop"
 		android:orientation="vertical">
 		<TextView android:layout_height="wrap_content" android:id="@+id/tvSummary"
-			android:text="No issues found." android:layout_width="fill_parent" android:textSize="16sp"></TextView>
+			android:text="No issues found." android:layout_width="fill_parent"
+			android:textSize="16sp"></TextView>
 		<TableLayout android:id="@+id/tlCapabilities"
-			android:layout_height="fill_parent" android:layout_width="fill_parent" android:paddingTop="20dp">
+			android:layout_height="fill_parent" android:layout_width="fill_parent"
+			android:paddingTop="20dp">
 
-<TableRow android:id="@+id/TableRow01" android:layout_height="wrap_content" android:layout_width="fill_parent"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Capability" android:paddingRight="10dp" android:textStyle="bold"></TextView><TextView android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Read" android:paddingRight="10dp" android:textStyle="bold"></TextView><TextView android:id="@+id/TextView03" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Write" android:paddingRight="10dp" android:textStyle="bold"></TextView>
-</TableRow>
-</TableLayout>
+			<TableRow android:id="@+id/TableRow01"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Capability" android:paddingRight="10dp"
+					android:textStyle="bold"></TextView>
+				<TextView android:id="@+id/TextView02"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Read" android:paddingRight="10dp" android:textStyle="bold"></TextView>
+				<TextView android:id="@+id/TextView03"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Write" android:paddingRight="10dp" android:textStyle="bold"></TextView>
+			</TableRow>
+		</TableLayout>
 
-<TextView android:id="@+id/tvDeviceInfo" android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="0.8" android:layout_gravity="center_vertical"></TextView><CheckBox android:layout_height="wrap_content" android:text="Acknowledge issues and hide from main screen." android:id="@+id/cbAcknowledge" android:layout_weight=".2" android:layout_gravity="bottom" android:paddingTop="20dp" android:layout_width="fill_parent"></CheckBox>
+		<TextView android:id="@+id/tvDeviceInfo"
+			android:layout_height="fill_parent" android:layout_width="fill_parent"
+			android:layout_weight="0.8" android:layout_gravity="center_vertical"></TextView>
+		
 
-<Button android:layout_height="wrap_content" android:id="@+id/buSendBugreport" android:layout_width="fill_parent" android:text="Send e-mail with device information"></Button>
-</LinearLayout>
+		<TextView android:id="@+id/tvMailMessage"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:layout_weight="0.1" android:autoLink="all" android:textSize="16dp" android:text="Please do not write empty e-mails..." android:paddingBottom="20dp"></TextView>
+		<Button android:layout_height="wrap_content" android:id="@+id/buSendBugreport"
+			android:layout_width="fill_parent" android:text="Send e-mail with device information"></Button>
+
+<CheckBox android:layout_height="wrap_content" android:text="Acknowledge issues and hide from main screen." android:id="@+id/cbAcknowledge" android:layout_weight=".2" android:layout_gravity="bottom" android:paddingTop="20dp" android:layout_width="fill_parent"></CheckBox></LinearLayout>
 
 
 </ScrollView>
