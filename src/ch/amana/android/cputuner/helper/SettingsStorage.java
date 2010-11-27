@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.hw.GpsHandler;
 
 public class SettingsStorage {
 
@@ -93,7 +93,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableSwitchGps() {
-		return RootHandler.isSystemApp(context);
+		return GpsHandler.isEnableSwitchGps(context);
 	}
 
 	public boolean isEnableSwitchWifi() {

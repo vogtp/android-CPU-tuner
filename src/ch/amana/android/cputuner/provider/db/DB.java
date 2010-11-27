@@ -31,7 +31,7 @@ public interface DB {
 				+ DB.CpuProfile.NAME_PROFILE_NAME + " text, " + DB.CpuProfile.NAME_GOVERNOR + " text," + DB.CpuProfile.NAME_FREQUENCY_MAX + " int,"
 				+ DB.CpuProfile.NAME_FREQUENCY_MIN + " int," + DB.CpuProfile.NAME_WIFI_STATE + " int," + DB.CpuProfile.NAME_GPS_STATE + " int,"
 				+ DB.CpuProfile.NAME_BLUETOOTH_STATE + " int," + DB.CpuProfile.NAME_MOBILEDATA_STATE + " int,"
-				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int," + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int,"
+				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98," + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95,"
 				+ DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int)";
 
 		private static final String LOG_TAG = Logger.TAG;
