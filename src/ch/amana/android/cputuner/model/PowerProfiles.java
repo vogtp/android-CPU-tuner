@@ -92,6 +92,7 @@ public class PowerProfiles {
 					applyGpsState(currentProfile.getGpsState());
 					applyBluetoothState(currentProfile.getBluetoothState());
 					applyMobiledataState(currentProfile.getMobiledataState());
+					applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
 					Log.w(Logger.TAG, "Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
 							+ "< on batterylevel "
 							+ batteryLevel + "%");
@@ -115,26 +116,32 @@ public class PowerProfiles {
 	}
 
 	private static void applyWifiState(int state) {
-		if (state > 0) {
-			ServicesHandler.wifi(context, state == 1 ? true : false);
+		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchWifi()) {
+			ServicesHandler.enableWifi(context, state == 1 ? true : false);
 		}
 	}
 
 	private static void applyGpsState(int state) {
-		if (state > 0) {
-			ServicesHandler.gps(context, state == 1 ? true : false);
+		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchGps()) {
+			ServicesHandler.enableGps(context, state == 1 ? true : false);
 		}
 	}
 
 	private static void applyBluetoothState(int state) {
-		if (state > 0) {
-			ServicesHandler.bluetooth(context, state == 1 ? true : false);
+		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+			ServicesHandler.enableBluetooth(context, state == 1 ? true : false);
 		}
 	}
 
 	private static void applyMobiledataState(int state) {
-		if (state > 0) {
-			ServicesHandler.mobiledata(context, state == 1 ? true : false);
+		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
+			ServicesHandler.enable2gOnly(context, state == 1 ? true : false);
+		}
+	}
+
+	private static void applyBackgroundSyncState(int state) {
+		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+			ServicesHandler.enableBackgroundSync(context, state == 1 ? true : false);
 		}
 	}
 

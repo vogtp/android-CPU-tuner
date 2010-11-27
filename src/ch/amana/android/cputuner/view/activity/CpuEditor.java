@@ -1,7 +1,6 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,7 +23,6 @@ import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -51,6 +49,8 @@ public class CpuEditor extends Activity {
 	private EditText etGovTreshDown;
 	private TextView labelGovThreshUp;
 	private TextView labelGovThreshDown;
+	private Spinner spMobileData3G;
+	private Spinner spSync;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -110,6 +110,8 @@ public class CpuEditor extends Activity {
 		spWifi = (Spinner) findViewById(R.id.spWifi);
 		spGps = (Spinner) findViewById(R.id.spGps);
 		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
+		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
+		spSync = (Spinner) findViewById(R.id.spSync);
 
 		if (!SettingsStorage.getInstance().isPowerUser()) {
 			View llGovernorThresholds = findViewById(R.id.llGovernorThresholds);
@@ -189,19 +191,23 @@ public class CpuEditor extends Activity {
 
 		});
 
-		spWifi.setAdapter(getSystemsAdapter());
-		spWifi.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				cpu.setWifiState(pos);
-			}
+		if (SettingsStorage.getInstance().isEnableSwitchWifi()) {
+			spWifi.setAdapter(getSystemsAdapter());
+			spWifi.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+					cpu.setWifiState(pos);
+				}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		} else {
+			tlServices.removeView(findViewById(R.id.TableRowWifi));
+		}
 
-		if (SettingsStorage.getInstance().isEnableBeta() || RootHandler.isSystemApp(this)) {
+		if (SettingsStorage.getInstance().isEnableSwitchGps()) {
 			spGps.setAdapter(getSystemsAdapter());
 			spGps.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -218,7 +224,7 @@ public class CpuEditor extends Activity {
 			tlServices.removeView(findViewById(R.id.TableRowGps));
 		}
 
-		if (BluetoothAdapter.getDefaultAdapter() != null) {
+		if (SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
 			spBluetooth.setAdapter(getSystemsAdapter());
 			spBluetooth.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -233,6 +239,43 @@ public class CpuEditor extends Activity {
 			});
 		} else {
 			tlServices.removeView(findViewById(R.id.TableRowBluetooth));
+		}
+
+		if (SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
+			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.mobiledataStates, android.R.layout.simple_spinner_item);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spMobileData3G.setAdapter(adapter);
+			spMobileData3G.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+					cpu.setMobiledataState(pos);
+
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		} else {
+			tlServices.removeView(findViewById(R.id.TableRowMobileData3G));
+		}
+
+		if (SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+			spSync.setAdapter(getSystemsAdapter());
+			spSync.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+					cpu.setBackgroundSyncState(pos);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		} else {
+			tlServices.removeView(findViewById(R.id.TableRowSync));
 		}
 
 		updateView();
@@ -311,6 +354,8 @@ public class CpuEditor extends Activity {
 		spWifi.setSelection(cpu.getWifiState());
 		spGps.setSelection(cpu.getGpsState());
 		spBluetooth.setSelection(cpu.getBluetoothState());
+		spMobileData3G.setSelection(cpu.getMobiledataState());
+		spSync.setSelection(cpu.getBackgroundSyncState());
 		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
 			labelCpuFreqMax.setText(R.string.labelCpuFreq);
 			labelCpuFreqMin.setVisibility(View.INVISIBLE);

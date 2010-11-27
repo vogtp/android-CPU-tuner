@@ -1,9 +1,11 @@
 package ch.amana.android.cputuner.helper;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import ch.amana.android.cputuner.hw.RootHandler;
 
 public class SettingsStorage {
 
@@ -76,6 +78,27 @@ public class SettingsStorage {
 
 	public boolean isTrackCurrent() {
 		return getPreferences().getBoolean("prefKeyCalcPowerUsage", true);
+	}
+
+	public boolean isEnableSwitchMobiledata() {
+		return isEnableBeta();
+	}
+
+	public boolean isEnableSwitchBackgroundSync() {
+		return true;
+	}
+
+	public boolean isEnableSwitchBluetooth() {
+		return BluetoothAdapter.getDefaultAdapter() != null;
+	}
+
+	public boolean isEnableSwitchGps() {
+		return RootHandler.isSystemApp(context);
+	}
+
+	public boolean isEnableSwitchWifi() {
+		// TODO check if wifi is present
+		return true;
 	}
 
 }

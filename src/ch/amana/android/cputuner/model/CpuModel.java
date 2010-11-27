@@ -25,6 +25,7 @@ public class CpuModel {
 	private int gpsState = 0;
 	private int bluetoothState = 0;
 	private int mobiledataState = 0;
+	private int backgroundSyncState = 0;
 	private int governorThresholdUp = 98;
 	private int governorThresholdDown = 95;
 
@@ -52,6 +53,7 @@ public class CpuModel {
 		this.mobiledataState = c.getInt(DB.CpuProfile.INDEX_MOBILEDATA_STATE);
 		this.governorThresholdUp = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_UP);
 		this.governorThresholdDown = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_DOWN);
+		this.backgroundSyncState = c.getInt(DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE);
 	}
 
 	public CpuModel(Bundle bundle) {
@@ -75,6 +77,7 @@ public class CpuModel {
 		bundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
 		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
+		bundle.putInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -89,6 +92,7 @@ public class CpuModel {
 		mobiledataState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_STATE);
 		governorThresholdUp = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP);
 		governorThresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN);
+		backgroundSyncState = bundle.getInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE);
 	}
 
 	public ContentValues getValues() {
@@ -107,6 +111,7 @@ public class CpuModel {
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
+		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
 		return values;
 	}
 
@@ -201,6 +206,7 @@ public class CpuModel {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + backgroundSyncState;
 		result = prime * result + bluetoothState;
 		result = prime * result + ((gov == null) ? 0 : gov.hashCode());
 		result = prime * result + governorThresholdDown;
@@ -209,6 +215,7 @@ public class CpuModel {
 		result = prime * result + maxFreq;
 		result = prime * result + minFreq;
 		result = prime * result + mobiledataState;
+		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
 		result = prime * result + wifiState;
 		return result;
 	}
@@ -222,6 +229,8 @@ public class CpuModel {
 		if (getClass() != obj.getClass())
 			return false;
 		CpuModel other = (CpuModel) obj;
+		if (backgroundSyncState != other.backgroundSyncState)
+			return false;
 		if (bluetoothState != other.bluetoothState)
 			return false;
 		if (gov == null) {
@@ -240,6 +249,11 @@ public class CpuModel {
 		if (minFreq != other.minFreq)
 			return false;
 		if (mobiledataState != other.mobiledataState)
+			return false;
+		if (profileName == null) {
+			if (other.profileName != null)
+				return false;
+		} else if (!profileName.equals(other.profileName))
 			return false;
 		if (wifiState != other.wifiState)
 			return false;
@@ -280,5 +294,13 @@ public class CpuModel {
 		} catch (Exception e) {
 			Log.w(Logger.TAG, "Cannot parse " + string + " as int");
 		}
+	}
+
+	public void setBackgroundSyncState(int backgroundSyncState) {
+		this.backgroundSyncState = backgroundSyncState;
+	}
+
+	public int getBackgroundSyncState() {
+		return backgroundSyncState;
 	}
 }

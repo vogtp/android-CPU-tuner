@@ -59,7 +59,15 @@
 			android:textSize="20sp" android:paddingTop="10dp" android:text="Services" />
 		<TableLayout android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/TableLayoutServices">
-			<TableRow android:layout_width="wrap_content"
+			<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowMobileData3G">
+				<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Mobiledata"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spMobileData3G"></Spinner>
+
+			</TableRow><TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowSync">
+				<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Background Sync"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spSync"></Spinner>
+
+			</TableRow><TableRow android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/TableRowGps">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -76,17 +84,12 @@
 					android:layout_gravity="center_vertical"></TextView>
 				<Spinner android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:id="@+id/spWifi"></Spinner>
-			</TableRow>
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth">
-				<TextView android:id="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="5dp" android:layout_gravity="center_vertical"
-					android:text="Bluetooth"></TextView>
-				<Spinner android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:id="@+id/spBluetooth"></Spinner>
+			</TableRow><TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth">
+				<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Bluetooth"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spBluetooth"></Spinner>
 
 			</TableRow>
+			
 		</TableLayout>
 
 

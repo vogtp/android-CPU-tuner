@@ -40,8 +40,10 @@ public class ProfilesListActivity extends ListActivity {
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.cpu_item, c,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR, DB.CpuProfile.NAME_FREQUENCY_MIN,
 						DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
-						DB.CpuProfile.NAME_BLUETOOTH_STATE },
-				new int[] { R.id.tvName, R.id.tvGov, R.id.tvFreqMin, R.id.tvFreqMax, R.id.tvWifi, R.id.tvGPS, R.id.tvBluetooth });
+						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_STATE,
+						DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE },
+				new int[] { R.id.tvName, R.id.tvGov, R.id.tvFreqMin, R.id.tvFreqMax, R.id.tvWifi, R.id.tvGPS, R.id.tvBluetooth,
+						R.id.tvMobiledata, R.id.tvSync });
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -58,7 +60,8 @@ public class ProfilesListActivity extends ListActivity {
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE
 						|| columnIndex == DB.CpuProfile.INDEX_WIFI_STATE
-						|| columnIndex == DB.CpuProfile.INDEX_BLUETOOTH_STATE) {
+						|| columnIndex == DB.CpuProfile.INDEX_BLUETOOTH_STATE
+						|| columnIndex == DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE) {
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					if (state == 1) {
@@ -67,6 +70,20 @@ public class ProfilesListActivity extends ListActivity {
 						color = Color.BLACK;
 					}
 					((TextView) view).setTextColor(color);
+					return true;
+				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_STATE) {
+					int state = cursor.getInt(columnIndex);
+					int color = Color.DKGRAY;
+					int textID = R.string.label3g2g;
+					if (state == 1) {
+						color = Color.LTGRAY;
+						textID = R.string.label2g;
+					} else if (state == 2) {
+						color = Color.LTGRAY;
+					}
+					TextView textView = (TextView) view;
+					textView.setTextColor(color);
+					textView.setText(textID);
 					return true;
 				}
 				return false;

@@ -236,4 +236,59 @@ public class TriggerModel {
 		powerCurrentSumScreenLocked = 0;
 		powerCurrentCntScreenLocked = 0;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + batteryLevel;
+		result = prime * result + (int) (batteryProfileId ^ (batteryProfileId >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (int) (powerCurrentCntBattery ^ (powerCurrentCntBattery >>> 32));
+		result = prime * result + (int) (powerCurrentCntPower ^ (powerCurrentCntPower >>> 32));
+		result = prime * result + (int) (powerCurrentCntScreenLocked ^ (powerCurrentCntScreenLocked >>> 32));
+		result = prime * result + (int) (powerCurrentSumBattery ^ (powerCurrentSumBattery >>> 32));
+		result = prime * result + (int) (powerCurrentSumPower ^ (powerCurrentSumPower >>> 32));
+		result = prime * result + (int) (powerCurrentSumScreenLocked ^ (powerCurrentSumScreenLocked >>> 32));
+		result = prime * result + (int) (powerProfileId ^ (powerProfileId >>> 32));
+		result = prime * result + (int) (screenOffProfileId ^ (screenOffProfileId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TriggerModel other = (TriggerModel) obj;
+		if (batteryLevel != other.batteryLevel)
+			return false;
+		if (batteryProfileId != other.batteryProfileId)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (powerCurrentCntBattery != other.powerCurrentCntBattery)
+			return false;
+		if (powerCurrentCntPower != other.powerCurrentCntPower)
+			return false;
+		if (powerCurrentCntScreenLocked != other.powerCurrentCntScreenLocked)
+			return false;
+		if (powerCurrentSumBattery != other.powerCurrentSumBattery)
+			return false;
+		if (powerCurrentSumPower != other.powerCurrentSumPower)
+			return false;
+		if (powerCurrentSumScreenLocked != other.powerCurrentSumScreenLocked)
+			return false;
+		if (powerProfileId != other.powerProfileId)
+			return false;
+		if (screenOffProfileId != other.screenOffProfileId)
+			return false;
+		return true;
+	}
 }

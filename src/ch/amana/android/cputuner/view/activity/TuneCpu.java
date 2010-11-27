@@ -47,6 +47,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView tvMessage;
 	private TextView tvBatteryCurrent;
 	private TextView tvGovTreshholds;
+	private Spinner spMobileData3G;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -73,6 +74,8 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 		tvGovTreshholds = (TextView) findViewById(R.id.tvGovTreshholds);
+
+		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
 
 		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
