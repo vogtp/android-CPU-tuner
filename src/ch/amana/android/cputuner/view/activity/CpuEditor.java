@@ -76,6 +76,8 @@ public class CpuEditor extends Activity {
 			origCpu = new CpuModel();
 		}
 
+		setTitle("Profile Editor: " + cpu.getProfileName());
+
 		cpuHandler = CpuHandler.getInstance();
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
@@ -112,6 +114,8 @@ public class CpuEditor extends Activity {
 		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
 		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
 		spSync = (Spinner) findViewById(R.id.spSync);
+
+		sbCpuFreqMax.requestFocus();
 
 		if (!SettingsStorage.getInstance().isPowerUser()) {
 			View llGovernorThresholds = findViewById(R.id.llGovernorThresholds);
