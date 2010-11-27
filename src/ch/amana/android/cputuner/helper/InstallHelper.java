@@ -59,8 +59,8 @@ public class InstallHelper {
 				cT.close();
 			}
 		}
-		Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<10", null, SORT_ORDER);
-		if (cT == null || cT.getCount() > 1) {
+		Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null, SORT_ORDER);
+		if (cT != null && cT.getCount() > 1) {
 			OpenHelper oh = new OpenHelper(ctx);
 			oh.getReadableDatabase().execSQL(
 					"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where "

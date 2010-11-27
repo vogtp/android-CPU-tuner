@@ -117,14 +117,14 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean setGovThresholdUp(int i) {
 		if (i < 0 || i > 100 || i <= getGovThresholdDown()) {
-			return false;
+			i = 98;
 		}
 		return writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
 	}
 
 	public boolean setGovThresholdDown(int i) {
 		if (i < 0 || i > 100 || i >= getGovThresholdUp()) {
-			return false;
+			i = 95;
 		}
 		return writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
 	}
