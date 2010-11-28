@@ -3,3 +3,4 @@
 - Battery hot state
 - do not read thresholds if governor has none
 - only switch services if not switched manually
+- document trigger, profiles and general workings
