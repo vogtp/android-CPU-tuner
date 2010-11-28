@@ -4,6 +4,13 @@ V
 * bug fixes
 -
 
+V 
+* features
+- Better display of services in profile list
+* bug fixes
+- fixed switching off GPS
+- only apply setting if not already in desired state
+
 V 0.11.0
 * features
 - switch background sync on/off

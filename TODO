@@ -1,0 +1,5 @@
+- Broadcasts on profile trigger change
+- ensure 100% battery profile present
+- Battery hot state
+- do not read thresholds if governor has none
+- only switch services if not switched manually

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -17,6 +18,10 @@ import ch.amana.android.cputuner.provider.db.DB;
 public class PowerProfiles {
 
 	public static final String UNKNOWN = "Unknown";
+
+	public static final String BROADCAST_TRIGGER_CHANGED = "ch.amana.android.cputuner.triggerChanged";
+
+	public static final String BROADCAST_PROFILE_CHANGED = "ch.amana.android.cputuner.profileChanged";
 
 	private static Context context;
 
@@ -112,6 +117,9 @@ public class PowerProfiles {
 					notifyProfile();
 					Notifier.notify(context, sb.toString(), 1);
 					Notifier.notifyProfile(currentProfile.getProfileName());
+					if (SettingsStorage.getInstance().isEnableBeta()) {
+						context.sendBroadcast(new Intent(BROADCAST_PROFILE_CHANGED));
+					}
 				}
 			} finally {
 				if (c != null && !c.isClosed()) {
@@ -185,6 +193,9 @@ public class PowerProfiles {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
 					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
+					if (SettingsStorage.getInstance().isEnableBeta()) {
+						context.sendBroadcast(new Intent(BROADCAST_TRIGGER_CHANGED));
+					}
 					return true;
 				}
 			}
