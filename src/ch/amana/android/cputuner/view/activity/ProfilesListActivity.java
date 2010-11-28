@@ -57,18 +57,61 @@ public class ProfilesListActivity extends ListActivity {
 
 					((TextView) view).setText(CpuModel.convertFreq2GHz(freq));
 					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE
-						|| columnIndex == DB.CpuProfile.INDEX_WIFI_STATE
-						|| columnIndex == DB.CpuProfile.INDEX_BLUETOOTH_STATE
-						|| columnIndex == DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE) {
+				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
+					int textRes = R.string.labelGpsOn;
 					if (state == 1) {
 						color = Color.LTGRAY;
 					} else if (state == 2) {
-						color = Color.BLACK;
+						textRes = R.string.labelGpsOff;
+						color = Color.LTGRAY;
 					}
-					((TextView) view).setTextColor(color);
+					TextView textView = (TextView) view;
+					textView.setText(textRes);
+					textView.setTextColor(color);
+					return true;
+				} else if (columnIndex == DB.CpuProfile.INDEX_WIFI_STATE) {
+					int state = cursor.getInt(columnIndex);
+					int color = Color.DKGRAY;
+					int textRes = R.string.labelWifiOn;
+					if (state == 1) {
+						color = Color.LTGRAY;
+					} else if (state == 2) {
+						textRes = R.string.labelWifiOff;
+						color = Color.LTGRAY;
+					}
+					TextView textView = (TextView) view;
+					textView.setText(textRes);
+					textView.setTextColor(color);
+					return true;
+				} else if (columnIndex == DB.CpuProfile.INDEX_BLUETOOTH_STATE) {
+					int state = cursor.getInt(columnIndex);
+					int color = Color.DKGRAY;
+					int textRes = R.string.labelBluetoothOn;
+					if (state == 1) {
+						color = Color.LTGRAY;
+					} else if (state == 2) {
+						textRes = R.string.labelBluetoothOff;
+						color = Color.LTGRAY;
+					}
+					TextView textView = (TextView) view;
+					textView.setText(textRes);
+					textView.setTextColor(color);
+					return true;
+				} else if (columnIndex == DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE) {
+					int state = cursor.getInt(columnIndex);
+					int color = Color.DKGRAY;
+					int textRes = R.string.labelSyncOn;
+					if (state == 1) {
+						color = Color.LTGRAY;
+					} else if (state == 2) {
+						textRes = R.string.labelSyncOff;
+						color = Color.LTGRAY;
+					}
+					TextView textView = (TextView) view;
+					textView.setText(textRes);
+					textView.setTextColor(color);
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_STATE) {
 					int state = cursor.getInt(columnIndex);

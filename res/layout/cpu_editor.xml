@@ -25,9 +25,22 @@
 			<Spinner android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
 				android:prompt="@string/spinnerPromptGov" android:focusable="true"></Spinner>
-		</LinearLayout><LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/llGovernorThresholds"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:text="Thresholds:  Up:" android:id="@+id/labelGovThreshUp"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/etGovTreshUp" android:text="98" android:height="16dp"></EditText>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="7dp" android:paddingLeft="7dp" android:text="Down:" android:id="@+id/labelGovThreshDown"></TextView><EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="95" android:id="@+id/etGovTreshDown" android:height="16dp"></EditText>
-</LinearLayout>
+		</LinearLayout>
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/llGovernorThresholds">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:paddingRight="7dp"
+				android:text="Thresholds:  Up:" android:id="@+id/labelGovThreshUp"></TextView>
+			<EditText android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/etGovTreshUp"
+				android:text="98" android:height="16dp"></EditText>
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:paddingRight="7dp"
+				android:paddingLeft="7dp" android:text="Down:" android:id="@+id/labelGovThreshDown"></TextView>
+			<EditText android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="95"
+				android:id="@+id/etGovTreshDown" android:height="16dp"></EditText>
+		</LinearLayout>
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="Explain Gov"
 			android:id="@+id/tvExplainGov"></TextView>
@@ -39,15 +52,30 @@
 			android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
 				android:layout_width="fill_parent" android:layout_gravity="center_vertical">
-				
-				
-				
-			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax" android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax" android:layout_gravity="right"></TextView><SeekBar android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax" android:layout_weight=".3" android:paddingRight="5dp"></SeekBar>
-</TableRow>
+
+
+
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"></TextView>
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax"
+					android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax"
+					android:layout_gravity="right"></TextView>
+				<SeekBar android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
+					android:layout_weight=".3" android:paddingRight="5dp"></SeekBar>
+			</TableRow>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMinFreq"
 				android:layout_width="fill_parent" android:layout_gravity="center_vertical">
-				<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="99999" android:id="@+id/tvCpuFreqMin" android:layout_gravity="right"></TextView>
-				
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin"></TextView>
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:text="99999" android:id="@+id/tvCpuFreqMin"
+					android:layout_gravity="right"></TextView>
+
 				<SeekBar android:layout_height="wrap_content"
 					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMin"
 					android:layout_weight=".3" android:paddingRight="5dp"></SeekBar>
@@ -59,15 +87,27 @@
 			android:textSize="20sp" android:paddingTop="10dp" android:text="Services" />
 		<TableLayout android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/TableLayoutServices">
-			<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowMobileData3G">
-				<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Mobiledata"></TextView>
-				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spMobileData3G"></Spinner>
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/TableRowMobileData3G">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:paddingRight="5dp" android:layout_gravity="center_vertical"
+					android:text="Mobiledata"></TextView>
+				<Spinner android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/spMobileData3G"></Spinner>
 
-			</TableRow><TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowSync">
-				<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Background Sync"></TextView>
-				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spSync"></Spinner>
+			</TableRow>
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/TableRowSync">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:paddingRight="5dp" android:layout_gravity="center_vertical"
+					android:text="Background Sync"></TextView>
+				<Spinner android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/spSync"></Spinner>
 
-			</TableRow><TableRow android:layout_width="wrap_content"
+			</TableRow>
+			<TableRow android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/TableRowGps">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -84,12 +124,18 @@
 					android:layout_gravity="center_vertical"></TextView>
 				<Spinner android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:id="@+id/spWifi"></Spinner>
-			</TableRow><TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth">
-				<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Bluetooth"></TextView>
-				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spBluetooth"></Spinner>
+			</TableRow>
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth">
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:paddingRight="5dp" android:layout_gravity="center_vertical"
+					android:text="Bluetooth"></TextView>
+				<Spinner android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/spBluetooth"></Spinner>
 
 			</TableRow>
-			
+
 		</TableLayout>
 
 
