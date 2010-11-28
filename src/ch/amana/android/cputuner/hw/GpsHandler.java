@@ -29,20 +29,20 @@ public class GpsHandler {
 		return RootHandler.isSystemApp(ctx);
 	}
 
-	public static void enableGps(Context ctx, boolean enabled) {
-		if (!enableGps) {
-			return;
-		}
-		ContentResolver resolver = ctx.getContentResolver();
-		// try {
-		// Settings.Secure.setLocationProviderEnabled(resolver,
-		// Settings.Secure.LOCATION_PROVIDERS_ALLOWED, enabled);
-		// } catch (Throwable e) {
-		enableGpsPre22(resolver, enabled);
-		// }
-	}
+	// public static void enableGps(Context ctx, boolean enabled) {
+	// if (!enableGps) {
+	// return;
+	// }
+	// ContentResolver resolver = ctx.getContentResolver();
+	// // try {
+	// // Settings.Secure.setLocationProviderEnabled(resolver,
+	// // Settings.Secure.LOCATION_PROVIDERS_ALLOWED, enabled);
+	// // } catch (Throwable e) {
+	// enableGpsPre22(resolver, enabled);
+	// // }
+	// }
 
-	private static void enableGpsPre22(ContentResolver resolver, boolean enabled) {
+	private static void enableGps(ContentResolver resolver, boolean enabled) {
 		String providers = Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 		boolean changed = false;
 
@@ -56,7 +56,6 @@ public class GpsHandler {
 				changed = true;
 			}
 		} else {
-
 			if (idx > -1) {
 				String tmp = providers.substring(0, idx);
 				int sepIdx = providers.indexOf(',', idx);
@@ -66,6 +65,7 @@ public class GpsHandler {
 				if (tmp.endsWith(",")) {
 					tmp = tmp.substring(0, tmp.length() - 1);
 				}
+				changed = true;
 			}
 		}
 
