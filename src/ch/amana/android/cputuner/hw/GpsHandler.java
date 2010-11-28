@@ -8,16 +8,16 @@ import ch.amana.android.cputuner.helper.Logger;
 
 public class GpsHandler {
 
-	private static Boolean enableGps = null;
+	// private static Boolean enableGps = null;
+	//
+	// public static boolean isEnableSwitchGps(Context ctx) {
+	// if (enableGps == null) {
+	// enableGps = new Boolean(checkEnableSwitchGps(ctx));
+	// }
+	// return enableGps.booleanValue();
+	// }
 
 	public static boolean isEnableSwitchGps(Context ctx) {
-		if (enableGps == null) {
-			enableGps = new Boolean(checkEnableSwitchGps(ctx));
-		}
-		return enableGps.booleanValue();
-	}
-
-	public static boolean checkEnableSwitchGps(Context ctx) {
 		// try {
 		// ContentResolver resolver = ctx.getContentResolver();
 		// Settings.Secure.isLocationProviderEnabled(resolver,
@@ -66,6 +66,7 @@ public class GpsHandler {
 				if (tmp.endsWith(",")) {
 					tmp = tmp.substring(0, tmp.length() - 1);
 				}
+				providers = tmp;
 				changed = true;
 			}
 		}
