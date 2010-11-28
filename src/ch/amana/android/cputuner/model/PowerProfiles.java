@@ -29,7 +29,17 @@ public class PowerProfiles {
 
 	private static List<IProfileChangeCallback> listeners;
 
-	private static boolean updateTrigger = true;;
+	private static boolean updateTrigger = true;
+
+	private static int lastStateWifi = -1;
+
+	private static int lastStateGps = -1;
+
+	private static int lastStateMobiledata = -1;
+
+	private static int lastStateBluetooth = -1;
+
+	private static int lastStateBackgroundSync = -1;
 
 	// FIXME make singelton class
 
@@ -116,30 +126,45 @@ public class PowerProfiles {
 
 	private static void applyWifiState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchWifi()) {
+			if (state == lastStateWifi) {
+				Logger.v("Not sitching wifi since same state as last time");
+			}
 			ServicesHandler.enableWifi(context, state == 1 ? true : false);
 		}
 	}
 
 	private static void applyGpsState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchGps()) {
+			if (state == lastStateGps) {
+				Logger.v("Not sitching GPS since same state as last time");
+			}
 			ServicesHandler.enableGps(context, state == 1 ? true : false);
 		}
 	}
 
 	private static void applyBluetoothState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+			if (state == lastStateBluetooth) {
+				Logger.v("Not sitching bluetooth since same state as last time");
+			}
 			ServicesHandler.enableBluetooth(context, state == 1 ? true : false);
 		}
 	}
 
 	private static void applyMobiledataState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
+			if (state == lastStateMobiledata) {
+				Logger.v("Not sitching mobiledata since same state as last time");
+			}
 			ServicesHandler.enable2gOnly(context, state == 1 ? true : false);
 		}
 	}
 
 	private static void applyBackgroundSyncState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+			if (state == lastStateBackgroundSync) {
+				Logger.v("Not sitching background sync since same state as last time");
+			}
 			ServicesHandler.enableBackgroundSync(context, state == 1 ? true : false);
 		}
 	}
