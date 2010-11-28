@@ -86,6 +86,7 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean setMaxCpuFreq(int val) {
 		if (val <= getMinCpuFreq()) {
+			RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
 			return false;
 		}
 		return writeFile(SCALING_MAX_FREQ, val + "");
@@ -101,6 +102,7 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean setMinCpuFreq(int i) {
 		if (i >= getMaxCpuFreq()) {
+			RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
 			return false;
 		}
 		return writeFile(SCALING_MIN_FREQ, i + "");
