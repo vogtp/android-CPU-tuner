@@ -23,6 +23,7 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -58,6 +59,11 @@ public class ProfilesListActivity extends ListActivity {
 					((TextView) view).setText(CpuModel.convertFreq2GHz(freq));
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
+					TextView textView = (TextView) view;
+					if (!SettingsStorage.getInstance().isEnableSwitchGps()) {
+						textView.setText("");
+						return true;
+					}
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelGpsOn;
@@ -67,11 +73,15 @@ public class ProfilesListActivity extends ListActivity {
 						textRes = R.string.labelGpsOff;
 						color = Color.LTGRAY;
 					}
-					TextView textView = (TextView) view;
 					textView.setText(textRes);
 					textView.setTextColor(color);
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_WIFI_STATE) {
+					TextView textView = (TextView) view;
+					if (!SettingsStorage.getInstance().isEnableSwitchWifi()) {
+						textView.setText("");
+						return true;
+					}
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelWifiOn;
@@ -81,11 +91,15 @@ public class ProfilesListActivity extends ListActivity {
 						textRes = R.string.labelWifiOff;
 						color = Color.LTGRAY;
 					}
-					TextView textView = (TextView) view;
 					textView.setText(textRes);
 					textView.setTextColor(color);
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_BLUETOOTH_STATE) {
+					TextView textView = (TextView) view;
+					if (!SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+						textView.setText("");
+						return true;
+					}
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelBluetoothOn;
@@ -95,11 +109,15 @@ public class ProfilesListActivity extends ListActivity {
 						textRes = R.string.labelBluetoothOff;
 						color = Color.LTGRAY;
 					}
-					TextView textView = (TextView) view;
 					textView.setText(textRes);
 					textView.setTextColor(color);
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE) {
+					TextView textView = (TextView) view;
+					if (!SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+						textView.setText("");
+						return true;
+					}
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelSyncOn;
@@ -109,11 +127,15 @@ public class ProfilesListActivity extends ListActivity {
 						textRes = R.string.labelSyncOff;
 						color = Color.LTGRAY;
 					}
-					TextView textView = (TextView) view;
 					textView.setText(textRes);
 					textView.setTextColor(color);
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_STATE) {
+					TextView textView = (TextView) view;
+					if (!SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
+						textView.setText("");
+						return true;
+					}
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textID = R.string.label3g2g;
@@ -123,7 +145,6 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == 2) {
 						color = Color.LTGRAY;
 					}
-					TextView textView = (TextView) view;
 					textView.setTextColor(color);
 					textView.setText(textID);
 					return true;
