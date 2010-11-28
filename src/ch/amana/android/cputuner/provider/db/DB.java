@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 
@@ -34,8 +33,6 @@ public interface DB {
 				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98," + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95,"
 				+ DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int)";
 
-		private static final String LOG_TAG = Logger.TAG;
-
 		public OpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
 		}
@@ -46,14 +43,14 @@ public interface DB {
 			db.execSQL(CREATE_CPUPROFILES_TABLE);
 			db.execSQL("create index idx_trigger_battery_level on " + Trigger.TABLE_NAME + " (" + Trigger.NAME_BATTERY_LEVEL + "); ");
 			db.execSQL("create index idx_cpuprofiles_profilename on " + CpuProfile.TABLE_NAME + " (" + CpuProfile.NAME_PROFILE_NAME + "); ");
-			Log.i(LOG_TAG, "Created tables ");
+			Logger.i("Created tables ");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			switch (oldVersion) {
 			case 1:
-				Log.w(LOG_TAG, "Upgrading to DB Version 2...");
+				Logger.w("Upgrading to DB Version 2...");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_WIFI_STATE + " int;");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GPS_STATE + " int;");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_BLUETOOTH_STATE + " int;");
@@ -61,7 +58,7 @@ public interface DB {
 				// nobreak
 
 			case 2:
-				Log.w(LOG_TAG, "Upgrading to DB Version 3...");
+				Logger.w("Upgrading to DB Version 3...");
 				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_SUM_POW + " long;");
 				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_CNT_POW + " long;");
 				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_SUM_BAT + " long;");
@@ -70,16 +67,16 @@ public interface DB {
 				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_CNT_LCK + " long;");
 
 			case 3:
-				Log.w(LOG_TAG, "Upgrading to DB Version 4...");
+				Logger.w("Upgrading to DB Version 4...");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98;");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95;");
 
 			case 4:
-				Log.w(LOG_TAG, "Upgrading to DB Version 5...");
+				Logger.w("Upgrading to DB Version 5...");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int default 0;");
 
 			default:
-				Log.w(LOG_TAG, "Finished DB upgrading!");
+				Logger.w("Finished DB upgrading!");
 				break;
 			}
 		}

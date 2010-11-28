@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.model.PowerProfiles;
@@ -40,7 +39,7 @@ public class Notifier {
 	}
 
 	public static void notify(Context context, String msg, int level) {
-		Log.i(Logger.TAG, "Notifier: " + msg);
+		Logger.i("Notifier: " + msg);
 		if (level <= curLevel && SettingsStorage.getInstance().isToastNotifications()) {
 			Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 		}
@@ -75,7 +74,7 @@ public class Notifier {
 	}
 
 	public static void notifyProfile(CharSequence profileName) {
-		Log.i(Logger.TAG, "Appling profile: " + profileName);
+		Logger.i("Appling profile: " + profileName);
 		if (instance != null) {
 			instance.notifyStatus(profileName);
 		}

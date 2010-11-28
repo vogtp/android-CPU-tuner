@@ -14,7 +14,6 @@ import java.io.Writer;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 
 public class RootHandler {
@@ -34,7 +33,7 @@ public class RootHandler {
 		Process p;
 		boolean success = false;
 		try {
-			Log.v(Logger.TAG, "Running " + cmd);
+			Logger.v("Running " + cmd);
 			p = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(p.getOutputStream());
 
@@ -49,19 +48,19 @@ public class RootHandler {
 				p.waitFor();
 				String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
 				writeLog(msg);
-				Log.i(Logger.TAG, msg);
+				Logger.i(msg);
 				copyStreamToLog("OUT", p.getInputStream(), result);
 				copyStreamToLog("ERR", p.getErrorStream(), result);
 				if (p.exitValue() != 255) {
 					success = true;
 				}
 			} catch (InterruptedException e) {
-				Log.e(Logger.TAG, "Interrupt while waiting from cmd " + cmd + " to finish", e);
+				Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
 			}
 		} catch (FileNotFoundException e) {
-			Log.e(Logger.TAG, "File not found in " + cmd);
+			Logger.e("File not found in " + cmd);
 		} catch (IOException e) {
-			Log.e(Logger.TAG, "IO error from: " + cmd, e);
+			Logger.e("IO error from: " + cmd, e);
 		}
 		return success;
 	}
@@ -75,7 +74,7 @@ public class RootHandler {
 			String line;
 			line = reader.readLine();
 			while (line != null && !line.trim().equals("")) {
-				Log.v(Logger.TAG, preAmp + ": " + line);
+				Logger.v(preAmp + ": " + line);
 				writeLog(line);
 				if (result != null) {
 					result.append(line);
@@ -84,7 +83,7 @@ public class RootHandler {
 			}
 			reader.close();
 		} catch (IOException e) {
-			Log.w(Logger.TAG, "Cannot read process stream", e);
+			Logger.w("Cannot read process stream", e);
 		}
 	}
 
@@ -95,7 +94,7 @@ public class RootHandler {
 				logWriter.write("\n");
 				logWriter.flush();
 			} catch (IOException e) {
-				Log.w(Logger.TAG, "Cannot write >" + line + "< to log file", e);
+				Logger.w("Cannot write >" + line + "< to log file", e);
 			}
 		}
 	}
@@ -113,7 +112,7 @@ public class RootHandler {
 			isSystemApp = fileList != null && fileList.length > 0;
 			checkedSystemApp = true;
 		}
-		Log.i(Logger.TAG, "Is system app: " + isSystemApp);
+		Logger.i("Is system app: " + isSystemApp);
 		return isSystemApp;
 	}
 
@@ -138,19 +137,19 @@ public class RootHandler {
 			BufferedReader reader;
 			try {
 				String fqfn = directory + "/" + filename;
-				Log.v(Logger.TAG, "Reading file >" + fqfn + "<");
+				Logger.v("Reading file >" + fqfn + "<");
 				writeLog("Reading file >" + filename + "<");
 				reader = new BufferedReader(new FileReader(fqfn));
 				String line = reader.readLine();
 				while (line != null && !line.trim().equals("")) {
-					Log.v(Logger.TAG, "Read line >" + line + "<");
+					Logger.v("Read line >" + line + "<");
 					writeLog(line);
 					val += line;
 					line = reader.readLine();
 				}
 				reader.close();
 			} catch (Throwable e) {
-				Log.e(Logger.TAG, "Cannot open for reading " + filename, e);
+				Logger.e("Cannot open for reading " + filename, e);
 			}
 			if (val.trim().equals("")) {
 				val = NOT_AVAILABLE;
@@ -172,17 +171,17 @@ public class RootHandler {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				Log.w(Logger.TAG, "Cannot creat log file " + file.toString(), e);
+				Logger.w("Cannot creat log file " + file.toString(), e);
 				logWriter = null;
 				return;
 			}
 		}
 		if (file.isFile() && file.canWrite()) {
-			Log.i(Logger.TAG, "Opening logfile " + file.getAbsolutePath());
+			Logger.i("Opening logfile " + file.getAbsolutePath());
 			try {
 				logWriter = new FileWriter(file);
 			} catch (IOException e) {
-				Log.w(Logger.TAG, "Cannot open logfile", e);
+				Logger.w("Cannot open logfile", e);
 			}
 		} else {
 			logWriter = null;
@@ -195,7 +194,7 @@ public class RootHandler {
 				logWriter.flush();
 				logWriter.close();
 			} catch (IOException e) {
-				Log.w(Logger.TAG, "Cannot close logfile", e);
+				Logger.w("Cannot close logfile", e);
 			}
 		}
 		logWriter = null;

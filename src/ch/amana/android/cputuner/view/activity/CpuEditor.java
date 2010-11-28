@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -138,7 +137,7 @@ public class CpuEditor extends Activity {
 					updateView();
 
 				} catch (ArrayIndexOutOfBoundsException e) {
-					Log.e(Logger.TAG, "Cannot set max freq in gui", e);
+					Logger.e("Cannot set max freq in gui", e);
 				}
 			}
 
@@ -163,7 +162,7 @@ public class CpuEditor extends Activity {
 					}
 					updateView();
 				} catch (ArrayIndexOutOfBoundsException e) {
-					Log.e(Logger.TAG, "Cannot set max freq in gui", e);
+					Logger.e("Cannot set max freq in gui", e);
 				}
 			}
 
@@ -339,7 +338,7 @@ public class CpuEditor extends Activity {
 				getContentResolver().update(DB.CpuProfile.CONTENT_URI, cpu.getValues(), DB.NAME_ID + "=?", new String[] { cpu.getDbId() + "" });
 			}
 		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot insert or update", e);
+			Logger.w("Cannot insert or update", e);
 
 		}
 	}

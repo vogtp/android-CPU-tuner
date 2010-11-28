@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -91,7 +90,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 						updateView();
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					Log.e(Logger.TAG, "Cannot set max freq in gui", e);
+					Logger.e("Cannot set max freq in gui", e);
 				}
 			}
 
@@ -118,7 +117,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 						updateView();
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					Log.e(Logger.TAG, "Cannot set min freq in gui", e);
+					Logger.e("Cannot set min freq in gui", e);
 				}
 			}
 

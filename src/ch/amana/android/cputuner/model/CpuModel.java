@@ -3,7 +3,6 @@ package ch.amana.android.cputuner.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -161,7 +160,7 @@ public class CpuModel {
 			int i = Math.round(freq / 1000f);
 			return i + " MHz";
 		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot convert freq", e);
+			Logger.w("Cannot convert freq", e);
 		}
 		return "NaN";
 	}
@@ -284,7 +283,7 @@ public class CpuModel {
 		try {
 			setGovernorThresholdUp(Integer.parseInt(string));
 		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse " + string + " as int");
+			Logger.w("Cannot parse " + string + " as int");
 		}
 	}
 
@@ -292,7 +291,7 @@ public class CpuModel {
 		try {
 			setGovernorThresholdDown(Integer.parseInt(string));
 		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse " + string + " as int");
+			Logger.w("Cannot parse " + string + " as int");
 		}
 	}
 

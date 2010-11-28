@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Environment;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.Toast;
 import ch.amana.android.cputuner.hw.RootHandler;
 
@@ -49,15 +48,15 @@ public class SystemAppHelper implements OnClickListener {
 			RootHandler.execute("mv " + from + "/app/" + ctx.getPackageName() + "* " + to + "/app");
 
 			if (checkInstallLocation(to)) {
-				Log.w(Logger.TAG, "Successfully moved package from " + from + " to " + to + " rebooting now");
+				Logger.w("Successfully moved package from " + from + " to " + to + " rebooting now");
 				reboot();
 				return true;
 			} else {
-				Log.w(Logger.TAG, "Could not move package from " + from + " to "
+				Logger.w("Could not move package from " + from + " to "
 						+ to);
 			}
 		} else {
-			Log.w(Logger.TAG, "Did not find cputuner apk in " + from +
+			Logger.w("Did not find cputuner apk in " + from +
 					" to moving to " + to);
 		}
 		Toast.makeText(ctx, "Could not install apk", Toast.LENGTH_LONG).show();
@@ -69,7 +68,7 @@ public class SystemAppHelper implements OnClickListener {
 			PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
 			pm.reboot(null);
 		} catch (Throwable e) {
-			Log.w(Logger.TAG, "Cannot do a PowerManager reboot.", e);
+			Logger.w("Cannot do a PowerManager reboot.", e);
 			rebootHard();
 		}
 	}

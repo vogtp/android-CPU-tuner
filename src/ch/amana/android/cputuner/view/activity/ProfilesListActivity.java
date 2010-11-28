@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -117,7 +116,7 @@ public class ProfilesListActivity extends ListActivity {
 		try {
 			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		} catch (ClassCastException e) {
-			Log.e(Logger.TAG, "bad menuInfo", e);
+			Logger.e("bad menuInfo", e);
 			return false;
 		}
 

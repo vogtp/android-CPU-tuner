@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -93,7 +92,7 @@ public class PowerProfiles {
 					applyBluetoothState(currentProfile.getBluetoothState());
 					applyMobiledataState(currentProfile.getMobiledataState());
 					applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
-					Log.w(Logger.TAG, "Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
+					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
 							+ "< on batterylevel "
 							+ batteryLevel + "%");
 					StringBuilder sb = new StringBuilder(50);
@@ -153,7 +152,7 @@ public class PowerProfiles {
 			if (cursor != null && cursor.moveToFirst()) {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
-					Log.i(Logger.TAG, "Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
+					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
 					return true;
 				}
 			}

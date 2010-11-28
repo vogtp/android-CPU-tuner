@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.CpuModel;
@@ -171,7 +170,7 @@ public class CpuHandler extends HardwareHandler {
 		}
 		synchronized (filename) {
 			String path = dir + "/" + filename;
-			Log.w(Logger.TAG, "Setting " + path + " to " + val);
+			Logger.w("Setting " + path + " to " + val);
 			return RootHandler.execute("echo " + val + " > " + path);
 		}
 	}

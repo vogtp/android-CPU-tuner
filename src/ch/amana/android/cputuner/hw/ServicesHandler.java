@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 
 public class ServicesHandler {
@@ -18,7 +17,7 @@ public class ServicesHandler {
 	public static void enableWifi(Context ctx, boolean enabled) {
 		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		wifi.setWifiEnabled(enabled);
-		Log.i(Logger.TAG, "Switched Wifi to " + enabled);
+		Logger.i("Switched Wifi to " + enabled);
 	}
 
 	public static void enableGps(Context ctx, boolean enabled) {
@@ -35,7 +34,7 @@ public class ServicesHandler {
 		} else {
 			bluetoothAdapter.disable();
 		}
-		Log.i(Logger.TAG, "Switched bluethooth to " + enabled);
+		Logger.i("Switched bluethooth to " + enabled);
 	}
 
 	// From:
@@ -56,7 +55,7 @@ public class ServicesHandler {
 			intent.putExtra(NETWORK_MODE, MODE_GSM_WCDMA_PREFERRD);
 		}
 		context.sendBroadcast(intent);
-		Log.i(Logger.TAG, "Switched 2G/3G to " + b);
+		Logger.i("Switched 2G/3G to " + b);
 	}
 
 	public static void enableBackgroundSync(Context context, boolean b) {

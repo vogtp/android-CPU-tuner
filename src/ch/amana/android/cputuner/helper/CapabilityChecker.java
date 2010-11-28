@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.helper;
 
-import android.util.Log;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -90,7 +89,7 @@ public class CapabilityChecker {
 		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setCurGov(newGov);
 		String finalGov = cpuHandler.getCurCpuGov();
-		Log.i(Logger.TAG, "Checking governor: acitiv: " + activeGov + " new: " + newGov + " final: " + finalGov);
+		Logger.i("Checking governor: acitiv: " + activeGov + " new: " + newGov + " final: " + finalGov);
 		writeGovernor = finalGov.equals(newGov);
 		cpuHandler.setCurGov(activeGov);
 	}
@@ -112,7 +111,7 @@ public class CapabilityChecker {
 		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setMaxCpuFreq(newFreq);
 		int finalFreq = cpuHandler.getMaxCpuFreq();
-		Log.i(Logger.TAG, "Checking maxCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
+		Logger.i("Checking maxCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
 		writeMaxFreq = finalFreq == newFreq;
 		cpuHandler.setMaxCpuFreq(activeFreq);
 	}
@@ -134,7 +133,7 @@ public class CapabilityChecker {
 		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setMinCpuFreq(newFreq);
 		int finalFreq = cpuHandler.getMinCpuFreq();
-		Log.i(Logger.TAG, "Checking minCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
+		Logger.i("Checking minCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
 		writeMinFreq = finalFreq == newFreq;
 		cpuHandler.setMinCpuFreq(activeFreq);
 	}
@@ -158,7 +157,7 @@ public class CapabilityChecker {
 		RootHandler.writeLog("*** Writing to sysfs ***");
 		cpuHandler.setUserCpuFreq(newFreq);
 		int finalFreq = cpuHandler.getUserCpuFreq();
-		Log.i(Logger.TAG, "Checking userCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
+		Logger.i("Checking userCpuFreq: acitiv: " + activeFreq + " new: " + newFreq + " final: " + finalFreq);
 		writeUserCpuFreq = true; // FIXME finalFreq == newFreq;
 		cpuHandler.setUserCpuFreq(activeFreq);
 		cpuHandler.setCurGov(gov);

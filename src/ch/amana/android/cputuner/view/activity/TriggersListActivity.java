@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -121,7 +120,7 @@ public class TriggersListActivity extends ListActivity {
 		try {
 			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		} catch (ClassCastException e) {
-			Log.e(Logger.TAG, "bad menuInfo", e);
+			Logger.e("bad menuInfo", e);
 			return false;
 		}
 
@@ -162,7 +161,7 @@ public class TriggersListActivity extends ListActivity {
 						PowerProfiles.setUpdateTrigger(false);
 						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 					} catch (Exception e) {
-						Log.w(Logger.TAG, "Cannot reset trigger power consumption", e);
+						Logger.w("Cannot reset trigger power consumption", e);
 					} finally {
 						PowerProfiles.setUpdateTrigger(true);
 					}

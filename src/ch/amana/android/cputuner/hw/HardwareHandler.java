@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.hw;
 
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 
 public class HardwareHandler {
@@ -14,7 +13,7 @@ public class HardwareHandler {
 		try {
 			i = Integer.parseInt(intString);
 		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse " + intString + " as interger");
+			Logger.w("Cannot parse " + intString + " as interger");
 		}
 		return i;
 	}
@@ -34,7 +33,7 @@ public class HardwareHandler {
 	}
 
 	protected int[] createListInt(String listString) {
-		Log.d(Logger.TAG, "Creating array from >" + listString + "<");
+		Logger.d("Creating array from >" + listString + "<");
 		if (RootHandler.NOT_AVAILABLE.equals(listString)) {
 			int[] list = new int[1];
 			list[0] = -1;
@@ -53,7 +52,7 @@ public class HardwareHandler {
 	}
 
 	protected String[] createListStr(String listString) {
-		Log.d(Logger.TAG, "Creating array from >" + listString + "<");
+		Logger.d("Creating array from >" + listString + "<");
 		if (RootHandler.NOT_AVAILABLE.equals(listString)) {
 			String[] list = new String[1];
 			list[0] = listString;

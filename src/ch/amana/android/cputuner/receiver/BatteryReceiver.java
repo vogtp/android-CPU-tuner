@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -27,9 +26,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 				context.registerReceiver(receiver, batteryLevelFilter);
 				context.registerReceiver(receiver, screenOnFilter);
 				context.registerReceiver(receiver, screenOffFilter);
-				Log.w(Logger.TAG, "Registered BatteryReceiver");
+				Logger.w("Registered BatteryReceiver");
 			} else {
-				Log.i(Logger.TAG, "BatteryReceiver allready registered, not registering again");
+				Logger.i("BatteryReceiver allready registered, not registering again");
 			}
 		}
 	}
@@ -41,7 +40,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 					context.unregisterReceiver(receiver);
 					receiver = null;
 				} catch (Throwable e) {
-					Log.w(Logger.TAG, "Could not unregister BatteryReceiver", e);
+					Logger.w("Could not unregister BatteryReceiver", e);
 				}
 			}
 		}
@@ -51,7 +50,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 
 		String action = intent.getAction();
-		Log.d(Logger.TAG, "BatteryReceiver got intent: " + action);
+		Logger.d("BatteryReceiver got intent: " + action);
 		if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
 			int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
@@ -63,7 +62,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			if (rawlevel >= 0 && scale > 0) {
 				level = (rawlevel * 100) / scale;
 			}
-			Log.d(Logger.TAG, "Battery Level Remaining: " + level + "%");
+			Logger.d("Battery Level Remaining: " + level + "%");
 			if (level > -1) {
 				// handle battery event
 				PowerProfiles.setBatteryLevel(level);

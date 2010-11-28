@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -80,7 +79,7 @@ public class TriggerEditor extends Activity {
 		try {
 			triggerModel.setBatteryLevel(Integer.parseInt(etBatteryLevel.getText().toString()));
 		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot parse int from input " + etBatteryLevel.getText(), e);
+			Logger.w("Cannot parse int from input " + etBatteryLevel.getText(), e);
 		}
 		triggerModel.setBatteryProfileId(spBattery.getSelectedItemId());
 		triggerModel.setScreenOffProfileId(spScreenLocked.getSelectedItemId());
@@ -129,7 +128,7 @@ public class TriggerEditor extends Activity {
 				getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 			}
 		} catch (Exception e) {
-			Log.w(Logger.TAG, "Cannot insert or update", e);
+			Logger.w("Cannot insert or update", e);
 
 		}
 	}

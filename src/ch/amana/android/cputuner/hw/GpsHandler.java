@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 
 public class GpsHandler {
@@ -73,7 +72,7 @@ public class GpsHandler {
 		if (changed) {
 			try {
 				Settings.Secure.putString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED, providers);
-				Log.i(Logger.TAG, "Switched GPS to " + enabled);
+				Logger.i("Switched GPS to " + enabled);
 			} catch (Exception e) {
 			}
 		}

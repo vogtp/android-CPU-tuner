@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -184,7 +183,7 @@ public class CapabilityCheckerActivity extends Activity {
 			dm.export(DB.Trigger.TABLE_NAME);
 			dm.export(DB.CpuProfile.TABLE_NAME);
 		} catch (IOException e) {
-			Log.w(Logger.TAG, "Error exporting DB", e);
+			Logger.w("Error exporting DB", e);
 		}
 
 		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "patrick.vogt.pv@gmail.com" });
@@ -218,7 +217,7 @@ public class CapabilityCheckerActivity extends Activity {
 			sendIntent.setType("application/zip");
 			startActivity(sendIntent);
 		} catch (IOException e) {
-			Log.w(Logger.TAG, "Error zipping attachments", e);
+			Logger.w("Error zipping attachments", e);
 		}
 	}
 
@@ -242,7 +241,7 @@ public class CapabilityCheckerActivity extends Activity {
 			zip.closeEntry();
 			in.close();
 		} catch (IOException e) {
-			Log.w(Logger.TAG, "Error exporting adding file to zip", e);
+			Logger.w("Error exporting adding file to zip", e);
 		}
 
 	}
