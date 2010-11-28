@@ -178,6 +178,7 @@ public class TriggersListActivity extends ListActivity {
 	}
 
 	private void deleteTrigger(final Uri uri) {
+		// FIXME on battery = 100 do not delete
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.menuItemDelete);
 		alertBuilder.setMessage("Delete selected item?");

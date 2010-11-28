@@ -57,6 +57,7 @@ public class TriggerEditor extends Activity {
 		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
 		spPower = (Spinner) findViewById(R.id.spPower);
 
+		// FIXME if battery == 100 make non editble
 		sbBatteryLevel.setMax(100);
 
 		setProfilesAdapter(spBattery);
