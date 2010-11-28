@@ -24,7 +24,7 @@ public class BatteryHandler extends HardwareHandler {
 	}
 
 	public static boolean isOnAcPower() {
-		// TODO Auto-generated method stub
+		// FIXME get it somehow
 		return false;
 	}
 
