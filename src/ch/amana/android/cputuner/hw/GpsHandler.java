@@ -42,7 +42,7 @@ public class GpsHandler {
 	// // }
 	// }
 
-	private static void enableGps(ContentResolver resolver, boolean enabled) {
+	public static void enableGps(ContentResolver resolver, boolean enabled) {
 		String providers = Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 		boolean changed = false;
 
