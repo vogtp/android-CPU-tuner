@@ -42,7 +42,8 @@ public class GpsHandler {
 	// // }
 	// }
 
-	public static void enableGps(ContentResolver resolver, boolean enabled) {
+	public static void enableGps(Context ctx, boolean enabled) {
+		ContentResolver resolver = ctx.getContentResolver();
 		String providers = Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 		boolean changed = false;
 
