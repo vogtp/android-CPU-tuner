@@ -111,8 +111,8 @@ public class RootHandler {
 			String[] fileList = findAppPath(ctx, Environment.getRootDirectory());
 			isSystemApp = fileList != null && fileList.length > 0;
 			checkedSystemApp = true;
+			Logger.i("Is system app: " + isSystemApp);
 		}
-		Logger.i("Is system app: " + isSystemApp);
 		return isSystemApp;
 	}
 
