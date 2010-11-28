@@ -31,15 +31,15 @@ public class PowerProfiles {
 
 	private static boolean updateTrigger = true;
 
-	private static int lastStateWifi = -1;
-
-	private static int lastStateGps = -1;
-
-	private static int lastStateMobiledata = -1;
-
-	private static int lastStateBluetooth = -1;
-
-	private static int lastStateBackgroundSync = -1;
+	// private static int lastStateWifi = -1;
+	//
+	// private static int lastStateGps = -1;
+	//
+	// private static int lastStateMobiledata = -1;
+	//
+	// private static int lastStateBluetooth = -1;
+	//
+	// private static int lastStateBackgroundSync = -1;
 
 	// FIXME make singelton class
 
@@ -59,10 +59,7 @@ public class PowerProfiles {
 	}
 
 	public static void reapplyProfile() {
-		// FIXME
-		// if (currentProfile.equals("")) {
 		applyPowerProfile(true, false);
-		// }
 	}
 
 	private static void applyPowerProfile(boolean force, boolean ignoreSettings) {
@@ -126,46 +123,56 @@ public class PowerProfiles {
 
 	private static void applyWifiState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchWifi()) {
-			if (state == lastStateWifi) {
-				Logger.v("Not sitching wifi since same state as last time");
-			}
+			// if (state == lastStateWifi) {
+			// Logger.v("Not sitching wifi since same state as last time");
+			// return;
+			// }
 			ServicesHandler.enableWifi(context, state == 1 ? true : false);
+			// lastStateWifi = state;
 		}
 	}
 
 	private static void applyGpsState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchGps()) {
-			if (state == lastStateGps) {
-				Logger.v("Not sitching GPS since same state as last time");
-			}
+			// if (state == lastStateGps) {
+			// Logger.v("Not sitching GPS since same state as last time");
+			// return;
+			// }
 			ServicesHandler.enableGps(context, state == 1 ? true : false);
+			// lastStateGps = state;
 		}
 	}
 
 	private static void applyBluetoothState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
-			if (state == lastStateBluetooth) {
-				Logger.v("Not sitching bluetooth since same state as last time");
-			}
+			// if (state == lastStateBluetooth) {
+			// Logger.v("Not sitching bluetooth since same state as last time");
+			// return;
+			// }
 			ServicesHandler.enableBluetooth(context, state == 1 ? true : false);
+			// lastStateBluetooth = state;
 		}
 	}
 
 	private static void applyMobiledataState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
-			if (state == lastStateMobiledata) {
-				Logger.v("Not sitching mobiledata since same state as last time");
-			}
+			// if (state == lastStateMobiledata) {
+			// Logger.v("Not sitching mobiledata since same state as last time");
+			// return;
+			// }
 			ServicesHandler.enable2gOnly(context, state == 1 ? true : false);
+			// lastStateMobiledata = state;
 		}
 	}
 
 	private static void applyBackgroundSyncState(int state) {
 		if (state > 0 && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
-			if (state == lastStateBackgroundSync) {
-				Logger.v("Not sitching background sync since same state as last time");
-			}
+			// if (state == lastStateBackgroundSync) {
+			// Logger.v("Not sitching background sync since same state as last time");
+			// return;
+			// }
 			ServicesHandler.enableBackgroundSync(context, state == 1 ? true : false);
+			// lastStateBackgroundSync = state;
 		}
 	}
 

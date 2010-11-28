@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.provider.Settings.SettingNotFoundException;
 import ch.amana.android.cputuner.helper.Logger;
 
 public class ServicesHandler {
@@ -29,6 +30,10 @@ public class ServicesHandler {
 		if (bluetoothAdapter == null) {
 			return;
 		}
+		if (bluetoothAdapter.isEnabled() == enabled) {
+			Logger.i("Allready correct bluethooth state ");
+			return;
+		}
 		if (enabled) {
 			bluetoothAdapter.enable();
 		} else {
@@ -41,29 +46,49 @@ public class ServicesHandler {
 	// /cyanogen/frameworks/base/services/java/com/android/server/status/widget/NetworkModeButton.java
 	// line 97
 	public static void enable2gOnly(Context context, boolean b) {
-
+		// FIXME check if correct state first
 		/**
 		 * The preferred network mode 7 = Global 6 = EvDo only 5 = CDMA w/o EvDo
 		 * 4 = CDMA / EvDo auto 3 = GSM / WCDMA auto 2 = WCDMA only 1 = GSM only
 		 * 0 = GSM / WCDMA preferred
 		 * 
 		 */
-		Intent intent = new Intent(MODIFY_NETWORK_MODE);
+		int state = -7;
 		if (b) {
-			intent.putExtra(NETWORK_MODE, MODE_GSM_ONLY);
+			state = MODE_GSM_ONLY;
 		} else {
-			intent.putExtra(NETWORK_MODE, MODE_GSM_WCDMA_PREFERRD);
+			state = MODE_GSM_WCDMA_PREFERRD;
 		}
+		if (state == getMobiledataStae(context)) {
+			Logger.i("Not switching 2G/3G since it's already in correct state.");
+			return;
+		}
+		Intent intent = new Intent(MODIFY_NETWORK_MODE);
+		intent.putExtra(NETWORK_MODE, state);
 		context.sendBroadcast(intent);
 		Logger.i("Switched 2G/3G to " + b);
 	}
 
+	private static int getMobiledataStae(Context context) {
+		int state = 99;
+		try {
+			state = android.provider.Settings.Secure.getInt(context
+					.getContentResolver(), "preferred_network_mode");
+		} catch (SettingNotFoundException e) {
+		}
+		return state;
+	}
+
 	public static void enableBackgroundSync(Context context, boolean b) {
+		if (ContentResolver.getMasterSyncAutomatically() == b) {
+			Logger.i("Not switched background syc state is correct");
+			return;
+		}
 		if (b) {
 			ContentResolver.setMasterSyncAutomatically(true);
 		} else {
 			ContentResolver.setMasterSyncAutomatically(false);
 		}
+		Logger.i("Switched background syc to " + b);
 	}
-
 }
