@@ -5,7 +5,7 @@ public class BatteryHandler extends HardwareHandler {
 	private static final String CURRENT_AVG = "current_avg";
 	private static final String CAPACITY = "capacity";
 
-	private static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
+	public static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
 
 	public static int getBatteryCurrentNow() {
 		return Math.abs(getIntFromStr(readFile(CURRENT_NOW)) / 1000);

@@ -17,7 +17,7 @@ public class CpuHandler extends HardwareHandler {
 	public static final String GOV_INTERACTIVE = "interactive";
 	public static final String GOV_USERSPACE = "userspace";
 
-	private static final String CPU_DIR = "/sys/devices/system/cpu/cpu0/cpufreq/";
+	public static final String CPU_DIR = "/sys/devices/system/cpu/cpu0/cpufreq/";
 
 	private static final String SCALING_GOVERNOR = "scaling_governor";
 	private static final String SCALING_MAX_FREQ = "scaling_max_freq";
