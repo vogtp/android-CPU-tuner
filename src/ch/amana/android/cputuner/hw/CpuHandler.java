@@ -131,7 +131,16 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public int[] getAvailCpuFreq() {
+
 		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
+		if (freqs[0] == -1) {
+			// TODO should also check for curFreq
+			int min = getMinCpuFreq();
+			int max = getMaxCpuFreq();
+			Logger.w("No available frequencies found... generating from min/max: [" + min + ", " + max + "]");
+			return new int[] { min, max };
+
+		}
 		if (SettingsStorage.getInstance().isPowerUser()) {
 			return freqs;
 		}

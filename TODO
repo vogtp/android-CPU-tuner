@@ -1,6 +1,9 @@
-- Broadcasts on profile trigger change
+- ondemand/down_differential ... ?
 - ensure 100% battery profile present
 - Battery hot state
-- do not read thresholds if governor has none
 - only switch services if not switched manually
 - document trigger, profiles and general workings
+- make capabilitycheck check for governor thresholds
+- do not read thresholds if governor has none
+- check if file exists before reading/writing
+- add cpufreq files to report
