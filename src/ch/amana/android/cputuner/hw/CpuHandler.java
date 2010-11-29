@@ -30,7 +30,8 @@ public class CpuHandler extends HardwareHandler {
 	private static final String GOV_TRESHOLD_UP = "up_threshold";
 	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
 
-	// FIXME convert to static helper
+	private boolean availCpuFreq = true;
+
 	private static CpuHandler instance = null;
 
 	public static CpuHandler getInstance() {
@@ -132,14 +133,24 @@ public class CpuHandler extends HardwareHandler {
 
 	public int[] getAvailCpuFreq() {
 
-		int[] freqs = new int[] { -1 };
-		// int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
+		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
 		if (freqs[0] == -1) {
+			availCpuFreq = false;
 			// TODO should also check for curFreq
-			int min = getMinCpuFreq();
-			int max = getMaxCpuFreq();
-			Logger.w("No available frequencies found... generating from min/max: [" + min + ", " + max + "]");
-			return new int[] { min, max };
+			String settingsFreqs = SettingsStorage.getInstance().getCpuFreqs();
+			freqs = createListInt(settingsFreqs);
+			boolean success = true;
+			for (int i = 0; i < freqs.length && success; i++) {
+				success = freqs[i] != -1;
+			}
+			if (success) {
+				return freqs;
+			} else {
+				int min = getMinCpuFreq();
+				int max = getMaxCpuFreq();
+				Logger.w("No available frequencies found... generating from min/max: [" + min + ", " + max + "]");
+				return new int[] { min, max };
+			}
 
 		}
 		if (SettingsStorage.getInstance().isPowerUser()) {
@@ -178,6 +189,10 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean hasGov() {
 		return !RootHandler.NOT_AVAILABLE.equals(getCurCpuGov());
+	}
+
+	public boolean hasAvailCpuFreq() {
+		return availCpuFreq;
 	}
 
 }

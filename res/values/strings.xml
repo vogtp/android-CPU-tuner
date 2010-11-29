@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefCpuFreqMsg">Space separated list of frequencies</string>
+    <string name="prefCpuFreq">Allowed CPU frequencies</string>
+    <string name="prefCpuFreqLong">Leave empty if unsure...!</string>
     <string name="mailMessageOK">"No issues have been found...\n" +
 				"If you are pleased and what to give feedback, comments and good ratings on the market are highly appreciated..."</string>
     <string name="mailMessage"></string>

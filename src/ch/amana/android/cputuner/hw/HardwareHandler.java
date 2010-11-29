@@ -39,7 +39,7 @@ public class HardwareHandler {
 			list[0] = -1;
 			return list;
 		}
-		String[] strList = listString.split(" ");
+		String[] strList = listString.split(" +");
 		int[] lst = new int[strList.length];
 		for (int i = 0; i < strList.length; i++) {
 			try {

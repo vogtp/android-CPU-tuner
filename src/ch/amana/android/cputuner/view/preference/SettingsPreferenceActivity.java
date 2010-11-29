@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.view.preference;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -10,6 +11,7 @@ import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
@@ -81,6 +83,14 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 
 		});
+
+		CpuHandler.getInstance().getAvailCpuFreq();
+		if (CpuHandler.getInstance().hasAvailCpuFreq()) {
+			EditTextPreference cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
+			cpuFreqPreference.setShouldDisableView(false);
+			CpuHandler cpuHandler = CpuHandler.getInstance();
+			cpuFreqPreference.getEditText().setText(cpuHandler.getMinCpuFreq() + ", " + cpuHandler.getMaxCpuFreq());
+		}
 	}
 
 	@Override

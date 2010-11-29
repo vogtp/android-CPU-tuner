@@ -101,4 +101,8 @@ public class SettingsStorage {
 		return true;
 	}
 
+	public String getCpuFreqs() {
+		return getPreferences().getString("prefKeyCpuFreq", "");
+	}
+
 }
