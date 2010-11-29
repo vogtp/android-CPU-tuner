@@ -81,7 +81,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableSwitchMobiledata() {
-		return isEnableBeta();
+		return true;
 	}
 
 	public boolean isEnableSwitchBackgroundSync() {
