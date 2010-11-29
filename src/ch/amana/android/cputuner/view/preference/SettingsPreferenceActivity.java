@@ -85,12 +85,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		});
 
 		CpuHandler.getInstance().getAvailCpuFreq();
-		if (CpuHandler.getInstance().hasAvailCpuFreq()) {
-			EditTextPreference cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
-			cpuFreqPreference.setShouldDisableView(false);
-			CpuHandler cpuHandler = CpuHandler.getInstance();
-			cpuFreqPreference.getEditText().setText(cpuHandler.getMinCpuFreq() + ", " + cpuHandler.getMaxCpuFreq());
-		}
+		EditTextPreference cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
+		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
 	}
 
 	@Override

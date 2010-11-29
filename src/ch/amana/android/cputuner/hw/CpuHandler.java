@@ -153,6 +153,7 @@ public class CpuHandler extends HardwareHandler {
 			}
 
 		}
+		availCpuFreq = true;
 		if (SettingsStorage.getInstance().isPowerUser()) {
 			return freqs;
 		}

@@ -51,7 +51,7 @@
 					android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
 				<EditTextPreference android:dependency="prefKeyPowerUser"
 					android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq"
-					android:title="@string/prefCpuFreq" android:shouldDisableView="true" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
+					android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
 			</PreferenceCategory>
 
 		</PreferenceScreen>
