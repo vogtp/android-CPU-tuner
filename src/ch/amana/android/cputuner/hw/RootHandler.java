@@ -17,6 +17,7 @@ import android.os.Environment;
 import ch.amana.android.cputuner.helper.Logger;
 
 public class RootHandler {
+	public static final String NOT_AVAILABLE = "not available";
 
 	private static final String NEW_LINE = "\n";
 
@@ -24,6 +25,8 @@ public class RootHandler {
 
 	private static boolean checkedSystemApp = false;
 	private static boolean isSystemApp = false;
+
+	private static Writer logWriter;
 
 	public static boolean execute(String cmd) {
 		return execute(cmd, null);
@@ -136,18 +139,25 @@ public class RootHandler {
 			String val = "";
 			BufferedReader reader;
 			try {
-				String fqfn = directory + "/" + filename;
-				Logger.v("Reading file >" + fqfn + "<");
-				writeLog("Reading file >" + filename + "<");
-				reader = new BufferedReader(new FileReader(fqfn));
-				String line = reader.readLine();
-				while (line != null && !line.trim().equals("")) {
-					Logger.v("Read line >" + line + "<");
-					writeLog(line);
-					val += line;
-					line = reader.readLine();
+				File file = new File(directory, filename);
+				if (file.canRead()) {
+					String msg = "Reading file >" + file + "<";
+					Logger.v(msg);
+					writeLog(msg);
+					reader = new BufferedReader(new FileReader(file));
+					String line = reader.readLine();
+					while (line != null && !line.trim().equals("")) {
+						Logger.v("Read line >" + line + "<");
+						writeLog(line);
+						val += line;
+						line = reader.readLine();
+					}
+					reader.close();
+				} else {
+					String msg = "Cannot read from file >" + file + "<";
+					Logger.v(msg);
+					writeLog(msg);
 				}
-				reader.close();
 			} catch (Throwable e) {
 				Logger.e("Cannot open for reading " + filename, e);
 			}
@@ -158,9 +168,17 @@ public class RootHandler {
 		}
 	}
 
-	public static final String NOT_AVAILABLE = "not available";
-
-	private static Writer logWriter;
+	public static boolean writeFile(String dir, String filename, String val) {
+		String readFile = readFile(dir, filename);
+		if (val == null || val.equals(readFile) || RootHandler.NOT_AVAILABLE.equals(readFile)) {
+			return false;
+		}
+		synchronized (filename) {
+			String path = dir + "/" + filename;
+			Logger.w("Setting " + path + " to " + val);
+			return RootHandler.execute("echo " + val + " > " + path);
+		}
+	}
 
 	public static void setLogLocation(File file) {
 		if (file == null) {

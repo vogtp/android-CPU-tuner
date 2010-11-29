@@ -120,14 +120,14 @@ public class CpuHandler extends HardwareHandler {
 		if (i < 0 || i > 100 || i <= getGovThresholdDown()) {
 			i = 98;
 		}
-		return writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
+		return RootHandler.writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
 	}
 
 	public boolean setGovThresholdDown(int i) {
 		if (i < 0 || i > 100 || i >= getGovThresholdUp()) {
 			i = 95;
 		}
-		return writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
+		return RootHandler.writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
 	}
 
 	public int[] getAvailCpuFreq() {
@@ -172,18 +172,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	private boolean writeFile(String filename, String val) {
-		return writeFile(CPU_DIR, filename, val);
-	}
-
-	private boolean writeFile(String dir, String filename, String val) {
-		if (val == null || val.equals(readFile(dir, filename))) {
-			return false;
-		}
-		synchronized (filename) {
-			String path = dir + "/" + filename;
-			Logger.w("Setting " + path + " to " + val);
-			return RootHandler.execute("echo " + val + " > " + path);
-		}
+		return RootHandler.writeFile(CPU_DIR, filename, val);
 	}
 
 	public boolean hasGov() {

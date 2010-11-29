@@ -1,9 +1,17 @@
+- check handling of no avail freqs
+- add cpufreq files to report
+- make capabilitycheck check for governor thresholds
+
 - ondemand/down_differential ... ?
+- do not read thresholds if governor has none
+- keep track of governors thresholds
+- hide power usage if files not accessible
+
 - ensure 100% battery profile present
 - Battery hot state
+- figure out how to get avail freqs (if not available)
+
 - only switch services if not switched manually
 - document trigger, profiles and general workings
-- make capabilitycheck check for governor thresholds
-- do not read thresholds if governor has none
 - check if file exists before reading/writing
-- add cpufreq files to report
+
