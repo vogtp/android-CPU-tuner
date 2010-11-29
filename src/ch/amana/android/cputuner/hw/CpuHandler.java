@@ -132,7 +132,8 @@ public class CpuHandler extends HardwareHandler {
 
 	public int[] getAvailCpuFreq() {
 
-		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
+		int[] freqs = new int[] { -1 };
+		// int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
 		if (freqs[0] == -1) {
 			// TODO should also check for curFreq
 			int min = getMinCpuFreq();

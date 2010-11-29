@@ -4,6 +4,13 @@ V
 * bug fixes
 -
 
+V 
+* features
+- handle frequencies if none are give (not working slider problem)  
+* bug fixes
+- more infos in report
+- fix insert trigger
+
 V 0.11.2
 * features
 - Better display of services in profile list
