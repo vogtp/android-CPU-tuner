@@ -1,8 +1,10 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -44,6 +46,7 @@ public class TriggerEditor extends Activity {
 
 		if (triggerModel == null) {
 			triggerModel = new TriggerModel();
+			triggerModel.setName("");
 			origTriggerModel = new TriggerModel();
 		}
 		setTitle("Trigger Editor: " + triggerModel.getName());
@@ -121,7 +124,11 @@ public class TriggerEditor extends Activity {
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
-				// not yet implemented
+				Uri uri = getContentResolver().insert(DB.Trigger.CONTENT_URI, triggerModel.getValues());
+				long id = ContentUris.parseId(uri);
+				if (id > 0) {
+					triggerModel.setDbId(id);
+				}
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (origTriggerModel.equals(triggerModel)) {
 					return;
