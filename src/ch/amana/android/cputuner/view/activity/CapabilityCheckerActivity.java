@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -27,6 +28,8 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.BatteryHandler;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -195,20 +198,25 @@ public class CapabilityCheckerActivity extends Activity {
 		body.append("Mod version: ").append(DeviceInformation.getModVersion()).append('\n');
 		body.append("Developer ID: ").append(DeviceInformation.getRomManagerDeveloperId()).append('\n');
 		body.append("Device nickname: ").append(DeviceInformation.getDeviceNick()).append('\n');
+		body.append('\n').append("------------------------------------------").append('\n');
+		body.append("CPU governors: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuGov())).append('\n');
+		body.append("CPU frequencies: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuFreq())).append('\n');
 		closeLogFile();
-		body.append("------------------------------------------").append('\n');
+		body.append('\n').append("------------------------------------------").append('\n');
 		body.append(CapabilityChecker.getInstance().toString());
 
 		sendIntent.putExtra(Intent.EXTRA_TEXT, body.toString());
 
 		try {
 			ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(file));
-			addFileToZip(zip, FILE_DEVICE_INFO);
-			addFileToZip(zip, FILE_CAPABILITIESCHECK);
-			addFileToZip(zip, FILE_GETPROP);
-			addFileToZip(zip, FILE_KERNEL_CPUFREQ_CONFIG);
-			addFileToZip(zip, DB.Trigger.TABLE_NAME + ".xml");
-			addFileToZip(zip, DB.CpuProfile.TABLE_NAME + ".xml");
+			addFileToZip(zip, "output", FILE_DEVICE_INFO);
+			addFileToZip(zip, "", FILE_CAPABILITIESCHECK);
+			addFileToZip(zip, "", FILE_GETPROP);
+			addFileToZip(zip, "", FILE_KERNEL_CPUFREQ_CONFIG);
+			addFileToZip(zip, "DB", DB.Trigger.TABLE_NAME + ".xml");
+			addFileToZip(zip, "DB", DB.CpuProfile.TABLE_NAME + ".xml");
+			addDirectoryToZip(zip, "cpufreq", new File(CpuHandler.CPU_DIR), true);
+			addDirectoryToZip(zip, "battery", new File(BatteryHandler.BATTERY_DIR), true);
 			zip.flush();
 			zip.close();
 
@@ -221,17 +229,31 @@ public class CapabilityCheckerActivity extends Activity {
 		}
 	}
 
+	private void addDirectoryToZip(ZipOutputStream zip, String prefix, File cpuFreqDir, boolean traverse) {
+		File[] cpufreqFiles = cpuFreqDir.listFiles();
+		for (int i = 0; i < cpufreqFiles.length; i++) {
+			if (traverse && cpufreqFiles[i].isDirectory()) {
+				addDirectoryToZip(zip, prefix + "/" + cpufreqFiles[i].getName(), cpufreqFiles[i], false);
+			} else {
+				addFileToZip(zip, prefix, cpufreqFiles[i]);
+			}
+		}
+	}
+
 	private void getKernelInfo() {
 		openLogFile(FILE_KERNEL_CPUFREQ_CONFIG);
 		RootHandler.execute("gunzip< /proc/config.gz | grep CONFIG_CPU_FREQ");
 		closeLogFile();
 	}
 
-	private void addFileToZip(ZipOutputStream zip, String fileName) {
+	private void addFileToZip(ZipOutputStream zip, String zipDir, String fileName) {
+		addFileToZip(zip, zipDir, getFilePath(fileName));
+	}
+
+	private void addFileToZip(ZipOutputStream zip, String zipDir, File file) {
 		try {
-			zip.putNextEntry(new ZipEntry(fileName));
-			File filePath = getFilePath(fileName);
-			FileInputStream in = new FileInputStream(filePath);
+			zip.putNextEntry(new ZipEntry(zipDir + "/" + file.getName()));
+			FileInputStream in = new FileInputStream(file);
 			byte[] buf = new byte[1024];
 
 			int len;
