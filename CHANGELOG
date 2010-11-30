@@ -4,9 +4,18 @@ V
 * bug fixes
 -
 
+V 0.11.4
+* features
+- dialog for mail subject and body
+- help: links
+* bug fixes
+- fix finding trigger
+- moved next best trigger to beta
+
 V 0.11.3
 * features
-- handle frequencies if none are give (not working slider problem)  
+- handle frequencies if none are give (not working slider problem) 
+- make 2g switch none beta  
 * bug fixes
 - more infos in report
 - fix insert trigger

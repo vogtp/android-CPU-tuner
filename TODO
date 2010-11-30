@@ -1,7 +1,8 @@
 - make capabilitycheck check for governor thresholds
 - hide power usage if files not accessible
 - ensure 100% battery profile present
-
+- better default values
+- apply default settings
 - Battery hot state
 - figure out how to get avail freqs (if not available)
 
