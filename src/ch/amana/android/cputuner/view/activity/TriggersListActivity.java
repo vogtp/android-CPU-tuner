@@ -82,7 +82,7 @@ public class TriggersListActivity extends ListActivity {
 						current = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_BAT);
 					}
 					if (cnt < 1) {
-						((TextView) view).setText("-");
+						((TextView) view).setText("");
 						return true;
 					}
 					current /= cnt;
