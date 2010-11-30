@@ -197,6 +197,9 @@ public class PowerProfiles {
 						context.sendBroadcast(new Intent(BROADCAST_TRIGGER_CHANGED));
 					}
 					return true;
+				} else {
+					// no change
+					return false;
 				}
 			}
 		} finally {
@@ -204,27 +207,28 @@ public class PowerProfiles {
 				cursor.close();
 			}
 		}
-		// no trigger found i.e. no trigger with bigger battery level... getting
-		// the next best
-		try {
-			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
-					null, null, DB.Trigger.SORTORDER_DEFAULT);
-			if (cursor != null && cursor.moveToFirst()) {
-				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
-					currentTrigger = new TriggerModel(cursor);
-					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-					if (SettingsStorage.getInstance().isEnableBeta()) {
-						context.sendBroadcast(new Intent(BROADCAST_TRIGGER_CHANGED));
+		if (SettingsStorage.getInstance().isEnableBeta()) {
+			// no trigger found i.e. no trigger with bigger battery level...
+			// getting the next best
+			try {
+				cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
+						null, null, DB.Trigger.SORTORDER_DEFAULT);
+				if (cursor != null && cursor.moveToFirst()) {
+					if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
+						currentTrigger = new TriggerModel(cursor);
+						Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
+						if (SettingsStorage.getInstance().isEnableBeta()) {
+							context.sendBroadcast(new Intent(BROADCAST_TRIGGER_CHANGED));
+						}
+						return true;
 					}
-					return true;
+				}
+			} finally {
+				if (cursor != null && !cursor.isClosed()) {
+					cursor.close();
 				}
 			}
-		} finally {
-			if (cursor != null && !cursor.isClosed()) {
-				cursor.close();
-			}
 		}
-		// FIXME get a default tigger if none found
 		return false;
 	}
 
