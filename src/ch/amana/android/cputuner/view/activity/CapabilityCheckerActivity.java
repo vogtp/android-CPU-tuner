@@ -201,6 +201,10 @@ public class CapabilityCheckerActivity extends Activity {
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append("CPU governors: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuGov())).append('\n');
 		body.append("CPU frequencies: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuFreq())).append('\n');
+		body.append("Min scaling frequency: ").append(CpuHandler.getInstance().getMinCpuFreq()).append('\n');
+		body.append("Max scaling frequency: ").append(CpuHandler.getInstance().getMaxCpuFreq()).append('\n');
+		body.append("Current governor: ").append(CpuHandler.getInstance().getCurCpuGov()).append('\n');
+		body.append("Current frequency: ").append(CpuHandler.getInstance().getCurCpuFreq()).append('\n');
 		closeLogFile();
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append(CapabilityChecker.getInstance().toString());
