@@ -87,6 +87,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		CpuHandler.getInstance().getAvailCpuFreq();
 		EditTextPreference cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
+
 	}
 
 	@Override
@@ -95,4 +96,11 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		systemAppPreference.setEnabled(RootHandler.isSystemApp(this)
 				|| (SettingsStorage.getInstance().isEnableBeta() && SettingsStorage.getInstance().isPowerUser()));
 	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		SettingsStorage.getInstance().forgetValues();
+	}
+
 }

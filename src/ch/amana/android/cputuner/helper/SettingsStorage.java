@@ -18,6 +18,28 @@ public class SettingsStorage {
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
 	private static SettingsStorage instance;
 	private final Context context;
+	private boolean checkedBluetooth = false;
+	private boolean enableSwitchBluetooth;
+	private boolean checkedGps = false;
+	private boolean enableSwitchGps;
+	private boolean checkedBeta = false;
+	private boolean enableBeta;
+	private boolean checkedProfiles = false;
+	private boolean enableProfiles;
+	private boolean checkedTrackCurrent = false;
+	private boolean trackCurrent;
+	private boolean checkedStatusbarNotifications = false;
+	private boolean statusbarNotifications;
+	private boolean checkedToastNotifications = false;
+	private boolean toastNotifications;
+
+	public void forgetValues() {
+		checkedBeta = false;
+		checkedProfiles = false;
+		checkedTrackCurrent = false;
+		checkedStatusbarNotifications = false;
+		checkedToastNotifications = false;
+	}
 
 	public static void initInstance(Context ctx) {
 		if (instance == null) {
@@ -39,7 +61,11 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableProfiles() {
-		return getPreferences().getBoolean(ENABLE_PROFILES, true);
+		if (!checkedProfiles) {
+			checkedProfiles = true;
+			enableProfiles = getPreferences().getBoolean(ENABLE_PROFILES, true);
+		}
+		return enableProfiles;
 	}
 
 	public boolean isApplyOnBoot() {
@@ -51,11 +77,19 @@ public class SettingsStorage {
 	}
 
 	public boolean isStatusbarNotifications() {
-		return getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, true);
+		if (!checkedStatusbarNotifications) {
+			checkedStatusbarNotifications = true;
+			statusbarNotifications = getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, true);
+		}
+		return statusbarNotifications;
 	}
 
 	public boolean isToastNotifications() {
-		return getPreferences().getBoolean(ENABLE_TOAST_NOTI, false);
+		if (!checkedToastNotifications) {
+			checkedToastNotifications = true;
+			toastNotifications = getPreferences().getBoolean(ENABLE_TOAST_NOTI, false);
+		}
+		return toastNotifications;
 	}
 
 	public boolean isDisableDisplayIssues() {
@@ -69,7 +103,11 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableBeta() {
-		return "speedup".equals(getPreferences().getString("prefKeyEnableBeta", "").trim());
+		if (!checkedBeta) {
+			checkedBeta = true;
+			enableBeta = "speedup".equals((getPreferences().getString("prefKeyEnableBeta", "").trim()));
+		}
+		return enableBeta;
 	}
 
 	public boolean isPowerUser() {
@@ -77,7 +115,11 @@ public class SettingsStorage {
 	}
 
 	public boolean isTrackCurrent() {
-		return getPreferences().getBoolean("prefKeyCalcPowerUsage", true);
+		if (!checkedTrackCurrent) {
+			checkedTrackCurrent = true;
+			trackCurrent = getPreferences().getBoolean("prefKeyCalcPowerUsage", true);
+		}
+		return trackCurrent;
 	}
 
 	public boolean isEnableSwitchMobiledata() {
@@ -89,11 +131,19 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableSwitchBluetooth() {
-		return BluetoothAdapter.getDefaultAdapter() != null;
+		if (!checkedBluetooth) {
+			checkedBluetooth = true;
+			enableSwitchBluetooth = BluetoothAdapter.getDefaultAdapter() != null;
+		}
+		return enableSwitchBluetooth;
 	}
 
 	public boolean isEnableSwitchGps() {
-		return GpsHandler.isEnableSwitchGps(context);
+		if (!checkedGps) {
+			checkedGps = true;
+			enableSwitchGps = GpsHandler.isEnableSwitchGps(context);
+		}
+		return enableSwitchGps;
 	}
 
 	public boolean isEnableSwitchWifi() {
