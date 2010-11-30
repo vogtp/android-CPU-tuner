@@ -9,7 +9,7 @@ V 0.11.4
 - dialog for mail subject and body
 - help: links
 * bug fixes
-- fix finding trigger
+- fix finding trigger (crazy profiles bug)
 - moved next best trigger to beta
 
 V 0.11.3
