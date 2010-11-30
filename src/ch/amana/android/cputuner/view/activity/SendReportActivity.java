@@ -9,10 +9,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -58,6 +62,28 @@ public class SendReportActivity extends Activity {
 
 	private void sendBugReport() {
 
+		String mailSubject = etSubject.getText().toString();
+		String mailBody = etMailBody.getText().toString();
+
+		if (TextUtils.isEmpty(mailSubject) || TextUtils.isEmpty(mailBody)) {
+			Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle("E-mail report");
+			alertBuilder.setMessage("Please enter a subject and some text describing you problem!");
+			alertBuilder.setCancelable(false);
+			alertBuilder.setPositiveButton(android.R.string.yes, null);
+			alertBuilder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					SendReportActivity.this.finish();
+
+				}
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+			return;
+		}
+
 		File path = new File(Environment.getExternalStorageDirectory(), getPackageName());
 		File file = new File(path, "report.zip");
 
@@ -76,9 +102,9 @@ public class SendReportActivity extends Activity {
 		}
 
 		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "patrick.vogt.pv@gmail.com" });
-		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner report: " + etSubject.getText().toString());
+		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner report: " + mailSubject);
 		StringBuilder body = new StringBuilder();
-		body.append(etMailBody.getText().toString()).append("\n\n");
+		body.append(mailBody).append("\n\n");
 		body.append('\n').append("------------------------------------------").append('\n');
 		openLogFile(FILE_DEVICE_INFO);
 		body.append("Device model: ").append(DeviceInformation.getDeviceModel()).append('\n');
