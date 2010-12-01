@@ -43,7 +43,7 @@
 				<CheckBoxPreference android:key="prefKeyCalcPowerUsage"
 					android:summary="@string/prefKeyCalcPowerUsageLong" android:title="@string/prefKeyCalcPowerUsage"
 					android:defaultValue="true"></CheckBoxPreference>
-				<CheckBoxPreference android:summaryOn="@string/prefPowerUserOn"
+				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges" android:title="@string/prefAllowManualServiceChanges" android:summary="@string/prefAllowManualServiceChangesLong" android:defaultValue="false"></CheckBoxPreference><CheckBoxPreference android:summaryOn="@string/prefPowerUserOn"
 					android:title="@string/prefPowerUser" android:summaryOff="@string/prefPowerUserOff"
 					android:key="prefKeyPowerUser" android:defaultValue="false"></CheckBoxPreference>
 				<CheckBoxPreference android:key="prefKeySystemApp"
@@ -52,7 +52,8 @@
 				<EditTextPreference android:dependency="prefKeyPowerUser"
 					android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq"
 					android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
-			</PreferenceCategory>
+			
+</PreferenceCategory>
 
 		</PreferenceScreen>
 	</PreferenceCategory>

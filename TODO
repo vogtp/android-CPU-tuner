@@ -1,12 +1,15 @@
 - make capabilitycheck check for governor thresholds
-- hide power usage if files not accessible
-- ensure 100% battery profile present
+- make service use a background task to switch profile
+- wait some time before checking changed settings in capability check
+
 - better default values
 - apply default settings
 - Battery hot state
+- choose state sequence
+
+- ensure 100% battery profile present
 - figure out how to get avail freqs (if not available)
 
-- only switch services if not switched manually
 - document trigger, profiles and general workings
 - do not read thresholds if governor has none
 - keep track of governors thresholds

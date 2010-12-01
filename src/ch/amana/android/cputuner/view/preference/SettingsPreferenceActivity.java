@@ -88,6 +88,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		EditTextPreference cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
 
+		findPreference("prefKeyAllowManualServiceChanges").setEnabled(SettingsStorage.getInstance().isEnableBeta());
+
 	}
 
 	@Override

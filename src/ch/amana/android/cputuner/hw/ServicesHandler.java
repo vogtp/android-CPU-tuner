@@ -14,18 +14,40 @@ public class ServicesHandler {
 	private static final int MODE_GSM_WCDMA_PREFERRD = 0;
 	private static final String MODIFY_NETWORK_MODE = "com.android.internal.telephony.MODIFY_NETWORK_MODE";
 	private static final String NETWORK_MODE = "networkMode";
+	private static WifiManager wifi;
 
 	public static void enableWifi(Context ctx, boolean enabled) {
-		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		if (wifi == null) {
+			wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		}
 		wifi.setWifiEnabled(enabled);
 		Logger.i("Switched Wifi to " + enabled);
+	}
+
+	public static boolean isWifiEnabaled(Context ctx) {
+		if (wifi == null) {
+			wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		}
+		return wifi.isWifiEnabled();
+	}
+
+	public static boolean isGpsEnabled(Context ctx) {
+		return GpsHandler.isGpxEnabled(ctx);
 	}
 
 	public static void enableGps(Context ctx, boolean enabled) {
 		GpsHandler.enableGps(ctx, enabled);
 	}
 
-	public static void enableBluetooth(Context ctx, boolean enabled) {
+	public static boolean isBlutoothEnabled() {
+		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (bluetoothAdapter == null) {
+			return false;
+		}
+		return bluetoothAdapter.isEnabled();
+	}
+
+	public static void enableBluetooth(boolean enabled) {
 		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (bluetoothAdapter == null) {
 			return;
@@ -40,6 +62,10 @@ public class ServicesHandler {
 			bluetoothAdapter.disable();
 		}
 		Logger.i("Switched bluethooth to " + enabled);
+	}
+
+	public static boolean is2gOnlyEnabled(Context context) {
+		return getMobiledataStae(context) == MODE_GSM_ONLY;
 	}
 
 	// From:
@@ -77,6 +103,10 @@ public class ServicesHandler {
 		} catch (SettingNotFoundException e) {
 		}
 		return state;
+	}
+
+	public static boolean isBackgroundSyncEnabled(Context context) {
+		return ContentResolver.getMasterSyncAutomatically();
 	}
 
 	public static void enableBackgroundSync(Context context, boolean b) {

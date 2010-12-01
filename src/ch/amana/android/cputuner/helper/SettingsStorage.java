@@ -32,6 +32,8 @@ public class SettingsStorage {
 	private boolean statusbarNotifications;
 	private boolean checkedToastNotifications = false;
 	private boolean toastNotifications;
+	private boolean allowManualServiceChanges;
+	private boolean checkedAllowManualServiceChanges = false;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -39,6 +41,7 @@ public class SettingsStorage {
 		checkedTrackCurrent = false;
 		checkedStatusbarNotifications = false;
 		checkedToastNotifications = false;
+		checkedAllowManualServiceChanges = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -155,4 +158,11 @@ public class SettingsStorage {
 		return getPreferences().getString("prefKeyCpuFreq", "");
 	}
 
+	public boolean isAllowManualServiceChanges() {
+		if (!checkedAllowManualServiceChanges) {
+			checkedAllowManualServiceChanges = true;
+			allowManualServiceChanges = getPreferences().getBoolean("prefKeyAllowManualServiceChanges", false);
+		}
+		return isEnableBeta() && allowManualServiceChanges;
+	}
 }
