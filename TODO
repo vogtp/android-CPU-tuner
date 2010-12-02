@@ -1,11 +1,13 @@
-- make capabilitycheck check for governor thresholds
 - make service use a background task to switch profile
-- wait some time before checking changed settings in capability check
-
+- list app version in report
+- show active trigger and profile in list
 - better default values
 - apply default settings
 - Battery hot state
 - choose state sequence
+- make capabilitycheck work for 2 frequ only... comine checks into one (for ondemand, conservative etc...)
+- make capabilitycheck check for governor thresholds
+- get min freq setting from default and use it as min possible freq (except for powersave)
 
 - ensure 100% battery profile present
 - figure out how to get avail freqs (if not available)
@@ -14,4 +16,4 @@
 - do not read thresholds if governor has none
 - keep track of governors thresholds
 - ondemand/down_differential ... ? (tobi)
-
+- wait some time before checking changed settings in capability check

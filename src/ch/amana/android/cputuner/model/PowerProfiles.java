@@ -65,6 +65,9 @@ public class PowerProfiles {
 	}
 
 	public static void reapplyProfile(boolean force) {
+		if (!updateTrigger) {
+			return;
+		}
 		if (force) {
 			changeTrigger(force);
 		}
