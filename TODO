@@ -1,8 +1,8 @@
 - make service use a background task to switch profile
-- list app version in report
-- show active trigger and profile in list
+
 - better default values
 - apply default settings
+
 - Battery hot state
 - choose state sequence
 - make capabilitycheck work for 2 frequ only... comine checks into one (for ondemand, conservative etc...)
@@ -18,4 +18,4 @@
 - keep track of governors thresholds
 - ondemand/down_differential ... ? (tobi)
 - wait some time before checking changed settings in capability check
-
+- list app version in report
