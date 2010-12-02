@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -51,7 +52,14 @@ public class TriggersListActivity extends ListActivity {
 				if (cursor == null) {
 					return false;
 				}
-				if (columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID
+				if (columnIndex == DB.Trigger.INDEX_TRIGGER_NAME) {
+					TriggerModel currentTrigger = PowerProfiles.getCurrentTrigger();
+					int color = Color.LTGRAY;
+					if (currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)) {
+						color = Color.GREEN;
+					}
+					((TextView) view).setTextColor(color);
+				} else if (columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID) {
 					long profileId = cursor.getLong(columnIndex);

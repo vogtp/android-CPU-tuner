@@ -404,4 +404,11 @@ public class PowerProfiles {
 		PowerProfiles.updateTrigger = updateTrigger;
 	}
 
+	public static TriggerModel getCurrentTrigger() {
+		return currentTrigger;
+	}
+
+	public static CpuModel getCurrentProfile() {
+		return currentProfile;
+	}
 }

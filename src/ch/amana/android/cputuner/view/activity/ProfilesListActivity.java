@@ -25,6 +25,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfilesListActivity extends ListActivity {
@@ -52,7 +53,14 @@ public class ProfilesListActivity extends ListActivity {
 				if (cursor == null) {
 					return false;
 				}
-				if (columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MIN
+				if (columnIndex == DB.CpuProfile.INDEX_PROFILE_NAME) {
+					CpuModel currentProfile = PowerProfiles.getCurrentProfile();
+					int color = Color.LTGRAY;
+					if (currentProfile != null && currentProfile.getDbId() == cursor.getLong(DB.INDEX_ID)) {
+						color = Color.GREEN;
+					}
+					((TextView) view).setTextColor(color);
+				} else if (columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MIN
 						|| columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MAX) {
 					int freq = cursor.getInt(columnIndex);
 

@@ -11,9 +11,11 @@
 
 - ensure 100% battery profile present
 - figure out how to get avail freqs (if not available)
+- check developer id / mod version bevor sugesting cm
 
 - document trigger, profiles and general workings
 - do not read thresholds if governor has none
 - keep track of governors thresholds
 - ondemand/down_differential ... ? (tobi)
 - wait some time before checking changed settings in capability check
+
