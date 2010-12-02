@@ -163,6 +163,6 @@ public class SettingsStorage {
 			checkedAllowManualServiceChanges = true;
 			allowManualServiceChanges = getPreferences().getBoolean("prefKeyAllowManualServiceChanges", false);
 		}
-		return isEnableBeta() && allowManualServiceChanges;
+		return allowManualServiceChanges;
 	}
 }

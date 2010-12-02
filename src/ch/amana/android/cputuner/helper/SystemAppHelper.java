@@ -39,7 +39,7 @@ public class SystemAppHelper implements OnClickListener {
 		return true;
 		// FIXME: does not work for Environment.getDataDirectory()
 		// String[] files = RootHandler.findAppPath(ctx, loc);
-		// return files != null && files.length > 0;
+		// return files != null || files.length > 0;
 	}
 
 	private boolean moveApp(File from, File to) {
