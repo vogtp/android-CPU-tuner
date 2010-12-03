@@ -34,6 +34,8 @@ public class SettingsStorage {
 	private boolean toastNotifications;
 	private boolean allowManualServiceChanges;
 	private boolean checkedAllowManualServiceChanges = false;
+	private boolean checkPowerUser = false;
+	boolean enablePowerUser;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -42,6 +44,7 @@ public class SettingsStorage {
 		checkedStatusbarNotifications = false;
 		checkedToastNotifications = false;
 		checkedAllowManualServiceChanges = false;
+		checkPowerUser = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -114,7 +117,11 @@ public class SettingsStorage {
 	}
 
 	public boolean isPowerUser() {
-		return getPreferences().getBoolean("prefKeyPowerUser", false);
+		if (!checkPowerUser) {
+			checkPowerUser = true;
+			enablePowerUser = getPreferences().getBoolean("prefKeyPowerUser", false);
+		}
+		return enablePowerUser;
 	}
 
 	public boolean isTrackCurrent() {

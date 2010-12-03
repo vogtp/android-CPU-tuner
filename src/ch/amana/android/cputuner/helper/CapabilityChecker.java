@@ -21,6 +21,8 @@ public class CapabilityChecker {
 
 	public CapabilityChecker() {
 		super();
+		boolean powerUser = SettingsStorage.getInstance().isPowerUser();
+		SettingsStorage.getInstance().enablePowerUser = true;
 		rooted = RootHandler.isRoot();
 		// if (rooted) {
 		cpuHandler = new CpuHandler();
@@ -35,6 +37,7 @@ public class CapabilityChecker {
 			writeUserCpuFreq = true;
 		}
 		// }
+		SettingsStorage.getInstance().enablePowerUser = powerUser;
 	}
 
 	public boolean hasIssues() {
