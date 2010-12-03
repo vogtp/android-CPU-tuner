@@ -1,7 +1,10 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -27,6 +31,9 @@ import ch.amana.android.cputuner.model.IProfileChangeCallback;
 import ch.amana.android.cputuner.model.PowerProfiles;
 
 public class TuneCpu extends Activity implements IProfileChangeCallback {
+
+	private static final int[] lock = new int[1];
+	private CpuTunerReceiver receiver;
 
 	private CpuHandler cpuHandler;
 	private Spinner spinnerSetGov;
@@ -46,7 +53,47 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	private TextView tvMessage;
 	private TextView tvBatteryCurrent;
 	private TextView tvGovTreshholds;
-	private Spinner spMobileData3G;
+
+	protected class CpuTunerReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			acPowerChanged();
+			batteryLevelChanged();
+			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action)
+					|| Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
+				profileChanged();
+			}
+
+		}
+	}
+
+	public void registerReceiver() {
+		synchronized (lock) {
+			IntentFilter deviceStatusFilter = new IntentFilter(Notifier.BROADCAST_DEVICESTATUS_CHANGED);
+			IntentFilter triggerFilter = new IntentFilter(Notifier.BROADCAST_TRIGGER_CHANGED);
+			IntentFilter profileFilter = new IntentFilter(Notifier.BROADCAST_PROFILE_CHANGED);
+			receiver = new CpuTunerReceiver();
+			registerReceiver(receiver, deviceStatusFilter);
+			registerReceiver(receiver, triggerFilter);
+			registerReceiver(receiver, profileFilter);
+			Logger.i("Registered CpuTunerReceiver");
+		}
+	}
+
+	public void unregisterReceiver() {
+		synchronized (lock) {
+			if (receiver != null) {
+				try {
+					unregisterReceiver(receiver);
+					receiver = null;
+				} catch (Throwable e) {
+					Logger.w("Could not unregister BatteryReceiver", e);
+				}
+			}
+		}
+	}
 
 	/** Called when the activity is first created. */
 	@Override
@@ -73,8 +120,6 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 		tvGovTreshholds = (TextView) findViewById(R.id.tvGovTreshholds);
-
-		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
 
 		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -164,14 +209,22 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		PowerProfiles.registerCallback(this);
+		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+			registerReceiver();
+		} else {
+			PowerProfiles.registerCallback(this);
+		}
 		updateView();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		PowerProfiles.unregisterCallback(this);
+		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+			unregisterReceiver();
+		} else {
+			PowerProfiles.unregisterCallback(this);
+		}
 	}
 
 	private void updateView() {

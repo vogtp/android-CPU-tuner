@@ -1,10 +1,9 @@
-- make service use a background task to switch profile
-
+- Battery hot state
 - better default values
 - apply default settings
-
-- Battery hot state
 - choose state sequence
+
+- check capabilities in thread
 - make capabilitycheck work for 2 frequ only... comine checks into one (for ondemand, conservative etc...)
 - make capabilitycheck check for governor thresholds
 - get min freq setting from default and use it as min possible freq (except for powersave)

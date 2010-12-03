@@ -12,6 +12,10 @@ import ch.amana.android.cputuner.view.activity.CpuTunerTabActivity;
 
 public class Notifier {
 
+	public static final String BROADCAST_TRIGGER_CHANGED = "ch.amana.android.cputuner.triggerChanged";
+	public static final String BROADCAST_PROFILE_CHANGED = "ch.amana.android.cputuner.profileChanged";
+	public static final String BROADCAST_DEVICESTATUS_CHANGED = "ch.amana.android.cputuner.deviceStatusChanged";
+
 	private static final int NOTIFICATION_PROFILE = 1;
 	private final NotificationManager notificationManager;
 	// private Notification notification;

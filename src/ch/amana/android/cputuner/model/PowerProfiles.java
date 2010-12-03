@@ -19,10 +19,6 @@ public class PowerProfiles {
 
 	public static final String UNKNOWN = "Unknown";
 
-	public static final String BROADCAST_TRIGGER_CHANGED = "ch.amana.android.cputuner.triggerChanged";
-
-	public static final String BROADCAST_PROFILE_CHANGED = "ch.amana.android.cputuner.profileChanged";
-
 	private static Context context;
 
 	private static int batteryLevel;
@@ -61,7 +57,7 @@ public class PowerProfiles {
 		batteryLevel = BatteryHandler.getBatteryLevel();
 		acPower = BatteryHandler.isOnAcPower();
 		screenOff = false;
-		changeTrigger(true);
+		// changeTrigger(true);
 	}
 
 	public static void reapplyProfile(boolean force) {
@@ -88,6 +84,7 @@ public class PowerProfiles {
 			}
 		}
 		if (currentTrigger == null) {
+			sendDeviceStatusChangedBroadcast();
 			return;
 		}
 		// does cross contamination
@@ -128,8 +125,8 @@ public class PowerProfiles {
 					notifyProfile();
 					Notifier.notify(context, sb.toString(), 1);
 					Notifier.notifyProfile(currentProfile.getProfileName());
-					if (SettingsStorage.getInstance().isEnableBeta()) {
-						context.sendBroadcast(new Intent(BROADCAST_PROFILE_CHANGED));
+					if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+						context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 					}
 				}
 			} finally {
@@ -229,8 +226,8 @@ public class PowerProfiles {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
 					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-					if (SettingsStorage.getInstance().isEnableBeta()) {
-						context.sendBroadcast(new Intent(BROADCAST_TRIGGER_CHANGED));
+					if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+						context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
 					}
 					resetServiceState();
 					return true;
@@ -254,8 +251,8 @@ public class PowerProfiles {
 					if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 						currentTrigger = new TriggerModel(cursor);
 						Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-						if (SettingsStorage.getInstance().isEnableBeta()) {
-							context.sendBroadcast(new Intent(BROADCAST_TRIGGER_CHANGED));
+						if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+							context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
 						}
 						resetServiceState();
 						return true;
@@ -278,8 +275,15 @@ public class PowerProfiles {
 			if (chagned) {
 				applyPowerProfile(false, false);
 			} else {
+				sendDeviceStatusChangedBroadcast();
 				trackCurrent();
 			}
+		}
+	}
+
+	private static void sendDeviceStatusChangedBroadcast() {
+		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+			context.sendBroadcast(new Intent(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
 		}
 	}
 
@@ -357,6 +361,10 @@ public class PowerProfiles {
 	}
 
 	public static void registerCallback(IProfileChangeCallback callback) {
+		// FIXME remove listeners after new switch task is non beta
+		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+			return;
+		}
 		if (listeners == null) {
 			listeners = new ArrayList<IProfileChangeCallback>();
 		}

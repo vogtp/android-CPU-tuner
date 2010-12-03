@@ -6,6 +6,12 @@ V
 
 V 
 * features
+- make service use a background task to switch profile (beta feature)
+* bug fixes
+-
+
+V 0.12.0
+* features
 - only switch service if not changed manually within the same trigger (beta feature)
 - show active trigger and profile in list
 * bug fixes

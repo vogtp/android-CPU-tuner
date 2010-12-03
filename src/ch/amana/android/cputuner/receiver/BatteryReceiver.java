@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.BatteryManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -15,6 +16,25 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	private static Object lock = new Object();
 	private static BatteryReceiver receiver = null;
+
+	private class SetProfileTask extends AsyncTask<Intent, Void, Void> {
+
+		private final Context ctx;
+
+		public SetProfileTask(Context ctx) {
+			super();
+			this.ctx = ctx;
+		}
+
+		@Override
+		protected Void doInBackground(Intent... params) {
+			if (params == null || params.length < 1) {
+				return null;
+			}
+			BatteryReceiver.handleIntent(ctx, params[0]);
+			return null;
+		}
+	}
 
 	public static void registerBatteryReceiver(Context context) {
 		synchronized (lock) {
@@ -49,6 +69,15 @@ public class BatteryReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
+		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+			SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
+			spt.execute(intent);
+		} else {
+			handleIntent(context, intent);
+		}
+	}
+
+	private static void handleIntent(Context context, Intent intent) {
 		String action = intent.getAction();
 		Logger.d("BatteryReceiver got intent: " + action);
 		if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
