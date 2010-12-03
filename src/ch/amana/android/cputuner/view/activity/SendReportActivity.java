@@ -25,6 +25,7 @@ import ch.almana.android.backupDb2Xml.DataXmlExporter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.DeviceInformation;
@@ -112,6 +113,9 @@ public class SendReportActivity extends Activity {
 		body.append("Mod version: ").append(DeviceInformation.getModVersion()).append('\n');
 		body.append("Developer ID: ").append(DeviceInformation.getRomManagerDeveloperId()).append('\n');
 		body.append("Device nickname: ").append(DeviceInformation.getDeviceNick()).append('\n');
+		body.append('\n').append("------------------------------------------").append('\n');
+		body.append("Power user mode: ").append(SettingsStorage.getInstance().isPowerUser()).append('\n');
+		body.append("Beta mode: ").append(SettingsStorage.getInstance().isEnableBeta()).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append("CPU governors: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuGov())).append('\n');
 		body.append("CPU frequencies: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuFreq())).append('\n');
