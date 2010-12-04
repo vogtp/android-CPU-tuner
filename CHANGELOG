@@ -8,7 +8,9 @@ V
 * features
 - make service use a background task to switch profile (beta feature)
 * bug fixes
--
+- use power user mode for capability check
+- use current now for power consumption calculation
+
 
 V 0.12.0
 * features

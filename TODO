@@ -1,7 +1,6 @@
-- Battery hot state
 - better default values
 - apply default settings
-- choose state sequence
+- document trigger, profiles and general workings
 
 - check capabilities in thread
 - make capabilitycheck work for 2 frequ only... comine checks into one (for ondemand, conservative etc...)
@@ -11,10 +10,14 @@
 - ensure 100% battery profile present
 - figure out how to get avail freqs (if not available)
 - check developer id / mod version bevor sugesting cm
+- make power consumption calculation configurable
 
-- document trigger, profiles and general workings
+Postponed:  (pos 1.0)
+
 - do not read thresholds if governor has none
 - keep track of governors thresholds
 - ondemand/down_differential ... ? (tobi)
 - wait some time before checking changed settings in capability check
 - list app version in report
+- Battery hot state
+- choose state sequence
