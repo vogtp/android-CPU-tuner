@@ -48,6 +48,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 				context.registerReceiver(receiver, batteryLevelFilter);
 				context.registerReceiver(receiver, screenOnFilter);
 				context.registerReceiver(receiver, screenOffFilter);
+				Notifier.notifyProfile("Initalising");
 				Logger.w("Registered BatteryReceiver");
 			} else {
 				Logger.i("BatteryReceiver allready registered, not registering again");

@@ -10,6 +10,7 @@ V
 - help navigation
 - more help information
 * bug fixes
+- fix no profile on start
 - use power user mode for capability check
 - use current now for power consumption calculation
 - check developer id before suggesting cyanogenmod

@@ -18,7 +18,7 @@ public class CpuTunerApplication extends Application {
 		InstallHelper.populateDb(ctx);
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			startService(new Intent(ctx, BatteryService.class));
-			PowerProfiles.reapplyProfile();
+			PowerProfiles.reapplyProfile(true);
 		}
 	}
 }

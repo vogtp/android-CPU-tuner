@@ -23,12 +23,6 @@ public class BootReceiver extends BroadcastReceiver {
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}
-			// CpuHandler cpuHandler = new CpuHandler();
-			// try {
-			// cpuHandler.applyFromStorage();
-			// } catch (Throwable e) {
-			// Log.w(Logger.TAG, "Error appling on boot", e);
-			// }
 		}
 	}
 
