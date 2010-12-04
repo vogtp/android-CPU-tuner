@@ -33,13 +33,13 @@
 				android:text="Thresholds:  Up:" android:id="@+id/labelGovThreshUp"></TextView>
 			<EditText android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/etGovTreshUp"
-				android:text="98" android:height="16dp"></EditText>
+				android:text="98" android:height="16dp" android:inputType="number"></EditText>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="7dp"
 				android:paddingLeft="7dp" android:text="Down:" android:id="@+id/labelGovThreshDown"></TextView>
 			<EditText android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:text="95"
-				android:id="@+id/etGovTreshDown" android:height="16dp"></EditText>
+				android:id="@+id/etGovTreshDown" android:height="16dp" android:inputType="number"></EditText>
 		</LinearLayout>
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="Explain Gov"
