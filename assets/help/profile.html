@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Profiles</title>
+</head>
+<body>
+<h3>Profiles</h3>
+<p>
+Profiles define settings that are applied by the <a href="trigger.html">triggers</a>.
+</p>
+<p>
+There are two types of settings:
+<li><b>CPU settings</b><br>
+These setting determine the power consumption and the responsiveness of the CPU.
+</li>
+<li><b>Services</b><br>
+These setting allow you to switch services (like mobiledata, syncing, wifi) which
+consume a lot of power.
+</p>
+
+<h4>CPU settings</h4>
+<p>
+The CPU tuning part of CPU tuner is a front end to the linux kernel <a href="cpufreq/cpufreq.html">cpufreq interface</a>.
+</p>
+<h4>Services</h4>
+<p>
+CPU tuner allows you to switch the state of battery consuming services.<br>
+You can choose between three options: <br>
+<li><b>Leave unchanged</b><br>
+The state of this service will not be changed by this profile.
+</li>
+<li><b>Enable</b><br>
+The service will be enabled.
+</li>
+<li><b>Disable</b><br>
+The service will be disabled.
+</li>
+</p>
+<p>
+In case you enable <i>Manual service changes</i> in settings/system
+changes of service states will only happen if the state is not changed
+for outside of CPU tuner or if a new trigger is started.<br>
+E.g. if a profile of a trigger switches background sync to off and you switch it 
+back on, it will stay on until a new trigger activates a profile that siwtches it 
+again.
+</p>
+</body>
+</html>

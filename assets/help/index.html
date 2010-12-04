@@ -7,10 +7,31 @@
 <body>
 <h3>cpu tuner help</h3>
 <p>
-CPU tuner is a front end to the linux kernel <a href="cpufreq/cpufreq.html">cpufreq interface</a>.
+CPU tuner uses a concept of <a href="trigger.html">triggers</a> and 
+<a href="profile.html">profiles</a>.
+<br>
+Depending on the state of the device a
+<a href="trigger.html">trigger</a> applies a 
+<a href="profile.html">profile</a>.
+</p>
+<p>
+The state of the device consists of the battery level and whether the device
+is locked or on power.<br>  
+The <a href="profile.html">profile</a> is a set of policies that will be applied if a profile gets activated
+(by a trigger).
+</p>
+<p>
+CPU tuner does not constantly run and poll, but it gets activated by events 
+sent by the android system. 
 </p>
 <p>
 There is a <a href="faq/faq.html">FAQ</a> which might answer you questions.
+</p>
+</p>
+<p>Some <a href="links.html">links</a> for more information.
+</p>
+<p>
+And a big <a href="thanks.html">thank you</a> to...
 </p>
 <p>
 Be aware that:
@@ -20,11 +41,5 @@ grant <i>cpu tuner</i> root rights in order to work.
 <li>
 Some kernels (i.e. ROMs) do not allow you to adjust the cpu settings.
 </li>
-</p>
-<p><a href="links.html">Some links...</a>
-</p>
-<p>
-A big <a href="thanks.html">thank you to...</a>  
-</p>
 </body>
 </html>
