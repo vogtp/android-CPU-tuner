@@ -19,6 +19,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 public class CapabilityCheckerActivity extends Activity {
@@ -94,10 +95,12 @@ public class CapabilityCheckerActivity extends Activity {
 					"This is most likely due to the kernel/ROM." +
 					"You have two possibilities:\n\n" +
 					"1) Flash a new kernel\n\n" +
-					"2) Flash a new ROM\n" +
-					"You might want to have a look at http://wiki.cyanogenmod.com they do very nice ROMS\n\n" +
-					"Please do not write e-mails unless you think there is something wrong with the check or the app.\n\n" +
-					"Please do not write empty e-mails!";
+					"2) Flash a new ROM\n";
+			if (!DeviceInformation.getRomManagerDeveloperId().toLowerCase().contains("cyanogenmod")) {
+				mailMessage += "You might want to have a look at http://wiki.cyanogenmod.com they do very nice ROMS\n\n" +
+						"Please do not write e-mails unless you think there is something wrong with the check or the app.\n";
+			}
+			mailMessage += "\n";
 		}
 
 		tvMailMessage.setText(mailMessage);
