@@ -107,6 +107,9 @@ public class InstallHelper {
 		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
 			return CpuHandler.GOV_CONSERVATIVE;
 		}
+		if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			return CpuHandler.GOV_INTERACTIVE;
+		}
 		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
 			return CpuHandler.GOV_POWERSAVE;
 		}
@@ -126,6 +129,9 @@ public class InstallHelper {
 		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
 			return CpuHandler.GOV_CONSERVATIVE;
 		}
+		if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			return CpuHandler.GOV_INTERACTIVE;
+		}
 		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
 			return CpuHandler.GOV_POWERSAVE;
 		}
@@ -135,6 +141,9 @@ public class InstallHelper {
 	private static String getExtremSaveGov(List<String> list, String gov) {
 		if (list == null || list.size() < 1) {
 			return "";
+		}
+		if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			return CpuHandler.GOV_INTERACTIVE;
 		}
 		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
 			return CpuHandler.GOV_POWERSAVE;
