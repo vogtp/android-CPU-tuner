@@ -114,6 +114,7 @@ public class SendReportActivity extends Activity {
 		body.append("Developer ID: ").append(DeviceInformation.getRomManagerDeveloperId()).append('\n');
 		body.append("Device nickname: ").append(DeviceInformation.getDeviceNick()).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
+		body.append("CPU tuner version: ").append(getString(R.string.version)).append('\n');
 		body.append("Power user mode: ").append(SettingsStorage.getInstance().isPowerUser()).append('\n');
 		body.append("Beta mode: ").append(SettingsStorage.getInstance().isEnableBeta()).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
