@@ -31,6 +31,8 @@ public class BatteryReceiver extends BroadcastReceiver {
 			if (params == null || params.length < 1) {
 				return null;
 			}
+			// TODO remove logging after switching
+			Logger.v("Using new interface to switch profile");
 			BatteryReceiver.handleIntent(ctx, params[0]);
 			return null;
 		}
