@@ -2,7 +2,6 @@
 
 - better default values
 - apply default settings
-- document trigger, profiles and general workings
 
 - check capabilities in thread
 - make capabilitycheck work for 2 freqs only... comine checks into one (for ondemand, conservative etc...)
