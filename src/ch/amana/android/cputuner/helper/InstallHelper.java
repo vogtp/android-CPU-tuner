@@ -39,15 +39,17 @@ public class InstallHelper {
 
 				List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
-				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin);
+				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 2, 1);
+				long profileGood = createCpuProfile(resolver, "Good", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 2, 1);
 				long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
 				long profileScreenOff = createCpuProfile(resolver, "Screen off", getSaveGov(availGov, gov), freqMax, freqMin);
-				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin);
-				long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 2);
+				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
+				long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 1, 2);
 
-				createTrigger(resolver, "Battery full", 100, profileScreenOff, profileNormal, profilePerformance);
-				createTrigger(resolver, "Battery used", 75, profileScreenOff, profilePowersave, profileNormal);
-				createTrigger(resolver, "Battery empty", 50, profileExtremPowersave, profilePowersave, profilePowersave);
+				createTrigger(resolver, "Battery full", 100, profileScreenOff, profileGood, profilePerformance);
+				createTrigger(resolver, "Battery used", 85, profileScreenOff, profileGood, profileGood);
+				createTrigger(resolver, "Battery low", 65, profileScreenOff, profilePowersave, profileNormal);
+				createTrigger(resolver, "Battery empty", 45, profileExtremPowersave, profilePowersave, profilePowersave);
 				createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
 
 			}
@@ -82,11 +84,11 @@ public class InstallHelper {
 	}
 
 	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin) {
-		return createCpuProfile(resolver, name, gov, freqMax, freqMin, 0, 0, 0, 0);
+		return createCpuProfile(resolver, name, gov, freqMax, freqMin, 0, 0, 0, 0, 0);
 	}
 
 	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin,
-			int wifiState, int gpsState, int btState, int mbState) {
+			int wifiState, int gpsState, int btState, int mbState, int bsState) {
 
 		ContentValues values = new ContentValues();
 		values.put(DB.CpuProfile.NAME_PROFILE_NAME, name);
@@ -97,6 +99,7 @@ public class InstallHelper {
 		values.put(DB.CpuProfile.NAME_GPS_STATE, gpsState);
 		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, btState);
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, mbState);
+		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, bsState);
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
