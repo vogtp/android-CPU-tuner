@@ -62,4 +62,5 @@
 		android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage"
 		android:dialogTitle="@string/prefEnableBeta" android:summary="@string/prefEnableBetaLong"></EditTextPreference>
 
+<Preference android:title="@string/prefBuyMeABeer" android:key="prefKeyBuyMeABeer"></Preference>
 </PreferenceScreen>

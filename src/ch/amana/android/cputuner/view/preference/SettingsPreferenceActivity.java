@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.preference;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -89,6 +90,15 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
 
 		findPreference("prefKeyAllowManualServiceChanges").setEnabled(SettingsStorage.getInstance().isEnableBeta());
+
+		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pname:ch.almana.android.buymeabeer")));
+				return true;
+			}
+		});
 
 	}
 

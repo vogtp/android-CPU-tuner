@@ -1,5 +1,9 @@
+- buy me a beer
+
 - better default values
 - apply default settings
+- figure out how to get avail freqs (if not available)
+- make power consumption calculation configurable
 
 - check capabilities in thread
 - make capabilitycheck work for 2 freqs only... comine checks into one (for ondemand, conservative etc...)
@@ -7,8 +11,6 @@
 - get min freq setting from default and use it as min possible freq (except for powersave)
 
 - ensure 100% battery profile present
-- figure out how to get avail freqs (if not available)
-- make power consumption calculation configurable
 
 Postponed:  (post 1.0)
 

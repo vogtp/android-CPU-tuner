@@ -4,7 +4,7 @@ V
 * bug fixes
 -
 
-V 
+V 0.13.0
 * features
 - make service use a background task to switch profile (beta feature)
 - help navigation
