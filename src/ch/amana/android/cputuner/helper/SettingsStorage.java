@@ -175,7 +175,7 @@ public class SettingsStorage {
 
 	public boolean isNewProfileSwitchTask() {
 		// FIMXE only temp method remove after new switch task is non beta
-		return isEnableBeta();
-		// return false;
+		// return isEnableBeta();
+		return true;
 	}
 }
