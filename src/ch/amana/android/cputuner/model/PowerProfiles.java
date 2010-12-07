@@ -419,4 +419,8 @@ public class PowerProfiles {
 	public static CpuModel getCurrentProfile() {
 		return currentProfile;
 	}
+
+	public static boolean isScreenOff() {
+		return screenOff;
+	}
 }
