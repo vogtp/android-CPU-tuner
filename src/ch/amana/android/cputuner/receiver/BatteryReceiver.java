@@ -41,7 +41,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			}
 			BatteryReceiver.handleIntent(ctx, params[0]);
 			long delta = System.currentTimeMillis() - startTs;
-			Logger.i("Millies to switch profile " + delta);
+			Logger.i("Millies to switch profile " + PowerProfiles.getCurrentProfile() + " " + delta);
 			wakeLock.release();
 			return null;
 		}

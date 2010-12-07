@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
 import java.io.File;
+import java.util.Collection;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,12 +19,16 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
+import ch.amana.android.cputuner.helper.CapabilityChecker.CheckResult;
+import ch.amana.android.cputuner.helper.CapabilityChecker.GovernorResult;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 public class CapabilityCheckerActivity extends Activity {
 
+	private static final String NOT_WORKING = "Not working";
+	private static final String WORKING = "Working";
 	public static final String EXTRA_RECHEK = "extra_recheck";
 	public static final String FILE_CAPABILITIESCHECK = "capabilitiy_check.txt";
 	private CapabilityChecker checker;
@@ -75,18 +80,20 @@ public class CapabilityCheckerActivity extends Activity {
 		} else {
 			tvSummary.setTextColor(Color.LTGRAY);
 		}
-		addTableRow("Governor", checker.isReadGovernor(), checker.isWriteGovernor());
-		addTableRow("Min frequency", checker.isReadMinFreq(), checker.isWriteMinFreq());
-		addTableRow("Max frequency", checker.isReadMaxFreq(), checker.isWriteMaxFreq());
-		addTableRow("User frequency", checker.isReadUserCpuFreq(), checker.isWriteUserCpuFreq());
-		// addTableRow("", checker.isRead, checker.isWrite);
+
+		Collection<GovernorResult> governorsCheckResults = checker.getGovernorsCheckResults();
+
+		addTableRow("Root access", checker.isRooted());
+		for (GovernorResult res : governorsCheckResults) {
+			addTableRow(res);
+		}
 
 		String mailMessage = "No issues have been found...\n" +
 				"If you are pleased and want to give feedback:\n" +
 				"Comments and good ratings on the market are highly appreciated...\n\n" +
 				"Please do not write empty e-mails!";
 		if (!RootHandler.isRoot()) {
-			mailMessage = "Your device is not rooted!\n" +
+			mailMessage = "CPU tuner does not have root access!\n" +
 					"Cpu tuner cannot do anything!\n\n" +
 					"Please do not write e-mails unless you think there is something wrong with the check or the app.\n\n" +
 					"Please do not write empty e-mails!";
@@ -106,17 +113,39 @@ public class CapabilityCheckerActivity extends Activity {
 		tvMailMessage.setText(mailMessage);
 	}
 
-	private void addTableRow(String title, boolean read, boolean write) {
-
+	private void addTableRow(GovernorResult res) {
 		TableRow tr = new TableRow(this);
-		tr.addView(getTextView(title));
-		tr.addView(getTextView(read));
-		tr.addView(getTextView(write));
+		tr.addView(getTextView(res.governor + ": "));
+		tr.addView(getTextView(res));
 		tlCapabilities.addView(tr);
 	}
 
+	private void addTableRow(String check, boolean working) {
+		TableRow tr = new TableRow(this);
+		tr.addView(getTextView(check + ": "));
+		tr.addView(getTextView(working));
+		tlCapabilities.addView(tr);
+	}
+
+	private TextView getTextView(GovernorResult res) {
+		CheckResult cr = res.getWorstIssue();
+		TextView tv;
+		switch (cr) {
+		case SUCCESS:
+			return getTextView(WORKING);
+		case FAILURE:
+			tv = getTextView(NOT_WORKING);
+			tv.setTextColor(Color.RED);
+			return tv;
+		default:
+			tv = getTextView("Has issues");
+			tv.setTextColor(Color.YELLOW);
+			return tv;
+		}
+	}
+
 	private TextView getTextView(boolean b) {
-		TextView tv = getTextView(b ? "Yes" : "No");
+		TextView tv = getTextView(b ? WORKING : NOT_WORKING);
 		if (!b) {
 			tv.setTextColor(Color.RED);
 		}
@@ -125,7 +154,7 @@ public class CapabilityCheckerActivity extends Activity {
 
 	private TextView getTextView(String text) {
 		TextView tv = new TextView(this);
-		tv.setPadding(0, 0, 10, 0);
+		tv.setPadding(0, 0, 20, 0);
 		tv.setText(text);
 		return tv;
 	}

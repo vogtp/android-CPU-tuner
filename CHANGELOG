@@ -7,7 +7,8 @@ V
 V  0.13.0
 * features
 - manual service handling (non beta now)
-- 
+- make service use a background task to switch profile (non beta now)
+- better capability check
 - buy me a beer
 * bug fixes
 -

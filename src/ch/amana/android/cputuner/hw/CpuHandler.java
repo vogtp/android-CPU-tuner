@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.hw;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -118,15 +119,23 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setGovThresholdUp(int i) {
-		if (i < 0 || i > 100 || i <= getGovThresholdDown()) {
+		int govThresholdDown = getGovThresholdDown();
+		if (i < 0 || i > 100) {
 			i = 98;
+		}
+		if (i <= govThresholdDown) {
+			i = govThresholdDown + 1;
 		}
 		return RootHandler.writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
 	}
 
 	public boolean setGovThresholdDown(int i) {
-		if (i < 0 || i > 100 || i >= getGovThresholdUp()) {
+		int govThresholdUp = getGovThresholdUp();
+		if (i < 0 || i > 100) {
 			i = 95;
+		}
+		if (i >= govThresholdUp) {
+			i = govThresholdUp - 1;
 		}
 		return RootHandler.writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
 	}
@@ -152,13 +161,15 @@ public class CpuHandler extends HardwareHandler {
 			} else {
 				int min = getMinCpuFreq();
 				int max = getMaxCpuFreq();
-				Logger.w("No available frequencies found... generating from min/max: [" + min + ", " + max + "]");
+				Logger.w("No available frequencies found... generating from min/max: ["
+						+ min + ", " + max + "]");
 				return new int[] { min, max };
 			}
 
 		}
 		availCpuFreq = true;
-		if (forcePowerUserMode || SettingsStorage.getInstance().isPowerUser()) {
+		if (forcePowerUserMode ||
+				SettingsStorage.getInstance().isPowerUser()) {
 			return freqs;
 		}
 
@@ -198,6 +209,14 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean hasAvailCpuFreq() {
 		return availCpuFreq;
+	}
+
+	public boolean hasUpThreshold() {
+		return (new File(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP)).exists();
+	}
+
+	public boolean hasDownThreshold() {
+		return (new File(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN)).exists();
 	}
 
 }
