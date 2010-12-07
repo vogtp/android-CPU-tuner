@@ -78,10 +78,10 @@ public class Notifier {
 	}
 
 	public static void notifyProfile(CharSequence profileName) {
-		Logger.i("Appling profile: " + profileName);
-		if (instance != null) {
-			instance.notifyStatus(profileName);
+		if (instance == null) {
+			return;
 		}
+		instance.notifyStatus(profileName);
 	}
 
 	public static void stopStatusbarNotifications() {
