@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="prefBuyMeABeer">Buy me a beer</string>
-    <string name="version">0.13.0</string>
+    <string name="version">0.14.0</string>
 </resources>

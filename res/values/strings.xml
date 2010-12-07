@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefBuyMeABeer">Buy me a beer</string>
     <string name="prefAllowManualServiceChangesLong">Do not change service state if modified manually and no trigger change happened</string>
     <string name="prefAllowManualServiceChanges">Manual service changes</string>
     <string name="hintMailBody">Add some information about the problem you are experiencing.</string>

@@ -4,7 +4,7 @@ V
 * bug fixes
 -
 
-V  0.13.0
+V  0.14.0
 * features
 - manual service handling (non beta now)
 - make service use a background task to switch profile (non beta now)
