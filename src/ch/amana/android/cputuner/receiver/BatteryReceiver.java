@@ -20,10 +20,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 	private class SetProfileTask extends AsyncTask<Intent, Void, Void> {
 
 		private final Context ctx;
+		private final long startTs;
 
 		public SetProfileTask(Context ctx) {
 			super();
 			this.ctx = ctx;
+			startTs = System.currentTimeMillis();
 		}
 
 		@Override
@@ -31,9 +33,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 			if (params == null || params.length < 1) {
 				return null;
 			}
-			// TODO remove logging after switching
-			Logger.v("Using new interface to switch profile");
 			BatteryReceiver.handleIntent(ctx, params[0]);
+			long delta = System.currentTimeMillis() - startTs;
+			Logger.i("Millies to switch profile " + delta);
 			return null;
 		}
 	}
@@ -71,7 +73,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-
 		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
 			SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
 			spt.execute(intent);
