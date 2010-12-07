@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -20,12 +22,16 @@ public class BatteryReceiver extends BroadcastReceiver {
 	private class SetProfileTask extends AsyncTask<Intent, Void, Void> {
 
 		private final Context ctx;
+		private final WakeLock wakeLock;
 		private final long startTs;
 
 		public SetProfileTask(Context ctx) {
 			super();
-			this.ctx = ctx;
 			startTs = System.currentTimeMillis();
+			this.ctx = ctx;
+			PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
+			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
+			wakeLock.acquire();
 		}
 
 		@Override
@@ -36,6 +42,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			BatteryReceiver.handleIntent(ctx, params[0]);
 			long delta = System.currentTimeMillis() - startTs;
 			Logger.i("Millies to switch profile " + delta);
+			wakeLock.release();
 			return null;
 		}
 	}

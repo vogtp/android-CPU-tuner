@@ -4,6 +4,14 @@ V
 * bug fixes
 -
 
+V  0.13.0
+* features
+- manual service handling (non beta now)
+- 
+- buy me a beer
+* bug fixes
+-
+
 V 0.13.0
 * features
 - make service use a background task to switch profile (beta feature)
