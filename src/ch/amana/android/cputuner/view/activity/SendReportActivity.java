@@ -118,12 +118,17 @@ public class SendReportActivity extends Activity {
 		body.append("Power user mode: ").append(SettingsStorage.getInstance().isPowerUser()).append('\n');
 		body.append("Beta mode: ").append(SettingsStorage.getInstance().isEnableBeta()).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
-		body.append("CPU governors: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuGov())).append('\n');
-		body.append("CPU frequencies: ").append(Arrays.toString(CpuHandler.getInstance().getAvailCpuFreq(true))).append('\n');
-		body.append("Min scaling frequency: ").append(CpuHandler.getInstance().getMinCpuFreq()).append('\n');
-		body.append("Max scaling frequency: ").append(CpuHandler.getInstance().getMaxCpuFreq()).append('\n');
-		body.append("Current governor: ").append(CpuHandler.getInstance().getCurCpuGov()).append('\n');
-		body.append("Current frequency: ").append(CpuHandler.getInstance().getCurCpuFreq()).append('\n');
+		CpuHandler cpuHandler = CpuHandler.getInstance();
+		body.append("CPU governors: ").append(Arrays.toString(cpuHandler.getAvailCpuGov())).append('\n');
+		body.append("CPU frequencies: ").append(Arrays.toString(cpuHandler.getAvailCpuFreq(true)));
+		if (!cpuHandler.hasAvailCpuFreq()) {
+			body.append(" (no available frequencies)");
+		}
+		body.append('\n');
+		body.append("Min scaling frequency: ").append(cpuHandler.getMinCpuFreq()).append('\n');
+		body.append("Max scaling frequency: ").append(cpuHandler.getMaxCpuFreq()).append('\n');
+		body.append("Current governor: ").append(cpuHandler.getCurCpuGov()).append('\n');
+		body.append("Current frequency: ").append(cpuHandler.getCurCpuFreq()).append('\n');
 		closeLogFile();
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append(CapabilityChecker.getInstance().toString());
