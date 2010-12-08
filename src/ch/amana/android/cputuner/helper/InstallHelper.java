@@ -54,10 +54,10 @@ public class InstallHelper {
 
 			}
 
-			if (cP != null && !cP.isClosed()) {
+			if (cP != null) {
 				cP.close();
 			}
-			if (cT != null && !cT.isClosed()) {
+			if (cT != null) {
 				cT.close();
 			}
 		}
@@ -70,6 +70,9 @@ public class InstallHelper {
 			oh.getReadableDatabase().execSQL(
 					"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where "
 							+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " < 1");
+		}
+		if (cT != null) {
+			cT.close();
 		}
 	}
 

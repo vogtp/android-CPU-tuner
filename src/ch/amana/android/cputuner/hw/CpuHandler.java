@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -151,7 +153,6 @@ public class CpuHandler extends HardwareHandler {
 		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
 		if (freqs[0] == -1) {
 			availCpuFreq = false;
-			// TODO should also check for curFreq
 			String settingsFreqs = SettingsStorage.getInstance().getCpuFreqs();
 			freqs = createListInt(settingsFreqs);
 			boolean success = true;
@@ -161,13 +162,19 @@ public class CpuHandler extends HardwareHandler {
 			if (success) {
 				return freqs;
 			} else {
-				int minCpuInfo = getIntFromStr(readFile(CPUINFO_MIN_FREQ));
-				int min = getMinCpuFreq();
-				int max = getMaxCpuFreq();
-				int maxCpuInfo = getIntFromStr(readFile(CPUINFO_MAX_FREQ));
-				Logger.w("No available frequencies found... generating from min/max: ["
-						+ minCpuInfo + ", " + min + ", " + max + ", " + maxCpuInfo + "]");
-				return new int[] { minCpuInfo, min, max, maxCpuInfo };
+				SortedSet<Integer> sortedSet = new TreeSet<Integer>();
+				sortedSet.add(getIntFromStr(readFile(CPUINFO_MIN_FREQ)));
+				sortedSet.add(getMinCpuFreq());
+				sortedSet.add(getCurCpuFreq());
+				sortedSet.add(getMaxCpuFreq());
+				sortedSet.add(getIntFromStr(readFile(CPUINFO_MAX_FREQ)));
+				Logger.w("No available frequencies found... generating from min/max");
+				int[] res = new int[sortedSet.size()];
+				int i = 0;
+				for (int freq : sortedSet) {
+					res[i++] = freq;
+				}
+				return res;
 			}
 
 		}
