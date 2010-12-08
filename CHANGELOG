@@ -4,9 +4,11 @@ V
 * bug fixes
 -
 
-V 
+V 0.15.0
 * features
-- find more frequencies (from cpu info)
+- find possibly more frequencies (from cpuinfo)
+- make power consumption calculation configurable
+- restore default settings
 * bug fixes
 - 
 

@@ -3,12 +3,10 @@
 
 	<PreferenceCategory android:title="Basics"
 		android:key="prefKeyBasics">
-		<CheckBoxPreference android:title="@string/prefEnableProfiles"
-			android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles"
-			android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference>
-		<CheckBoxPreference android:key="applyCpuSettingsOnBoot"
-			android:title="@string/prefApplyOnBoot" android:summaryOn="@string/prefApplyOnBootOn"
-			android:summaryOff="@string/prefApplyOnBootOff" android:defaultValue="true"></CheckBoxPreference>
+		<PreferenceScreen android:key="prefKeyProfiles" android:title="@string/prefKeyProfiles"><PreferenceCategory android:key="prefKeyProfiles" android:title="@string/prefKeyProfiles"><ListPreference android:title="@string/prefKeyCalcPowerUsage" android:summary="@string/prefKeyCalcPowerUsageLong" android:defaultValue="1" android:entries="@array/prefCalcPowerUsageEntries" android:key="prefKeyCalcPowerUsageType" android:entryValues="@array/prefCalcPowerUsageValues"></ListPreference><CheckBoxPreference android:title="@string/prefEnableProfiles" android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles" android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference><CheckBoxPreference android:key="applyCpuSettingsOnBoot" android:title="@string/prefApplyOnBoot" android:summaryOn="@string/prefApplyOnBootOn" android:summaryOff="@string/prefApplyOnBootOff" android:defaultValue="true"></CheckBoxPreference><Preference android:key="prefKeyResetToDefault" android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault" android:enabled="true"></Preference>
+</PreferenceCategory>
+</PreferenceScreen>
+		
 		<PreferenceScreen android:title="@string/prefCatNotifications"
 			android:key="prefKeyNotificationScreen">
 
@@ -26,10 +24,11 @@
 					android:summaryOn="@string/prefKeyEnableProfilesOn"></CheckBoxPreference>
 				<CheckBoxPreference android:key="prefKeyToastNotifications"
 					android:title="@string/prefToastNotifications"
-					android:defaultValue="false"></CheckBoxPreference>
+					android:defaultValue="false" android:selectable="false" android:shouldDisableView="true" android:enabled="false"></CheckBoxPreference>
 			</PreferenceCategory>
 		</PreferenceScreen>
-	</PreferenceCategory>
+	
+</PreferenceCategory>
 	<PreferenceCategory android:title="@string/prefCatSystem"
 		android:key="prefKeySystemCat">
 		<Preference android:key="prefKeyCapabilities"
@@ -40,9 +39,7 @@
 
 			<PreferenceCategory android:title="@string/prefCatSystem"
 				android:key="prefKeySystemCat">
-				<CheckBoxPreference android:key="prefKeyCalcPowerUsage"
-					android:summary="@string/prefKeyCalcPowerUsageLong" android:title="@string/prefKeyCalcPowerUsage"
-					android:defaultValue="true"></CheckBoxPreference>
+				
 				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges" android:title="@string/prefAllowManualServiceChanges" android:summary="@string/prefAllowManualServiceChangesLong" android:defaultValue="false"></CheckBoxPreference><CheckBoxPreference android:summaryOn="@string/prefPowerUserOn"
 					android:title="@string/prefPowerUser" android:summaryOff="@string/prefPowerUserOff"
 					android:key="prefKeyPowerUser" android:defaultValue="false"></CheckBoxPreference>
@@ -53,6 +50,7 @@
 					android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq"
 					android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
 			
+
 </PreferenceCategory>
 
 		</PreferenceScreen>

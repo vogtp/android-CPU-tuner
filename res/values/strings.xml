@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefResetToDefaultLong">Delete all current profiles and triggers and reload the default set.</string>
+    <string name="prefResetToDefault">Reset Profiles and Triggers</string>
+    <string name="prefKeyProfiles">Profiles and triggers</string>
     <string name="prefBuyMeABeer">Buy me a beer</string>
     <string name="prefAllowManualServiceChangesLong">Do not change service state if modified manually and no trigger change happened</string>
     <string name="prefAllowManualServiceChanges">Manual service changes</string>
@@ -90,9 +93,20 @@
 <item>leave unchanged</item>
 <item>Enable</item>
 <item>Disable</item>
-</string-array><string-array name="mobiledataStates">
+</string-array>
+<string-array name="mobiledataStates">
 <item>leave unchanged</item>
 <item>2G only</item>
 <item>3G/2G</item>
+</string-array>
+<string-array name="prefCalcPowerUsageEntries">
+<item>Average value</item>
+<item>Current value</item>
+<item>No calculation</item>
+</string-array>
+<string-array name="prefCalcPowerUsageValues">
+<item>1</item>
+<item>2</item>
+<item>3</item>
 </string-array>
 </resources>

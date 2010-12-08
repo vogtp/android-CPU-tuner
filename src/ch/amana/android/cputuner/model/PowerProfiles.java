@@ -288,7 +288,7 @@ public class PowerProfiles {
 	}
 
 	private static void trackCurrent() {
-		if (currentTrigger == null || !SettingsStorage.getInstance().isTrackCurrent()) {
+		if (currentTrigger == null || SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 			return;
 		}
 		long powerCurrentSum = 0;
@@ -305,7 +305,15 @@ public class PowerProfiles {
 
 		}
 		// powerCurrentSum *= powerCurrentCnt;
-		powerCurrentSum += BatteryHandler.getBatteryCurrentNow();
+		switch (SettingsStorage.getInstance().getTrackCurrentType()) {
+		case SettingsStorage.TRACK_CURRENT_AVG:
+			powerCurrentSum += BatteryHandler.getBatteryCurrentAverage();
+			break;
+
+		default:
+			powerCurrentSum += BatteryHandler.getBatteryCurrentNow();
+			break;
+		}
 		powerCurrentCnt++;
 		if (screenOff) {
 			currentTrigger.setPowerCurrentSumScreenLocked(powerCurrentSum);

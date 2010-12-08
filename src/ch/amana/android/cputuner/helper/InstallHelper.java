@@ -3,10 +3,14 @@ package ch.amana.android.cputuner.helper;
 import java.util.Arrays;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.widget.Toast;
@@ -17,6 +21,28 @@ import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 public class InstallHelper {
 
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
+
+	public static void resetToDefault(final Context ctx) {
+		Builder alertBuilder = new AlertDialog.Builder(ctx);
+		alertBuilder.setTitle("Reset to default");
+		alertBuilder
+				.setMessage("Reseting to default will discard all your modifications on tiggers and profiles, including newly created.");
+		alertBuilder.setCancelable(false);
+		alertBuilder.setPositiveButton("Yes", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ContentResolver resolver = ctx.getContentResolver();
+				resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
+				resolver.delete(DB.Trigger.CONTENT_URI, null, null);
+				populateDb(ctx);
+
+			}
+		});
+		alertBuilder.setNegativeButton("No", null);
+		AlertDialog alert = alertBuilder.create();
+		alert.show();
+	}
 
 	public static void populateDb(Context ctx) {
 		ContentResolver resolver = ctx.getContentResolver();

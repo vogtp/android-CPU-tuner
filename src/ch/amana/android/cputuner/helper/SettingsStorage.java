@@ -16,6 +16,11 @@ public class SettingsStorage {
 	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
 	public static final String ENABLE_TOAST_NOTI = "prefKeyToastNotifications";
+
+	public static final int TRACK_CURRENT_AVG = 1;
+	public static final int TRACK_CURRENT_CUR = 2;
+	public static final int TRACK_CURRENT_HIDE = 3;
+
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
 	private static SettingsStorage instance;
 	private final Context context;
@@ -27,8 +32,7 @@ public class SettingsStorage {
 	private boolean enableBeta;
 	private boolean checkedProfiles = false;
 	private boolean enableProfiles;
-	private boolean checkedTrackCurrent = false;
-	private boolean trackCurrent;
+	private int trackCurrent = -1;
 	private boolean checkedStatusbarNotifications = false;
 	private boolean statusbarNotifications;
 	private boolean checkedToastNotifications = false;
@@ -41,7 +45,7 @@ public class SettingsStorage {
 	public void forgetValues() {
 		checkedBeta = false;
 		checkedProfiles = false;
-		checkedTrackCurrent = false;
+		trackCurrent = -1;
 		checkedStatusbarNotifications = false;
 		checkedToastNotifications = false;
 		checkedAllowManualServiceChanges = false;
@@ -125,10 +129,15 @@ public class SettingsStorage {
 		return enablePowerUser;
 	}
 
-	public boolean isTrackCurrent() {
-		if (!checkedTrackCurrent) {
-			checkedTrackCurrent = true;
-			trackCurrent = getPreferences().getBoolean("prefKeyCalcPowerUsage", true);
+	public int getTrackCurrentType() {
+		if (trackCurrent < 0) {
+			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "1");
+			try {
+				trackCurrent = Integer.parseInt(trackCurrentStr);
+			} catch (Exception e) {
+				Logger.w("Cannot parse prefKeyCalcPowerUsage as int", e);
+				trackCurrent = 1;
+			}
 		}
 		return trackCurrent;
 	}

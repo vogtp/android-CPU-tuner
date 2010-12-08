@@ -72,7 +72,7 @@ public class TriggersListActivity extends ListActivity {
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT) {
 
-					if (!SettingsStorage.getInstance().isTrackCurrent()) {
+					if (SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 						((TextView) view).setText("");
 						return true;
 					}
@@ -228,7 +228,7 @@ public class TriggersListActivity extends ListActivity {
 
 		MenuItem menuItemClearPowerCurrent = menu.findItem(R.id.menuItemClearPowerCurrent);
 		if (menuItemClearPowerCurrent != null) {
-			menuItemClearPowerCurrent.setVisible(SettingsStorage.getInstance().isTrackCurrent());
+			menuItemClearPowerCurrent.setVisible(SettingsStorage.getInstance().getTrackCurrentType() != SettingsStorage.TRACK_CURRENT_HIDE);
 		}
 		return true;
 	}

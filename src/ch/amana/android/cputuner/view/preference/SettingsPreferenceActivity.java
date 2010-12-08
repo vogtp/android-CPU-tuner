@@ -10,6 +10,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -97,7 +98,14 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+		findPreference("prefKeyResetToDefault").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				InstallHelper.resetToDefault(SettingsPreferenceActivity.this);
+				return true;
+			}
+		});
 	}
 
 	@Override
