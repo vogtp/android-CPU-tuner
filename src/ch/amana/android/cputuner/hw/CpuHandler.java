@@ -30,6 +30,8 @@ public class CpuHandler extends HardwareHandler {
 
 	private static final String GOV_TRESHOLD_UP = "up_threshold";
 	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
+	private static final String CPUINFO_MIN_FREQ = "cpuinfo_min_freq";
+	private static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
 
 	private boolean availCpuFreq = true;
 
@@ -159,11 +161,13 @@ public class CpuHandler extends HardwareHandler {
 			if (success) {
 				return freqs;
 			} else {
+				int minCpuInfo = getIntFromStr(readFile(CPUINFO_MIN_FREQ));
 				int min = getMinCpuFreq();
 				int max = getMaxCpuFreq();
+				int maxCpuInfo = getIntFromStr(readFile(CPUINFO_MAX_FREQ));
 				Logger.w("No available frequencies found... generating from min/max: ["
-						+ min + ", " + max + "]");
-				return new int[] { min, max };
+						+ minCpuInfo + ", " + min + ", " + max + ", " + maxCpuInfo + "]");
+				return new int[] { minCpuInfo, min, max, maxCpuInfo };
 			}
 
 		}
