@@ -1,7 +1,9 @@
 - better default values
 - apply default settings
 - figure out how to get avail freqs (if not available)
+
 - make power consumption calculation configurable
+- write both cur and avg into a table and make display configurable
 
 - check capabilities in thread
 - get min freq setting from default and use it as min possible freq (except for powersave)

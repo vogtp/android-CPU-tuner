@@ -382,7 +382,7 @@ public class CpuEditor extends Activity {
 		if (CpuHandler.GOV_POWERSAVE.equals(gov)
 				|| CpuHandler.GOV_PERFORMANCE.equals(gov)
 				|| CpuHandler.GOV_USERSPACE.equals(gov)
-				|| CpuHandler.GOV_CONSERVATIVE.equals(gov)) {
+				|| CpuHandler.GOV_INTERACTIVE.equals(gov)) {
 			hasThreshholdUpFeature = false;
 			hasThreshholdDownFeature = false;
 		} else if (CpuHandler.GOV_ONDEMAND.equals(gov)) {

@@ -270,13 +270,13 @@ public class PowerProfiles {
 	public static void setBatteryLevel(int level) {
 		if (batteryLevel != level) {
 			batteryLevel = level;
+			trackCurrent();
 			notifyBatteryLevel();
 			boolean chagned = changeTrigger(false);
 			if (chagned) {
 				applyPowerProfile(false, false);
 			} else {
 				sendDeviceStatusChangedBroadcast();
-				trackCurrent();
 			}
 		}
 	}
@@ -331,6 +331,7 @@ public class PowerProfiles {
 		if (acPower != power) {
 			acPower = power;
 			notifyAcPower();
+			trackCurrent();
 			applyPowerProfile(false, false);
 		}
 	}
@@ -338,6 +339,7 @@ public class PowerProfiles {
 	public static void setScreenOff(boolean b) {
 		if (screenOff != b) {
 			screenOff = b;
+			trackCurrent();
 			applyPowerProfile(false, false);
 		}
 	}

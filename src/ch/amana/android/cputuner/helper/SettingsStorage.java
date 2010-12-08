@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import ch.amana.android.cputuner.hw.GpsHandler;
+import ch.amana.android.cputuner.hw.RootHandler;
 
 public class SettingsStorage {
 
@@ -177,5 +178,9 @@ public class SettingsStorage {
 		// FIMXE only temp method remove after new switch task is non beta
 		// return isEnableBeta();
 		return true;
+	}
+
+	public boolean isInstallAsSystemAppEnabled() {
+		return RootHandler.isSystemApp(context) || (isEnableBeta() && isPowerUser());
 	}
 }

@@ -103,8 +103,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		systemAppPreference.setEnabled(RootHandler.isSystemApp(this)
-				|| (SettingsStorage.getInstance().isEnableBeta() && SettingsStorage.getInstance().isPowerUser()));
+		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
 	}
 
 	@Override
