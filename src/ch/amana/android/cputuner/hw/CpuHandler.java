@@ -168,12 +168,13 @@ public class CpuHandler extends HardwareHandler {
 				sortedSet.add(getCurCpuFreq());
 				sortedSet.add(getMaxCpuFreq());
 				sortedSet.add(getIntFromStr(readFile(CPUINFO_MAX_FREQ)));
-				Logger.w("No available frequencies found... generating from min/max");
 				int[] res = new int[sortedSet.size()];
 				int i = 0;
 				for (int freq : sortedSet) {
 					res[i++] = freq;
 				}
+				// TODO save to settings?
+				Logger.w("No available frequencies found... generating from min/max");
 				return res;
 			}
 
