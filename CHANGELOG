@@ -4,6 +4,13 @@ V
 * bug fixes
 -
 
+V 0.15.1
+* features
+- 
+* bug fixes
+- fix check information
+- sort cpu frequencies
+
 V 0.15.0
 * features
 - find possibly more frequencies (from cpuinfo)

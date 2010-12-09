@@ -19,7 +19,8 @@ public class CapabilityChecker {
 		SUCCESS,
 		FAILURE,
 		DOES_NOT_APPLY,
-		CANNOT_CHECK;
+		CANNOT_CHECK,
+		HAS_ISSUES;
 	}
 
 	public class GovernorResult {
@@ -49,41 +50,45 @@ public class CapabilityChecker {
 			this.governor = governor;
 		}
 
-		private boolean hasCheckFailed(CheckResult res) {
+		private boolean isCheckFailed(CheckResult res) {
 			return res == CheckResult.FAILURE;
 		}
 
 		public boolean hasFailure() {
-			boolean notOk = hasCheckFailed(writeGovernor) || hasCheckFailed(readGovernor) || hasCheckFailed(writeMinFreq) || hasCheckFailed(readMinFreq) ||
-					hasCheckFailed(writeMaxFreq) || hasCheckFailed(readMaxFreq) || hasCheckFailed(writeUpThreshold) || hasCheckFailed(readUpThreshold) ||
-					hasCheckFailed(writeDownThreshold) || hasCheckFailed(readDownThreshold);
+			boolean notOk = isCheckFailed(writeGovernor) || isCheckFailed(readGovernor) || isCheckFailed(writeMinFreq) || isCheckFailed(readMinFreq) ||
+					isCheckFailed(writeMaxFreq) || isCheckFailed(readMaxFreq) || isCheckFailed(writeUpThreshold) || isCheckFailed(readUpThreshold) ||
+					isCheckFailed(writeDownThreshold) || isCheckFailed(readDownThreshold);
 			return notOk;
 		}
 
-		private boolean hasCheckCannotCheck(CheckResult res) {
+		private boolean isCheckCannotCheck(CheckResult res) {
 			return res == CheckResult.CANNOT_CHECK;
 		}
 
 		public boolean hasCannotCheck() {
-			boolean notOk = hasCheckCannotCheck(writeGovernor) || hasCheckCannotCheck(readGovernor) || hasCheckCannotCheck(writeMinFreq)
-					|| hasCheckCannotCheck(readMinFreq) ||
-					hasCheckCannotCheck(writeMaxFreq) || hasCheckCannotCheck(readMaxFreq) || hasCheckCannotCheck(writeUpThreshold)
-					|| hasCheckCannotCheck(readUpThreshold) ||
-					hasCheckCannotCheck(writeDownThreshold) || hasCheckCannotCheck(readDownThreshold);
+			boolean notOk = isCheckCannotCheck(writeGovernor) || isCheckCannotCheck(readGovernor) || isCheckCannotCheck(writeMinFreq)
+					|| isCheckCannotCheck(readMinFreq) ||
+					isCheckCannotCheck(writeMaxFreq) || isCheckCannotCheck(readMaxFreq) || isCheckCannotCheck(writeUpThreshold)
+					|| isCheckCannotCheck(readUpThreshold) ||
+					isCheckCannotCheck(writeDownThreshold) || isCheckCannotCheck(readDownThreshold);
 			return notOk;
 		}
 
-		private boolean hasCheckNotCheck(CheckResult res) {
+		private boolean isCheckNotCheck(CheckResult res) {
 			return res == CheckResult.NOT_CHECKED;
 		}
 
 		public boolean hasNotChecked() {
-			boolean notOk = hasCheckNotCheck(writeGovernor) || hasCheckNotCheck(readGovernor) || hasCheckNotCheck(writeMinFreq)
-					|| hasCheckNotCheck(readMinFreq) ||
-					hasCheckNotCheck(writeMaxFreq) || hasCheckNotCheck(readMaxFreq) || hasCheckNotCheck(writeUpThreshold)
-					|| hasCheckNotCheck(readUpThreshold) ||
-					hasCheckNotCheck(writeDownThreshold) || hasCheckNotCheck(readDownThreshold);
+			boolean notOk = isCheckNotCheck(writeGovernor) || isCheckNotCheck(readGovernor) || isCheckNotCheck(writeMinFreq)
+					|| isCheckNotCheck(readMinFreq) ||
+					isCheckNotCheck(writeMaxFreq) || isCheckNotCheck(readMaxFreq) || isCheckNotCheck(writeUpThreshold)
+					|| isCheckNotCheck(readUpThreshold) ||
+					isCheckNotCheck(writeDownThreshold) || isCheckNotCheck(readDownThreshold);
 			return notOk;
+		}
+
+		private boolean isCheckOk(CheckResult res) {
+			return res == CheckResult.SUCCESS || res == CheckResult.DOES_NOT_APPLY;
 		}
 
 		public boolean hasIssues() {
@@ -103,6 +108,49 @@ public class CapabilityChecker {
 			return CheckResult.SUCCESS;
 		}
 
+		public CheckResult getOverallIssue() {
+			CheckResult res = getWorstIssue();
+			if (res == CheckResult.FAILURE) {
+				if (isCheckOk(readGovernor) && isCheckOk(writeGovernor) && isCheckOk(readGovernor) && isCheckOk(writeMinFreq) &&
+						isCheckFailed(writeMaxFreq) && isCheckFailed(writeMinFreq)) {
+					res = CheckResult.HAS_ISSUES;
+				}
+			}
+			return res;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Governor: ").append(governor).append("\n");
+			sb.append("  Governor: read: ").append(checkresultToString(readGovernor));
+			sb.append(" - write: ").append(checkresultToString(writeGovernor)).append("\n");
+			sb.append("  Min Freq: read: ").append(checkresultToString(readMinFreq));
+			sb.append(" - write: ").append(checkresultToString(writeMinFreq)).append("\n");
+			sb.append("  Max Freq: read: ").append(checkresultToString(readMaxFreq));
+			sb.append(" - write: ").append(checkresultToString(writeMaxFreq)).append("\n");
+			sb.append("  Up Threshold: read: ").append(checkresultToString(readUpThreshold));
+			sb.append(" - write: ").append(checkresultToString(writeUpThreshold)).append("\n");
+			sb.append("  DownThreshold: read: ").append(checkresultToString(readDownThreshold));
+			sb.append(" - write: ").append(checkresultToString(writeDownThreshold)).append("\n");
+			return sb.toString();
+		}
+
+		private String checkresultToString(CheckResult res) {
+			switch (res) {
+			case NOT_CHECKED:
+				return "not checked";
+			case SUCCESS:
+				return "success";
+			case FAILURE:
+				return "failure";
+			case DOES_NOT_APPLY:
+				return "does not apply";
+			case CANNOT_CHECK:
+				return "cannot check";
+			}
+			return "unknown";
+		}
 	}
 
 	private final CpuHandler cpuHandler;
@@ -369,41 +417,10 @@ public class CapabilityChecker {
 
 		for (Iterator<String> itr = govChecks.keySet().iterator(); itr.hasNext();) {
 			String g = itr.next();
-			getGovernorResults(sb, g);
+			sb.append(govChecks.get(g).toString());
 		}
 
 		return sb.toString();
-	}
-
-	private void getGovernorResults(StringBuilder sb, String g) {
-		GovernorResult gr = govChecks.get(g);
-		sb.append("Governor: ").append(g).append("\n");
-		sb.append("  Governor: read: ").append(checkresultToString(gr.readGovernor));
-		sb.append(" - write: ").append(checkresultToString(gr.writeGovernor)).append("\n");
-		sb.append("  Min Freq: read: ").append(checkresultToString(gr.readMinFreq));
-		sb.append(" - write: ").append(checkresultToString(gr.writeMinFreq)).append("\n");
-		sb.append("  Max Freq: read: ").append(checkresultToString(gr.readMaxFreq));
-		sb.append(" - write: ").append(checkresultToString(gr.writeMaxFreq)).append("\n");
-		sb.append("  Up Threshold: read: ").append(checkresultToString(gr.readUpThreshold));
-		sb.append(" - write: ").append(checkresultToString(gr.writeUpThreshold)).append("\n");
-		sb.append("  DownThreshold: read: ").append(checkresultToString(gr.readDownThreshold));
-		sb.append(" - write: ").append(checkresultToString(gr.writeDownThreshold)).append("\n");
-	}
-
-	private String checkresultToString(CheckResult res) {
-		switch (res) {
-		case NOT_CHECKED:
-			return "not checked";
-		case SUCCESS:
-			return "success";
-		case FAILURE:
-			return "failure";
-		case DOES_NOT_APPLY:
-			return "does not apply";
-		case CANNOT_CHECK:
-			return "cannot check";
-		}
-		return "unknown";
 	}
 
 	public boolean isRooted() {

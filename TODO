@@ -1,18 +1,11 @@
-- better default values
 
 - figure out how to get avail freqs (if not available)
 
-- write both cur and avg into a table and make display configurable
-
-- check capabilities in thread
-- get min freq setting from default and use it as min possible freq (except for powersave)
-
-- ensure 100% battery profile present
-
 Postponed:  (post 1.0)
-
-- do not read thresholds if governor has none
-- keep track of governors thresholds
-- ondemand/down_differential ... ? (tobi)
+- better default values
+- write both cur and avg into a table and make display configurable
 - Battery hot state
 - choose state sequence
+- check capabilities in thread
+- ensure 100% battery profile present
+- get min freq setting from default and use it as min possible freq (except for powersave)

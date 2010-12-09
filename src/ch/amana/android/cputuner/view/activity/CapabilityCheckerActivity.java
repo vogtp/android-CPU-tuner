@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Collection;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.CapabilityChecker.CheckResult;
@@ -40,6 +42,51 @@ public class CapabilityCheckerActivity extends Activity {
 	private TextView tvMailMessage;
 	private File path;
 
+	private class GovernorResultRow extends TableRow {
+
+		private final Context ctx;
+		private final GovernorResult res;
+
+		public GovernorResultRow(Context ctx, GovernorResult res) {
+			super(ctx);
+			this.ctx = ctx;
+			this.res = res;
+			addView(getTextView(res.governor + ": "));
+			addView(getTextView(res));
+		}
+
+		private TextView getTextView(GovernorResult res) {
+			CheckResult cr = res.getOverallIssue();
+			TextView tv;
+			switch (cr) {
+			case SUCCESS:
+				return getTextView(WORKING);
+			case FAILURE:
+				tv = getTextView(NOT_WORKING);
+				tv.setTextColor(Color.RED);
+				return tv;
+			default:
+				tv = getTextView("Has issues");
+				tv.setTextColor(Color.YELLOW);
+				return tv;
+			}
+		}
+
+		private TextView getTextView(String text) {
+			TextView tv = new TextView(ctx);
+			tv.setPadding(0, 0, 20, 0);
+			tv.setText(text);
+			tv.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(ctx, res.toString(), Toast.LENGTH_LONG).show();
+				}
+			});
+			return tv;
+		}
+	}
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +103,8 @@ public class CapabilityCheckerActivity extends Activity {
 		tlCapabilities = (TableLayout) findViewById(R.id.tlCapabilities);
 		cbAcknowledge = (CheckBox) findViewById(R.id.cbAcknowledge);
 		buSendBugreport = (Button) findViewById(R.id.buSendBugreport);
+
+		tvDeviceInfo.setText("(Tap result for more information.)");
 
 		buSendBugreport.setOnClickListener(new OnClickListener() {
 
@@ -85,7 +134,7 @@ public class CapabilityCheckerActivity extends Activity {
 
 		addTableRow("Root access", checker.isRooted());
 		for (GovernorResult res : governorsCheckResults) {
-			addTableRow(res);
+			tlCapabilities.addView(new GovernorResultRow(this, res));
 		}
 
 		String mailMessage = "No issues have been found...\n" +
@@ -113,35 +162,11 @@ public class CapabilityCheckerActivity extends Activity {
 		tvMailMessage.setText(mailMessage);
 	}
 
-	private void addTableRow(GovernorResult res) {
-		TableRow tr = new TableRow(this);
-		tr.addView(getTextView(res.governor + ": "));
-		tr.addView(getTextView(res));
-		tlCapabilities.addView(tr);
-	}
-
 	private void addTableRow(String check, boolean working) {
 		TableRow tr = new TableRow(this);
 		tr.addView(getTextView(check + ": "));
 		tr.addView(getTextView(working));
 		tlCapabilities.addView(tr);
-	}
-
-	private TextView getTextView(GovernorResult res) {
-		CheckResult cr = res.getWorstIssue();
-		TextView tv;
-		switch (cr) {
-		case SUCCESS:
-			return getTextView(WORKING);
-		case FAILURE:
-			tv = getTextView(NOT_WORKING);
-			tv.setTextColor(Color.RED);
-			return tv;
-		default:
-			tv = getTextView("Has issues");
-			tv.setTextColor(Color.YELLOW);
-			return tv;
-		}
 	}
 
 	private TextView getTextView(boolean b) {
