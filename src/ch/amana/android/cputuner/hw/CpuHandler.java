@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -160,6 +161,7 @@ public class CpuHandler extends HardwareHandler {
 				success = freqs[i] != -1;
 			}
 			if (success) {
+				Arrays.sort(freqs);
 				return freqs;
 			} else {
 				SortedSet<Integer> sortedSet = new TreeSet<Integer>();
@@ -182,6 +184,7 @@ public class CpuHandler extends HardwareHandler {
 		availCpuFreq = true;
 		if (forcePowerUserMode ||
 				SettingsStorage.getInstance().isPowerUser()) {
+			Arrays.sort(freqs);
 			return freqs;
 		}
 
@@ -196,6 +199,7 @@ public class CpuHandler extends HardwareHandler {
 		for (Iterator<Integer> iterator = freqList.iterator(); iterator.hasNext();) {
 			freqs[i++] = iterator.next();
 		}
+		Arrays.sort(freqs);
 		return freqs;
 	}
 
