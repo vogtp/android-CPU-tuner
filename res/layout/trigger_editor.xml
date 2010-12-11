@@ -13,7 +13,7 @@
 			<EditText android:layout_height="wrap_content" android:id="@+id/etName"
 				android:layout_width="fill_parent"></EditText>
 
-</LinearLayout>
+		</LinearLayout>
 		<TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:padding="7dp"
 			android:text="Activates if the battery charge of the device is below the battery level and no other trigger wth a lower and matching battery level is found."
@@ -72,6 +72,14 @@
 				<Spinner android:layout_height="wrap_content" android:id="@+id/spPower"
 					android:layout_width="fill_parent"></Spinner>
 			</TableRow>
+
+			<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+				<CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/cbHot" android:text="Battery Hot" android:paddingRight="10dp"></CheckBox>
+				<Spinner android:layout_height="wrap_content" android:id="@+id/spHot"
+					android:layout_width="fill_parent"></Spinner>
+			
+</TableRow>
 		</TableLayout>
 
 

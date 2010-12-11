@@ -42,6 +42,8 @@ public class PowerProfiles {
 
 	private static int lastStateBackgroundSync = -1;
 
+	private static boolean batteryHot;
+
 	// FIXME make singelton class
 
 	private static void resetServiceState() {
@@ -91,10 +93,15 @@ public class PowerProfiles {
 		// trackCurrent();
 
 		long profileId = currentTrigger.getBatteryProfileId();
-		if (screenOff) {
-			profileId = currentTrigger.getScreenOffProfileId();
-		} else if (acPower) {
-			profileId = currentTrigger.getPowerProfileId();
+		if (batteryHot) {
+			profileId = currentTrigger.getHotProfileId();
+		}
+		if (profileId > 0) {
+			if (screenOff) {
+				profileId = currentTrigger.getScreenOffProfileId();
+			} else if (acPower) {
+				profileId = currentTrigger.getPowerProfileId();
+			}
 		}
 
 		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
@@ -293,7 +300,10 @@ public class PowerProfiles {
 		}
 		long powerCurrentSum = 0;
 		long powerCurrentCnt = 0;
-		if (screenOff) {
+		if (batteryHot) {
+			powerCurrentSum = currentTrigger.getPowerCurrentSumHot();
+			powerCurrentCnt = currentTrigger.getPowerCurrentCntHot();
+		} else if (screenOff) {
 			powerCurrentSum = currentTrigger.getPowerCurrentSumScreenLocked();
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntScreenLocked();
 		} else if (acPower) {
@@ -315,7 +325,10 @@ public class PowerProfiles {
 			break;
 		}
 		powerCurrentCnt++;
-		if (screenOff) {
+		if (batteryHot) {
+			currentTrigger.setPowerCurrentSumHot(powerCurrentSum);
+			currentTrigger.setPowerCurrentCntHot(powerCurrentCnt);
+		} else if (screenOff) {
 			currentTrigger.setPowerCurrentSumScreenLocked(powerCurrentSum);
 			currentTrigger.setPowerCurrentCntScreenLocked(powerCurrentCnt);
 		} else if (acPower) {
@@ -350,6 +363,18 @@ public class PowerProfiles {
 			trackCurrent();
 			applyPowerProfile(false, false);
 		}
+	}
+
+	public static void setBatteryHot(boolean b) {
+		if (batteryHot != b) {
+			batteryHot = b;
+			trackCurrent();
+			applyPowerProfile(false, false);
+		}
+	}
+
+	public static boolean getBatteryHot() {
+		return batteryHot;
 	}
 
 	public static boolean getAcPower() {

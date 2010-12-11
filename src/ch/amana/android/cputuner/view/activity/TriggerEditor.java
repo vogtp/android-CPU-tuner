@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
@@ -22,11 +25,13 @@ public class TriggerEditor extends Activity {
 	private Spinner spBattery;
 	private Spinner spPower;
 	private Spinner spScreenLocked;
+	private Spinner spHot;
 	private TriggerModel triggerModel;
 	private EditText etName;
 	private EditText etBatteryLevel;
 	private SeekBar sbBatteryLevel;
 	private Object origTriggerModel;
+	private CheckBox cbHot;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -59,13 +64,25 @@ public class TriggerEditor extends Activity {
 		spBattery = (Spinner) findViewById(R.id.spBattery);
 		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
 		spPower = (Spinner) findViewById(R.id.spPower);
+		spHot = (Spinner) findViewById(R.id.spHot);
+		cbHot = (CheckBox) findViewById(R.id.cbHot);
 
-		// FIXME if battery == 100 make non editble
+		spHot.setEnabled(triggerModel.getHotProfileId() > -1);
+
+		cbHot.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				spHot.setEnabled(isChecked);
+			}
+		});
+
 		sbBatteryLevel.setMax(100);
 
 		setProfilesAdapter(spBattery);
 		setProfilesAdapter(spScreenLocked);
 		setProfilesAdapter(spPower);
+		setProfilesAdapter(spHot);
 		updateView();
 	}
 
@@ -76,6 +93,7 @@ public class TriggerEditor extends Activity {
 		GuiUtils.setSpinner(spBattery, triggerModel.getBatteryProfileId());
 		GuiUtils.setSpinner(spScreenLocked, triggerModel.getScreenOffProfileId());
 		GuiUtils.setSpinner(spPower, triggerModel.getPowerProfileId());
+		GuiUtils.setSpinner(spHot, triggerModel.getHotProfileId());
 	}
 
 	private void updateModel() {
@@ -88,6 +106,11 @@ public class TriggerEditor extends Activity {
 		triggerModel.setBatteryProfileId(spBattery.getSelectedItemId());
 		triggerModel.setScreenOffProfileId(spScreenLocked.getSelectedItemId());
 		triggerModel.setPowerProfileId(spPower.getSelectedItemId());
+		if (cbHot.isChecked()) {
+			triggerModel.setHotProfileId(spHot.getSelectedItemId());
+		} else {
+			triggerModel.setHotProfileId(-1);
+		}
 	}
 
 	@Override

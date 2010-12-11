@@ -31,6 +31,8 @@ import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggersListActivity extends ListActivity {
 
+	protected static final String NO_PROFILE = "no profile";
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,10 @@ public class TriggersListActivity extends ListActivity {
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.trigger_item, c,
 				new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
 						DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
-						DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK },
+						DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID,
+						DB.Trigger.NAME_POWER_CURRENT_CNT_HOT },
 				new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery, R.id.tvProfileOnPower, R.id.tvProfileScreenLocked,
-						R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked });
+						R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot, R.id.tvPowerCurrentHot });
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -61,16 +64,21 @@ public class TriggersListActivity extends ListActivity {
 					((TextView) view).setTextColor(color);
 				} else if (columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID
-						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID) {
+						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID
+						|| columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID) {
 					long profileId = cursor.getLong(columnIndex);
+					String profileName = NO_PROFILE;
 					Cursor cpuCursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME,
-							DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
-					cpuCursor.moveToFirst();
-					((TextView) view).setText(cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME));
+								DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
+					if (cpuCursor.moveToFirst()) {
+						profileName = cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
+					}
+					((TextView) view).setText(profileName);
 					return true;
 				} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_POW
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
-						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT) {
+						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT
+						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT) {
 
 					if (SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 						((TextView) view).setText("");
@@ -88,13 +96,16 @@ public class TriggersListActivity extends ListActivity {
 					} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT) {
 						cnt = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT);
 						current = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_BAT);
+					} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT) {
+						cnt = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT);
+						current = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_HOT);
 					}
 					if (cnt < 1) {
 						((TextView) view).setText("");
 						return true;
 					}
 					current /= cnt;
-					((TextView) view).setText(String.format("%.0f mA", current));
+					((TextView) view).setText(String.format("%.0f mA/h", current));
 					return true;
 				}
 				return false;

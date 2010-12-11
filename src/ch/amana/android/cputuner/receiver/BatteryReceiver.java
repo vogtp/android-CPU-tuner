@@ -95,6 +95,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+			int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
 			if (plugged > -1) {
 				PowerProfiles.setAcPower(plugged > 0);
 			}
@@ -107,6 +108,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 				// handle battery event
 				PowerProfiles.setBatteryLevel(level);
 			}
+			PowerProfiles.setBatteryHot(health == BatteryManager.BATTERY_HEALTH_OVERHEAT);
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}

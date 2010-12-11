@@ -16,14 +16,16 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 5;
+		private static final int DATABASE_VERSION = 6;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
 				+ DB.Trigger.NAME_BATTERY_PROFILE_ID + " long," + DB.Trigger.NAME_POWER_PROFILE_ID + " long,"
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_POW + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_POW + " long,"
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_BAT + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_BAT + " long,"
-				+ DB.Trigger.NAME_POWER_CURRENT_SUM_LCK + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_LCK + " long)";
+				+ DB.Trigger.NAME_POWER_CURRENT_SUM_LCK + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_LCK + " long,"
+				+ DB.Trigger.NAME_HOT_PROFILE_ID + " long default -1," + DB.Trigger.NAME_POWER_CURRENT_SUM_HOT + " long,"
+				+ DB.Trigger.NAME_POWER_CURRENT_CNT_HOT + " long)";
 
 		private static final String CREATE_CPUPROFILES_TABLE = "create table if not exists " + CpuProfile.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
@@ -75,6 +77,11 @@ public interface DB {
 				Logger.w("Upgrading to DB Version 5...");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int default 0;");
 
+			case 5:
+				Logger.w("Upgrading to DB Version 6...");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_HOT_PROFILE_ID + " long default -1;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_SUM_HOT + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_CNT_HOT + " long;");
 			default:
 				Logger.w("Finished DB upgrading!");
 				break;
@@ -106,6 +113,9 @@ public interface DB {
 		public static final String NAME_POWER_CURRENT_CNT_BAT = "powerCurrentCntBattery";
 		public static final String NAME_POWER_CURRENT_SUM_LCK = "powerCurrentSumLocked";
 		public static final String NAME_POWER_CURRENT_CNT_LCK = "powerCurrentCntLocked";
+		public static final String NAME_HOT_PROFILE_ID = "hotProfileId";
+		public static final String NAME_POWER_CURRENT_SUM_HOT = "powerCurrentSumHot";
+		public static final String NAME_POWER_CURRENT_CNT_HOT = "powerCurrentCntHot";
 
 		public static final int INDEX_TRIGGER_NAME = 1;
 		public static final int INDEX_BATTERY_LEVEL = 2;
@@ -118,10 +128,14 @@ public interface DB {
 		public static final int INDEX_POWER_CURRENT_CNT_BAT = 9;
 		public static final int INDEX_POWER_CURRENT_SUM_LCK = 10;
 		public static final int INDEX_POWER_CURRENT_CNT_LCK = 11;
+		public static final int INDEX_HOT_PROFILE_ID = 12;
+		public static final int INDEX_POWER_CURRENT_SUM_HOT = 13;
+		public static final int INDEX_POWER_CURRENT_CNT_HOT = 14;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
 				NAME_BATTERY_PROFILE_ID, NAME_POWER_PROFILE_ID, NAME_POWER_CURRENT_SUM_POW, NAME_POWER_CURRENT_CNT_POW, NAME_POWER_CURRENT_SUM_BAT,
-				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK };
+				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK, NAME_HOT_PROFILE_ID, NAME_POWER_CURRENT_SUM_HOT,
+				NAME_POWER_CURRENT_CNT_HOT };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String SORTORDER_DEFAULT = NAME_BATTERY_LEVEL + " DESC";

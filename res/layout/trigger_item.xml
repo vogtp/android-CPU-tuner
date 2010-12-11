@@ -22,8 +22,9 @@
 	</LinearLayout>
 	<TableLayout android:id="@+id/TableLayout01"
 		android:layout_height="wrap_content" android:layout_width="fill_parent">
-		<TableRow android:id="@+id/TableRow01" android:layout_height="wrap_content"
-			android:layout_width="fill_parent">
+		
+		<TableRow android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:id="@+id/TableRowBat">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
 				android:text="On Battery:"></TextView>
@@ -35,8 +36,8 @@
 				android:layout_gravity="right" android:gravity="right"
 				android:id="@+id/tvPowerCurrentBattery"></TextView>
 		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+		<TableRow android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/TableRowLocked">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
 				android:text="Screen Locked:"></TextView>
@@ -48,8 +49,8 @@
 				android:layout_gravity="right" android:gravity="right"
 				android:id="@+id/tvPowerCurrentLocked"></TextView>
 		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+		<TableRow android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/TableRowPower">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
 				android:text="On Power:"></TextView>
@@ -61,7 +62,21 @@
 				android:layout_gravity="right" android:gravity="right"
 				android:id="@+id/tvPowerCurrentPower"></TextView>
 		</TableRow>
-	</TableLayout>
+	
+		<TableRow android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/TableRowHot">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:paddingRight="5dp"
+				android:text="Battery hot:"></TextView>
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="100%"
+				android:id="@+id/tvProfileHot"></TextView>
+			<TextView android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:layout_weight=".5"
+				android:layout_gravity="right" android:gravity="right"
+				android:id="@+id/tvPowerCurrentHot"></TextView>
+		</TableRow>
+</TableLayout>
 
 
 
