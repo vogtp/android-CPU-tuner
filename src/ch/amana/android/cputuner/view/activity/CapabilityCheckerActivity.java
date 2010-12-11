@@ -41,6 +41,7 @@ public class CapabilityCheckerActivity extends Activity {
 	private Button buSendBugreport;
 	private TextView tvMailMessage;
 	private File path;
+	private Button buFindFrequencies;
 
 	private class GovernorResultRow extends TableRow {
 
@@ -93,7 +94,8 @@ public class CapabilityCheckerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		openLogFile(FILE_CAPABILITIESCHECK);
-		checker = CapabilityChecker.getInstance(getIntent().getBooleanExtra(EXTRA_RECHEK, false));
+		checker = CapabilityChecker.getInstance(this, getIntent().getBooleanExtra(EXTRA_RECHEK, false));
+
 		closeLogFile();
 		setContentView(R.layout.capability_checker);
 
@@ -103,8 +105,19 @@ public class CapabilityCheckerActivity extends Activity {
 		tlCapabilities = (TableLayout) findViewById(R.id.tlCapabilities);
 		cbAcknowledge = (CheckBox) findViewById(R.id.cbAcknowledge);
 		buSendBugreport = (Button) findViewById(R.id.buSendBugreport);
+		buFindFrequencies = (Button) findViewById(R.id.buFindFrequencies);
 
 		tvDeviceInfo.setText("(Tap result for more information.)");
+
+		final SettingsStorage settings = SettingsStorage.getInstance();
+		buFindFrequencies.setEnabled(settings.isEnableBeta());
+		buFindFrequencies.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(CapabilityCheckerActivity.this, FindFrequenciesActivity.class));
+			}
+		});
 
 		buSendBugreport.setOnClickListener(new OnClickListener() {
 
@@ -114,14 +127,17 @@ public class CapabilityCheckerActivity extends Activity {
 			}
 		});
 
-		cbAcknowledge.setChecked(SettingsStorage.getInstance().isDisableDisplayIssues());
+		cbAcknowledge.setChecked(settings.isDisableDisplayIssues());
 		cbAcknowledge.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				SettingsStorage.getInstance().setDisableDisplayIssues(isChecked);
+				settings.setDisableDisplayIssues(isChecked);
 			}
 		});
+	}
+
+	public void dispalyChecks() {
 
 		tvSummary.setText(checker.getSummary());
 		if (checker.hasIssues()) {
@@ -146,7 +162,7 @@ public class CapabilityCheckerActivity extends Activity {
 					"Cpu tuner cannot do anything!\n\n" +
 					"Please do not write e-mails unless you think there is something wrong with the check or the app.\n\n" +
 					"Please do not write empty e-mails!";
-		} else if (CapabilityChecker.getInstance().hasIssues()) {
+		} else if (CapabilityChecker.getInstance(this).hasIssues()) {
 			mailMessage = "You configuration has issues...\n" +
 					"This is most likely due to the kernel/ROM." +
 					"You have two possibilities:\n\n" +

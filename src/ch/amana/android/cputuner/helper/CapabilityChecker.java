@@ -5,11 +5,51 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 
-public class CapabilityChecker {
+public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecker> {
+
+	private Context ctx;
+
+	protected CapabilityChecker(Context ctx) {
+		super();
+		this.ctx = ctx;
+		pd = ProgressDialog.show(ctx, "Checking capabilities", "Checking governors ...");
+		cpuHandler = new CpuHandler();
+	}
+
+	@Override
+	protected CapabilityChecker doInBackground(Void... params) {
+		doCheck();
+		return this;
+	}
+
+	@Override
+	protected void onPostExecute(CapabilityChecker result) {
+		if (ctx instanceof CapabilityCheckerActivity) {
+			((CapabilityCheckerActivity) ctx).dispalyChecks();
+		}
+		ctx = null;
+		super.onPostExecute(result);
+	}
+
+	public static CapabilityChecker getInstance(Context ctx) {
+		return getInstance(ctx, false);
+	}
+
+	public static CapabilityChecker getInstance(Context ctx, boolean recheck) {
+		if (instance == null || recheck) {
+			instance = new CapabilityChecker(ctx);
+			instance.execute((Void[]) null);
+		}
+		return instance;
+	}
 
 	public static final String NO_GOVERNORS = "No governors found";
 	public static final String NO_FREQUENCIES = "Not enough frequencies found";
@@ -153,11 +193,9 @@ public class CapabilityChecker {
 		}
 	}
 
-	private final CpuHandler cpuHandler;
 	private int[] freqs = null;
 	private static CapabilityChecker instance;
 	private boolean rooted = false;
-	private final CpuModel currentCpuSettings;
 	private Map<String, GovernorResult> govChecks = null;
 	private String[] governors = null;
 
@@ -168,12 +206,12 @@ public class CapabilityChecker {
 	private int minCheckFreq;
 
 	private int maxCheckFreq;
+	private final ProgressDialog pd;
+	private final CpuHandler cpuHandler;
 
-	public CapabilityChecker() {
-		super();
+	private void doCheck() {
 		boolean powerUser = SettingsStorage.getInstance().isPowerUser();
-		cpuHandler = new CpuHandler();
-		currentCpuSettings = cpuHandler.getCurrentCpuSettings();
+		final CpuModel currentCpuSettings = cpuHandler.getCurrentCpuSettings();
 		try {
 			SettingsStorage.getInstance().enablePowerUser = true;
 			rooted = RootHandler.isRoot();
@@ -207,13 +245,16 @@ public class CapabilityChecker {
 			}
 
 			for (int i = 0; i < governors.length; i++) {
-				checkGov(governors[i]);
+				String gov = governors[i];
+				// pd.setMessage("Governor: " + gov);
+				checkGov(gov);
 			}
 		} catch (Throwable t) {
 			Logger.w("Capability check threw ", t);
 		} finally {
 			SettingsStorage.getInstance().enablePowerUser = powerUser;
 			cpuHandler.applyCpuSettings(currentCpuSettings);
+			pd.dismiss();
 		}
 	}
 
@@ -425,17 +466,6 @@ public class CapabilityChecker {
 
 	public boolean isRooted() {
 		return rooted;
-	}
-
-	public static CapabilityChecker getInstance() {
-		return getInstance(false);
-	}
-
-	public static CapabilityChecker getInstance(boolean recheck) {
-		if (instance == null || recheck) {
-			instance = new CapabilityChecker();
-		}
-		return instance;
 	}
 
 	public CharSequence getSummary() {

@@ -24,7 +24,7 @@ public class CpuHandler extends HardwareHandler {
 	public static final String CPU_DIR = "/sys/devices/system/cpu/cpu0/cpufreq/";
 
 	private static final String SCALING_GOVERNOR = "scaling_governor";
-	private static final String SCALING_MAX_FREQ = "scaling_max_freq";
+	public static final String SCALING_MAX_FREQ = "scaling_max_freq";
 	private static final String SCALING_MIN_FREQ = "scaling_min_freq";
 	private static final String SCALING_SETSPEED = "scaling_setspeed";
 	private static final String SCALING_CUR_FREQ = "scaling_cur_freq";
@@ -165,11 +165,11 @@ public class CpuHandler extends HardwareHandler {
 				return freqs;
 			} else {
 				SortedSet<Integer> sortedSet = new TreeSet<Integer>();
-				sortedSet.add(getIntFromStr(readFile(CPUINFO_MIN_FREQ)));
+				sortedSet.add(getCpuInfoMinFreq());
 				sortedSet.add(getMinCpuFreq());
 				sortedSet.add(getCurCpuFreq());
 				sortedSet.add(getMaxCpuFreq());
-				sortedSet.add(getIntFromStr(readFile(CPUINFO_MAX_FREQ)));
+				sortedSet.add(getCpuInfoMaxFreq());
 				int[] res = new int[sortedSet.size()];
 				int i = 0;
 				for (int freq : sortedSet) {
@@ -203,7 +203,16 @@ public class CpuHandler extends HardwareHandler {
 		return freqs;
 	}
 
+	public int getCpuInfoMaxFreq() {
+		return getIntFromStr(readFile(CPUINFO_MAX_FREQ));
+	}
+
+	public int getCpuInfoMinFreq() {
+		return getIntFromStr(readFile(CPUINFO_MIN_FREQ));
+	}
+
 	public int getMinimumSensibleFrequency() {
+		// FIXME move to settings
 		return 400000;
 	}
 

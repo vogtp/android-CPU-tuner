@@ -36,7 +36,7 @@ public class RootHandler {
 		Process p;
 		boolean success = false;
 		try {
-			Logger.v("Running " + cmd);
+			// Logger.v("Running " + cmd);
 			p = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(p.getOutputStream());
 
@@ -136,20 +136,20 @@ public class RootHandler {
 
 	static String readFile(String directory, String filename) {
 		synchronized (filename) {
-			String val = "";
+			StringBuilder val = new StringBuilder();
 			BufferedReader reader;
+			File file = new File(directory, filename);
 			try {
-				File file = new File(directory, filename);
 				if (file.canRead()) {
-					String msg = "Reading file >" + file + "<";
-					Logger.v(msg);
-					writeLog(msg);
+					// String msg = "Reading file >" + file + "<";
+					// Logger.v(msg);
+					// writeLog(msg);
 					reader = new BufferedReader(new FileReader(file));
 					String line = reader.readLine();
 					while (line != null && !line.trim().equals("")) {
-						Logger.v("Read line >" + line + "<");
+						// Logger.v("Read line >" + line + "<");
 						writeLog(line);
-						val += line;
+						val.append(line);
 						line = reader.readLine();
 					}
 					reader.close();
@@ -161,10 +161,14 @@ public class RootHandler {
 			} catch (Throwable e) {
 				Logger.e("Cannot open for reading " + filename, e);
 			}
-			if (val.trim().equals("")) {
-				val = NOT_AVAILABLE;
+			String ret = val.toString();
+			if (ret.trim().equals("")) {
+				ret = NOT_AVAILABLE;
 			}
-			return val;
+			String msg = "Reading file " + file + " yielded >" + ret + "<";
+			Logger.v(msg);
+			writeLog(msg);
+			return ret;
 		}
 	}
 

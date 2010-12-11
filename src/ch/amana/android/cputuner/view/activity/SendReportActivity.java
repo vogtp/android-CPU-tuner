@@ -131,7 +131,7 @@ public class SendReportActivity extends Activity {
 		body.append("Current frequency: ").append(cpuHandler.getCurCpuFreq()).append('\n');
 		closeLogFile();
 		body.append('\n').append("------------------------------------------").append('\n');
-		body.append(CapabilityChecker.getInstance().toString());
+		body.append(CapabilityChecker.getInstance(this).toString());
 
 		sendIntent.putExtra(Intent.EXTRA_TEXT, body.toString());
 
