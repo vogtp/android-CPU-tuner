@@ -1,4 +1,3 @@
-- move MinimumSensibleFrequency to settings
 - figure out how to get avail freqs (if not available)
 
 Postponed:  (post 1.0)
@@ -6,6 +5,5 @@ Postponed:  (post 1.0)
 - write both cur and avg into a table and make display configurable
 - Battery hot state
 - choose state sequence
-- check capabilities in thread
 - ensure 100% battery profile present
 - get min freq setting from default and use it as min possible freq (except for powersave)

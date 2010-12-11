@@ -192,4 +192,13 @@ public class SettingsStorage {
 	public boolean isInstallAsSystemAppEnabled() {
 		return RootHandler.isSystemApp(context) || (isEnableBeta() && isPowerUser());
 	}
+
+	public int getMinimumSensibeFrequency() {
+		try {
+			return Integer.parseInt(getPreferences().getString("prefKeyMinSensibleFrequency", "400"));
+		} catch (NumberFormatException e) {
+			Logger.w("Error parsing fot MinimumSensibeFrequency ", e);
+			return 400;
+		}
+	}
 }

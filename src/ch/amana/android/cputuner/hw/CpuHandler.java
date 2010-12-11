@@ -212,8 +212,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public int getMinimumSensibleFrequency() {
-		// FIXME move to settings
-		return 400000;
+		return SettingsStorage.getInstance().getMinimumSensibeFrequency() * 1000;
 	}
 
 	private String readFile(String filename) {
