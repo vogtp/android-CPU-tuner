@@ -96,8 +96,7 @@ public class SendReportActivity extends Activity {
 		DB.OpenHelper oh = new OpenHelper(this);
 		DataXmlExporter dm = new DataXmlExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
 		try {
-			dm.export(DB.Trigger.TABLE_NAME);
-			dm.export(DB.CpuProfile.TABLE_NAME);
+			dm.export(DB.DATABASE_NAME);
 		} catch (IOException e) {
 			Logger.w("Error exporting DB", e);
 		}
@@ -141,8 +140,7 @@ public class SendReportActivity extends Activity {
 			addFileToZip(zip, "", CapabilityCheckerActivity.FILE_CAPABILITIESCHECK);
 			addFileToZip(zip, "", FILE_GETPROP);
 			addFileToZip(zip, "", FILE_KERNEL_CPUFREQ_CONFIG);
-			addFileToZip(zip, "DB", DB.Trigger.TABLE_NAME + ".xml");
-			addFileToZip(zip, "DB", DB.CpuProfile.TABLE_NAME + ".xml");
+			addFileToZip(zip, "DB", DB.DATABASE_NAME + ".xml");
 			addDirectoryToZip(zip, "cpufreq", new File(CpuHandler.CPU_DIR), true);
 			addDirectoryToZip(zip, "battery", new File(BatteryHandler.BATTERY_DIR), true);
 			zip.flush();
