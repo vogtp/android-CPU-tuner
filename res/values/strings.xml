@@ -96,6 +96,12 @@
 <item>Enable</item>
 <item>Disable</item>
 </string-array>
+<string-array name="deviceStatesBeta">
+<item>leave unchanged</item>
+<item>Enable</item>
+<item>Disable</item>
+<item>Back to previous</item>
+</string-array>
 <string-array name="mobiledataStates">
 <item>leave unchanged</item>
 <item>2G only</item>
