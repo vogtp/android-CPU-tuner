@@ -75,10 +75,13 @@ public class ProfilesListActivity extends ListActivity {
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelGpsOn;
-					if (state == 1) {
+					if (state == PowerProfiles.SERVICE_STATE_ON) {
 						color = Color.LTGRAY;
-					} else if (state == 2) {
+					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
 						textRes = R.string.labelGpsOff;
+						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+						textRes = R.string.labelGpsPrev;
 						color = Color.LTGRAY;
 					}
 					textView.setText(textRes);
@@ -93,10 +96,13 @@ public class ProfilesListActivity extends ListActivity {
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelWifiOn;
-					if (state == 1) {
+					if (state == PowerProfiles.SERVICE_STATE_ON) {
 						color = Color.LTGRAY;
-					} else if (state == 2) {
+					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
 						textRes = R.string.labelWifiOff;
+						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+						textRes = R.string.labelWifiPrev;
 						color = Color.LTGRAY;
 					}
 					textView.setText(textRes);
@@ -111,10 +117,13 @@ public class ProfilesListActivity extends ListActivity {
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelBluetoothOn;
-					if (state == 1) {
+					if (state == PowerProfiles.SERVICE_STATE_ON) {
 						color = Color.LTGRAY;
-					} else if (state == 2) {
+					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
 						textRes = R.string.labelBluetoothOff;
+						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+						textRes = R.string.labelBluetoothPrev;
 						color = Color.LTGRAY;
 					}
 					textView.setText(textRes);
@@ -129,10 +138,13 @@ public class ProfilesListActivity extends ListActivity {
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.labelSyncOn;
-					if (state == 1) {
+					if (state == PowerProfiles.SERVICE_STATE_ON) {
 						color = Color.LTGRAY;
-					} else if (state == 2) {
+					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
 						textRes = R.string.labelSyncOff;
+						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+						textRes = R.string.labelSyncPrev;
 						color = Color.LTGRAY;
 					}
 					textView.setText(textRes);
@@ -146,15 +158,18 @@ public class ProfilesListActivity extends ListActivity {
 					}
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
-					int textID = R.string.label3g2g;
-					if (state == 1) {
+					int textRes = R.string.label3g2g;
+					if (state == PowerProfiles.SERVICE_STATE_ON) {
 						color = Color.LTGRAY;
-						textID = R.string.label2g;
-					} else if (state == 2) {
+						textRes = R.string.label2g;
+					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+						textRes = R.string.label3g2gPrev;
 						color = Color.LTGRAY;
 					}
 					textView.setTextColor(color);
-					textView.setText(textID);
+					textView.setText(textRes);
 					return true;
 				}
 				return false;

@@ -82,14 +82,20 @@
 <string name="explainGovInteractive">Designed for low latency burst workloads. Scaling is done when coming out of idle instead of polling.</string>
 <string name="label3g2g">3G</string>
 <string name="label2g">2G</string>
+<string name="label3g2gPrev">2/3G?</string>
 <string name="labelSyncOn">sync</string>
 <string name="labelSyncOff"><strike>sync</strike></string>
+<string name="labelSyncPrev">sync?</string>
 <string name="labelWifiOn">wifi</string>
 <string name="labelWifiOff"><strike>wifi</strike></string>
+<string name="labelWifiPrev">wifi?</string>
 <string name="labelGpsOn">GPS</string>
 <string name="labelGpsOff"><strike>GPS</strike></string>
+<string name="labelGpsPrev">GPS?</string>
 <string name="labelBluetoothOn">Bluetooth</string>
 <string name="labelBluetoothOff"><strike>Bluetooth</strike></string>
+<string name="labelBluetoothPrev">Bluetooth?</string>
+
 
 <string-array name="deviceStates">
 <item>leave unchanged</item>
@@ -106,6 +112,12 @@
 <item>leave unchanged</item>
 <item>2G only</item>
 <item>3G/2G</item>
+</string-array>
+<string-array name="mobiledataStatesBeta">
+<item>leave unchanged</item>
+<item>2G only</item>
+<item>3G/2G</item>
+<item>Back to previous</item>
 </string-array>
 <string-array name="prefCalcPowerUsageEntries">
 <item>Average value</item>

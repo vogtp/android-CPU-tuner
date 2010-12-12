@@ -1,10 +1,10 @@
-V 
+V 1.0.0-rc1 
 * features
-- 
+- go back to previous state
 * bug fixes
 -
 
-V 
+V 0.16.0
 * features
 - Setting for minimum displayed frequency
 - Battery hot state (beta)
