@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -67,8 +68,6 @@ public class TriggerEditor extends Activity {
 		spHot = (Spinner) findViewById(R.id.spHot);
 		cbHot = (CheckBox) findViewById(R.id.cbHot);
 
-		spHot.setEnabled(triggerModel.getHotProfileId() > -1);
-
 		cbHot.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -87,6 +86,15 @@ public class TriggerEditor extends Activity {
 	}
 
 	private void updateView() {
+		if (SettingsStorage.getInstance().isEnableBeta()) {
+			boolean hasHotProfile = triggerModel.getHotProfileId() > -1;
+			cbHot.setChecked(hasHotProfile);
+			spHot.setEnabled(hasHotProfile);
+		} else {
+			cbHot.setChecked(false);
+			cbHot.setEnabled(false);
+			spHot.setEnabled(false);
+		}
 		etName.setText(triggerModel.getName());
 		etBatteryLevel.setText(triggerModel.getBatteryLevel() + "");
 		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());

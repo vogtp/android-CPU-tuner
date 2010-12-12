@@ -32,6 +32,8 @@ import ch.amana.android.cputuner.provider.db.DB;
 public class TriggersListActivity extends ListActivity {
 
 	protected static final String NO_PROFILE = "no profile";
+	private Cursor displayCursor;
+	private Cursor checkCursor;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -39,15 +41,44 @@ public class TriggersListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setTitle("Triggers");
 
-		Cursor c = managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+		displayCursor = managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.trigger_item, c,
-				new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
-						DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
-						DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID,
-						DB.Trigger.NAME_POWER_CURRENT_CNT_HOT },
-				new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery, R.id.tvProfileOnPower, R.id.tvProfileScreenLocked,
-						R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot, R.id.tvPowerCurrentHot });
+		checkCursor = managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_MINIMAL_HOT_PROFILE, DB.Trigger.NAME_HOT_PROFILE_ID + " > -1", null,
+				DB.Trigger.SORTORDER_MINIMAL_HOT_PROFILE);
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		SimpleCursorAdapter adapter;
+		checkCursor.requery();
+		if (checkCursor.getCount() > 0) {
+			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item, displayCursor,
+					new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
+							DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
+							DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID,
+							DB.Trigger.NAME_POWER_CURRENT_CNT_HOT },
+					new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery, R.id.tvProfileOnPower, R.id.tvProfileScreenLocked,
+							R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot, R.id.tvPowerCurrentHot });
+
+		} else {
+			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_no_hot,
+					displayCursor,
+					new String[] { DB.Trigger.NAME_TRIGGER_NAME,
+							DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
+							DB.Trigger.NAME_POWER_PROFILE_ID,
+							DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID,
+							DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
+							DB.Trigger.NAME_POWER_CURRENT_CNT_BAT,
+							DB.Trigger.NAME_POWER_CURRENT_CNT_LCK },
+					new int[] { R.id.tvName, R.id.tvBatteryLevel,
+							R.id.tvProfileOnBattery, R.id.tvProfileOnPower,
+							R.id.tvProfileScreenLocked,
+							R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery,
+							R.id.tvPowerCurrentLocked });
+
+		}
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -73,12 +104,13 @@ public class TriggersListActivity extends ListActivity {
 					if (cpuCursor.moveToFirst()) {
 						profileName = cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
 					}
+
 					((TextView) view).setText(profileName);
 					return true;
 				} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_POW
-						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
-						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT
-						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT) {
+							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
+							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT
+							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT) {
 
 					if (SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 						((TextView) view).setText("");
@@ -101,7 +133,7 @@ public class TriggersListActivity extends ListActivity {
 						current = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_HOT);
 					}
 					if (cnt < 1) {
-						((TextView) view).setText("");
+						((TextView) view).setText("-");
 						return true;
 					}
 					current /= cnt;
@@ -110,6 +142,7 @@ public class TriggersListActivity extends ListActivity {
 				}
 				return false;
 			}
+
 		});
 
 		getListView().setAdapter(adapter);

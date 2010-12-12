@@ -138,9 +138,13 @@ public interface DB {
 				NAME_POWER_CURRENT_CNT_HOT };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
+		static final String[] PROJECTION_MINIMAL_HOT_PROFILE = new String[] { NAME_HOT_PROFILE_ID };
+
 		public static final String SORTORDER_DEFAULT = NAME_BATTERY_LEVEL + " DESC";
 
 		static final String SORTORDER_REVERSE = NAME_BATTERY_LEVEL + " ASC";
+
+		static final String SORTORDER_MINIMAL_HOT_PROFILE = NAME_HOT_PROFILE_ID + " ASC";
 
 	}
 
