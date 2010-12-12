@@ -285,7 +285,11 @@ public class CpuEditor extends Activity {
 	}
 
 	private ArrayAdapter<CharSequence> getSystemsAdapter() {
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.deviceStates, android.R.layout.simple_spinner_item);
+		int devicestates = R.array.deviceStates;
+		// if (SettingsStorage.getInstance().isEnableBeta()) {
+		// devicestates = R.array.deviceStatesBeta;
+		// }
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, devicestates, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		return adapter;
 	}

@@ -111,6 +111,7 @@ public class CapabilityCheckerActivity extends Activity {
 
 		final SettingsStorage settings = SettingsStorage.getInstance();
 		buFindFrequencies.setEnabled(settings.isEnableBeta());
+		buFindFrequencies.setVisibility(View.INVISIBLE);
 		buFindFrequencies.setOnClickListener(new OnClickListener() {
 
 			@Override
