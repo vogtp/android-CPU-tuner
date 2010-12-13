@@ -20,6 +20,13 @@ import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class InstallHelper {
 
+	static class CpuGovernorSettings {
+		String gov;
+		int upThreshold = -1;
+		int downThreshold = -1;
+
+	}
+
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
 
 	public static void resetToDefault(final Context ctx) {
@@ -112,16 +119,16 @@ public class InstallHelper {
 		insertOrUpdate(resolver, DB.Trigger.CONTENT_URI, values);
 	}
 
-	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin) {
+	private static long createCpuProfile(ContentResolver resolver, String name, CpuGovernorSettings gov, int freqMax, int freqMin) {
 		return createCpuProfile(resolver, name, gov, freqMax, freqMin, 0, 0, 0, 0, 0);
 	}
 
-	private static long createCpuProfile(ContentResolver resolver, String name, String gov, int freqMax, int freqMin,
+	private static long createCpuProfile(ContentResolver resolver, String name, CpuGovernorSettings gov, int freqMax, int freqMin,
 			int wifiState, int gpsState, int btState, int mbState, int bsState) {
 
 		ContentValues values = new ContentValues();
 		values.put(DB.CpuProfile.NAME_PROFILE_NAME, name);
-		values.put(DB.CpuProfile.NAME_GOVERNOR, gov);
+		values.put(DB.CpuProfile.NAME_GOVERNOR, gov.gov);
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, freqMax);
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, freqMin);
 		values.put(DB.CpuProfile.NAME_WIFI_STATE, wifiState);
@@ -129,64 +136,65 @@ public class InstallHelper {
 		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, btState);
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, mbState);
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, bsState);
+		if (gov.upThreshold > -1) {
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, gov.upThreshold);
+		}
+		if (gov.downThreshold > -1) {
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, gov.downThreshold);
+		}
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
-	private static String getSaveGov(List<String> list, String gov) {
+	private static CpuGovernorSettings getSaveGov(List<String> list, String gov) {
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
-			return "";
+			cgs.gov = gov;
 		}
 		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			return CpuHandler.GOV_CONSERVATIVE;
+			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
+			cgs.upThreshold = 90;
+			cgs.downThreshold = 50;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 95;
+		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
-		if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			return CpuHandler.GOV_INTERACTIVE;
-		}
-		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
-			return CpuHandler.GOV_POWERSAVE;
-		}
-		if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			return CpuHandler.GOV_ONDEMAND;
-		}
-		return gov;
+		return cgs;
 	}
 
-	private static String getPowerGov(List<String> list, String gov) {
+	private static CpuGovernorSettings getPowerGov(List<String> list, String gov) {
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
-			return "";
+			cgs.gov = gov;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 90;
+		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
+			cgs.upThreshold = 85;
+			cgs.downThreshold = 40;
+		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
-		if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			return CpuHandler.GOV_ONDEMAND;
-		}
-		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			return CpuHandler.GOV_CONSERVATIVE;
-		}
-		if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			return CpuHandler.GOV_INTERACTIVE;
-		}
-		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
-			return CpuHandler.GOV_POWERSAVE;
-		}
-		return gov;
+		return cgs;
 	}
 
-	private static String getExtremSaveGov(List<String> list, String gov) {
+	private static CpuGovernorSettings getExtremSaveGov(List<String> list, String gov) {
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
-			return "";
+			cgs.gov = gov;
+		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
+			cgs.upThreshold = 98;
+			cgs.downThreshold = 95;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 95;
+		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
-		if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			return CpuHandler.GOV_INTERACTIVE;
-		}
-		if (list.contains(CpuHandler.GOV_POWERSAVE)) {
-			return CpuHandler.GOV_POWERSAVE;
-		}
-		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			return CpuHandler.GOV_CONSERVATIVE;
-		}
-		if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			return CpuHandler.GOV_ONDEMAND;
-		}
-		return gov;
+		return cgs;
 	}
 
 	public static long insertOrUpdate(ContentResolver resolver, Uri contentUri, ContentValues values) {
