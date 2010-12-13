@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -115,14 +114,6 @@ public class CpuEditor extends Activity {
 		spSync = (Spinner) findViewById(R.id.spSync);
 
 		sbCpuFreqMax.requestFocus();
-
-		if (!SettingsStorage.getInstance().isPowerUser()) {
-			View llGovernorThresholds = findViewById(R.id.llGovernorThresholds);
-			if (llGovernorThresholds != null) {
-				LinearLayout top = (LinearLayout) findViewById(R.id.llTop);
-				top.removeView(llGovernorThresholds);
-			}
-		}
 
 		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
 

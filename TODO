@@ -2,6 +2,8 @@
 - remove old receiver interface
 - ask if power consumption data should be cleared in triggers (check for modification)
 - implement power consumption clearing for profiles (check for modification)
+- performance (ondemand 90), lowpower (conservative 90/50, 2g only)  und minpower (conservative 98/95, alle interfaces aus)
+- check and enable profile code if not 100% trigger is available
 
 Postponed:  (post 1.0)
 - better default values
@@ -9,3 +11,15 @@ Postponed:  (post 1.0)
 - figure out how to get avail freqs (if not available)
 - ensure 100% battery profile present
 - get min freq setting from default and use it as min possible freq (except for powersave)
+
+
+My settings right now are:
+Screen on: 
+conservative, up 50, down 30; 
+2g/3g
+
+Screen off: 
+conservative, up 90, down 50.
+2g only.
+
+

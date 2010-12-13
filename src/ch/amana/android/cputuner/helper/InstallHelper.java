@@ -73,9 +73,9 @@ public class InstallHelper {
 				List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
 				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 2, 1);
-				long profileGood = createCpuProfile(resolver, "Good", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 2, 1);
-				long profileNormal = createCpuProfile(resolver, "Normal", getSaveGov(availGov, gov), freqMax, freqMin);
-				long profileScreenOff = createCpuProfile(resolver, "Screen off", getSaveGov(availGov, gov), freqMax, freqMin);
+				long profileGood = createCpuProfile(resolver, "Good", getGoodGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 2, 1);
+				long profileNormal = createCpuProfile(resolver, "Normal", getNormalGov(availGov, gov), freqMax, freqMin);
+				long profileScreenOff = createCpuProfile(resolver, "Screen off", getScreenOffGov(availGov, gov), freqMax, freqMin);
 				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
 				long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 1, 2);
 
@@ -145,24 +145,6 @@ public class InstallHelper {
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
-	private static CpuGovernorSettings getSaveGov(List<String> list, String gov) {
-		CpuGovernorSettings cgs = new CpuGovernorSettings();
-		if (list == null || list.size() < 1) {
-			cgs.gov = gov;
-		}
-		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
-			cgs.upThreshold = 90;
-			cgs.downThreshold = 50;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 95;
-		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			cgs.gov = CpuHandler.GOV_INTERACTIVE;
-		}
-		return cgs;
-	}
-
 	private static CpuGovernorSettings getPowerGov(List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
@@ -180,6 +162,76 @@ public class InstallHelper {
 		return cgs;
 	}
 
+	private static CpuGovernorSettings getGoodGov(List<String> list, String gov) {
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
+		if (list == null || list.size() < 1) {
+			cgs.gov = gov;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 91;
+		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
+			cgs.upThreshold = 90;
+			cgs.downThreshold = 50;
+		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			cgs.gov = CpuHandler.GOV_INTERACTIVE;
+		}
+		return cgs;
+	}
+
+	private static CpuGovernorSettings getNormalGov(List<String> list, String gov) {
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
+		if (list == null || list.size() < 1) {
+			cgs.gov = gov;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 93;
+		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
+			cgs.upThreshold = 93;
+			cgs.downThreshold = 60;
+		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			cgs.gov = CpuHandler.GOV_INTERACTIVE;
+		}
+		return cgs;
+	}
+
+	private static CpuGovernorSettings getSaveGov(List<String> list, String gov) {
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
+		if (list == null || list.size() < 1) {
+			cgs.gov = gov;
+		}
+		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
+			cgs.upThreshold = 95;
+			cgs.downThreshold = 70;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 94;
+		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			cgs.gov = CpuHandler.GOV_INTERACTIVE;
+		}
+		return cgs;
+	}
+
+	private static CpuGovernorSettings getScreenOffGov(List<String> list, String gov) {
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
+		if (list == null || list.size() < 1) {
+			cgs.gov = gov;
+		}
+		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
+			cgs.upThreshold = 95;
+			cgs.downThreshold = 85;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 95;
+		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+			cgs.gov = CpuHandler.GOV_INTERACTIVE;
+		}
+		return cgs;
+	}
+
 	private static CpuGovernorSettings getExtremSaveGov(List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
@@ -190,7 +242,7 @@ public class InstallHelper {
 			cgs.downThreshold = 95;
 		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
 			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 95;
+			cgs.upThreshold = 97;
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
