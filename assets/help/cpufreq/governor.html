@@ -7,11 +7,11 @@
 <body>
 <h3>Governor</h3>
 <p>
-The governor determines how the <a href="frequency.html">frequencies</a> 
-of the cpu are set.
+CPU governors are kernel-land pieces of software that control the CPU clockspeed by varying criteria. 
 </p>
 <p>
 Common governors include (as explained by the linux kernel):
+<!-- In accordance with the Linux Kernel there are: -->
 <li><b>Ondemand</b><br>
 Dynamically changes frequency based on the CPU utilization with a focus on performance.<br>
 <a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheOndemandGovernor.htm">More information...</a>
@@ -25,7 +25,7 @@ Sets the frequency statically to the highest available CPU frequency.<br>
 <a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePerformanceGovernor.htm">More information...</a>
 </li>
 <li><b>Powersave</b><br>
-Sets the frequency statically to the lowest available CPU frequency.<br>
+Sets the frequency statically to the lowest available CPU frequency. <!-- this might be an unwanted behaviour, as a high workload has a longer execution time than it'd have, using the ondemand governor --><br>
 <a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePowersaveGovernor.htm">More information...</a>
 </li>
 <li><b>Userspace</b><br>
