@@ -152,13 +152,13 @@ public class CpuHandler extends HardwareHandler {
 	public int[] getAvailCpuFreq(boolean forcePowerUserMode) {
 
 		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
-		if (freqs[0] == -1) {
+		if (freqs[0] == NO_VALUE_INT) {
 			availCpuFreq = false;
 			String settingsFreqs = SettingsStorage.getInstance().getCpuFreqs();
 			freqs = createListInt(settingsFreqs);
 			boolean success = true;
 			for (int i = 0; i < freqs.length && success; i++) {
-				success = freqs[i] != -1;
+				success = freqs[i] != NO_VALUE_INT;
 			}
 			if (success) {
 				Arrays.sort(freqs);

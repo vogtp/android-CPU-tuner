@@ -1,10 +1,11 @@
 
-
-
-- figure out how to get avail freqs (if not available)
+- remove old receiver interface
+- ask if power consumption data should be cleared in triggers (check for modification)
+- implement power consumption clearing for profiles (check for modification)
 
 Postponed:  (post 1.0)
 - better default values
 - choose state sequence
+- figure out how to get avail freqs (if not available)
 - ensure 100% battery profile present
 - get min freq setting from default and use it as min possible freq (except for powersave)

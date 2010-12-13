@@ -4,12 +4,14 @@ import ch.amana.android.cputuner.helper.Logger;
 
 public class HardwareHandler {
 
+	public static final int NO_VALUE_INT = Integer.MIN_VALUE;
+
 	public HardwareHandler() {
 		super();
 	}
 
 	protected static int getIntFromStr(String intString) {
-		int i = -1;
+		int i = NO_VALUE_INT;
 		try {
 			i = Integer.parseInt(intString);
 		} catch (Exception e) {
@@ -36,7 +38,7 @@ public class HardwareHandler {
 		Logger.d("Creating array from >" + listString + "<");
 		if (RootHandler.NOT_AVAILABLE.equals(listString)) {
 			int[] list = new int[1];
-			list[0] = -1;
+			list[0] = NO_VALUE_INT;
 			return list;
 		}
 		String[] strList = listString.split(" +");
@@ -45,7 +47,7 @@ public class HardwareHandler {
 			try {
 				lst[i] = Integer.parseInt(strList[i]);
 			} catch (Exception e) {
-				lst[i] = -1;
+				lst[i] = NO_VALUE_INT;
 			}
 		}
 		return lst;
