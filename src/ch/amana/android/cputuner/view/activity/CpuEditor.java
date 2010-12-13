@@ -330,7 +330,9 @@ public class CpuEditor extends Activity {
 				if (origCpu.equals(cpu)) {
 					return;
 				}
-				getContentResolver().update(DB.CpuProfile.CONTENT_URI, cpu.getValues(), DB.NAME_ID + "=?", new String[] { cpu.getDbId() + "" });
+				if (!cpu.equals(origCpu)) {
+					getContentResolver().update(DB.CpuProfile.CONTENT_URI, cpu.getValues(), DB.NAME_ID + "=?", new String[] { cpu.getDbId() + "" });
+				}
 			}
 		} catch (Exception e) {
 			Logger.w("Cannot insert or update", e);

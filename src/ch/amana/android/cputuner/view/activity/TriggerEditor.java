@@ -164,7 +164,10 @@ public class TriggerEditor extends Activity {
 				if (origTriggerModel.equals(triggerModel)) {
 					return;
 				}
-				getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
+				if (!triggerModel.equals(origTriggerModel)) {
+					getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?",
+							new String[] { triggerModel.getDbId() + "" });
+				}
 			}
 		} catch (Exception e) {
 			Logger.w("Cannot insert or update", e);

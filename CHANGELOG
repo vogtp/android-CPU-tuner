@@ -7,7 +7,7 @@ V
 V 1.0.0-rc1 
 * features
 - go back to previous service state  (beta feature)
-- new default profiles
+- new default profiles (governor thresholds are non poweruser now)
 * bug fixes
 -
 
