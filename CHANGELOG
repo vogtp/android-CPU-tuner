@@ -7,8 +7,9 @@ V
 V 1.0.0-rc1 
 * features
 - go back to previous service state  (beta feature)
-- new default profiles (governor thresholds are non poweruser now)
+- new default profiles (governor thresholds are non power user now)
 * bug fixes
+- fix finding trigger 
 -
 
 V 0.16.0

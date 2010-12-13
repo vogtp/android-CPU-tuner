@@ -1,6 +1,5 @@
 
 - remove old receiver interface
-- ask if power consumption data should be cleared in triggers (check for modification)
 - implement power consumption clearing for profiles (check for modification)
 - check and enable profile code if not 100% trigger is available
 

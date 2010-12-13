@@ -299,27 +299,23 @@ public class PowerProfiles {
 				cursor.close();
 			}
 		}
-		if (SettingsStorage.getInstance().isEnableBeta()) {
-			// no trigger found i.e. no trigger with bigger battery level...
-			// getting the next best
-			try {
-				cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
+		try {
+			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
 						null, null, DB.Trigger.SORTORDER_DEFAULT);
-				if (cursor != null && cursor.moveToFirst()) {
-					if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
-						currentTrigger = new TriggerModel(cursor);
-						Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-						if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-							context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
-						}
-						resetServiceState();
-						return true;
+			if (cursor != null && cursor.moveToFirst()) {
+				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
+					currentTrigger = new TriggerModel(cursor);
+					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
+					if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
+						context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
 					}
+					resetServiceState();
+					return true;
 				}
-			} finally {
-				if (cursor != null && !cursor.isClosed()) {
-					cursor.close();
-				}
+			}
+		} finally {
+			if (cursor != null && !cursor.isClosed()) {
+				cursor.close();
 			}
 		}
 		return false;
