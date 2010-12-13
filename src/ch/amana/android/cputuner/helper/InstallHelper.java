@@ -151,7 +151,7 @@ public class InstallHelper {
 			cgs.gov = gov;
 		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
 			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 90;
+			cgs.upThreshold = 85;
 		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
 			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
 			cgs.upThreshold = 85;
@@ -168,7 +168,7 @@ public class InstallHelper {
 			cgs.gov = gov;
 		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
 			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 91;
+			cgs.upThreshold = 90;
 		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
 			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
 			cgs.upThreshold = 90;
@@ -183,13 +183,13 @@ public class InstallHelper {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 93;
 		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
 			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
 			cgs.upThreshold = 93;
 			cgs.downThreshold = 60;
+		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+			cgs.gov = CpuHandler.GOV_ONDEMAND;
+			cgs.upThreshold = 93;
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
