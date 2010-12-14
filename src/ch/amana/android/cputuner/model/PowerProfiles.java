@@ -168,7 +168,7 @@ public class PowerProfiles {
 			if (state == SERVICE_STATE_PREV) {
 				Logger.v("Sitching wifi to last state which was " + stateBefore);
 				ServicesHandler.enableWifi(context, stateBefore);
-				lastSetStateWifi = stateBefore ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+				lastSetStateWifi = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateWifi > -1) {
@@ -191,7 +191,7 @@ public class PowerProfiles {
 			if (state == SERVICE_STATE_PREV) {
 				Logger.v("Sitching GPS to last state which was " + stateBefore);
 				ServicesHandler.enableGps(context, stateBefore);
-				lastSetStateGps = stateBefore ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+				lastSetStateGps = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateGps > -1) {
@@ -214,7 +214,7 @@ public class PowerProfiles {
 			if (state == SERVICE_STATE_PREV) {
 				Logger.v("Sitching bluetooth to last state which was " + stateBefore);
 				ServicesHandler.enableBluetooth(stateBefore);
-				lastSetStateBluetooth = stateBefore ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+				lastSetStateBluetooth = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateBluetooth > -1) {
@@ -237,7 +237,7 @@ public class PowerProfiles {
 			if (state == SERVICE_STATE_PREV) {
 				Logger.v("Sitching mobiledata to last state which was " + stateBefore);
 				ServicesHandler.enable2gOnly(context, stateBefore);
-				lastSetStateMobiledata = stateBefore ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+				lastSetStateMobiledata = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateMobiledata > -1) {
@@ -260,6 +260,7 @@ public class PowerProfiles {
 			if (state == SERVICE_STATE_PREV) {
 				Logger.v("Sitching background sync to last state which was " + stateBefore);
 				ServicesHandler.enableBackgroundSync(context, stateBefore);
+				lastSetStateBackgroundSync = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateBackgroundSync > -1) {
