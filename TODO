@@ -1,14 +1,15 @@
 
 - remove old receiver interface
 - implement power consumption clearing for profiles (check for modification)
-- check and enable profile code if not 100% trigger is available
+
+- close keyboard in editors
+
+- hot state non beta?
+- prev state non beta?
 
 Postponed:  (post 1.0)
 - better default values
-- choose state sequence
 - figure out how to get avail freqs (if not available)
-- ensure 100% battery profile present
-- get min freq setting from default and use it as min possible freq (except for powersave)
 
 
 

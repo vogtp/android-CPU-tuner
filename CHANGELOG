@@ -8,9 +8,10 @@ V 1.0.0-rc1
 * features
 - go back to previous service state  (beta feature)
 - new default profiles (governor thresholds are non power user now)
+- save and cancel for editors
 * bug fixes
 - fix finding trigger 
--
+- profile editor discards changes on change
 
 V 0.16.0
 * features

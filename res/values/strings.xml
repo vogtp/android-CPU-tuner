@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
     <string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in power user mode.</string>
     <string name="prefMinSensibleFrequency">Min displayed frequency</string>
     <string name="prefResetToDefaultLong">Delete all current profiles and triggers and reload the default set.</string>

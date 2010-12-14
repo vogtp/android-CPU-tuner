@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,10 +30,10 @@ public class TriggerEditor extends Activity {
 	private Spinner spScreenLocked;
 	private Spinner spHot;
 	private TriggerModel triggerModel;
+	private TriggerModel origTriggerModel;
 	private EditText etName;
 	private EditText etBatteryLevel;
 	private SeekBar sbBatteryLevel;
-	private Object origTriggerModel;
 	private CheckBox cbHot;
 
 	/** Called when the activity is first created. */
@@ -161,9 +163,6 @@ public class TriggerEditor extends Activity {
 					triggerModel.setDbId(id);
 				}
 			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (origTriggerModel.equals(triggerModel)) {
-					return;
-				}
 				if (!triggerModel.equals(origTriggerModel)) {
 					getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?",
 							new String[] { triggerModel.getDbId() + "" });
@@ -175,4 +174,27 @@ public class TriggerEditor extends Activity {
 		}
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.edit_option, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menuItemCancel:
+			Bundle bundle = new Bundle();
+			origTriggerModel.saveToBundle(bundle);
+			triggerModel.readFromBundle(bundle);
+			updateView();
+			finish();
+			break;
+		case R.id.menuItemSave:
+			finish();
+			break;
+		}
+		return false;
+	}
 }

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -420,5 +422,29 @@ public class CpuEditor extends Activity {
 				seekBar.setProgress(i);
 			}
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.edit_option, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menuItemCancel:
+			Bundle bundle = new Bundle();
+			origCpu.saveToBundle(bundle);
+			cpu.readFromBundle(bundle);
+			updateView();
+			finish();
+			break;
+		case R.id.menuItemSave:
+			finish();
+			break;
+		}
+		return false;
 	}
 }
