@@ -123,6 +123,7 @@ public class CpuEditor extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
+					updateModel();
 					int val = availCpuFreqs[seekBar.getProgress()];
 					cpu.setMaxFreq(val);
 					updateView();
@@ -147,6 +148,7 @@ public class CpuEditor extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
+					updateModel();
 					if (!CpuHandler.GOV_USERSPACE.equals(cpu.getGov())) {
 						int val = availCpuFreqs[seekBar.getProgress()];
 						cpu.setMinFreq(val);
@@ -173,6 +175,7 @@ public class CpuEditor extends Activity {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				updateModel();
 				String gov = parent.getItemAtPosition(pos).toString();
 				cpu.setGov(gov);
 				updateView();
