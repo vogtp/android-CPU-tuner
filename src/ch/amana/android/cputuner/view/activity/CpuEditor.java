@@ -239,7 +239,11 @@ public class CpuEditor extends Activity {
 		}
 
 		if (SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
-			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.mobiledataStates, android.R.layout.simple_spinner_item);
+			int mobiledatastates = R.array.mobiledataStates;
+			if (SettingsStorage.getInstance().isEnableBeta()) {
+				mobiledatastates = R.array.mobiledataStatesBeta;
+			}
+			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, mobiledatastates, android.R.layout.simple_spinner_item);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			spMobileData3G.setAdapter(adapter);
 			spMobileData3G.setOnItemSelectedListener(new OnItemSelectedListener() {
