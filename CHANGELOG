@@ -9,6 +9,7 @@ V 1.0.0-rc1
 - go back to previous service state  (beta feature)
 - new default profiles (governor thresholds are non power user now)
 - save and cancel for editors
+- hide keyboard in editors
 * bug fixes
 - fix finding trigger 
 - profile editor discards changes on change

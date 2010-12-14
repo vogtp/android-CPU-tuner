@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -116,6 +118,11 @@ public class CpuEditor extends Activity {
 		spSync = (Spinner) findViewById(R.id.spSync);
 
 		sbCpuFreqMax.requestFocus();
+
+		// hide keyboard
+		etName.setInputType(0);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(etName.getApplicationWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
 
