@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,7 +121,7 @@ public class CpuEditor extends Activity {
 		sbCpuFreqMax.requestFocus();
 
 		// hide keyboard
-		etName.setInputType(0);
+		etName.setInputType(InputType.TYPE_NULL);
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(etName.getApplicationWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
 
