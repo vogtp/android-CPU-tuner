@@ -50,7 +50,7 @@ public class FindFrequenciesActivity extends Activity {
 			CpuHandler cpuHandler = CpuHandler.getInstance();
 			SortedSet<Integer> freqs = new TreeSet<Integer>();
 			StringBuilder sb = new StringBuilder();
-			PowerProfiles.setUpdateTrigger(false);
+			PowerProfiles.getInstance().setUpdateTrigger(false);
 			CpuModel cpuSettings = cpuHandler.getCurrentCpuSettings();
 			cpuHandler.setCurGov(CpuHandler.GOV_ONDEMAND);
 
@@ -71,7 +71,7 @@ public class FindFrequenciesActivity extends Activity {
 					Logger.i("Found frequency: " + i);
 				}
 			}
-			PowerProfiles.setUpdateTrigger(true);
+			PowerProfiles.getInstance().setUpdateTrigger(true);
 			cpuHandler.applyCpuSettings(cpuSettings);
 			return freqs;
 		}

@@ -14,11 +14,11 @@ public class CpuTunerApplication extends Application {
 		super.onCreate();
 		Context ctx = getApplicationContext();
 		SettingsStorage.initInstance(ctx);
-		PowerProfiles.initContext(ctx);
+		PowerProfiles.initInstance(ctx);
 		InstallHelper.populateDb(ctx);
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			startService(new Intent(ctx, BatteryService.class));
-			PowerProfiles.reapplyProfile(true);
+			PowerProfiles.getInstance().reapplyProfile(true);
 		}
 	}
 }

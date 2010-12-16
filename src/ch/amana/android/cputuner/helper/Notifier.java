@@ -31,7 +31,7 @@ public class Notifier {
 		if (instance == null) {
 			instance = new Notifier(ctx);
 		}
-		instance.notifyStatus(PowerProfiles.getCurrentProfileName());
+		instance.notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
 	}
 
 	public Notifier(final Context ctx) {

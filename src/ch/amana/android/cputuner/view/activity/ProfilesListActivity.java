@@ -54,7 +54,7 @@ public class ProfilesListActivity extends ListActivity {
 					return false;
 				}
 				if (columnIndex == DB.CpuProfile.INDEX_PROFILE_NAME) {
-					CpuModel currentProfile = PowerProfiles.getCurrentProfile();
+					CpuModel currentProfile = PowerProfiles.getInstance().getCurrentProfile();
 					int color = Color.LTGRAY;
 					if (currentProfile != null && currentProfile.getDbId() == cursor.getLong(DB.INDEX_ID)) {
 						color = Color.GREEN;

@@ -87,7 +87,7 @@ public class TriggersListActivity extends ListActivity {
 					return false;
 				}
 				if (columnIndex == DB.Trigger.INDEX_TRIGGER_NAME) {
-					TriggerModel currentTrigger = PowerProfiles.getCurrentTrigger();
+					TriggerModel currentTrigger = PowerProfiles.getInstance().getCurrentTrigger();
 					int color = Color.LTGRAY;
 					if (currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)) {
 						color = Color.GREEN;
@@ -209,13 +209,14 @@ public class TriggersListActivity extends ListActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					triggerModel.clearPowerCurrent();
+					PowerProfiles powerProfiles = PowerProfiles.getInstance();
 					try {
-						PowerProfiles.setUpdateTrigger(false);
+						powerProfiles.setUpdateTrigger(false);
 						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 					} catch (Exception e) {
 						Logger.w("Cannot reset trigger power consumption", e);
 					} finally {
-						PowerProfiles.setUpdateTrigger(true);
+						powerProfiles.setUpdateTrigger(true);
 					}
 
 				}
@@ -226,7 +227,7 @@ public class TriggersListActivity extends ListActivity {
 		if (c != null && !c.isClosed()) {
 			c.close();
 		}
-		PowerProfiles.reapplyProfile(true);
+		PowerProfiles.getInstance().reapplyProfile(true);
 	}
 
 	private void deleteTrigger(final Uri uri) {

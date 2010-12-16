@@ -47,25 +47,17 @@ public class PowerProfiles {
 	private static int lastSetStateBackgroundSync = -1;
 	private static boolean lastActiveStateBackgroundSync;
 
-	// FIXME make singelton class
+	private static PowerProfiles instance;
 
-	public static void initActiveStates() {
-		lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
-		lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
-		lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
-		lastActiveStateMobileData = ServicesHandler.is2gOnlyEnabled(context);
-		lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
+	public static void initInstance(Context ctx) {
+		instance = new PowerProfiles(ctx);
 	}
 
-	private static void resetServiceState() {
-		lastSetStateWifi = -1;
-		lastSetStateGps = -1;
-		lastSetStateMobiledata = -1;
-		lastSetStateBluetooth = -1;
-		lastSetStateBackgroundSync = -1;
+	public static PowerProfiles getInstance() {
+		return instance;
 	}
 
-	public static void initContext(Context ctx) {
+	public PowerProfiles(Context ctx) {
 		context = ctx;
 		batteryLevel = BatteryHandler.getBatteryLevel();
 		acPower = BatteryHandler.isOnAcPower();
@@ -73,7 +65,23 @@ public class PowerProfiles {
 		initActiveStates();
 	}
 
-	public static void reapplyProfile(boolean force) {
+	public void initActiveStates() {
+		lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
+		lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
+		lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
+		lastActiveStateMobileData = ServicesHandler.is2gOnlyEnabled(context);
+		lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
+	}
+
+	private void resetServiceState() {
+		lastSetStateWifi = -1;
+		lastSetStateGps = -1;
+		lastSetStateMobiledata = -1;
+		lastSetStateBluetooth = -1;
+		lastSetStateBackgroundSync = -1;
+	}
+
+	public void reapplyProfile(boolean force) {
 		if (!updateTrigger) {
 			return;
 		}
@@ -83,11 +91,11 @@ public class PowerProfiles {
 		applyPowerProfile(force, force);
 	}
 
-	public static void reapplyProfile() {
+	public void reapplyProfile() {
 		applyPowerProfile(true, false);
 	}
 
-	private static void applyPowerProfile(boolean force, boolean ignoreSettings) {
+	private void applyPowerProfile(boolean force, boolean ignoreSettings) {
 		if (!updateTrigger) {
 			return;
 		}
@@ -152,7 +160,7 @@ public class PowerProfiles {
 		}
 	}
 
-	private static void applyWifiState(int state) {
+	private void applyWifiState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchWifi()) {
 			boolean stateBefore = lastAciveStateWifi;
 			lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
@@ -175,7 +183,7 @@ public class PowerProfiles {
 		}
 	}
 
-	private static void applyGpsState(int state) {
+	private void applyGpsState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchGps()) {
 			boolean stateBefore = lastActiveStateGps;
 			lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
@@ -198,7 +206,7 @@ public class PowerProfiles {
 		}
 	}
 
-	private static void applyBluetoothState(int state) {
+	private void applyBluetoothState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
 			boolean stateBefore = lastActiceStateBluetooth;
 			lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
@@ -221,7 +229,7 @@ public class PowerProfiles {
 		}
 	}
 
-	private static void applyMobiledataState(int state) {
+	private void applyMobiledataState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
 			boolean stateBefore = lastActiveStateMobileData;
 			lastActiveStateMobileData = ServicesHandler.is2gOnlyEnabled(context);
@@ -244,7 +252,7 @@ public class PowerProfiles {
 		}
 	}
 
-	private static void applyBackgroundSyncState(int state) {
+	private void applyBackgroundSyncState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
 			boolean stateBefore = lastActiveStateBackgroundSync;
 			lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
@@ -267,7 +275,7 @@ public class PowerProfiles {
 		}
 	}
 
-	private static boolean changeTrigger(boolean force) {
+	private boolean changeTrigger(boolean force) {
 		Cursor cursor = null;
 		try {
 			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
@@ -309,7 +317,7 @@ public class PowerProfiles {
 		return false;
 	}
 
-	public static void setBatteryLevel(int level) {
+	public void setBatteryLevel(int level) {
 		if (batteryLevel != level) {
 			batteryLevel = level;
 			trackCurrent();
@@ -322,11 +330,11 @@ public class PowerProfiles {
 		}
 	}
 
-	private static void sendDeviceStatusChangedBroadcast() {
+	private void sendDeviceStatusChangedBroadcast() {
 		context.sendBroadcast(new Intent(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
 	}
 
-	private static void trackCurrent() {
+	private void trackCurrent() {
 		if (currentTrigger == null || SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 			return;
 		}
@@ -376,11 +384,11 @@ public class PowerProfiles {
 		updateTrigger = true;
 	}
 
-	public static int getBatteryLevel() {
+	public int getBatteryLevel() {
 		return batteryLevel;
 	}
 
-	public static void setAcPower(boolean power) {
+	public void setAcPower(boolean power) {
 		if (acPower != power) {
 			acPower = power;
 			sendDeviceStatusChangedBroadcast();
@@ -389,7 +397,7 @@ public class PowerProfiles {
 		}
 	}
 
-	public static void setScreenOff(boolean b) {
+	public void setScreenOff(boolean b) {
 		if (screenOff != b) {
 			screenOff = b;
 			trackCurrent();
@@ -397,7 +405,7 @@ public class PowerProfiles {
 		}
 	}
 
-	public static void setBatteryHot(boolean b) {
+	public void setBatteryHot(boolean b) {
 		if (batteryHot != b) {
 			batteryHot = b;
 			trackCurrent();
@@ -405,41 +413,41 @@ public class PowerProfiles {
 		}
 	}
 
-	public static boolean getBatteryHot() {
+	public boolean getBatteryHot() {
 		return batteryHot;
 	}
 
-	public static boolean getAcPower() {
+	public boolean getAcPower() {
 		return acPower;
 	}
 
-	public static CharSequence getCurrentProfileName() {
+	public CharSequence getCurrentProfileName() {
 		if (currentProfile == null) {
 			return UNKNOWN;
 		}
 		return currentProfile.getProfileName();
 	}
 
-	public static CharSequence getCurrentTriggerName() {
+	public CharSequence getCurrentTriggerName() {
 		if (currentTrigger == null) {
 			return UNKNOWN;
 		}
 		return currentTrigger.getName();
 	}
 
-	public static void setUpdateTrigger(boolean updateTrigger) {
+	public void setUpdateTrigger(boolean updateTrigger) {
 		PowerProfiles.updateTrigger = updateTrigger;
 	}
 
-	public static TriggerModel getCurrentTrigger() {
+	public TriggerModel getCurrentTrigger() {
 		return currentTrigger;
 	}
 
-	public static CpuModel getCurrentProfile() {
+	public CpuModel getCurrentProfile() {
 		return currentProfile;
 	}
 
-	public static boolean isScreenOff() {
+	public boolean isScreenOff() {
 		return screenOff;
 	}
 }

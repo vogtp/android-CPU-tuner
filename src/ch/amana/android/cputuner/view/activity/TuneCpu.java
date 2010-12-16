@@ -52,6 +52,7 @@ public class TuneCpu extends Activity {
 	private TextView tvMessage;
 	private TextView tvBatteryCurrent;
 	private TextView tvGovTreshholds;
+	private PowerProfiles powerProfiles;
 
 	protected class CpuTunerReceiver extends BroadcastReceiver {
 
@@ -100,6 +101,7 @@ public class TuneCpu extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cur_cpu_info);
 		cpuHandler = CpuHandler.getInstance();
+		powerProfiles = PowerProfiles.getInstance();
 
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
@@ -239,7 +241,20 @@ public class TuneCpu extends Activity {
 			tvGovTreshholds.setText("");
 		}
 
-		tvBatteryCurrent.setText(BatteryHandler.getBatteryCurrentNow() + " mA (avg: " + BatteryHandler.getBatteryCurrentAverage() + " mA)");
+		StringBuilder currentText = new StringBuilder();
+		int currentNow = BatteryHandler.getBatteryCurrentNow();
+		if (currentNow != BatteryHandler.NO_VALUE_INT) {
+			currentText.append(BatteryHandler.getBatteryCurrentNow()).append(" mA/h");
+		}
+		int currentAvg = BatteryHandler.getBatteryCurrentAverage();
+		if (currentAvg != BatteryHandler.NO_VALUE_INT && currentAvg != currentNow) {
+			currentText.append(" (avg: ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
+		}
+		if (currentText.length() > 0) {
+			tvBatteryCurrent.setText(currentText.toString());
+		} else {
+			tvBatteryCurrent.setText(R.string.notAvailable);
+		}
 		if (SettingsStorage.getInstance().isEnableBeta()) {
 			if (RootHandler.NOT_AVAILABLE.equals(cpuHandler.getCurCpuGov())
 					|| cpuHandler.getMaxCpuFreq() < 1 || cpuHandler.getMinCpuFreq() < 1) {
@@ -266,15 +281,15 @@ public class TuneCpu extends Activity {
 	}
 
 	private void batteryLevelChanged() {
-		tvBatteryLevel.setText(PowerProfiles.getBatteryLevel() + "%");
+		tvBatteryLevel.setText(powerProfiles.getBatteryLevel() + "%");
 	}
 
 	private void profileChanged() {
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
-		CharSequence profile = PowerProfiles.getCurrentProfileName();
+		CharSequence profile = powerProfiles.getCurrentProfileName();
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			tvCurrentProfile.setText(profile);
-			tvCurrentTrigger.setText(PowerProfiles.getCurrentTriggerName());
+			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
 		} else {
 			tvCurrentProfile.setText(R.string.notEnabled);
 			tvCurrentTrigger.setText(R.string.notEnabled);
@@ -304,7 +319,7 @@ public class TuneCpu extends Activity {
 	}
 
 	private void acPowerChanged() {
-		tvAcPower.setText(PowerProfiles.getAcPower() ? "Yes" : "No");
+		tvAcPower.setText(powerProfiles.getAcPower() ? "Yes" : "No");
 	}
 
 	private TextView getMessageTextView() {

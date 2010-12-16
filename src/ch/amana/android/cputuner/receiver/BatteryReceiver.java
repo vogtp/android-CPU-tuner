@@ -41,7 +41,8 @@ public class BatteryReceiver extends BroadcastReceiver {
 			}
 			BatteryReceiver.handleIntent(ctx, params[0]);
 			long delta = System.currentTimeMillis() - startTs;
-			Logger.i("Millies to switch profile " + PowerProfiles.getCurrentProfile() + " " + delta);
+			// Logger.i("Millies to switch profile " +
+			// PowerProfiles.getCurrentProfile() + " " + delta);
 			wakeLock.release();
 			return null;
 		}
@@ -86,14 +87,15 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	private static void handleIntent(Context context, Intent intent) {
 		String action = intent.getAction();
-		Logger.d("BatteryReceiver got intent: " + action);
+		// Logger.d("BatteryReceiver got intent: " + action);
+		PowerProfiles powerProfiles = PowerProfiles.getInstance();
 		if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
 			int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 			int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
 			if (plugged > -1) {
-				PowerProfiles.setAcPower(plugged > 0);
+				powerProfiles.setAcPower(plugged > 0);
 			}
 			int level = -1;
 			if (rawlevel >= 0 && scale > 0) {
@@ -102,24 +104,24 @@ public class BatteryReceiver extends BroadcastReceiver {
 			Logger.d("Battery Level Remaining: " + level + "%");
 			if (level > -1) {
 				// handle battery event
-				PowerProfiles.setBatteryLevel(level);
+				powerProfiles.setBatteryLevel(level);
 			}
-			PowerProfiles.setBatteryHot(health == BatteryManager.BATTERY_HEALTH_OVERHEAT);
+			powerProfiles.setBatteryHot(health == BatteryManager.BATTERY_HEALTH_OVERHEAT);
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}
 		} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
 			Notifier.notify(context, "CPU tuner: Power connected", 2);
-			PowerProfiles.setAcPower(true);
+			powerProfiles.setAcPower(true);
 		} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
 			Notifier.notify(context, "CPU tuner: Power disconnected", 2);
-			PowerProfiles.setAcPower(false);
+			powerProfiles.setAcPower(false);
 		} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
 			Notifier.notify(context, "Screen turned off", 2);
-			PowerProfiles.setScreenOff(true);
+			powerProfiles.setScreenOff(true);
 		} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
 			Notifier.notify(context, "Screen turned on", 2);
-			PowerProfiles.setScreenOff(false);
+			powerProfiles.setScreenOff(false);
 		}
 	}
 }

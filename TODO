@@ -1,12 +1,9 @@
-
-- remove old receiver interface
-- implement power consumption clearing for profiles (check for modification)
-- make powerprofiles singelton class
-- prev state non beta?
+- disable current in mainview if disabled: Ein Bug ist bei mir noch: Ich deaktiviere den usage monitor (geht bei mir eh nicht) und er sagt auf der startseite jetzt -2147483mA (avg -2147483mA).
 
 Postponed:  (post 1.0)
-- better default values
+- prev state non beta?
 - figure out how to get avail freqs (if not available)
-
+- check profile version
+- implement power consumption clearing for profiles (check for modification)
 
 
