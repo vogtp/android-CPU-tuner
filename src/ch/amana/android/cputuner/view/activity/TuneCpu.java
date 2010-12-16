@@ -225,36 +225,6 @@ public class TuneCpu extends Activity {
 		profileChanged();
 		acPowerChanged();
 
-		int govThresholdUp = cpuHandler.getGovThresholdUp();
-		int govThresholdDown = cpuHandler.getGovThresholdDown();
-		StringBuilder sb = new StringBuilder();
-		if (govThresholdUp > 0) {
-			sb.append("up: ").append(govThresholdUp).append("% ");
-		}
-		if (govThresholdDown > 0) {
-			sb.append("down: ").append(govThresholdDown).append("%");
-		}
-		if (sb.length() > 0) {
-			sb.insert(0, "Governor tresholds: ");
-			tvGovTreshholds.setText(sb.toString());
-		} else {
-			tvGovTreshholds.setText("");
-		}
-
-		StringBuilder currentText = new StringBuilder();
-		int currentNow = BatteryHandler.getBatteryCurrentNow();
-		if (currentNow != BatteryHandler.NO_VALUE_INT) {
-			currentText.append(BatteryHandler.getBatteryCurrentNow()).append(" mA/h");
-		}
-		int currentAvg = BatteryHandler.getBatteryCurrentAverage();
-		if (currentAvg != BatteryHandler.NO_VALUE_INT && currentAvg != currentNow) {
-			currentText.append(" (avg: ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
-		}
-		if (currentText.length() > 0) {
-			tvBatteryCurrent.setText(currentText.toString());
-		} else {
-			tvBatteryCurrent.setText(R.string.notAvailable);
-		}
 		if (SettingsStorage.getInstance().isEnableBeta()) {
 			if (RootHandler.NOT_AVAILABLE.equals(cpuHandler.getCurCpuGov())
 					|| cpuHandler.getMaxCpuFreq() < 1 || cpuHandler.getMinCpuFreq() < 1) {
@@ -282,6 +252,20 @@ public class TuneCpu extends Activity {
 
 	private void batteryLevelChanged() {
 		tvBatteryLevel.setText(powerProfiles.getBatteryLevel() + "%");
+		StringBuilder currentText = new StringBuilder();
+		int currentNow = BatteryHandler.getBatteryCurrentNow();
+		if (currentNow != BatteryHandler.NO_VALUE_INT) {
+			currentText.append(BatteryHandler.getBatteryCurrentNow()).append(" mA/h");
+		}
+		int currentAvg = BatteryHandler.getBatteryCurrentAverage();
+		if (currentAvg != BatteryHandler.NO_VALUE_INT && currentAvg != currentNow) {
+			currentText.append(" (avg: ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
+		}
+		if (currentText.length() > 0) {
+			tvBatteryCurrent.setText(currentText.toString());
+		} else {
+			tvBatteryCurrent.setText(R.string.notAvailable);
+		}
 	}
 
 	private void profileChanged() {
@@ -315,6 +299,22 @@ public class TuneCpu extends Activity {
 			labelCpuFreqMin.setVisibility(View.VISIBLE);
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
+		}
+
+		int govThresholdUp = cpuHandler.getGovThresholdUp();
+		int govThresholdDown = cpuHandler.getGovThresholdDown();
+		StringBuilder sb = new StringBuilder();
+		if (govThresholdUp > 0) {
+			sb.append("up: ").append(govThresholdUp).append("% ");
+		}
+		if (govThresholdDown > 0) {
+			sb.append("down: ").append(govThresholdDown).append("%");
+		}
+		if (sb.length() > 0) {
+			sb.insert(0, "Governor tresholds: ");
+			tvGovTreshholds.setText(sb.toString());
+		} else {
+			tvGovTreshholds.setText("");
 		}
 	}
 

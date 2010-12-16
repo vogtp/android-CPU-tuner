@@ -5,4 +5,5 @@ Postponed:  (post 1.0)
 - check profile version
 - implement power consumption clearing for profiles (check for modification)
 
-
+- user experience levels
+- virtual governors (incl. thresholds) for inexperienced users  

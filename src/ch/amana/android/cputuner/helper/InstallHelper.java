@@ -72,8 +72,8 @@ public class InstallHelper {
 
 				List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
-				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 2, 1);
-				long profileGood = createCpuProfile(resolver, "Good", getGoodGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 2, 1);
+				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
+				long profileGood = createCpuProfile(resolver, "Good", getGoodGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
 				long profileNormal = createCpuProfile(resolver, "Normal", getNormalGov(availGov, gov), freqMax, freqMin);
 				long profileScreenOff = createCpuProfile(resolver, "Screen off", getScreenOffGov(availGov, gov), freqMax, freqMin);
 				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
