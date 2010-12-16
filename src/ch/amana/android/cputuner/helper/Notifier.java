@@ -44,7 +44,7 @@ public class Notifier {
 	public static void notify(Context context, String msg, int level) {
 		Logger.i("Notifier: " + msg);
 		if (level <= curLevel && SettingsStorage.getInstance().isToastNotifications()) {
-			// FIXME fcs
+			// FIXME fc when toastin from service
 			// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
