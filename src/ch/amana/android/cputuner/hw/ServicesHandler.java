@@ -65,7 +65,7 @@ public class ServicesHandler {
 	}
 
 	public static boolean is2gOnlyEnabled(Context context) {
-		return getMobiledataStae(context) == MODE_GSM_ONLY;
+		return getMobiledataState(context) == MODE_GSM_ONLY;
 	}
 
 	// From:
@@ -85,7 +85,7 @@ public class ServicesHandler {
 		} else {
 			state = MODE_GSM_WCDMA_PREFERRD;
 		}
-		if (state == getMobiledataStae(context)) {
+		if (state == getMobiledataState(context)) {
 			Logger.i("Not switching 2G/3G since it's already in correct state.");
 			return;
 		}
@@ -95,7 +95,7 @@ public class ServicesHandler {
 		Logger.i("Switched 2G/3G to " + b);
 	}
 
-	private static int getMobiledataStae(Context context) {
+	private static int getMobiledataState(Context context) {
 		int state = 99;
 		try {
 			state = android.provider.Settings.Secure.getInt(context
