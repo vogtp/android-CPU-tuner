@@ -2,48 +2,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="styles.css"/>
 <title>CPU tuner help</title>
 </head>
-<body>
-<h3>cpu tuner help</h3>
-<p>
-CPU tuner uses a concept of <a href="trigger.html">triggers</a> and 
-<a href="profile.html">profiles</a>.
-<br>
-Depending on the state of the device a
-<a href="trigger.html">trigger</a> applies a 
-<a href="profile.html">profile</a>.
-</p>
-<p>
-The state of the device consists of the battery level and whether the device
-is locked or on power.<br>  
-The <a href="profile.html">profile</a> is a set of policies that will be applied if a profile gets activated
-(by a trigger).
-</p>
-<p>
-CPU tuner does not constantly run and poll, but it gets activated by events 
-sent by the android system. 
-</p>
-<p>
-There is a good <a href="http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html">howto</a>
-in the blog of D.
-</p>
-<p>
-There is a <a href="faq/faq.html">FAQ</a> which might answer you questions.
-</p>
-</p>
-<p>Some <a href="links.html">links</a> for more information.
-</p>
-<p>
-And a big <a href="thanks.html">thank you</a> to...
-</p>
-<p>
-Be aware that:
-<li> you need to have a <b>rooted device</b> and 
-grant <i>cpu tuner</i> root rights in order to work.
-</li>
-<li>
-Some kernels (i.e. ROMs) do not allow you to adjust the cpu settings.
-</li>
+<body>	
+	<span class="headline">cpu tuner help</span>
+	<br/><br/>
+	<span class="text">CPU tuner uses a concept of <a href="trigger.html">triggers</a> and <a href="profile.html">profiles</a>.</span>
+	<span class="text">Triggers are activated on your phone entering a predefined state. They then apply a predefined profile.</span>
+	<span class="text">The states are defined by a battery level and the phone's status (locked, active or on power).</span>
+	<span class="text">Profiles are essentially a set of policies that are applied to the phone.</span>
+	<span class="text">While doing so, CPU tuner runs event-driven. I.e. it does not run constantly, thus creating only minimal system load on it's own.</span>
+	<br/>
+	<span class="text">This help also includes a <a href="faq/faq.html">FAQ</a> which you might find helpful/interesting.</span>
+	<span class="text">You can find further info on the application's topic in <a href="links.html">this</a> link collection.</span>
+	<br/>
+	<span class="text">A big THANK YOU goes out to <a href="thanks.html">...</a></span>
+	<br/><br/>
+	<span class="text"><span class="bold">NOTICE:</span></span>
+	<span class="text">To operate as expected, CPU tuner needs a <span class="bold">rooted</span> phone and root permissions granted to it by the user. Be aware that some ROMs don't support adjustment of such deep system parameters!</span>
 </body>
 </html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

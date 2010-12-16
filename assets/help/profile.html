@@ -2,48 +2,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Profiles</title>
+<link rel="stylesheet" href="styles.css"/>
+<title>profiles</title>
 </head>
-<body>
-<h3>Profiles</h3>
-<p>
-Profiles define settings that are applied by the <a href="trigger.html">triggers</a>.
-</p>
-<p>
-There are two types of settings:
-<li><b>CPU settings</b><br>
-These setting determine the power consumption and the responsiveness of the CPU.
-</li>
-<li><b>Services</b><br>
-These setting allow you to switch services (like mobiledata, syncing, wifi) which
-consume a lot of power.
-</p>
-
-<h4>CPU settings</h4>
-<p>
-The CPU tuning part of CPU tuner is a front end to the linux kernel <a href="cpufreq/cpufreq.html">cpufreq interface</a>.
-</p>
-<h4>Services</h4>
-<p>
-CPU tuner allows you to switch the state of battery consuming services.<br>
-You can choose between three options: <br>
-<li><b>Leave unchanged</b><br>
-The state of this service will not be changed by this profile.
-</li>
-<li><b>Enable</b><br>
-The service will be enabled.
-</li>
-<li><b>Disable</b><br>
-The service will be disabled.
-</li>
-</p>
-<p>
-In case you enable <i>Manual service changes</i> in settings/system
-changes of service states will only happen if the state is not changed
-for outside of CPU tuner or if a new trigger is started.<br>
-E.g. if a profile of a trigger switches background sync to off and you switch it 
-back on, it will stay on until a new trigger activates a profile that siwtches it 
-again.
-</p>
+<body>	
+	<span class="headline">profiles</span>
+	<br/><br/>
+	<span class="text">Profiles are systemwide settings that are applied by <a href="trigger.html">triggers</a>.</span>
+	<span class="text">At the moment (v. 1.0) there's two categories, you can adjust:
+		<ul>
+			<li><span class="bold">CPU settings</span><br/>
+			These settings determine the CPU's clockspeed ("how fast it is") and power consumption.
+			</li>
+			<li><span class="bold">services</span><br/>
+			These settings can toggle some system services on and/or off.<br/>
+			As said in <a href="battery_drainer.html">battery drainers</a> it's wise to disable syncing, wifi, etc. on some states.<br/>
+			You can <span class="bold">leave [the service in question] unchanged</span>, but you may as well <span class="bold">enable</span> or <span class="bold">disable</span> services with triggers.<br/>
+			If you manually override these settings, e.g. cause CPU tuner disables sync at 20% battery, but you need to sync you calendar with Google, this setting will stay untouched by CPU tuner unless a new trigger is activated and modifies the service's state. 
+			</li>
+		</ul>
+	</span>
 </body>
 </html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

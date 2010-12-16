@@ -2,20 +2,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="../styles.css"/>
 <title>CPU tuner FAQ</title>
 </head>
-<body>
-<h3>How to set CPU frequencies lower than 400 MHz</h3>
-<p>
-CPU tuner hides frequencies below 400 MHz if not in <i>power user mode</i>.
-</p>
-<p>
-Go to <i>settings</i>, choose <i>system</i> and check <i>power user mode</i>.
-Then you can set all frequencies that are allowed by you kernel.
-</p>
-<p>
-Be aware the frequencies below 400 MHz have been reported to prevent you phone from
-coming out of the sleep state (i.e. not beeing able to switch the phone on again).
-</p>
+<body>	
+	<span class="headline">How to set CPU frequencies lower than 400 MHz</span>
+	<br/><br/>
+	<span class="text">Unless CPU tuner operates in <span class="italic">poweruser mode</span> it hides frequencies below 400MHz from the user.</span>
+	<span class="text">To activate poweruser mode, go to <span class="italic">Settings</span> -> <span class="italic">System</span> -> <span class="italic">power user mode</span></span>
+	<span class="text">Be aware that frequencies below 400MHz might deadlock your phone in sleep state. You then can't switch the phone back on again and need to unplug the batter..!</span>
 </body>
 </html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

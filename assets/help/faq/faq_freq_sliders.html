@@ -2,23 +2,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="../styles.css"/>
+<title>CPU tuner FAQ</title>
 </head>
-<body>
-<h3>The sliders do not move or are locked to 0.</h3>
-<p>
-The sliders itself work but your kernel does not accept any frequency changes. 
-</p>
-<p>
-There are to possibilities:
-<li><b>The sliders are locked to 0</b><br>
-The kernel of you device does not allow the frequency to be read (and not written as well).
-</li>
-<li><b>The sliders are locked to a values</b><br>
-Cpu tuner is able to read the current settings but the kernel does not allow it to be changed.
-</li>
-</p>
-<p>
-You can <a href="../capability_check.html">check</a> it.
-</p>
+<body>	
+	<span class="headline">The sliders do not move and/or are locked to 0</span>
+	<br/><br/>
+	<span class="text">The sliders themself do work, but your phone's kernel does not support or accept changing the frequency.</span>
+	<span class="text">
+		Possible points of failure:
+		<ul>
+			<li><span class="bold">sliders locked to 0</span><br/>
+			Your device's kernel does not allow the frequency to be read (and not written as well). 
+			</li>
+			<li><span class="bold">sliders locked to values != 0</span><br/>
+			Your device's kernel does allow the frequency to be read, but not to be written 
+			</li>
+		</ul>
+	</span>
+	<span class="text">You can <a href="../capability_check.html">check</a> your device's capabilities.</span>
 </body>
 </html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

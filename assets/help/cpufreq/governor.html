@@ -2,39 +2,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Insert title here</title>
+<link rel="stylesheet" href="../styles.css"/>
+<title>cpu governors</title>
 </head>
-<body>
-<h3>Governor</h3>
-<p>
-CPU governors are kernel-land pieces of software that control the CPU clockspeed by varying criteria. 
-</p>
-<p>
-Common governors include (as explained by the linux kernel):
-<!-- In accordance with the Linux Kernel there are: -->
-<li><b>Ondemand</b><br>
-Dynamically changes frequency based on the CPU utilization with a focus on performance.<br>
-<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheOndemandGovernor.htm">More information...</a>
-</li>
-<li><b>Conservative</b><br>
-Dynamically changes frequency based on the CPU utilization with a focus on saving power.<br>
-<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheConservativeGovernor.htm">More information...</a>
-</li>
-<li><b>Performance</b><br>
-Sets the frequency statically to the highest available CPU frequency.<br>
-<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePerformanceGovernor.htm">More information...</a>
-</li>
-<li><b>Powersave</b><br>
-Sets the frequency statically to the lowest available CPU frequency. <!-- this might be an unwanted behaviour, as a high workload has a longer execution time than it'd have, using the ondemand governor --><br>
-<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePowersaveGovernor.htm">More information...</a>
-</li>
-<li><b>Userspace</b><br>
-Sets the frequency statically to the given frequency.<br>DO NOT USE UNLESS YOU KNOW WHAT YOU ARE DOING!<br>
-<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheUserspaceGovernor.htm">More information...</a>
-</li>
-<li><b>Interactive</b><br>
-Designed for low latency burst workloads. Scaling is done when coming out of idle instead of polling.
-</li>
-</p>
+<body>	
+	<span class="headline">CPU governors</span>
+	<br/><br/>
+	<span class="text">CPU governors are kernel-land pieces of software that control the CPU clockspeed by varying criteria.</span>
+	<span class="text">
+		In accordance with the Linux Kernel the following governors are available:
+		<ul>
+			<li><span class="bold">ondemand</span><br/>
+			Dynamically changes frequency based on the CPU utilization with a focus on performance.<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheOndemandGovernor.htm?noframes=true">More information...</a>
+			</li>
+			<li><span class="bold">conservative</span><br/>
+			Dynamically changes frequency based on the CPU utilization with a focus on saving power.<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheConservativeGovernor.htm?noframes=true">More information...</a>
+			</li>
+			<li><span class="bold">performance</span><br/>
+			Sets the frequency statically to the highest available CPU frequency.<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePerformanceGovernor.htm?noframes=true">More information...</a>
+			</li>
+			<li><span class="bold">powersave</span><br/>
+			Sets the frequency statically to the lowest available CPU frequency.<br/>
+			This governor might exhibit an unwanted behaviour, as a high workload has a longer execution time than it'd have, using the ondemand governor<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePowersaveGovernor.htm?noframes=true">More information...</a>
+			</li>
+			<li><span class="bold">userspace</span><br/>
+			Sets the frequency statically to the given frequency.<br>DO NOT USE UNLESS YOU KNOW WHAT YOU ARE DOING!<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheUserspaceGovernor.htm?noframes=true">More information...</a>
+			</li>
+			<li><span class="bold">interactive</span><br/>
+			Designed for low latency burst workloads. Scaling is done when coming out of idle instead of polling.
+			</li>
+		</ul>
+	</span>
 </body>
 </html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->
