@@ -2,7 +2,6 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -10,8 +9,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -119,11 +119,6 @@ public class CpuEditor extends Activity {
 		spSync = (Spinner) findViewById(R.id.spSync);
 
 		sbCpuFreqMax.requestFocus();
-
-		// hide keyboard
-		etName.setInputType(InputType.TYPE_NULL);
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(etName.getApplicationWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
 
@@ -288,6 +283,16 @@ public class CpuEditor extends Activity {
 		} else {
 			tlServices.removeView(findViewById(R.id.TableRowSync));
 		}
+
+		// hide keyboard
+		etName.setInputType(InputType.TYPE_NULL);
+		etName.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				etName.setInputType(InputType.TYPE_CLASS_TEXT);
+				return false;
+			}
+		});
 
 		updateView();
 	}

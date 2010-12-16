@@ -2,7 +2,6 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -10,8 +9,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.View.OnTouchListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -87,12 +87,19 @@ public class TriggerEditor extends Activity {
 		setProfilesAdapter(spScreenLocked);
 		setProfilesAdapter(spPower);
 		setProfilesAdapter(spHot);
-		updateView();
 
 		// hide keyboard
 		etName.setInputType(InputType.TYPE_NULL);
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(etName.getApplicationWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+		etName.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				etName.setInputType(InputType.TYPE_CLASS_TEXT);
+				return false;
+			}
+		});
+
+		updateView();
+
 	}
 
 	private void updateView() {
