@@ -27,10 +27,9 @@ import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
-import ch.amana.android.cputuner.model.IProfileChangeCallback;
 import ch.amana.android.cputuner.model.PowerProfiles;
 
-public class TuneCpu extends Activity implements IProfileChangeCallback {
+public class TuneCpu extends Activity {
 
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
@@ -209,22 +208,14 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-			registerReceiver();
-		} else {
-			PowerProfiles.registerCallback(this);
-		}
+		registerReceiver();
 		updateView();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-			unregisterReceiver();
-		} else {
-			PowerProfiles.unregisterCallback(this);
-		}
+		unregisterReceiver();
 	}
 
 	private void updateView() {
@@ -274,13 +265,11 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		}
 	}
 
-	@Override
-	public void batteryLevelChanged() {
+	private void batteryLevelChanged() {
 		tvBatteryLevel.setText(PowerProfiles.getBatteryLevel() + "%");
 	}
 
-	@Override
-	public void profileChanged() {
+	private void profileChanged() {
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
 		CharSequence profile = PowerProfiles.getCurrentProfileName();
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
@@ -314,8 +303,7 @@ public class TuneCpu extends Activity implements IProfileChangeCallback {
 		}
 	}
 
-	@Override
-	public void acPowerChanged() {
+	private void acPowerChanged() {
 		tvAcPower.setText(PowerProfiles.getAcPower() ? "Yes" : "No");
 	}
 

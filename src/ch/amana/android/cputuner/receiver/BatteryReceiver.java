@@ -80,12 +80,8 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-			SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
-			spt.execute(intent);
-		} else {
-			handleIntent(context, intent);
-		}
+		SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
+		spt.execute(intent);
 	}
 
 	private static void handleIntent(Context context, Intent intent) {

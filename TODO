@@ -1,7 +1,7 @@
 
 - remove old receiver interface
 - implement power consumption clearing for profiles (check for modification)
-
+- make powerprofiles singelton class
 - prev state non beta?
 
 Postponed:  (post 1.0)

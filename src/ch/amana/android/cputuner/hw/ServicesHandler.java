@@ -72,7 +72,6 @@ public class ServicesHandler {
 	// /cyanogen/frameworks/base/services/java/com/android/server/status/widget/NetworkModeButton.java
 	// line 97
 	public static void enable2gOnly(Context context, boolean b) {
-		// FIXME check if correct state first
 		/**
 		 * The preferred network mode 7 = Global 6 = EvDo only 5 = CDMA w/o EvDo
 		 * 4 = CDMA / EvDo auto 3 = GSM / WCDMA auto 2 = WCDMA only 1 = GSM only

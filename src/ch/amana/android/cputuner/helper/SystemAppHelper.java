@@ -37,7 +37,7 @@ public class SystemAppHelper implements OnClickListener {
 
 	private boolean checkInstallLocation(File loc) {
 		return true;
-		// FIXME: does not work for Environment.getDataDirectory()
+		// does not work for Environment.getDataDirectory()
 		// String[] files = RootHandler.findAppPath(ctx, loc);
 		// return files != null || files.length > 0;
 	}

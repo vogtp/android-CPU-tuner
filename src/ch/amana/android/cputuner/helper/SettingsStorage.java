@@ -183,12 +183,6 @@ public class SettingsStorage {
 		return allowManualServiceChanges;
 	}
 
-	public boolean isNewProfileSwitchTask() {
-		// FIMXE only temp method remove after new switch task is non beta
-		// return isEnableBeta();
-		return true;
-	}
-
 	public boolean isInstallAsSystemAppEnabled() {
 		return RootHandler.isSystemApp(context) || (isEnableBeta() && isPowerUser());
 	}

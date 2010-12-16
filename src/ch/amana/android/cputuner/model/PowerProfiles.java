@@ -1,9 +1,5 @@
 package ch.amana.android.cputuner.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,8 +29,6 @@ public class PowerProfiles {
 
 	private static CpuModel currentProfile;
 	private static TriggerModel currentTrigger;
-
-	private static List<IProfileChangeCallback> listeners;
 
 	private static boolean updateTrigger = true;
 
@@ -146,12 +140,9 @@ public class PowerProfiles {
 						sb.append("Setting power profile to ");
 					}
 					sb.append(currentProfile.getProfileName());
-					notifyProfile();
 					Notifier.notify(context, sb.toString(), 1);
 					Notifier.notifyProfile(currentProfile.getProfileName());
-					if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-						context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
-					}
+					context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 				}
 			} finally {
 				if (c != null && !c.isClosed()) {
@@ -285,9 +276,7 @@ public class PowerProfiles {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
 					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-					if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-						context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
-					}
+					context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
 					resetServiceState();
 					return true;
 				} else {
@@ -307,9 +296,7 @@ public class PowerProfiles {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
 					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-					if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-						context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
-					}
+					context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
 					resetServiceState();
 					return true;
 				}
@@ -326,7 +313,6 @@ public class PowerProfiles {
 		if (batteryLevel != level) {
 			batteryLevel = level;
 			trackCurrent();
-			notifyBatteryLevel();
 			boolean chagned = changeTrigger(false);
 			if (chagned) {
 				applyPowerProfile(false, false);
@@ -337,9 +323,7 @@ public class PowerProfiles {
 	}
 
 	private static void sendDeviceStatusChangedBroadcast() {
-		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-			context.sendBroadcast(new Intent(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
-		}
+		context.sendBroadcast(new Intent(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
 	}
 
 	private static void trackCurrent() {
@@ -399,7 +383,7 @@ public class PowerProfiles {
 	public static void setAcPower(boolean power) {
 		if (acPower != power) {
 			acPower = power;
-			notifyAcPower();
+			sendDeviceStatusChangedBroadcast();
 			trackCurrent();
 			applyPowerProfile(false, false);
 		}
@@ -441,54 +425,6 @@ public class PowerProfiles {
 			return UNKNOWN;
 		}
 		return currentTrigger.getName();
-	}
-
-	public static void registerCallback(IProfileChangeCallback callback) {
-		// FIXME remove listeners after new switch task is non beta
-		if (SettingsStorage.getInstance().isNewProfileSwitchTask()) {
-			return;
-		}
-		if (listeners == null) {
-			listeners = new ArrayList<IProfileChangeCallback>();
-		}
-		listeners.add(callback);
-	}
-
-	public static void unregisterCallback(IProfileChangeCallback callback) {
-		if (listeners == null) {
-			return;
-		}
-		listeners.remove(callback);
-	}
-
-	private static void notifyBatteryLevel() {
-		if (listeners == null) {
-			return;
-		}
-		for (Iterator<IProfileChangeCallback> iterator = listeners.iterator(); iterator.hasNext();) {
-			IProfileChangeCallback callback = iterator.next();
-			callback.batteryLevelChanged();
-		}
-	}
-
-	private static void notifyProfile() {
-		if (listeners == null) {
-			return;
-		}
-		for (Iterator<IProfileChangeCallback> iterator = listeners.iterator(); iterator.hasNext();) {
-			IProfileChangeCallback callback = iterator.next();
-			callback.profileChanged();
-		}
-	}
-
-	private static void notifyAcPower() {
-		if (listeners == null) {
-			return;
-		}
-		for (Iterator<IProfileChangeCallback> iterator = listeners.iterator(); iterator.hasNext();) {
-			IProfileChangeCallback callback = iterator.next();
-			callback.acPowerChanged();
-		}
 	}
 
 	public static void setUpdateTrigger(boolean updateTrigger) {

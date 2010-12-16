@@ -1,7 +1,6 @@
 package ch.amana.android.cputuner.hw;
 
 public class BatteryHandler extends HardwareHandler {
-	// FIXME use batt_current as well
 	private static final String CURRENT_NOW = "current_now";
 	private static final String CURRENT_AVG = "current_avg";
 	private static final String BATT_CURRENT = "batt_current";
