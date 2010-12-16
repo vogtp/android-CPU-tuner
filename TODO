@@ -2,9 +2,6 @@
 - remove old receiver interface
 - implement power consumption clearing for profiles (check for modification)
 
-- close keyboard in editors
-
-- hot state non beta?
 - prev state non beta?
 
 Postponed:  (post 1.0)
