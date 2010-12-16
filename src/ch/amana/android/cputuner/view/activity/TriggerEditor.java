@@ -64,7 +64,7 @@ public class TriggerEditor extends Activity {
 		etName = (EditText) findViewById(R.id.etName);
 		etBatteryLevel = (EditText) findViewById(R.id.etBatteryLevel);
 		sbBatteryLevel = (SeekBar) findViewById(R.id.sbBatteryLevel);
-		// FIXME
+		// TODO: battery slider?
 		sbBatteryLevel.setVisibility(View.INVISIBLE);
 		spBattery = (Spinner) findViewById(R.id.spBattery);
 		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
