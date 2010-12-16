@@ -54,6 +54,7 @@ public class CpuEditor extends Activity {
 	private TextView labelGovThreshDown;
 	private Spinner spMobileData3G;
 	private Spinner spSync;
+	private boolean hasDeviceStatesBeta;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -98,6 +99,13 @@ public class CpuEditor extends Activity {
 		if (CpuModel.NO_VALUE_INT == cpu.getMaxFreq() && availCpuFreqs.length > 0) {
 			cpu.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
+
+		hasDeviceStatesBeta = 3 == Math.max(cpu.getWifiState(),
+				Math.max(cpu.getGpsState(),
+						Math.max(cpu.getMobiledataState(),
+								Math.max(cpu.getBluetoothState(),
+										Math.max(cpu.getBackgroundSyncState(),
+												cpu.getWifiState())))));
 
 		etName = (EditText) findViewById(R.id.etName);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
@@ -299,7 +307,7 @@ public class CpuEditor extends Activity {
 
 	private ArrayAdapter<CharSequence> getSystemsAdapter() {
 		int devicestates = R.array.deviceStates;
-		if (SettingsStorage.getInstance().isEnableBeta()) {
+		if (SettingsStorage.getInstance().isEnableBeta() || hasDeviceStatesBeta) {
 			devicestates = R.array.deviceStatesBeta;
 		}
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, devicestates, android.R.layout.simple_spinner_item);
