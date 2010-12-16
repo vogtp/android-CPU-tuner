@@ -13,6 +13,9 @@ public class BatteryHandler extends HardwareHandler {
 		if (current == NO_VALUE_INT) {
 			current = getIntFromStr(readFile(BATT_CURRENT));
 		}
+		if (current == NO_VALUE_INT) {
+			return NO_VALUE_INT;
+		}
 		return Math.abs(current) / 1000;
 	}
 
@@ -20,6 +23,9 @@ public class BatteryHandler extends HardwareHandler {
 		int current = getIntFromStr(readFile(CURRENT_AVG));
 		if (current == NO_VALUE_INT) {
 			current = getIntFromStr(readFile(BATT_CURRENT));
+		}
+		if (current == NO_VALUE_INT) {
+			return NO_VALUE_INT;
 		}
 		return Math.abs(current) / 1000;
 	}

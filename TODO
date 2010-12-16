@@ -1,4 +1,3 @@
-- disable current in mainview if disabled: Ein Bug ist bei mir noch: Ich deaktiviere den usage monitor (geht bei mir eh nicht) und er sagt auf der startseite jetzt -2147483mA (avg -2147483mA).
 
 Postponed:  (post 1.0)
 - prev state non beta?
