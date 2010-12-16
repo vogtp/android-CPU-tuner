@@ -110,14 +110,18 @@ public class ServicesHandler {
 	}
 
 	public static void enableBackgroundSync(Context context, boolean b) {
-		if (ContentResolver.getMasterSyncAutomatically() == b) {
-			Logger.i("Not switched background syc state is correct");
-			return;
-		}
-		if (b) {
-			ContentResolver.setMasterSyncAutomatically(true);
-		} else {
-			ContentResolver.setMasterSyncAutomatically(false);
+		try {
+			if (ContentResolver.getMasterSyncAutomatically() == b) {
+				Logger.i("Not switched background syc state is correct");
+				return;
+			}
+			if (b) {
+				ContentResolver.setMasterSyncAutomatically(true);
+			} else {
+				ContentResolver.setMasterSyncAutomatically(false);
+			}
+		} catch (Throwable e) {
+			Logger.e("Cannot switch background sync", e);
 		}
 		Logger.i("Switched background syc to " + b);
 	}
