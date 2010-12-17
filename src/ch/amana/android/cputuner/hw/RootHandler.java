@@ -134,20 +134,15 @@ public class RootHandler {
 		return fileList;
 	}
 
-	static String readFile(String directory, String filename) {
-		synchronized (filename) {
+	static String readFile(File file) {
+		synchronized (file) {
 			StringBuilder val = new StringBuilder();
-			BufferedReader reader;
-			File file = new File(directory, filename);
+			BufferedReader reader = null;
 			try {
 				if (file.canRead()) {
-					// String msg = "Reading file >" + file + "<";
-					// Logger.v(msg);
-					// writeLog(msg);
 					reader = new BufferedReader(new FileReader(file));
 					String line = reader.readLine();
 					while (line != null && !line.trim().equals("")) {
-						// Logger.v("Read line >" + line + "<");
 						writeLog(line);
 						val.append(line);
 						line = reader.readLine();
@@ -159,7 +154,16 @@ public class RootHandler {
 					writeLog(msg);
 				}
 			} catch (Throwable e) {
-				Logger.e("Cannot open for reading " + filename, e);
+				Logger.e("Cannot open file for reading ", e);
+			} finally {
+				if (reader != null) {
+					try {
+						reader.close();
+					} catch (IOException e) {
+						Logger.w("Cannot close reader...", e);
+					}
+					reader = null;
+				}
 			}
 			String ret = val.toString();
 			if (ret.trim().equals("")) {
@@ -172,13 +176,13 @@ public class RootHandler {
 		}
 	}
 
-	public static boolean writeFile(String dir, String filename, String val) {
-		String readFile = readFile(dir, filename);
+	public static boolean writeFile(File file, String val) {
+		String readFile = readFile(file);
 		if (val == null || val.equals(readFile) || RootHandler.NOT_AVAILABLE.equals(readFile)) {
 			return false;
 		}
-		synchronized (filename) {
-			String path = dir + "/" + filename;
+		synchronized (file) {
+			String path = file.getAbsolutePath();
 			Logger.w("Setting " + path + " to " + val);
 			return RootHandler.execute("echo " + val + " > " + path);
 		}

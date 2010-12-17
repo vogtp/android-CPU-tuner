@@ -1,5 +1,7 @@
 package ch.amana.android.cputuner.hw;
 
+import java.io.File;
+
 public class BatteryHandler extends HardwareHandler {
 	private static final String CURRENT_NOW = "current_now";
 	private static final String CURRENT_AVG = "current_avg";
@@ -7,11 +9,15 @@ public class BatteryHandler extends HardwareHandler {
 	private static final String CAPACITY = "capacity";
 
 	public static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
+	private static final File CURRENT_NOW_FILE = new File(BATTERY_DIR, CURRENT_NOW);
+	private static final File CURRENT_AVG_FILE = new File(BATTERY_DIR, CURRENT_AVG);
+	private static final File CAPACITY_FILE = new File(BATTERY_DIR, CAPACITY);
+	private static File BATT_CURRENT_FILE;
 
 	public static int getBatteryCurrentNow() {
-		int current = getIntFromStr(readFile(CURRENT_NOW));
+		int current = getIntFromStr(RootHandler.readFile(CURRENT_NOW_FILE));
 		if (current == NO_VALUE_INT) {
-			current = getIntFromStr(readFile(BATT_CURRENT));
+			current = getIntFromStr(RootHandler.readFile(getBattCurrentFile()));
 		}
 		if (current == NO_VALUE_INT) {
 			return NO_VALUE_INT;
@@ -20,9 +26,9 @@ public class BatteryHandler extends HardwareHandler {
 	}
 
 	public static int getBatteryCurrentAverage() {
-		int current = getIntFromStr(readFile(CURRENT_AVG));
+		int current = getIntFromStr(RootHandler.readFile(CURRENT_AVG_FILE));
 		if (current == NO_VALUE_INT) {
-			current = getIntFromStr(readFile(BATT_CURRENT));
+			current = getIntFromStr(RootHandler.readFile(getBattCurrentFile()));
 		}
 		if (current == NO_VALUE_INT) {
 			return NO_VALUE_INT;
@@ -30,12 +36,15 @@ public class BatteryHandler extends HardwareHandler {
 		return Math.abs(current) / 1000;
 	}
 
-	public static int getBatteryLevel() {
-		return getIntFromStr(readFile(CAPACITY));
+	public static File getBattCurrentFile() {
+		if (BATT_CURRENT_FILE == null) {
+			BATT_CURRENT_FILE = new File(BATTERY_DIR, BATT_CURRENT);
+		}
+		return BATT_CURRENT_FILE;
 	}
 
-	private static String readFile(String file) {
-		return RootHandler.readFile(BATTERY_DIR, file);
+	public static int getBatteryLevel() {
+		return getIntFromStr(RootHandler.readFile(CAPACITY_FILE));
 	}
 
 	public static boolean isOnAcPower() {

@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.view.activity;
 
+import java.io.File;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -31,6 +32,7 @@ public class FindFrequenciesActivity extends Activity {
 
 	private class CheckForCpuFrequencies extends AsyncTask<Void, Integer, SortedSet<Integer>> {
 
+		private final File scalingMaxFile = new File(CpuHandler.CPU_DIR, CpuHandler.SCALING_MAX_FREQ);
 		private final int minFreq;
 		private final int maxFreq;
 		private final int step;
@@ -60,7 +62,7 @@ public class FindFrequenciesActivity extends Activity {
 					// pd.setMessage(i + "");
 					pd.setProgress(i);
 				}
-				RootHandler.writeFile(CpuHandler.CPU_DIR, CpuHandler.SCALING_MAX_FREQ, i + "");
+				RootHandler.writeFile(scalingMaxFile, i + "");
 				int f = cpuHandler.getMaxCpuFreq();
 				int cf = cpuHandler.getMaxCpuFreq();
 				// n1: 245000 384000 422400 460800 499200 537600 576000 614400

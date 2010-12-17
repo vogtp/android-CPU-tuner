@@ -3,8 +3,10 @@ package ch.amana.android.cputuner.hw;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -37,6 +39,7 @@ public class CpuHandler extends HardwareHandler {
 	private static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
 
 	private boolean availCpuFreq = true;
+	private final Map<String, File> fileMap = new HashMap<String, File>();
 
 	private static CpuHandler instance = null;
 
@@ -72,7 +75,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setCurGov(String gov) {
-		return writeFile(SCALING_GOVERNOR, gov);
+		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_GOVERNOR), gov);
 	}
 
 	public String[] getAvailCpuGov() {
@@ -88,7 +91,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setUserCpuFreq(int val) {
-		return writeFile(SCALING_SETSPEED, val + "");
+		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_SETSPEED), val + "");
 	}
 
 	public boolean setMaxCpuFreq(int val) {
@@ -96,7 +99,7 @@ public class CpuHandler extends HardwareHandler {
 			RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
 			return false;
 		}
-		return writeFile(SCALING_MAX_FREQ, val + "");
+		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MAX_FREQ), Integer.toString(val));
 	}
 
 	public int getUserCpuFreq() {
@@ -112,15 +115,15 @@ public class CpuHandler extends HardwareHandler {
 			RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
 			return false;
 		}
-		return writeFile(SCALING_MIN_FREQ, i + "");
+		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MIN_FREQ), Integer.toString(i));
 	}
 
 	public int getGovThresholdUp() {
-		return getIntFromStr(readFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP)));
 	}
 
 	public int getGovThresholdDown() {
-		return getIntFromStr(readFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN)));
 	}
 
 	public boolean setGovThresholdUp(int i) {
@@ -131,7 +134,16 @@ public class CpuHandler extends HardwareHandler {
 		if (i <= govThresholdDown) {
 			i = govThresholdDown + 1;
 		}
-		return RootHandler.writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP), i + "");
+	}
+
+	private File getFile(String path, String name) {
+		File file = fileMap.get(name);
+		if (file == null) {
+			file = new File(path, name);
+			fileMap.put(name, file);
+		}
+		return file;
 	}
 
 	public boolean setGovThresholdDown(int i) {
@@ -142,7 +154,7 @@ public class CpuHandler extends HardwareHandler {
 		if (i >= govThresholdUp) {
 			i = govThresholdUp - 1;
 		}
-		return RootHandler.writeFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), i + "");
 	}
 
 	public int[] getAvailCpuFreq() {
@@ -216,15 +228,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	private String readFile(String filename) {
-		return readFile(CPU_DIR, filename);
-	}
-
-	private String readFile(String dir, String filename) {
-		return RootHandler.readFile(dir, filename);
-	}
-
-	private boolean writeFile(String filename, String val) {
-		return RootHandler.writeFile(CPU_DIR, filename, val);
+		return RootHandler.readFile(getFile(CPU_DIR, filename));
 	}
 
 	public boolean hasGov() {
