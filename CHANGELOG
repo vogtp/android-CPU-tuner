@@ -1,10 +1,10 @@
-V 
+V 1.0.1
 * features
 - 
 * bug fixes
--
+- decreased memory footprint
 
-V 1.0.0-rc1 
+V 1.0.0
 * features
 - go back to previous service state  (beta feature)
 - new default profiles (governor thresholds are non power user now)
