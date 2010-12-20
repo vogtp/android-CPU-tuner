@@ -8,6 +8,7 @@ V
 - 
 * bug fixes
 - fix power consumption display  
+- fix error in capability check
 
 V 1.0.1
 * features

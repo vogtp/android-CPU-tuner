@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 
 public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecker> {
@@ -215,6 +216,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		try {
 			SettingsStorage.getInstance().enablePowerUser = true;
 			rooted = RootHandler.isRoot();
+			BatteryReceiver.unregisterBatteryReceiver(ctx);
 
 			governors = cpuHandler.getAvailCpuGov();
 			govChecks = new HashMap<String, CapabilityChecker.GovernorResult>(governors.length);
@@ -252,6 +254,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} catch (Throwable t) {
 			Logger.w("Capability check threw ", t);
 		} finally {
+			BatteryReceiver.registerBatteryReceiver(ctx);
 			SettingsStorage.getInstance().enablePowerUser = powerUser;
 			cpuHandler.applyCpuSettings(currentCpuSettings);
 			pd.dismiss();
