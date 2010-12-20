@@ -5,7 +5,9 @@ V
 - 
 V 
 * features
+- go back to previous service state  (non beta now)
 - move capability check to settings/system
+- make allow manual service changes default 
 * bug fixes
 - fix power consumption display  
 - fix error in capability check

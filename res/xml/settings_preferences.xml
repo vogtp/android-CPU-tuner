@@ -39,7 +39,7 @@
 			<PreferenceCategory android:title="@string/prefCatSystem"
 				android:key="prefKeySystemCat"><Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
 				
-				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges" android:title="@string/prefAllowManualServiceChanges" android:summary="@string/prefAllowManualServiceChangesLong" android:defaultValue="false"></CheckBoxPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference><CheckBoxPreference android:summaryOn="@string/prefPowerUserOn"
+				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges" android:title="@string/prefAllowManualServiceChanges" android:summary="@string/prefAllowManualServiceChangesLong" android:defaultValue="true"></CheckBoxPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference><CheckBoxPreference android:summaryOn="@string/prefPowerUserOn"
 					android:title="@string/prefPowerUser" android:summaryOff="@string/prefPowerUserOff"
 					android:key="prefKeyPowerUser" android:defaultValue="false"></CheckBoxPreference>
 				<CheckBoxPreference android:key="prefKeySystemApp"
