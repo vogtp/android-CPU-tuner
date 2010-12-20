@@ -3,6 +3,13 @@ V
 - 
 * bug fixes
 - 
+
+V 1.1.1
+* features
+- 
+* bug fixes
+- fix power usage display
+ 
 V 1.1.0
 * features
 - go back to previous service state  (non beta now)

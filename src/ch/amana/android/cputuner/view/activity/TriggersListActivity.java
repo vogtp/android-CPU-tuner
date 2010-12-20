@@ -137,7 +137,7 @@ public class TriggersListActivity extends ListActivity {
 						return true;
 					}
 					current /= cnt;
-					if (current < 10000 || current > 10000) {
+					if (current < -10000 || current > 10000) {
 						((TextView) view).setText("-");
 						return true;
 					}
