@@ -119,7 +119,8 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public int getGovThresholdUp() {
-		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP)));
+		String path = CPU_DIR + getCurCpuGov();
+		return getIntFromStr(RootHandler.readFile(getFile(path, GOV_TRESHOLD_UP)));
 	}
 
 	public int getGovThresholdDown() {
@@ -138,7 +139,9 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	private File getFile(String path, String name) {
-		File file = fileMap.get(name);
+		StringBuilder sb = new StringBuilder(path.length() + 30);
+		sb.append(path).append("/").append(name);
+		File file = fileMap.get(sb.toString());
 		if (file == null) {
 			file = new File(path, name);
 			fileMap.put(name, file);

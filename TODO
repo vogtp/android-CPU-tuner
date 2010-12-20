@@ -1,5 +1,6 @@
 
 - prev state non beta?
+
 - figure out how to get avail freqs (if not available)
 - check profile version
 - implement power consumption clearing for profiles (check for modification)

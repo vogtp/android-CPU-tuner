@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefVarious">Various</string>
 	<string name="notAvailable">not available</string>
 	<string name="save">save</string>
 	<string name="cancel">cancel</string>
@@ -136,6 +137,7 @@
 		<item>leave unchanged</item>
 		<item>Enable</item>
 		<item>Disable</item>
+		<item>Back to previous</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
 		<item>leave unchanged</item>
@@ -147,6 +149,7 @@
 		<item>leave unchanged</item>
 		<item>2G only</item>
 		<item>3G/2G</item>
+		<item>Back to previous</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
 		<item>leave unchanged</item>
