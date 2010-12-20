@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefVarious">various</string>
 	<string name="notAvailable">not available</string>
 	<string name="save">save</string>
 	<string name="cancel">cancel</string>

@@ -5,7 +5,7 @@ V
 - 
 V 
 * features
-- 
+- move capability check to settings/system
 * bug fixes
 - fix power consumption display  
 - fix error in capability check
