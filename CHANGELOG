@@ -3,7 +3,7 @@ V
 - 
 * bug fixes
 - 
-V 
+V 1.1.0
 * features
 - go back to previous service state  (non beta now)
 - move capability check to settings/system
