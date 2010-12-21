@@ -205,7 +205,7 @@ public class CpuHandler extends HardwareHandler {
 
 		List<Integer> freqList = new ArrayList<Integer>(freqs.length);
 		for (int i = 0; i < freqs.length; i++) {
-			if (freqs[i] > getMinimumSensibleFrequency()) {
+			if (freqs[i] >= getMinimumSensibleFrequency()) {
 				freqList.add(freqs[i]);
 			}
 		}

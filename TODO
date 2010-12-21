@@ -1,12 +1,13 @@
 
-- populate db in thread
+- user experience levels
+- virtual governors (incl. thresholds) for inexperienced users  
 - set brightness
-- set a black wall paper
+- set a black wall paper (and honour live wallpapers)
 - switch off mobile data
+
+- populate db in thread
 
 - figure out how to get avail freqs (if not available)
 - check profile version
 - implement power consumption clearing for profiles (check for modification)
 
-- user experience levels
-- virtual governors (incl. thresholds) for inexperienced users  

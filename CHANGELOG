@@ -9,6 +9,7 @@ V
 - 
 * bug fixes
 - fix freeze on install profiles
+- fix min displayed frequency to include this frequency
 
 V 1.1.1
 * features
