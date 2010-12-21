@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.widget.Toast;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
@@ -52,60 +53,68 @@ public class InstallHelper {
 	}
 
 	public static void populateDb(Context ctx) {
-		ContentResolver resolver = ctx.getContentResolver();
+		try {
+			PowerProfiles.setUpdateTrigger(false);
 
-		Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
-		if (cP == null || cP.getCount() < 1) {
-			Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
-			if (cT == null || cT.getCount() < 1) {
-				Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
-				CpuHandler cpuHandler = CpuHandler.getInstance();
-				int freqMax = cpuHandler.getMaxCpuFreq();
-				int freqMin = cpuHandler.getMinCpuFreq();
-				if (freqMin < cpuHandler.getMinimumSensibleFrequency()) {
-					int[] availCpuFreq = cpuHandler.getAvailCpuFreq();
-					if (availCpuFreq != null && availCpuFreq.length > 0) {
-						freqMin = availCpuFreq[0];
+			ContentResolver resolver = ctx.getContentResolver();
+
+			Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+			if (cP == null || cP.getCount() < 1) {
+				Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
+				if (cT == null || cT.getCount() < 1) {
+					Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
+					CpuHandler cpuHandler = CpuHandler.getInstance();
+					int freqMax = cpuHandler.getMaxCpuFreq();
+					int freqMin = cpuHandler.getMinCpuFreq();
+					if (freqMin < cpuHandler.getMinimumSensibleFrequency()) {
+						int[] availCpuFreq = cpuHandler.getAvailCpuFreq();
+						if (availCpuFreq != null && availCpuFreq.length > 0) {
+							freqMin = availCpuFreq[0];
+						}
 					}
+					String gov = cpuHandler.getCurCpuGov();
+
+					List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
+
+					long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
+					long profileGood = createCpuProfile(resolver, "Good", getGoodGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
+					long profileNormal = createCpuProfile(resolver, "Normal", getNormalGov(availGov, gov), freqMax, freqMin);
+					long profileScreenOff = createCpuProfile(resolver, "Screen off", getScreenOffGov(availGov, gov), freqMax, freqMin);
+					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
+					long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2,
+							1, 2);
+
+					createTrigger(resolver, "Battery full", 100, profileScreenOff, profileGood, profilePerformance);
+					createTrigger(resolver, "Battery used", 85, profileScreenOff, profileGood, profileGood);
+					createTrigger(resolver, "Battery low", 65, profileScreenOff, profilePowersave, profileNormal);
+					createTrigger(resolver, "Battery empty", 45, profileExtremPowersave, profilePowersave, profilePowersave);
+					createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
+
 				}
-				String gov = cpuHandler.getCurCpuGov();
 
-				List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
-
-				long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
-				long profileGood = createCpuProfile(resolver, "Good", getGoodGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
-				long profileNormal = createCpuProfile(resolver, "Normal", getNormalGov(availGov, gov), freqMax, freqMin);
-				long profileScreenOff = createCpuProfile(resolver, "Screen off", getScreenOffGov(availGov, gov), freqMax, freqMin);
-				long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
-				long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2, 1, 2);
-
-				createTrigger(resolver, "Battery full", 100, profileScreenOff, profileGood, profilePerformance);
-				createTrigger(resolver, "Battery used", 85, profileScreenOff, profileGood, profileGood);
-				createTrigger(resolver, "Battery low", 65, profileScreenOff, profilePowersave, profileNormal);
-				createTrigger(resolver, "Battery empty", 45, profileExtremPowersave, profilePowersave, profilePowersave);
-				createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
-
+				if (cP != null) {
+					cP.close();
+				}
+				if (cT != null) {
+					cT.close();
+				}
 			}
-
-			if (cP != null) {
-				cP.close();
+			Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null,
+					SORT_ORDER);
+			if (cT != null && cT.getCount() > 1) {
+				OpenHelper oh = new OpenHelper(ctx);
+				oh.getReadableDatabase().execSQL(
+						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where "
+								+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " < 1");
+				oh.getReadableDatabase().execSQL(
+						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where "
+								+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " < 1");
 			}
 			if (cT != null) {
 				cT.close();
 			}
-		}
-		Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null, SORT_ORDER);
-		if (cT != null && cT.getCount() > 1) {
-			OpenHelper oh = new OpenHelper(ctx);
-			oh.getReadableDatabase().execSQL(
-					"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where "
-							+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " < 1");
-			oh.getReadableDatabase().execSQL(
-					"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where "
-							+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " < 1");
-		}
-		if (cT != null) {
-			cT.close();
+		} finally {
+			PowerProfiles.setUpdateTrigger(true);
 		}
 	}
 

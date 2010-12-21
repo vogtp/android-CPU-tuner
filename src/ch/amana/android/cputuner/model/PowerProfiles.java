@@ -435,7 +435,7 @@ public class PowerProfiles {
 		return currentTrigger.getName();
 	}
 
-	public void setUpdateTrigger(boolean updateTrigger) {
+	public static void setUpdateTrigger(boolean updateTrigger) {
 		PowerProfiles.updateTrigger = updateTrigger;
 	}
 
