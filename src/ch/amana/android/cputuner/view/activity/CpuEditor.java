@@ -26,12 +26,12 @@ import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class CpuEditor extends Activity {
 
-	private CpuModel cpu;
+	private ProfileModel cpu;
 	private CpuHandler cpuHandler;
 	private Spinner spinnerSetGov;
 	private SeekBar sbCpuFreqMax;
@@ -40,7 +40,7 @@ public class CpuEditor extends Activity {
 	private TextView tvCpuFreqMin;
 	private String[] availCpuGovs;
 	private int[] availCpuFreqs;
-	private CpuModel origCpu;
+	private ProfileModel origCpu;
 	private TextView tvExplainGov;
 	private Spinner spWifi;
 	private Spinner spGps;
@@ -66,8 +66,8 @@ public class CpuEditor extends Activity {
 		if (Intent.ACTION_EDIT.equals(action)) {
 			Cursor c = managedQuery(getIntent().getData(), DB.CpuProfile.PROJECTION_DEFAULT, null, null, null);
 			if (c.moveToFirst()) {
-				cpu = new CpuModel(c);
-				origCpu = new CpuModel(c);
+				cpu = new ProfileModel(c);
+				origCpu = new ProfileModel(c);
 			}
 			c.close();
 		} else if (Intent.ACTION_EDIT.equals(action)) {
@@ -76,8 +76,8 @@ public class CpuEditor extends Activity {
 		}
 
 		if (cpu == null) {
-			cpu = new CpuModel();
-			origCpu = new CpuModel();
+			cpu = new ProfileModel();
+			origCpu = new ProfileModel();
 		}
 
 		setTitle("Profile Editor: " + cpu.getProfileName());
@@ -93,10 +93,10 @@ public class CpuEditor extends Activity {
 			}
 		}
 
-		if (CpuModel.NO_VALUE_INT == cpu.getMinFreq() && availCpuFreqs.length > 0) {
+		if (ProfileModel.NO_VALUE_INT == cpu.getMinFreq() && availCpuFreqs.length > 0) {
 			cpu.setMinFreq(cpuHandler.getMinCpuFreq());
 		}
-		if (CpuModel.NO_VALUE_INT == cpu.getMaxFreq() && availCpuFreqs.length > 0) {
+		if (ProfileModel.NO_VALUE_INT == cpu.getMaxFreq() && availCpuFreqs.length > 0) {
 			cpu.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
@@ -331,7 +331,7 @@ public class CpuEditor extends Activity {
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		if (cpu == null) {
-			cpu = new CpuModel(savedInstanceState);
+			cpu = new ProfileModel(savedInstanceState);
 		} else {
 			cpu.readFromBundle(savedInstanceState);
 		}
@@ -437,7 +437,7 @@ public class CpuEditor extends Activity {
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
-		textView.setText(CpuModel.convertFreq2GHz(val));
+		textView.setText(ProfileModel.convertFreq2GHz(val));
 		for (int i = 0; i < valList.length; i++) {
 			if (val == valList[i]) {
 				seekBar.setProgress(i);

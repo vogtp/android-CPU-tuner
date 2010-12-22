@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
-import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
@@ -214,7 +214,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 
 	private void doCheck() {
 		boolean powerUser = SettingsStorage.getInstance().isPowerUser();
-		final CpuModel currentCpuSettings = cpuHandler.getCurrentCpuSettings();
+		final ProfileModel currentCpuSettings = cpuHandler.getCurrentCpuSettings();
 		Intent batteryServiceIntent = new Intent(ctx, BatteryService.class);
 		try {
 			ctx.stopService(batteryServiceIntent);

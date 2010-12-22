@@ -6,7 +6,7 @@ import android.os.Bundle;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class CpuModel {
+public class ProfileModel {
 
 	public static final String NO_VALUE_STR = "None";
 
@@ -27,19 +27,20 @@ public class CpuModel {
 	private int backgroundSyncState = 0;
 	private int governorThresholdUp = 98;
 	private int governorThresholdDown = 95;
+	private long virtualGovernor = -1;
 
-	public CpuModel() {
+	public ProfileModel() {
 		super();
 	}
 
-	public CpuModel(String gov, int maxFreq, int minFreq) {
+	public ProfileModel(String gov, int maxFreq, int minFreq) {
 		this();
 		this.gov = gov;
 		this.maxFreq = maxFreq;
 		this.minFreq = minFreq;
 	}
 
-	public CpuModel(Cursor c) {
+	public ProfileModel(Cursor c) {
 		this();
 		this.id = c.getLong(DB.INDEX_ID);
 		this.profileName = c.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
@@ -53,9 +54,10 @@ public class CpuModel {
 		this.governorThresholdUp = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_UP);
 		this.governorThresholdDown = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_DOWN);
 		this.backgroundSyncState = c.getInt(DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE);
+		this.virtualGovernor = c.getLong(DB.CpuProfile.INDEX_VIRTUAL_GOVERNOR);
 	}
 
-	public CpuModel(Bundle bundle) {
+	public ProfileModel(Bundle bundle) {
 		this();
 		readFromBundle(bundle);
 	}
@@ -77,6 +79,7 @@ public class CpuModel {
 		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		bundle.putInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
+		bundle.putLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -92,6 +95,7 @@ public class CpuModel {
 		governorThresholdUp = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP);
 		governorThresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN);
 		backgroundSyncState = bundle.getInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE);
+		virtualGovernor = bundle.getLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR);
 	}
 
 	public ContentValues getValues() {
@@ -215,6 +219,7 @@ public class CpuModel {
 		result = prime * result + minFreq;
 		result = prime * result + mobiledataState;
 		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
+		result = prime * result + (int) (virtualGovernor ^ (virtualGovernor >>> 32));
 		result = prime * result + wifiState;
 		return result;
 	}
@@ -227,7 +232,7 @@ public class CpuModel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CpuModel other = (CpuModel) obj;
+		ProfileModel other = (ProfileModel) obj;
 		if (backgroundSyncState != other.backgroundSyncState)
 			return false;
 		if (bluetoothState != other.bluetoothState)
@@ -253,6 +258,8 @@ public class CpuModel {
 			if (other.profileName != null)
 				return false;
 		} else if (!profileName.equals(other.profileName))
+			return false;
+		if (virtualGovernor != other.virtualGovernor)
 			return false;
 		if (wifiState != other.wifiState)
 			return false;
@@ -301,5 +308,13 @@ public class CpuModel {
 
 	public int getBackgroundSyncState() {
 		return backgroundSyncState;
+	}
+
+	public void setVirtualGovernor(long virtualGovernor) {
+		this.virtualGovernor = virtualGovernor;
+	}
+
+	public long getVirtualGovernor() {
+		return virtualGovernor;
 	}
 }

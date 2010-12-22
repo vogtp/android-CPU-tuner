@@ -27,7 +27,7 @@ public class PowerProfiles {
 	private static boolean screenOff;
 	private static boolean batteryHot;
 
-	private static CpuModel currentProfile;
+	private static ProfileModel currentProfile;
 	private static TriggerModel currentTrigger;
 
 	private static boolean updateTrigger = true;
@@ -129,7 +129,7 @@ public class PowerProfiles {
 				c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
 						DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
 				if (c != null && c.moveToFirst()) {
-					currentProfile = new CpuModel(c);
+					currentProfile = new ProfileModel(c);
 
 					CpuHandler cpuHandler = new CpuHandler();
 					cpuHandler.applyCpuSettings(currentProfile);
@@ -443,7 +443,7 @@ public class PowerProfiles {
 		return currentTrigger;
 	}
 
-	public CpuModel getCurrentProfile() {
+	public ProfileModel getCurrentProfile() {
 		return currentProfile;
 	}
 

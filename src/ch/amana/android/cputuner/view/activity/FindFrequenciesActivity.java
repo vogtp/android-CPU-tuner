@@ -18,7 +18,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
-import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.PowerProfiles;
 
 public class FindFrequenciesActivity extends Activity {
@@ -53,7 +53,7 @@ public class FindFrequenciesActivity extends Activity {
 			SortedSet<Integer> freqs = new TreeSet<Integer>();
 			StringBuilder sb = new StringBuilder();
 			PowerProfiles.getInstance().setUpdateTrigger(false);
-			CpuModel cpuSettings = cpuHandler.getCurrentCpuSettings();
+			ProfileModel cpuSettings = cpuHandler.getCurrentCpuSettings();
 			cpuHandler.setCurGov(CpuHandler.GOV_ONDEMAND);
 
 			for (int i = minFreq; i < maxFreq; i += step) {

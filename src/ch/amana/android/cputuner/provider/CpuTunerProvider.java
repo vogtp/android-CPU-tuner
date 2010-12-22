@@ -10,6 +10,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 import ch.amana.android.cputuner.provider.db.DBBackendCpuProfile;
 import ch.amana.android.cputuner.provider.db.DBBackendTrigger;
+import ch.amana.android.cputuner.provider.db.DBBackendVirtualGovernor;
 
 public class CpuTunerProvider extends ContentProvider {
 
@@ -17,6 +18,7 @@ public class CpuTunerProvider extends ContentProvider {
 
 	private static final int TRIGGER = 1;
 	private static final int CPU_PROFILE = 2;
+	private static final int VIRTUAL_GOVERNOR = 3;
 
 	private static final UriMatcher sUriMatcher;
 
@@ -38,6 +40,9 @@ public class CpuTunerProvider extends ContentProvider {
 		case CPU_PROFILE:
 			count = DBBackendCpuProfile.delete(openHelper, uri, selection, selectionArgs);
 			break;
+		case VIRTUAL_GOVERNOR:
+			count = DBBackendVirtualGovernor.delete(openHelper, uri, selection, selectionArgs);
+			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -53,6 +58,8 @@ public class CpuTunerProvider extends ContentProvider {
 			return DBBackendTrigger.getType(uri);
 		case CPU_PROFILE:
 			return DBBackendCpuProfile.getType(uri);
+		case VIRTUAL_GOVERNOR:
+			return DBBackendVirtualGovernor.getType(uri);
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -67,6 +74,9 @@ public class CpuTunerProvider extends ContentProvider {
 			break;
 		case CPU_PROFILE:
 			ret = DBBackendCpuProfile.insert(openHelper, uri, initialValues);
+			break;
+		case VIRTUAL_GOVERNOR:
+			ret = DBBackendVirtualGovernor.insert(openHelper, uri, initialValues);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
@@ -85,6 +95,9 @@ public class CpuTunerProvider extends ContentProvider {
 			break;
 		case CPU_PROFILE:
 			c = DBBackendCpuProfile.query(openHelper, uri, projection, selection, selectionArgs, sortOrder);
+			break;
+		case VIRTUAL_GOVERNOR:
+			c = DBBackendVirtualGovernor.query(openHelper, uri, projection, selection, selectionArgs, sortOrder);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
@@ -106,6 +119,9 @@ public class CpuTunerProvider extends ContentProvider {
 		case CPU_PROFILE:
 			count = DBBackendCpuProfile.update(openHelper, uri, values, selection, selectionArgs);
 			break;
+		case VIRTUAL_GOVERNOR:
+			count = DBBackendVirtualGovernor.update(openHelper, uri, values, selection, selectionArgs);
+			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -125,7 +141,8 @@ public class CpuTunerProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DB.Trigger.CONTENT_ITEM_NAME + "/#", TRIGGER);
 		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME, CPU_PROFILE);
 		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME + "/#", CPU_PROFILE);
-
+		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME, VIRTUAL_GOVERNOR);
+		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME + "/#", VIRTUAL_GOVERNOR);
 	}
 
 }

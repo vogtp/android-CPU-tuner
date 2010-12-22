@@ -12,7 +12,7 @@ import java.util.WeakHashMap;
 
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandler extends HardwareHandler {
 
@@ -50,11 +50,11 @@ public class CpuHandler extends HardwareHandler {
 		return instance;
 	}
 
-	public CpuModel getCurrentCpuSettings() {
-		return new CpuModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq());
+	public ProfileModel getCurrentCpuSettings() {
+		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq());
 	}
 
-	public void applyCpuSettings(CpuModel cpu) {
+	public void applyCpuSettings(ProfileModel cpu) {
 		setCurGov(cpu.getGov());
 		if (GOV_USERSPACE.equals(cpu.getGov())) {
 			setUserCpuFreq(cpu.getMaxFreq());

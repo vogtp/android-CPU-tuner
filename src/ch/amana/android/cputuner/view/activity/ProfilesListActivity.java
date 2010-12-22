@@ -24,7 +24,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -54,7 +54,7 @@ public class ProfilesListActivity extends ListActivity {
 					return false;
 				}
 				if (columnIndex == DB.CpuProfile.INDEX_PROFILE_NAME) {
-					CpuModel currentProfile = PowerProfiles.getInstance().getCurrentProfile();
+					ProfileModel currentProfile = PowerProfiles.getInstance().getCurrentProfile();
 					int color = Color.LTGRAY;
 					if (currentProfile != null && currentProfile.getDbId() == cursor.getLong(DB.INDEX_ID)) {
 						color = Color.GREEN;
@@ -64,7 +64,7 @@ public class ProfilesListActivity extends ListActivity {
 						|| columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MAX) {
 					int freq = cursor.getInt(columnIndex);
 
-					((TextView) view).setText(CpuModel.convertFreq2GHz(freq));
+					((TextView) view).setText(ProfileModel.convertFreq2GHz(freq));
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
 					TextView textView = (TextView) view;
