@@ -39,8 +39,8 @@ public class SettingsStorage {
 	private boolean toastNotifications;
 	private boolean allowManualServiceChanges;
 	private boolean checkedAllowManualServiceChanges = false;
-	private boolean checkPowerUser = false;
-	boolean enablePowerUser;
+	private boolean checkUserLevel = false;
+	int userLevel;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -49,7 +49,7 @@ public class SettingsStorage {
 		checkedStatusbarNotifications = false;
 		checkedToastNotifications = false;
 		checkedAllowManualServiceChanges = false;
-		checkPowerUser = false;
+		checkUserLevel = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -65,6 +65,16 @@ public class SettingsStorage {
 	protected SettingsStorage(Context ctx) {
 		super();
 		context = ctx;
+		if (getPreferences().contains("prefKeyPowerUser")) {
+			Editor editor = getPreferences().edit();
+			if (getPreferences().getBoolean("prefKeyPowerUser", false)) {
+				editor.putString("prefKeyUserLevel", "3");
+			} else {
+				editor.putString("prefKeyUserLevel", "2");
+			}
+			editor.remove("prefKeyPowerUser");
+			editor.commit();
+		}
 	}
 
 	protected SharedPreferences getPreferences() {
@@ -121,12 +131,17 @@ public class SettingsStorage {
 		return enableBeta;
 	}
 
-	public boolean isPowerUser() {
-		if (!checkPowerUser) {
-			checkPowerUser = true;
-			enablePowerUser = getPreferences().getBoolean("prefKeyPowerUser", false);
+	public int getUserLevel() {
+		if (!checkUserLevel) {
+			checkUserLevel = true;
+			try {
+				userLevel = Integer.parseInt(getPreferences().getString("prefKeyUserLevel", "2"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyUserLevel as int", e);
+				userLevel = 2;
+			}
 		}
-		return enablePowerUser;
+		return userLevel;
 	}
 
 	public int getTrackCurrentType() {
@@ -194,5 +209,9 @@ public class SettingsStorage {
 			Logger.w("Error parsing fot MinimumSensibeFrequency ", e);
 			return 400;
 		}
+	}
+
+	public boolean isPowerUser() {
+		return getUserLevel() > 2;
 	}
 }

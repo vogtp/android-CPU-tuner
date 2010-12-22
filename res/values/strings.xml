@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefUserLevelLong">Determines how difficult to settings are, and how much you can interfere.</string>
+    <string name="prefUserLevel">Experience Level</string>
     <string name="prefVarious">Various</string>
 	<string name="notAvailable">not available</string>
 	<string name="save">save</string>
@@ -28,9 +30,6 @@
 	<string name="prefKeyCalcPowerUsageLong">This might cost some battery</string>
 	<string name="prefKeyCalcPowerUsage">Calculate power usage</string>
 	<string name="menuItemClearPowerCurrent">Clear power usage</string>
-	<string name="prefPowerUserOn">You\'re the boss!</string>
-	<string name="prefPowerUserOff">cpu tuner tries to be clever...</string>
-	<string name="prefPowerUser">Power user mode</string>
 	<string name="menuItemInsert">Insert</string>
 	<string name="menuItemEdit">Edit</string>
 	<string name="menuItemDelete">Delete</string>
@@ -163,6 +162,16 @@
 		<item>No calculation</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageValues">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+	<string-array name="prefUserLevelEntries">
+		<item>cpu tuner tries to be clever.</item>
+		<item>cpu tuner tries to support you.</item>
+		<item>You\'re the boss!</item>
+	</string-array>
+	<string-array name="prefUserLevelValues">
 		<item>1</item>
 		<item>2</item>
 		<item>3</item>

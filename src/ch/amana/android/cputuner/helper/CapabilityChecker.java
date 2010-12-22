@@ -213,12 +213,12 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	private final CpuHandler cpuHandler;
 
 	private void doCheck() {
-		boolean powerUser = SettingsStorage.getInstance().isPowerUser();
+		int userLevel = SettingsStorage.getInstance().getUserLevel();
 		final ProfileModel currentCpuSettings = cpuHandler.getCurrentCpuSettings();
 		Intent batteryServiceIntent = new Intent(ctx, BatteryService.class);
 		try {
 			ctx.stopService(batteryServiceIntent);
-			SettingsStorage.getInstance().enablePowerUser = true;
+			SettingsStorage.getInstance().userLevel = 3;
 			rooted = RootHandler.isRoot();
 			BatteryReceiver.unregisterBatteryReceiver(ctx);
 
@@ -259,7 +259,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			Logger.w("Capability check threw ", t);
 		} finally {
 			ctx.startService(batteryServiceIntent);
-			SettingsStorage.getInstance().enablePowerUser = powerUser;
+			SettingsStorage.getInstance().userLevel = userLevel;
 			cpuHandler.applyCpuSettings(currentCpuSettings);
 			pd.dismiss();
 		}
