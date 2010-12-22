@@ -87,7 +87,7 @@ public class CpuEditor extends Activity {
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
 		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency()
-				&& !SettingsStorage.getInstance().isPowerUser()) {
+				&& SettingsStorage.getInstance().isBeginnerUser()) {
 			if (availCpuFreqs != null && availCpuFreqs.length > 0) {
 				profile.setMinFreq(availCpuFreqs[0]);
 			}

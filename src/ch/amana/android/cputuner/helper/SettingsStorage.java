@@ -211,7 +211,12 @@ public class SettingsStorage {
 		}
 	}
 
+	public boolean isBeginnerUser() {
+		return getUserLevel() == 1;
+	}
+
 	public boolean isPowerUser() {
 		return getUserLevel() > 2;
 	}
+
 }
