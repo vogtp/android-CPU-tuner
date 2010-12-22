@@ -26,8 +26,8 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
-import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.model.ProfileModel;
 
 public class TuneCpu extends Activity {
 
@@ -99,7 +99,7 @@ public class TuneCpu extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.cur_cpu_info);
+		setContentView(R.layout.cur_info);
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();
 

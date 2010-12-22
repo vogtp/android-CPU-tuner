@@ -31,7 +31,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 
 public class CpuEditor extends Activity {
 
-	private ProfileModel cpu;
+	private ProfileModel profile;
 	private CpuHandler cpuHandler;
 	private Spinner spinnerSetGov;
 	private SeekBar sbCpuFreqMax;
@@ -40,7 +40,7 @@ public class CpuEditor extends Activity {
 	private TextView tvCpuFreqMin;
 	private String[] availCpuGovs;
 	private int[] availCpuFreqs;
-	private ProfileModel origCpu;
+	private ProfileModel origProfile;
 	private TextView tvExplainGov;
 	private Spinner spWifi;
 	private Spinner spGps;
@@ -60,52 +60,52 @@ public class CpuEditor extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.cpu_editor);
+		setContentView(R.layout.profile_editor);
 
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			Cursor c = managedQuery(getIntent().getData(), DB.CpuProfile.PROJECTION_DEFAULT, null, null, null);
 			if (c.moveToFirst()) {
-				cpu = new ProfileModel(c);
-				origCpu = new ProfileModel(c);
+				profile = new ProfileModel(c);
+				origProfile = new ProfileModel(c);
 			}
 			c.close();
 		} else if (Intent.ACTION_EDIT.equals(action)) {
-			cpu = CpuHandler.getInstance().getCurrentCpuSettings();
-			origCpu = CpuHandler.getInstance().getCurrentCpuSettings();
+			profile = CpuHandler.getInstance().getCurrentCpuSettings();
+			origProfile = CpuHandler.getInstance().getCurrentCpuSettings();
 		}
 
-		if (cpu == null) {
-			cpu = new ProfileModel();
-			origCpu = new ProfileModel();
+		if (profile == null) {
+			profile = new ProfileModel();
+			origProfile = new ProfileModel();
 		}
 
-		setTitle("Profile Editor: " + cpu.getProfileName());
+		setTitle("Profile Editor: " + profile.getProfileName());
 
 		cpuHandler = CpuHandler.getInstance();
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
-		if (cpu.getMinFreq() < cpuHandler.getMinimumSensibleFrequency()
+		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency()
 				&& !SettingsStorage.getInstance().isPowerUser()) {
 			if (availCpuFreqs != null && availCpuFreqs.length > 0) {
-				cpu.setMinFreq(availCpuFreqs[0]);
+				profile.setMinFreq(availCpuFreqs[0]);
 			}
 		}
 
-		if (ProfileModel.NO_VALUE_INT == cpu.getMinFreq() && availCpuFreqs.length > 0) {
-			cpu.setMinFreq(cpuHandler.getMinCpuFreq());
+		if (ProfileModel.NO_VALUE_INT == profile.getMinFreq() && availCpuFreqs.length > 0) {
+			profile.setMinFreq(cpuHandler.getMinCpuFreq());
 		}
-		if (ProfileModel.NO_VALUE_INT == cpu.getMaxFreq() && availCpuFreqs.length > 0) {
-			cpu.setMaxFreq(cpuHandler.getMaxCpuFreq());
+		if (ProfileModel.NO_VALUE_INT == profile.getMaxFreq() && availCpuFreqs.length > 0) {
+			profile.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
-		hasDeviceStatesBeta = 3 == Math.max(cpu.getWifiState(),
-				Math.max(cpu.getGpsState(),
-						Math.max(cpu.getMobiledataState(),
-								Math.max(cpu.getBluetoothState(),
-										Math.max(cpu.getBackgroundSyncState(),
-												cpu.getWifiState())))));
+		hasDeviceStatesBeta = 3 == Math.max(profile.getWifiState(),
+				Math.max(profile.getGpsState(),
+						Math.max(profile.getMobiledataState(),
+								Math.max(profile.getBluetoothState(),
+										Math.max(profile.getBackgroundSyncState(),
+												profile.getWifiState())))));
 
 		etName = (EditText) findViewById(R.id.etName);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
@@ -138,7 +138,7 @@ public class CpuEditor extends Activity {
 				try {
 					updateModel();
 					int val = availCpuFreqs[seekBar.getProgress()];
-					cpu.setMaxFreq(val);
+					profile.setMaxFreq(val);
 					updateView();
 
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -162,9 +162,9 @@ public class CpuEditor extends Activity {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
 					updateModel();
-					if (!CpuHandler.GOV_USERSPACE.equals(cpu.getGov())) {
+					if (!CpuHandler.GOV_USERSPACE.equals(profile.getGov())) {
 						int val = availCpuFreqs[seekBar.getProgress()];
-						cpu.setMinFreq(val);
+						profile.setMinFreq(val);
 					}
 					updateView();
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -190,7 +190,7 @@ public class CpuEditor extends Activity {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				updateModel();
 				String gov = parent.getItemAtPosition(pos).toString();
-				cpu.setGov(gov);
+				profile.setGov(gov);
 				updateView();
 			}
 
@@ -206,7 +206,7 @@ public class CpuEditor extends Activity {
 			spWifi.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-					cpu.setWifiState(pos);
+					profile.setWifiState(pos);
 				}
 
 				@Override
@@ -223,7 +223,7 @@ public class CpuEditor extends Activity {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-					cpu.setGpsState(pos);
+					profile.setGpsState(pos);
 				}
 
 				@Override
@@ -240,7 +240,7 @@ public class CpuEditor extends Activity {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-					cpu.setBluetoothState(pos);
+					profile.setBluetoothState(pos);
 				}
 
 				@Override
@@ -263,7 +263,7 @@ public class CpuEditor extends Activity {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-					cpu.setMobiledataState(pos);
+					profile.setMobiledataState(pos);
 
 				}
 
@@ -281,7 +281,7 @@ public class CpuEditor extends Activity {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-					cpu.setBackgroundSyncState(pos);
+					profile.setBackgroundSyncState(pos);
 				}
 
 				@Override
@@ -318,22 +318,22 @@ public class CpuEditor extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		updateModel();
-		cpu.saveToBundle(outState);
+		profile.saveToBundle(outState);
 		super.onSaveInstanceState(outState);
 	}
 
 	private void updateModel() {
-		cpu.setProfileName(etName.getText().toString());
-		cpu.setGovernorThresholdUp(etGovTreshUp.getText().toString());
-		cpu.setGovernorThresholdDown(etGovTreshDown.getText().toString());
+		profile.setProfileName(etName.getText().toString());
+		profile.setGovernorThresholdUp(etGovTreshUp.getText().toString());
+		profile.setGovernorThresholdDown(etGovTreshDown.getText().toString());
 	}
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		if (cpu == null) {
-			cpu = new ProfileModel(savedInstanceState);
+		if (profile == null) {
+			profile = new ProfileModel(savedInstanceState);
 		} else {
-			cpu.readFromBundle(savedInstanceState);
+			profile.readFromBundle(savedInstanceState);
 		}
 		super.onRestoreInstanceState(savedInstanceState);
 	}
@@ -351,17 +351,17 @@ public class CpuEditor extends Activity {
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
-				Uri uri = getContentResolver().insert(DB.CpuProfile.CONTENT_URI, cpu.getValues());
+				Uri uri = getContentResolver().insert(DB.CpuProfile.CONTENT_URI, profile.getValues());
 				long id = ContentUris.parseId(uri);
 				if (id > 0) {
-					cpu.setDbId(id);
+					profile.setDbId(id);
 				}
 			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (origCpu.equals(cpu)) {
+				if (origProfile.equals(profile)) {
 					return;
 				}
-				if (!cpu.equals(origCpu)) {
-					getContentResolver().update(DB.CpuProfile.CONTENT_URI, cpu.getValues(), DB.NAME_ID + "=?", new String[] { cpu.getDbId() + "" });
+				if (!profile.equals(origProfile)) {
+					getContentResolver().update(DB.CpuProfile.CONTENT_URI, profile.getValues(), DB.NAME_ID + "=?", new String[] { profile.getDbId() + "" });
 				}
 			}
 		} catch (Exception e) {
@@ -371,21 +371,21 @@ public class CpuEditor extends Activity {
 	}
 
 	private void updateView() {
-		etName.setText(cpu.getProfileName());
-		setSeekbar(cpu.getMaxFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpu.getMinFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
-		String curGov = cpu.getGov();
+		etName.setText(profile.getProfileName());
+		setSeekbar(profile.getMaxFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
+		setSeekbar(profile.getMinFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
+		String curGov = profile.getGov();
 		for (int i = 0; i < availCpuGovs.length; i++) {
 			if (curGov.equals(availCpuGovs[i])) {
 				spinnerSetGov.setSelection(i);
 			}
 		}
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, curGov));
-		spWifi.setSelection(cpu.getWifiState());
-		spGps.setSelection(cpu.getGpsState());
-		spBluetooth.setSelection(cpu.getBluetoothState());
-		spMobileData3G.setSelection(cpu.getMobiledataState());
-		spSync.setSelection(cpu.getBackgroundSyncState());
+		spWifi.setSelection(profile.getWifiState());
+		spGps.setSelection(profile.getGpsState());
+		spBluetooth.setSelection(profile.getBluetoothState());
+		spMobileData3G.setSelection(profile.getMobiledataState());
+		spSync.setSelection(profile.getBackgroundSyncState());
 		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
 			labelCpuFreqMax.setText(R.string.labelCpuFreq);
 			labelCpuFreqMin.setVisibility(View.INVISIBLE);
@@ -401,7 +401,7 @@ public class CpuEditor extends Activity {
 	}
 
 	private void updateGovernorFeatures() {
-		String gov = cpu.getGov();
+		String gov = profile.getGov();
 
 		boolean hasThreshholdUpFeature = true;
 		boolean hasThreshholdDownFeature = true;
@@ -419,7 +419,7 @@ public class CpuEditor extends Activity {
 		if (hasThreshholdUpFeature) {
 			labelGovThreshUp.setVisibility(View.VISIBLE);
 			etGovTreshUp.setVisibility(View.VISIBLE);
-			etGovTreshUp.setText(cpu.getGovernorThresholdUp() + "");
+			etGovTreshUp.setText(profile.getGovernorThresholdUp() + "");
 		} else {
 			labelGovThreshUp.setVisibility(View.INVISIBLE);
 			etGovTreshUp.setVisibility(View.INVISIBLE);
@@ -428,7 +428,7 @@ public class CpuEditor extends Activity {
 		if (hasThreshholdDownFeature) {
 			labelGovThreshDown.setVisibility(View.VISIBLE);
 			etGovTreshDown.setVisibility(View.VISIBLE);
-			etGovTreshDown.setText(cpu.getGovernorThresholdDown() + "");
+			etGovTreshDown.setText(profile.getGovernorThresholdDown() + "");
 		} else {
 			labelGovThreshDown.setVisibility(View.INVISIBLE);
 			etGovTreshDown.setVisibility(View.INVISIBLE);
@@ -457,8 +457,8 @@ public class CpuEditor extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
 			Bundle bundle = new Bundle();
-			origCpu.saveToBundle(bundle);
-			cpu.readFromBundle(bundle);
+			origProfile.saveToBundle(bundle);
+			profile.readFromBundle(bundle);
 			updateView();
 			finish();
 			break;

@@ -24,8 +24,8 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfilesListActivity extends ListActivity {
@@ -38,7 +38,7 @@ public class ProfilesListActivity extends ListActivity {
 
 		Cursor c = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.cpu_item, c,
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.profile_item, c,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR, DB.CpuProfile.NAME_FREQUENCY_MIN,
 						DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
 						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_STATE,
