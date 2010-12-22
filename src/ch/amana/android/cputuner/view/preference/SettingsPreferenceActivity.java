@@ -106,6 +106,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+
 	}
 
 	@Override

@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Looper;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuTunerTabActivity;
@@ -45,7 +47,12 @@ public class Notifier {
 		Logger.i("Notifier: " + msg);
 		if (level <= curLevel && SettingsStorage.getInstance().isToastNotifications()) {
 			// FIXME fc when toastin from service
-			// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+			try {
+				Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+			} catch (Throwable e) {
+				Looper.prepare();
+				Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
@@ -57,6 +64,7 @@ public class Notifier {
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 			notificationManager.notify(NOTIFICATION_PROFILE, notification);
+			notify(context, contentText, 0);
 		}
 	}
 
