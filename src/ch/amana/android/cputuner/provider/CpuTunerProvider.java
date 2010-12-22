@@ -141,8 +141,8 @@ public class CpuTunerProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DB.Trigger.CONTENT_ITEM_NAME + "/#", TRIGGER);
 		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME, CPU_PROFILE);
 		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME + "/#", CPU_PROFILE);
-		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME, VIRTUAL_GOVERNOR);
-		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME + "/#", VIRTUAL_GOVERNOR);
+		sUriMatcher.addURI(AUTHORITY, DB.VirtualGovernor.CONTENT_ITEM_NAME, VIRTUAL_GOVERNOR);
+		sUriMatcher.addURI(AUTHORITY, DB.VirtualGovernor.CONTENT_ITEM_NAME + "/#", VIRTUAL_GOVERNOR);
 	}
 
 }
