@@ -24,7 +24,7 @@
 					android:summaryOn="@string/prefKeyEnableProfilesOn"></CheckBoxPreference>
 				<CheckBoxPreference android:key="prefKeyToastNotifications"
 					android:title="@string/prefToastNotifications"
-					android:defaultValue="false" android:selectable="false" android:shouldDisableView="true" android:enabled="false"></CheckBoxPreference>
+					android:defaultValue="false"></CheckBoxPreference>
 			</PreferenceCategory>
 		</PreferenceScreen>
 	
