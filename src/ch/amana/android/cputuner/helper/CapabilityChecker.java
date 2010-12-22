@@ -7,11 +7,13 @@ import java.util.Map;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.receiver.BatteryReceiver;
+import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 
 public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecker> {
@@ -213,7 +215,9 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	private void doCheck() {
 		boolean powerUser = SettingsStorage.getInstance().isPowerUser();
 		final CpuModel currentCpuSettings = cpuHandler.getCurrentCpuSettings();
+		Intent batteryServiceIntent = new Intent(ctx, BatteryService.class);
 		try {
+			ctx.stopService(batteryServiceIntent);
 			SettingsStorage.getInstance().enablePowerUser = true;
 			rooted = RootHandler.isRoot();
 			BatteryReceiver.unregisterBatteryReceiver(ctx);
@@ -254,7 +258,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} catch (Throwable t) {
 			Logger.w("Capability check threw ", t);
 		} finally {
-			BatteryReceiver.registerBatteryReceiver(ctx);
+			ctx.startService(batteryServiceIntent);
 			SettingsStorage.getInstance().enablePowerUser = powerUser;
 			cpuHandler.applyCpuSettings(currentCpuSettings);
 			pd.dismiss();
