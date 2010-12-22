@@ -3,12 +3,12 @@ package ch.amana.android.cputuner.hw;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.WeakHashMap;
 
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -39,7 +39,7 @@ public class CpuHandler extends HardwareHandler {
 	private static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
 
 	private boolean availCpuFreq = true;
-	private final Map<String, File> fileMap = new HashMap<String, File>();
+	private final Map<String, File> fileMap = new WeakHashMap<String, File>();
 
 	private static CpuHandler instance = null;
 
