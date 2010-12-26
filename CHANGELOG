@@ -6,9 +6,17 @@ V
 
 V 1.2.0
 * features
-- new user experience levels (power user mode removed)
+- 
 * bug fixes
 - toast notifications are back
+
+
+V 1.1.3
+* features
+- 
+* bug fixes
+- toast notifications are back
+- fix phone call hang up on mobiledata change
 
 V 1.1.2
 * features

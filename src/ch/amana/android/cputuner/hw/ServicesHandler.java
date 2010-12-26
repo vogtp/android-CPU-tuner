@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.provider.Settings.SettingNotFoundException;
+import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 import ch.amana.android.cputuner.helper.Logger;
 
@@ -80,6 +81,12 @@ public class ServicesHandler {
 		 * 0 = GSM / WCDMA preferred
 		 * 
 		 */
+		TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		if (tm.getCallState() != TelephonyManager.CALL_STATE_IDLE) {
+			Logger.w("Phone not idle, not switching moble data");
+			return;
+		}
+
 		int state = -7;
 		if (b) {
 			state = MODE_GSM_ONLY;
