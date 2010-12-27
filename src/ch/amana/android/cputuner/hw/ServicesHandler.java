@@ -78,6 +78,11 @@ public class ServicesHandler {
 		return getMobiledataState(context) == MODE_GSM_ONLY;
 	}
 
+	public static boolean isPhoneIdle(Context context) {
+		final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		return tm.getCallState() == TelephonyManager.CALL_STATE_IDLE;
+	}
+
 	// From:
 	// /cyanogen/frameworks/base/services/java/com/android/server/status/widget/NetworkModeButton.java
 	// line 97
@@ -88,8 +93,8 @@ public class ServicesHandler {
 		 * 0 = GSM / WCDMA preferred
 		 * 
 		 */
-		TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-		if (tm.getCallState() != TelephonyManager.CALL_STATE_IDLE) {
+
+		if (!isPhoneIdle(context)) {
 			Logger.w("Phone not idle, not switching moble data");
 			return;
 		}

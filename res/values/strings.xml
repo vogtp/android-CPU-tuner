@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="prefSwitchWifiOnConnectedNetworkLong">Switch wifi if a network over wifi is established.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Profiles switches are allowed during phone calls. Mobiledata will never be switched during calls, regardless of the state of this option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Profiles switches are forbidden during phone calls. Mobiledata will never be switched during calls, regardless of the state of this option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdle">Switch profile during call</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOn">Wifi will be switch off even if connected to a wifi network.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOff">Wifi will not be switch off if connected to a wifi network.</string>
     <string name="prefSwitchWifiOnConnectedNetwork">Switch wifi if connected</string>
     <string name="prefServiceSwitches">Service Switches</string>
     <string name="prefUserLevelLong">Determines how difficult to settings are, and how much you can interfere.</string>
@@ -17,8 +21,9 @@
 	<string name="prefResetToDefault">Reset Profiles and Triggers</string>
 	<string name="prefKeyProfiles">Profiles and triggers</string>
 	<string name="prefBuyMeABeer">Buy me a beer</string>
-	<string name="prefAllowManualServiceChangesLong">Do not change service state if modified manually
-		and no trigger change happened</string>
+	<string name="prefAllowManualServiceChangesOn">Do not change the state of a service if it was modified manually
+		and no trigger change happened since then.</string>
+	<string name="prefAllowManualServiceChangesOff">Do change the state of a service regardless if it was modified manually.</string>
 	<string name="prefAllowManualServiceChanges">Manual service changes</string>
 	<string name="hintMailBody">Add some information about the problem you are
 		experiencing.</string>
@@ -88,7 +93,7 @@
 	<string name="prefApplyOnBootOn">CPU tuner will continue set CPU profiles after a
 		restart.</string>
 	<string name="prefApplyOnBootOff">CPU tuner not is started at boot time, no automatic
-		management of CPU profiles is active.</string>
+		management of CPU profiles is active after a reboot.</string>
 	<string name="labelPowerProfile">Power Profile: </string>
 	<string name="spinnerPromptGov">Select governor</string>
 	<string name="buApplyCurProfile">Apply to current CPU profile</string>

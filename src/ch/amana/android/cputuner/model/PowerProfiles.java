@@ -124,6 +124,10 @@ public class PowerProfiles {
 		}
 
 		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
+			if (!SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
+				Logger.i("Not switching profile since phone not idle");
+				return;
+			}
 			Cursor c = null;
 			try {
 				c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,

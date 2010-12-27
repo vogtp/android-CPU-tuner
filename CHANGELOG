@@ -6,7 +6,8 @@ V
 
 V 1.2.0
 * features
-- do not change wifi while connected to a network (setting default: off)
+- do not change wifi while connected to a network (settings default: off)
+- do not change profiles during a phone call at all (settings default: off)
 * bug fixes
 - 
 

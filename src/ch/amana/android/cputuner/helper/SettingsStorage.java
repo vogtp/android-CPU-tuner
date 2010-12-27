@@ -222,4 +222,8 @@ public class SettingsStorage {
 	public boolean isSwitchWifiOnConnectedNetwork() {
 		return getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", true);
 	}
+
+	public boolean isSwitchProfileWhilePhoneNotIdle() {
+		return getPreferences().getBoolean("prefKeySwitchProfileWhilePhoneNotIdle", true);
+	}
 }
