@@ -6,14 +6,14 @@ V
 
 V 1.2.0
 * features
-- 
+- do not change wifi while connected to a network (setting default: off)
 * bug fixes
-- toast notifications are back
+- 
 
 
 V 1.1.3
 * features
-- 
+- new user experience levels (power user mode removed)
 * bug fixes
 - toast notifications are back
 - fix phone call hang up on mobiledata change

@@ -32,26 +32,25 @@
 	<PreferenceCategory android:title="@string/prefCatSystem"
 		android:key="prefKeySystemCat">
 		
-		<PreferenceScreen android:title="@string/prefCatSystem"
+		<PreferenceScreen android:key="prefKeyServiceSwitches" android:title="@string/prefServiceSwitches"><PreferenceCategory android:key="prefKeyServiceSwitches" android:title="@string/prefServiceSwitches"><CheckBoxPreference android:key="prefKeyAllowManualServiceChanges" android:title="@string/prefAllowManualServiceChanges" android:summary="@string/prefAllowManualServiceChangesLong" android:defaultValue="true"></CheckBoxPreference><CheckBoxPreference android:defaultValue="true" android:key="prefKeySwitchWifiOnConnectedNetwork" android:title="@string/prefSwitchWifiOnConnectedNetwork" android:summary="@string/prefSwitchWifiOnConnectedNetworkLong"></CheckBoxPreference>
+</PreferenceCategory>
+</PreferenceScreen><PreferenceScreen android:title="@string/prefCatSystem"
 			android:key="prefKeySystemScreen">
 
 
-			<PreferenceCategory android:title="@string/prefCatSystem"
-				android:key="prefKeySystemCat"><Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
+			
+
+		<PreferenceCategory android:title="@string/prefCatSystem" android:key="prefKeySystemCat"><Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
 				
-				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges" android:title="@string/prefAllowManualServiceChanges" android:summary="@string/prefAllowManualServiceChangesLong" android:defaultValue="true"></CheckBoxPreference><ListPreference android:title="@string/prefUserLevel" android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong" android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference>
-				<CheckBoxPreference android:key="prefKeySystemApp"
-					android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp"
-					android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
-				<EditTextPreference android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq"
-					android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
+				<ListPreference android:title="@string/prefUserLevel" android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong" android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference>
+				<CheckBoxPreference android:key="prefKeySystemApp" android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp" android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
+				<EditTextPreference android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
 			
 
 
 
-</PreferenceCategory>
 
-		</PreferenceScreen>
+</PreferenceCategory></PreferenceScreen>
 	</PreferenceCategory>
 
 	

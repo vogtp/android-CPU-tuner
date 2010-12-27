@@ -10,6 +10,7 @@ import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class ServicesHandler {
 
@@ -19,12 +20,18 @@ public class ServicesHandler {
 	private static final String NETWORK_MODE = "networkMode";
 	private static WifiManager wifi;
 
-	public static void enableWifi(Context ctx, boolean enabled) {
+	public static void enableWifi(Context ctx, boolean enable) {
 		if (wifi == null) {
 			wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		}
-		wifi.setWifiEnabled(enabled);
-		Logger.i("Switched Wifi to " + enabled);
+		if (!enable && !SettingsStorage.getInstance().isSwitchWifiOnConnectedNetwork()
+				&& wifi.getConnectionInfo().getNetworkId() > -1) {
+			Logger.i("Not switching wifi since we are connected!");
+			return;
+		}
+		if (wifi.setWifiEnabled(enable)) {
+			Logger.i("Switched Wifi to " + enable);
+		}
 	}
 
 	public static boolean isWifiEnabaled(Context ctx) {
@@ -38,8 +45,8 @@ public class ServicesHandler {
 		return GpsHandler.isGpxEnabled(ctx);
 	}
 
-	public static void enableGps(Context ctx, boolean enabled) {
-		GpsHandler.enableGps(ctx, enabled);
+	public static void enableGps(Context ctx, boolean enable) {
+		GpsHandler.enableGps(ctx, enable);
 	}
 
 	public static boolean isBlutoothEnabled() {
@@ -50,21 +57,21 @@ public class ServicesHandler {
 		return bluetoothAdapter.isEnabled();
 	}
 
-	public static void enableBluetooth(boolean enabled) {
+	public static void enableBluetooth(boolean enable) {
 		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (bluetoothAdapter == null) {
 			return;
 		}
-		if (bluetoothAdapter.isEnabled() == enabled) {
+		if (bluetoothAdapter.isEnabled() == enable) {
 			Logger.i("Allready correct bluethooth state ");
 			return;
 		}
-		if (enabled) {
+		if (enable) {
 			bluetoothAdapter.enable();
 		} else {
 			bluetoothAdapter.disable();
 		}
-		Logger.i("Switched bluethooth to " + enabled);
+		Logger.i("Switched bluethooth to " + enable);
 	}
 
 	public static boolean is2gOnlyEnabled(Context context) {
@@ -74,7 +81,7 @@ public class ServicesHandler {
 	// From:
 	// /cyanogen/frameworks/base/services/java/com/android/server/status/widget/NetworkModeButton.java
 	// line 97
-	public static void enable2gOnly(Context context, boolean b) {
+	public static void enable2gOnly(Context context, boolean only2g) {
 		/**
 		 * The preferred network mode 7 = Global 6 = EvDo only 5 = CDMA w/o EvDo
 		 * 4 = CDMA / EvDo auto 3 = GSM / WCDMA auto 2 = WCDMA only 1 = GSM only
@@ -88,7 +95,7 @@ public class ServicesHandler {
 		}
 
 		int state = -7;
-		if (b) {
+		if (only2g) {
 			state = MODE_GSM_ONLY;
 		} else {
 			state = MODE_GSM_WCDMA_PREFERRD;
@@ -100,7 +107,7 @@ public class ServicesHandler {
 		Intent intent = new Intent(MODIFY_NETWORK_MODE);
 		intent.putExtra(NETWORK_MODE, state);
 		context.sendBroadcast(intent);
-		Logger.i("Switched 2G/3G to " + b);
+		Logger.i("Switched 2G/3G to " + only2g);
 	}
 
 	private static int getMobiledataState(Context context) {

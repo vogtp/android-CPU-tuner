@@ -219,4 +219,7 @@ public class SettingsStorage {
 		return getUserLevel() > 2;
 	}
 
+	public boolean isSwitchWifiOnConnectedNetwork() {
+		return getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", true);
+	}
 }

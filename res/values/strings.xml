@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefSwitchWifiOnConnectedNetworkLong">Switch wifi if a network over wifi is established.</string>
+    <string name="prefSwitchWifiOnConnectedNetwork">Switch wifi if connected</string>
+    <string name="prefServiceSwitches">Service Switches</string>
     <string name="prefUserLevelLong">Determines how difficult to settings are, and how much you can interfere.</string>
     <string name="prefUserLevel">Experience Level</string>
     <string name="prefVarious">Various</string>

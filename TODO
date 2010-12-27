@@ -1,4 +1,5 @@
-
+- do not change profiles during a phone call at all -> setting
+- 
 
 - ask for experience level
 - virtual governors (incl. thresholds) for inexperienced users
@@ -14,4 +15,5 @@
 - figure out how to get avail freqs (if not available)
 - check profile version
 - implement power consumption clearing for profiles (check for modification)
+- do not change bt while paired -> setting
 
