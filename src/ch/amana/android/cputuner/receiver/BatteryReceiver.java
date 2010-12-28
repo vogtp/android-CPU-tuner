@@ -23,11 +23,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 		private final Context ctx;
 		private final WakeLock wakeLock;
-		private final long startTs;
+
+		// private final long startTs;
 
 		public SetProfileTask(Context ctx) {
 			super();
-			startTs = System.currentTimeMillis();
+			// startTs = System.currentTimeMillis();
 			this.ctx = ctx;
 			PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
 			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
@@ -40,7 +41,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 				return null;
 			}
 			BatteryReceiver.handleIntent(ctx, params[0]);
-			long delta = System.currentTimeMillis() - startTs;
+			// long delta = System.currentTimeMillis() - startTs;
 			// Logger.i("Millies to switch profile " +
 			// PowerProfiles.getCurrentProfile() + " " + delta);
 			wakeLock.release();
@@ -88,15 +89,14 @@ public class BatteryReceiver extends BroadcastReceiver {
 	private static void handleIntent(Context context, Intent intent) {
 		String action = intent.getAction();
 		// Logger.d("BatteryReceiver got intent: " + action);
+
 		PowerProfiles powerProfiles = PowerProfiles.getInstance();
 		if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
 			int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 			int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
-			if (plugged > -1) {
-				powerProfiles.setAcPower(plugged > 0);
-			}
+			int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Integer.MAX_VALUE);
 			int level = -1;
 			if (rawlevel >= 0 && scale > 0) {
 				level = (rawlevel * 100) / scale;
@@ -106,7 +106,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 				// handle battery event
 				powerProfiles.setBatteryLevel(level);
 			}
+			powerProfiles.setBatteryTemperature(temperature / 10);
 			powerProfiles.setBatteryHot(health == BatteryManager.BATTERY_HEALTH_OVERHEAT);
+
+			if (plugged > -1) {
+				powerProfiles.setAcPower(plugged > 0);
+			}
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}

@@ -20,32 +20,33 @@ public class PowerProfiles {
 	public static final int SERVICE_STATE_OFF = 2;
 	public static final int SERVICE_STATE_PREV = 3;
 
-	private static Context context;
+	private final Context context;
 
-	private static int batteryLevel;
-	private static boolean acPower;
-	private static boolean screenOff;
-	private static boolean batteryHot;
+	private int batteryLevel;
+	private int batteryTemperature;
+	private boolean acPower;
+	private boolean screenOff;
+	private boolean batteryHot;
 
-	private static ProfileModel currentProfile;
-	private static TriggerModel currentTrigger;
+	private ProfileModel currentProfile;
+	private TriggerModel currentTrigger;
 
 	private static boolean updateTrigger = true;
 
-	private static int lastSetStateWifi = -1;
-	private static boolean lastAciveStateWifi;
+	private int lastSetStateWifi = -1;
+	private boolean lastAciveStateWifi;
 
-	private static int lastSetStateGps = -1;
-	private static boolean lastActiveStateGps;
+	private int lastSetStateGps = -1;
+	private boolean lastActiveStateGps;
 
-	private static int lastSetStateMobiledata = -1;
-	private static boolean lastActiveStateMobileData;
+	private int lastSetStateMobiledata = -1;
+	private boolean lastActiveStateMobileData;
 
-	private static int lastSetStateBluetooth = -1;
-	private static boolean lastActiceStateBluetooth;
+	private int lastSetStateBluetooth = -1;
+	private boolean lastActiceStateBluetooth;
 
-	private static int lastSetStateBackgroundSync = -1;
-	private static boolean lastActiveStateBackgroundSync;
+	private int lastSetStateBackgroundSync = -1;
+	private boolean lastActiveStateBackgroundSync;
 
 	private static PowerProfiles instance;
 
@@ -112,15 +113,13 @@ public class PowerProfiles {
 		// trackCurrent();
 
 		long profileId = currentTrigger.getBatteryProfileId();
-		if (batteryHot) {
+
+		if (isBatteryHot()) {
 			profileId = currentTrigger.getHotProfileId();
-		}
-		if (profileId > 0) {
-			if (screenOff) {
-				profileId = currentTrigger.getScreenOffProfileId();
-			} else if (acPower) {
-				profileId = currentTrigger.getPowerProfileId();
-			}
+		} else if (screenOff) {
+			profileId = currentTrigger.getScreenOffProfileId();
+		} else if (acPower) {
+			profileId = currentTrigger.getPowerProfileId();
 		}
 
 		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
@@ -344,7 +343,7 @@ public class PowerProfiles {
 		}
 		long powerCurrentSum = 0;
 		long powerCurrentCnt = 0;
-		if (batteryHot) {
+		if (isBatteryHot()) {
 			powerCurrentSum = currentTrigger.getPowerCurrentSumHot();
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntHot();
 		} else if (screenOff) {
@@ -417,11 +416,11 @@ public class PowerProfiles {
 		}
 	}
 
-	public boolean getBatteryHot() {
-		return batteryHot;
+	public boolean isBatteryHot() {
+		return batteryHot || batteryTemperature > SettingsStorage.getInstance().getBatteryHotTemp();
 	}
 
-	public boolean getAcPower() {
+	public boolean isAcPower() {
 		return acPower;
 	}
 
@@ -454,4 +453,16 @@ public class PowerProfiles {
 	public boolean isScreenOff() {
 		return screenOff;
 	}
+
+	public void setBatteryTemperature(int temperature) {
+		if (batteryTemperature != temperature) {
+			batteryTemperature = temperature;
+			sendDeviceStatusChangedBroadcast();
+		}
+	}
+
+	public int getBatteryTemperature() {
+		return batteryTemperature;
+	}
+
 }

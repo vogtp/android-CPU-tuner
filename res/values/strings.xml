@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefBatteryHotTempMsg">Custom temperature to trigger battery hot profile.<br /> Integer value in °C.</string>
+    <string name="prefBatteryHotTempLong">Custom temperature to trigger battery hot profile.</string>
+    <string name="prefBatteryHotTemp">Battery hot temperature</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Profiles switches are allowed during phone calls. Mobiledata will never be switched during calls, regardless of the state of this option.</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOff">Profiles switches are forbidden during phone calls. Mobiledata will never be switched during calls, regardless of the state of this option.</string>
     <string name="prefSwitchProfileWhilePhoneNotIdle">Switch profile during call</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ch.amana.android.cputuner" android:versionName="@string/version" android:versionCode="201012260">
+	package="ch.amana.android.cputuner" android:versionName="@string/version" android:versionCode="201012280">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication"
 		android:allowClearUserData="true">

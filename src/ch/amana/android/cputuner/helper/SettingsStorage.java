@@ -17,11 +17,14 @@ public class SettingsStorage {
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
 	public static final String ENABLE_TOAST_NOTI = "prefKeyToastNotifications";
 
+	public static final int NO_BATTERY_HOT_TEMP = 5000;
+
 	public static final int TRACK_CURRENT_AVG = 1;
 	public static final int TRACK_CURRENT_CUR = 2;
 	public static final int TRACK_CURRENT_HIDE = 3;
 
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -40,7 +43,13 @@ public class SettingsStorage {
 	private boolean allowManualServiceChanges;
 	private boolean checkedAllowManualServiceChanges = false;
 	private boolean checkUserLevel = false;
+	private boolean checkedSwitchWifiOnConnectedNetwork = false;
+	private boolean checkedSwitchProfileWhilePhoneNotIdle = false;
+	private boolean checkBatteryHotTemp = false;
 	int userLevel;
+	private boolean switchWifiOnConnectedNetwork;
+	private boolean switchProfileWhilePhoneNotIdle;
+	private int batteryHotTemp;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -50,6 +59,9 @@ public class SettingsStorage {
 		checkedToastNotifications = false;
 		checkedAllowManualServiceChanges = false;
 		checkUserLevel = false;
+		checkedSwitchWifiOnConnectedNetwork = false;
+		checkedSwitchProfileWhilePhoneNotIdle = false;
+		checkBatteryHotTemp = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -220,10 +232,32 @@ public class SettingsStorage {
 	}
 
 	public boolean isSwitchWifiOnConnectedNetwork() {
-		return getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", true);
+		if (!checkedSwitchWifiOnConnectedNetwork) {
+			checkedSwitchWifiOnConnectedNetwork = true;
+			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", true);
+		}
+		return switchWifiOnConnectedNetwork;
 	}
 
 	public boolean isSwitchProfileWhilePhoneNotIdle() {
-		return getPreferences().getBoolean("prefKeySwitchProfileWhilePhoneNotIdle", true);
+		if (!checkedSwitchProfileWhilePhoneNotIdle) {
+			checkedSwitchProfileWhilePhoneNotIdle = true;
+			switchProfileWhilePhoneNotIdle = getPreferences().getBoolean("prefKeySwitchProfileWhilePhoneNotIdle", true);
+		}
+		return switchProfileWhilePhoneNotIdle;
+	}
+
+	public int getBatteryHotTemp() {
+
+		if (!checkBatteryHotTemp) {
+			checkBatteryHotTemp = true;
+			try {
+				batteryHotTemp = Integer.parseInt(getPreferences().getString("prefKeyBatteryHotTemp", NO_BATTERY_HOT_TEMP + ""));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyUserLevel as int", e);
+				batteryHotTemp = NO_BATTERY_HOT_TEMP;
+			}
+		}
+		return batteryHotTemp;
 	}
 }
