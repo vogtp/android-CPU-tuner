@@ -261,7 +261,10 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			ctx.startService(batteryServiceIntent);
 			SettingsStorage.getInstance().userLevel = userLevel;
 			cpuHandler.applyCpuSettings(currentCpuSettings);
-			pd.dismiss();
+			try {
+				pd.dismiss();
+			} catch (Throwable e) {
+			}
 		}
 	}
 
