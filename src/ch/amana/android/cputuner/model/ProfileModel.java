@@ -119,6 +119,9 @@ public class ProfileModel {
 	}
 
 	public String getGov() {
+		if (gov == null) {
+			return NO_VALUE_STR;
+		}
 		return gov;
 	}
 
