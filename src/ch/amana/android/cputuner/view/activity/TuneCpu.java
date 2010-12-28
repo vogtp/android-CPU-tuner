@@ -203,7 +203,7 @@ public class TuneCpu extends Activity {
 
 		});
 
-		spinnerSetGov.setEnabled(RootHandler.isRoot() && cpuHandler.hasGov());
+		spinnerSetGov.setEnabled(cpuHandler.hasGov());
 
 	}
 
@@ -251,7 +251,14 @@ public class TuneCpu extends Activity {
 	}
 
 	private void batteryLevelChanged() {
-		tvBatteryLevel.setText(powerProfiles.getBatteryLevel() + "%");
+		StringBuilder bat = new StringBuilder();
+		bat.append(powerProfiles.getBatteryLevel()).append("%");
+		bat.append(" (");
+		if (powerProfiles.isBatteryHot()) {
+			bat.append("hot: ");
+		}
+		bat.append(powerProfiles.getBatteryTemperature()).append(" °C)");
+		tvBatteryLevel.setText(bat.toString());
 		StringBuilder currentText = new StringBuilder();
 		int currentNow = BatteryHandler.getBatteryCurrentNow();
 		if (currentNow != BatteryHandler.NO_VALUE_INT) {
@@ -319,7 +326,7 @@ public class TuneCpu extends Activity {
 	}
 
 	private void acPowerChanged() {
-		tvAcPower.setText(powerProfiles.getAcPower() ? "Yes" : "No");
+		tvAcPower.setText(powerProfiles.isAcPower() ? "Yes" : "No");
 	}
 
 	private TextView getMessageTextView() {
