@@ -94,6 +94,8 @@ public class BatteryReceiver extends BroadcastReceiver {
 		super.finalize();
 	}
 
+	// FIXME handle ACTION_BATTERY_LOW
+
 	private static void handleIntent(Context context, Intent intent) {
 		String action = intent.getAction();
 		// Logger.d("BatteryReceiver got intent: " + action);
