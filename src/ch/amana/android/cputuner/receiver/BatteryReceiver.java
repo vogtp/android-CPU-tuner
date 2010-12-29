@@ -24,27 +24,29 @@ public class BatteryReceiver extends BroadcastReceiver {
 		private final Context ctx;
 		private final WakeLock wakeLock;
 
-		// private final long startTs;
+		private final long startTs;
 
 		public SetProfileTask(Context ctx) {
 			super();
-			// startTs = System.currentTimeMillis();
+			startTs = System.currentTimeMillis();
 			this.ctx = ctx;
 			PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
 			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
-			wakeLock.acquire(10000l);
+			wakeLock.acquire();
 		}
 
 		@Override
 		protected Void doInBackground(Intent... params) {
-			if (params == null || params.length < 1) {
-				return null;
+			try {
+				if (params == null || params.length < 1) {
+					return null;
+				}
+				BatteryReceiver.handleIntent(ctx, params[0]);
+			} finally {
+				long delta = System.currentTimeMillis() - startTs;
+				Logger.i("Millies to switch profile: " + delta);
+				wakeLock.release();
 			}
-			BatteryReceiver.handleIntent(ctx, params[0]);
-			// long delta = System.currentTimeMillis() - startTs;
-			// Logger.i("Millies to switch profile " +
-			// PowerProfiles.getCurrentProfile() + " " + delta);
-			wakeLock.release();
 			return null;
 		}
 	}
@@ -84,6 +86,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
 		spt.execute(intent);
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		receiver = null;
+		super.finalize();
 	}
 
 	private static void handleIntent(Context context, Intent intent) {
