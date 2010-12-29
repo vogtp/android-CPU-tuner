@@ -24,7 +24,7 @@ public class Notifier {
 	private String contentTitle;
 	private PendingIntent contentIntent;
 
-	private static int curLevel = 1;
+	private static int curLevel = 0;
 
 	private static Notifier instance;
 	private Notification notification;

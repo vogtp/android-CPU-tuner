@@ -116,16 +116,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 				context.startService(new Intent(context, BatteryService.class));
 			}
 		} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
-			Notifier.notify(context, "CPU tuner: Power connected", 2);
 			powerProfiles.setAcPower(true);
 		} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
-			Notifier.notify(context, "CPU tuner: Power disconnected", 2);
 			powerProfiles.setAcPower(false);
 		} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
-			Notifier.notify(context, "Screen turned off", 2);
 			powerProfiles.setScreenOff(true);
 		} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
-			Notifier.notify(context, "Screen turned on", 2);
 			powerProfiles.setScreenOff(false);
 		}
 	}

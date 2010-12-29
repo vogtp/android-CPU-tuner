@@ -151,7 +151,6 @@ public class PowerProfiles {
 						sb.append("Setting power profile to ");
 					}
 					sb.append(currentProfile.getProfileName());
-					Notifier.notify(context, sb.toString(), 1);
 					Notifier.notifyProfile(currentProfile.getProfileName());
 					context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 				}
