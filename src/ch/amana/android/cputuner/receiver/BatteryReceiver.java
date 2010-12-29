@@ -32,7 +32,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			this.ctx = ctx;
 			PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
 			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
-			wakeLock.acquire();
+			wakeLock.acquire(10000l);
 		}
 
 		@Override
