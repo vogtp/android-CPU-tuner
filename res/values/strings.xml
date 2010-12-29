@@ -178,9 +178,9 @@
 		<item>3</item>
 	</string-array>
 	<string-array name="prefUserLevelEntries">
-		<item>cpu tuner tries to be clever.</item>
-		<item>cpu tuner tries to support you.</item>
-		<item>You\'re the boss!</item>
+		<item><b>Beginner</b>: cpu tuner tries to be clever.</item>
+		<item><b>Normal</b>: cpu tuner supports you.</item>
+		<item><b>Power user</b>: You\'re the boss!</item>
 	</string-array>
 	<string-array name="prefUserLevelValues">
 		<item>1</item>
