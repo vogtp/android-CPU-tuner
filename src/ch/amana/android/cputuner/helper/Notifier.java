@@ -5,8 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Looper;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuTunerTabActivity;
@@ -24,7 +22,7 @@ public class Notifier {
 	private String contentTitle;
 	private PendingIntent contentIntent;
 
-	private static int curLevel = 0;
+	private static int curLevel = 1;
 
 	private static Notifier instance;
 	private Notification notification;
@@ -43,18 +41,20 @@ public class Notifier {
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
 
-	public static void notify(Context context, String msg, int level) {
-		Logger.i("Notifier: " + msg);
-		if (level <= curLevel && SettingsStorage.getInstance().isToastNotifications()) {
-			// FIXME fc when toastin from service
-			try {
-				Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-			} catch (Throwable e) {
-				Looper.prepare();
-				Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
+	//
+	// public static void notify(Context context, String msg, int level) {
+	// Logger.i("Notifier: " + msg);
+	// if (level <= curLevel &&
+	// SettingsStorage.getInstance().isToastNotifications()) {
+	// // FIXME fc when toastin from service
+	// try {
+	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+	// } catch (Throwable e) {
+	// Looper.prepare();
+	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+	// }
+	// }
+	// }
 
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
@@ -64,7 +64,6 @@ public class Notifier {
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 			notificationManager.notify(NOTIFICATION_PROFILE, notification);
-			notify(context, contentText, 0);
 		}
 	}
 
