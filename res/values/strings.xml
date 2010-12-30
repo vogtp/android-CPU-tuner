@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prefVritualGovernorsListLong">Virtual governors are preconfigured cpu governors.</string>
+    <string name="virtualGovernorsList">Virtual Governors</string>
     <string name="prefBatteryHotTempMsg">Custom temperature to trigger battery hot profile.<br /> Integer value in °C.</string>
     <string name="prefBatteryHotTempLong">Custom temperature to trigger battery hot profile.</string>
     <string name="prefBatteryHotTemp">Battery hot temperature</string>
@@ -89,8 +91,8 @@
 	<string name="labelCurrentProfile">Profile:</string>
 	<string name="labelCurrentBattery">Battery:</string>
 	<string name="labelAcPower">AC Power:</string>
-	<string name="labelMax">Max</string>
-	<string name="labelMin">Min</string>
+	<string name="labelMax">Max:</string>
+	<string name="labelMin">Min:</string>
 	<string name="app_name">CPU tuner</string>
 	<string name="prefApplyOnBoot">Start on boot</string>
 	<string name="prefApplyOnBootOn">CPU tuner will continue set CPU profiles after a
@@ -187,4 +189,5 @@
 		<item>2</item>
 		<item>3</item>
 	</string-array>
+<string name="cbEnableVirtualGovernors">Enable virtual governors</string>
 </resources>

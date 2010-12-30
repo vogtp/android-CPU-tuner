@@ -26,6 +26,7 @@ import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -437,7 +438,11 @@ public class CpuEditor extends Activity {
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
-		textView.setText(ProfileModel.convertFreq2GHz(val));
+		if (val == HardwareHandler.NO_VALUE_INT) {
+			textView.setText(R.string.notAvailable);
+		} else {
+			textView.setText(ProfileModel.convertFreq2GHz(val));
+		}
 		for (int i = 0; i < valList.length; i++) {
 			if (val == valList[i]) {
 				seekBar.setProgress(i);

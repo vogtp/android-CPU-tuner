@@ -24,6 +24,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -63,8 +64,11 @@ public class ProfilesListActivity extends ListActivity {
 				} else if (columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MIN
 						|| columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MAX) {
 					int freq = cursor.getInt(columnIndex);
-
-					((TextView) view).setText(ProfileModel.convertFreq2GHz(freq));
+					if (freq == HardwareHandler.NO_VALUE_INT) {
+						((TextView) view).setText(R.string.notAvailable);
+					} else {
+						((TextView) view).setText(ProfileModel.convertFreq2GHz(freq));
+					}
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
 					TextView textView = (TextView) view;
