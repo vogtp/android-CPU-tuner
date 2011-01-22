@@ -96,7 +96,7 @@ public class RootHandler {
 				logWriter.write(line);
 				logWriter.write("\n");
 				logWriter.flush();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Logger.w("Cannot write >" + line + "< to log file", e);
 			}
 		}

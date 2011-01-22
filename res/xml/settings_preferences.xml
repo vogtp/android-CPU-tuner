@@ -22,9 +22,7 @@
 					android:defaultValue="true" android:title="@string/prefStatusbarNotifications"
 					android:dependency="prefKeyStatusbarAddTo" android:summaryOff="@string/prefStatusbarNotificationsOff"
 					android:summaryOn="@string/prefKeyEnableProfilesOn"></CheckBoxPreference>
-				<CheckBoxPreference android:key="prefKeyToastNotifications"
-					android:title="@string/prefToastNotifications"
-					android:defaultValue="false"></CheckBoxPreference>
+				
 			</PreferenceCategory>
 		</PreferenceScreen>
 	
@@ -43,10 +41,11 @@
 
 		<PreferenceCategory android:title="@string/prefCatSystem" android:key="prefKeySystemCat"><Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
 				
-				<ListPreference android:title="@string/prefUserLevel" android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong" android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference><EditTextPreference android:title="@string/prefBatteryHotTemp" android:key="prefKeyBatteryHotTemp" android:dialogMessage="@string/prefBatteryHotTempMsg" android:dialogTitle="@string/prefBatteryHotTemp" android:summary="@string/prefBatteryHotTempLong"></EditTextPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference>
+				<ListPreference android:title="@string/prefUserLevel" android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong" android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference><Preference android:summary="@string/prefVritualGovernorsListLong" android:key="prefKeyVritualGovernorsList" android:title="@string/virtualGovernorsList"></Preference><EditTextPreference android:title="@string/prefBatteryHotTemp" android:key="prefKeyBatteryHotTemp" android:dialogMessage="@string/prefBatteryHotTempMsg" android:dialogTitle="@string/prefBatteryHotTemp" android:summary="@string/prefBatteryHotTempLong"></EditTextPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference>
 				<CheckBoxPreference android:key="prefKeySystemApp" android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp" android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
 				<EditTextPreference android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
 			
+
 
 
 

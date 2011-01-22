@@ -4,6 +4,12 @@ V
 * bug fixes
 - 
 
+V 1.2.1
+* features
+- 
+* bug fixes
+- fixes for force closes and freezes
+
 V 1.2.0
 * features
 - do not change wifi while connected to a network (settings default: off)
@@ -12,6 +18,7 @@ V 1.2.0
 * bug fixes
 - fix system battery hot state
 - fixes for force closes and freezes
+- Toast notifications are gone (sorry!)
 
 
 V 1.1.3

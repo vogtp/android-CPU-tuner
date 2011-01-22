@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.view.preference;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,10 +19,12 @@ import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
+import ch.amana.android.cputuner.view.activity.VirtualGovernorListActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
 	private CheckBoxPreference systemAppPreference;
+	private Preference virtualGovPref;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -107,12 +110,24 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
+		virtualGovPref = findPreference("prefKeyVritualGovernorsList");
+		virtualGovPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Context ctx = SettingsPreferenceActivity.this;
+				ctx.startActivity(new Intent(ctx, VirtualGovernorListActivity.class));
+				return true;
+			}
+		});
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
+		virtualGovPref.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
 	}
 
 	@Override

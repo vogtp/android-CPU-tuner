@@ -156,7 +156,11 @@ public class PowerProfiles {
 				}
 			} finally {
 				if (c != null && !c.isClosed()) {
-					c.close();
+					try {
+						c.close();
+					}catch (Exception e) {
+						Logger.e("Cannot close cursor",e);
+					}
 				}
 			}
 		}
@@ -381,8 +385,12 @@ public class PowerProfiles {
 			currentTrigger.setPowerCurrentCntBattery(powerCurrentCnt);
 		}
 		updateTrigger = false;
+		try {
 		context.getContentResolver().update(DB.Trigger.CONTENT_URI, currentTrigger.getValues(), DB.NAME_ID + "=?",
 				new String[] { currentTrigger.getDbId() + "" });
+		} catch(Exception e) {
+			Logger.w("Error saving power current information",e);
+		}
 		updateTrigger = true;
 	}
 

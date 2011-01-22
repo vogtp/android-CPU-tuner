@@ -24,6 +24,7 @@ public class SettingsStorage {
 	public static final int TRACK_CURRENT_HIDE = 3;
 
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
+	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -38,8 +39,6 @@ public class SettingsStorage {
 	private int trackCurrent = -1;
 	private boolean checkedStatusbarNotifications = false;
 	private boolean statusbarNotifications;
-	private boolean checkedToastNotifications = false;
-	private boolean toastNotifications;
 	private boolean allowManualServiceChanges;
 	private boolean checkedAllowManualServiceChanges = false;
 	private boolean checkUserLevel = false;
@@ -56,7 +55,6 @@ public class SettingsStorage {
 		checkedProfiles = false;
 		trackCurrent = -1;
 		checkedStatusbarNotifications = false;
-		checkedToastNotifications = false;
 		checkedAllowManualServiceChanges = false;
 		checkUserLevel = false;
 		checkedSwitchWifiOnConnectedNetwork = false;
@@ -115,14 +113,6 @@ public class SettingsStorage {
 			statusbarNotifications = getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, true);
 		}
 		return statusbarNotifications;
-	}
-
-	public boolean isToastNotifications() {
-		if (!checkedToastNotifications) {
-			checkedToastNotifications = true;
-			toastNotifications = getPreferences().getBoolean(ENABLE_TOAST_NOTI, false);
-		}
-		return toastNotifications;
 	}
 
 	public boolean isDisableDisplayIssues() {
@@ -259,5 +249,15 @@ public class SettingsStorage {
 			}
 		}
 		return batteryHotTemp;
+	}
+
+	public int getDefaultProfilesVersion() {
+		return getPreferences().getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
+	}
+
+	public void setDefaultProfilesVersion(int version) {
+		Editor editor = getPreferences().edit();
+		editor.putInt(PREF_DEFAULT_PROFILES_VERSION, version);
+		editor.commit();
 	}
 }

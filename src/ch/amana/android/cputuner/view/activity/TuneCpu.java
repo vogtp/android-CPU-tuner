@@ -25,6 +25,7 @@ import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -242,7 +243,11 @@ public class TuneCpu extends Activity {
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
-		textView.setText(ProfileModel.convertFreq2GHz(val));
+		if (val == HardwareHandler.NO_VALUE_INT) {
+			textView.setText(R.string.notAvailable);
+		} else {
+			textView.setText(ProfileModel.convertFreq2GHz(val));
+		}
 		for (int i = 0; i < valList.length; i++) {
 			if (val == valList[i]) {
 				seekBar.setProgress(i);

@@ -146,6 +146,26 @@ public class ServicesHandler {
 		Logger.i("Switched background syc to " + b);
 	}
 
+	// public static void enableMobileData(Context context, boolean enable) {
+	// try {
+	// TelephonyManager cm = (TelephonyManager)
+	// context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	// cm.setMobileDataEnabled(true);
+	// if (ContentResolver.getMasterSyncAutomatically() == b) {
+	// Logger.i("Not switched mobiledata state is correct");
+	// return;
+	// }
+	// if (b) {
+	// ContentResolver.setMasterSyncAutomatically(true);
+	// } else {
+	// ContentResolver.setMasterSyncAutomatically(false);
+	// }
+	// } catch (Throwable e) {
+	// Logger.e("Cannot switch mobiledata ", e);
+	// }
+	// Logger.i("Switched mobiledata to " + enable);
+	// }
+
 	private void setBrightness(Activity context) {
 		// TODO Auto-generated method stub
 		WindowManager.LayoutParams lp = context.getWindow().getAttributes();

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:orientation="vertical">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tvVirtualGovernor" android:text="Virtual Governor" android:textSize="20sp" android:textStyle="bold"></TextView><LinearLayout android:layout_height="wrap_content" android:id="@+id/LinearLayout01" android:layout_width="wrap_content"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Governor:" android:paddingRight="5dp"></TextView>
+<TextView android:text="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tvGorvernor"></TextView>
+</LinearLayout>
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="wrap_content" android:layout_height="wrap_content"><TextView android:text="Thresholds:" android:layout_height="wrap_content" android:id="@+id/TextView03" android:paddingRight="5dp" android:layout_width="wrap_content"></TextView><TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_width="wrap_content" android:text="Down:"></TextView><TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_width="wrap_content" android:id="@+id/tvThresholdDown" android:text="50%"></TextView><TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_width="wrap_content" android:text="Up:"></TextView><TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:layout_width="wrap_content" android:text="90%" android:id="@+id/tvThresholdUp"></TextView>
+
+
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

@@ -25,10 +25,12 @@ public class InstallHelper {
 		String gov;
 		int upThreshold = -1;
 		int downThreshold = -1;
+		public long virtGov;
 
 	}
 
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
+	private static final int VERSION = 1;
 
 	public static void resetToDefault(final Context ctx) {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
@@ -41,9 +43,10 @@ public class InstallHelper {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				ContentResolver resolver = ctx.getContentResolver();
-				resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
 				resolver.delete(DB.Trigger.CONTENT_URI, null, null);
-				populateDb(ctx);
+				resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
+				resolver.delete(DB.VirtualGovernor.CONTENT_URI, null, null);
+				updateDefaultProfiles(ctx);
 
 			}
 		});
@@ -52,7 +55,7 @@ public class InstallHelper {
 		alert.show();
 	}
 
-	public static void populateDb(Context ctx) {
+	private static void updateDefaultProfiles(Context ctx) {
 		try {
 			PowerProfiles.setUpdateTrigger(false);
 
@@ -76,12 +79,13 @@ public class InstallHelper {
 
 					List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
-					long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
-					long profileGood = createCpuProfile(resolver, "Good", getGoodGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
-					long profileNormal = createCpuProfile(resolver, "Normal", getNormalGov(availGov, gov), freqMax, freqMin);
-					long profileScreenOff = createCpuProfile(resolver, "Screen off", getScreenOffGov(availGov, gov), freqMax, freqMin);
-					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
-					long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(availGov, gov), freqMax, freqMin, 2, 2, 2,
+					long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
+					long profileGood = createCpuProfile(resolver, "Good", getNormalGov(resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
+					long profileNormal = createCpuProfile(resolver, "Normal", getNormalGov(resolver, availGov, gov), freqMax, freqMin);
+					long profileScreenOff = createCpuProfile(resolver, "Screen off", getExtremSaveGov(resolver, availGov, gov), freqMax, freqMin);
+					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
+					long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(resolver, availGov, gov), freqMax, freqMin,
+							2, 2, 2,
 							1, 2);
 
 					createTrigger(resolver, "Battery full", 100, profileScreenOff, profileGood, profilePerformance);
@@ -113,9 +117,19 @@ public class InstallHelper {
 			if (cT != null) {
 				cT.close();
 			}
+			SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
 		} finally {
 			PowerProfiles.setUpdateTrigger(true);
 		}
+	}
+
+	private static long createVirtualGovernor(ContentResolver resolver, String name, CpuGovernorSettings cgs) {
+		ContentValues values = new ContentValues();
+		values.put(DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, name);
+		values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, cgs.gov);
+		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, cgs.downThreshold);
+		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, cgs.upThreshold);
+		return insertOrUpdate(resolver, DB.VirtualGovernor.CONTENT_URI, values);
 	}
 
 	private static void createTrigger(ContentResolver resolver, String name, int batLevel, long screenOff, long battery, long power) {
@@ -138,6 +152,7 @@ public class InstallHelper {
 		ContentValues values = new ContentValues();
 		values.put(DB.CpuProfile.NAME_PROFILE_NAME, name);
 		values.put(DB.CpuProfile.NAME_GOVERNOR, gov.gov);
+		values.put(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, gov.virtGov);
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, freqMax);
 		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, freqMin);
 		values.put(DB.CpuProfile.NAME_WIFI_STATE, wifiState);
@@ -146,15 +161,17 @@ public class InstallHelper {
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, mbState);
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, bsState);
 		if (gov.upThreshold > -1) {
-			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, gov.upThreshold);
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP,
+					gov.upThreshold);
 		}
 		if (gov.downThreshold > -1) {
-			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, gov.downThreshold);
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN,
+					gov.downThreshold);
 		}
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
-	private static CpuGovernorSettings getPowerGov(List<String> list, String gov) {
+	private static CpuGovernorSettings getPowerGov(ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -168,10 +185,11 @@ public class InstallHelper {
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
+		cgs.virtGov = createVirtualGovernor(resolver, "Full speed", cgs);
 		return cgs;
 	}
 
-	private static CpuGovernorSettings getGoodGov(List<String> list, String gov) {
+	private static CpuGovernorSettings getNormalGov(ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -185,27 +203,11 @@ public class InstallHelper {
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
+		cgs.virtGov = createVirtualGovernor(resolver, "Normal", cgs);
 		return cgs;
 	}
 
-	private static CpuGovernorSettings getNormalGov(List<String> list, String gov) {
-		CpuGovernorSettings cgs = new CpuGovernorSettings();
-		if (list == null || list.size() < 1) {
-			cgs.gov = gov;
-		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
-			cgs.upThreshold = 93;
-			cgs.downThreshold = 60;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 93;
-		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			cgs.gov = CpuHandler.GOV_INTERACTIVE;
-		}
-		return cgs;
-	}
-
-	private static CpuGovernorSettings getSaveGov(List<String> list, String gov) {
+	private static CpuGovernorSettings getSaveGov(ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -213,35 +215,18 @@ public class InstallHelper {
 		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
 			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
 			cgs.upThreshold = 95;
-			cgs.downThreshold = 70;
+			cgs.downThreshold = 80;
 		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
 			cgs.gov = CpuHandler.GOV_ONDEMAND;
 			cgs.upThreshold = 94;
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
+		cgs.virtGov = createVirtualGovernor(resolver, "Save Battery", cgs);
 		return cgs;
 	}
 
-	private static CpuGovernorSettings getScreenOffGov(List<String> list, String gov) {
-		CpuGovernorSettings cgs = new CpuGovernorSettings();
-		if (list == null || list.size() < 1) {
-			cgs.gov = gov;
-		}
-		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
-			cgs.upThreshold = 95;
-			cgs.downThreshold = 85;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 95;
-		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			cgs.gov = CpuHandler.GOV_INTERACTIVE;
-		}
-		return cgs;
-	}
-
-	private static CpuGovernorSettings getExtremSaveGov(List<String> list, String gov) {
+	private static CpuGovernorSettings getExtremSaveGov(ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -255,6 +240,7 @@ public class InstallHelper {
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
+		cgs.virtGov = createVirtualGovernor(resolver, "Extrem Save Battery", cgs);
 		return cgs;
 	}
 
@@ -273,6 +259,16 @@ public class InstallHelper {
 			c.close();
 		}
 		return id;
+	}
+
+	public static void populateDb(Context ctx) {
+		if (VERSION > SettingsStorage.getInstance().getDefaultProfilesVersion()) {
+			try{
+				updateDefaultProfiles(ctx);
+			}catch(Exception e){
+				Logger.e("Cannot create profiles",e);
+			}
+		}
 	}
 
 }

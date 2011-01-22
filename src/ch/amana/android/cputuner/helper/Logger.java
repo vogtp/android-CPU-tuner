@@ -6,7 +6,10 @@ public class Logger {
 	private static final String TAG = "CPUTuner";
 
 	public static void e(String msg, Throwable t) {
-		Log.e(TAG, msg, t);
+		try {
+			Log.e(TAG, msg, t);
+		}catch(Throwable t1) {
+		}
 	}
 
 	public static void w(String msg, Throwable t) {
