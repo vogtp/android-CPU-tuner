@@ -18,11 +18,15 @@ public class BootReceiver extends BroadcastReceiver {
 
 	private void handleBootCompleted(Context context) {
 		SettingsStorage storage = SettingsStorage.getInstance();
-		if (storage.isApplyOnBoot()) {
+		if (storage.isEnableProfiles()) {
 			Logger.w("Starting CPU tuner on boot");
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}
+		}else {
+			Logger.w("Starting CPU tuner on boot (no boot start)");
+			context.stopService(new Intent(context, BatteryService.class));
+			BatteryReceiver.unregisterBatteryReceiver(context);
 		}
 	}
 

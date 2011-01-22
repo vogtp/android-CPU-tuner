@@ -71,10 +71,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	public static void unregisterBatteryReceiver(Context context) {
 		synchronized (lock) {
+			Logger.w("Request to unegistered BatteryReceiver");
 			if (receiver != null) {
 				try {
 					context.unregisterReceiver(receiver);
 					receiver = null;
+					Logger.w("Unegistered BatteryReceiver");
 				} catch (Throwable e) {
 					Logger.w("Could not unregister BatteryReceiver", e);
 				}
@@ -98,7 +100,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	private static void handleIntent(Context context, Intent intent) {
 		String action = intent.getAction();
-		// Logger.d("BatteryReceiver got intent: " + action);
+		Logger.d("BatteryReceiver got intent: " + action);
 
 		PowerProfiles powerProfiles = PowerProfiles.getInstance();
 		if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {

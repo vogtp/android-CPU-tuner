@@ -6,9 +6,11 @@ V
 
 V 1.2.1
 * features
-- 
+- Additional FAQs
+- reorganised setting
 * bug fixes
 - fixes for force closes and freezes
+- fix start on boot (it is now managed be enable profiles)
 
 V 1.2.0
 * features

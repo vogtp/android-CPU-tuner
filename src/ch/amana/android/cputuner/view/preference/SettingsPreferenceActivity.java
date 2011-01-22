@@ -25,6 +25,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 
 	private CheckBoxPreference systemAppPreference;
 	private Preference virtualGovPref;
+	private EditTextPreference cpuFreqPreference;
+	private EditTextPreference prefMinSensibleFrequency;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -88,10 +90,9 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 
 		});
-
-		CpuHandler.getInstance().getAvailCpuFreq();
-		EditTextPreference cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
-		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
+		prefMinSensibleFrequency = (EditTextPreference) findPreference("prefKeyMinSensibleFrequency");
+cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
+//		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
 
 		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -127,7 +128,9 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	protected void onResume() {
 		super.onResume();
 		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
-		virtualGovPref.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
+		virtualGovPref.setEnabled(false);//!SettingsStorage.getInstance().isBeginnerUser());
+		cpuFreqPreference.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
+		prefMinSensibleFrequency.setEnabled(!(SettingsStorage.getInstance().isBeginnerUser() || SettingsStorage.getInstance().isPowerUser()));
 	}
 
 	@Override

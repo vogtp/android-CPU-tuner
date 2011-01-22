@@ -11,7 +11,6 @@ import ch.amana.android.cputuner.hw.RootHandler;
 public class SettingsStorage {
 
 	public static final String NO_VALUE = "noValue";
-	private static final String APPLY_ON_BOOT = "applyCpuSettingsOnBoot";
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
 	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
@@ -97,10 +96,6 @@ public class SettingsStorage {
 			enableProfiles = getPreferences().getBoolean(ENABLE_PROFILES, true);
 		}
 		return enableProfiles;
-	}
-
-	public boolean isApplyOnBoot() {
-		return getPreferences().getBoolean(APPLY_ON_BOOT, false);
 	}
 
 	public boolean isStatusbarAddto() {
