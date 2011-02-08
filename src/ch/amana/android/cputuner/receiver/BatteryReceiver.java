@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.util.Log;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -87,7 +88,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
-		spt.execute(intent);
+		try {
+			spt.execute(intent);
+		}catch (Exception e) {
+			String action = intent == null ? "null intent":intent.getAction();
+			Logger.e("Error executing action "+action +" in background in battery receiver",e);
+		}
 	}
 
 	@Override
@@ -99,6 +105,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 	// FIXME handle ACTION_BATTERY_LOW
 
 	private static void handleIntent(Context context, Intent intent) {
+		try {
 		String action = intent.getAction();
 		Logger.d("BatteryReceiver got intent: " + action);
 
@@ -135,6 +142,10 @@ public class BatteryReceiver extends BroadcastReceiver {
 			powerProfiles.setScreenOff(true);
 		} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
 			powerProfiles.setScreenOff(false);
+		}
+		}catch (Exception e) {
+			String action = intent == null ? "null intent":intent.getAction();
+			Logger.e("Error handling intent "+action+" in battery receiver",e);
 		}
 	}
 }

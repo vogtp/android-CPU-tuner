@@ -6,6 +6,7 @@ import android.content.Intent;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.service.BatteryService;
 
 public class CpuTunerApplication extends Application {
@@ -18,7 +19,14 @@ public class CpuTunerApplication extends Application {
 		InstallHelper.populateDb(ctx);
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			startService(new Intent(ctx, BatteryService.class));
-			PowerProfiles.getInstance().reapplyProfile(true);
+			try {
+				PowerProfiles.getInstance().reapplyProfile(true);
+			}catch (Exception e) {
+				DB.OpenHelper oh = new DB.OpenHelper(this);
+				oh.getWritableDatabase().getVersion();
+				oh.close();
+				PowerProfiles.getInstance().reapplyProfile(true);
+			}
 		}
 	}
 }
