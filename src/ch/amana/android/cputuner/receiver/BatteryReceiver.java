@@ -86,8 +86,13 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
-		spt.execute(intent);
+		try {
+			SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
+			spt.execute(intent);
+		}catch (Exception e) {
+			String action = intent == null ? "null intent":intent.getAction();
+			Logger.e("Error executing action "+action +" in background in battery receiver",e);
+		}
 	}
 
 	@Override
@@ -95,8 +100,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 		receiver = null;
 		super.finalize();
 	}
-
-	// FIXME handle ACTION_BATTERY_LOW
 
 	private static void handleIntent(Context context, Intent intent) {
 		String action = intent.getAction();
