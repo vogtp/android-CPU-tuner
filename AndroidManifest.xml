@@ -85,6 +85,7 @@
 		<activity android:name=".view.activity.SendReportActivity"></activity>
 	<activity android:name=".view.activity.FindFrequenciesActivity"></activity>
 <activity android:name=".view.activity.VirtualGovernorListActivity" android:label="@string/virtualGovernorsList"></activity>
+<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8"/>
 

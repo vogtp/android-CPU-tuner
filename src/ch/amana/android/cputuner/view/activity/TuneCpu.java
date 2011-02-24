@@ -100,6 +100,12 @@ public class TuneCpu extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if (!SettingsStorage.getInstance().isUserLevelSet()) {
+			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this);
+			uec.show();
+		}
+		
 		setContentView(R.layout.cur_info);
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();

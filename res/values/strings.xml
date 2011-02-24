@@ -12,7 +12,7 @@
     <string name="prefSwitchWifiOnConnectedNetworkOff">Wifi will not be switch off if connected to a wifi network.</string>
     <string name="prefSwitchWifiOnConnectedNetwork">Switch wifi if connected</string>
     <string name="prefServiceSwitches">Service Switches</string>
-    <string name="prefUserLevelLong">Determines how difficult to settings are, and how much you can interfere.</string>
+    <string name="prefUserLevelLong">Determines how difficult the settings are, and how much you can interfere.</string>
     <string name="prefUserLevel">Experience Level</string>
     <string name="prefVarious">Various</string>
 	<string name="notAvailable">not available</string>
@@ -185,4 +185,5 @@
 		<item>3</item>
 	</string-array>
 <string name="cbEnableVirtualGovernors">Enable virtual governors</string>
+<string name="userExperianceLevelExplain">CPU tuner can operate on different experience levels. Depending on the level it gives you more choices and lets you do more things.</string>
 </resources>

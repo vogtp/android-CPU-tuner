@@ -10,6 +10,8 @@ import ch.amana.android.cputuner.hw.RootHandler;
 
 public class SettingsStorage {
 
+	private static final String PREF_KEY_USER_LEVEL = "prefKeyUserLevel";
+	private static final String PREF_KEY_USER_LEVEL_SET = "prefKeyUserLevelSet";
 	public static final String NO_VALUE = "noValue";
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
 	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
@@ -77,9 +79,9 @@ public class SettingsStorage {
 		if (getPreferences().contains("prefKeyPowerUser")) {
 			Editor editor = getPreferences().edit();
 			if (getPreferences().getBoolean("prefKeyPowerUser", false)) {
-				editor.putString("prefKeyUserLevel", "3");
+				editor.putString(PREF_KEY_USER_LEVEL, "3");
 			} else {
-				editor.putString("prefKeyUserLevel", "2");
+				editor.putString(PREF_KEY_USER_LEVEL, "2");
 			}
 			editor.remove("prefKeyPowerUser");
 			editor.commit();
@@ -128,11 +130,23 @@ public class SettingsStorage {
 		return enableBeta;
 	}
 
+	public void setUserLevel(int level) {
+		checkUserLevel = false;
+		Editor editor = getPreferences().edit();
+		editor.putString(PREF_KEY_USER_LEVEL, Integer.toString(level));
+		editor.putBoolean(PREF_KEY_USER_LEVEL_SET, true);
+		editor.commit();
+	}
+	
+	public boolean isUserLevelSet() {
+		return getPreferences().getBoolean(PREF_KEY_USER_LEVEL_SET, false);
+	}
+	
 	public int getUserLevel() {
 		if (!checkUserLevel) {
 			checkUserLevel = true;
 			try {
-				userLevel = Integer.parseInt(getPreferences().getString("prefKeyUserLevel", "2"));
+				userLevel = Integer.parseInt(getPreferences().getString(PREF_KEY_USER_LEVEL, "2"));
 			} catch (NumberFormatException e) {
 				Logger.w("Cannot parse prefKeyUserLevel as int", e);
 				userLevel = 2;
