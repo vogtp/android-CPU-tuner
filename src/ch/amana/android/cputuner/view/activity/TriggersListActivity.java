@@ -213,14 +213,13 @@ public class TriggersListActivity extends ListActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					triggerModel.clearPowerCurrent();
-					PowerProfiles powerProfiles = PowerProfiles.getInstance();
 					try {
-						powerProfiles.setUpdateTrigger(false);
+						PowerProfiles.setUpdateTrigger(false);
 						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 					} catch (Exception e) {
 						Logger.w("Cannot reset trigger power consumption", e);
 					} finally {
-						powerProfiles.setUpdateTrigger(true);
+						PowerProfiles.setUpdateTrigger(true);
 					}
 
 				}

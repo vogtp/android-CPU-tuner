@@ -22,8 +22,6 @@ public class Notifier {
 	private String contentTitle;
 	private PendingIntent contentIntent;
 
-	private static int curLevel = 1;
-
 	private static Notifier instance;
 	private Notification notification;
 
@@ -40,21 +38,6 @@ public class Notifier {
 		String ns = Context.NOTIFICATION_SERVICE;
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
-
-	//
-	// public static void notify(Context context, String msg, int level) {
-	// Logger.i("Notifier: " + msg);
-	// if (level <= curLevel &&
-	// SettingsStorage.getInstance().isToastNotifications()) {
-	// // FIXME fc when toastin from service
-	// try {
-	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-	// } catch (Throwable e) {
-	// Looper.prepare();
-	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-	// }
-	// }
-	// }
 
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {

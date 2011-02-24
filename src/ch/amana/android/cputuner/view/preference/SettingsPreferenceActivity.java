@@ -14,7 +14,6 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
-import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;

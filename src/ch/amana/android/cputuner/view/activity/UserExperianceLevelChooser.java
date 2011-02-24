@@ -1,20 +1,13 @@
 package ch.amana.android.cputuner.view.activity;
 
-import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.R.layout;
-import ch.amana.android.cputuner.helper.SettingsStorage;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class UserExperianceLevelChooser extends Dialog {
 
