@@ -16,7 +16,6 @@ public class SettingsStorage {
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
 	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
-	public static final String ENABLE_CALL_IN_PROGRESS_PROFILE = "prefKeyCallInProgressProfile";
 
 	public static final int NO_BATTERY_HOT_TEMP = 5000;
 
@@ -276,7 +275,9 @@ public class SettingsStorage {
 	public boolean isEnableCallInProgressProfile() {
 		if (!checkedenableCallInProgress) {
 			checkedenableCallInProgress = true;
-			enableCallInProgress = isEnableBeta() && getPreferences().getBoolean(ENABLE_CALL_IN_PROGRESS_PROFILE, true);
+			SharedPreferences preferences = getPreferences();
+			boolean boolean1 = preferences.getBoolean("prefKeyCallInProgressProfile", true);
+			enableCallInProgress = isEnableBeta() && boolean1;
 		}
 		return enableCallInProgress;
 	}
