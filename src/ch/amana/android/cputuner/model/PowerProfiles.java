@@ -48,6 +48,8 @@ public class PowerProfiles {
 	private int lastSetStateBackgroundSync = -1;
 	private boolean lastActiveStateBackgroundSync;
 
+	private boolean callInProgress = false;
+
 	private static PowerProfiles instance;
 
 	public static void initInstance(Context ctx) {
@@ -114,7 +116,9 @@ public class PowerProfiles {
 
 		long profileId = currentTrigger.getBatteryProfileId();
 
-		if (isBatteryHot()) {
+		if (callInProgress) {
+			profileId = currentTrigger.getCallInProgessProfileId();
+		} else if (isBatteryHot()) {
 			profileId = currentTrigger.getHotProfileId();
 		} else if (screenOff) {
 			profileId = currentTrigger.getScreenOffProfileId();
@@ -123,7 +127,7 @@ public class PowerProfiles {
 		}
 
 		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
-			if (!SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
+			if (!callInProgress && !SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
 				Logger.i("Not switching profile since phone not idle");
 				return;
 			}
@@ -346,7 +350,10 @@ public class PowerProfiles {
 		}
 		long powerCurrentSum = 0;
 		long powerCurrentCnt = 0;
-		if (isBatteryHot()) {
+		if (callInProgress) {
+			powerCurrentSum = currentTrigger.getPowerCurrentSumCall();
+			powerCurrentCnt = currentTrigger.getPowerCurrentCntCall();
+		} else if (isBatteryHot()) {
 			powerCurrentSum = currentTrigger.getPowerCurrentSumHot();
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntHot();
 		} else if (screenOff) {
@@ -371,7 +378,10 @@ public class PowerProfiles {
 			break;
 		}
 		powerCurrentCnt++;
-		if (batteryHot) {
+		if (callInProgress) {
+			currentTrigger.setPowerCurrentSumCall(powerCurrentSum);
+			currentTrigger.setPowerCurrentCntCall(powerCurrentCnt);
+		} else if (batteryHot) {
 			currentTrigger.setPowerCurrentSumHot(powerCurrentSum);
 			currentTrigger.setPowerCurrentCntHot(powerCurrentCnt);
 		} else if (screenOff) {
@@ -470,6 +480,14 @@ public class PowerProfiles {
 
 	public int getBatteryTemperature() {
 		return batteryTemperature;
+	}
+
+	public void setCallInProgress(boolean b) {
+		if (callInProgress != b) {
+			callInProgress = b;
+			sendDeviceStatusChangedBroadcast();
+			applyPowerProfile(false, false);
+		}
 	}
 
 }

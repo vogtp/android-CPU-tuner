@@ -41,8 +41,7 @@
 		<TableLayout android:layout_height="wrap_content"
 			android:id="@+id/tlProfiles" android:layout_width="fill_parent">
 
-			<TableRow android:id="@+id/TableRow01"
-				android:layout_height="wrap_content" android:layout_width="fill_parent">
+			<TableRow android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/trBat">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="10dp" android:layout_gravity="center_vertical"
@@ -51,8 +50,8 @@
 					android:layout_width="fill_parent"></Spinner>
 
 			</TableRow>
-			<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/trLck">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="10dp" android:layout_gravity="center_vertical"
@@ -63,8 +62,8 @@
 
 			</TableRow>
 
-			<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/trPow">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="10dp" android:layout_gravity="center_vertical"
@@ -72,9 +71,13 @@
 				<Spinner android:layout_height="wrap_content" android:id="@+id/spPower"
 					android:layout_width="fill_parent"></Spinner>
 			</TableRow>
+			<TableRow android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/trCall">
+				<TextView android:width="@dimen/triggerEditor1Col" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingRight="10dp" android:layout_height="wrap_content" android:text="Call in progress" android:id="@+id/tvCall"></TextView>
+				<Spinner android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/spCall"></Spinner>
+			</TableRow>
 
-			<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/trHot">
 				<CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/cbHot" android:text="Battery Hot" android:paddingRight="10dp"></CheckBox>
 				<Spinner android:layout_height="wrap_content" android:id="@+id/spHot"
 					android:layout_width="fill_parent"></Spinner>

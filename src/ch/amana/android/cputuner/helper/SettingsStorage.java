@@ -16,7 +16,7 @@ public class SettingsStorage {
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
 	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
-	public static final String ENABLE_TOAST_NOTI = "prefKeyToastNotifications";
+	public static final String ENABLE_CALL_IN_PROGRESS_PROFILE = "prefKeyCallInProgressProfile";
 
 	public static final int NO_BATTERY_HOT_TEMP = 5000;
 
@@ -50,6 +50,8 @@ public class SettingsStorage {
 	private boolean switchWifiOnConnectedNetwork;
 	private boolean switchProfileWhilePhoneNotIdle;
 	private int batteryHotTemp;
+	private boolean enableCallInProgress;
+	private boolean checkedenableCallInProgress = false;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -61,6 +63,7 @@ public class SettingsStorage {
 		checkedSwitchWifiOnConnectedNetwork = false;
 		checkedSwitchProfileWhilePhoneNotIdle = false;
 		checkBatteryHotTemp = false;
+		checkedenableCallInProgress = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -268,5 +271,13 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putInt(PREF_DEFAULT_PROFILES_VERSION, version);
 		editor.commit();
+	}
+
+	public boolean isEnableCallInProgressProfile() {
+		if (!checkedenableCallInProgress) {
+			checkedenableCallInProgress = true;
+			enableCallInProgress = isEnableBeta() && getPreferences().getBoolean(ENABLE_CALL_IN_PROGRESS_PROFILE, true);
+		}
+		return enableCallInProgress;
 	}
 }

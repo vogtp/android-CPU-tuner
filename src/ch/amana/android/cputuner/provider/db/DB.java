@@ -16,7 +16,7 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 7;
+		private static final int DATABASE_VERSION = 8;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -25,7 +25,8 @@ public interface DB {
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_BAT + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_BAT + " long,"
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_LCK + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_LCK + " long,"
 				+ DB.Trigger.NAME_HOT_PROFILE_ID + " long default -1," + DB.Trigger.NAME_POWER_CURRENT_SUM_HOT + " long,"
-				+ DB.Trigger.NAME_POWER_CURRENT_CNT_HOT + " long)";
+				+ DB.Trigger.NAME_POWER_CURRENT_CNT_HOT+ " long,"+ DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID + " long,"
+				+ DB.Trigger.NAME_POWER_CURRENT_SUM_CALL + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_CALL + " long)";
 
 		private static final String CREATE_CPUPROFILES_TABLE = "create table if not exists " + CpuProfile.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
@@ -93,6 +94,12 @@ public interface DB {
 				Logger.w("Upgrading to DB Version 7...");
 				db.execSQL(CREATE_VIRTUAL_GOVERNOR_TABLE);
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + DB.CpuProfile.NAME_VIRTUAL_GOVERNOR + " int default -1;");
+
+			case 7:
+				Logger.w("Upgrading to DB Version 8...");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID + " long default -1;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_SUM_CALL + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_POWER_CURRENT_CNT_CALL + " long;");
 			default:
 				Logger.w("Finished DB upgrading!");
 				break;
@@ -126,6 +133,9 @@ public interface DB {
 		public static final String NAME_HOT_PROFILE_ID = "hotProfileId";
 		public static final String NAME_POWER_CURRENT_SUM_HOT = "powerCurrentSumHot";
 		public static final String NAME_POWER_CURRENT_CNT_HOT = "powerCurrentCntHot";
+		public static final String NAME_CALL_IN_PROGRESS_PROFILE_ID = "callInProgressProfileId";
+		public static final String NAME_POWER_CURRENT_SUM_CALL = "powerCurrentSumCall";
+		public static final String NAME_POWER_CURRENT_CNT_CALL = "powerCurrentCntCall";
 
 		public static final int INDEX_TRIGGER_NAME = 1;
 		public static final int INDEX_BATTERY_LEVEL = 2;
@@ -141,11 +151,14 @@ public interface DB {
 		public static final int INDEX_HOT_PROFILE_ID = 12;
 		public static final int INDEX_POWER_CURRENT_SUM_HOT = 13;
 		public static final int INDEX_POWER_CURRENT_CNT_HOT = 14;
+		public static final int INDEX_CALL_IN_PROGRESS_PROFILE_ID = 15;
+		public static final int INDEX_POWER_CURRENT_SUM_CALL = 16;
+		public static final int INDEX_POWER_CURRENT_CNT_CALL = 17;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
 				NAME_BATTERY_PROFILE_ID, NAME_POWER_PROFILE_ID, NAME_POWER_CURRENT_SUM_POW, NAME_POWER_CURRENT_CNT_POW, NAME_POWER_CURRENT_SUM_BAT,
 				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK, NAME_HOT_PROFILE_ID, NAME_POWER_CURRENT_SUM_HOT,
-				NAME_POWER_CURRENT_CNT_HOT };
+				NAME_POWER_CURRENT_CNT_HOT,  NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL};
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		static final String[] PROJECTION_MINIMAL_HOT_PROFILE = new String[] { NAME_HOT_PROFILE_ID };

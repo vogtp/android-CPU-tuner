@@ -186,4 +186,6 @@
 	</string-array>
 <string name="cbEnableVirtualGovernors">Enable virtual governors</string>
 <string name="userExperianceLevelExplain">CPU tuner can operate on different experience levels. Depending on the level it gives you more choices and lets you do more things.</string>
+<string name="prefCallInProgressProfile">Call in Progress Profile</string>
+<string name="prefCallInProgressProfileLong">Beta Feature: Enables a profile that is triggered during phonecalls.</string>
 </resources>

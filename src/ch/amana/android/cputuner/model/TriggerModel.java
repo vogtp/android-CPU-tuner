@@ -22,15 +22,18 @@ public class TriggerModel {
 	private long powerCurrentCntScreenLocked;
 	private long powerCurrentSumHot;
 	private long powerCurrentCntHot;
+	private long callInProgessProfileId;
+	private long powerCurrentSumCall;
+	private long powerCurrentCntCall;
 
 	public TriggerModel() {
-		this("", 100, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0);
+		this("", 100, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0,0,0);
 	}
 
 	public TriggerModel(String name, int batteryLevel, long screenOffProfileId, long batteryProfileId,
-			long powerProfileId, long hotProfileId, long powercurrentSumPower, long powercurrentCntPower,
+			long powerProfileId, long hotProfileId, long callInProgessProfileId,long powercurrentSumPower, long powercurrentCntPower,
 			long powercurrentSumBattery, long powercurrentCntBattery, long powercurrentSumScreenLocked, long powercurrentCntScreenLocked,
-				long powercurrentSumHot, long powercurrentCntHot) {
+				long powercurrentSumHot, long powercurrentCntHot, long powerCurrentSumCall, long powerCurrentCntCall) {
 		super();
 		this.name = name;
 		this.batteryLevel = batteryLevel;
@@ -38,6 +41,7 @@ public class TriggerModel {
 		this.batteryProfileId = batteryProfileId;
 		this.powerProfileId = powerProfileId;
 		this.hotProfileId = hotProfileId;
+		this.callInProgessProfileId = callInProgessProfileId;
 		this.powerCurrentSumPower = powercurrentSumPower;
 		this.powerCurrentCntPower = powercurrentCntPower;
 		this.powerCurrentSumBattery = powercurrentSumBattery;
@@ -46,6 +50,8 @@ public class TriggerModel {
 		this.powerCurrentCntScreenLocked = powercurrentCntScreenLocked;
 		this.powerCurrentSumHot = powercurrentSumHot;
 		this.powerCurrentCntHot = powercurrentCntHot;
+		this.powerCurrentSumCall = powerCurrentSumCall;
+		this.powerCurrentCntCall = powerCurrentCntCall;
 	}
 
 	public TriggerModel(Cursor c) {
@@ -55,6 +61,7 @@ public class TriggerModel {
 				c.getLong(DB.Trigger.INDEX_BATTERY_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_POWER_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_HOT_PROFILE_ID),
+				c.getLong(DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_POW),
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_POW),
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_BAT),
@@ -62,7 +69,8 @@ public class TriggerModel {
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_LCK),
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK),
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_HOT),
-				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT));
+ c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT), c
+				.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_CALL), c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL));
 		id = c.getLong(DB.INDEX_ID);
 	}
 
@@ -82,6 +90,7 @@ public class TriggerModel {
 		bundle.putLong(DB.Trigger.NAME_BATTERY_PROFILE_ID, getBatteryProfileId());
 		bundle.putLong(DB.Trigger.NAME_POWER_PROFILE_ID, getPowerProfileId());
 		bundle.putLong(DB.Trigger.NAME_HOT_PROFILE_ID, getHotProfileId());
+		bundle.putLong(DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, getCallInProgessProfileId());
 		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_SUM_POW, getPowerCurrentSumPower());
 		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_CNT_POW, getPowerCurrentCntPower());
 		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_SUM_BAT, getPowerCurrentSumBattery());
@@ -90,6 +99,8 @@ public class TriggerModel {
 		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, getPowerCurrentCntScreenLocked());
 		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_SUM_HOT, getPowerCurrentSumHot());
 		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT, getPowerCurrentCntHot());
+		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL, getPowerCurrentSumCall());
+		bundle.putLong(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL, getPowerCurrentCntCall());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -100,14 +111,17 @@ public class TriggerModel {
 		batteryProfileId = bundle.getLong(DB.Trigger.NAME_BATTERY_PROFILE_ID);
 		powerProfileId = bundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
 		hotProfileId = bundle.getLong(DB.Trigger.NAME_HOT_PROFILE_ID);
+		callInProgessProfileId = bundle.getLong(DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID);
 		powerCurrentSumPower = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_POW);
 		powerCurrentCntPower = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_POW);
 		powerCurrentSumBattery = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_BAT);
 		powerCurrentCntBattery = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_BAT);
 		powerCurrentSumScreenLocked = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_LCK);
 		powerCurrentCntScreenLocked = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_LCK);
-		powerCurrentSumScreenLocked = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_HOT);
-		powerCurrentCntScreenLocked = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT);
+		powerCurrentSumHot = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_HOT);
+		powerCurrentCntHot = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT);
+		powerCurrentSumCall = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL);
+		powerCurrentCntCall = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL);
 	}
 
 	public ContentValues getValues() {
@@ -121,6 +135,7 @@ public class TriggerModel {
 		values.put(DB.Trigger.NAME_BATTERY_PROFILE_ID, getBatteryProfileId());
 		values.put(DB.Trigger.NAME_POWER_PROFILE_ID, getPowerProfileId());
 		values.put(DB.Trigger.NAME_HOT_PROFILE_ID, getHotProfileId());
+		values.put(DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, getCallInProgessProfileId());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_SUM_POW, getPowerCurrentSumPower());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_POW, getPowerCurrentCntPower());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_SUM_BAT, getPowerCurrentSumBattery());
@@ -129,6 +144,8 @@ public class TriggerModel {
 		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, getPowerCurrentCntScreenLocked());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_SUM_HOT, getPowerCurrentSumHot());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT, getPowerCurrentCntHot());
+		values.put(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL, getPowerCurrentSumCall());
+		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL, getPowerCurrentCntCall());
 		return values;
 	}
 
@@ -254,6 +271,10 @@ public class TriggerModel {
 		powerCurrentCntBattery = 0;
 		powerCurrentSumScreenLocked = 0;
 		powerCurrentCntScreenLocked = 0;
+		powerCurrentSumHot = 0;
+		powerCurrentCntHot = 0;
+		powerCurrentSumCall = 0;
+		powerCurrentCntCall = 0;
 	}
 
 	@Override
@@ -262,8 +283,19 @@ public class TriggerModel {
 		int result = 1;
 		result = prime * result + batteryLevel;
 		result = prime * result + (int) (batteryProfileId ^ (batteryProfileId >>> 32));
+		result = prime * result + (int) (callInProgessProfileId ^ (callInProgessProfileId >>> 32));
 		result = prime * result + (int) (hotProfileId ^ (hotProfileId >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (int) (powerCurrentCntBattery ^ (powerCurrentCntBattery >>> 32));
+		result = prime * result + (int) (powerCurrentCntCall ^ (powerCurrentCntCall >>> 32));
+		result = prime * result + (int) (powerCurrentCntHot ^ (powerCurrentCntHot >>> 32));
+		result = prime * result + (int) (powerCurrentCntPower ^ (powerCurrentCntPower >>> 32));
+		result = prime * result + (int) (powerCurrentCntScreenLocked ^ (powerCurrentCntScreenLocked >>> 32));
+		result = prime * result + (int) (powerCurrentSumBattery ^ (powerCurrentSumBattery >>> 32));
+		result = prime * result + (int) (powerCurrentSumCall ^ (powerCurrentSumCall >>> 32));
+		result = prime * result + (int) (powerCurrentSumHot ^ (powerCurrentSumHot >>> 32));
+		result = prime * result + (int) (powerCurrentSumPower ^ (powerCurrentSumPower >>> 32));
+		result = prime * result + (int) (powerCurrentSumScreenLocked ^ (powerCurrentSumScreenLocked >>> 32));
 		result = prime * result + (int) (powerProfileId ^ (powerProfileId >>> 32));
 		result = prime * result + (int) (screenOffProfileId ^ (screenOffProfileId >>> 32));
 		return result;
@@ -282,12 +314,34 @@ public class TriggerModel {
 			return false;
 		if (batteryProfileId != other.batteryProfileId)
 			return false;
+		if (callInProgessProfileId != other.callInProgessProfileId)
+			return false;
 		if (hotProfileId != other.hotProfileId)
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (powerCurrentCntBattery != other.powerCurrentCntBattery)
+			return false;
+		if (powerCurrentCntCall != other.powerCurrentCntCall)
+			return false;
+		if (powerCurrentCntHot != other.powerCurrentCntHot)
+			return false;
+		if (powerCurrentCntPower != other.powerCurrentCntPower)
+			return false;
+		if (powerCurrentCntScreenLocked != other.powerCurrentCntScreenLocked)
+			return false;
+		if (powerCurrentSumBattery != other.powerCurrentSumBattery)
+			return false;
+		if (powerCurrentSumCall != other.powerCurrentSumCall)
+			return false;
+		if (powerCurrentSumHot != other.powerCurrentSumHot)
+			return false;
+		if (powerCurrentSumPower != other.powerCurrentSumPower)
+			return false;
+		if (powerCurrentSumScreenLocked != other.powerCurrentSumScreenLocked)
 			return false;
 		if (powerProfileId != other.powerProfileId)
 			return false;
@@ -320,5 +374,29 @@ public class TriggerModel {
 
 	public void setPowerCurrentCntHot(long powerCurrentCntHot) {
 		this.powerCurrentCntHot = powerCurrentCntHot;
+	}
+
+	public long getCallInProgessProfileId() {
+		return callInProgessProfileId;
+	}
+
+	public long getPowerCurrentSumCall() {
+		return powerCurrentSumCall;
+	}
+
+	public void setPowerCurrentSumCall(long powerCurrentSumCall) {
+		this.powerCurrentSumCall = powerCurrentSumCall;
+	}
+
+	public long getPowerCurrentCntCall() {
+		return powerCurrentCntCall;
+	}
+
+	public void setPowerCurrentCntCall(long powerCurrentCntCall) {
+		this.powerCurrentCntCall = powerCurrentCntCall;
+	}
+
+	public void setCallInProgessProfileId(long callInProgessProfileId) {
+		this.callInProgessProfileId = callInProgessProfileId;
 	}
 }

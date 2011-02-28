@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -37,6 +38,7 @@ public class TriggerEditor extends Activity {
 	private EditText etBatteryLevel;
 	private SeekBar sbBatteryLevel;
 	private CheckBox cbHot;
+	private Spinner spCall;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -69,6 +71,7 @@ public class TriggerEditor extends Activity {
 		spBattery = (Spinner) findViewById(R.id.spBattery);
 		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
 		spPower = (Spinner) findViewById(R.id.spPower);
+		spCall = (Spinner) findViewById(R.id.spCall);
 		spHot = (Spinner) findViewById(R.id.spHot);
 		cbHot = (CheckBox) findViewById(R.id.cbHot);
 
@@ -85,6 +88,7 @@ public class TriggerEditor extends Activity {
 		setProfilesAdapter(spBattery);
 		setProfilesAdapter(spScreenLocked);
 		setProfilesAdapter(spPower);
+		setProfilesAdapter(spCall);
 		setProfilesAdapter(spHot);
 
 		// hide keyboard
@@ -105,6 +109,7 @@ public class TriggerEditor extends Activity {
 		boolean hasHotProfile = triggerModel.getHotProfileId() > -1;
 		cbHot.setChecked(hasHotProfile);
 		spHot.setEnabled(hasHotProfile);
+		spCall.setEnabled(SettingsStorage.getInstance().isEnableCallInProgressProfile());
 		etName.setText(triggerModel.getName());
 		etBatteryLevel.setText(triggerModel.getBatteryLevel() + "");
 		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());
@@ -112,6 +117,7 @@ public class TriggerEditor extends Activity {
 		GuiUtils.setSpinner(spScreenLocked, triggerModel.getScreenOffProfileId());
 		GuiUtils.setSpinner(spPower, triggerModel.getPowerProfileId());
 		GuiUtils.setSpinner(spHot, triggerModel.getHotProfileId());
+		GuiUtils.setSpinner(spCall, triggerModel.getCallInProgessProfileId());
 	}
 
 	private void updateModel() {
@@ -124,6 +130,7 @@ public class TriggerEditor extends Activity {
 		triggerModel.setBatteryProfileId(spBattery.getSelectedItemId());
 		triggerModel.setScreenOffProfileId(spScreenLocked.getSelectedItemId());
 		triggerModel.setPowerProfileId(spPower.getSelectedItemId());
+		triggerModel.setCallInProgessProfileId(spCall.getSelectedItemId());
 		if (cbHot.isChecked()) {
 			triggerModel.setHotProfileId(spHot.getSelectedItemId());
 		} else {

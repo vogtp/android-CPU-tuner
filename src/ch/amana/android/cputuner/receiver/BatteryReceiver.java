@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -18,6 +20,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	private static Object lock = new Object();
 	private static BatteryReceiver receiver = null;
+	private static PhoneStateListener phoneStateListener;
 
 	private class SetProfileTask extends AsyncTask<Intent, Void, Void> {
 
@@ -63,6 +66,11 @@ public class BatteryReceiver extends BroadcastReceiver {
 				context.registerReceiver(receiver, screenOffFilter);
 				Notifier.notifyProfile("Initalising");
 				Logger.w("Registered BatteryReceiver");
+				if (SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
+					TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+					phoneStateListener = new CallPhoneStateListener();
+					tm.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+				}
 			} else {
 				Logger.i("BatteryReceiver allready registered, not registering again");
 			}
@@ -76,6 +84,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 				try {
 					context.unregisterReceiver(receiver);
 					receiver = null;
+					if (SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
+						TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+						tm.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+						phoneStateListener = null;
+						PowerProfiles.getInstance().setCallInProgress(false);
+					}
 					Logger.w("Unegistered BatteryReceiver");
 				} catch (Throwable e) {
 					Logger.w("Could not unregister BatteryReceiver", e);
