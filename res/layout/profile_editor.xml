@@ -97,7 +97,7 @@
 
 			</TableRow>
 			<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowMobiledataConnection">
-				<TextView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingRight="5dp" android:id="@+id/TextView02" android:layout_height="wrap_content" android:text="Mobiledata Connection"></TextView>
+				<TextView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingRight="5dp" android:id="@+id/TextView02" android:layout_height="wrap_content" android:text="Mobiledata Con."></TextView>
 				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spMobileDataConnection"></Spinner>
 			</TableRow>
 			<TableRow android:layout_width="wrap_content"
