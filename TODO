@@ -10,9 +10,7 @@
 - set brightness
 - set a black wall paper (and honour live wallpapers)
 
-- switch off mobile data
 - Scheduled background sync: We need an option to have data & sync turn on at regular intervals while screen off in order to keep receiving (turn on data for say 5s than off for 30s) 
-- Active traffic must not cut data connection: Maybe you've built this in already and I just didn't realize it but it's essential that neither mobile data nor wifi ever gets cut while there's data traffic (e.g. >5kb/s) going on. Otherwise sync, downloads, VOIP calls will get interrupted. 
 
 - populate db in thread
 
