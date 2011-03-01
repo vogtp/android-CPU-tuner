@@ -25,7 +25,7 @@
 			</intent-filter>
 		</service>
 
-		<activity android:name="view.activity.ProfileEditor">
+		<activity android:name=".view.activity.ProfileEditor">
 			<intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile"></data>
