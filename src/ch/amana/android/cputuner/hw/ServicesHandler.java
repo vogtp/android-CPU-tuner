@@ -135,11 +135,7 @@ public class ServicesHandler {
 				Logger.i("Not switched background syc state is correct");
 				return;
 			}
-			if (b) {
-				ContentResolver.setMasterSyncAutomatically(true);
-			} else {
-				ContentResolver.setMasterSyncAutomatically(false);
-			}
+			ContentResolver.setMasterSyncAutomatically(b);
 		} catch (Throwable e) {
 			Logger.e("Cannot switch background sync", e);
 		}
@@ -147,23 +143,20 @@ public class ServicesHandler {
 	}
 
 	 public static void enableMobileData(Context context, boolean enable) {
-//	 try {
-//	 TelephonyManager cm = (TelephonyManager)
-//	 context.getSystemService(Context.CONNECTIVITY_SERVICE);
-//	 cm.setMobileDataEnabled(true);
-//	 if (ContentResolver.getMasterSyncAutomatically() == b) {
-//	 Logger.i("Not switched mobiledata state is correct");
-//	 return;
-//	 }
-//	 if (b) {
-//	 ContentResolver.setMasterSyncAutomatically(true);
-//	 } else {
-//	 ContentResolver.setMasterSyncAutomatically(false);
-//	 }
-//	 } catch (Throwable e) {
-//	 Logger.e("Cannot switch mobiledata ", e);
-//	 }
-//	 Logger.i("Switched mobiledata to " + enable);
+		try {
+			MobiledataWrapper mdw = MobiledataWrapper.getInstance(context);
+			if (!mdw.canUse()) {
+				return;
+			}
+			if (mdw.getMobileDataEnabled() == enable) {
+				Logger.i("Not switched mobiledata state is correct");
+				return;
+			}
+			mdw.setMobileDataEnabled(enable);
+		} catch (Throwable e) {
+			Logger.e("Cannot switch mobiledata ", e);
+		}
+		Logger.i("Switched mobiledata to " + enable);
 	 }
 
 	private void setBrightness(Activity context) {
