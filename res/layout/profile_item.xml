@@ -43,8 +43,11 @@
 			<LinearLayout android:id="@+id/LinearLayout03"
 				android:layout_width="wrap_content" android:layout_height="wrap_content">
 				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@string/label3g2g" android:id="@+id/tvMobiledata3G"></TextView>
-				<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="5dp" android:id="@+id/tvMobiledataConnection" android:text="@string/labelMobiledataOn"></TextView>
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:text="@string/label3g2g" android:id="@+id/tvMobiledata3G"></TextView>
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:paddingRight="5dp"
+					android:id="@+id/tvMobiledataConnection" android:text="@string/labelMobiledataOn"></TextView>
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:id="@+id/tvSync"
 					android:paddingRight="5dp" android:text="@string/labelSyncOn"></TextView>
@@ -58,7 +61,7 @@
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:id="@+id/tvBluetooth" android:text="@string/labelBluetoothOn"></TextView>
 
-</LinearLayout>
+			</LinearLayout>
 		</TableRow>
 	</TableLayout>
 
