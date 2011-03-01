@@ -91,11 +91,14 @@
 				android:layout_height="wrap_content" android:id="@+id/TableRowMobileData3G">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="5dp" android:layout_gravity="center_vertical"
-					android:text="Mobiledata"></TextView>
+					android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="Mobiledata 2G/3G"></TextView>
 				<Spinner android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:id="@+id/spMobileData3G"></Spinner>
 
+			</TableRow>
+			<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/TableRowMobiledataConnection">
+				<TextView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingRight="5dp" android:id="@+id/TextView02" android:layout_height="wrap_content" android:text="Mobiledata Connection"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spMobileDataConnection"></Spinner>
 			</TableRow>
 			<TableRow android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/TableRowSync">

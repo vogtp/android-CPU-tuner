@@ -23,7 +23,8 @@ public class ProfileModel {
 	private int wifiState = 0;
 	private int gpsState = 0;
 	private int bluetoothState = 0;
-	private int mobiledataState = 0;
+	private int mobiledata3GState = 0;
+	private int mobiledataConnectionState = 0;
 	private int backgroundSyncState = 0;
 	private int governorThresholdUp = 98;
 	private int governorThresholdDown = 95;
@@ -50,7 +51,8 @@ public class ProfileModel {
 		this.wifiState = c.getInt(DB.CpuProfile.INDEX_WIFI_STATE);
 		this.gpsState = c.getInt(DB.CpuProfile.INDEX_GPS_STATE);
 		this.bluetoothState = c.getInt(DB.CpuProfile.INDEX_BLUETOOTH_STATE);
-		this.mobiledataState = c.getInt(DB.CpuProfile.INDEX_MOBILEDATA_STATE);
+		this.mobiledata3GState = c.getInt(DB.CpuProfile.INDEX_MOBILEDATA_3G_STATE);
+		this.mobiledataConnectionState = c.getInt(DB.CpuProfile.INDEX_MOBILEDATA_CONNECTION_STATE);
 		this.governorThresholdUp = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_UP);
 		this.governorThresholdDown = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_DOWN);
 		this.backgroundSyncState = c.getInt(DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE);
@@ -75,7 +77,8 @@ public class ProfileModel {
 		bundle.putInt(DB.CpuProfile.NAME_WIFI_STATE, getWifiState());
 		bundle.putInt(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
 		bundle.putInt(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
-		bundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
+		bundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, getMobiledata3GState());
+		bundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE, getMobiledataConnectionState());
 		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		bundle.putInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
@@ -91,7 +94,8 @@ public class ProfileModel {
 		wifiState = bundle.getInt(DB.CpuProfile.NAME_WIFI_STATE);
 		gpsState = bundle.getInt(DB.CpuProfile.NAME_GPS_STATE);
 		bluetoothState = bundle.getInt(DB.CpuProfile.NAME_BLUETOOTH_STATE);
-		mobiledataState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_STATE);
+		mobiledata3GState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE);
+		mobiledataConnectionState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE);
 		governorThresholdUp = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP);
 		governorThresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN);
 		backgroundSyncState = bundle.getInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE);
@@ -111,7 +115,8 @@ public class ProfileModel {
 		values.put(DB.CpuProfile.NAME_WIFI_STATE, getWifiState());
 		values.put(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
 		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
-		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, getMobiledataState());
+		values.put(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, getMobiledata3GState());
+		values.put(DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE, getMobiledataConnectionState());
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
@@ -196,12 +201,12 @@ public class ProfileModel {
 		return bluetoothState;
 	}
 
-	public void setMobiledataState(int mobiledataState) {
-		this.mobiledataState = mobiledataState;
+	public void setMobiledata3GState(int mobiledata3GState) {
+		this.mobiledata3GState = mobiledata3GState;
 	}
 
-	public int getMobiledataState() {
-		return mobiledataState;
+	public int getMobiledata3GState() {
+		return mobiledata3GState;
 	}
 
 	public void setDbId(long id) {
@@ -220,7 +225,8 @@ public class ProfileModel {
 		result = prime * result + gpsState;
 		result = prime * result + maxFreq;
 		result = prime * result + minFreq;
-		result = prime * result + mobiledataState;
+		result = prime * result + mobiledata3GState;
+		result = prime * result + mobiledataConnectionState;
 		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
 		result = prime * result + (int) (virtualGovernor ^ (virtualGovernor >>> 32));
 		result = prime * result + wifiState;
@@ -255,7 +261,9 @@ public class ProfileModel {
 			return false;
 		if (minFreq != other.minFreq)
 			return false;
-		if (mobiledataState != other.mobiledataState)
+		if (mobiledata3GState != other.mobiledata3GState)
+			return false;
+		if (mobiledataConnectionState != other.mobiledataConnectionState)
 			return false;
 		if (profileName == null) {
 			if (other.profileName != null)
@@ -319,5 +327,13 @@ public class ProfileModel {
 
 	public long getVirtualGovernor() {
 		return virtualGovernor;
+	}
+
+	public void setMobiledataConnectionState(int mobiledataConnectionState) {
+		this.mobiledataConnectionState = mobiledataConnectionState;
+	}
+
+	public int getMobiledataConnectionState() {
+		return mobiledataConnectionState;
 	}
 }

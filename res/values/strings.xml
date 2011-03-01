@@ -115,7 +115,7 @@
 		frequency.</string>
 	<string name="explainGovInteractive">Designed for low latency burst workloads. Scaling
 		is done when coming out of idle instead of polling.</string>
-	<string name="label3g2g">3G</string>
+	<string name="label3g2g">2/3G</string>
 	<string name="label2g">2G</string>
 	<string name="label3g2gPrev">2/3G?</string>
 	<string name="labelSyncOn">sync</string>
@@ -133,11 +133,16 @@
 		<strike>GPS</strike>
 	</string>
 	<string name="labelGpsPrev">GPS?</string>
-	<string name="labelBluetoothOn">Bluetooth</string>
+	<string name="labelBluetoothOn">BT</string>
 	<string name="labelBluetoothOff">
-		<strike>Bluetooth</strike>
+		<strike>BT</strike>
 	</string>
-	<string name="labelBluetoothPrev">Bluetooth?</string>
+	<string name="labelBluetoothPrev">BT?</string>
+	<string name="labelMobiledataOn">MD</string>
+	<string name="labelMobiledataOff">
+		<strike>MD</strike>
+	</string>
+	<string name="labelMobiledataPrev">MD?</string>
 
 
 	<string-array name="deviceStates">

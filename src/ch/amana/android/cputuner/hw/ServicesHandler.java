@@ -142,6 +142,10 @@ public class ServicesHandler {
 		Logger.i("Switched background syc to " + b);
 	}
 
+	public static boolean isMobiledataConnectionEnabled(Context context) {
+		return MobiledataWrapper.getInstance(context).getMobileDataEnabled();
+	}
+
 	 public static void enableMobileData(Context context, boolean enable) {
 		try {
 			MobiledataWrapper mdw = MobiledataWrapper.getInstance(context);

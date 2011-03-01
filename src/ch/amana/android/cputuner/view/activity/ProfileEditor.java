@@ -30,7 +30,7 @@ import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class CpuEditor extends Activity {
+public class ProfileEditor extends Activity {
 
 	private ProfileModel profile;
 	private CpuHandler cpuHandler;
@@ -56,6 +56,7 @@ public class CpuEditor extends Activity {
 	private Spinner spMobileData3G;
 	private Spinner spSync;
 	private boolean hasDeviceStatesBeta;
+	private Spinner spMobileDataConnection;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -101,9 +102,10 @@ public class CpuEditor extends Activity {
 			profile.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
+		// FIXME remove?
 		hasDeviceStatesBeta = 3 == Math.max(profile.getWifiState(),
 				Math.max(profile.getGpsState(),
-						Math.max(profile.getMobiledataState(),
+						Math.max(profile.getMobiledata3GState(),
 								Math.max(profile.getBluetoothState(),
 										Math.max(profile.getBackgroundSyncState(),
 												profile.getWifiState())))));
@@ -125,6 +127,7 @@ public class CpuEditor extends Activity {
 		spGps = (Spinner) findViewById(R.id.spGps);
 		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
 		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
+		spMobileDataConnection = (Spinner) findViewById(R.id.spMobileDataConnection);
 		spSync = (Spinner) findViewById(R.id.spSync);
 
 		sbCpuFreqMax.requestFocus();
@@ -252,7 +255,7 @@ public class CpuEditor extends Activity {
 			tlServices.removeView(findViewById(R.id.TableRowBluetooth));
 		}
 
-		if (SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
+		if (SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
 			int mobiledatastates = R.array.mobiledataStates;
 			if (SettingsStorage.getInstance().isEnableBeta()) {
 				mobiledatastates = R.array.mobiledataStatesBeta;
@@ -264,7 +267,7 @@ public class CpuEditor extends Activity {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-					profile.setMobiledataState(pos);
+					profile.setMobiledata3GState(pos);
 
 				}
 
@@ -274,6 +277,23 @@ public class CpuEditor extends Activity {
 			});
 		} else {
 			tlServices.removeView(findViewById(R.id.TableRowMobileData3G));
+		}
+
+		if (SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+			spMobileDataConnection.setAdapter(getSystemsAdapter());
+			spMobileDataConnection.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+					profile.setMobiledataConnectionState(pos);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		} else {
+			tlServices.removeView(findViewById(R.id.TableRowMobiledataConnection));
 		}
 
 		if (SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
@@ -385,7 +405,8 @@ public class CpuEditor extends Activity {
 		spWifi.setSelection(profile.getWifiState());
 		spGps.setSelection(profile.getGpsState());
 		spBluetooth.setSelection(profile.getBluetoothState());
-		spMobileData3G.setSelection(profile.getMobiledataState());
+		spMobileData3G.setSelection(profile.getMobiledata3GState());
+		spMobileDataConnection.setSelection(profile.getMobiledataConnectionState());
 		spSync.setSelection(profile.getBackgroundSyncState());
 		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
 			labelCpuFreqMax.setText(R.string.labelCpuFreq);

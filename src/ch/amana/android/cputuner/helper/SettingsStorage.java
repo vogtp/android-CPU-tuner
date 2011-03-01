@@ -170,7 +170,11 @@ public class SettingsStorage {
 		return trackCurrent;
 	}
 
-	public boolean isEnableSwitchMobiledata() {
+	public boolean isEnableSwitchMobiledataConnection() {
+		return true;
+	}
+
+	public boolean isEnableSwitchMobiledata3G() {
 		return true;
 	}
 

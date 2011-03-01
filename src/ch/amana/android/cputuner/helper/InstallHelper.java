@@ -158,7 +158,7 @@ public class InstallHelper {
 		values.put(DB.CpuProfile.NAME_WIFI_STATE, wifiState);
 		values.put(DB.CpuProfile.NAME_GPS_STATE, gpsState);
 		values.put(DB.CpuProfile.NAME_BLUETOOTH_STATE, btState);
-		values.put(DB.CpuProfile.NAME_MOBILEDATA_STATE, mbState);
+		values.put(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, mbState);
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, bsState);
 		if (gov.upThreshold > -1) {
 			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP,

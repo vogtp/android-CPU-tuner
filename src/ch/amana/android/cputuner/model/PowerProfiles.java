@@ -39,8 +39,11 @@ public class PowerProfiles {
 	private int lastSetStateGps = -1;
 	private boolean lastActiveStateGps;
 
-	private int lastSetStateMobiledata = -1;
-	private boolean lastActiveStateMobileData;
+	private int lastSetStateMobiledata3G = -1;
+	private boolean lastActiveStateMobileData3G;
+
+	private int lastSetStateMobiledataConnection = -1;
+	private boolean lastActiveStateMobileDataConnection;
 
 	private int lastSetStateBluetooth = -1;
 	private boolean lastActiceStateBluetooth;
@@ -72,14 +75,16 @@ public class PowerProfiles {
 		lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
 		lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
 		lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
-		lastActiveStateMobileData = ServicesHandler.is2gOnlyEnabled(context);
+		lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
+		lastActiveStateMobileData3G = ServicesHandler.is2gOnlyEnabled(context);
 		lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
 	}
 
 	private void resetServiceState() {
 		lastSetStateWifi = -1;
 		lastSetStateGps = -1;
-		lastSetStateMobiledata = -1;
+		lastSetStateMobiledataConnection = -1;
+		lastSetStateMobiledata3G = -1;
 		lastSetStateBluetooth = -1;
 		lastSetStateBackgroundSync = -1;
 	}
@@ -143,7 +148,8 @@ public class PowerProfiles {
 					applyWifiState(currentProfile.getWifiState());
 					applyGpsState(currentProfile.getGpsState());
 					applyBluetoothState(currentProfile.getBluetoothState());
-					applyMobiledataState(currentProfile.getMobiledataState());
+					applyMobiledata3GState(currentProfile.getMobiledata3GState());
+					applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
 					applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
 					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
 							+ "< on batterylevel "
@@ -239,26 +245,49 @@ public class PowerProfiles {
 		}
 	}
 
-	private void applyMobiledataState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
-			boolean stateBefore = lastActiveStateMobileData;
-			lastActiveStateMobileData = ServicesHandler.is2gOnlyEnabled(context);
+	private void applyMobiledata3GState(int state) {
+		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
+			boolean stateBefore = lastActiveStateMobileData3G;
+			lastActiveStateMobileData3G = ServicesHandler.is2gOnlyEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching mobiledata to last state which was " + stateBefore);
+				Logger.v("Sitching mobiledata 3G to last state which was " + stateBefore);
 				ServicesHandler.enable2gOnly(context, stateBefore);
-				lastSetStateMobiledata = -1;
+				lastSetStateMobiledata3G = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateMobiledata > -1) {
-					boolean b = lastSetStateMobiledata == SERVICE_STATE_ON ? true : false;
-					if (b != lastActiveStateMobileData) {
+				if (lastSetStateMobiledata3G > -1) {
+					boolean b = lastSetStateMobiledata3G == SERVICE_STATE_ON ? true : false;
+					if (b != lastActiveStateMobileData3G) {
 						Logger.v("Not sitching mobiledata it changed state since last time");
 						return;
 					}
 				}
-				lastSetStateMobiledata = state;
+				lastSetStateMobiledata3G = state;
 			}
 			ServicesHandler.enable2gOnly(context, state == SERVICE_STATE_ON ? true : false);
+		}
+	}
+
+	private void applyMobiledataConnectionState(int state) {
+		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+			boolean stateBefore = lastActiveStateMobileDataConnection;
+			lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
+			if (state == SERVICE_STATE_PREV) {
+				Logger.v("Sitching mobiledata connection to last state which was " + stateBefore);
+				ServicesHandler.enableMobileData(context, stateBefore);
+				lastSetStateMobiledataConnection = -1;
+				return;
+			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+				if (lastSetStateMobiledataConnection > -1) {
+					boolean b = lastSetStateMobiledataConnection == SERVICE_STATE_ON ? true : false;
+					if (b != lastActiveStateMobileDataConnection) {
+						Logger.v("Not sitching mobiledata connection it changed state since last time");
+						return;
+					}
+				}
+				lastSetStateMobiledataConnection = state;
+			}
+			ServicesHandler.enableMobileData(context, state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 
