@@ -11,11 +11,20 @@ import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.PowerProfiles;
 
 public class ServicesHandler {
 
-	private static final int MODE_GSM_ONLY = 1;
-	private static final int MODE_GSM_WCDMA_PREFERRD = 0;
+	/**
+	 * The preferred network mode 7 = Global 6 = EvDo only 5 = CDMA w/o EvDo 4 =
+	 * CDMA / EvDo auto 3 = GSM / WCDMA auto 2 = WCDMA only 1 = GSM only 0 = GSM
+	 * / WCDMA preferred
+	 * 
+	 */
+	public static final int MODE_2G_3G_PREFERRD = 0;// GSM / WCDMA preferred
+	public static final int MODE_2G_ONLY = 1;// GSM only
+	public static final int MODE_3G_ONLY = 2;// WCDMA only
+
 	private static final String MODIFY_NETWORK_MODE = "com.android.internal.telephony.MODIFY_NETWORK_MODE";
 	private static final String NETWORK_MODE = "networkMode";
 	private static WifiManager wifi;
@@ -74,8 +83,18 @@ public class ServicesHandler {
 		Logger.i("Switched bluethooth to " + enable);
 	}
 
-	public static boolean is2gOnlyEnabled(Context context) {
-		return getMobiledataState(context) == MODE_GSM_ONLY;
+	public static int whichMobiledata3G(Context context) {
+		switch (getMobiledataState(context)) {
+		case MODE_2G_ONLY:
+			return PowerProfiles.SERVICE_STATE_2G;
+		case MODE_2G_3G_PREFERRD:
+			return PowerProfiles.SERVICE_STATE_2G_3G;
+		case MODE_3G_ONLY:
+			return PowerProfiles.SERVICE_STATE_3G;
+		default:
+			return Integer.MAX_VALUE;
+		}
+	
 	}
 
 	public static boolean isPhoneIdle(Context context) {
@@ -86,7 +105,7 @@ public class ServicesHandler {
 	// From:
 	// /cyanogen/frameworks/base/services/java/com/android/server/status/widget/NetworkModeButton.java
 	// line 97
-	public static void enable2gOnly(Context context, boolean only2g) {
+	public static void enable2gOnly(Context context, int profileState) {
 		/**
 		 * The preferred network mode 7 = Global 6 = EvDo only 5 = CDMA w/o EvDo
 		 * 4 = CDMA / EvDo auto 3 = GSM / WCDMA auto 2 = WCDMA only 1 = GSM only
@@ -100,11 +119,19 @@ public class ServicesHandler {
 		}
 
 		int state = -7;
-		if (only2g) {
-			state = MODE_GSM_ONLY;
-		} else {
-			state = MODE_GSM_WCDMA_PREFERRD;
+		switch (profileState) {
+		case PowerProfiles.SERVICE_STATE_2G:
+			state = MODE_2G_ONLY;
+			break;
+		case PowerProfiles.SERVICE_STATE_2G_3G:
+			state = MODE_2G_3G_PREFERRD;
+			break;
+		case PowerProfiles.SERVICE_STATE_3G:
+			state = MODE_3G_ONLY;
+			break;
+		
 		}
+		
 		if (state == getMobiledataState(context)) {
 			Logger.i("Not switching 2G/3G since it's already in correct state.");
 			return;
@@ -112,7 +139,7 @@ public class ServicesHandler {
 		Intent intent = new Intent(MODIFY_NETWORK_MODE);
 		intent.putExtra(NETWORK_MODE, state);
 		context.sendBroadcast(intent);
-		Logger.i("Switched 2G/3G to " + only2g);
+		Logger.i("Switched 2G/3G to " + state);
 	}
 
 	private static int getMobiledataState(Context context) {

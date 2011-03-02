@@ -163,11 +163,15 @@ public class ProfilesListActivity extends ListActivity {
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.label3g2g;
-					if (state == PowerProfiles.SERVICE_STATE_ON) {
+					if (state == PowerProfiles.SERVICE_STATE_2G) {
 						color = Color.LTGRAY;
 						textRes = R.string.label2g;
-					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+					} else if (state == PowerProfiles.SERVICE_STATE_2G_3G) {
 						color = Color.LTGRAY;
+						textRes = R.string.label3g2g;
+					} else if (state == PowerProfiles.SERVICE_STATE_3G) {
+						color = Color.LTGRAY;
+						textRes = R.string.label3g;
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.label3g2gPrev;
 						color = Color.LTGRAY;

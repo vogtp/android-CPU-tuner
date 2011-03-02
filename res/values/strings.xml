@@ -117,6 +117,7 @@
 		is done when coming out of idle instead of polling.</string>
 	<string name="label3g2g">2/3G</string>
 	<string name="label2g">2G</string>
+	<string name="label3g">3G</string>
 	<string name="label3g2gPrev">2/3G?</string>
 	<string name="labelSyncOn">sync</string>
 	<string name="labelSyncOff">
@@ -162,12 +163,14 @@
 		<item>2G only</item>
 		<item>3G/2G</item>
 		<item>Back to previous</item>
+		<item>3G only</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
 		<item>leave unchanged</item>
 		<item>2G only</item>
 		<item>3G/2G</item>
 		<item>Back to previous</item>
+		<item>3G only</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Average value</item>
