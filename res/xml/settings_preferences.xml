@@ -54,21 +54,19 @@
 				android:title="@string/prefServiceSwitches">
 				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges"
 					android:title="@string/prefAllowManualServiceChanges"
-					android:defaultValue="true" android:summaryOff="@string/prefAllowManualServiceChangesOff"
-					android:summaryOn="@string/prefAllowManualServiceChangesOn"></CheckBoxPreference>
-				<CheckBoxPreference android:defaultValue="true"
-					android:key="prefKeySwitchWifiOnConnectedNetwork"
+					android:summaryOff="@string/prefAllowManualServiceChangesOff"
+					android:summaryOn="@string/prefAllowManualServiceChangesOn" android:defaultValue="false"></CheckBoxPreference>
+				<CheckBoxPreference android:key="prefKeySwitchWifiOnConnectedNetwork"
 					android:summaryOff="@string/prefSwitchWifiOnConnectedNetworkOff"
 					android:summaryOn="@string/prefSwitchWifiOnConnectedNetworkOn"
-					android:title="@string/prefSwitchWifiOnConnectedNetwork"></CheckBoxPreference>
+					android:title="@string/prefSwitchWifiOnConnectedNetwork" android:defaultValue="false"></CheckBoxPreference>
 				<CheckBoxPreference android:title="@string/prefCallInProgressProfile"
 					android:key="prefKeyCallInProgressProfile" android:summary="@string/prefCallInProgressProfileLong"
-					android:enabled="true"></CheckBoxPreference>
+					android:enabled="true" android:defaultValue="true"></CheckBoxPreference>
 				<CheckBoxPreference android:key="prefKeySwitchProfileWhilePhoneNotIdle"
 					android:summaryOff="@string/prefSwitchProfileWhilePhoneNotIdleOff"
 					android:summaryOn="@string/prefSwitchProfileWhilePhoneNotIdleOn"
-					android:title="@string/prefSwitchProfileWhilePhoneNotIdle"
-					android:defaultValue="true"></CheckBoxPreference>
+					android:title="@string/prefSwitchProfileWhilePhoneNotIdle" android:defaultValue="false"></CheckBoxPreference>
 
 </PreferenceCategory>
 		</PreferenceScreen>

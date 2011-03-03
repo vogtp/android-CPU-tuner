@@ -128,6 +128,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		super.onResume();
 		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
 		virtualGovPref.setEnabled(false);//!SettingsStorage.getInstance().isBeginnerUser());
+		findPreference("prefKeyCallInProgressProfile").setEnabled(SettingsStorage.getInstance().isEnableBeta());
 		cpuFreqPreference.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(SettingsStorage.getInstance().isBeginnerUser() || SettingsStorage.getInstance().isPowerUser()));
 	}

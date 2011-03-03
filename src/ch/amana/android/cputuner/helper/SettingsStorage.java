@@ -239,7 +239,7 @@ public class SettingsStorage {
 	public boolean isSwitchWifiOnConnectedNetwork() {
 		if (!checkedSwitchWifiOnConnectedNetwork) {
 			checkedSwitchWifiOnConnectedNetwork = true;
-			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", true);
+			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", false);
 		}
 		return switchWifiOnConnectedNetwork;
 	}
@@ -247,7 +247,7 @@ public class SettingsStorage {
 	public boolean isSwitchProfileWhilePhoneNotIdle() {
 		if (!checkedSwitchProfileWhilePhoneNotIdle) {
 			checkedSwitchProfileWhilePhoneNotIdle = true;
-			switchProfileWhilePhoneNotIdle = getPreferences().getBoolean("prefKeySwitchProfileWhilePhoneNotIdle", true);
+			switchProfileWhilePhoneNotIdle = getPreferences().getBoolean("prefKeySwitchProfileWhilePhoneNotIdle", false);
 		}
 		return switchProfileWhilePhoneNotIdle;
 	}
