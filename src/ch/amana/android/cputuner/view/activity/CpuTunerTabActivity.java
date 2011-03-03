@@ -27,4 +27,11 @@ public class CpuTunerTabActivity extends TabActivity {
 				.setContent(new Intent(this, SettingsPreferenceActivity.class)));
 
 	}
+
+	@Override
+	public void onContentChanged() {
+		// TODO Auto-generated method stub
+		super.onContentChanged();
+	}
+
 }

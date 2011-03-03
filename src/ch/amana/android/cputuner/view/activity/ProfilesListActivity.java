@@ -87,6 +87,8 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelGpsPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -108,6 +110,8 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelWifiPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -129,6 +133,8 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelBluetoothPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -150,6 +156,8 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelSyncPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -197,6 +205,9 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelMobiledataPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						textRes = R.string.labelMobiledataOn;
+						color = Color.YELLOW;
 					}
 					textView.setTextColor(color);
 					textView.setText(textRes);

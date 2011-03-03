@@ -19,6 +19,7 @@ public class PowerProfiles {
 	public static final int SERVICE_STATE_ON = 1;
 	public static final int SERVICE_STATE_OFF = 2;
 	public static final int SERVICE_STATE_PREV = 3;
+	public static final int SERVICE_STATE_PULSE = 4;
 
 	public static final int SERVICE_STATE_2G = SERVICE_STATE_ON;
 	public static final int SERVICE_STATE_2G_3G = SERVICE_STATE_OFF;
