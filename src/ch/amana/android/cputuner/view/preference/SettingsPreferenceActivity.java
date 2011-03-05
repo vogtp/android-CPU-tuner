@@ -126,9 +126,11 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 	@Override
 	protected void onResume() {
 		super.onResume();
+		findPreference("prefKeyCallInProgressProfile").setEnabled(SettingsStorage.getInstance().isEnableBeta());
+		findPreference("prefKeyPulseDelayOff").setEnabled(SettingsStorage.getInstance().isEnableBeta());
+		findPreference("prefKeyPulseDelayOn").setEnabled(SettingsStorage.getInstance().isEnableBeta());
 		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
 		virtualGovPref.setEnabled(false);//!SettingsStorage.getInstance().isBeginnerUser());
-		findPreference("prefKeyCallInProgressProfile").setEnabled(SettingsStorage.getInstance().isEnableBeta());
 		cpuFreqPreference.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(SettingsStorage.getInstance().isBeginnerUser() || SettingsStorage.getInstance().isPowerUser()));
 	}

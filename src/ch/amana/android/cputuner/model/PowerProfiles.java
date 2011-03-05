@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -183,6 +184,12 @@ public class PowerProfiles {
 
 	private void applyWifiState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchWifi()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseWifiState(true);
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseWifiState(false);
+			}
 			boolean stateBefore = lastAciveStateWifi;
 			lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
 			if (state == SERVICE_STATE_PREV) {
@@ -206,6 +213,12 @@ public class PowerProfiles {
 
 	private void applyGpsState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchGps()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseGpsState(true);
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseGpsState(false);
+			}
 			boolean stateBefore = lastActiveStateGps;
 			lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
@@ -229,6 +242,12 @@ public class PowerProfiles {
 
 	private void applyBluetoothState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseBluetoothState(true);
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseBluetoothState(false);
+			}
 			boolean stateBefore = lastActiceStateBluetooth;
 			lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
 			if (state == SERVICE_STATE_PREV) {
@@ -275,6 +294,12 @@ public class PowerProfiles {
 
 	private void applyMobiledataConnectionState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseMobiledataConnectionState(true);
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseMobiledataConnectionState(false);
+			}
 			boolean stateBefore = lastActiveStateMobileDataConnection;
 			lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
@@ -298,6 +323,12 @@ public class PowerProfiles {
 
 	private void applyBackgroundSyncState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseBackgroundSyncState(true);
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseBackgroundSyncState(false);
+			}
 			boolean stateBefore = lastActiveStateBackgroundSync;
 			lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
 			if (state == SERVICE_STATE_PREV) {

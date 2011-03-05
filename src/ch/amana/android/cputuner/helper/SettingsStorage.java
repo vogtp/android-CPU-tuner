@@ -51,6 +51,10 @@ public class SettingsStorage {
 	private int batteryHotTemp;
 	private boolean enableCallInProgress;
 	private boolean checkedenableCallInProgress = false;
+	private boolean checkedPulseDelayOn = false;
+	private long pulseDelayOn;
+	private boolean checkedPulseDelayOff = false;
+	private long pulseDelayOff;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -63,6 +67,8 @@ public class SettingsStorage {
 		checkedSwitchProfileWhilePhoneNotIdle = false;
 		checkBatteryHotTemp = false;
 		checkedenableCallInProgress = false;
+		checkedPulseDelayOn = false;
+		checkedPulseDelayOff = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -284,5 +290,33 @@ public class SettingsStorage {
 			enableCallInProgress = isEnableBeta() && boolean1;
 		}
 		return enableCallInProgress;
+	}
+
+	public long getPulseDelayOn() {
+
+		if (!checkedPulseDelayOn) {
+			checkedPulseDelayOn = true;
+			try {
+				pulseDelayOn = Long.parseLong(getPreferences().getString("prefKeyPulseDelayOn", "1"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse pulseDelayOn as int", e);
+				pulseDelayOn = 1;
+			}
+		}
+		return pulseDelayOn;
+	}
+
+	public long getPulseDelayOff() {
+
+		if (!checkedPulseDelayOff) {
+			checkedPulseDelayOff = true;
+			try {
+				pulseDelayOff = Long.parseLong(getPreferences().getString("prefKeyPulseDelayOff", "30"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse pulseDelayOn as int", e);
+				pulseDelayOff = 1;
+			}
+		}
+		return pulseDelayOff;
 	}
 }

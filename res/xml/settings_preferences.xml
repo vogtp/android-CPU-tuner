@@ -96,6 +96,10 @@
 				<EditTextPreference android:summary="@string/prefCpuFreqLong"
 					android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq"
 					android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
+				<PreferenceCategory android:title="@string/prefCatPulsedServiceSwitches">
+					<EditTextPreference android:summary="@string/prefPulseDelayOnLong" android:defaultValue="1" android:key="prefKeyPulseDelayOn" android:title="@string/prefPulseDelayOn"></EditTextPreference>
+					<EditTextPreference android:summary="@string/prefPulseDelayOffLong" android:defaultValue="30" android:key="prefKeyPulseDelayOff" android:title="@string/prefPulseDelayOff"></EditTextPreference>
+				</PreferenceCategory>
 
 
 
