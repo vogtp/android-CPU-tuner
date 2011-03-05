@@ -10,7 +10,7 @@
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
 			android:layout_height="wrap_content">
 			<TextView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="Governor:"
+				android:layout_height="wrap_content" android:text="@string/labelGovernor"
 				android:paddingRight="20dp"></TextView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:textSize="16sp"
@@ -20,7 +20,7 @@
 			android:layout_height="wrap_content">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:textSize="16sp"
-				android:text="Frequencies:" android:paddingRight="20dp"></TextView>
+				android:text="@string/labelCpuFreq" android:paddingRight="20dp"></TextView>
 			<LinearLayout android:id="@+id/ListView01"
 				android:layout_width="wrap_content" android:layout_height="wrap_content">
 
@@ -39,7 +39,7 @@
 			android:layout_height="wrap_content">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
-				android:text="Services:"></TextView>
+				android:text="@string/labelServices"></TextView>
 			<LinearLayout android:id="@+id/LinearLayout03"
 				android:layout_width="wrap_content" android:layout_height="wrap_content">
 				<TextView android:layout_width="wrap_content"

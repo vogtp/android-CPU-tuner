@@ -14,6 +14,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.widget.Toast;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -34,11 +35,10 @@ public class InstallHelper {
 
 	public static void resetToDefault(final Context ctx) {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
-		alertBuilder.setTitle("Reset to default");
-		alertBuilder
-				.setMessage("Reseting to default will discard all your modifications on tiggers and profiles, including newly created.");
+		alertBuilder.setTitle(R.string.title_reset_to_default);
+		alertBuilder.setMessage(R.string.msg_reset_to_default);
 		alertBuilder.setCancelable(false);
-		alertBuilder.setPositiveButton("Yes", new OnClickListener() {
+		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -50,7 +50,7 @@ public class InstallHelper {
 
 			}
 		});
-		alertBuilder.setNegativeButton("No", null);
+		alertBuilder.setNegativeButton(R.string.no, null);
 		AlertDialog alert = alertBuilder.create();
 		alert.show();
 	}
@@ -65,7 +65,7 @@ public class InstallHelper {
 			if (cP == null || cP.getCount() < 1) {
 				Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
 				if (cT == null || cT.getCount() < 1) {
-					Toast.makeText(ctx, "Loading default profiles", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ctx, R.string.msg_loading_default_profiles, Toast.LENGTH_SHORT).show();
 					CpuHandler cpuHandler = CpuHandler.getInstance();
 					int freqMax = cpuHandler.getMaxCpuFreq();
 					int freqMin = cpuHandler.getMinCpuFreq();
@@ -79,20 +79,24 @@ public class InstallHelper {
 
 					List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
-					long profilePerformance = createCpuProfile(resolver, "Performance", getPowerGov(resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
-					long profileGood = createCpuProfile(resolver, "Good", getNormalGov(resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 0, 1);
-					long profileNormal = createCpuProfile(resolver, "Normal", getNormalGov(resolver, availGov, gov), freqMax, freqMin);
-					long profileScreenOff = createCpuProfile(resolver, "Screen off", getExtremSaveGov(resolver, availGov, gov), freqMax, freqMin);
-					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
-					long profileExtremPowersave = createCpuProfile(resolver, "Extreme powersave", getExtremSaveGov(resolver, availGov, gov), freqMax, freqMin,
+					long profilePerformance = createCpuProfile(resolver, ctx.getString(R.string.profilename_performance), getPowerGov(ctx, resolver, availGov, gov), freqMax,
+							freqMin, 0, 0, 0, 0, 1);
+					long profileGood = createCpuProfile(resolver, ctx.getString(R.string.profilename_good), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0,
+							0, 1);
+					long profileNormal = createCpuProfile(resolver, ctx.getString(R.string.profilename_normal), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin);
+					long profileScreenOff = createCpuProfile(resolver, ctx.getString(R.string.profilename_screen_off), getExtremSaveGov(ctx, resolver, availGov, gov), freqMax,
+							freqMin);
+					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
+					long profileExtremPowersave = createCpuProfile(resolver, ctx.getString(R.string.profilename_extreme_powersave), getExtremSaveGov(ctx, resolver, availGov, gov),
+							freqMax, freqMin,
 							2, 2, 2,
 							1, 2);
 
-					createTrigger(resolver, "Battery full", 100, profileScreenOff, profileGood, profilePerformance);
-					createTrigger(resolver, "Battery used", 85, profileScreenOff, profileGood, profileGood);
-					createTrigger(resolver, "Battery low", 65, profileScreenOff, profilePowersave, profileNormal);
-					createTrigger(resolver, "Battery empty", 45, profileExtremPowersave, profilePowersave, profilePowersave);
-					createTrigger(resolver, "Battery critical", 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileGood, profileGood);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_low), 65, profileScreenOff, profilePowersave, profileNormal);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_empty), 45, profileExtremPowersave, profilePowersave, profilePowersave);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_critical), 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
 
 				}
 
@@ -171,7 +175,7 @@ public class InstallHelper {
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
-	private static CpuGovernorSettings getPowerGov(ContentResolver resolver, List<String> list, String gov) {
+	private static CpuGovernorSettings getPowerGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -185,11 +189,11 @@ public class InstallHelper {
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
-		cgs.virtGov = createVirtualGovernor(resolver, "Full speed", cgs);
+		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_full_speed), cgs);
 		return cgs;
 	}
 
-	private static CpuGovernorSettings getNormalGov(ContentResolver resolver, List<String> list, String gov) {
+	private static CpuGovernorSettings getNormalGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -203,11 +207,11 @@ public class InstallHelper {
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
-		cgs.virtGov = createVirtualGovernor(resolver, "Normal", cgs);
+		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_normal), cgs);
 		return cgs;
 	}
 
-	private static CpuGovernorSettings getSaveGov(ContentResolver resolver, List<String> list, String gov) {
+	private static CpuGovernorSettings getSaveGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -222,11 +226,11 @@ public class InstallHelper {
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
-		cgs.virtGov = createVirtualGovernor(resolver, "Save Battery", cgs);
+		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_save_battery), cgs);
 		return cgs;
 	}
 
-	private static CpuGovernorSettings getExtremSaveGov(ContentResolver resolver, List<String> list, String gov) {
+	private static CpuGovernorSettings getExtremSaveGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		if (list == null || list.size() < 1) {
 			cgs.gov = gov;
@@ -240,7 +244,7 @@ public class InstallHelper {
 		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
 			cgs.gov = CpuHandler.GOV_INTERACTIVE;
 		}
-		cgs.virtGov = createVirtualGovernor(resolver, "Extrem Save Battery", cgs);
+		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_extrem_save_battery), cgs);
 		return cgs;
 	}
 

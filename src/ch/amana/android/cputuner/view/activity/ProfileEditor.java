@@ -82,7 +82,7 @@ public class ProfileEditor extends Activity {
 			origProfile = new ProfileModel();
 		}
 
-		setTitle("Profile Editor: " + profile.getProfileName());
+		setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
 
 		cpuHandler = CpuHandler.getInstance();
 		availCpuGovs = cpuHandler.getAvailCpuGov();

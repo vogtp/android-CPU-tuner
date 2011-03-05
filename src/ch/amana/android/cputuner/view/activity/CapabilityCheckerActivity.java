@@ -28,9 +28,9 @@ import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 public class CapabilityCheckerActivity extends Activity {
-
-	private static final String NOT_WORKING = "Not working";
-	private static final String WORKING = "Working";
+	//
+	// private static final String NOT_WORKING = "Not working";
+	// private static final String WORKING = "Working";
 	public static final String EXTRA_RECHEK = "extra_recheck";
 	public static final String FILE_CAPABILITIESCHECK = "capabilitiy_check.txt";
 	private CapabilityChecker checker;
@@ -61,16 +61,20 @@ public class CapabilityCheckerActivity extends Activity {
 			TextView tv;
 			switch (cr) {
 			case SUCCESS:
-				return getTextView(WORKING);
+				return getTextView(R.string.msg_not_working);
 			case FAILURE:
-				tv = getTextView(NOT_WORKING);
+				tv = getTextView(R.string.msg_working);
 				tv.setTextColor(Color.RED);
 				return tv;
 			default:
-				tv = getTextView("Has issues");
+				tv = getTextView(R.string.msg_has_issues);
 				tv.setTextColor(Color.YELLOW);
 				return tv;
 			}
+		}
+
+		private TextView getTextView(int resId) {
+			return getTextView(getString(resId));
 		}
 
 		private TextView getTextView(String text) {
@@ -154,24 +158,13 @@ public class CapabilityCheckerActivity extends Activity {
 			tlCapabilities.addView(new GovernorResultRow(this, res));
 		}
 
-		String mailMessage = "No issues have been found...\n" +
-				"If you are pleased and want to give feedback:\n" +
-				"Comments and good ratings on the market are highly appreciated...\n\n" +
-				"Please do not write empty e-mails!";
+		String mailMessage = getString(R.string.msg_premail_no_issues);
 		if (!RootHandler.isRoot()) {
-			mailMessage = "CPU tuner does not have root access!\n" +
-					"Cpu tuner cannot do anything!\n\n" +
-					"Please do not write e-mails unless you think there is something wrong with the check or the app.\n\n" +
-					"Please do not write empty e-mails!";
+			mailMessage = getString(R.string.msg_premail_no_root);
 		} else if (CapabilityChecker.getInstance(this).hasIssues()) {
-			mailMessage = "You configuration has issues...\n" +
-					"This is most likely due to the kernel/ROM." +
-					"You have two possibilities:\n\n" +
-					"1) Flash a new kernel\n\n" +
-					"2) Flash a new ROM\n";
+			mailMessage = getString(R.string.msg_premail_issues);
 			if (!DeviceInformation.getRomManagerDeveloperId().toLowerCase().contains("cyanogenmod")) {
-				mailMessage += "You might want to have a look at http://wiki.cyanogenmod.com they do very nice ROMS\n\n" +
-						"Please do not write e-mails unless you think there is something wrong with the check or the app.\n";
+				mailMessage += getString(R.string.msg_premail_issues_cm);
 			}
 			mailMessage += "\n";
 		}
@@ -187,7 +180,7 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	private TextView getTextView(boolean b) {
-		TextView tv = getTextView(b ? WORKING : NOT_WORKING);
+		TextView tv = getTextView(getString(b ? R.string.msg_working : R.string.msg_not_working));
 		if (!b) {
 			tv.setTextColor(Color.RED);
 		}

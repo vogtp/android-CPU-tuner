@@ -138,7 +138,7 @@ public class TuneCpu extends Activity {
 					int val = availCpuFreqs[seekBar.getProgress()];
 					if (val != cpuHandler.getMaxCpuFreq()) {
 						if (cpuHandler.setMaxCpuFreq(val)) {
-							Toast.makeText(TuneCpu.this, "Setting CPU max freq to " + val, Toast.LENGTH_LONG).show();
+							Toast.makeText(TuneCpu.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
 						}
 						updateView();
 					}
@@ -165,7 +165,7 @@ public class TuneCpu extends Activity {
 					int val = availCpuFreqs[seekBar.getProgress()];
 					if (val != cpuHandler.getMinCpuFreq()) {
 						if (cpuHandler.setMinCpuFreq(val)) {
-							Toast.makeText(TuneCpu.this, "Setting CPU min freq to " + val, Toast.LENGTH_LONG).show();
+							Toast.makeText(TuneCpu.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
 						}
 						updateView();
 					}
@@ -197,7 +197,7 @@ public class TuneCpu extends Activity {
 						if (CpuHandler.GOV_USERSPACE.equals(gov)) {
 							setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
 						}
-						Toast.makeText(parent.getContext(), "Setting govenor to " + gov, Toast.LENGTH_LONG).show();
+						Toast.makeText(parent.getContext(), getString(R.string.msg_setting_govenor, gov), Toast.LENGTH_LONG).show();
 					}
 				}
 				updateView();
@@ -242,7 +242,7 @@ public class TuneCpu extends Activity {
 						tvMessage = null;
 					}
 				} else {
-					getMessageTextView().setText("Found some issues... Some features might not work. (Tap for more information.)");
+					getMessageTextView().setText(R.string.msg_found_some_issues);
 				}
 			}
 		}
@@ -266,7 +266,7 @@ public class TuneCpu extends Activity {
 		bat.append(powerProfiles.getBatteryLevel()).append("%");
 		bat.append(" (");
 		if (powerProfiles.isBatteryHot()) {
-			bat.append("hot: ");
+			bat.append(R.string.label_hot).append(" ");
 		}
 		bat.append(powerProfiles.getBatteryTemperature()).append(" °C)");
 		tvBatteryLevel.setText(bat.toString());
@@ -277,7 +277,7 @@ public class TuneCpu extends Activity {
 		}
 		int currentAvg = BatteryHandler.getBatteryCurrentAverage();
 		if (currentAvg != BatteryHandler.NO_VALUE_INT && currentAvg != currentNow) {
-			currentText.append(" (avg: ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
+			currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
 		}
 		if (currentText.length() > 0) {
 			tvBatteryCurrent.setText(currentText.toString());
@@ -323,13 +323,13 @@ public class TuneCpu extends Activity {
 		int govThresholdDown = cpuHandler.getGovThresholdDown();
 		StringBuilder sb = new StringBuilder();
 		if (govThresholdUp > 0) {
-			sb.append("up: ").append(govThresholdUp).append("% ");
+			sb.append(getString(R.string.label_tresh_up)).append(" ").append(govThresholdUp).append("% ");
 		}
 		if (govThresholdDown > 0) {
-			sb.append("down: ").append(govThresholdDown).append("%");
+			sb.append(getString(R.string.label_tresh_down)).append(" ").append(govThresholdDown).append("%");
 		}
 		if (sb.length() > 0) {
-			sb.insert(0, "Governor tresholds: ");
+			sb.insert(0, getString(R.string.label_governor_tresholds)).append(" ");
 			tvGovTreshholds.setText(sb.toString());
 		} else {
 			tvGovTreshholds.setText("");

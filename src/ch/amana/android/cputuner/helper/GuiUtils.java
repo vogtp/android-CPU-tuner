@@ -33,6 +33,6 @@ public class GuiUtils {
 		} else if (CpuHandler.GOV_USERSPACE.equals(gov)) {
 			return ctx.getString(R.string.explainGovUserspace);
 		}
-		return "No explanation available for this governor...";
+		return ctx.getString(R.string.explainNotAvailable);
 	}
 }

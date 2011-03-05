@@ -61,7 +61,7 @@ public class TriggerEditor extends Activity {
 			triggerModel.setName("");
 			origTriggerModel = new TriggerModel();
 		}
-		setTitle("Trigger Editor: " + triggerModel.getName());
+		setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
 
 		etName = (EditText) findViewById(R.id.etName);
 		etBatteryLevel = (EditText) findViewById(R.id.etBatteryLevel);

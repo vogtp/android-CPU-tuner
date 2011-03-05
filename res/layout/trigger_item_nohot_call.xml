@@ -11,7 +11,7 @@
 		<LinearLayout android:id="@+id/LinearLayout02"
 			android:layout_height="wrap_content" android:layout_weight=".5"
 			android:layout_width="fill_parent" android:layout_gravity="center_vertical">
-			<TextView android:layout_height="wrap_content" android:text="Battery:"
+			<TextView android:layout_height="wrap_content" android:text="@string/labelCurrentBattery"
 				android:paddingRight="5dp" android:layout_gravity="right"
 				android:layout_width="fill_parent" android:layout_weight=".5"
 				android:gravity="right"></TextView>
@@ -22,12 +22,12 @@
 	</LinearLayout>
 	<TableLayout android:id="@+id/TableLayout01"
 		android:layout_height="wrap_content" android:layout_width="fill_parent">
-		
+
 		<TableRow android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:id="@+id/TableRowBat">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
-				android:text="On Battery:"></TextView>
+				android:text="@string/labelOnBattery"></TextView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:text="100%"
 				android:id="@+id/tvProfileOnBattery"></TextView>
@@ -40,7 +40,7 @@
 			android:layout_height="wrap_content" android:id="@+id/TableRowLocked">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
-				android:text="Screen Locked:"></TextView>
+				android:text="@string/labelScreenLocked"></TextView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:text="100%"
 				android:id="@+id/tvProfileScreenLocked"></TextView>
@@ -49,16 +49,11 @@
 				android:layout_gravity="right" android:gravity="right"
 				android:id="@+id/tvPowerCurrentLocked"></TextView>
 		</TableRow>
-		<TableRow android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/TableRowCall">
-			<TextView android:layout_width="wrap_content" android:paddingRight="5dp" android:layout_height="wrap_content" android:text="Call in progress:"></TextView>
-			<TextView android:text="100%" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tvProfileCall"></TextView>
-			<TextView android:gravity="right" android:layout_weight=".5" android:layout_gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/tvPowerCurrentCall"></TextView>
-		</TableRow>
 		<TableRow android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/TableRowPower">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="5dp"
-				android:text="On Power:"></TextView>
+				android:text="@string/labelOnPower"></TextView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:text="100%"
 				android:id="@+id/tvProfileOnPower"></TextView>
@@ -67,9 +62,18 @@
 				android:layout_gravity="right" android:gravity="right"
 				android:id="@+id/tvPowerCurrentPower"></TextView>
 		</TableRow>
-	
-		
-</TableLayout>
+		<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowCall"
+			android:layout_width="wrap_content">
+			<TextView android:text="@string/labelCallInProgress"
+				android:layout_width="wrap_content" android:paddingRight="5dp"
+				android:id="@+id/textView1" android:layout_height="wrap_content"></TextView>
+			<TextView android:text="100%" android:layout_width="wrap_content"
+				android:id="@+id/tvProfileCall" android:layout_height="wrap_content"></TextView>
+			<TextView android:gravity="right" android:layout_weight=".5"
+				android:layout_gravity="right" android:layout_width="fill_parent"
+				android:id="@+id/tvPowerCurrentCall" android:layout_height="wrap_content"></TextView>
+		</TableRow>
+	</TableLayout>
 
 
 

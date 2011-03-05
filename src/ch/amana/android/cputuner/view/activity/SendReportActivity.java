@@ -69,7 +69,7 @@ public class SendReportActivity extends Activity {
 		if (TextUtils.isEmpty(mailSubject) || TextUtils.isEmpty(mailBody)) {
 			Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle("E-mail report");
-			alertBuilder.setMessage("Please enter a subject and some text describing you problem!");
+			alertBuilder.setMessage("Please enter a subject and some text describing your problem!");
 			alertBuilder.setCancelable(false);
 			alertBuilder.setPositiveButton(android.R.string.yes, null);
 			alertBuilder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

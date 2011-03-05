@@ -229,7 +229,7 @@ public class TriggersListActivity extends ListActivity {
 			final TriggerModel triggerModel = new TriggerModel(c);
 			Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle(R.string.menuItemClearPowerCurrent);
-			alertBuilder.setMessage("Clear power consumption of \"" + triggerModel.getName() + "\" trigger?");
+			alertBuilder.setMessage(getResources().getString(R.string.msg_clear_power_consumption_of_named_trigger, triggerModel.getName()));
 			alertBuilder.setNegativeButton(android.R.string.no, null);
 			alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
 				@Override
@@ -258,9 +258,9 @@ public class TriggersListActivity extends ListActivity {
 	private void deleteTrigger(final Uri uri) {
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.menuItemDelete);
-		alertBuilder.setMessage("Delete selected item?");
-		alertBuilder.setNegativeButton(android.R.string.no, null);
-		alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
+		alertBuilder.setMessage(R.string.msg_delete_selected_item);
+		alertBuilder.setNegativeButton(R.string.no, null);
+		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				getContentResolver().delete(uri, null, null);

@@ -10,6 +10,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.widget.Toast;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 public class SystemAppHelper implements OnClickListener {
@@ -75,12 +76,11 @@ public class SystemAppHelper implements OnClickListener {
 
 	private void rebootHard() {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
-		alertBuilder.setTitle("Reboot");
-		alertBuilder
-				.setMessage("The automatic (save) reboot failed.  Please do a manualy reboot by long pressing the power button, otherwise cpu tuner will not work.");
+		alertBuilder.setTitle(R.string.title_reboot);
+		alertBuilder.setMessage(R.string.msg_reboot);
 		alertBuilder.setCancelable(false);
 		// alertBuilder.setPositiveButton("Manual reboot", null);
-		alertBuilder.setNegativeButton("System reboot (not recomentded)", new OnClickListener() {
+		alertBuilder.setNegativeButton(R.string.bu_system_reboot, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -98,20 +98,20 @@ public class SystemAppHelper implements OnClickListener {
 
 	public static boolean install(Context ctx, boolean toSystem) {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
-		String title = "Unnstall cpu tuner as system app";
-		String yesButton = "Unnstall and reboot";
-		String message = "Requires a reboot, by pressing 'Unnstall and reboot' the device will reboot.";
+		int title = R.string.title_uninstall_sys;
+		int yesButton = R.string.bu_yes_uninstall_sys;
+		int message = R.string.msg_uninstall_sys;
 		if (toSystem) {
-			title = "Install cpu tuner as system app";
-			yesButton = "Install and reboot";
-			message = "Requires a reboot, by pressing 'install and reboot' the device will reboot.";
+			title = R.string.title_install_sys;
+			yesButton = R.string.bu_yes_title_install_sys;
+			message = R.string.msg_install_sys;
 		}
 		alertBuilder.setTitle(title);
 		alertBuilder.setMessage(message);
 		alertBuilder.setCancelable(false);
 		SystemAppHelper listener = new SystemAppHelper(ctx, toSystem);
 		alertBuilder.setPositiveButton(yesButton, listener);
-		alertBuilder.setNegativeButton("Cancel", null);
+		alertBuilder.setNegativeButton(R.string.cancel, null);
 		AlertDialog alert = alertBuilder.create();
 		alert.show();
 		return listener.isMoved();

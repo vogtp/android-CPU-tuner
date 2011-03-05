@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -23,7 +24,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	protected CapabilityChecker(Context ctx) {
 		super();
 		this.ctx = ctx;
-		pd = ProgressDialog.show(ctx, "Checking capabilities", "Checking governors ...");
+		pd = ProgressDialog.show(ctx, ctx.getString(R.string.msg_checking_capabilities), ctx.getString(R.string.msg_checking_governors));
 		cpuHandler = new CpuHandler();
 	}
 
@@ -54,8 +55,6 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		return instance;
 	}
 
-	public static final String NO_GOVERNORS = "No governors found";
-	public static final String NO_FREQUENCIES = "Not enough frequencies found";
 
 	public enum CheckResult {
 		NOT_CHECKED,
@@ -226,10 +225,11 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			govChecks = new HashMap<String, CapabilityChecker.GovernorResult>(governors.length);
 
 			if (RootHandler.NOT_AVAILABLE.equals(governors[0])) {
-				GovernorResult res = new GovernorResult(NO_GOVERNORS);
+				String noGov = ctx.getString(R.string.msg_no_governors_found);
+				GovernorResult res = new GovernorResult(noGov);
 				res.readGovernor = CheckResult.FAILURE;
 				res.writeGovernor = CheckResult.FAILURE;
-				govChecks.put(NO_GOVERNORS, res);
+				govChecks.put(noGov, res);
 				return;
 			}
 
@@ -237,12 +237,13 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			minFreq = freqs[0];
 			maxFreq = freqs[freqs.length - 1];
 			if (freqs.length < 2 || minFreq == maxFreq) {
-				GovernorResult res = new GovernorResult(NO_FREQUENCIES);
+				String noFreqs = ctx.getString(R.string.msg_not_enough_frequencies_found);
+				GovernorResult res = new GovernorResult(noFreqs);
 				res.readMaxFreq = CheckResult.CANNOT_CHECK;
 				res.writeMaxFreq = CheckResult.CANNOT_CHECK;
 				res.readMinFreq = CheckResult.CANNOT_CHECK;
 				res.writeMinFreq = CheckResult.CANNOT_CHECK;
-				govChecks.put(NO_FREQUENCIES, res);
+				govChecks.put(noFreqs, res);
 				return;
 			}
 			if (freqs.length > 3) {
