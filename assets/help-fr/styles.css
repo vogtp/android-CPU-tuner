@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+body { background:#eaeaea }
+
+span.headline { padding: 5px; font-weight:bold; font-size:18pt }
+span.bold { font-weight:bold }
+span.italic { font-style:italic }
+span.text { display:block; padding: 2px; margin: 3px; font-weight:normal; font-size:11pt }
+span.text li { margin-bottom:4px }
+
+body a { color:#222299; font-weight:bold }
+body a:hover { color:#992222; font-weight:bold }
+body a:visited { color:#222222; font-weight:normal; font-style:italic }
+body a:active { color:#990000; font-weight:bold }
