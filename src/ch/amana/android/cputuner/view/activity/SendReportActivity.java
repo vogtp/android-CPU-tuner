@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -114,6 +115,7 @@ public class SendReportActivity extends Activity {
 		body.append("Device nickname: ").append(DeviceInformation.getDeviceNick()).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append("CPU tuner version: ").append(getString(R.string.version)).append('\n');
+		body.append("Language: ").append(Locale.getDefault().getLanguage()).append('\n');
 		body.append("Userlevel: ").append(SettingsStorage.getInstance().getUserLevel()).append('\n');
 		body.append("Beta mode: ").append(SettingsStorage.getInstance().isEnableBeta()).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
