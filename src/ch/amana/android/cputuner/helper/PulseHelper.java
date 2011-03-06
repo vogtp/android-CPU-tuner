@@ -1,17 +1,16 @@
 package ch.amana.android.cputuner.helper;
 
-
 import android.content.Context;
-import android.os.Handler;
+import android.content.Intent;
 import ch.amana.android.cputuner.hw.ServicesHandler;
+import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.service.PulseService;
 
 public class PulseHelper {
 
-	private static final long MIN_TO_MILLIES = 1000 * 60;
+	private boolean pulsing = false;
 
-	private static Handler handler = new Handler();
-	private static boolean pulsing = false;
-	private boolean isOn = false;
+	private boolean pulseOn = false;
 
 	private Context ctx;
 
@@ -27,23 +26,6 @@ public class PulseHelper {
 
 	private static PulseHelper instance;
 
-	private final Runnable runner = new Runnable() {
-
-		@Override
-		public void run() {
-			if (pulsing) {
-				isOn = !isOn;
-				doit(isOn);
-				long delay = isOn ? SettingsStorage.getInstance().getPulseDelayOn() : SettingsStorage.getInstance().getPulseDelayOff();
-				long delayInMillies = delay * MIN_TO_MILLIES;
-				Logger.i("Pluse is " + isOn + " next switch in " + delay + " minutes (" + delayInMillies + " millies)");
-				handler.postDelayed(this, delayInMillies);
-			}
-		}
-
-	};
-
-
 
 	public static PulseHelper getInstance(Context ctx) {
 		if (instance == null) {
@@ -54,8 +36,11 @@ public class PulseHelper {
 
 	static int p = 0;
 
-	private void doit(boolean isOn) {
+	public void doPulse(boolean isOn) {
 		if (pulsing) {
+			this.pulseOn = isOn;
+			Notifier.notifyProfile(PowerProfiles.getInstance().getCurrentProfileName());
+			ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 			if ( pulseBackgroundSyncState ) {
 				ServicesHandler.enableBackgroundSync(ctx, isOn);
 			}
@@ -74,15 +59,21 @@ public class PulseHelper {
 		}
 	}
 
-	public void doPulsing(boolean b) {
+	private void doPulsing(boolean b) {
 		if (pulsing == b) {
 			return;
 		}
-		pulsing = b;
-		if (pulsing) {
-			runner.run();
+		if (b) {
+			pulsing = true;
+			Notifier.notifyProfile(PowerProfiles.getInstance().getCurrentProfileName());
+			PulseService.startService(ctx);
 		} else {
-			handler.removeCallbacks(runner);
+			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
+			if (!someService) {
+				pulsing = false;
+				Notifier.notifyProfile(PowerProfiles.getInstance().getCurrentProfileName());
+				PulseService.stopService(ctx);
+			}
 		}
 	}
 
@@ -118,6 +109,10 @@ public class PulseHelper {
 	public void pulseMobiledataConnectionState(boolean b) {
 		pulseMobiledataConnectionState = b;
 		doPulsing(b);
+	}
+
+	public boolean isOn() {
+		return pulseOn;
 	}
 
 }

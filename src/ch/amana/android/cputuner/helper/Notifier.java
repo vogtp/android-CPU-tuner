@@ -42,7 +42,14 @@ public class Notifier {
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			contentTitle = context.getString(R.string.app_name);
-			String contentText = contentTitle + " " + context.getString(R.string.labelCurrentProfile).toLowerCase() + " " + profileName;
+			StringBuffer sb = new StringBuffer(25); 
+			sb.append(contentTitle).append(" ").append(context.getString(R.string.labelCurrentProfile).toLowerCase());
+			sb.append(" ").append(profileName);			
+			if (PulseHelper.getInstance(context).isPulsing()) {
+				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+				sb.append(" ").append(context.getString(res));
+			}
+			String contentText = sb.toString();
 			Notification notification = getNotification(contentText);
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);

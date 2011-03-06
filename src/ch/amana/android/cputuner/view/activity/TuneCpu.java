@@ -22,6 +22,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -288,8 +289,12 @@ public class TuneCpu extends Activity {
 
 	private void profileChanged() {
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
-		CharSequence profile = powerProfiles.getCurrentProfileName();
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
+			CharSequence profile = powerProfiles.getCurrentProfileName();
+			if (PulseHelper.getInstance(this).isPulsing()) {
+				int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+				profile = profile + " " + getString(res);
+			}
 			tvCurrentProfile.setText(profile);
 			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
 		} else {
