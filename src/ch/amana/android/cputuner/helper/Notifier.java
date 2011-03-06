@@ -42,7 +42,7 @@ public class Notifier {
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			contentTitle = context.getString(R.string.app_name);
-			String contentText = contentTitle + " profile: " + profileName;
+			String contentText = contentTitle + " " + context.getString(R.string.labelCurrentProfile).toLowerCase() + " " + profileName;
 			Notification notification = getNotification(contentText);
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
