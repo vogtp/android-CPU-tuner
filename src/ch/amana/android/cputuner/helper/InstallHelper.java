@@ -92,11 +92,12 @@ public class InstallHelper {
 							2, 2, 2,
 							1, 2);
 
-					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance);
-					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileGood, profileGood);
-					createTrigger(resolver, ctx.getString(R.string.triggername_battery_low), 65, profileScreenOff, profilePowersave, profileNormal);
-					createTrigger(resolver, ctx.getString(R.string.triggername_battery_empty), 45, profileExtremPowersave, profilePowersave, profilePowersave);
-					createTrigger(resolver, ctx.getString(R.string.triggername_battery_critical), 25, profileExtremPowersave, profileExtremPowersave, profilePowersave);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance, profilePerformance);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileGood, profileGood, profilePerformance);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_low), 65, profileScreenOff, profilePowersave, profileNormal, profileGood);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_empty), 45, profileExtremPowersave, profilePowersave, profilePowersave, profileGood);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_critical), 25, profileExtremPowersave, profileExtremPowersave, profilePowersave,
+							profileNormal);
 
 				}
 
@@ -136,13 +137,14 @@ public class InstallHelper {
 		return insertOrUpdate(resolver, DB.VirtualGovernor.CONTENT_URI, values);
 	}
 
-	private static void createTrigger(ContentResolver resolver, String name, int batLevel, long screenOff, long battery, long power) {
+	private static void createTrigger(ContentResolver resolver, String name, int batLevel, long screenOff, long battery, long power, long call) {
 		ContentValues values = new ContentValues();
 		values.put(DB.Trigger.NAME_TRIGGER_NAME, name);
 		values.put(DB.Trigger.NAME_BATTERY_LEVEL, batLevel);
 		values.put(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, screenOff);
 		values.put(DB.Trigger.NAME_BATTERY_PROFILE_ID, battery);
 		values.put(DB.Trigger.NAME_POWER_PROFILE_ID, power);
+		values.put(DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, call);
 		insertOrUpdate(resolver, DB.Trigger.CONTENT_URI, values);
 	}
 
