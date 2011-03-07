@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
+<string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
+<string name="prefPulseDelayOn">Service on time</string>
+<string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in pulsed mode.</string> 
+<string name="prefPulseDelayOff">Service off time</string>
+<string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in pulsed mode.</string> 
+<string name="labelPulseOn">(Pulse is on)</string> 
+<string name="labelPulseOff">(Pulse is off)</string> 
     <string name="labelPowerUserExplain">Controllo totale!</string>
-    <string name="labelPowerUser">Power User</string>
+    <string name="labelPowerUser">Esperto</string>
     <string name="labelNormalExplain">Opzioni di configurazione più avanzate, l\' Underclock </string>
     <string name="labelNormal">Normale</string>
-    <string name="labelBeginnerExplain">Facile da configurare e tutte le impostazioni dovrebbero essere sicure... L\' Underclock è possibile solo fino a un certo punto.</string>
+    <string name="labelBeginnerExplain">Facile da configurare, tutte le impostazioni dovrebbero essere sicure... L\' Underclock è possibile solo fino a un certo valore.</string>
     <string name="labelBeginner">Principiante</string>
-    <string name="labelBatteryHot">Batteria Surriscaldata:</string>
+    <string name="labelBatteryHot">Batt. Surr.:</string>
     <string name="labelCallInProgress">Chiamata in Corso:</string>
     <string name="labelOnPower">Alimentato:</string>
     <string name="labelScreenLocked">Schermo Bloccato:</string>
     <string name="labelOnBattery">Solo Batteria:</string>
     <string name="labelExplainTriggerProfiles">In base allo stato del dispositivo sarà scelto uno dei seguenti profili.</string>
     <string name="labelBatteryLevel">Livello Batteria</string>
-    <string name="labelExplainTrigger">Si attiva se la carica della batteria del dispositivo è al di sotto del livello della batteria e nessun altro stato con un livello della batteria più basso e uguale viene trovato.</string>
+    <string name="labelExplainTrigger">Si attiva quando la carica della batteria del telefono è al di sotto del livello della batteria scelto e nessun altro trigger con un livello della batteria minore o uguale viene trovato.</string>
     <string name="labelSendMail">Invia e-mail</string>
     <string name="labelBody">Corpo:</string>
-    <string name="labelGovernor">Tipologia:</string>
+    <string name="labelGovernor">Governor:</string>
     <string name="labelBluetooth">Bluetooth</string>
     <string name="labelWifi">Wifi</string>
     <string name="labelGPS">GPS</string>
@@ -25,7 +32,7 @@
     <string name="labelMobileData32G">Dati 2G/3G</string>
     <string name="labelServices">Servizi:</string>
     <string name="labelDown">Giù:</string>
-    <string name="labelThreshsUp">Soglia:  Su:</string>
+    <string name="labelThreshsUp">Soglia superiore:</string>
     <string name="labelHome">Home</string>
     <string name="labelUsage">Utilizzo:</string>
     <string name="labelBuFindFeq">Trova frequenze (solo beta)</string>
@@ -36,8 +43,8 @@
     <string name="labelCheck">Verifica</string>
     <string name="labelAppVersion">Versione di CPU tuner:</string>
     <string name="msgNoIssuesFound">Nessun problema rilevato.</string>
-    <string name="prefVritualGovernorsListLong">Le tipoligie virtuali sono tipologie preconfigurate della cpu.</string>
-    <string name="virtualGovernorsList">Tipologie Virtuali</string>
+    <string name="prefVritualGovernorsListLong">I governor virtuali sono preconfigurati nella cpu.</string>
+    <string name="virtualGovernorsList">Governor Virtuali</string>
     <string name="prefBatteryHotTempMsg">Temperatura personalizzata per attivare il profilo batteria surriscaldata.<br /> Valore intero in °C.</string>
     <string name="prefBatteryHotTempLong">Temperatura personalizzata per attivare il profilo batteria surriscaldata.</string>
     <string name="prefBatteryHotTemp">Temperatura batteria surriscaldata</string>
@@ -56,13 +63,12 @@
 	<string name="no">no</string>
 	<string name="save">salva</string>
 	<string name="cancel">annulla</string>
-	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in power user
-		mode.</string>
+	<string name="prefMinSensibleFrequencyLong">Frequenza minima mostrata se non sei in modalià esperto.</string>
 	<string name="prefMinSensibleFrequency">Frequenza minima mostrata</string>
-	<string name="prefResetToDefaultLong">Elimina tutti i profili e gli stati in uso e ricarica
+	<string name="prefResetToDefaultLong">Elimina tutti i profili e i trigger in uso per ricarica
 		le impostazioni di default.</string>
-	<string name="prefResetToDefault">Ripristino Profili e Stati</string>
-	<string name="prefKeyProfiles">Profili e Stati</string>
+	<string name="prefResetToDefault">Ripristino Profili e Trigger</string>
+	<string name="prefKeyProfiles">Profili e Trigger</string>
 	<string name="prefBuyMeABeer">Offrimi una birra!</string>
 	<string name="prefAllowManualServiceChangesOn">Non cambiare lo stato di un servizio se è stato modificato manualmente
 		senza che sia avvenuto nessun cambio di stato della batteria fino al quel momento.</string>
@@ -78,7 +84,7 @@
 		nel market sarebbero davvero apprezzati..."</string>
 	<string name="mailMessage"></string>
 	<string name="prefEnableBetaLong">Inviami un\'e-mail</string>
-	<string name="prefKeyCalcPowerUsageLong">Potrebbe richiedere un po\' della batteria</string>
+	<string name="prefKeyCalcPowerUsageLong">Potrebbe richiedere un po\' della carica della batteria</string>
 	<string name="prefKeyCalcPowerUsage">Calcola utilizzo batteria</string>
 	<string name="menuItemClearPowerCurrent">Pulisci utilizzo batteria</string>
 	<string name="menuItemInsert">Inserisci</string>
@@ -120,9 +126,9 @@
 	<string name="prefPowerProfiles">Power Profiles</string>
 	<string name="prefCustomPowerProfiles">Custom Power Profiles</string>
 	<string name="labelCpuFreq">Frequenze:</string>
-	<string name="labelCpuGov">Tipologia:</string>
+	<string name="labelCpuGov">Governor:</string>
 	<string name="labelCurrent">Attuale</string>
-	<string name="labelCurrentTrigger">Stato:</string>
+	<string name="labelCurrentTrigger">Trigger:</string>
 	<string name="labelCurrentProfile">Profilo:</string>
 	<string name="labelCurrentBattery">Batteria:</string>
 	<string name="labelAcPower">Alimentato:</string>
@@ -130,10 +136,10 @@
 	<string name="labelMin">Min:</string>
 	<string name="app_name">CPU tuner</string>
 	<string name="labelPowerProfile">Power Profile: </string>
-	<string name="spinnerPromptGov">Scegli una tipologia</string>
+	<string name="spinnerPromptGov">Scegli un governor</string>
 	<string name="buApplyCurProfile">Applica al profilo CPU in uso</string>
 	<string name="notEnabled">non abilitato</string>
-	<string name="triggersExplain">Gli stati definiscono quale profilo va utilizzato
+	<string name="triggersExplain">I trigger definiscono quale profilo va utilizzato
 		per quel livello della batteria a seconda che il dispositivo sia alimentato solo
 		dalla batteria, anche dalla rete elettrica, o abbia lo schermo bloccato.</string>
 	<string name="explainGovOnDemand">Cambia la frequenza in modo dinamico basandosi
@@ -151,11 +157,11 @@
 	<string name="label2g">2G</string>
 	<string name="label3g">3G</string>
 	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">sincronizzazione</string>
+	<string name="labelSyncOn">sinc.</string>
 	<string name="labelSyncOff">
-		<strike>sincronizzazione</strike>
+		<strike>sinc.</strike>
 	</string>
-	<string name="labelSyncPrev">sincronizzazione?</string>
+	<string name="labelSyncPrev">sinc.?</string>
 	<string name="labelWifiOn">wifi</string>
 	<string name="labelWifiOff">
 		<strike>wifi</strike>
@@ -215,22 +221,22 @@
 		<item><b>Normale</b>: cpu tuner ti aiuta.</item>
 		<item><b>Power user</b>: Sei il Boss!</item>
 	</string-array>
-<string name="cbEnableVirtualGovernors">Abilita le tipologie virtuali</string>
+<string name="cbEnableVirtualGovernors">Abilita i governor virtuali</string>
 <string name="userExperianceLevelExplain">CPU tuner può operare con livelli di esperienza diversi. In base al livello che scegli avrai più scelte e potrai fare più cose.</string>
 <string name="prefCallInProgressProfile">Profilo Chiamata in Corso</string>
 <string name="prefCallInProgressProfileLong">Funzioni Beta: Abilita un profilo utilizzato durante le chiamate.</string>
 <string name="msg_checking_capabilities">Verifica funzionalità in corso</string>
 <string name="msg_checking_governors">Verifica funzionalità...</string>
 <string name="msg_not_enough_frequencies_found">Non sono state trovate abbastanza frequenze</string>
-<string name="msg_no_governors_found">Nessuna tipologia trovata</string>
+<string name="msg_no_governors_found">Nessun governor rilevato</string>
 <string name="msg_not_checked">non controllato</string>
 <string name="msg_success">riuscito</string>
 <string name="msg_failure">fallito</string>
 <string name="msg_does_not_apply">non applicare</string>
 <string name="msg_cannot_check">impossibile controllare</string>
-<string name="explainNotAvailable">Nessuna spiegazione disponibile per questa tipologia...</string>
+<string name="explainNotAvailable">Nessuna spiegazione disponibile per questo governor...</string>
 <string name="title_reset_to_default">Ripristino impostazioni iniziali</string>
-<string name="msg_reset_to_default">Ripristinando le impostazioni iniziali annullerai tutte le modifiche fatte a profili e stati, includendo quelli da te creati.</string>
+<string name="msg_reset_to_default">Ripristinando le impostazioni iniziali annullerai tutte le modifiche fatte a profili e trigger, includendo quelli da te creati.</string>
 <string name="msg_loading_default_profiles">Carica i profili predefiniti</string>
 <string name="profilename_performance">Performance</string>
 <string name="profilename_good">Buono</string>
@@ -247,7 +253,7 @@
 <string name="virtgovname_save_battery">Risparmio Batteria</string>
 <string name="virtgovname_extrem_save_battery">Risparmio Batteria Estremo</string>
 <string name="title_reboot">Riavvia</string>
-<string name="msg_reboot">The automatic (save) reboot failed.  Please do a manual reboot by long pressing the power button, otherwise cpu tuner will not work.</string>
+<string name="msg_reboot">Riavvio automatico (sicuro) fallito. Fai un riavvio manuale tenendo premuto il tasto di accensione o cpu tuner non funzionerà.</string>
 <string name="bu_system_reboot">Riavvio di sistema (non consigliato)</string>
 <string name="title_uninstall_sys">Disintalla cpu tuner da applicazione di sistema</string>
 <string name="bu_yes_uninstall_sys">Disinstalla e riavvia</string>
@@ -276,22 +282,22 @@ Ciò è potenzialmente dovuto dal kernel/ROM. Hai due possibilità:
 
 2) Installa una nuova ROM
 </string>
-<string name="msg_premail_issues_cm">Potresti voler dare uno sguardo a http://wiki.cyanogenmod.com loro fanno ROM davvero belle
+<string name="msg_premail_issues_cm">Potresti voler dare uno sguardo a http://wiki.cyanogenmod.com loro fanno ROM davvero niente male
 
 Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella verifica o nell\'applicazione.
 </string>
 <string name="title_profile_editor">Editor Profili: </string>
 <string name="title_profiles">Profili</string>
-<string name="title_trigger_editor">Editor Stati: </string>
+<string name="title_trigger_editor">Editor Trigger: </string>
 <string name="msg_delete_selected_item">Eliminare l\'elemento selezionato?</string>
-<string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of "%s" trigger?</string>
+<string name="msg_clear_power_consumption_of_named_trigger">Cancellare il consumo del trigger "%s"?</string>
 <string name="msg_setting_cpu_max_freq">Frequenza massima della CPU impostata a %d Hz</string>
 <string name="setting_cpu_min_freq">Frequenza minima della CPU impostata a %d Hz</string>
-<string name="msg_setting_govenor">Tipologia impostata a %s</string>
+<string name="msg_setting_govenor">Governor impostato a %s</string>
 <string name="msg_found_some_issues">Trovati alcuni problemi... Alcune funzioni potrebbero non funzionare. (Tocca per maggiori informazioni.)</string>
 <string name="label_hot">calda: </string>
 <string name="label_avgerage">media: </string>
-<string name="label_tresh_up">su: </string>
-<string name="label_tresh_down">giù: </string>
-<string name="label_governor_tresholds">Soglie tipologie:</string>
+<string name="label_tresh_up">superiore: </string>
+<string name="label_tresh_down">inferiore: </string>
+<string name="label_governor_tresholds">Soglie governor:</string>
 </resources>
