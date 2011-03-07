@@ -43,7 +43,8 @@ public class Notifier {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			contentTitle = context.getString(R.string.app_name);
 			StringBuffer sb = new StringBuffer(25); 
-			sb.append(contentTitle).append(" ").append(context.getString(R.string.labelCurrentProfile).toLowerCase());
+			// sb.append(contentTitle).append(" ");
+			sb.append(context.getString(R.string.labelCurrentProfile));
 			sb.append(" ").append(profileName);			
 			if (PulseHelper.getInstance(context).isPulsing()) {
 				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
