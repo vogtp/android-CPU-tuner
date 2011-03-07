@@ -186,6 +186,7 @@ public class PowerProfiles {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchWifi()) {
 			if (state == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulseWifiState(true);
+				lastSetStateWifi = state;
 				return;
 			} else {
 				PulseHelper.getInstance(context).pulseWifiState(false);
@@ -198,7 +199,7 @@ public class PowerProfiles {
 				lastSetStateWifi = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateWifi > -1) {
+				if (lastSetStateWifi > -1 && lastSetStateWifi < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateWifi == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
 						Logger.v("Not sitching wifi since it changed since last time");
@@ -215,6 +216,7 @@ public class PowerProfiles {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchGps()) {
 			if (state == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulseGpsState(true);
+				lastSetStateGps = state;
 				return;
 			} else {
 				PulseHelper.getInstance(context).pulseGpsState(false);
@@ -227,7 +229,7 @@ public class PowerProfiles {
 				lastSetStateGps = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateGps > -1) {
+				if (lastSetStateGps > -1 && lastSetStateGps < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateGps == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
 						Logger.v("Not sitching GPS since it changed since last time");
@@ -244,6 +246,7 @@ public class PowerProfiles {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
 			if (state == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulseBluetoothState(true);
+				lastSetStateBluetooth = state;
 				return;
 			} else {
 				PulseHelper.getInstance(context).pulseBluetoothState(false);
@@ -256,7 +259,7 @@ public class PowerProfiles {
 				lastSetStateBluetooth = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateBluetooth > -1) {
+				if (lastSetStateBluetooth > -1 && lastSetStateBluetooth < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateBluetooth == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
 						Logger.v("Not sitching bluetooth it changed state since last time");
@@ -296,6 +299,7 @@ public class PowerProfiles {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
 			if (state == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulseMobiledataConnectionState(true);
+				lastSetStateMobiledataConnection = state;
 				return;
 			} else {
 				PulseHelper.getInstance(context).pulseMobiledataConnectionState(false);
@@ -308,7 +312,7 @@ public class PowerProfiles {
 				lastSetStateMobiledataConnection = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateMobiledataConnection > -1) {
+				if (lastSetStateMobiledataConnection > -1 && lastSetStateMobiledataConnection < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateMobiledataConnection == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
 						Logger.v("Not sitching mobiledata connection it changed state since last time");
@@ -325,6 +329,7 @@ public class PowerProfiles {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
 			if (state == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulseBackgroundSyncState(true);
+				lastSetStateBackgroundSync = state;
 				return;
 			} else {
 				PulseHelper.getInstance(context).pulseBackgroundSyncState(false);
@@ -337,7 +342,7 @@ public class PowerProfiles {
 				lastSetStateBackgroundSync = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateBackgroundSync > -1) {
+				if (lastSetStateBackgroundSync > -1 && lastSetStateBackgroundSync < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateBackgroundSync == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
 						Logger.v("Not sitching background sync it changed since state since last time");
