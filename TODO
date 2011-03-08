@@ -1,18 +1,16 @@
 - virtual governors (incl. thresholds) for inexperienced users
 - make logging less noisy
+- manually choose a profile
 
-- choose percedence of states
 - backup restore profiles
   
 - set brightness
 - set a black wall paper (and honour live wallpapers)
 
-- Scheduled background sync: We need an option to have data & sync turn on at regular intervals while screen off in order to keep receiving (turn on data for say 5s than off for 30s) 
-
 - populate db in thread
 
 - figure out how to get avail freqs (if not available)
 - check profile version
-- implement power consumption clearing for profiles (check for modification)
+
 - do not change bt while paired -> setting
 
