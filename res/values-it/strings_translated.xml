@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
 <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
-<string name="prefPulseDelayOn">Service on time</string>
-<string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in pulsed mode.</string> 
-<string name="prefPulseDelayOff">Service off time</string>
-<string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in pulsed mode.</string> 
-<string name="labelPulseOn">(Pulse is on)</string> 
-<string name="labelPulseOff">(Pulse is off)</string> 
+<string name="prefPulseDelayOn">Periodo attivazione servizio</string>
+<string name="prefPulseDelayOnLong">Periodo (in minuti) durante il quale un servizio è attivo in modalità pulse.</string> 
+<string name="prefPulseDelayOff">Periodo disattivazione servizio</string>
+<string name="prefPulseDelayOffLong">Periodo (in minuti) durante il quale un servizio è disattivato in modalità pulse.</string> 
+<string name="labelPulseOn">(Pulse Attivo)</string> 
+<string name="labelPulseOff">(Pulse Disattivo)</string> 
     <string name="labelPowerUserExplain">Controllo totale!</string>
     <string name="labelPowerUser">Esperto</string>
     <string name="labelNormalExplain">Opzioni di configurazione più avanzate, l\' Underclock </string>
@@ -65,13 +65,13 @@
 	<string name="cancel">annulla</string>
 	<string name="prefMinSensibleFrequencyLong">Frequenza minima mostrata se non sei in modalià esperto.</string>
 	<string name="prefMinSensibleFrequency">Frequenza minima mostrata</string>
-	<string name="prefResetToDefaultLong">Elimina tutti i profili e i trigger in uso per ricarica
+	<string name="prefResetToDefaultLong">Elimina tutti i profili e i trigger in uso per ricaricare
 		le impostazioni di default.</string>
 	<string name="prefResetToDefault">Ripristino Profili e Trigger</string>
 	<string name="prefKeyProfiles">Profili e Trigger</string>
 	<string name="prefBuyMeABeer">Offrimi una birra!</string>
 	<string name="prefAllowManualServiceChangesOn">Non cambiare lo stato di un servizio se è stato modificato manualmente
-		senza che sia avvenuto nessun cambio di stato della batteria fino al quel momento.</string>
+		senza che sia cambiato alcun trigger fino al quel momento.</string>
 	<string name="prefAllowManualServiceChangesOff">Cambia lo stato di un servizio nonostante fosse stato modificato manualmente.</string>
 	<string name="prefAllowManualServiceChanges">Modifiche manuali a un servizio</string>
 	<string name="hintMailBody">Aggiungi alcune informazioni sul
@@ -87,7 +87,7 @@
 	<string name="prefKeyCalcPowerUsageLong">Potrebbe richiedere un po\' della carica della batteria</string>
 	<string name="prefKeyCalcPowerUsage">Calcola utilizzo batteria</string>
 	<string name="menuItemClearPowerCurrent">Pulisci utilizzo batteria</string>
-	<string name="menuItemInsert">Inserisci</string>
+	<string name="menuItemInsert">Nuovo</string>
 	<string name="menuItemEdit">Modifica</string>
 	<string name="menuItemDelete">Cancella</string>
 	<string name="prefEnableBetaMessage">Abilita alcune funzioni beta.</string>
@@ -157,11 +157,11 @@
 	<string name="label2g">2G</string>
 	<string name="label3g">3G</string>
 	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">sinc.</string>
+	<string name="labelSyncOn">sincro</string>
 	<string name="labelSyncOff">
-		<strike>sinc.</strike>
+		<strike>sincro</strike>
 	</string>
-	<string name="labelSyncPrev">sinc.?</string>
+	<string name="labelSyncPrev">sincro?</string>
 	<string name="labelWifiOn">wifi</string>
 	<string name="labelWifiOff">
 		<strike>wifi</strike>
@@ -188,27 +188,27 @@
 		<item>non modificare</item>
 		<item>Abilita</item>
 		<item>Disabilita</item>
-		<item>Precedente</item>
+		<item>Riapplica Precedente</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
 		<item>non modificare</item>
 		<item>Abilita</item>
 		<item>Disabilita</item>
-		<item>Precedente</item>
+		<item>Riapplica Precedente</item>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="mobiledataStates">
 		<item>non modificare</item>
 		<item>solo 2G</item>
 		<item>3G/2G</item>
-		<item>Precedente</item>
+		<item>Rapplica Precedente</item>
 		<item>solo 3G</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
 		<item>non modificare</item>
 		<item>solo 2G</item>
 		<item>3G/2G</item>
-		<item>Precedente</item>
+		<item>Rapplica Precedente</item>
 		<item>solo 3G</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntries">
@@ -299,5 +299,5 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
 <string name="label_avgerage">media: </string>
 <string name="label_tresh_up">superiore: </string>
 <string name="label_tresh_down">inferiore: </string>
-<string name="label_governor_tresholds">Soglie governor:</string>
+<string name="label_governor_tresholds">Soglia governor </string>
 </resources>
