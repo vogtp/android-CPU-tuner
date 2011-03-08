@@ -122,8 +122,6 @@ public class PowerProfiles {
 			sendDeviceStatusChangedBroadcast();
 			return;
 		}
-		// does cross contamination
-		// trackCurrent();
 
 		long profileId = currentTrigger.getBatteryProfileId();
 
@@ -482,7 +480,7 @@ public class PowerProfiles {
 		if (acPower != power) {
 			acPower = power;
 			sendDeviceStatusChangedBroadcast();
-			// trackCurrent();
+			trackCurrent();
 			applyPowerProfile(false, false);
 		}
 	}
@@ -490,7 +488,7 @@ public class PowerProfiles {
 	public void setScreenOff(boolean b) {
 		if (screenOff != b) {
 			screenOff = b;
-			// trackCurrent();
+			trackCurrent();
 			applyPowerProfile(false, false);
 		}
 	}
@@ -498,7 +496,7 @@ public class PowerProfiles {
 	public void setBatteryHot(boolean b) {
 		if (batteryHot != b) {
 			batteryHot = b;
-			// trackCurrent();
+			trackCurrent();
 			applyPowerProfile(false, false);
 		}
 	}
