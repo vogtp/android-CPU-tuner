@@ -177,39 +177,39 @@
 		<strike>BT</strike>
 	</string>
 	<string name="labelBluetoothPrev">BT?</string>
-	<string name="labelMobiledataOn">CD</string>
+	<string name="labelMobiledataOn">Dati</string>
 	<string name="labelMobiledataOff">
-		<strike>CD</strike>
+		<strike>Dati</strike>
 	</string>
-	<string name="labelMobiledataPrev">CD?</string>
+	<string name="labelMobiledataPrev">Dati?</string>
 
 
 	<string-array name="deviceStates">
-		<item>non modificare</item>
+		<item>Non Modificare</item>
 		<item>Abilita</item>
 		<item>Disabilita</item>
 		<item>Riapplica Precedente</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
-		<item>non modificare</item>
+		<item>Non Modificare</item>
 		<item>Abilita</item>
 		<item>Disabilita</item>
 		<item>Riapplica Precedente</item>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="mobiledataStates">
-		<item>non modificare</item>
-		<item>solo 2G</item>
+		<item>Non Modificare</item>
+		<item>Solo 2G</item>
 		<item>3G/2G</item>
 		<item>Rapplica Precedente</item>
-		<item>solo 3G</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
-		<item>non modificare</item>
-		<item>solo 2G</item>
+		<item>Non Modificare</item>
+		<item>Solo 2G</item>
 		<item>3G/2G</item>
 		<item>Rapplica Precedente</item>
-		<item>solo 3G</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Valore medio</item>
@@ -295,7 +295,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
 <string name="setting_cpu_min_freq">Frequenza minima della CPU impostata a %d Hz</string>
 <string name="msg_setting_govenor">Governor impostato a %s</string>
 <string name="msg_found_some_issues">Trovati alcuni problemi... Alcune funzioni potrebbero non funzionare. (Tocca per maggiori informazioni.)</string>
-<string name="label_hot">calda: </string>
+<string name="label_hot">surr.: </string>
 <string name="label_avgerage">media: </string>
 <string name="label_tresh_up">superiore: </string>
 <string name="label_tresh_down">inferiore: </string>

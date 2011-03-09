@@ -3,35 +3,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <link rel="stylesheet" href="styles.css"/>
-<title>triggers</title>
+<title>trigger</title>
 </head>
 <body>	
-	<span class="headline">triggers</span>
+	<span class="headline">trigger</span>
 	<br/><br/>
-	<span class="text">A trigger defines the phone's state when to and the <a href="profile.html">profile</a> to load on reaching this state.</span>
-	<span class="text">CPU tuner activates the trigger that has the biggest battery level which is still smaller than the devices current battery level.</span>
+	<span class="text">Un trigger definisce lo stato del telefono, quindi quando caricare un <a href="profile.html">profilo</a> per raggiungere questo stato.</span>
+	<span class="text">CPU tuner attiva il trigger corrispondente al livello di batteria pi&ugrave; alto, pi&ugrave; basso comunque del livello di batteria attuale del telefono.</span>
 	<span class="text">
-		Depending on the state of the device a profile is chosen.<br>
-		The states are evaluated in the following order:
+		Viene scelto un profilo in base allo stato del telefono.<br>
+		Gli stati sono valutati in base al seguente ordine:
 		<ul>
-			<li><span class="bold">Call in progress</span><br/>
-			If this profile exists and a phone call is active profile is chosen. 
+			<li><span class="bold">Chiamata in Corso</span><br/>
+			Se questo profilo esiste, verr&agrave; scelto mentre il telefono effettua una chiamata. 
 			</li>
-			<li><span class="bold">Battery hot</span><br/>
-			If this profile exists and the battery is hot this profile is chosen. 
+			<li><span class="bold">Batteria surriscaldata</span><br/>
+			Se questo profilo esiste, verr&agrave; scelto nel caso di surriscaldamento della batteria. 
 			</li>
-			<li><span class="bold">Screen off</span><br/>
-			If the screen is off this profile is chosen.  
+			<li><span class="bold">Schermo spento</span><br/>
+			Questo profilo viene scelto se lo schermo è spento.  
 			</li>
-			<li><span class="bold">AC Power</span><br/>
-			If the device is connected to a external power source this profile is chosen.  
+			<li><span class="bold">Alimentato</span><br/>
+			Questo profilo viene scelto se il telefono viene collegato alla rete elettrica.  
 			</li>
-			<li><span class="bold">Battery</span><br/>
-			The battery profile is chosen, if no other state is valid.  
+			<li><span class="bold">Batteria</span><br/>
+			Questo profilo viene scelto nel caso in cui tutti gli altri siano stati scartati.  
 			</li>
 		</ul>
 	</span>
-	<span class="text">CPU tuner does not constantly run and poll those states, but it gets activated by events concerning those states sent by the android system.</span>
+	<span class="text">CPU tuner non esegue costantemente questi stati, ma viene attivato da eventi che riguardano questi stati inviati dal sistema Android.</span>
 </body>
 </html>
 <!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->
+<!-- translated by Nico "Chronos" Caprioli, 09/03/2011 -->
