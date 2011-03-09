@@ -37,6 +37,7 @@ public class CpuHandler extends HardwareHandler {
 	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
 	private static final String CPUINFO_MIN_FREQ = "cpuinfo_min_freq";
 	private static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
+	private static final String GOV_SAMPLING_RATE = "sampling_rate";
 
 	private boolean availCpuFreq = true;
 	private final Map<String, File> fileMap = new WeakHashMap<String, File>();
@@ -121,6 +122,14 @@ public class CpuHandler extends HardwareHandler {
 	public int getGovThresholdUp() {
 		String path = CPU_DIR + getCurCpuGov();
 		return getIntFromStr(RootHandler.readFile(getFile(path, GOV_TRESHOLD_UP)));
+	}
+
+	public int getGovSamplingRate() {
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_SAMPLING_RATE)));
+	}
+
+	public boolean setGovSamplingRate(int i) {
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_SAMPLING_RATE), i + "");
 	}
 
 	public int getGovThresholdDown() {
