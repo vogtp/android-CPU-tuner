@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="styles.css"/>
+<title>trigger</title>
+</head>
+<body>	
+	<span class="headline">trigger</span>
+	<br/><br/>
+	<span class="text">Un trigger definisce lo stato del telefono, quindi quando caricare un <a href="profile.html">profilo</a> per raggiungere questo stato.</span>
+	<span class="text">CPU tuner attiva il trigger corrispondente al livello di batteria pi&ugrave; alto, pi&ugrave; basso comunque del livello di batteria attuale del telefono.</span>
+	<span class="text">
+		Viene scelto un profilo in base allo stato del telefono.<br>
+		Gli stati sono valutati in base al seguente ordine:
+		<ul>
+			<li><span class="bold">Chiamata in Corso</span><br/>
+			Se questo profilo esiste, verr&agrave; scelto mentre il telefono effettua una chiamata. 
+			</li>
+			<li><span class="bold">Batteria surriscaldata</span><br/>
+			Se questo profilo esiste, verr&agrave; scelto nel caso di surriscaldamento della batteria. 
+			</li>
+			<li><span class="bold">Schermo spento</span><br/>
+			Questo profilo viene scelto se lo schermo è spento.  
+			</li>
+			<li><span class="bold">Alimentato</span><br/>
+			Questo profilo viene scelto se il telefono viene collegato alla rete elettrica.  
+			</li>
+			<li><span class="bold">Batteria</span><br/>
+			Questo profilo viene scelto nel caso in cui tutti gli altri siano stati scartati.  
+			</li>
+		</ul>
+	</span>
+	<span class="text">CPU tuner non esegue costantemente questi stati, ma viene attivato da eventi che riguardano questi stati inviati dal sistema Android.</span>
+</body>
+</html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->
+<!-- translated by Nico "Chronos" Caprioli, 09/03/2011 -->
