@@ -162,6 +162,9 @@ public class SendReportActivity extends Activity {
 
 	private void addDirectoryToZip(ZipOutputStream zip, String prefix, File cpuFreqDir, boolean traverse) {
 		File[] cpufreqFiles = cpuFreqDir.listFiles();
+		if (cpufreqFiles == null) {
+			return;
+		}
 		for (int i = 0; i < cpufreqFiles.length; i++) {
 			if (traverse && cpufreqFiles[i].isDirectory()) {
 				addDirectoryToZip(zip, prefix + "/" + cpufreqFiles[i].getName(), cpufreqFiles[i], false);
