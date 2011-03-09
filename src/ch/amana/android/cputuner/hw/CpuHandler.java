@@ -80,7 +80,9 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public String[] getAvailCpuGov() {
-		return moveCurListElementTop(createListStr(readFile(SCALING_AVAILABLE_GOVERNORS)), getCurCpuGov());
+		String readFile = readFile(SCALING_AVAILABLE_GOVERNORS);
+		readFile = readFile.replace(GOV_USERSPACE, "");
+		return moveCurListElementTop(createListStr(readFile), getCurCpuGov());
 	}
 
 	public boolean hasGovernor(String governor) {
