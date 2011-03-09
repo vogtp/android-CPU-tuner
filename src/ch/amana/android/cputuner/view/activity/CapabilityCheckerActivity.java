@@ -61,9 +61,9 @@ public class CapabilityCheckerActivity extends Activity {
 			TextView tv;
 			switch (cr) {
 			case SUCCESS:
-				return getTextView(R.string.msg_not_working);
+				return getTextView(R.string.msg_working);
 			case FAILURE:
-				tv = getTextView(R.string.msg_working);
+				tv = getTextView(R.string.msg_not_working);
 				tv.setTextColor(Color.RED);
 				return tv;
 			default:
