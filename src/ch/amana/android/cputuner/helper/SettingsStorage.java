@@ -55,6 +55,8 @@ public class SettingsStorage {
 	private long pulseDelayOn;
 	private boolean checkedPulseDelayOff = false;
 	private long pulseDelayOff;
+	private boolean checkedEnableUserspaceGovernor = false;
+	private boolean enableUserspaceGovernor;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -69,6 +71,7 @@ public class SettingsStorage {
 		checkedenableCallInProgress = false;
 		checkedPulseDelayOn = false;
 		checkedPulseDelayOff = false;
+		checkedEnableUserspaceGovernor = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -318,5 +321,13 @@ public class SettingsStorage {
 			}
 		}
 		return pulseDelayOff;
+	}
+
+	public boolean isEnableUserspaceGovernor() {
+		if (!checkedEnableUserspaceGovernor) {
+			checkedEnableUserspaceGovernor = true;
+			enableUserspaceGovernor = getPreferences().getBoolean("prefKeyEnableUserspaceGovernor", false);
+		}
+		return enableUserspaceGovernor;
 	}
 }

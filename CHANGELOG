@@ -6,6 +6,12 @@ V
 
 V 
 * features
+- Added option (in settings) to enable userspace governor
+* bug fixes
+-
+
+V 1.4.1
+* features
 - 
 * bug fixes
 - removed userspace governor
@@ -14,6 +20,8 @@ V
 
 V 1.4.0
 * features
+- pulsed service switches (beta)
+- Italian translation
 * bug fixes
 - 
 

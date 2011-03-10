@@ -5,4 +5,7 @@
 <string name="labelProfilesTab">Profiles</string> 
 <string name="labelHelpTab">Help</string> 
 <string name="labelSettingsTab">Settings</string> 
+<string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
+<string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
+<string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
 </resources>

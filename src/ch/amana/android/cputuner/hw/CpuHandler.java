@@ -81,7 +81,9 @@ public class CpuHandler extends HardwareHandler {
 
 	public String[] getAvailCpuGov() {
 		String readFile = readFile(SCALING_AVAILABLE_GOVERNORS);
-		readFile = readFile.replace(GOV_USERSPACE, "");
+		if (!SettingsStorage.getInstance().isEnableUserspaceGovernor()) {
+			readFile = readFile.replace(GOV_USERSPACE, "");
+		}
 		return moveCurListElementTop(createListStr(readFile), getCurCpuGov());
 	}
 

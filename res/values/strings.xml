@@ -1,3 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources><string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
+<string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
+<string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
 </resources>

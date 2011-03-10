@@ -22,6 +22,7 @@
 				<Preference android:key="prefKeyResetToDefault"
 					android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault"
 					android:enabled="true"></Preference>
+				<CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor" android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor" android:summaryOff="@string/prefEnableUserspaceGovernorOff" android:summaryOn="@string/prefEnableUserspaceGovernorOn"></CheckBoxPreference>
 			</PreferenceCategory>
 		</PreferenceScreen>
 
