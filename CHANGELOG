@@ -4,11 +4,16 @@ V
 * bug fixes
 -
 
+V 
+* features
+- 
+* bug fixes
+- removed userspace governor
+- updated Italian translation
+- fix capability check
+
 V 1.4.0
 * features
-- optimise power usage calculation
-- pulsed service switches (beta)
-- Italian translation
 * bug fixes
 - 
 
