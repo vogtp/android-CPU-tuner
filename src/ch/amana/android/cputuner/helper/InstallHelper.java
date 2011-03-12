@@ -93,7 +93,7 @@ public class InstallHelper {
 							1, 2);
 
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance, profilePerformance);
-					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileGood, profileGood, profilePerformance);
+					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileNormal, profileGood, profilePerformance);
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_low), 65, profileScreenOff, profilePowersave, profileNormal, profileGood);
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_empty), 45, profileExtremPowersave, profilePowersave, profilePowersave, profileGood);
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_critical), 25, profileExtremPowersave, profileExtremPowersave, profilePowersave,
