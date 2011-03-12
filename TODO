@@ -4,7 +4,8 @@
 - switch gov (in profile editor) to check witch val can be r/w
 - run script on switch
 
-- sample rate
+- hide current if no sensible value
+- prevent min > max freq
   
 - virtual governors (incl. thresholds) for inexperienced users
 - make logging less noisy
