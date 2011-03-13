@@ -288,9 +288,7 @@ public class SettingsStorage {
 	public boolean isEnableCallInProgressProfile() {
 		if (!checkedenableCallInProgress) {
 			checkedenableCallInProgress = true;
-			SharedPreferences preferences = getPreferences();
-			boolean boolean1 = preferences.getBoolean("prefKeyCallInProgressProfile", true);
-			enableCallInProgress = isEnableBeta() && boolean1;
+			enableCallInProgress = getPreferences().getBoolean("prefKeyCallInProgressProfile", true);
 		}
 		return enableCallInProgress;
 	}
@@ -329,5 +327,9 @@ public class SettingsStorage {
 			enableUserspaceGovernor = getPreferences().getBoolean("prefKeyEnableUserspaceGovernor", false);
 		}
 		return enableUserspaceGovernor;
+	}
+
+	public boolean isEnableScriptOnProfileChange() {
+		return isEnableBeta() && isPowerUser();
 	}
 }

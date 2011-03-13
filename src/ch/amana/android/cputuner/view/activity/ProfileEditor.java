@@ -92,8 +92,7 @@ public class ProfileEditor extends Activity {
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
 		SettingsStorage settings = SettingsStorage.getInstance();
-		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency()
- && settings.isBeginnerUser()) {
+		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency() && settings.isBeginnerUser()) {
 			if (availCpuFreqs != null && availCpuFreqs.length > 0) {
 				profile.setMinFreq(availCpuFreqs[0]);
 			}
@@ -136,7 +135,7 @@ public class ProfileEditor extends Activity {
 		spSync = (Spinner) findViewById(R.id.spSync);
 		etScript = (EditText) findViewById(R.id.etScript);
 
-		if (!settings.isPowerUser()) {
+		if (!settings.isEnableScriptOnProfileChange()) {
 			llTop.removeView(findViewById(R.id.llScript));
 		}
 
@@ -357,7 +356,7 @@ public class ProfileEditor extends Activity {
 		profile.setProfileName(etName.getText().toString());
 		profile.setGovernorThresholdUp(etGovTreshUp.getText().toString());
 		profile.setGovernorThresholdDown(etGovTreshDown.getText().toString());
-		if (SettingsStorage.getInstance().isPowerUser()) {
+		if (SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
 			profile.setScript(etScript.getText().toString());
 		} else {
 			profile.setScript("");

@@ -189,6 +189,7 @@
 		<item>Abilita</item>
 		<item>Disabilita</item>
 		<item>Riapplica Precedente</item>
+		<item>Pulse</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
 		<item>Non Modificare</item>

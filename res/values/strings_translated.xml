@@ -202,6 +202,7 @@
 		<item>Enable</item>
 		<item>Disable</item>
 		<item>Back to previous</item>
+		<item>Pulse</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
 		<item>leave unchanged</item>

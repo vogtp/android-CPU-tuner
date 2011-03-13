@@ -196,6 +196,7 @@ der CPU Profile.  Er wird beim Booten starten.</string>
 		<item>Enable ermöglichen berechtigen</item>
 		<item>Disable Deaktivieren</item>
 		<item>zurück zur vorherigen</item>
+		<item>Pulse</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
 		<item>unverändert lassen</item>
