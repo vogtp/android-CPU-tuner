@@ -342,7 +342,7 @@ public class TuneCpu extends Activity {
 	}
 
 	private void acPowerChanged() {
-		tvAcPower.setText(powerProfiles.isAcPower() ? "Yes" : "No");
+		tvAcPower.setText(getString(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
 	}
 
 	private TextView getMessageTextView() {

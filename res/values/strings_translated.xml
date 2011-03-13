@@ -67,9 +67,8 @@
     <string name="prefUserLevel">Experience Level</string>
     <string name="prefVarious">Various</string>
 	<string name="notAvailable">not available</string>
-	<string name="yes">yes</string>
-	<string name="no">no</string>
-	<string name="save">save</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
 	<string name="save">save</string>
 	<string name="cancel">cancel</string>
 	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in power user
