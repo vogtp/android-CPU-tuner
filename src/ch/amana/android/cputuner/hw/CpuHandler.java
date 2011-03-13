@@ -66,7 +66,8 @@ public class CpuHandler extends HardwareHandler {
 		setGovThresholdUp(cpu.getGovernorThresholdUp());
 		setGovThresholdDown(cpu.getGovernorThresholdDown());
 		if (cpu.hasScript()) {
-			RootHandler.execute(cpu.getScript());
+			StringBuilder result = new StringBuilder();
+			RootHandler.execute(cpu.getScript(), result);
 		}
 	}
 

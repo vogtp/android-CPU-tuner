@@ -57,6 +57,9 @@ public class RootHandler {
 				if (p.exitValue() != 255) {
 					success = true;
 				}
+				if (result != null) {
+					Logger.v(cmd + " result: " + result);
+				}
 			} catch (InterruptedException e) {
 				Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
 			}
