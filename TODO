@@ -2,7 +2,6 @@
 - do not change bt while paired -> setting
 - backup restore profiles
 - switch gov (in profile editor) to check witch val can be r/w
-- run script on switch
 
 - hide current if no sensible value
 - prevent min > max freq

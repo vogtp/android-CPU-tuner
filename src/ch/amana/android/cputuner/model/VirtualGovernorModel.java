@@ -18,6 +18,7 @@ public class VirtualGovernorModel {
 	private String realGov = NO_VALUE_STR;
 	private int governorThresholdUp = 98;
 	private int governorThresholdDown = 95;
+	private String script = "";
 
 	public VirtualGovernorModel() {
 		super();
@@ -30,6 +31,7 @@ public class VirtualGovernorModel {
 		this.realGov = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
 		this.governorThresholdUp = c.getInt(DB.VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP);
 		this.governorThresholdDown = c.getInt(DB.VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN);
+		this.setScript(c.getString(DB.VirtualGovernor.INDEX_SCRIPT));
 	}
 
 	public VirtualGovernorModel(Bundle bundle) {
@@ -47,6 +49,7 @@ public class VirtualGovernorModel {
 		bundle.putString(DB.VirtualGovernor.NAME_REAL_GOVERNOR, getRealGovernor());
 		bundle.putInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		bundle.putInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
+		bundle.putString(DB.VirtualGovernor.NAME_SCRIPT, getScript());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -55,6 +58,7 @@ public class VirtualGovernorModel {
 		realGov = bundle.getString(DB.VirtualGovernor.NAME_REAL_GOVERNOR);
 		governorThresholdUp = bundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP);
 		governorThresholdDown = bundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN);
+		script = bundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 	}
 
 	public ContentValues getValues() {
@@ -67,6 +71,7 @@ public class VirtualGovernorModel {
 		values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, getRealGovernor());
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
+		values.put(DB.VirtualGovernor.NAME_SCRIPT, getScript());
 		return values;
 	}
 
@@ -102,6 +107,7 @@ public class VirtualGovernorModel {
 		result = prime * result + governorThresholdDown;
 		result = prime * result + governorThresholdUp;
 		result = prime * result + ((realGov == null) ? 0 : realGov.hashCode());
+		result = prime * result + ((script == null) ? 0 : script.hashCode());
 		result = prime * result + ((virtualGov == null) ? 0 : virtualGov.hashCode());
 		return result;
 	}
@@ -123,6 +129,11 @@ public class VirtualGovernorModel {
 			if (other.realGov != null)
 				return false;
 		} else if (!realGov.equals(other.realGov))
+			return false;
+		if (script == null) {
+			if (other.script != null)
+				return false;
+		} else if (!script.equals(other.script))
 			return false;
 		if (virtualGov == null) {
 			if (other.virtualGov != null)
@@ -166,6 +177,14 @@ public class VirtualGovernorModel {
 		} catch (Exception e) {
 			Logger.w("Cannot parse " + string + " as int");
 		}
+	}
+
+	public void setScript(String script) {
+		this.script = script;
+	}
+
+	public String getScript() {
+		return script;
 	}
 
 }

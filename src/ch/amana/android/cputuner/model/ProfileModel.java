@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -29,6 +30,7 @@ public class ProfileModel {
 	private int governorThresholdUp = 98;
 	private int governorThresholdDown = 95;
 	private long virtualGovernor = -1;
+	private String script = "";
 
 	public ProfileModel() {
 		super();
@@ -57,6 +59,7 @@ public class ProfileModel {
 		this.governorThresholdDown = c.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_DOWN);
 		this.backgroundSyncState = c.getInt(DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE);
 		this.virtualGovernor = c.getLong(DB.CpuProfile.INDEX_VIRTUAL_GOVERNOR);
+		this.script = c.getString(DB.CpuProfile.INDEX_SCRIPT);
 	}
 
 	public ProfileModel(Bundle bundle) {
@@ -83,6 +86,7 @@ public class ProfileModel {
 		bundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		bundle.putInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
 		bundle.putLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
+		bundle.putString(DB.CpuProfile.NAME_SCRIPT, getScript());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -100,6 +104,7 @@ public class ProfileModel {
 		governorThresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN);
 		backgroundSyncState = bundle.getInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE);
 		virtualGovernor = bundle.getLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR);
+		script = bundle.getString(DB.CpuProfile.NAME_SCRIPT);
 	}
 
 	public ContentValues getValues() {
@@ -120,6 +125,7 @@ public class ProfileModel {
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
+		values.put(DB.CpuProfile.NAME_SCRIPT, getScript());
 		return values;
 	}
 
@@ -228,6 +234,7 @@ public class ProfileModel {
 		result = prime * result + mobiledata3GState;
 		result = prime * result + mobiledataConnectionState;
 		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
+		result = prime * result + ((script == null) ? 0 : script.hashCode());
 		result = prime * result + (int) (virtualGovernor ^ (virtualGovernor >>> 32));
 		result = prime * result + wifiState;
 		return result;
@@ -269,6 +276,11 @@ public class ProfileModel {
 			if (other.profileName != null)
 				return false;
 		} else if (!profileName.equals(other.profileName))
+			return false;
+		if (script == null) {
+			if (other.script != null)
+				return false;
+		} else if (!script.equals(other.script))
 			return false;
 		if (virtualGovernor != other.virtualGovernor)
 			return false;
@@ -335,5 +347,17 @@ public class ProfileModel {
 
 	public int getMobiledataConnectionState() {
 		return mobiledataConnectionState;
+	}
+
+	public void setScript(String script) {
+		this.script = script;
+	}
+
+	public String getScript() {
+		return script;
+	}
+
+	public boolean hasScript() {
+		return script != null && !TextUtils.isEmpty(script.trim());
 	}
 }

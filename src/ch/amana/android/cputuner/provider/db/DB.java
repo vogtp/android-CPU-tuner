@@ -16,7 +16,7 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 9;
+		private static final int DATABASE_VERSION = 10;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -35,12 +35,13 @@ public interface DB {
 				+ DB.CpuProfile.NAME_BLUETOOTH_STATE + " int," + DB.CpuProfile.NAME_MOBILEDATA_3G_STATE + " int,"
 				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98," + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95,"
  + DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int, " + DB.CpuProfile.NAME_VIRTUAL_GOVERNOR
-				+ " int default -1," + DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int)";
+				+ " int default -1," + DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int, " + DB.CpuProfile.NAME_SCRIPT + " text)";
 
 		private static final String CREATE_VIRTUAL_GOVERNOR_TABLE = "create table if not exists " + VirtualGovernor.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
 				+ DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME + " text, " + DB.VirtualGovernor.NAME_REAL_GOVERNOR + " text,"
-				+ DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98," + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95)";
+ + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP
+				+ " int DEFAULT 98," + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95, " + DB.VirtualGovernor.NAME_SCRIPT + " text)";
 
 		public OpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
@@ -105,6 +106,12 @@ public interface DB {
 			case 8:
 				Logger.w("Upgrading to DB Version 9...");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int default 0;");
+
+			case 9:
+				Logger.w("Upgrading to DB Version 10...");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_SCRIPT + " text;");
+				db.execSQL("alter table " + VirtualGovernor.TABLE_NAME + " add column " + VirtualGovernor.NAME_SCRIPT + " text;");
+
 			default:
 				Logger.w("Finished DB upgrading!");
 				break;
@@ -201,6 +208,7 @@ public interface DB {
 		public static final String NAME_BACKGROUND_SYNC_STATE = "backgroundSyncState";
 		public static final String NAME_VIRTUAL_GOVERNOR = "virtualGovernor";
 		public static final String NAME_MOBILEDATA_CONNECTION_STATE = "mobiledataConnectionState";
+		public static final String NAME_SCRIPT = "script";
 
 		public static final int INDEX_PROFILE_NAME = 1;
 		public static final int INDEX_GOVERNOR = 2;
@@ -215,11 +223,12 @@ public interface DB {
 		public static final int INDEX_BACKGROUND_SYNC_STATE = 11;
 		public static final int INDEX_VIRTUAL_GOVERNOR = 12;
 		public static final int INDEX_MOBILEDATA_CONNECTION_STATE = 13;
+		public static final int INDEX_SCRIPT = 14;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
 				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_3G_STATE, NAME_GOVERNOR_THRESHOLD_UP,
  NAME_GOVERNOR_THRESHOLD_DOWN, NAME_BACKGROUND_SYNC_STATE, NAME_VIRTUAL_GOVERNOR,
-				NAME_MOBILEDATA_CONNECTION_STATE };
+				NAME_MOBILEDATA_CONNECTION_STATE, NAME_SCRIPT };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
 
@@ -245,14 +254,17 @@ public interface DB {
 		public static final String NAME_REAL_GOVERNOR = "governor";
 		public static final String NAME_GOVERNOR_THRESHOLD_UP = "governorThresholdUp";
 		public static final String NAME_GOVERNOR_THRESHOLD_DOWN = "governorThresholdDown";
+		public static final String NAME_SCRIPT = "script";
 
 		public static final int INDEX_VIRTUAL_GOVERNOR_NAME = 1;
 		public static final int INDEX_REAL_GOVERNOR = 2;
 		public static final int INDEX_GOVERNOR_THRESHOLD_UP = 3;
 		public static final int INDEX_GOVERNOR_THRESHOLD_DOWN = 4;
+		public static final int INDEX_SCRIPT = 5;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_VIRTUAL_GOVERNOR_NAME, NAME_REAL_GOVERNOR,
-				NAME_GOVERNOR_THRESHOLD_UP, NAME_GOVERNOR_THRESHOLD_DOWN };
+ NAME_GOVERNOR_THRESHOLD_UP, NAME_GOVERNOR_THRESHOLD_DOWN,
+				NAME_SCRIPT };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String SORTORDER_DEFAULT = NAME_VIRTUAL_GOVERNOR_NAME + " DESC";

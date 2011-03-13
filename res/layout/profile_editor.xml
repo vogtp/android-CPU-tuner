@@ -147,6 +147,10 @@
 			</TableRow>
 
 		</TableLayout>
+		<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/llScript" android:paddingTop="20dp">
+			<TextView android:layout_height="wrap_content" android:text="@string/labelScript" android:layout_width="wrap_content" android:id="@+id/textView1" android:paddingRight="5dp"></TextView>
+			<EditText android:layout_height="wrap_content" android:id="@+id/etScript" android:layout_width="wrap_content" android:hint="@string/hintScriptToRun"></EditText>
+		</LinearLayout>
 
 
 
@@ -155,4 +159,5 @@
 
 
 	</LinearLayout>
+	
 </ScrollView>

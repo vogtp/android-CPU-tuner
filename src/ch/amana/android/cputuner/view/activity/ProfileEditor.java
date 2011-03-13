@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -57,6 +58,8 @@ public class ProfileEditor extends Activity {
 	private Spinner spSync;
 	private boolean hasDeviceStatesBeta;
 	private Spinner spMobileDataConnection;
+	private EditText etScript;
+	private LinearLayout llTop;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -88,8 +91,9 @@ public class ProfileEditor extends Activity {
 		availCpuGovs = cpuHandler.getAvailCpuGov();
 		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
+		SettingsStorage settings = SettingsStorage.getInstance();
 		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency()
-				&& SettingsStorage.getInstance().isBeginnerUser()) {
+ && settings.isBeginnerUser()) {
 			if (availCpuFreqs != null && availCpuFreqs.length > 0) {
 				profile.setMinFreq(availCpuFreqs[0]);
 			}
@@ -110,6 +114,7 @@ public class ProfileEditor extends Activity {
 										Math.max(profile.getBackgroundSyncState(),
 												profile.getWifiState())))));
 
+		llTop = (LinearLayout) findViewById(R.id.llTop);
 		etName = (EditText) findViewById(R.id.etName);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
@@ -129,6 +134,11 @@ public class ProfileEditor extends Activity {
 		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
 		spMobileDataConnection = (Spinner) findViewById(R.id.spMobileDataConnection);
 		spSync = (Spinner) findViewById(R.id.spSync);
+		etScript = (EditText) findViewById(R.id.etScript);
+
+		if (!settings.isPowerUser()) {
+			llTop.removeView(findViewById(R.id.llScript));
+		}
 
 		sbCpuFreqMax.requestFocus();
 
@@ -205,7 +215,7 @@ public class ProfileEditor extends Activity {
 
 		});
 
-		if (SettingsStorage.getInstance().isEnableSwitchWifi()) {
+		if (settings.isEnableSwitchWifi()) {
 			spWifi.setAdapter(getSystemsAdapter());
 			spWifi.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
@@ -221,7 +231,7 @@ public class ProfileEditor extends Activity {
 			tlServices.removeView(findViewById(R.id.TableRowWifi));
 		}
 
-		if (SettingsStorage.getInstance().isEnableSwitchGps()) {
+		if (settings.isEnableSwitchGps()) {
 			spGps.setAdapter(getSystemsAdapter());
 			spGps.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -238,7 +248,7 @@ public class ProfileEditor extends Activity {
 			tlServices.removeView(findViewById(R.id.TableRowGps));
 		}
 
-		if (SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+		if (settings.isEnableSwitchBluetooth()) {
 			spBluetooth.setAdapter(getSystemsAdapter());
 			spBluetooth.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -255,9 +265,9 @@ public class ProfileEditor extends Activity {
 			tlServices.removeView(findViewById(R.id.TableRowBluetooth));
 		}
 
-		if (SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
+		if (settings.isEnableSwitchMobiledata3G()) {
 			int mobiledatastates = R.array.mobiledataStates;
-			if (SettingsStorage.getInstance().isEnableBeta()) {
+			if (settings.isEnableBeta()) {
 				mobiledatastates = R.array.mobiledataStatesBeta;
 			}
 			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, mobiledatastates, android.R.layout.simple_spinner_item);
@@ -279,7 +289,7 @@ public class ProfileEditor extends Activity {
 			tlServices.removeView(findViewById(R.id.TableRowMobileData3G));
 		}
 
-		if (SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+		if (settings.isEnableSwitchMobiledataConnection()) {
 			spMobileDataConnection.setAdapter(getSystemsAdapter());
 			spMobileDataConnection.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -296,7 +306,7 @@ public class ProfileEditor extends Activity {
 			tlServices.removeView(findViewById(R.id.TableRowMobiledataConnection));
 		}
 
-		if (SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+		if (settings.isEnableSwitchBackgroundSync()) {
 			spSync.setAdapter(getSystemsAdapter());
 			spSync.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -347,6 +357,11 @@ public class ProfileEditor extends Activity {
 		profile.setProfileName(etName.getText().toString());
 		profile.setGovernorThresholdUp(etGovTreshUp.getText().toString());
 		profile.setGovernorThresholdDown(etGovTreshDown.getText().toString());
+		if (SettingsStorage.getInstance().isPowerUser()) {
+			profile.setScript(etScript.getText().toString());
+		} else {
+			profile.setScript("");
+		}
 	}
 
 	@Override
@@ -418,6 +433,9 @@ public class ProfileEditor extends Activity {
 			labelCpuFreqMin.setVisibility(View.VISIBLE);
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
+		}
+		if (SettingsStorage.getInstance().isPowerUser()) {
+			etScript.setText(profile.getScript());
 		}
 		updateGovernorFeatures();
 	}
