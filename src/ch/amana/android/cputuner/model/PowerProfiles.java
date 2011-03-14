@@ -140,41 +140,41 @@ public class PowerProfiles {
 				Logger.i("Not switching profile since phone not idle");
 				return;
 			}
-			Cursor c = null;
-			try {
-				c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
-						DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
-				if (c != null && c.moveToFirst()) {
-					currentProfile = new ProfileModel(c);
+			applyProfile(profileId);
+		}
+	}
 
-					CpuHandler cpuHandler = new CpuHandler();
-					cpuHandler.applyCpuSettings(currentProfile);
-					applyWifiState(currentProfile.getWifiState());
-					applyGpsState(currentProfile.getGpsState());
-					applyBluetoothState(currentProfile.getBluetoothState());
-					applyMobiledata3GState(currentProfile.getMobiledata3GState());
-					applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
-					applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
-					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
-							+ "< on batterylevel "
-							+ batteryLevel + "%");
-					StringBuilder sb = new StringBuilder(50);
-					if (force) {
-						sb.append("Reappling power profile ");
-					} else {
-						sb.append("Setting power profile to ");
-					}
-					sb.append(currentProfile.getProfileName());
-					Notifier.notifyProfile(currentProfile.getProfileName());
-					context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
-				}
-			} finally {
-				if (c != null && !c.isClosed()) {
-					try {
-						c.close();
-					}catch (Exception e) {
-						Logger.e("Cannot close cursor",e);
-					}
+	public void applyProfile(long profileId) {
+		Cursor c = null;
+		try {
+			c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
+					DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
+			if (c != null && c.moveToFirst()) {
+				currentProfile = new ProfileModel(c);
+
+				CpuHandler cpuHandler = new CpuHandler();
+				cpuHandler.applyCpuSettings(currentProfile);
+				applyWifiState(currentProfile.getWifiState());
+				applyGpsState(currentProfile.getGpsState());
+				applyBluetoothState(currentProfile.getBluetoothState());
+				applyMobiledata3GState(currentProfile.getMobiledata3GState());
+				applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
+				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
+				Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
+						+ "< on batterylevel "
+						+ batteryLevel + "%");
+				StringBuilder sb = new StringBuilder(50);
+				sb.append("Setting power profile to ");
+				sb.append(currentProfile.getProfileName());
+				Notifier.notifyProfile(currentProfile.getProfileName());
+				context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+			}
+		} finally {
+			if (c != null && !c.isClosed()) {
+				try {
+					c.close();
+				}catch (Exception e) {
+					Logger.e("Cannot close cursor",e);
 				}
 			}
 		}
