@@ -58,6 +58,7 @@ public class TuneCpu extends Activity {
 	private TextView tvGovTreshholds;
 	private PowerProfiles powerProfiles;
 	private Spinner spProfiles;
+	private TextView labelBatteryCurrent;
 
 	protected class CpuTunerReceiver extends BroadcastReceiver {
 
@@ -132,6 +133,7 @@ public class TuneCpu extends Activity {
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 		tvGovTreshholds = (TextView) findViewById(R.id.tvGovTreshholds);
+		labelBatteryCurrent = (TextView) findViewById(R.id.labelBatteryCurrent);
 
 		Cursor cursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
@@ -309,9 +311,12 @@ public class TuneCpu extends Activity {
 			currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
 		}
 		if (currentText.length() > 0) {
+			labelBatteryCurrent.setVisibility(View.VISIBLE);
+			tvBatteryCurrent.setVisibility(View.VISIBLE);
 			tvBatteryCurrent.setText(currentText.toString());
 		} else {
-			tvBatteryCurrent.setText(R.string.notAvailable);
+			labelBatteryCurrent.setVisibility(View.INVISIBLE);
+			tvBatteryCurrent.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -364,7 +369,6 @@ public class TuneCpu extends Activity {
 			sb.append(getString(R.string.label_tresh_down)).append(" ").append(govThresholdDown).append("%");
 		}
 		if (sb.length() > 0) {
-			sb.insert(0, " ").insert(0, getString(R.string.label_governor_tresholds)).append(" ");
 			tvGovTreshholds.setText(sb.toString());
 		} else {
 			tvGovTreshholds.setText("");

@@ -1,7 +1,5 @@
-- manually choose a profile
 - switch gov (in profile editor) to check witch val can be r/w
-- hide current if no sensible value
-- prevent min > max freq
+- prevent min > max freq (in profile editor)
 
 - backup restore profiles 
 - virtual governors (incl. thresholds) for inexperienced users 
