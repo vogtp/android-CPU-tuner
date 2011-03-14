@@ -313,5 +313,4 @@ Please do not write e-mails unless you think there is something wrong with the c
 <string name="label_avgerage">avg: </string>
 <string name="label_tresh_up">up: </string>
 <string name="label_tresh_down">down: </string>
-<string name="label_governor_tresholds">Governor thresholds:</string>
 </resources>

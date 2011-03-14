@@ -300,5 +300,4 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
 <string name="label_avgerage">media: </string>
 <string name="label_tresh_up">superiore: </string>
 <string name="label_tresh_down">inferiore: </string>
-<string name="label_governor_tresholds">Soglia governor </string>
 </resources>

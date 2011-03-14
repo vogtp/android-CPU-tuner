@@ -8,4 +8,5 @@
 <string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
+<string name="label_governor_tresholds">Soglia:</string>
 </resources>

@@ -2,4 +2,5 @@
 <resources>
 <string name="labelScript">Script:</string>
 <string name="hintScriptToRun">Script to run after governor change.</string>
+<string name="label_governor_tresholds">Thresholds:</string>
 </resources>

@@ -9,24 +9,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -37,24 +28,21 @@ public class TuneCpu extends Activity {
 	private CpuTunerReceiver receiver;
 
 	private CpuHandler cpuHandler;
-	private Spinner spinnerSetGov;
-	private SeekBar sbCpuFreqMax;
 	private TextView tvCpuFreqMax;
-	private SeekBar sbCpuFreqMin;
 	private TextView tvCpuFreqMin;
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
 	private TextView tvCurrentProfile;
 	private TextView tvCurrentTrigger;
-	private int[] availCpuFreqs;
-	private String[] availCpuGovs;
-	private TextView tvExplainGov;
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private TextView tvMessage;
 	private TextView tvBatteryCurrent;
 	private TextView tvGovTreshholds;
 	private PowerProfiles powerProfiles;
+	private TextView tvGorvernor;
+	private TextView labelGovTreshholds;
+	private TextView labelBatteryCurrent;
 
 	protected class CpuTunerReceiver extends BroadcastReceiver {
 
@@ -111,13 +99,10 @@ public class TuneCpu extends Activity {
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();
 
-		availCpuGovs = cpuHandler.getAvailCpuGov();
-		availCpuFreqs = cpuHandler.getAvailCpuFreq();
 
 		tvCurrentTrigger = (TextView) findViewById(R.id.tvCurrentTrigger);
 		tvCurrentProfile = (TextView) findViewById(R.id.tvCurrentProfile);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
-		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
 		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
 		tvBatteryCurrent = (TextView) findViewById(R.id.tvBatteryCurrent);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
@@ -125,93 +110,10 @@ public class TuneCpu extends Activity {
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
-		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
-		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
-		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
+		tvGorvernor = (TextView) findViewById(R.id.tvGovernor);
 		tvGovTreshholds = (TextView) findViewById(R.id.tvGovTreshholds);
-
-		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
-		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int val = availCpuFreqs[seekBar.getProgress()];
-					if (val != cpuHandler.getMaxCpuFreq()) {
-						if (cpuHandler.setMaxCpuFreq(val)) {
-							Toast.makeText(TuneCpu.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
-						}
-						updateView();
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set max freq in gui", e);
-				}
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			}
-		});
-
-		sbCpuFreqMin.setMax(availCpuFreqs.length - 1);
-		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int val = availCpuFreqs[seekBar.getProgress()];
-					if (val != cpuHandler.getMinCpuFreq()) {
-						if (cpuHandler.setMinCpuFreq(val)) {
-							Toast.makeText(TuneCpu.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
-						}
-						updateView();
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set min freq in gui", e);
-				}
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			}
-		});
-
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, availCpuGovs);
-		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinnerSetGov.setAdapter(arrayAdapter);
-		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String gov = parent.getItemAtPosition(pos).toString();
-				if (gov != cpuHandler.getCurCpuGov()) {
-					boolean ret = cpuHandler.setCurGov(gov);
-					if (ret) {
-						if (CpuHandler.GOV_USERSPACE.equals(gov)) {
-							setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
-						}
-						Toast.makeText(parent.getContext(), getString(R.string.msg_setting_govenor, gov), Toast.LENGTH_LONG).show();
-					}
-				}
-				updateView();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				updateView();
-			}
-
-		});
-
-		spinnerSetGov.setEnabled(cpuHandler.hasGov());
+		labelGovTreshholds = (TextView) findViewById(R.id.labelGovTreshholds);
+		labelBatteryCurrent = (TextView) findViewById(R.id.labelBatteryCurrent);
 
 	}
 
@@ -249,19 +151,6 @@ public class TuneCpu extends Activity {
 		}
 	}
 
-	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
-		if (val == HardwareHandler.NO_VALUE_INT) {
-			textView.setText(R.string.notAvailable);
-		} else {
-			textView.setText(ProfileModel.convertFreq2GHz(val));
-		}
-		for (int i = 0; i < valList.length; i++) {
-			if (val == valList[i]) {
-				seekBar.setProgress(i);
-			}
-		}
-	}
-
 	private void batteryLevelChanged() {
 		StringBuilder bat = new StringBuilder();
 		bat.append(powerProfiles.getBatteryLevel()).append("%");
@@ -281,14 +170,16 @@ public class TuneCpu extends Activity {
 			currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
 		}
 		if (currentText.length() > 0) {
+			labelBatteryCurrent.setVisibility(View.VISIBLE);
+			tvBatteryCurrent.setVisibility(View.VISIBLE);
 			tvBatteryCurrent.setText(currentText.toString());
 		} else {
-			tvBatteryCurrent.setText(R.string.notAvailable);
+			labelBatteryCurrent.setVisibility(View.INVISIBLE);
+			tvBatteryCurrent.setVisibility(View.INVISIBLE);
 		}
 	}
 
 	private void profileChanged() {
-		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, cpuHandler.getCurCpuGov()));
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			CharSequence profile = powerProfiles.getCurrentProfileName();
 			if (PulseHelper.getInstance(this).isPulsing()) {
@@ -302,42 +193,37 @@ public class TuneCpu extends Activity {
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
 
-		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
-		String curGov = cpuHandler.getCurCpuGov();
-		for (int i = 0; i < availCpuGovs.length; i++) {
-			if (curGov.equals(availCpuGovs[i])) {
-				spinnerSetGov.setSelection(i);
-			}
-		}
-
-		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
-			setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
+		String curCpuGov = cpuHandler.getCurCpuGov();
+		tvGorvernor.setText(curCpuGov);
+		if (CpuHandler.GOV_USERSPACE.equals(curCpuGov)) {
 			labelCpuFreqMax.setText(R.string.labelCpuFreq);
 			labelCpuFreqMin.setVisibility(View.INVISIBLE);
 			tvCpuFreqMin.setVisibility(View.INVISIBLE);
-			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+
 		} else {
 			labelCpuFreqMax.setText(R.string.labelMax);
 			labelCpuFreqMin.setVisibility(View.VISIBLE);
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
-			sbCpuFreqMin.setVisibility(View.VISIBLE);
+			tvCpuFreqMin.setText(ProfileModel.convertFreq2GHz(cpuHandler.getMinCpuFreq()));
 		}
+		tvCpuFreqMax.setText(ProfileModel.convertFreq2GHz(cpuHandler.getMaxCpuFreq()));
 
 		int govThresholdUp = cpuHandler.getGovThresholdUp();
 		int govThresholdDown = cpuHandler.getGovThresholdDown();
 		StringBuilder sb = new StringBuilder();
 		if (govThresholdUp > 0) {
-			sb.append(" ").append(getString(R.string.label_tresh_up)).append(govThresholdUp).append("%");
+			sb.append(getString(R.string.label_tresh_up)).append(" ").append(govThresholdUp).append("% ");
 		}
 		if (govThresholdDown > 0) {
-			sb.append(" ").append(getString(R.string.label_tresh_down)).append(" ").append(govThresholdDown).append("%");
+			sb.append(getString(R.string.label_tresh_down)).append(" ").append(govThresholdDown).append("%");
 		}
 		if (sb.length() > 0) {
-			sb.insert(0, getString(R.string.label_governor_tresholds));
+			labelGovTreshholds.setVisibility(View.VISIBLE);
+			tvGovTreshholds.setVisibility(View.VISIBLE);
 			tvGovTreshholds.setText(sb.toString());
 		} else {
-			tvGovTreshholds.setText("");
+			labelGovTreshholds.setVisibility(View.INVISIBLE);
+			tvGovTreshholds.setVisibility(View.INVISIBLE);
 		}
 	}
 
