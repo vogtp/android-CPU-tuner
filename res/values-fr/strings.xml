@@ -14,4 +14,7 @@
 <string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
+<string name="labelScript">Script:</string>
+<string name="hintScriptToRun">Script to run after governor change.</string>
+<string name="label_governor_tresholds">Thresholds:</string>
 </resources>

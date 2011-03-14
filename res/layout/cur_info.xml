@@ -30,6 +30,23 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvCurrentProfile"></TextView>
 			</TableRow>
+			<TableRow android:layout_width="wrap_content" android:id="@+id/tableRowGovernor" android:layout_height="wrap_content">
+				<TextView android:paddingTop="18dp" android:id="@+id/textView1" android:textSize="20sp" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@string/labelCpuGov" android:layout_width="wrap_content"></TextView>
+				<TextView android:textSize="20sp" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/tvGovernor" android:layout_width="wrap_content"></TextView>
+			</TableRow>
+			<TableRow android:layout_width="match_parent" android:id="@+id/tableRowFrequencies" android:layout_height="wrap_content">
+				<TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@string/labelCpuFreq" android:id="@+id/textView2" android:layout_width="fill_parent"></TextView>
+				<LinearLayout android:layout_height="wrap_content" android:id="@+id/llFreq" android:layout_width="match_parent">
+					<TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMax" android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMax"></TextView>
+					<TextView android:layout_gravity="right" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+id/tvCpuFreqMax" android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMax"></TextView>
+					<TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMin" android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin"></TextView>
+					<TextView android:layout_gravity="right" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="99999" android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMin"></TextView>
+				</LinearLayout>
+			</TableRow>
+			<TableRow android:layout_width="match_parent" android:id="@+id/tableRowThresholds" android:layout_height="wrap_content">
+				<TextView android:layout_height="wrap_content" android:text="@string/label_governor_tresholds" android:id="@+id/labelGovTreshholds" android:layout_width="wrap_content"></TextView>
+				<TextView android:layout_height="wrap_content" android:paddingRight="7dp" android:text="TextView" android:id="@+id/tvGovTreshholds" android:layout_width="wrap_content"></TextView>
+			</TableRow>
 			<TableRow android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/TableRowBattery">
 				<TextView android:layout_width="wrap_content"
@@ -59,27 +76,6 @@
 				<TextView android:text="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryCurrent"></TextView>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/tableRowGovernor">
-				<TextView android:paddingTop="18dp" android:textSize="20sp"
-	android:layout_width="wrap_content" android:paddingRight="5dp"
-	android:text="@string/labelCpuGov" android:layout_height="wrap_content"></TextView>
-				<TextView android:layout_height="wrap_content" android:text="TextView" android:textSize="20sp" android:layout_width="wrap_content" android:id="@+id/tvGovernor"></TextView>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/tableRowFrequencies">
-				<TextView  android:layout_width="fill_parent"
-	android:paddingRight="5dp" android:text="@string/labelCpuFreq"
-	android:id="@+id/textView2" android:layout_height="wrap_content"></TextView>
-				<LinearLayout android:layout_width="match_parent" android:id="@+id/llFreq" android:layout_height="wrap_content">
-					<TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMax" android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMax"></TextView>
-					<TextView android:layout_gravity="right" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+id/tvCpuFreqMax" android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMax"></TextView>
-					<TextView android:layout_height="wrap_content" android:paddingRight="5dp" android:text="@+string/labelMin" android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin"></TextView>
-					<TextView android:layout_gravity="right" android:layout_height="wrap_content" android:paddingRight="5dp" android:text="99999" android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMin"></TextView>
-				</LinearLayout>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/tableRowThresholds">
-				<TextView android:layout_height="wrap_content" android:text="@string/label_governor_tresholds" android:layout_width="wrap_content" android:id="@+id/labelGovTreshholds"></TextView>
-				<TextView android:layout_height="wrap_content" android:paddingRight="7dp" android:text="TextView" android:id="@+id/tvGovTreshholds" android:layout_width="wrap_content"></TextView>
 			</TableRow>
 		</TableLayout>
 	</LinearLayout>

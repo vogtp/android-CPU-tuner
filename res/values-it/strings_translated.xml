@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
 <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
-<string name="prefPulseDelayOn">Periodo attivazione servizio</string>
+<string name="prefPulseDelayOn">Durata attivazione</string>
 <string name="prefPulseDelayOnLong">Periodo (in minuti) durante il quale un servizio è attivo in modalità pulse.</string> 
-<string name="prefPulseDelayOff">Periodo disattivazione servizio</string>
+<string name="prefPulseDelayOff">Durata disattivazione</string>
 <string name="prefPulseDelayOffLong">Periodo (in minuti) durante il quale un servizio è disattivato in modalità pulse.</string> 
 <string name="labelPulseOn">(Pulse Attivo)</string> 
 <string name="labelPulseOff">(Pulse Disattivo)</string> 
     <string name="labelPowerUserExplain">Controllo totale!</string>
     <string name="labelPowerUser">Esperto</string>
-    <string name="labelNormalExplain">Opzioni di configurazione più avanzate, l\' Underclock </string>
+    <string name="labelNormalExplain">Opzioni di configurazione più avanzate, l\' Underclock è possibile solo fino ad un certo valore.</string>
     <string name="labelNormal">Normale</string>
     <string name="labelBeginnerExplain">Facile da configurare, tutte le impostazioni dovrebbero essere sicure... L\' Underclock è possibile solo fino a un certo valore.</string>
     <string name="labelBeginner">Principiante</string>
@@ -31,7 +31,7 @@
     <string name="labelMobileDataConn">Connessione Dati</string>
     <string name="labelMobileData32G">Dati 2G/3G</string>
     <string name="labelServices">Servizi:</string>
-    <string name="labelDown">Giù:</string>
+    <string name="labelDown">Inferiore:</string>
     <string name="labelThreshsUp">Soglia superiore:</string>
     <string name="labelHome">Home</string>
     <string name="labelUsage">Utilizzo:</string>
@@ -47,10 +47,10 @@
     <string name="virtualGovernorsList">Governor Virtuali</string>
     <string name="prefBatteryHotTempMsg">Temperatura personalizzata per attivare il profilo batteria surriscaldata.<br /> Valore intero in °C.</string>
     <string name="prefBatteryHotTempLong">Temperatura personalizzata per attivare il profilo batteria surriscaldata.</string>
-    <string name="prefBatteryHotTemp">Temperatura batteria surriscaldata</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Cambio di profili permesso durante le chiamate. La connessione dati non verrà modificata durante le chiamate, a prescindere dallo stato di questa opzione.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Cambio di profili vietato durante le chiamate. La connessione dati non verrà modificata durante le chiamate, a prescindere dallo stato di questa opzione.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdle">Cambia profilo durante una chiamata</string>
+    <string name="prefBatteryHotTemp">Batteria surriscaldata</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Cambio di profili permesso durante le chiamate. La connessione dati non verrà modificata in chiamata, a prescindere dallo stato di questa opzione.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Cambio di profili vietato durante le chiamate. La connessione dati non verrà modificata in chiamata, a prescindere dallo stato di questa opzione.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdle">Profilo nelle chiamate</string>
     <string name="prefSwitchWifiOnConnectedNetworkOn">Il Wifi verrà spento anche se connesso a una rete.</string>
     <string name="prefSwitchWifiOnConnectedNetworkOff">Il Wifi non verrà spento se connesso a una rete.</string>
     <string name="prefSwitchWifiOnConnectedNetwork">Spegni wifi se connesso</string>
@@ -64,7 +64,7 @@
 	<string name="save">salva</string>
 	<string name="cancel">annulla</string>
 	<string name="prefMinSensibleFrequencyLong">Frequenza minima mostrata se non sei in modalià esperto.</string>
-	<string name="prefMinSensibleFrequency">Frequenza minima mostrata</string>
+	<string name="prefMinSensibleFrequency">Frequenza minima</string>
 	<string name="prefResetToDefaultLong">Elimina tutti i profili e i trigger in uso per ricaricare
 		le impostazioni di default.</string>
 	<string name="prefResetToDefault">Ripristino Profili e Trigger</string>
@@ -73,7 +73,7 @@
 	<string name="prefAllowManualServiceChangesOn">Non cambiare lo stato di un servizio se è stato modificato manualmente
 		senza che sia cambiato alcun trigger fino al quel momento.</string>
 	<string name="prefAllowManualServiceChangesOff">Cambia lo stato di un servizio nonostante fosse stato modificato manualmente.</string>
-	<string name="prefAllowManualServiceChanges">Modifiche manuali a un servizio</string>
+	<string name="prefAllowManualServiceChanges">Modifiche a un servizio</string>
 	<string name="hintMailBody">Aggiungi alcune informazioni sul
 		problema che hai.</string>
 	<string name="prefCpuFreqMsg">Lista di frequenze separate da uno spazio</string>
@@ -94,7 +94,7 @@
 	<string name="prefEnableBeta">Abilita funzioni beta</string>
 	<string name="prefCapabilitiesLong">Controlla se il dispositivo supporta le API necessarie
 		o se c\'è qualche problema.</string>
-	<string name="prefCapabilities">Check Capabilities</string>
+	<string name="prefCapabilities">Verifica funzionalità</string>
 	<string name="prefStatusbarAddToOff">Non ci sono informazioni su cpu tuner
 		nella status bar.</string>
 	<string name="prefStatusbarAddToOn">Il profilo corrente è mostrato
@@ -107,9 +107,9 @@
 	<string name="prefSystemAppOff">Non installata come applicazione di sistema, non avrà
 		accesso a impostazioni di sistema come il gps.</string>
 	<string name="prefSystemAppOn">È un\'applicazione di sistema, può modificare le impostazioni GPS</string>
-	<string name="prefSystemApp">Installa come applicazione di sistema</string>
-	<string name="prefToastNotifications">Toast notifications</string>
-	<string name="prefStatusbarNotifications">Statusbar notifications</string>
+	<string name="prefSystemApp">App. di sistema</string>
+	<string name="prefToastNotifications">Notifiche Toast</string>
+	<string name="prefStatusbarNotifications">Notifiche nella status bar</string>
 	<string name="prefCatNotifications">Notifiche</string>
 	<string name="prefCatSystem">Sistema</string>
 	<string name="prefEnableProfiles">Abilita profili</string>
@@ -218,9 +218,9 @@
 		<item>Nessun calcolo</item>
 	</string-array>
 	<string-array name="prefUserLevelEntries">
-		<item><b>Principiante</b>: cpu tuner proverà ad essere intelligente.</item>
-		<item><b>Normale</b>: cpu tuner ti aiuta.</item>
-		<item><b>Power user</b>: Sei il Boss!</item>
+		<item><b>Principiante</b>: cpu tuner farà per te.</item>
+		<item><b>Normale</b>: cpu tuner ti darà una mano.</item>
+		<item><b>Esperto</b>: Sei il Boss!</item>
 	</string-array>
 <string name="cbEnableVirtualGovernors">Abilita i governor virtuali</string>
 <string name="userExperianceLevelExplain">CPU tuner può operare con livelli di esperienza diversi. In base al livello che scegli avrai più scelte e potrai fare più cose.</string>
@@ -263,8 +263,8 @@
 <string name="bu_yes_title_install_sys">Installa e riavvia</string>
 <string name="title_install_sys">Installa cpu tuner come applicazione di sistema</string>
 <string name="msg_has_issues">Ha problemi</string>
-<string name="msg_not_working">Non funziona</string>
-<string name="msg_working">Funziona</string>
+<string name="msg_not_working">Negativo</string>
+<string name="msg_working">Positivo</string>
 <string name="msg_premail_no_issues">Nessun problema trovato...
 Se ti piace puoi lasciare un feedback: commenti e un rating positivo
 nel market sarebbero davvero apprezzati.
@@ -297,7 +297,16 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
 <string name="msg_setting_govenor">Governor impostato a %s</string>
 <string name="msg_found_some_issues">Trovati alcuni problemi... Alcune funzioni potrebbero non funzionare. (Tocca per maggiori informazioni.)</string>
 <string name="label_hot">surr.: </string>
-<string name="label_avgerage">media: </string>
+<string name="label_avgerage">media </string>
 <string name="label_tresh_up">superiore: </string>
 <string name="label_tresh_down">inferiore: </string>
-</resources>
+<string name="label_governor_tresholds">Soglie:</string>
+<string name="labelCurrentTab">Corrente</string> 
+<string name="labelTriggersTab">Trigger</string> 
+<string name="labelProfilesTab">Profili</string> 
+<string name="labelHelpTab">Aiuto</string> 
+<string name="labelSettingsTab">Impostazioni</string> 
+<string name="prefEnableUserspaceGovernor">Mostra Governor Userspace</string>
+<string name="prefEnableUserspaceGovernorOn">È possibile scegliere il governor userspace.</string>
+<string name="prefEnableUserspaceGovernorOff">Il governor userpace verrà filtrato.</string>
+</resources> 
