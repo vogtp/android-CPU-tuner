@@ -328,13 +328,13 @@ public class TuneCpu extends Activity {
 		int govThresholdDown = cpuHandler.getGovThresholdDown();
 		StringBuilder sb = new StringBuilder();
 		if (govThresholdUp > 0) {
-			sb.append(getString(R.string.label_tresh_up)).append(" ").append(govThresholdUp).append("% ");
+			sb.append(" ").append(getString(R.string.label_tresh_up)).append(govThresholdUp).append("%");
 		}
 		if (govThresholdDown > 0) {
-			sb.append(getString(R.string.label_tresh_down)).append(" ").append(govThresholdDown).append("%");
+			sb.append(" ").append(getString(R.string.label_tresh_down)).append(" ").append(govThresholdDown).append("%");
 		}
 		if (sb.length() > 0) {
-			sb.insert(0, getString(R.string.label_governor_tresholds)).append(" ");
+			sb.insert(0, getString(R.string.label_governor_tresholds));
 			tvGovTreshholds.setText(sb.toString());
 		} else {
 			tvGovTreshholds.setText("");
