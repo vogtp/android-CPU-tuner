@@ -364,7 +364,7 @@ public class TuneCpu extends Activity {
 			sb.append(getString(R.string.label_tresh_down)).append(" ").append(govThresholdDown).append("%");
 		}
 		if (sb.length() > 0) {
-			sb.insert(0, getString(R.string.label_governor_tresholds)).append(" ");
+			sb.insert(0, " ").insert(0, getString(R.string.label_governor_tresholds)).append(" ");
 			tvGovTreshholds.setText(sb.toString());
 		} else {
 			tvGovTreshholds.setText("");
