@@ -32,7 +32,7 @@
     <string name="labelScreenLocked">Bildschirm gesperrt:</string>
     <string name="labelOnBattery">Batteriebetrieb:</string>
     <string name="labelExplainTriggerProfiles">Je nach Zustand des Gerätes, kann einer der folgenden Profile gewählt werden.</string>
-    <string name="labelBatteryLevel">Ladezustand</string>
+    <string name="labelBatteryLevel">Ladezustand:</string>
     <string name="labelExplainTrigger">Aktiviert, wenn der Akku des Gerätes unter den Ladezustand gefallen ist und keine anderen Auslöser mit einem passenderen Ladezustand gefunden wurden.</string>
     <string name="labelSendMail">E-Mail senden</string>
     <string name="labelBody">Body:</string>
