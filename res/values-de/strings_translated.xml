@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="msgDeleteTriggerNotPossible">Dieses Profil kann nicht gelöscht werden, da es in einem oder mehreren Auslöser verwendet wird.</string>
 <string name="prefBasics">Grundlegendes</string>
 <string name="label_governor_tresholds">Schwellenwerte:</string>
 <string name="labelScript">Skript:</string>
@@ -26,7 +27,7 @@
     <string name="labelBeginnerExplain">Einfach zu konfigurieren und alle Einstellungen sollte sicher sein... Untertakten ist nur beschränkt möglich.</string>
     <string name="labelBeginner">Anfänger</string>
     <string name="labelBatteryHot">Batterie heiss:</string>
-    <string name="labelCallInProgress">während eines Anrufes:</string>
+    <string name="labelCallInProgress">Während Anruf:</string>
     <string name="labelOnPower">Am Ladegerät:</string>
     <string name="labelScreenLocked">Bildschirm gesperrt:</string>
     <string name="labelOnBattery">Batteriebetrieb:</string>
@@ -69,7 +70,7 @@
     <string name="prefServiceSwitches">Dienste</string>
     <string name="prefUserLevelLong">Legt fest, wie schwierig die Einstellungen sind und wie tief eingegriffen werden kann.</string>
     <string name="prefUserLevel">Erfahrungsstufe</string>
-    <string name="prefVarious">verschiedene</string>
+    <string name="prefVarious">Verschiedenes</string>
 	<string name="notAvailable">Nicht verfügbar</string>
 	<string name="yes">Ja</string>
 	<string name="no">Nein</string>
@@ -132,7 +133,7 @@
 	<string name="labelCpuFreq">Frequenzen:</string>
 	<string name="labelCpuGov">Regler:</string>
 	<string name="labelCurrent">Aktuell</string>
-	<string name="labelCurrentTrigger">Auslöser</string>
+	<string name="labelCurrentTrigger">Auslöser:</string>
 	<string name="labelCurrentProfile">Profil:</string>
 	<string name="labelCurrentBattery">Batterie:</string>
 	<string name="labelAcPower">Ladestrom:</string>
@@ -287,7 +288,7 @@ Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Du hast zwei Möglichke
 </string>
 <string name="msg_premail_issues_cm">Vielleicht schaust du unter http://wiki.cyanogenmod.com nach, sie machen sehr gute ROMs
 </string>
-<string name="title_profile_editor">Profil bearbeitung: </string>
+<string name="title_profile_editor">Profil Bearbeitung: </string>
 <string name="title_profiles">Profile</string>
 <string name="title_trigger_editor">Auslösewerte bearbeiten: </string>
 <string name="msg_delete_selected_item">Ausgewähltes Objekt löschen?</string>

@@ -120,6 +120,6 @@
 			android:key="prefKeyBuyMeABeer"></Preference>
 		<EditTextPreference android:key="prefKeyEnableBeta"
 			android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage"
-			android:dialogTitle="@string/prefEnableBeta" android:summary="@string/prefEnableBetaLong"></EditTextPreference>
+			android:dialogTitle="@string/prefEnableBeta"></EditTextPreference>
 	</PreferenceCategory>
 </PreferenceScreen>

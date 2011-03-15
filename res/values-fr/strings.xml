@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one or more tiggers!</string>
 <string name="prefBasics">Basics</string>
 <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
 <string name="prefPulseDelayOn">Service on time</string>
