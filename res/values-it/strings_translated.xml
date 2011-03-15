@@ -225,7 +225,7 @@
 <string name="cbEnableVirtualGovernors">Abilita i governor virtuali</string>
 <string name="userExperianceLevelExplain">CPU tuner può operare con livelli di esperienza diversi. In base al livello che scegli avrai più scelte e potrai fare più cose.</string>
 <string name="prefCallInProgressProfile">Profilo Chiamata in Corso</string>
-<string name="prefCallInProgressProfileLong">Funzioni Beta: Abilita un profilo utilizzato durante le chiamate.</string>
+<string name="prefCallInProgressProfileLong">Abilita un profilo utilizzato durante le chiamate.</string>
 <string name="msg_checking_capabilities">Verifica funzionalità in corso</string>
 <string name="msg_checking_governors">Verifica funzionalità...</string>
 <string name="msg_not_enough_frequencies_found">Non sono state trovate abbastanza frequenze</string>

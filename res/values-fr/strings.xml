@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
+<resources>
+<string name="prefBasics">Basics</string>
+<string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
 <string name="prefPulseDelayOn">Service on time</string>
 <string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in pulsed mode.</string> 
 <string name="prefPulseDelayOff">Service off time</string>

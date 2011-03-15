@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="prefBasics">Basics</string>
 <string name="labelScript">Script:</string>
 <string name="hintScriptToRun">Script to run after governor change.</string>
 <string name="label_governor_tresholds">Thresholds:</string>
@@ -241,7 +242,7 @@
 <string name="cbEnableVirtualGovernors">Enable virtual governors</string>
 <string name="userExperianceLevelExplain">CPU tuner can operate on different experience levels. Depending on the level it gives you more choices and lets you do more things.</string>
 <string name="prefCallInProgressProfile">Call in Progress Profile</string>
-<string name="prefCallInProgressProfileLong">Beta Feature: Enables a profile that is triggered during phone calls.</string>
+<string name="prefCallInProgressProfileLong">Enables a profile that is triggered during phone calls.</string>
 <string name="msg_checking_capabilities">Checking capabilities</string>
 <string name="msg_checking_governors">Checking governors ...</string>
 <string name="msg_not_enough_frequencies_found">Not enough frequencies found</string>
