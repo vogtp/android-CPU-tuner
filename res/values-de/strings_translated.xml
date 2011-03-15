@@ -4,7 +4,7 @@
 <string name="prefBasics">Grundlegendes</string>
 <string name="label_governor_tresholds">Schwellenwerte:</string>
 <string name="labelScript">Skript:</string>
-<string name="hintScriptToRun">Skript zum ausführen nach der Änderung des Reglers</string>
+<string name="hintScriptToRun">Skript, das nach einer Änderung, ausgeführt wird.</string>
 <string name="prefEnableUserspaceGovernor">Aktivieren des Userspace Reglers</string>
 <string name="prefEnableUserspaceGovernorOn">Es ist möglich, die Wahl des Userspace Regler zu wählen</string>
 <string name="prefEnableUserspaceGovernorOff">Die Userspace Regler werden gefiltert.</string>
@@ -43,7 +43,7 @@
     <string name="labelBackgroundSync">Hintergrund Sync</string>
     <string name="labelMobileDataConn">Mobiledata Con.</string>
     <string name="labelMobileData32G">Mobiledata 2G/3G</string>
-    <string name="labelServices">Dienst:</string>
+    <string name="labelServices">Dienste:</string>
     <string name="labelDown"> unterer:</string>
     <string name="labelThreshsUp">Schwellenwerte:  oberer:</string>
     <string name="labelHome">Home</string>
