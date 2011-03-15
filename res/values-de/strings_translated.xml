@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="prefEnableUserspaceGovernor">Einschalten des Userspace Reglers</string>
+<string name="prefBasics">Grundlegendes</string>
+<string name="label_governor_tresholds">Schwellenwerte:</string>
+<string name="labelScript">Skript:</string>
+<string name="hintScriptToRun">Skript zum ausführen nach der Änderung des Reglers</string>
+<string name="prefEnableUserspaceGovernor">Aktivieren des Userspace Reglers</string>
 <string name="prefEnableUserspaceGovernorOn">Es ist möglich, die Wahl des Userspace Regler zu wählen</string>
-<string name="prefEnableUserspaceGovernorOff">Die Userspace Reglen werden gefiltert.</string>
-<string name="prefCatPulsedServiceSwitches">Pulsed Dienst Switches</string>
-<string name="prefPulseDelayOn">Dienst auf Zeit</string>
+<string name="prefEnableUserspaceGovernorOff">Die Userspace Regler werden gefiltert.</string>
+<string name="prefCatPulsedServiceSwitches">Gepulste Dienste</string>
+<string name="prefPulseDelayOn">Dienst Ein Zeit</string>
 <string name="prefPulseDelayOnLong">Zeit (in Minuten) ist ein Dienst ein, während der gepulste Modus aktiv ist.</string> 
-<string name="prefPulseDelayOff">Dienst Auszeit</string>
+<string name="prefPulseDelayOff">Dienst Aus Zeit</string>
 <string name="prefPulseDelayOffLong">Zeit (in Minuten) ist eine Dienst aus, während der gepulste Modus aktiv ist.</string> 
-<string name="labelPulseOn">(Impuls ist eingeschaltet)</string> 
+<string name="labelPulseOn">(Pulse ist eingeschaltet)</string> 
 <string name="labelPulseOff">(Pulse ist ausgeschaltet)</string> 
 <string name="labelCurrentTab">Aktuell</string> 
 <string name="labelTriggersTab">Abstufung</string> 
@@ -17,18 +21,18 @@
 <string name="labelSettingsTab">Einstellungen</string> 
 <string name="labelPowerUserExplain">Volle Kontrolle!</string>
     <string name="labelPowerUser">Profi</string>
-    <string name="labelNormalExplain">Mehr erweiterte Konfigurationsoptionen. Untertakten ist bis zu einem Punkt noch möglichng.</string>
+    <string name="labelNormalExplain">Mehr erweiterte Konfigurationsoptionen. Untertakten ist nur beschränkt möglich.</string>
     <string name="labelNormal">Normal</string>
-    <string name="labelBeginnerExplain">Einfach zu konfigurieren und alle Einstellungen werden sollte retten zu verwenden... Untertakten nur möglich, bis zu einem Punkt.</string>
+    <string name="labelBeginnerExplain">Einfach zu konfigurieren und alle Einstellungen sollte sicher sein... Untertakten ist nur beschränkt möglich.</string>
     <string name="labelBeginner">Anfänger</string>
     <string name="labelBatteryHot">Batterie heiss:</string>
     <string name="labelCallInProgress">während eines Anrufes:</string>
     <string name="labelOnPower">Am Ladegerät:</string>
     <string name="labelScreenLocked">Bildschirm gesperrt:</string>
     <string name="labelOnBattery">Batteriebetrieb:</string>
-    <string name="labelExplainTriggerProfiles">Je nach Zustand des Gerätes, kann eine der folgenden Profile gewählt werden.</string>
-    <string name="labelBatteryLevel">Ladekapazität des Akkus</string>
-    <string name="labelExplainTrigger">Aktiviert, wenn der Akku des Gerätes unter den Ladezustand der Batterie gefallen ist und keine anderen Auslöser mit einem unteren und passender Akku ist gefunden.</string>
+    <string name="labelExplainTriggerProfiles">Je nach Zustand des Gerätes, kann einer der folgenden Profile gewählt werden.</string>
+    <string name="labelBatteryLevel">Ladezustand</string>
+    <string name="labelExplainTrigger">Aktiviert, wenn der Akku des Gerätes unter den Ladezustand gefallen ist und keine anderen Auslöser mit einem passenderen Ladezustand gefunden wurden.</string>
     <string name="labelSendMail">E-Mail senden</string>
     <string name="labelBody">Body:</string>
     <string name="labelGovernor">Regler:</string>
@@ -43,88 +47,83 @@
     <string name="labelThreshsUp">Schwellenwerte:  oberer:</string>
     <string name="labelHome">Home</string>
     <string name="labelUsage">Nutzung:</string>
-    <string name="labelBuFindFeq">Finde Frequenzen (beta only)</string>
+    <string name="labelBuFindFeq">Finde Frequenzen (beta)</string>
     <string name="msgAckAndHide">Bestätige die Fragen und zurück zum Haupt-Bildschirm.</string>
-    <string name="msgDeviceInfo">Sende mir ein E-Mail mit den Geräteinformationen</string>
+    <string name="msgDeviceInfo">E-Mail mit den Geräteinformationen senden</string>
     <string name="msgNoEmail">Bitte schreibe keine leeren E-Mails ...</string>
     <string name="labelResult">Resultat</string>
     <string name="labelCheck">Prüfe</string>
     <string name="labelAppVersion">CPU-Tuner Version:</string>
     <string name="msgNoIssuesFound">Keine Probleme gefunden.</string>
-    <string name="prefVritualGovernorsListLong">Virtuelle Regler sind CPU vorkonfigurierte Regler.</string>
+    <string name="prefVritualGovernorsListLong">Virtuelle Regler sind vorkonfigurierte Regler.</string>
     <string name="virtualGovernorsList">Virtuelle Regler</string>
-    <string name="prefBatteryHotTempMsg">Individuelle Temperatur-Auslöser für das Profil "Akku heiß".<br /> Wert in °C.</string>
-    <string name="prefBatteryHotTempLong">Individuelle Temperatur-Auslöser für das Profil "Akku heiß".</string>
+    <string name="prefBatteryHotTempMsg">Individuelle Temperatur-Auslöser für das Profil "Akku heiss".<br /> Wert in °C.</string>
+    <string name="prefBatteryHotTempLong">Individuelle Temperatur-Auslöser für das Profil "Akku heiss".</string>
     <string name="prefBatteryHotTemp">Akkutemperatur heiss</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Profilwechsel sind während dem Telefonieren erlaubt. MobileData nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Profilwechsel während dem Telefonieren verboten. MobileData nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdle">Profilwechsel während eines Telefongesprächs</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOn">Wireless Netzwerk wird ausgeschaltet, auch wenn gerade ein WiFi-Netzwerk verbunden ist.</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOff">Wireless Netzwerk wird nicht ausgeschaltet, auch wenn gerade ein WiFi-Netzwerk verbunden ist</string>
-    <string name="prefSwitchWifiOnConnectedNetwork">Wifi während gebrauch</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Profilwechsel sind während des Telefonierens erlaubt. Mobiledata wird nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Profilwechsel während des Telefonierens verboten. Mobiledata wird nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdle">Profilwechsel während des Telefonierens</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOn">Wireless Netzwerk wird ausgeschaltet, auch wenn eine WiFi Verbindung besteht.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOff">Wireless Netzwerk wird nicht ausgeschaltet, wenn eine WiFi Verbindung besteht</string>
+    <string name="prefSwitchWifiOnConnectedNetwork">Wifi während Gebrauch</string>
     <string name="prefServiceSwitches">Dienste</string>
-    <string name="prefUserLevelLong">Legt fest, wie schwierig die Einstellungen werden, und wie viel Sie eingreifen dürfen.</string>
+    <string name="prefUserLevelLong">Legt fest, wie schwierig die Einstellungen sind und wie tief eingegriffen werden kann.</string>
     <string name="prefUserLevel">Erfahrungsstufe</string>
     <string name="prefVarious">verschiedene</string>
-	<string name="notAvailable">nicht verfügbar</string>
-	<string name="yes">ja</string>
-	<string name="no">nein</string>
-	<string name="save">sichern</string>
-	<string name="cancel">abbrechen</string>
-	<string name="prefMinSensibleFrequencyLong">Minimale Frequenz anzeigen, wenn nicht im Leistungs Benutzermodus.</string>
+	<string name="notAvailable">Nicht verfügbar</string>
+	<string name="yes">Ja</string>
+	<string name="no">Nein</string>
+	<string name="save">Sichern</string>
+	<string name="cancel">Abbrechen</string>
+	<string name="prefMinSensibleFrequencyLong">Minimale Frequenz anzeigen, wenn nicht im Profi-Modus.</string>
 	<string name="prefMinSensibleFrequency">Min. angezeigte Frequenz</string>
-	<string name="prefResetToDefaultLong">Löschen Sie alle aktuellen Profile und Auslöser und laden die Standardwerte.</string>
-	<string name="prefResetToDefault">rückstellen aller Profile und Auslöser</string>
+	<string name="prefResetToDefaultLong">Löschen aller aktuellen Profile und Auslöser sowie laden der Standardwerte.</string>
+	<string name="prefResetToDefault">Rückstellen aller Profile und Auslöser</string>
 	<string name="prefKeyProfiles">Profile und Auslöser</string>
 	<string name="prefBuyMeABeer">Kauf mir ein Bier</string>
-	<string name="prefAllowManualServiceChangesOn">Ändert nicht den Status eines Dienstes, wenn dieser manuell geändert wurde
-und seither kein Auslöser geändert wurde.</string>
-	<string name="prefAllowManualServiceChangesOff">Sie ändern den Zustand eines Dienstes unabhängig davon, ob er manuell geändert wurde.</string>
+	<string name="prefAllowManualServiceChangesOn">Falls Dienste manuell umgeschalten wurden, werden diese bis zum nächsten Auslöser nicht mehr geschalten.</string>
+	<string name="prefAllowManualServiceChangesOff">Dienste werden umgeschalten unabhängig davon ob sie manuell geändert wurde.</string>
 	<string name="prefAllowManualServiceChanges">Man. Dienst-Änderung </string>
 	<string name="hintMailBody">Fügen Sie einige Informationen hinzu, welches Problem sie erlebt haben.</string>
 	<string name="prefCpuFreqMsg">Durch Leerzeichen getrennte Liste von Frequenzen</string>
-	<string name="prefCpuFreq">CPU-Frequenzen erlaubt</string>
+	<string name="prefCpuFreq">Erlaubte CPU-Frequenzen</string>
 	<string name="prefCpuFreqLong">Leer lassen, wenn Sie unsicher sind...!</string>
 	<string name="mailMessageOK">Es sind keine Probleme gefunden worden...
 			Wenn Sie zufrieden sind und ein Feedback, Kommentar und eine gute Bewertung geben
 			wollen, sind Bewertungen auf dem Markt hoch geschätzt..."</string>
 	<string name="mailMessage"></string>
-	<string name="prefEnableBetaLong">sende mir ein E-Mail</string>
-	<string name="prefKeyCalcPowerUsageLong">Dies könnte einige die Akkuleistung beeinträchtigen</string>
+	<string name="prefEnableBetaLong">Schreibt mir ein E-Mail</string>
+	<string name="prefKeyCalcPowerUsageLong">Dies könnte die Akkuleistung beeinträchtigen</string>
 	<string name="prefKeyCalcPowerUsage">Berechnen des Stromverbrauchs</string>
-	<string name="menuItemClearPowerCurrent">lösche Stromverbrauch</string>
-	<string name="menuItemInsert">einfügen</string>
-	<string name="menuItemEdit">bearbeiten</string>
-	<string name="menuItemDelete">löschen</string>
-	<string name="prefEnableBetaMessage">Aktiviere einige Funktionen, welche den Beta-Status haben.
+	<string name="menuItemClearPowerCurrent">Lösche Stromverbrauch</string>
+	<string name="menuItemInsert">Einfügen</string>
+	<string name="menuItemEdit">Bearbeiten</string>
+	<string name="menuItemDelete">Löschen</string>
+	<string name="prefEnableBetaMessage">Aktiviere Funktionen, welche den Beta-Status haben.
 	</string>
 	<string name="prefEnableBeta">Beta-Funktionen aktivieren </string>
 	<string name="prefCapabilitiesLong">Prüfe, ob das Geräte die erforderliche API unterstützt oder ob
- es irgendwelche Probleme gibt.</string>
-	<string name="prefCapabilities">Prüfe die Fähigkeiten</string>
-	<string name="prefStatusbarAddToOff">Die Statusleiste zeigt keine Informationen des
-		CPU-Tuner.</string>
-	<string name="prefStatusbarAddToOn">Die Statusleiste zeigt ein Eintrag mit dem aktuellen
-		Profil.</string>
+ es Probleme gibt.</string>
+	<string name="prefCapabilities">Prüfen der Unterstützung</string>
+	<string name="prefStatusbarAddToOff">Die Statusleiste zeigt keine Informationen von CPU-Tuner.</string>
+	<string name="prefStatusbarAddToOn">Die Statusleiste zeigt ein Eintrag mit dem aktuellen Profil.</string>
 	<string name="prefStatusbarAddTo">Zur Statusleiste hinzufügen</string>
 	<string name="prefStatusbarNotificationsOff">Keine Anzeige in der Statusleiste für Profil-Änderungen.</string>
-	<string name="prefKeyEnableProfilesOn">Anzeigen einer Nachricht in der Statusleiste für jede
-		Profil-Änderung.</string>
-	<string name="prefSystemAppOff">Wenn es nicht als System App installiert ist, wird es keinen Zugriff auf System-Einstellungen wie GPS haben.</string>
-	<string name="prefSystemAppOn">Ist es ein System app, kann es GPS-Einstellungen ändern</string>
-	<string name="prefSystemApp">Installieren Sie es als System App</string>
+	<string name="prefKeyEnableProfilesOn">Anzeigen einer Nachricht in der Statusleiste für jede Profil-Änderung.</string>
+	<string name="prefSystemAppOff">Wenn nicht als System App installiert, ist kein Zugriff auf System-Einstellungen wie GPS möglich.</string>
+	<string name="prefSystemAppOn">Als System app installiert, GPS-Einstellungen können geändert werden.</string>
+	<string name="prefSystemApp">Installation als System App</string>
 	<string name="prefToastNotifications">Toast notifications</string>
-	<string name="prefStatusbarNotifications">Statusbar-Benachrichtigungen</string>
+	<string name="prefStatusbarNotifications">Statusleiste-Benachrichtigungen</string>
 	<string name="prefCatNotifications">Benachrichtigungen</string>
 	<string name="prefCatSystem">System</string>
 	<string name="prefEnableProfiles">Profile aktivieren</string>
-	<string name="prefEnableProfilesOn">CPU-Tuner startet einen Prozess im Hintergrund, zum verwalten
-		der CPU Profile.  Er wird beim Booten gestartet.</string>
+	<string name="prefEnableProfilesOn">CPU-Tuner startet zum verwalten der CPU-Profile einen Prozess im Hintergrund.  Dieser wird beim Booten gestartet.</string>
 	<string name="prefEnableProfilesOff">Keine CPU-Profile werden verwaltet. Es läuft kein Dienst im Hintergrund.</string>
 	<string name="prefSetCpuSetting">CPU-Einstellungen</string>
 	<string name="profileBatteryGood">Guter Akkuzustand</string>
 	<string name="profileBatteryCrtitical">Kritischer Akkuzustand</string>
-	<string name="profileBatteryPower">Akku-Energie</string>
+	<string name="profileBatteryPower">Akku</string>
 	<string name="profileAcPower">Ladestrom</string>
 	<string name="profileScreenOff">Bildschirm ist ausgeschaltet</string>
 	<string name="prefSystemPowerProfiles">System Leistung Profile</string>
@@ -139,19 +138,17 @@ und seither kein Auslöser geändert wurde.</string>
 	<string name="labelAcPower">Ladestrom:</string>
 	<string name="labelMax">Max:</string>
 	<string name="labelMin">Min:</string>
-	<string name="app_name">CPU tuner</string>
+	<string name="app_name">CPU-Tuner</string>
 	<string name="labelPowerProfile">Leistungsprofile: </string>
-	<string name="spinnerPromptGov">wähle die Reglerart</string>
+	<string name="spinnerPromptGov">Wähle den Regler</string>
 	<string name="buApplyCurProfile">Übernehmen, um das aktuelle CPU-Profil anzuwenden</string>
 	<string name="notEnabled">nicht aktiviert</string>
 	<string name="triggersExplain">Die Auslöser definieren je nach Zustand des Akkus, welches Profil angewendet werden soll.
 					Dies für verschiedene Angaben (d.h. läuft das Gerät auf Akku, am Ladegerät oder ist der Display gesperrt)
 					Dafür können verschiedene Profile angewendet werden..</string>
 
-	<string name="explainGovOnDemand">Ändert die Frequenz dynamisch, auf der CPU-basierten
-					Nutzung, mit einem Fokus auf die Leistung.</string>
-	<string name="explainGovConservative">Ändert die Frequenz dynamisch, auf der CPU-basierten
-					Nutzung, mit einem Fokus auf Strom sparen.</string>
+	<string name="explainGovOnDemand">Ändert die Frequenz dynamisch, basierend auf der CPU-Nutzung, mit einem Fokus auf die Leistung.</string>
+	<string name="explainGovConservative">Ändert die Frequenz dynamisch, basierend auf der CPU-Nutzung, mit einem Fokus auf Strom sparen.</string>
 	<string name="explainGovPerformance">Stellt die Frequenz statisch auf die höchste
 					CPU-Frequenz.</string>
 	<string name="explainGovPowersave">Stellt die Frequenz statisch auf die niedrigste
@@ -192,31 +189,32 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
 
 
 	<string-array name="deviceStates">
-		<item>unverändert lassen</item>
-		<item>an</item>
-		<item>aus</item>
-		<item>zurück zur vorherigen</item>
+		<item>Unverändert lassen</item>
+		<item>Ein</item>
+		<item>Aus</item>
+		<item>Zurück zum vorherigen</item>
+		<item>Pulsieren</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
-		<item>unverändert lassen</item>
-		<item>an</item>
-		<item>aus</item>
-		<item>zurück zur vorherigen</item>
-		<item>Pulse</item>
+		<item>Unverändert lassen</item>
+		<item>Ein</item>
+		<item>Aus</item>
+		<item>Zurück zum vorherigen</item>
+		<item>Pulsieren</item>
 	</string-array>
 	<string-array name="mobiledataStates">
-		<item>unverändert lassen</item>
-		<item>nur 2G</item>
+		<item>Unverändert lassen</item>
+		<item>Nur 2G</item>
 		<item>3G/2G</item>
-		<item>zurück zur vorherigen</item>
-		<item>nur 3G</item>
+		<item>Zurück zum vorherigen</item>
+		<item>Nur 3G</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
-		<item>unverändert lassen</item>
-		<item>nur 2G</item>
+		<item>Unverändert lassen</item>
+		<item>Nur 2G</item>
 		<item>3G/2G</item>
-		<item>zurück zur vorherigen</item>
-		<item>3G only</item>
+		<item>Zurück zum vorherigen</item>
+		<item>Nur 3G</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Durchschnittlicher Wert</item>
@@ -225,25 +223,25 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
 	</string-array>
 	<string-array name="prefUserLevelEntries">
 		<item><b>Anfänger</b>: CPU-Tuner versucht, schlaue Einstellungen zu wählen.</item>
-		<item><b>Normal</b>: cpu tuner unterstützt dich bei den Einstellungen.</item>
-		<item><b>Experte</b>: You\'re the boss!</item>
+		<item><b>Normal</b>: CPU-Tuner unterstützt Dich bei den Einstellungen.</item>
+		<item><b>Profi</b>: Du weisst. was Du tust.</item>
 	</string-array>
-<string name="cbEnableVirtualGovernors">Aktivieren Sie den virtuellen Regler</string>
-<string name="userExperianceLevelExplain">CPU-Tuner kann auf verschiedenen Erfahrungs-Ebenen ansetzen. Abhängig von der Erfahrungsstufe kannst du aus einer größeren Auswahl auswählen und Sie können mehr Änderungen vornehmen.</string>
+<string name="cbEnableVirtualGovernors">Aktivieren der virtuellen Regler</string>
+<string name="userExperianceLevelExplain">CPU-Tuner kennt verschiedenen Erfahrungs-Ebenen ansetzen. Abhängig von der Erfahrungsstufe kannst Du aus einer größeren Auswahl auswählen und Du kannst mehr Änderungen vornehmen.</string>
 <string name="prefCallInProgressProfile">Profil während eines Anrufes</string>
-<string name="prefCallInProgressProfileLong">Beta Feature: Aktiviert ein Profil, das während der Telefonverbindung ausgelöste wird.</string>
+<string name="prefCallInProgressProfileLong">Aktiviert ein Profil, das während der Telefonverbindung ausgelöste wird.</string>
 <string name="msg_checking_capabilities">Fähigkeiten überprüfen </string>
 <string name="msg_checking_governors">Regler überprüfen ...</string>
 <string name="msg_not_enough_frequencies_found">Nicht genug Frequenzen gefunden</string>
 <string name="msg_no_governors_found">Keine Regeln gefunden</string>
-<string name="msg_not_checked">nicht geprüft</string>
+<string name="msg_not_checked">Nicht geprüft</string>
 <string name="msg_success">Erfolg</string>
-<string name="msg_failure">failure Scheitern</string>
-<string name="msg_does_not_apply">nicht anwendbar</string>
-<string name="msg_cannot_check">kann nicht überprüfen</string>
+<string name="msg_failure">Fehler</string>
+<string name="msg_does_not_apply">Nicht anwendbar</string>
+<string name="msg_cannot_check">Kann nicht geprüft werden</string>
 <string name="explainNotAvailable">Keine Erklärung für dieses Regel...</string>
 <string name="title_reset_to_default">Auf Standard zurücksetzen</string>
-<string name="msg_reset_to_default">Zurücksetzen auf die Standardwerte verwirft alle Änderungen auf Auslöser und Profile, debenfalls die neu geschaffenen.</string>
+<string name="msg_reset_to_default">Zurücksetzen auf die Standardwerte verwirft alle Änderungen der Auslöser und Profile und lädt die Standardwerte neu.</string>
 <string name="msg_loading_default_profiles">Lade die Standard-Profile</string>
 <string name="profilename_performance">Leistung</string>
 <string name="profilename_good">Gut</string>
@@ -251,57 +249,53 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
 <string name="profilename_screen_off">Bildschirm aus</string>
 <string name="profilename_extreme_powersave">Extrem energiesparend</string>
 <string name="triggername_battery_full">Akku voll aufgeladen</string>
-<string name="triggername_battery_used">Akku gebraucht</string>
-<string name="triggername_battery_low">Akku leer</string>
+<string name="triggername_battery_used">Akku angebraucht</string>
+<string name="triggername_battery_low">Akku niedrig</string>
 <string name="triggername_battery_empty">Akku leer</string>
 <string name="triggername_battery_critical">Akku kritisch</string>
 <string name="virtgovname_full_speed">volle Geschwindigkeit</string>
 <string name="virtgovname_normal">Normal</string>
 <string name="virtgovname_save_battery">Akkusparend</string>
-<string name="virtgovname_extrem_save_battery">extrem Akkusparend</string>
+<string name="virtgovname_extrem_save_battery">Extrem Akkusparend</string>
 <string name="title_reboot">Neustart</string>
-<string name="msg_reboot">Der automatische (speichern) Neustart ist fehlgeschlagen.  Bitte einen manuellen Neustart, durch langes Drücken der Power-Taste,erzwingen. Sonst wird der CPU-Tuner nicht funktionieren.</string>
-<string name="bu_system_reboot">Neustart des Systems (nicht empfehlenswert)</string>
+<string name="msg_reboot">Der automatische Neustart ist fehlgeschlagen.  Bitte einen manuellen Neustart, durch langes Drücken der Power-Taste,erzwingen. Sonst wird CPU-Tuner nicht funktionieren.</string>
+<string name="bu_system_reboot">Neustart durch das Systems (nicht empfehlenswert)</string>
 <string name="title_uninstall_sys">Deinstalliere CPU-Tuner als System APP</string>
 <string name="bu_yes_uninstall_sys">Deinstallieren und neu starten</string>
-<string name="msg_uninstall_sys">Erfordert einen Neustart durch Drücken \'Deinstallieren und neu starten\' Das Gerät wird neu gestartet.</string>
-<string name="msg_install_sys">Erfordert einen Neustart durch Drücken \'Installation und Neustart\' Das Gerät wird neu gestartet.</string>
+<string name="msg_uninstall_sys">Erfordert einen Neustart durch Drücken \'Deinstallieren und neu starten\' wird das Gerät neu gestartet.</string>
+<string name="msg_install_sys">Erfordert einen Neustart durch Drücken \'Installation und Neustart\' wird das Gerät neu gestartet.</string>
 <string name="bu_yes_title_install_sys">Installieren und starten</string>
 <string name="title_install_sys">Installation des CPU-Tuners als System app</string>
-<string name="msg_has_issues">Enthält Themen</string>
+<string name="msg_has_issues">Hat Probleme</string>
 <string name="msg_not_working">Funktioniert nicht</string>
 <string name="msg_working">Funktioniert</string>
 <string name="msg_premail_no_issues">Keine Probleme gefunden worden...
-Sind Sie zufrieden und möchten ein Feedback geben:
-Kommentare und gute Werte auf dem Markt sind hoch geschätzt...
+Bist Du zufrieden und möchtest ein Feedback geben:
+Kommentare und gute Bewertungen auf dem Markt werden geschätzt...
 
 Bitte schreiben Sie keine leeren E-Mails!</string>
 <string name="msg_premail_no_root">Der CPU-Tuner verfügt nicht über Root-Zugriff!
-CPU-Tuner kann nichts regeln!
-
-Bitte schreibt keine E-Mails, wenn etwas mit der Prüfung oder dem App nicht stimmt.
+Die meisten Funktionen von CPU-Tuner gehen so nicht!
 
 Bitte schreiben Sie nicht leere E-Mails!</string>
 <string name="msg_premail_issues">Deine Konfiguration hat Probleme ...
-Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Sie haben zwei Möglichkeiten:
+Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Du hast zwei Möglichkeiten:
 
-1) Flash a new kernel
+1) Flashen eines neuen Kernels
 
-2) Flash a new ROM
+2) Flashen eines neuen ROMs
 </string>
-<string name="msg_premail_issues_cm">Vielleicht schaust du unter http://wiki.cyanogenmod.com nach, sie machen sehr nette ROMS
-
-Bitte keine E-Mails schreiben, wenn Sie denken, es ist etwas falsch mit der Prüfung oder der App.
+<string name="msg_premail_issues_cm">Vielleicht schaust du unter http://wiki.cyanogenmod.com nach, sie machen sehr gute ROMs
 </string>
 <string name="title_profile_editor">Profil bearbeitung: </string>
 <string name="title_profiles">Profile</string>
 <string name="title_trigger_editor">Auslösewerte bearbeiten: </string>
 <string name="msg_delete_selected_item">Ausgewähltes Objekt löschen?</string>
-<string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of "%s" trigger?</string>
-<string name="msg_setting_cpu_max_freq">Einstellung der CPU-Frequenz auf max% d Hz</string>
-<string name="setting_cpu_min_freq">Einstellung der CPU-Frequenz min bis% d Hz</string>
-<string name="msg_setting_govenor">Einstellung des Reglers auf %</string>
-<string name="msg_found_some_issues">Einige Probleme gefunden... Einige Features funktionieren möglicherweise nicht. (Tippen Sie für weitere Informationen.)</string>
+<string name="msg_clear_power_consumption_of_named_trigger">Verbrauchs Statistik des "%s" Reglers löschen?</string>
+<string name="msg_setting_cpu_max_freq">Die maximals Frequenz wurde auf %d Hz gesetzt.</string>
+<string name="setting_cpu_min_freq">Die minimale Frequenz wurde auf %d Hz gesetzt.</string>
+<string name="msg_setting_govenor">Der Reglers wurde auf %s gesetzt</string>
+<string name="msg_found_some_issues">Einige Probleme gefunden... Einige Funtionen funktionieren möglicherweise nicht. (Für weitere Informationen antippen.)</string>
 <string name="label_hot">heiss: </string>
 <string name="label_avgerage">mittel: </string>
 <string name="label_tresh_up">oben: </string>
