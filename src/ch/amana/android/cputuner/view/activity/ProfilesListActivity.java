@@ -274,12 +274,12 @@ public class ProfilesListActivity extends ListActivity {
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		if (cursor != null && cursor.getCount() > 0) {
 			// no not delete
-			alertBuilder.setTitle("Delete");
-			alertBuilder.setMessage("Cannot delete this profile since it is used in one or more tiggers!");
+			alertBuilder.setTitle(R.string.menuItemDelete);
+			alertBuilder.setMessage(R.string.msgDeleteTriggerNotPossible);
 			alertBuilder.setNegativeButton(android.R.string.ok, null);
 		} else {
-			alertBuilder.setTitle("Delete");
-			alertBuilder.setMessage("Delete selected item?");
+			alertBuilder.setTitle(R.string.menuItemDelete);
+			alertBuilder.setMessage(R.string.msg_delete_selected_item);
 			alertBuilder.setNegativeButton(android.R.string.no, null);
 			alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
 
