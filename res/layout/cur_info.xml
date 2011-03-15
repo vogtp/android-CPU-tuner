@@ -9,10 +9,8 @@
 
 		<LinearLayout android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/LinearLayoutMessage"></LinearLayout>
-		<TableLayout android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/TableLayoutDeviceInfo">
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/TableRowTrigger">
+		<TableLayout android:layout_height="wrap_content" android:id="@+id/TableLayoutDeviceInfo" android:layout_width="match_parent">
+			<TableRow android:id="@+id/TableRowTrigger" android:layout_height="wrap_content" android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelCurrentTrigger"
@@ -21,17 +19,15 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvCurrentTrigger"></TextView>
 			</TableRow>
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/TableRowProfile">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowProfile" android:layout_width="match_parent" android:baselineAligned="true">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelCurrentProfile"
 					android:text="@+string/labelCurrentProfile"></TextView>
 				<Spinner android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:id="@+id/spProfiles"></Spinner>
+					android:layout_width="wrap_content" android:id="@+id/spProfiles" android:layout_weight=".1"></Spinner>
 			</TableRow>
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/TableRowBattery">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBattery" android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:id="@+id/labelCurrentBattery" android:text="@+string/labelCurrentBattery"
@@ -40,8 +36,7 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryLevel"></TextView>
 			</TableRow>
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/TableRowPower">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowPower" android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelAcPower"
@@ -50,8 +45,7 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvAcPower"></TextView>
 			</TableRow>
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/TableRowBatteryCurrent">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBatteryCurrent" android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelBatteryCurrent"
@@ -61,17 +55,17 @@
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryCurrent"></TextView>
 			</TableRow>
 			<TableRow android:layout_height="wrap_content"
-				android:layout_width="match_parent" android:id="@+id/tableRowGov">
+				android:id="@+id/tableRowGov" android:layout_width="match_parent">
 				<TextView android:paddingTop="10dp" android:textSize="20sp"
 					android:layout_width="wrap_content" android:paddingRight="5dp"
 					android:text="@string/labelCpuGov" android:id="@+id/textView1"
 					android:layout_height="wrap_content" android:layout_gravity="center_vertical"></TextView>
 				<Spinner android:layout_height="wrap_content"
 					android:layout_width="wrap_content" android:prompt="@string/spinnerPromptGov"
-					android:id="@+id/SpinnerCpuGov" android:paddingTop="10dp" android:layout_marginTop="10dp"></Spinner>
+					android:id="@+id/SpinnerCpuGov" android:paddingTop="10dp" android:layout_marginTop="10dp" android:layout_weight=".1"></Spinner>
 			</TableRow>
 			<TableRow android:layout_height="wrap_content"
-				android:layout_width="match_parent" android:id="@+id/tableRow1">
+				android:layout_width="match_parent" android:id="@+id/tableRowThresholds">
 				<TextView android:layout_height="wrap_content"
 					android:text="@string/label_governor_tresholds" android:id="@+id/textView2"
 					android:layout_width="wrap_content" android:paddingRight="5dp"></TextView>
