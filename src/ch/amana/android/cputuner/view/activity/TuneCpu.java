@@ -325,12 +325,17 @@ public class TuneCpu extends Activity {
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			CharSequence profile = powerProfiles.getCurrentProfileName();
 			if (PulseHelper.getInstance(this).isPulsing()) {
+				// FIXME show pulsing
 				int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
 				profile = profile + " " + getString(res);
 			}
-			spProfiles.setEnabled(true);
-
-			GuiUtils.setSpinner(spProfiles, powerProfiles.getCurrentProfile().getDbId());
+			ProfileModel currentProfile = powerProfiles.getCurrentProfile();
+			if (currentProfile != null) {
+				GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
+				spProfiles.setEnabled(true);
+			} else {
+				spProfiles.setEnabled(false);
+			}
 			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
 		} else {
 			spProfiles.setEnabled(false);
