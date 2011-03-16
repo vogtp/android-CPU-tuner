@@ -332,4 +332,8 @@ public class SettingsStorage {
 	public boolean isEnableScriptOnProfileChange() {
 		return isEnableBeta() && isPowerUser();
 	}
+
+	public String getLanguage() {
+		return getPreferences().getString("prefKeyLanguage", "");
+	}
 }

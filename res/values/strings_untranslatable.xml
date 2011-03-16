@@ -12,4 +12,10 @@
 		<item>2</item>
 		<item>3</item>
 	</string-array>
+	<string-array name="prefLanguageValues">
+		<item></item>
+		<item>en</item>
+		<item>de</item>
+		<item>it</item>
+	</string-array>
 </resources>

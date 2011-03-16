@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class HelpActivity extends Activity {
 
@@ -70,7 +71,10 @@ public class HelpActivity extends Activity {
 	}
 	
 	private String getIndexFilePath() {
-		String language = Locale.getDefault().getLanguage().toLowerCase();
+		String language = SettingsStorage.getInstance().getLanguage();
+		if ("".equals(language)) {
+			Locale.getDefault().getLanguage().toLowerCase();
+		}
 		Logger.i("Found language code " + language);
 		String langHelpDir = "help-" + language;
 		try {

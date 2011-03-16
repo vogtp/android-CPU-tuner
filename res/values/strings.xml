@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources><string name="prefLanguage">Choose language</string>
+	<string-array name="prefLanguageEntries">
+		<item>System default</item>
+		<item>English</item>
+		<item>German</item>
+		<item>Italian</item>
+	</string-array>
 </resources>

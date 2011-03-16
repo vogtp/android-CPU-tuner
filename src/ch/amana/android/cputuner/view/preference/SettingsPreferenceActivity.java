@@ -11,6 +11,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
@@ -121,6 +122,19 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			}
 		});
 
+		findPreference("prefKeyLanguage").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				if (newValue instanceof String) {
+					GuiUtils.setLanguage(SettingsPreferenceActivity.this, (String) newValue);
+
+				}
+
+				return true;
+			}
+		});
+		
 	}
 
 	@Override

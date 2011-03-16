@@ -1,6 +1,9 @@
 package ch.amana.android.cputuner.helper;
 
+import java.util.Locale;
+
 import android.content.Context;
+import android.content.res.Configuration;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import ch.amana.android.cputuner.R;
@@ -35,4 +38,11 @@ public class GuiUtils {
 		}
 		return ctx.getString(R.string.explainNotAvailable);
 	}
+
+	public static void setLanguage(Context ctx, String lang) {
+			Configuration config = new Configuration();
+			config.locale = new Locale(lang);
+			ctx.getResources().updateConfiguration(config, ctx.getResources().getDisplayMetrics());
+	}
+
 }

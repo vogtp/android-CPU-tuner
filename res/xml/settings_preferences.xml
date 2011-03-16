@@ -99,6 +99,7 @@
 				<EditTextPreference android:summary="@string/prefCpuFreqLong"
 					android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq"
 					android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
+				<ListPreference android:title="@string/prefLanguage" android:key="prefKeyLanguage" android:entryValues="@array/prefLanguageValues" android:entries="@array/prefLanguageEntries"></ListPreference>
 				
 
 
