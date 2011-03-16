@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -22,6 +23,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
@@ -331,6 +333,44 @@ public class ProfileEditor extends Activity {
 				return false;
 			}
 		});
+
+		OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (!hasFocus && etGovTreshUp.getVisibility() == View.VISIBLE) {
+					String upthresh = etGovTreshUp.getText().toString();
+					String downthresh = etGovTreshDown.getText().toString();
+					try {
+						int up = Integer.parseInt(upthresh);
+						int down = 0;
+						if (etGovTreshDown.getVisibility() == View.VISIBLE) {
+							down = Integer.parseInt(downthresh);
+						}
+						if (up > 100 || up < 0) {
+							Toast.makeText(ProfileEditor.this, R.string.msg_up_threshhold_has_to_be_between_0_and_100, Toast.LENGTH_LONG).show();
+							etGovTreshUp.setText(origProfile.getGovernorThresholdUp() + "");
+						}
+						if (down > 100 || down < 0) {
+							Toast.makeText(ProfileEditor.this, R.string.msg_down_threshhold_has_to_be_between_0_and_100, Toast.LENGTH_LONG).show();
+							etGovTreshDown.setText(origProfile.getGovernorThresholdDown() + "");
+						}
+						if (up > down) {
+							// all OK
+							return;
+						}
+						Toast.makeText(ProfileEditor.this, R.string.msg_up_threshhold_smaler_than_the_down_threshold, Toast.LENGTH_LONG).show();
+						down = up - 10;
+						etGovTreshDown.setText(down + "");
+					} catch (Exception e) {
+						Toast.makeText(ProfileEditor.this, R.string.msg_threshhold_NaN, Toast.LENGTH_LONG).show();
+					}
+				}
+
+			}
+		};
+		etGovTreshUp.setOnFocusChangeListener(onFocusChangeListener);
+		etGovTreshDown.setOnFocusChangeListener(onFocusChangeListener);
 
 		updateView();
 	}
