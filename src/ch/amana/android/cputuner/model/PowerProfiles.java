@@ -160,9 +160,13 @@ public class PowerProfiles {
 				applyMobiledata3GState(currentProfile.getMobiledata3GState());
 				applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
 				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
-				Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
+				try {
+					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
 						+ "< on batterylevel "
 						+ batteryLevel + "%");
+				} catch (Exception e) {
+					Logger.w("Error printing switch profile", e);
+				}
 				StringBuilder sb = new StringBuilder(50);
 				sb.append("Setting power profile to ");
 				sb.append(currentProfile.getProfileName());
