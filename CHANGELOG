@@ -4,11 +4,11 @@ V
 * bug fixes
 - 
 
-V 
+V 1.5.2
 * features
 - ensure correct frequency and threshold values
 * bug fixes
-- 
+- fix crash
 
 V 1.5.1 
 * features
