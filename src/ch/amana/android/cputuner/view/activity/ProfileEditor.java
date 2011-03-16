@@ -151,10 +151,16 @@ public class ProfileEditor extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					updateModel();
-					int val = availCpuFreqs[seekBar.getProgress()];
-					profile.setMaxFreq(val);
-					updateView();
+					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
+					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
+					if (max > min) {
+						updateModel();
+						profile.setMaxFreq(max);
+						updateView();
+					} else {
+						Toast.makeText(ProfileEditor.this, R.string.msg_minimal_frequency_bigger_than_the_maximal, Toast.LENGTH_LONG).show();
+						updateView();
+					}
 
 				} catch (ArrayIndexOutOfBoundsException e) {
 					Logger.e("Cannot set max freq in gui", e);
@@ -176,12 +182,16 @@ public class ProfileEditor extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					updateModel();
-					if (!CpuHandler.GOV_USERSPACE.equals(profile.getGov())) {
-						int val = availCpuFreqs[seekBar.getProgress()];
-						profile.setMinFreq(val);
+					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
+					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
+					if (max > min) {
+						updateModel();
+						profile.setMinFreq(min);
+						updateView();
+					} else {
+						Toast.makeText(ProfileEditor.this, R.string.msg_minimal_frequency_bigger_than_the_maximal, Toast.LENGTH_LONG).show();
+						updateView();
 					}
-					updateView();
 				} catch (ArrayIndexOutOfBoundsException e) {
 					Logger.e("Cannot set max freq in gui", e);
 				}

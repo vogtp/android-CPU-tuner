@@ -1,8 +1,8 @@
 - animate pulsed service in list
 - icons for services
+- change profile in mainview even if profiles switching is not active
 
 - switch gov (in profile editor) to check witch val can be r/w
-- prevent min > max freq (in profile editor)
 
 - backup restore profiles 
 - virtual governors (incl. thresholds) for inexperienced users 
