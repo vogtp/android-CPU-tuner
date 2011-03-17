@@ -81,7 +81,7 @@
 			android:authorities="ch.amana.android.cputuner"></provider>
 		<activity android:name=".view.activity.TriggersListActivity"></activity>
 		<activity android:name=".view.activity.ProfilesListActivity"></activity>
-		<activity android:name=".view.activity.CapabilityCheckerActivity"></activity>
+		<activity android:name=".view.activity.CapabilityCheckerActivity" android:configChanges="orientation"></activity>
 		<activity android:name=".view.activity.HelpActivity"></activity>
 		<activity android:name=".view.activity.SendReportActivity"></activity>
 	<activity android:name=".view.activity.FindFrequenciesActivity"></activity>
