@@ -6,8 +6,11 @@ V
 
 V 
 * features
--  Choose app language
+- Greek translation
+- Choose app language
+- force internal installation otherwise bootstart will not work
 * bug fixes
+- fix forceclose on orientation change in capabilities check
 - 
 
 V 1.5.2

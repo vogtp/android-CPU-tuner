@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="prefLanguage">Choose language</string>
+<string-array name="prefLanguageEntries">
+		<item>System default</item>
+		<item>English</item>
+		<item>German</item>
+		<item>Italian</item>
+		<item>Greek</item>
+</string-array>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be between 0 and 100.</string>
 <string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be between 0 and 100.</string>
 <string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down threshold.</string>
 <string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
 <string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the maximal.</string>
+<string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one or more tiggers!</string>
 <string name="prefBasics">Basics</string>
 <string name="labelScript">Script:</string>
 <string name="hintScriptToRun">Script to run after governor change.</string>
@@ -98,7 +107,7 @@
 	<string name="prefCpuFreq">Allowed CPU frequencies</string>
 	<string name="prefCpuFreqLong">Leave empty if unsure...!</string>
 	<string name="mailMessageOK">No issues have been found...
-		If you are pleased and what to give feedback, comments and good ratings
+		If you are pleased and want to give feedback, comments and good ratings
 		on the market are highly appreciated..."</string>
 	<string name="mailMessage"></string>
 	<string name="prefEnableBetaLong">e-mail me</string>
