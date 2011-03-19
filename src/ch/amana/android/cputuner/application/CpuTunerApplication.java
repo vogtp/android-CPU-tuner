@@ -28,8 +28,8 @@ public class CpuTunerApplication extends Application {
 			// threadPolicy.detectDiskReads();
 			threadPolicy.detectDiskWrites();
 			threadPolicy.detectNetwork();
-			// threadPolicy.penaltyLog();
-			threadPolicy.penaltyDropBox();
+			threadPolicy.penaltyLog();
+			// threadPolicy.penaltyDropBox();
 			StrictMode.setThreadPolicy(threadPolicy.build());
 		}
 
