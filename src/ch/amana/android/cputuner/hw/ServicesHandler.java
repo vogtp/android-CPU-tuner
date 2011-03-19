@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.hw;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
-import android.view.WindowManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.PowerProfiles;
@@ -191,10 +189,10 @@ public class ServicesHandler {
 		Logger.i("Switched mobiledata to " + enable);
 	 }
 
-	private void setBrightness(Activity context) {
-		// TODO Auto-generated method stub
-		WindowManager.LayoutParams lp = context.getWindow().getAttributes();
-		lp.screenBrightness = 100 / 100.0f;
-		context.getWindow().setAttributes(lp);
-	}
+	// private void setBrightness(Activity context) {
+	// // TODO Auto-generated method stub
+	// WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+	// lp.screenBrightness = 100 / 100.0f;
+	// context.getWindow().setAttributes(lp);
+	// }
 }
