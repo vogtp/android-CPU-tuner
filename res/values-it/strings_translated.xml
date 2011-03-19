@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
+<string name="prefLanguage">Lingua</string>
+<string-array name="prefLanguageEntries">
+		<item>Lingua di Sistema</item>
+		<item>Inglese</item>
+		<item>Tedesco</item>
+		<item>Italiano</item>
+		<item>Greco</item>
+</string-array>
+<string name="msg_up_threshhold_has_to_be_between_0_and_100">La soglia superiore è in percentuale e deve essere tra 0 e 100.</string>
+<string name="msg_down_threshhold_has_to_be_between_0_and_100">La soglia superiore è in percentuale e deve essere tra 0 e 100.</string>
+<string name="msg_up_threshhold_smaler_than_the_down_threshold">La soglia superiore deve essere maggiore di quella inferiore.</string>
+<string name="msg_threshhold_NaN">La soglia deve essere un numero intero.</string>
+<string name="msg_minimal_frequency_bigger_than_the_maximal">La frequenza minima deve essere minore della massima.</string>
+<string name="msgDeleteTriggerNotPossible">Impossibile eliminare il profilo in quanto utilizzato da uno o più trigger!</string>
+<string name="prefBasics">Di Base</string>
+<string name="labelScript">Script:</string>
+<string name="hintScriptToRun">Script da eseguire dopo il cambio di governor.</string>
+<string name="label_governor_tresholds">Soglie:</string>
 <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
 <string name="prefPulseDelayOn">Durata attivazione</string>
 <string name="prefPulseDelayOnLong">Periodo (in minuti) durante il quale un servizio è attivo in modalità pulse.</string> 
