@@ -128,9 +128,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				if (newValue instanceof String) {
 					GuiUtils.setLanguage(SettingsPreferenceActivity.this, (String) newValue);
-
 				}
-
 				return true;
 			}
 		});
