@@ -36,7 +36,9 @@ public class RootHandler {
 		Process p;
 		boolean success = false;
 		try {
-			// Logger.v("Running " + cmd);
+			if (Logger.DEBUG) {
+				Logger.v("Running " + cmd);
+			}
 			p = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(p.getOutputStream());
 
@@ -49,9 +51,11 @@ public class RootHandler {
 			os.flush();
 			try {
 				p.waitFor();
-				String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
-				writeLog(msg);
-				Logger.i(msg);
+				if (Logger.DEBUG) {
+					String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
+					writeLog(msg);
+					Logger.i(msg);
+				}
 				copyStreamToLog("OUT", p.getInputStream(), result);
 				copyStreamToLog("ERR", p.getErrorStream(), result);
 				if (p.exitValue() != 255) {
@@ -80,8 +84,10 @@ public class RootHandler {
 			String line;
 			line = reader.readLine();
 			while (line != null && !line.trim().equals("")) {
-				Logger.v(preAmp + ": " + line);
-				writeLog(line);
+				if (Logger.DEBUG) {
+					Logger.v(preAmp + ": " + line);
+					writeLog(line);
+				}
 				if (result != null) {
 					result.append(line);
 				}
@@ -146,15 +152,19 @@ public class RootHandler {
 					reader = new BufferedReader(new FileReader(file), 256);
 					String line = reader.readLine();
 					while (line != null && !line.trim().equals("")) {
-						writeLog(line);
+						if (Logger.DEBUG) {
+							writeLog(line);
+						}
 						val.append(line);
 						line = reader.readLine();
 					}
 					reader.close();
 				} else {
-					String msg = "Cannot read from file >" + file + "<";
-					Logger.v(msg);
-					writeLog(msg);
+					if (Logger.DEBUG) {
+						String msg = "Cannot read from file >" + file + "< it does not exist.";
+						Logger.v(msg);
+						writeLog(msg);
+					}
 				}
 			} catch (Throwable e) {
 				Logger.e("Cannot open file for reading ", e);
@@ -172,9 +182,11 @@ public class RootHandler {
 			if (ret.trim().equals("")) {
 				ret = NOT_AVAILABLE;
 			}
-			String msg = "Reading file " + file + " yielded >" + ret + "<";
-			Logger.v(msg);
-			writeLog(msg);
+			if (Logger.DEBUG) {
+				String msg = "Reading file " + file + " yielded >" + ret + "<";
+				Logger.v(msg);
+				writeLog(msg);
+			}
 			return ret;
 		}
 	}
@@ -186,7 +198,9 @@ public class RootHandler {
 		}
 		synchronized (file) {
 			String path = file.getAbsolutePath();
-			Logger.w("Setting " + path + " to " + val);
+			if (Logger.DEBUG) {
+				Logger.w("Setting " + path + " to " + val);
+			}
 			return RootHandler.execute("echo " + val + " > " + path);
 		}
 	}
@@ -206,7 +220,9 @@ public class RootHandler {
 			}
 		}
 		if (file.isFile() && file.canWrite()) {
-			Logger.i("Opening logfile " + file.getAbsolutePath());
+			if (Logger.DEBUG) {
+				Logger.i("Opening logfile " + file.getAbsolutePath());
+			}
 			try {
 				logWriter = new FileWriter(file);
 			} catch (IOException e) {

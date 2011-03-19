@@ -27,8 +27,8 @@ public class ProfileModel {
 	private int mobiledata3GState = 0;
 	private int mobiledataConnectionState = 0;
 	private int backgroundSyncState = 0;
-	private int governorThresholdUp = 98;
-	private int governorThresholdDown = 95;
+	private int governorThresholdUp = 0;
+	private int governorThresholdDown = 0;
 	private long virtualGovernor = -1;
 	private String script = "";
 
@@ -294,7 +294,7 @@ public class ProfileModel {
 	}
 
 	public void setGovernorThresholdUp(int i) {
-		if (i > -1 && i < 101) {
+		if (i < 101) {
 			this.governorThresholdUp = i;
 		}
 	}
@@ -304,7 +304,7 @@ public class ProfileModel {
 	}
 
 	public void setGovernorThresholdDown(int i) {
-		if (i > -1 && i < 101) {
+		if (i < 101) {
 			this.governorThresholdDown = i;
 		}
 	}

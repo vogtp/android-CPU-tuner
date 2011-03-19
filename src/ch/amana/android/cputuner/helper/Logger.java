@@ -5,6 +5,8 @@ import android.util.Log;
 public class Logger {
 	private static final String TAG = "CPUTuner";
 
+	public final static boolean DEBUG = false;
+
 	public static void e(String msg, Throwable t) {
 		try {
 			Log.e(TAG, msg, t);

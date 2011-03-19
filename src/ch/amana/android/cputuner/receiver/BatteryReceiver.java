@@ -72,7 +72,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 					tm.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 				}
 			} else {
-				Logger.i("BatteryReceiver allready registered, not registering again");
+				if (Logger.DEBUG) {
+					Logger.i("BatteryReceiver allready registered, not registering again");
+				}
 			}
 		}
 	}

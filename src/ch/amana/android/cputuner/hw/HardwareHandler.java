@@ -13,7 +13,9 @@ public class HardwareHandler {
 	protected static int getIntFromStr(String intString) {
 		int i = NO_VALUE_INT;
 		try {
-			i = Integer.parseInt(intString);
+			if (!RootHandler.NOT_AVAILABLE.equals(intString)) {
+				i = Integer.parseInt(intString);
+			}
 		} catch (Exception e) {
 			Logger.w("Cannot parse " + intString + " as interger");
 		}

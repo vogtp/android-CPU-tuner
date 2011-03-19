@@ -10,7 +10,8 @@ V
 - Choose app language
 - force internal installation otherwise bootstart will not work
 * bug fixes
-- fix forceclose on orientation change in capabilities check
+- fix force close on orientation change in capabilities check
+- make logging less noisy
 - 
 
 V 1.5.2

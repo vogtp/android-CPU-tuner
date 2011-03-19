@@ -112,6 +112,7 @@ public class TuneCpu extends Activity {
 		}
 		
 		setContentView(R.layout.cur_info);
+		
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();
 

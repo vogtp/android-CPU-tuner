@@ -270,13 +270,17 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	}
 
 	private void checkGov(String gov) {
-		RootHandler.writeLog("********************************************");
-		RootHandler.writeLog("checking governor: " + gov);
-		RootHandler.writeLog("********************************************");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("********************************************");
+			RootHandler.writeLog("checking governor: " + gov);
+			RootHandler.writeLog("********************************************");
+		}
 		GovernorResult result = new GovernorResult(gov);
 		govChecks.put(gov, result);
 
-		RootHandler.writeLog("*** check setting governor ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** check setting governor ***");
+		}
 		cpuHandler.setCurGov(gov);
 		String activeGov = cpuHandler.getCurCpuGov();
 		if (RootHandler.NOT_AVAILABLE.equals(activeGov)) {
@@ -318,7 +322,9 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	}
 
 	private void checkDownThreshold(GovernorResult result) {
-		RootHandler.writeLog("*** check setting down threshold of " + result.governor + " ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** check setting down threshold of " + result.governor + " ***");
+		}
 		int thresh = cpuHandler.getGovThresholdDown();
 		if (thresh < 1) {
 			result.readDownThreshold = CheckResult.FAILURE;
@@ -326,14 +332,18 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readDownThreshold = CheckResult.SUCCESS;
 		cpuHandler.setGovThresholdUp(99);
-		RootHandler.writeLog("*** Writing down threshold 1 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing down threshold 1 ***");
+		}
 		cpuHandler.setGovThresholdDown(80);
 		int readThresh = cpuHandler.getGovThresholdDown();
 		if (readThresh != 80) {
 			result.writeDownThreshold = CheckResult.FAILURE;
 			return;
 		}
-		RootHandler.writeLog("*** Writing down threshold 2 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing down threshold 2 ***");
+		}
 		cpuHandler.setGovThresholdDown(90);
 		readThresh = cpuHandler.getGovThresholdDown();
 		if (readThresh == 90) {
@@ -344,7 +354,9 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	}
 
 	private void checkUpThreshold(GovernorResult result) {
-		RootHandler.writeLog("*** check setting up threshold of " + result.governor + " ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** check setting up threshold of " + result.governor + " ***");
+		}
 		int thresh = cpuHandler.getGovThresholdUp();
 		if (thresh < 1) {
 			result.readUpThreshold = CheckResult.FAILURE;
@@ -352,14 +364,18 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readUpThreshold = CheckResult.SUCCESS;
 		cpuHandler.setGovThresholdDown(95);
-		RootHandler.writeLog("*** Writing up threshold 1 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing up threshold 1 ***");
+		}
 		cpuHandler.setGovThresholdUp(98);
 		int readThresh = cpuHandler.getGovThresholdUp();
 		if (readThresh != 98) {
 			result.writeUpThreshold = CheckResult.FAILURE;
 			return;
 		}
-		RootHandler.writeLog("*** Writing up threshold 2 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing up threshold 2 ***");
+		}
 		cpuHandler.setGovThresholdUp(99);
 		readThresh = cpuHandler.getGovThresholdUp();
 		if (readThresh == 99) {
@@ -371,7 +387,9 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	}
 
 	private void checkMinCpuFreq(GovernorResult result) {
-		RootHandler.writeLog("*** check setting min frequencies of " + result.governor + " ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** check setting min frequencies of " + result.governor + " ***");
+		}
 		int min = cpuHandler.getMinCpuFreq();
 		if (min < 1) {
 			result.readMinFreq = CheckResult.FAILURE;
@@ -379,14 +397,18 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readMinFreq = CheckResult.SUCCESS;
 		cpuHandler.setMaxCpuFreq(maxFreq);
-		RootHandler.writeLog("*** Writing min frequency 1 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing min frequency 1 ***");
+		}
 		cpuHandler.setMinCpuFreq(minFreq);
 		int readFreq = cpuHandler.getMinCpuFreq();
 		if (readFreq != minFreq) {
 			result.writeMinFreq = CheckResult.FAILURE;
 			return;
 		}
-		RootHandler.writeLog("*** Writing min frequency 2 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing min frequency 2 ***");
+		}
 		cpuHandler.setMinCpuFreq(minCheckFreq);
 		readFreq = cpuHandler.getMinCpuFreq();
 		if (readFreq == minCheckFreq) {
@@ -398,7 +420,9 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	}
 
 	private void checkMaxCpuFreq(GovernorResult result) {
-		RootHandler.writeLog("*** check setting max frequencies of " + result.governor + " ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** check setting max frequencies of " + result.governor + " ***");
+		}
 		int max = cpuHandler.getMaxCpuFreq();
 		if (max < 1) {
 			result.readMaxFreq = CheckResult.FAILURE;
@@ -406,14 +430,18 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readMaxFreq = CheckResult.SUCCESS;
 		cpuHandler.setMinCpuFreq(minFreq);
-		RootHandler.writeLog("*** Writing max frequency 1 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing max frequency 1 ***");
+		}
 		cpuHandler.setMaxCpuFreq(maxFreq);
 		int readFreq = cpuHandler.getMaxCpuFreq();
 		if (readFreq != maxFreq) {
 			result.writeMaxFreq = CheckResult.FAILURE;
 			return;
 		}
-		RootHandler.writeLog("*** Writing max frequency 2 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing max frequency 2 ***");
+		}
 		cpuHandler.setMaxCpuFreq(maxCheckFreq);
 		readFreq = cpuHandler.getMaxCpuFreq();
 		if (readFreq == maxCheckFreq) {
@@ -425,21 +453,27 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	}
 
 	private void checkUserCpuFreq(GovernorResult result) {
-		RootHandler.writeLog("*** check setting userspace frequencies ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** check setting userspace frequencies ***");
+		}
 		int activeFreq = cpuHandler.getUserCpuFreq();
 		if (activeFreq < 1) {
 			result.readMaxFreq = CheckResult.FAILURE;
 			return;
 		}
 		result.readMaxFreq = CheckResult.SUCCESS;
-		RootHandler.writeLog("*** Writing userfrequency 1 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing userfrequency 1 ***");
+		}
 		cpuHandler.setUserCpuFreq(maxFreq);
 		int readFreq = cpuHandler.getUserCpuFreq();
 		if (readFreq != maxFreq) {
 			result.writeMaxFreq = CheckResult.FAILURE;
 			return;
 		}
-		RootHandler.writeLog("*** Writing userfrequency 2 ***");
+		if (Logger.DEBUG) {
+			RootHandler.writeLog("*** Writing userfrequency 2 ***");
+		}
 		cpuHandler.setUserCpuFreq(maxCheckFreq);
 		readFreq = cpuHandler.getUserCpuFreq();
 		if (readFreq == maxCheckFreq) {

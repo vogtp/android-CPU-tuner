@@ -69,6 +69,7 @@ public class ServicesHandler {
 	public static void enableBluetooth(boolean enable) {
 		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (bluetoothAdapter == null) {
+			Logger.i("Not switching bluetooth since its not present");
 			return;
 		}
 		if (bluetoothAdapter.isEnabled() == enable) {

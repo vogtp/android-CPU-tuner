@@ -33,7 +33,8 @@ public interface DB {
 				+ DB.CpuProfile.NAME_PROFILE_NAME + " text, " + DB.CpuProfile.NAME_GOVERNOR + " text," + DB.CpuProfile.NAME_FREQUENCY_MAX + " int,"
 				+ DB.CpuProfile.NAME_FREQUENCY_MIN + " int," + DB.CpuProfile.NAME_WIFI_STATE + " int," + DB.CpuProfile.NAME_GPS_STATE + " int,"
 				+ DB.CpuProfile.NAME_BLUETOOTH_STATE + " int," + DB.CpuProfile.NAME_MOBILEDATA_3G_STATE + " int,"
-				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98," + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95,"
+ + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 0,"
+				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 0,"
  + DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int, " + DB.CpuProfile.NAME_VIRTUAL_GOVERNOR
 				+ " int default -1," + DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int, " + DB.CpuProfile.NAME_SCRIPT + " text)";
 
@@ -79,8 +80,8 @@ public interface DB {
 
 			case 3:
 				Logger.w("Upgrading to DB Version 4...");
-				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 98;");
-				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95;");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 0;");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 0;");
 
 			case 4:
 				Logger.w("Upgrading to DB Version 5...");

@@ -145,6 +145,11 @@ public class PowerProfiles {
 	}
 
 	public void applyProfile(long profileId) {
+		if (currentProfile != null && currentProfile.getDbId() == profileId) {
+			Logger.i("Not switching profile since it is the correct one " + currentProfile.getProfileName());
+			return;
+		}
+
 		Cursor c = null;
 		try {
 			c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
@@ -161,7 +166,7 @@ public class PowerProfiles {
 				applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
 				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
 				try {
-					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
+					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName()
 						+ "< on batterylevel "
 						+ batteryLevel + "%");
 				} catch (Exception e) {

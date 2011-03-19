@@ -505,11 +505,18 @@ public class ProfileEditor extends Activity {
 			hasThreshholdDownFeature = false;
 		}
 
+		int up = profile.getGovernorThresholdUp();
+		int down = profile.getGovernorThresholdDown();
 		if (hasThreshholdUpFeature) {
 			labelGovThreshUp.setVisibility(View.VISIBLE);
 			etGovTreshUp.setVisibility(View.VISIBLE);
-			etGovTreshUp.setText(profile.getGovernorThresholdUp() + "");
+			if (up < 2) {
+				up = 90;
+			}
+			etGovTreshUp.setText(up + "");
 		} else {
+			profile.setGovernorThresholdUp(0);
+			etGovTreshUp.setText("");
 			labelGovThreshUp.setVisibility(View.INVISIBLE);
 			etGovTreshUp.setVisibility(View.INVISIBLE);
 		}
@@ -517,8 +524,17 @@ public class ProfileEditor extends Activity {
 		if (hasThreshholdDownFeature) {
 			labelGovThreshDown.setVisibility(View.VISIBLE);
 			etGovTreshDown.setVisibility(View.VISIBLE);
-			etGovTreshDown.setText(profile.getGovernorThresholdDown() + "");
+			if (down >= up || down < 1) {
+				if (up > 30) {
+					down = up - 10;
+				} else {
+					down = up - 1;
+				}
+			}
+			etGovTreshDown.setText(down + "");
 		} else {
+			profile.setGovernorThresholdDown(0);
+			etGovTreshDown.setText("");
 			labelGovThreshDown.setVisibility(View.INVISIBLE);
 			etGovTreshDown.setVisibility(View.INVISIBLE);
 		}

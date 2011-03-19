@@ -80,6 +80,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setCurGov(String gov) {
+		Logger.i("Setting governor to " + gov);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_GOVERNOR), gov);
 	}
 
@@ -100,14 +101,18 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setUserCpuFreq(int val) {
+		Logger.i("Setting user frequency to " + val);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_SETSPEED), val + "");
 	}
 
 	public boolean setMaxCpuFreq(int val) {
 		if (val <= getMinCpuFreq()) {
-			RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
+			if (Logger.DEBUG) {
+				RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
+			}
 			return false;
 		}
+		Logger.i("Setting max frequency to " + val);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MAX_FREQ), Integer.toString(val));
 	}
 
@@ -121,9 +126,12 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean setMinCpuFreq(int i) {
 		if (i >= getMaxCpuFreq()) {
-			RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
+			if (Logger.DEBUG) {
+				RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
+			}
 			return false;
 		}
+		Logger.i("Setting min frequency to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MIN_FREQ), Integer.toString(i));
 	}
 
@@ -145,13 +153,17 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setGovThresholdUp(int i) {
+		if (i < 1) {
+			return false;
+		}
 		int govThresholdDown = getGovThresholdDown();
-		if (i < 0 || i > 100) {
+		if (i <= govThresholdDown) {
+			i = govThresholdDown + 10;
+		}
+		if (i > 100) {
 			i = 98;
 		}
-		if (i <= govThresholdDown) {
-			i = govThresholdDown + 1;
-		}
+		Logger.i("Setting threshold up to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP), i + "");
 	}
 
@@ -167,13 +179,17 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setGovThresholdDown(int i) {
+		if (i < 1) {
+			return false;
+		}
 		int govThresholdUp = getGovThresholdUp();
-		if (i < 0 || i > 100) {
+		if (i > 100) {
 			i = 95;
 		}
 		if (i >= govThresholdUp) {
-			i = govThresholdUp - 1;
+			i = govThresholdUp - 10;
 		}
+		Logger.i("Setting threshold down to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), i + "");
 	}
 

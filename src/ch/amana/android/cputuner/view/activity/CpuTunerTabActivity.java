@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.view.preference.SettingsPreferenceActivity;
 
 public class CpuTunerTabActivity extends TabActivity {
@@ -12,6 +13,10 @@ public class CpuTunerTabActivity extends TabActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		if (Logger.DEBUG) {
+			setTitle(getTitle() + "                              DEBUG MODE");
+		}
 
 		final TabHost tabHost = getTabHost();
 
