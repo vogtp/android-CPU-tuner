@@ -143,7 +143,7 @@ public class RootHandler {
 			BufferedReader reader = null;
 			try {
 				if (file.canRead()) {
-					reader = new BufferedReader(new FileReader(file));
+					reader = new BufferedReader(new FileReader(file), 256);
 					String line = reader.readLine();
 					while (line != null && !line.trim().equals("")) {
 						writeLog(line);
