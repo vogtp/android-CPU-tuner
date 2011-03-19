@@ -15,7 +15,7 @@ public class CpuTunerTabActivity extends TabActivity {
 		super.onCreate(savedInstanceState);
 
 		if (Logger.DEBUG) {
-			setTitle(getTitle() + "                              DEBUG MODE");
+			setTitle(getTitle() + " - DEBUG MODE");
 		}
 
 		final TabHost tabHost = getTabHost();
