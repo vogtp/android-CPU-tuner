@@ -20,6 +20,7 @@ public class CpuTunerApplication extends Application {
 		if (!"".equals(lang)) {
 			GuiUtils.setLanguage(ctx, lang);
 		}
+		// StrictMode.enableDefaults();
 
 		InstallHelper.populateDb(ctx);
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
