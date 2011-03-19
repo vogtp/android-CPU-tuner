@@ -23,11 +23,12 @@ public class BootReceiver extends BroadcastReceiver {
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				context.startService(new Intent(context, BatteryService.class));
 			}
-		}else {
-			Logger.w("Starting CPU tuner on boot (no boot start)");
-			context.stopService(new Intent(context, BatteryService.class));
-			BatteryReceiver.unregisterBatteryReceiver(context);
 		}
+		// else {
+		// Logger.w("Starting CPU tuner on boot (no boot start)");
+		// context.stopService(new Intent(context, BatteryService.class));
+		// BatteryReceiver.unregisterBatteryReceiver(context);
+		// }
 	}
 
 }
