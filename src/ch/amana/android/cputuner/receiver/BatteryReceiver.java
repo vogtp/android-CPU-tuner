@@ -103,6 +103,10 @@ public class BatteryReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		try {
+			if (Logger.DEBUG) {
+				String action = intent == null ? "null intent":intent.getAction();
+				Logger.i("Battery receiver got inten with action " + action);
+			}
 			SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
 			spt.execute(intent);
 		}catch (Exception e) {
