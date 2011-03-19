@@ -21,7 +21,7 @@ public class CpuTunerTabActivity extends TabActivity {
 		final TabHost tabHost = getTabHost();
 
 		tabHost.addTab(tabHost.newTabSpec("tabCurrent").setIndicator(getString(R.string.labelCurrentTab), getResources().getDrawable(R.drawable.phone))
-				.setContent(new Intent(this, TuneCpu.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+				.setContent(new Intent(this, CurInfo.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("tabTriggers").setIndicator(getString(R.string.labelTriggersTab), getResources().getDrawable(R.drawable.battery))
 				.setContent(new Intent(this, TriggersListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("tabProfiles").setIndicator(getString(R.string.labelProfilesTab), getResources().getDrawable(R.drawable.cpu))

@@ -34,7 +34,7 @@ import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class TuneCpu extends Activity {
+public class CurInfo extends Activity {
 
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
@@ -170,7 +170,7 @@ public class TuneCpu extends Activity {
 					int val = availCpuFreqs[seekBar.getProgress()];
 					if (val != cpuHandler.getMaxCpuFreq()) {
 						if (cpuHandler.setMaxCpuFreq(val)) {
-							Toast.makeText(TuneCpu.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
+							Toast.makeText(CurInfo.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
 						}
 						updateView();
 					}
@@ -197,7 +197,7 @@ public class TuneCpu extends Activity {
 					int val = availCpuFreqs[seekBar.getProgress()];
 					if (val != cpuHandler.getMinCpuFreq()) {
 						if (cpuHandler.setMinCpuFreq(val)) {
-							Toast.makeText(TuneCpu.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
+							Toast.makeText(CurInfo.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
 						}
 						updateView();
 					}
@@ -394,7 +394,7 @@ public class TuneCpu extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					startActivity(new Intent(TuneCpu.this, CapabilityCheckerActivity.class));
+					startActivity(new Intent(CurInfo.this, CapabilityCheckerActivity.class));
 				}
 			});
 			LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
