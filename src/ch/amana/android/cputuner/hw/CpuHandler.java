@@ -63,8 +63,17 @@ public class CpuHandler extends HardwareHandler {
 			setMaxCpuFreq(cpu.getMaxFreq());
 			setMinCpuFreq(cpu.getMinFreq());
 		}
-		setGovThresholdUp(cpu.getGovernorThresholdUp());
-		setGovThresholdDown(cpu.getGovernorThresholdDown());
+		int thresholdUp = cpu.getGovernorThresholdUp();
+		int thresholdDown = cpu.getGovernorThresholdDown();
+		if (thresholdDown >= thresholdUp) {
+			if (thresholdUp > 30) {
+				thresholdDown = thresholdUp - 10;
+			} else {
+				thresholdDown = thresholdUp - 1;
+			}
+		}
+		setGovThresholdUp(thresholdUp);
+		setGovThresholdDown(thresholdDown);
 		if (cpu.hasScript()) {
 			StringBuilder result = new StringBuilder();
 			RootHandler.execute(cpu.getScript(), result);
@@ -156,10 +165,10 @@ public class CpuHandler extends HardwareHandler {
 		if (i < 1) {
 			return false;
 		}
-		int govThresholdDown = getGovThresholdDown();
-		if (i <= govThresholdDown) {
-			i = govThresholdDown + 10;
-		}
+		// int govThresholdDown = getGovThresholdDown();
+		// if (i <= govThresholdDown) {
+		// i = govThresholdDown + 10;
+		// }
 		if (i > 100) {
 			i = 98;
 		}
@@ -182,13 +191,12 @@ public class CpuHandler extends HardwareHandler {
 		if (i < 1) {
 			return false;
 		}
-		int govThresholdUp = getGovThresholdUp();
 		if (i > 100) {
 			i = 95;
 		}
-		if (i >= govThresholdUp) {
-			i = govThresholdUp - 10;
-		}
+		// if (i >= govThresholdUp) {
+		// i = govThresholdUp - 10;
+		// }
 		Logger.i("Setting threshold down to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), i + "");
 	}

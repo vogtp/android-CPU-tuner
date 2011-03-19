@@ -4,15 +4,16 @@ V
 * bug fixes
 - 
 
-V 
+V 1.6.0
 * features
+- Avoid some system calls by handling sanity checks internally 
 - Greek translation
 - Choose app language
 - force internal installation otherwise bootstart will not work
 * bug fixes
 - fix force close on orientation change in capabilities check
 - make logging less noisy
-- 
+- Italian Update
 
 V 1.5.2
 * features
