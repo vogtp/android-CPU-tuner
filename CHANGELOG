@@ -9,7 +9,8 @@ V 1.6.0
 - Avoid some system calls by handling sanity checks internally 
 - Greek translation
 - Choose app language
-- force internal installation otherwise bootstart will not work
+- force internal installation otherwise boot start will not work
+- run script on profile switch (for power users and non beta now)
 * bug fixes
 - fix force close on orientation change in capabilities check
 - make logging less noisy

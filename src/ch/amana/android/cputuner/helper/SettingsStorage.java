@@ -330,7 +330,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableScriptOnProfileChange() {
-		return isEnableBeta() && isPowerUser();
+		return isPowerUser();
 	}
 
 	public String getLanguage() {
