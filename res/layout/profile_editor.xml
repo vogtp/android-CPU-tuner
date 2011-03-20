@@ -45,7 +45,7 @@
 		</TableLayout>
 		<LinearLayout android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/llCpuGov"
-			android:orientation="vertical" android:paddingTop="20dp">
+			android:paddingTop="20dp" android:orientation="horizontal">
 			<TextView android:layout_width="fill_parent"
 				android:layout_height="wrap_content" android:text="@string/labelCpuGov"
 				android:paddingRight="5dp" android:textSize="20sp" />
