@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -18,6 +20,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	private static Object lock = new Object();
 	private static BatteryReceiver receiver = null;
+	private static PhoneStateListener phoneStateListener;
 
 	private class SetProfileTask extends AsyncTask<Intent, Void, Void> {
 
@@ -63,8 +66,15 @@ public class BatteryReceiver extends BroadcastReceiver {
 				context.registerReceiver(receiver, screenOffFilter);
 				Notifier.notifyProfile("Initalising");
 				Logger.w("Registered BatteryReceiver");
+				if (SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
+					TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+					phoneStateListener = new CallPhoneStateListener();
+					tm.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+				}
 			} else {
-				Logger.i("BatteryReceiver allready registered, not registering again");
+				if (Logger.DEBUG) {
+					Logger.i("BatteryReceiver allready registered, not registering again");
+				}
 			}
 		}
 	}
@@ -76,6 +86,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 				try {
 					context.unregisterReceiver(receiver);
 					receiver = null;
+					if (SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
+						TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+						tm.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+						phoneStateListener = null;
+						PowerProfiles.getInstance().setCallInProgress(false);
+					}
 					Logger.w("Unegistered BatteryReceiver");
 				} catch (Throwable e) {
 					Logger.w("Could not unregister BatteryReceiver", e);
@@ -86,8 +102,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
 		try {
+			if (Logger.DEBUG) {
+				String action = intent == null ? "null intent":intent.getAction();
+				Logger.i("Battery receiver got inten with action " + action);
+			}
+			SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
 			spt.execute(intent);
 		}catch (Exception e) {
 			String action = intent == null ? "null intent":intent.getAction();
@@ -101,10 +121,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 		super.finalize();
 	}
 
-	// FIXME handle ACTION_BATTERY_LOW
-
 	private static void handleIntent(Context context, Intent intent) {
-		try {
 		String action = intent.getAction();
 		Logger.d("BatteryReceiver got intent: " + action);
 
@@ -141,10 +158,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 			powerProfiles.setScreenOff(true);
 		} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
 			powerProfiles.setScreenOff(false);
-		}
-		}catch (Exception e) {
-			String action = intent == null ? "null intent":intent.getAction();
-			Logger.e("Error handling intent "+action+" in battery receiver",e);
 		}
 	}
 }

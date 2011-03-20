@@ -88,7 +88,9 @@ public class InstallHelper {
 							freqMin);
 					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
 					long profileExtremPowersave = createCpuProfile(resolver, ctx.getString(R.string.profilename_extreme_powersave), getExtremSaveGov(ctx, resolver, availGov, gov),
-							freqMax, freqMin, 2, 2, 2, 1, 2);
+							freqMax, freqMin,
+							2, 2, 2,
+							1, 2);
 
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance, profilePerformance);
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileNormal, profileGood, profilePerformance);
@@ -106,15 +108,16 @@ public class InstallHelper {
 					cT.close();
 				}
 			}
-			Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null, SORT_ORDER);
+			Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null,
+					SORT_ORDER);
 			if (cT != null && cT.getCount() > 1) {
 				OpenHelper oh = new OpenHelper(ctx);
 				oh.getReadableDatabase().execSQL(
-						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP
-								+ " < 1");
+						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where "
+								+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " < 1");
 				oh.getReadableDatabase().execSQL(
-						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN
-								+ " < 1");
+						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where "
+								+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " < 1");
 			}
 			if (cT != null) {
 				cT.close();
@@ -164,10 +167,12 @@ public class InstallHelper {
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, mbState);
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, bsState);
 		if (gov.upThreshold > -1) {
-			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, gov.upThreshold);
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP,
+					gov.upThreshold);
 		}
 		if (gov.downThreshold > -1) {
-			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, gov.downThreshold);
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN,
+					gov.downThreshold);
 		}
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
@@ -264,10 +269,10 @@ public class InstallHelper {
 
 	public static void populateDb(Context ctx) {
 		if (VERSION > SettingsStorage.getInstance().getDefaultProfilesVersion()) {
-			try {
+			try{
 				updateDefaultProfiles(ctx);
-			} catch (Exception e) {
-				Logger.e("Cannot create profiles", e);
+			}catch(Exception e){
+				Logger.e("Cannot create profiles",e);
 			}
 		}
 	}

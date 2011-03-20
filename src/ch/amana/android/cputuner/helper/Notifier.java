@@ -22,8 +22,6 @@ public class Notifier {
 	private String contentTitle;
 	private PendingIntent contentIntent;
 
-	private static int curLevel = 1;
-
 	private static Notifier instance;
 	private Notification notification;
 
@@ -41,25 +39,18 @@ public class Notifier {
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
 
-	//
-	// public static void notify(Context context, String msg, int level) {
-	// Logger.i("Notifier: " + msg);
-	// if (level <= curLevel &&
-	// SettingsStorage.getInstance().isToastNotifications()) {
-	// // FIXME fc when toastin from service
-	// try {
-	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-	// } catch (Throwable e) {
-	// Looper.prepare();
-	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-	// }
-	// }
-	// }
-
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			contentTitle = context.getString(R.string.app_name);
-			String contentText = contentTitle + " profile: " + profileName;
+			StringBuffer sb = new StringBuffer(25); 
+			// sb.append(contentTitle).append(" ");
+			sb.append(context.getString(R.string.labelCurrentProfile));
+			sb.append(" ").append(profileName);			
+			if (PulseHelper.getInstance(context).isPulsing()) {
+				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+				sb.append(" ").append(context.getString(res));
+			}
+			String contentText = sb.toString();
 			Notification notification = getNotification(contentText);
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
