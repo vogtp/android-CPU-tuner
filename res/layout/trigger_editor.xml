@@ -8,7 +8,7 @@
 			android:layout_height="wrap_content" android:layout_width="fill_parent">
 			<TextView android:id="@+id/TextView02" android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:layout_gravity="center_vertical"
-				android:width="@dimen/triggerEditor1Col" android:text="Trigger"
+				android:width="@dimen/triggerEditor1Col" android:text="@string/labelCurrentTrigger"
 				android:textSize="24sp" android:textStyle="bold"></TextView>
 			<EditText android:layout_height="wrap_content" android:id="@+id/etName"
 				android:layout_width="fill_parent"></EditText>
@@ -16,13 +16,13 @@
 		</LinearLayout>
 		<TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:padding="7dp"
-			android:text="Activates if the battery charge of the device is below the battery level and no other trigger wth a lower and matching battery level is found."
+			android:text="@string/labelExplainTrigger"
 			android:textSize="@dimen/trigger_editor_explain_text_size"></TextView>
 		<LinearLayout android:id="@+id/LinearLayout01"
 			android:layout_height="wrap_content" android:layout_width="fill_parent">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:paddingRight="20dp"
-				android:text="Battery Level" android:layout_gravity="center_vertical"
+				android:text="@string/labelBatteryLevel" android:layout_gravity="center_vertical"
 				android:width="@dimen/triggerEditor1Col"></TextView>
 			<EditText android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:inputType="number"
@@ -36,50 +36,61 @@
 		</LinearLayout>
 		<TextView android:id="@+id/TextView04" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:padding="7dp"
-			android:text="Depending on the state of the device one of the following profiles will be chosen."
+			android:text="@string/labelExplainTriggerProfiles"
 			android:textSize="@dimen/trigger_editor_explain_text_size"></TextView>
 		<TableLayout android:layout_height="wrap_content"
 			android:id="@+id/tlProfiles" android:layout_width="fill_parent">
 
-			<TableRow android:id="@+id/TableRow01"
-				android:layout_height="wrap_content" android:layout_width="fill_parent">
+			<TableRow android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:id="@+id/trBat">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="10dp" android:layout_gravity="center_vertical"
-					android:text="On Battery" android:width="@dimen/triggerEditor1Col"></TextView>
+					android:text="@string/labelOnBattery" android:width="@dimen/triggerEditor1Col"></TextView>
 				<Spinner android:layout_height="wrap_content" android:id="@+id/spBattery"
 					android:layout_width="fill_parent"></Spinner>
 
 			</TableRow>
-			<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/trLck">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="10dp" android:layout_gravity="center_vertical"
-					android:text="Screen Locked" android:width="@dimen/triggerEditor1Col"></TextView>
+					android:text="@string/labelScreenLocked" android:width="@dimen/triggerEditor1Col"></TextView>
 				<Spinner android:layout_height="wrap_content" android:id="@+id/spScreenLocked"
 					android:layout_width="fill_parent"></Spinner>
 
 
 			</TableRow>
 
-			<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/trPow">
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="10dp" android:layout_gravity="center_vertical"
-					android:text="On Power" android:width="@dimen/triggerEditor1Col"></TextView>
+					android:text="@string/labelOnPower" android:width="@dimen/triggerEditor1Col"></TextView>
 				<Spinner android:layout_height="wrap_content" android:id="@+id/spPower"
 					android:layout_width="fill_parent"></Spinner>
 			</TableRow>
+			<TableRow android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:id="@+id/trCall">
+				<TextView android:width="@dimen/triggerEditor1Col"
+					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
+					android:paddingRight="10dp" android:layout_height="wrap_content"
+					android:text="@string/labelCallInProgress" android:id="@+id/tvCall"></TextView>
+				<Spinner android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:id="@+id/spCall"></Spinner>
+			</TableRow>
 
-			<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
-				<CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/cbHot" android:text="Battery Hot" android:paddingRight="10dp"></CheckBox>
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/trHot">
+				<CheckBox android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/cbHot"
+					android:text="@string/labelBatteryHot" android:paddingRight="10dp"></CheckBox>
 				<Spinner android:layout_height="wrap_content" android:id="@+id/spHot"
 					android:layout_width="fill_parent"></Spinner>
-			
-</TableRow>
+
+			</TableRow>
 		</TableLayout>
 
 

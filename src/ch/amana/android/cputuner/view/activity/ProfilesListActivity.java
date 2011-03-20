@@ -24,8 +24,9 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfilesListActivity extends ListActivity {
@@ -34,17 +35,17 @@ public class ProfilesListActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle("Profiles");
+		setTitle(R.string.title_profiles);
 
 		Cursor c = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.cpu_item, c,
-				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR, DB.CpuProfile.NAME_FREQUENCY_MIN,
-						DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
-						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_STATE,
-						DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE },
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.profile_item, c,
+				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
+				DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
+				DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
+				DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE },
 				new int[] { R.id.tvName, R.id.tvGov, R.id.tvFreqMin, R.id.tvFreqMax, R.id.tvWifi, R.id.tvGPS, R.id.tvBluetooth,
-						R.id.tvMobiledata, R.id.tvSync });
+				R.id.tvMobiledata3G, R.id.tvSync, R.id.tvMobiledataConnection });
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -54,7 +55,7 @@ public class ProfilesListActivity extends ListActivity {
 					return false;
 				}
 				if (columnIndex == DB.CpuProfile.INDEX_PROFILE_NAME) {
-					CpuModel currentProfile = PowerProfiles.getInstance().getCurrentProfile();
+					ProfileModel currentProfile = PowerProfiles.getInstance().getCurrentProfile();
 					int color = Color.LTGRAY;
 					if (currentProfile != null && currentProfile.getDbId() == cursor.getLong(DB.INDEX_ID)) {
 						color = Color.GREEN;
@@ -63,8 +64,11 @@ public class ProfilesListActivity extends ListActivity {
 				} else if (columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MIN
 						|| columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MAX) {
 					int freq = cursor.getInt(columnIndex);
-
-					((TextView) view).setText(CpuModel.convertFreq2GHz(freq));
+					if (freq == HardwareHandler.NO_VALUE_INT) {
+						((TextView) view).setText(R.string.notAvailable);
+					} else {
+						((TextView) view).setText(ProfileModel.convertFreq2GHz(freq));
+					}
 					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
 					TextView textView = (TextView) view;
@@ -83,6 +87,8 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelGpsPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -104,6 +110,8 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelWifiPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -125,6 +133,8 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelBluetoothPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -146,27 +156,58 @@ public class ProfilesListActivity extends ListActivity {
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.labelSyncPrev;
 						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						color = Color.YELLOW;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
 					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_STATE) {
+				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_3G_STATE) {
 					TextView textView = (TextView) view;
-					if (!SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
+					if (!SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
 						textView.setText("");
 						return true;
 					}
 					int state = cursor.getInt(columnIndex);
 					int color = Color.DKGRAY;
 					int textRes = R.string.label3g2g;
-					if (state == PowerProfiles.SERVICE_STATE_ON) {
+					if (state == PowerProfiles.SERVICE_STATE_2G) {
 						color = Color.LTGRAY;
 						textRes = R.string.label2g;
-					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+					} else if (state == PowerProfiles.SERVICE_STATE_2G_3G) {
 						color = Color.LTGRAY;
+						textRes = R.string.label3g2g;
+					} else if (state == PowerProfiles.SERVICE_STATE_3G) {
+						color = Color.LTGRAY;
+						textRes = R.string.label3g;
 					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
 						textRes = R.string.label3g2gPrev;
 						color = Color.LTGRAY;
+					}
+					textView.setTextColor(color);
+					textView.setText(textRes);
+					return true;
+				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_CONNECTION_STATE) {
+					TextView textView = (TextView) view;
+					if (!SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+						textView.setText("");
+						return true;
+					}
+					int state = cursor.getInt(columnIndex);
+					int color = Color.DKGRAY;
+					int textRes = R.string.labelMobiledataOn;
+					if (state == PowerProfiles.SERVICE_STATE_ON) {
+						color = Color.LTGRAY;
+						textRes = R.string.labelMobiledataOn;
+					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+						color = Color.LTGRAY;
+						textRes = R.string.labelMobiledataOff;
+					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+						textRes = R.string.labelMobiledataPrev;
+						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						textRes = R.string.labelMobiledataOn;
+						color = Color.YELLOW;
 					}
 					textView.setTextColor(color);
 					textView.setText(textRes);
@@ -233,12 +274,12 @@ public class ProfilesListActivity extends ListActivity {
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		if (cursor != null && cursor.getCount() > 0) {
 			// no not delete
-			alertBuilder.setTitle("Delete");
-			alertBuilder.setMessage("Cannot delete this profile since it is used in one or more tiggers!");
+			alertBuilder.setTitle(R.string.menuItemDelete);
+			alertBuilder.setMessage(R.string.msgDeleteTriggerNotPossible);
 			alertBuilder.setNegativeButton(android.R.string.ok, null);
 		} else {
-			alertBuilder.setTitle("Delete");
-			alertBuilder.setMessage("Delete selected item?");
+			alertBuilder.setTitle(R.string.menuItemDelete);
+			alertBuilder.setMessage(R.string.msg_delete_selected_item);
 			alertBuilder.setNegativeButton(android.R.string.no, null);
 			alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
 

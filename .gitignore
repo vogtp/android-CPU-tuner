@@ -1,1 +1,4 @@
 gen/
+/bin
+/bin
+/backupDB2XML_src

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -19,33 +20,44 @@ public class PowerProfiles {
 	public static final int SERVICE_STATE_ON = 1;
 	public static final int SERVICE_STATE_OFF = 2;
 	public static final int SERVICE_STATE_PREV = 3;
+	public static final int SERVICE_STATE_PULSE = 4;
 
-	private static Context context;
+	public static final int SERVICE_STATE_2G = SERVICE_STATE_ON;
+	public static final int SERVICE_STATE_2G_3G = SERVICE_STATE_OFF;
+	public static final int SERVICE_STATE_3G = 4;
 
-	private static int batteryLevel;
-	private static boolean acPower;
-	private static boolean screenOff;
-	private static boolean batteryHot;
+	private final Context context;
 
-	private static CpuModel currentProfile;
-	private static TriggerModel currentTrigger;
+	private int batteryLevel;
+	private int batteryTemperature;
+	private boolean acPower;
+	private boolean screenOff;
+	private boolean batteryHot;
+
+	private ProfileModel currentProfile;
+	private TriggerModel currentTrigger;
 
 	private static boolean updateTrigger = true;
 
-	private static int lastSetStateWifi = -1;
-	private static boolean lastAciveStateWifi;
+	private int lastSetStateWifi = -1;
+	private boolean lastAciveStateWifi;
 
-	private static int lastSetStateGps = -1;
-	private static boolean lastActiveStateGps;
+	private int lastSetStateGps = -1;
+	private boolean lastActiveStateGps;
 
-	private static int lastSetStateMobiledata = -1;
-	private static boolean lastActiveStateMobileData;
+	private int lastSetStateMobiledata3G = -1;
+	private int lastActiveStateMobileData3G;
 
-	private static int lastSetStateBluetooth = -1;
-	private static boolean lastActiceStateBluetooth;
+	private int lastSetStateMobiledataConnection = -1;
+	private boolean lastActiveStateMobileDataConnection;
 
-	private static int lastSetStateBackgroundSync = -1;
-	private static boolean lastActiveStateBackgroundSync;
+	private int lastSetStateBluetooth = -1;
+	private boolean lastActiceStateBluetooth;
+
+	private int lastSetStateBackgroundSync = -1;
+	private boolean lastActiveStateBackgroundSync;
+
+	private boolean callInProgress = false;
 
 	private static PowerProfiles instance;
 
@@ -69,14 +81,16 @@ public class PowerProfiles {
 		lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
 		lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
 		lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
-		lastActiveStateMobileData = ServicesHandler.is2gOnlyEnabled(context);
+		lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
+		lastActiveStateMobileData3G = ServicesHandler.whichMobiledata3G(context);
 		lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
 	}
 
 	private void resetServiceState() {
 		lastSetStateWifi = -1;
 		lastSetStateGps = -1;
-		lastSetStateMobiledata = -1;
+		lastSetStateMobiledataConnection = -1;
+		lastSetStateMobiledata3G = -1;
 		lastSetStateBluetooth = -1;
 		lastSetStateBackgroundSync = -1;
 	}
@@ -108,53 +122,68 @@ public class PowerProfiles {
 			sendDeviceStatusChangedBroadcast();
 			return;
 		}
-		// does cross contamination
-		// trackCurrent();
 
 		long profileId = currentTrigger.getBatteryProfileId();
-		if (batteryHot) {
+
+		if (callInProgress) {
+			profileId = currentTrigger.getCallInProgessProfileId();
+		} else if (isBatteryHot()) {
 			profileId = currentTrigger.getHotProfileId();
-		}
-		if (profileId > 0) {
-			if (screenOff) {
-				profileId = currentTrigger.getScreenOffProfileId();
-			} else if (acPower) {
-				profileId = currentTrigger.getPowerProfileId();
-			}
+		} else if (screenOff) {
+			profileId = currentTrigger.getScreenOffProfileId();
+		} else if (acPower) {
+			profileId = currentTrigger.getPowerProfileId();
 		}
 
 		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
-			Cursor c = null;
-			try {
-				c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
-						DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
-				if (c != null && c.moveToFirst()) {
-					currentProfile = new CpuModel(c);
+			if (!callInProgress && !SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
+				Logger.i("Not switching profile since phone not idle");
+				return;
+			}
+			applyProfile(profileId);
+		}
+	}
 
-					CpuHandler cpuHandler = new CpuHandler();
-					cpuHandler.applyCpuSettings(currentProfile);
-					applyWifiState(currentProfile.getWifiState());
-					applyGpsState(currentProfile.getGpsState());
-					applyBluetoothState(currentProfile.getBluetoothState());
-					applyMobiledataState(currentProfile.getMobiledataState());
-					applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
-					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "> using trigger >" + currentTrigger.getName()
-							+ "< on batterylevel "
-							+ batteryLevel + "%");
-					StringBuilder sb = new StringBuilder(50);
-					if (force) {
-						sb.append("Reappling power profile ");
-					} else {
-						sb.append("Setting power profile to ");
-					}
-					sb.append(currentProfile.getProfileName());
-					Notifier.notify(context, sb.toString(), 1);
-					Notifier.notifyProfile(currentProfile.getProfileName());
-					context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+	public void applyProfile(long profileId) {
+		if (currentProfile != null && currentProfile.getDbId() == profileId) {
+			Logger.i("Not switching profile since it is the correct one " + currentProfile.getProfileName());
+			return;
+		}
+
+		Cursor c = null;
+		try {
+			c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
+					DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
+			if (c != null && c.moveToFirst()) {
+				currentProfile = new ProfileModel(c);
+
+				CpuHandler cpuHandler = new CpuHandler();
+				cpuHandler.applyCpuSettings(currentProfile);
+				applyWifiState(currentProfile.getWifiState());
+				applyGpsState(currentProfile.getGpsState());
+				applyBluetoothState(currentProfile.getBluetoothState());
+				applyMobiledata3GState(currentProfile.getMobiledata3GState());
+				applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
+				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
+				try {
+					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName()
+						+ "< on batterylevel "
+						+ batteryLevel + "%");
+				} catch (Exception e) {
+					Logger.w("Error printing switch profile", e);
 				}
-			} finally {
-				if (c != null && !c.isClosed()) {
+				StringBuilder sb = new StringBuilder(50);
+				sb.append("Setting power profile to ");
+				sb.append(currentProfile.getProfileName());
+				Notifier.notifyProfile(currentProfile.getProfileName());
+				context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+			}
+		} finally {
+			if (c != null && !c.isClosed()) {
+				try {
 					c.close();
+				}catch (Exception e) {
+					Logger.e("Cannot close cursor",e);
 				}
 			}
 		}
@@ -162,6 +191,13 @@ public class PowerProfiles {
 
 	private void applyWifiState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchWifi()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseWifiState(true);
+				lastSetStateWifi = state;
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseWifiState(false);
+			}
 			boolean stateBefore = lastAciveStateWifi;
 			lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
 			if (state == SERVICE_STATE_PREV) {
@@ -170,9 +206,9 @@ public class PowerProfiles {
 				lastSetStateWifi = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateWifi > -1) {
+				if (lastSetStateWifi > -1 && lastSetStateWifi < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateWifi == SERVICE_STATE_ON ? true : false;
-					if (b != lastAciveStateWifi) {
+					if (b != stateBefore) {
 						Logger.v("Not sitching wifi since it changed since last time");
 						return;
 					}
@@ -185,6 +221,13 @@ public class PowerProfiles {
 
 	private void applyGpsState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchGps()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseGpsState(true);
+				lastSetStateGps = state;
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseGpsState(false);
+			}
 			boolean stateBefore = lastActiveStateGps;
 			lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
@@ -193,9 +236,9 @@ public class PowerProfiles {
 				lastSetStateGps = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateGps > -1) {
+				if (lastSetStateGps > -1 && lastSetStateGps < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateGps == SERVICE_STATE_ON ? true : false;
-					if (b != lastActiveStateGps) {
+					if (b != stateBefore) {
 						Logger.v("Not sitching GPS since it changed since last time");
 						return;
 					}
@@ -208,6 +251,13 @@ public class PowerProfiles {
 
 	private void applyBluetoothState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseBluetoothState(true);
+				lastSetStateBluetooth = state;
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseBluetoothState(false);
+			}
 			boolean stateBefore = lastActiceStateBluetooth;
 			lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
 			if (state == SERVICE_STATE_PREV) {
@@ -216,9 +266,9 @@ public class PowerProfiles {
 				lastSetStateBluetooth = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateBluetooth > -1) {
+				if (lastSetStateBluetooth > -1 && lastSetStateBluetooth < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateBluetooth == SERVICE_STATE_ON ? true : false;
-					if (b != lastActiceStateBluetooth) {
+					if (b != stateBefore) {
 						Logger.v("Not sitching bluetooth it changed state since last time");
 						return;
 					}
@@ -229,31 +279,68 @@ public class PowerProfiles {
 		}
 	}
 
-	private void applyMobiledataState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledata()) {
-			boolean stateBefore = lastActiveStateMobileData;
-			lastActiveStateMobileData = ServicesHandler.is2gOnlyEnabled(context);
+	private void applyMobiledata3GState(int state) {
+		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
+			int stateBefore = lastActiveStateMobileData3G;
+			lastActiveStateMobileData3G = ServicesHandler.whichMobiledata3G(context);
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching mobiledata to last state which was " + stateBefore);
+				Logger.v("Sitching mobiledata 3G to last state which was " + stateBefore);
 				ServicesHandler.enable2gOnly(context, stateBefore);
-				lastSetStateMobiledata = -1;
+				lastSetStateMobiledata3G = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateMobiledata > -1) {
-					boolean b = lastSetStateMobiledata == SERVICE_STATE_ON ? true : false;
-					if (b != lastActiveStateMobileData) {
+				if (lastSetStateMobiledata3G > -1) {
+
+					if (lastActiveStateMobileData3G != stateBefore) {
 						Logger.v("Not sitching mobiledata it changed state since last time");
 						return;
 					}
 				}
-				lastSetStateMobiledata = state;
+				lastSetStateMobiledata3G = state;
 			}
-			ServicesHandler.enable2gOnly(context, state == SERVICE_STATE_ON ? true : false);
+			ServicesHandler.enable2gOnly(context, state);
+		}
+	}
+
+	private void applyMobiledataConnectionState(int state) {
+		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseMobiledataConnectionState(true);
+				lastSetStateMobiledataConnection = state;
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseMobiledataConnectionState(false);
+			}
+			boolean stateBefore = lastActiveStateMobileDataConnection;
+			lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
+			if (state == SERVICE_STATE_PREV) {
+				Logger.v("Sitching mobiledata connection to last state which was " + stateBefore);
+				ServicesHandler.enableMobileData(context, stateBefore);
+				lastSetStateMobiledataConnection = -1;
+				return;
+			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+				if (lastSetStateMobiledataConnection > -1 && lastSetStateMobiledataConnection < SERVICE_STATE_PREV) {
+					boolean b = lastSetStateMobiledataConnection == SERVICE_STATE_ON ? true : false;
+					if (b != stateBefore) {
+						Logger.v("Not sitching mobiledata connection it changed state since last time");
+						return;
+					}
+				}
+				lastSetStateMobiledataConnection = state;
+			}
+			ServicesHandler.enableMobileData(context, state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 
 	private void applyBackgroundSyncState(int state) {
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseBackgroundSyncState(true);
+				lastSetStateBackgroundSync = state;
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseBackgroundSyncState(false);
+			}
 			boolean stateBefore = lastActiveStateBackgroundSync;
 			lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
@@ -262,9 +349,9 @@ public class PowerProfiles {
 				lastSetStateBackgroundSync = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateBackgroundSync > -1) {
+				if (lastSetStateBackgroundSync > -1 && lastSetStateBackgroundSync < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateBackgroundSync == SERVICE_STATE_ON ? true : false;
-					if (b != lastActiveStateBackgroundSync) {
+					if (b != stateBefore) {
 						Logger.v("Not sitching background sync it changed since state since last time");
 						return;
 					}
@@ -340,7 +427,10 @@ public class PowerProfiles {
 		}
 		long powerCurrentSum = 0;
 		long powerCurrentCnt = 0;
-		if (batteryHot) {
+		if (callInProgress) {
+			powerCurrentSum = currentTrigger.getPowerCurrentSumCall();
+			powerCurrentCnt = currentTrigger.getPowerCurrentCntCall();
+		} else if (isBatteryHot()) {
 			powerCurrentSum = currentTrigger.getPowerCurrentSumHot();
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntHot();
 		} else if (screenOff) {
@@ -365,7 +455,10 @@ public class PowerProfiles {
 			break;
 		}
 		powerCurrentCnt++;
-		if (batteryHot) {
+		if (callInProgress) {
+			currentTrigger.setPowerCurrentSumCall(powerCurrentSum);
+			currentTrigger.setPowerCurrentCntCall(powerCurrentCnt);
+		} else if (batteryHot) {
 			currentTrigger.setPowerCurrentSumHot(powerCurrentSum);
 			currentTrigger.setPowerCurrentCntHot(powerCurrentCnt);
 		} else if (screenOff) {
@@ -379,8 +472,12 @@ public class PowerProfiles {
 			currentTrigger.setPowerCurrentCntBattery(powerCurrentCnt);
 		}
 		updateTrigger = false;
+		try {
 		context.getContentResolver().update(DB.Trigger.CONTENT_URI, currentTrigger.getValues(), DB.NAME_ID + "=?",
 				new String[] { currentTrigger.getDbId() + "" });
+		} catch(Exception e) {
+			Logger.w("Error saving power current information",e);
+		}
 		updateTrigger = true;
 	}
 
@@ -413,11 +510,11 @@ public class PowerProfiles {
 		}
 	}
 
-	public boolean getBatteryHot() {
-		return batteryHot;
+	public boolean isBatteryHot() {
+		return batteryHot || batteryTemperature > SettingsStorage.getInstance().getBatteryHotTemp();
 	}
 
-	public boolean getAcPower() {
+	public boolean isAcPower() {
 		return acPower;
 	}
 
@@ -435,7 +532,7 @@ public class PowerProfiles {
 		return currentTrigger.getName();
 	}
 
-	public void setUpdateTrigger(boolean updateTrigger) {
+	public static void setUpdateTrigger(boolean updateTrigger) {
 		PowerProfiles.updateTrigger = updateTrigger;
 	}
 
@@ -443,11 +540,31 @@ public class PowerProfiles {
 		return currentTrigger;
 	}
 
-	public CpuModel getCurrentProfile() {
+	public ProfileModel getCurrentProfile() {
 		return currentProfile;
 	}
 
 	public boolean isScreenOff() {
 		return screenOff;
 	}
+
+	public void setBatteryTemperature(int temperature) {
+		if (batteryTemperature != temperature) {
+			batteryTemperature = temperature;
+			sendDeviceStatusChangedBroadcast();
+		}
+	}
+
+	public int getBatteryTemperature() {
+		return batteryTemperature;
+	}
+
+	public void setCallInProgress(boolean b) {
+		if (callInProgress != b) {
+			callInProgress = b;
+			sendDeviceStatusChangedBroadcast();
+			applyPowerProfile(false, false);
+		}
+	}
+
 }

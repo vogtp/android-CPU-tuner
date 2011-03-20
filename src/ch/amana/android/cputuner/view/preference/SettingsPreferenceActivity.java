@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.view.preference;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,18 +11,23 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
-import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
+import ch.amana.android.cputuner.view.activity.VirtualGovernorListActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
 	private CheckBoxPreference systemAppPreference;
+	private Preference virtualGovPref;
+	private EditTextPreference cpuFreqPreference;
+	private EditTextPreference prefMinSensibleFrequency;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -85,10 +91,9 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 
 		});
-
-		CpuHandler.getInstance().getAvailCpuFreq();
-		EditTextPreference cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
-		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
+		prefMinSensibleFrequency = (EditTextPreference) findPreference("prefKeyMinSensibleFrequency");
+cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
+//		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
 
 		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -106,12 +111,40 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+
+		virtualGovPref = findPreference("prefKeyVritualGovernorsList");
+		virtualGovPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Context ctx = SettingsPreferenceActivity.this;
+				ctx.startActivity(new Intent(ctx, VirtualGovernorListActivity.class));
+				return true;
+			}
+		});
+
+		findPreference("prefKeyLanguage").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				if (newValue instanceof String) {
+					GuiUtils.setLanguage(SettingsPreferenceActivity.this, (String) newValue);
+				}
+				return true;
+			}
+		});
+		
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
+		if (!Logger.DEBUG) {
+			virtualGovPref.setEnabled(false);// !SettingsStorage.getInstance().isBeginnerUser());
+		}
+		cpuFreqPreference.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
+		prefMinSensibleFrequency.setEnabled(!(SettingsStorage.getInstance().isBeginnerUser() || SettingsStorage.getInstance().isPowerUser()));
 	}
 
 	@Override

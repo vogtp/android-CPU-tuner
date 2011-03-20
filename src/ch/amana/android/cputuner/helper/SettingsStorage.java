@@ -10,18 +10,22 @@ import ch.amana.android.cputuner.hw.RootHandler;
 
 public class SettingsStorage {
 
+	private static final String PREF_KEY_USER_LEVEL = "prefKeyUserLevel";
+	private static final String PREF_KEY_USER_LEVEL_SET = "prefKeyUserLevelSet";
 	public static final String NO_VALUE = "noValue";
-	private static final String APPLY_ON_BOOT = "applyCpuSettingsOnBoot";
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
 	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
-	public static final String ENABLE_TOAST_NOTI = "prefKeyToastNotifications";
+
+	public static final int NO_BATTERY_HOT_TEMP = 5000;
 
 	public static final int TRACK_CURRENT_AVG = 1;
 	public static final int TRACK_CURRENT_CUR = 2;
 	public static final int TRACK_CURRENT_HIDE = 3;
 
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
+	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -35,21 +39,39 @@ public class SettingsStorage {
 	private int trackCurrent = -1;
 	private boolean checkedStatusbarNotifications = false;
 	private boolean statusbarNotifications;
-	private boolean checkedToastNotifications = false;
-	private boolean toastNotifications;
 	private boolean allowManualServiceChanges;
 	private boolean checkedAllowManualServiceChanges = false;
-	private boolean checkPowerUser = false;
-	boolean enablePowerUser;
+	private boolean checkUserLevel = false;
+	private boolean checkedSwitchWifiOnConnectedNetwork = false;
+	private boolean checkedSwitchProfileWhilePhoneNotIdle = false;
+	private boolean checkBatteryHotTemp = false;
+	int userLevel;
+	private boolean switchWifiOnConnectedNetwork;
+	private boolean switchProfileWhilePhoneNotIdle;
+	private int batteryHotTemp;
+	private boolean enableCallInProgress;
+	private boolean checkedenableCallInProgress = false;
+	private boolean checkedPulseDelayOn = false;
+	private long pulseDelayOn;
+	private boolean checkedPulseDelayOff = false;
+	private long pulseDelayOff;
+	private boolean checkedEnableUserspaceGovernor = false;
+	private boolean enableUserspaceGovernor;
 
 	public void forgetValues() {
 		checkedBeta = false;
 		checkedProfiles = false;
 		trackCurrent = -1;
 		checkedStatusbarNotifications = false;
-		checkedToastNotifications = false;
 		checkedAllowManualServiceChanges = false;
-		checkPowerUser = false;
+		checkUserLevel = false;
+		checkedSwitchWifiOnConnectedNetwork = false;
+		checkedSwitchProfileWhilePhoneNotIdle = false;
+		checkBatteryHotTemp = false;
+		checkedenableCallInProgress = false;
+		checkedPulseDelayOn = false;
+		checkedPulseDelayOff = false;
+		checkedEnableUserspaceGovernor = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -65,6 +87,16 @@ public class SettingsStorage {
 	protected SettingsStorage(Context ctx) {
 		super();
 		context = ctx;
+		if (getPreferences().contains("prefKeyPowerUser")) {
+			Editor editor = getPreferences().edit();
+			if (getPreferences().getBoolean("prefKeyPowerUser", false)) {
+				editor.putString(PREF_KEY_USER_LEVEL, "3");
+			} else {
+				editor.putString(PREF_KEY_USER_LEVEL, "2");
+			}
+			editor.remove("prefKeyPowerUser");
+			editor.commit();
+		}
 	}
 
 	protected SharedPreferences getPreferences() {
@@ -79,10 +111,6 @@ public class SettingsStorage {
 		return enableProfiles;
 	}
 
-	public boolean isApplyOnBoot() {
-		return getPreferences().getBoolean(APPLY_ON_BOOT, false);
-	}
-
 	public boolean isStatusbarAddto() {
 		return getPreferences().getBoolean(ENABLE_STATUSBAR_ADDTO, true);
 	}
@@ -93,14 +121,6 @@ public class SettingsStorage {
 			statusbarNotifications = getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, true);
 		}
 		return statusbarNotifications;
-	}
-
-	public boolean isToastNotifications() {
-		if (!checkedToastNotifications) {
-			checkedToastNotifications = true;
-			toastNotifications = getPreferences().getBoolean(ENABLE_TOAST_NOTI, false);
-		}
-		return toastNotifications;
 	}
 
 	public boolean isDisableDisplayIssues() {
@@ -121,12 +141,29 @@ public class SettingsStorage {
 		return enableBeta;
 	}
 
-	public boolean isPowerUser() {
-		if (!checkPowerUser) {
-			checkPowerUser = true;
-			enablePowerUser = getPreferences().getBoolean("prefKeyPowerUser", false);
+	public void setUserLevel(int level) {
+		checkUserLevel = false;
+		Editor editor = getPreferences().edit();
+		editor.putString(PREF_KEY_USER_LEVEL, Integer.toString(level));
+		editor.putBoolean(PREF_KEY_USER_LEVEL_SET, true);
+		editor.commit();
+	}
+	
+	public boolean isUserLevelSet() {
+		return getPreferences().getBoolean(PREF_KEY_USER_LEVEL_SET, false);
+	}
+	
+	public int getUserLevel() {
+		if (!checkUserLevel) {
+			checkUserLevel = true;
+			try {
+				userLevel = Integer.parseInt(getPreferences().getString(PREF_KEY_USER_LEVEL, "2"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyUserLevel as int", e);
+				userLevel = 2;
+			}
 		}
-		return enablePowerUser;
+		return userLevel;
 	}
 
 	public int getTrackCurrentType() {
@@ -142,7 +179,11 @@ public class SettingsStorage {
 		return trackCurrent;
 	}
 
-	public boolean isEnableSwitchMobiledata() {
+	public boolean isEnableSwitchMobiledataConnection() {
+		return true;
+	}
+
+	public boolean isEnableSwitchMobiledata3G() {
 		return true;
 	}
 
@@ -194,5 +235,105 @@ public class SettingsStorage {
 			Logger.w("Error parsing fot MinimumSensibeFrequency ", e);
 			return 400;
 		}
+	}
+
+	public boolean isBeginnerUser() {
+		return getUserLevel() == 1;
+	}
+
+	public boolean isPowerUser() {
+		return getUserLevel() > 2;
+	}
+
+	public boolean isSwitchWifiOnConnectedNetwork() {
+		if (!checkedSwitchWifiOnConnectedNetwork) {
+			checkedSwitchWifiOnConnectedNetwork = true;
+			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", false);
+		}
+		return switchWifiOnConnectedNetwork;
+	}
+
+	public boolean isSwitchProfileWhilePhoneNotIdle() {
+		if (!checkedSwitchProfileWhilePhoneNotIdle) {
+			checkedSwitchProfileWhilePhoneNotIdle = true;
+			switchProfileWhilePhoneNotIdle = getPreferences().getBoolean("prefKeySwitchProfileWhilePhoneNotIdle", false);
+		}
+		return switchProfileWhilePhoneNotIdle;
+	}
+
+	public int getBatteryHotTemp() {
+
+		if (!checkBatteryHotTemp) {
+			checkBatteryHotTemp = true;
+			try {
+				batteryHotTemp = Integer.parseInt(getPreferences().getString("prefKeyBatteryHotTemp", NO_BATTERY_HOT_TEMP + ""));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyUserLevel as int", e);
+				batteryHotTemp = NO_BATTERY_HOT_TEMP;
+			}
+		}
+		return batteryHotTemp;
+	}
+
+	public int getDefaultProfilesVersion() {
+		return getPreferences().getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
+	}
+
+	public void setDefaultProfilesVersion(int version) {
+		Editor editor = getPreferences().edit();
+		editor.putInt(PREF_DEFAULT_PROFILES_VERSION, version);
+		editor.commit();
+	}
+
+	public boolean isEnableCallInProgressProfile() {
+		if (!checkedenableCallInProgress) {
+			checkedenableCallInProgress = true;
+			enableCallInProgress = getPreferences().getBoolean("prefKeyCallInProgressProfile", true);
+		}
+		return enableCallInProgress;
+	}
+
+	public long getPulseDelayOn() {
+
+		if (!checkedPulseDelayOn) {
+			checkedPulseDelayOn = true;
+			try {
+				pulseDelayOn = Long.parseLong(getPreferences().getString("prefKeyPulseDelayOn", "1"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse pulseDelayOn as int", e);
+				pulseDelayOn = 1;
+			}
+		}
+		return pulseDelayOn;
+	}
+
+	public long getPulseDelayOff() {
+
+		if (!checkedPulseDelayOff) {
+			checkedPulseDelayOff = true;
+			try {
+				pulseDelayOff = Long.parseLong(getPreferences().getString("prefKeyPulseDelayOff", "30"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse pulseDelayOn as int", e);
+				pulseDelayOff = 1;
+			}
+		}
+		return pulseDelayOff;
+	}
+
+	public boolean isEnableUserspaceGovernor() {
+		if (!checkedEnableUserspaceGovernor) {
+			checkedEnableUserspaceGovernor = true;
+			enableUserspaceGovernor = getPreferences().getBoolean("prefKeyEnableUserspaceGovernor", false);
+		}
+		return enableUserspaceGovernor;
+	}
+
+	public boolean isEnableScriptOnProfileChange() {
+		return isPowerUser();
+	}
+
+	public String getLanguage() {
+		return getPreferences().getString("prefKeyLanguage", "");
 	}
 }

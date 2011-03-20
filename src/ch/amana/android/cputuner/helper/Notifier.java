@@ -41,13 +41,20 @@ public class Notifier {
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
 
-	public static void notify(Context context, String msg, int level) {
-		Logger.i("Notifier: " + msg);
-		if (level <= curLevel && SettingsStorage.getInstance().isToastNotifications()) {
-			// FIXME fc when toastin from service
-			// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-		}
-	}
+	//
+	// public static void notify(Context context, String msg, int level) {
+	// Logger.i("Notifier: " + msg);
+	// if (level <= curLevel &&
+	// SettingsStorage.getInstance().isToastNotifications()) {
+	// // FIXME fc when toastin from service
+	// try {
+	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+	// } catch (Throwable e) {
+	// Looper.prepare();
+	// Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+	// }
+	// }
+	// }
 
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {

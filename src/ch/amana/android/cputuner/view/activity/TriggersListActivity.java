@@ -53,8 +53,25 @@ public class TriggersListActivity extends ListActivity {
 		super.onResume();
 		SimpleCursorAdapter adapter;
 		checkCursor.requery();
-		if (checkCursor.getCount() > 0) {
-			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item, displayCursor,
+		boolean hotState = checkCursor.getCount() > 0;
+		boolean callState = SettingsStorage.getInstance().isEnableCallInProgressProfile();
+		if (hotState && callState) {
+			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_hot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
+					DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
+					DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_HOT,
+					DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery,
+					R.id.tvProfileOnPower, R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot,
+					R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
+
+		} else if (callState) {
+			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_nohot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
+					DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
+					DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID,
+					DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery, R.id.tvProfileOnPower,
+					R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
+
+		} else if (hotState) {
+			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_hot_nocall, displayCursor,
 					new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
 							DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
 							DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID,
@@ -63,7 +80,7 @@ public class TriggersListActivity extends ListActivity {
 							R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot, R.id.tvPowerCurrentHot });
 
 		} else {
-			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_no_hot,
+			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_nohot_nocall,
 					displayCursor,
 					new String[] { DB.Trigger.NAME_TRIGGER_NAME,
 							DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
@@ -96,7 +113,8 @@ public class TriggersListActivity extends ListActivity {
 				} else if (columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID
-						|| columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID) {
+ || columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID
+						|| columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
 					long profileId = cursor.getLong(columnIndex);
 					String profileName = NO_PROFILE;
 					Cursor cpuCursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME,
@@ -110,7 +128,8 @@ public class TriggersListActivity extends ListActivity {
 				} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_POW
 							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
 							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT
-							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT) {
+ || columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT
+						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL) {
 
 					if (SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 						((TextView) view).setText("");
@@ -131,13 +150,16 @@ public class TriggersListActivity extends ListActivity {
 					} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT) {
 						cnt = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT);
 						current = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_HOT);
+					} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL) {
+						cnt = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL);
+						current = cursor.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_CALL);
 					}
 					if (cnt < 1) {
 						((TextView) view).setText("-");
 						return true;
 					}
 					current /= cnt;
-					if (current < 10000 || current > 10000) {
+					if (current < -10000 || current > 10000) {
 						((TextView) view).setText("-");
 						return true;
 					}
@@ -207,20 +229,19 @@ public class TriggersListActivity extends ListActivity {
 			final TriggerModel triggerModel = new TriggerModel(c);
 			Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle(R.string.menuItemClearPowerCurrent);
-			alertBuilder.setMessage("Clear power consumption of \"" + triggerModel.getName() + "\" trigger?");
+			alertBuilder.setMessage(getResources().getString(R.string.msg_clear_power_consumption_of_named_trigger, triggerModel.getName()));
 			alertBuilder.setNegativeButton(android.R.string.no, null);
 			alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					triggerModel.clearPowerCurrent();
-					PowerProfiles powerProfiles = PowerProfiles.getInstance();
 					try {
-						powerProfiles.setUpdateTrigger(false);
+						PowerProfiles.setUpdateTrigger(false);
 						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 					} catch (Exception e) {
 						Logger.w("Cannot reset trigger power consumption", e);
 					} finally {
-						powerProfiles.setUpdateTrigger(true);
+						PowerProfiles.setUpdateTrigger(true);
 					}
 
 				}
@@ -237,9 +258,9 @@ public class TriggersListActivity extends ListActivity {
 	private void deleteTrigger(final Uri uri) {
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.menuItemDelete);
-		alertBuilder.setMessage("Delete selected item?");
-		alertBuilder.setNegativeButton(android.R.string.no, null);
-		alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
+		alertBuilder.setMessage(R.string.msg_delete_selected_item);
+		alertBuilder.setNegativeButton(R.string.no, null);
+		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				getContentResolver().delete(uri, null, null);

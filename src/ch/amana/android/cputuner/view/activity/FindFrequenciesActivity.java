@@ -18,8 +18,8 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
-import ch.amana.android.cputuner.model.CpuModel;
 import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.model.ProfileModel;
 
 public class FindFrequenciesActivity extends Activity {
 
@@ -27,7 +27,7 @@ public class FindFrequenciesActivity extends Activity {
 	private EditText etEnd;
 	private EditText etStep;
 	private TextView tvResults;
-	private TextView tvCur;
+	// private TextView tvCur;
 	private Button buFindFrequencies;
 
 	private class CheckForCpuFrequencies extends AsyncTask<Void, Integer, SortedSet<Integer>> {
@@ -51,9 +51,9 @@ public class FindFrequenciesActivity extends Activity {
 		protected SortedSet<Integer> doInBackground(Void... params) {
 			CpuHandler cpuHandler = CpuHandler.getInstance();
 			SortedSet<Integer> freqs = new TreeSet<Integer>();
-			StringBuilder sb = new StringBuilder();
-			PowerProfiles.getInstance().setUpdateTrigger(false);
-			CpuModel cpuSettings = cpuHandler.getCurrentCpuSettings();
+			// StringBuilder sb = new StringBuilder();
+			PowerProfiles.setUpdateTrigger(false);
+			ProfileModel cpuSettings = cpuHandler.getCurrentCpuSettings();
 			cpuHandler.setCurGov(CpuHandler.GOV_ONDEMAND);
 
 			for (int i = minFreq; i < maxFreq; i += step) {
@@ -64,7 +64,7 @@ public class FindFrequenciesActivity extends Activity {
 				}
 				RootHandler.writeFile(scalingMaxFile, i + "");
 				int f = cpuHandler.getMaxCpuFreq();
-				int cf = cpuHandler.getMaxCpuFreq();
+				// int cf = cpuHandler.getMaxCpuFreq();
 				// n1: 245000 384000 422400 460800 499200 537600 576000 614400
 				// 652800 691200 729600 768000 806400 844800 883200 921600
 				// 960000 998400 1036800 1075200 1113600
@@ -73,7 +73,7 @@ public class FindFrequenciesActivity extends Activity {
 					Logger.i("Found frequency: " + i);
 				}
 			}
-			PowerProfiles.getInstance().setUpdateTrigger(true);
+			PowerProfiles.setUpdateTrigger(true);
 			cpuHandler.applyCpuSettings(cpuSettings);
 			return freqs;
 		}
@@ -111,7 +111,7 @@ public class FindFrequenciesActivity extends Activity {
 		etEnd = (EditText) findViewById(R.id.etEnd);
 		etStep = (EditText) findViewById(R.id.etStep);
 		tvResults = (TextView) findViewById(R.id.tvResults);
-		tvCur = (TextView) findViewById(R.id.tvCur);
+		// tvCur = (TextView) findViewById(R.id.tvCur);
 
 		CpuHandler cpuHandler = CpuHandler.getInstance();
 		int min = Math.min(cpuHandler.getMinCpuFreq(), cpuHandler.getCpuInfoMinFreq());

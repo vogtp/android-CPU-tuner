@@ -3,16 +3,16 @@ package ch.amana.android.cputuner.hw;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.WeakHashMap;
 
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.CpuModel;
+import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandler extends HardwareHandler {
 
@@ -37,9 +37,10 @@ public class CpuHandler extends HardwareHandler {
 	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
 	private static final String CPUINFO_MIN_FREQ = "cpuinfo_min_freq";
 	private static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
+	private static final String GOV_SAMPLING_RATE = "sampling_rate";
 
 	private boolean availCpuFreq = true;
-	private final Map<String, File> fileMap = new HashMap<String, File>();
+	private final Map<String, File> fileMap = new WeakHashMap<String, File>();
 
 	private static CpuHandler instance = null;
 
@@ -50,11 +51,11 @@ public class CpuHandler extends HardwareHandler {
 		return instance;
 	}
 
-	public CpuModel getCurrentCpuSettings() {
-		return new CpuModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq());
+	public ProfileModel getCurrentCpuSettings() {
+		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq());
 	}
 
-	public void applyCpuSettings(CpuModel cpu) {
+	public void applyCpuSettings(ProfileModel cpu) {
 		setCurGov(cpu.getGov());
 		if (GOV_USERSPACE.equals(cpu.getGov())) {
 			setUserCpuFreq(cpu.getMaxFreq());
@@ -62,8 +63,21 @@ public class CpuHandler extends HardwareHandler {
 			setMaxCpuFreq(cpu.getMaxFreq());
 			setMinCpuFreq(cpu.getMinFreq());
 		}
-		setGovThresholdUp(cpu.getGovernorThresholdUp());
-		setGovThresholdDown(cpu.getGovernorThresholdDown());
+		int thresholdUp = cpu.getGovernorThresholdUp();
+		int thresholdDown = cpu.getGovernorThresholdDown();
+		if (thresholdDown >= thresholdUp) {
+			if (thresholdUp > 30) {
+				thresholdDown = thresholdUp - 10;
+			} else {
+				thresholdDown = thresholdUp - 1;
+			}
+		}
+		setGovThresholdUp(thresholdUp);
+		setGovThresholdDown(thresholdDown);
+		if (cpu.hasScript()) {
+			StringBuilder result = new StringBuilder();
+			RootHandler.execute(cpu.getScript(), result);
+		}
 	}
 
 	public int getCurCpuFreq() {
@@ -75,11 +89,16 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setCurGov(String gov) {
+		Logger.i("Setting governor to " + gov);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_GOVERNOR), gov);
 	}
 
 	public String[] getAvailCpuGov() {
-		return moveCurListElementTop(createListStr(readFile(SCALING_AVAILABLE_GOVERNORS)), getCurCpuGov());
+		String readFile = readFile(SCALING_AVAILABLE_GOVERNORS);
+		if (!SettingsStorage.getInstance().isEnableUserspaceGovernor()) {
+			readFile = readFile.replace(GOV_USERSPACE, "");
+		}
+		return moveCurListElementTop(createListStr(readFile), getCurCpuGov());
 	}
 
 	public boolean hasGovernor(String governor) {
@@ -91,14 +110,18 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setUserCpuFreq(int val) {
+		Logger.i("Setting user frequency to " + val);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_SETSPEED), val + "");
 	}
 
 	public boolean setMaxCpuFreq(int val) {
 		if (val <= getMinCpuFreq()) {
-			RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
+			if (Logger.DEBUG) {
+				RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
+			}
 			return false;
 		}
+		Logger.i("Setting max frequency to " + val);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MAX_FREQ), Integer.toString(val));
 	}
 
@@ -112,9 +135,12 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean setMinCpuFreq(int i) {
 		if (i >= getMaxCpuFreq()) {
-			RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
+			if (Logger.DEBUG) {
+				RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
+			}
 			return false;
 		}
+		Logger.i("Setting min frequency to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MIN_FREQ), Integer.toString(i));
 	}
 
@@ -123,18 +149,30 @@ public class CpuHandler extends HardwareHandler {
 		return getIntFromStr(RootHandler.readFile(getFile(path, GOV_TRESHOLD_UP)));
 	}
 
+	public int getGovSamplingRate() {
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_SAMPLING_RATE)));
+	}
+
+	public boolean setGovSamplingRate(int i) {
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_SAMPLING_RATE), i + "");
+	}
+
 	public int getGovThresholdDown() {
 		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN)));
 	}
 
 	public boolean setGovThresholdUp(int i) {
-		int govThresholdDown = getGovThresholdDown();
-		if (i < 0 || i > 100) {
+		if (i < 1) {
+			return false;
+		}
+		// int govThresholdDown = getGovThresholdDown();
+		// if (i <= govThresholdDown) {
+		// i = govThresholdDown + 10;
+		// }
+		if (i > 100) {
 			i = 98;
 		}
-		if (i <= govThresholdDown) {
-			i = govThresholdDown + 1;
-		}
+		Logger.i("Setting threshold up to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP), i + "");
 	}
 
@@ -150,13 +188,16 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setGovThresholdDown(int i) {
-		int govThresholdUp = getGovThresholdUp();
-		if (i < 0 || i > 100) {
+		if (i < 1) {
+			return false;
+		}
+		if (i > 100) {
 			i = 95;
 		}
-		if (i >= govThresholdUp) {
-			i = govThresholdUp - 1;
-		}
+		// if (i >= govThresholdUp) {
+		// i = govThresholdUp - 10;
+		// }
+		Logger.i("Setting threshold down to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), i + "");
 	}
 
@@ -205,7 +246,7 @@ public class CpuHandler extends HardwareHandler {
 
 		List<Integer> freqList = new ArrayList<Integer>(freqs.length);
 		for (int i = 0; i < freqs.length; i++) {
-			if (freqs[i] > getMinimumSensibleFrequency()) {
+			if (freqs[i] >= getMinimumSensibleFrequency()) {
 				freqList.add(freqs[i]);
 			}
 		}

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -69,7 +70,7 @@ public class SendReportActivity extends Activity {
 		if (TextUtils.isEmpty(mailSubject) || TextUtils.isEmpty(mailBody)) {
 			Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle("E-mail report");
-			alertBuilder.setMessage("Please enter a subject and some text describing you problem!");
+			alertBuilder.setMessage("Please enter a subject and some text describing your problem!");
 			alertBuilder.setCancelable(false);
 			alertBuilder.setPositiveButton(android.R.string.yes, null);
 			alertBuilder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -93,14 +94,6 @@ public class SendReportActivity extends Activity {
 		getDeviceInfo();
 		getKernelInfo();
 
-		DB.OpenHelper oh = new OpenHelper(this);
-		DataXmlExporter dm = new DataXmlExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
-		try {
-			dm.export(DB.DATABASE_NAME);
-		} catch (IOException e) {
-			Logger.w("Error exporting DB", e);
-		}
-
 		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "patrick.vogt.pv@gmail.com" });
 		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner report: " + mailSubject);
 		StringBuilder body = new StringBuilder();
@@ -114,8 +107,10 @@ public class SendReportActivity extends Activity {
 		body.append("Device nickname: ").append(DeviceInformation.getDeviceNick()).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append("CPU tuner version: ").append(getString(R.string.version)).append('\n');
-		body.append("Power user mode: ").append(SettingsStorage.getInstance().isPowerUser()).append('\n');
+		body.append("Language: ").append(Locale.getDefault().getLanguage()).append('\n');
+		body.append("Userlevel: ").append(SettingsStorage.getInstance().getUserLevel()).append('\n');
 		body.append("Beta mode: ").append(SettingsStorage.getInstance().isEnableBeta()).append('\n');
+		body.append("Installed as system app: ").append(RootHandler.isSystemApp(this)).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
 		CpuHandler cpuHandler = CpuHandler.getInstance();
 		body.append("CPU governors: ").append(Arrays.toString(cpuHandler.getAvailCpuGov())).append('\n');
@@ -133,6 +128,19 @@ public class SendReportActivity extends Activity {
 		closeLogFile();
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append(CapabilityChecker.getInstance(this).toString());
+
+		try {
+			DB.OpenHelper oh = new OpenHelper(this);
+			DataXmlExporter dm = new DataXmlExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
+			try {
+				dm.export(DB.DATABASE_NAME);
+			} catch (IOException e) {
+				Logger.w("Error exporting DB", e);
+			}
+		} catch (Throwable e) {
+			Logger.e("Could not export DB", e);
+			body.append("Could not export DB: ").append(e.getMessage()).append("\n");
+		}
 
 		sendIntent.putExtra(Intent.EXTRA_TEXT, body.toString());
 
@@ -160,6 +168,9 @@ public class SendReportActivity extends Activity {
 
 	private void addDirectoryToZip(ZipOutputStream zip, String prefix, File cpuFreqDir, boolean traverse) {
 		File[] cpufreqFiles = cpuFreqDir.listFiles();
+		if (cpufreqFiles == null) {
+			return;
+		}
 		for (int i = 0; i < cpufreqFiles.length; i++) {
 			if (traverse && cpufreqFiles[i].isDirectory()) {
 				addDirectoryToZip(zip, prefix + "/" + cpufreqFiles[i].getName(), cpufreqFiles[i], false);
