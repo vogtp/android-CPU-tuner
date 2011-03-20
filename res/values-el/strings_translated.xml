@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string-array name="prefLanguageEntries">
+		<item>Προεπιλογή</item>
+		<item>Αγγλίκα</item>
+		<item>Γερμανικά</item>
+		<item>Ιταλικά</item>
+		<item>Ελληνικά</item>
+</string-array>
 <string name="prefLanguage">Επιλογή γλώσσας</string>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">Το μέγιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
 <string name="msg_down_threshhold_has_to_be_between_0_and_100">Το ελάχιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
@@ -9,6 +16,7 @@
 <string name="msgDeleteTriggerNotPossible">Δεν μπορείτε να διαγράψετε αυτό το προφίλ γιατί χρησιμοποιείται σε ένα ή περισσότερα εναύσματα!</string>
 <string name="prefBasics">Βασικές</string>
 <string name="labelScript">Script:</string>
+<string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor.</string>
 <string name="label_governor_tresholds">Όριο:</string>
 <string name="prefEnableUserspaceGovernor">Προβολή του Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOn">Είναι δυνατή η επιλογή του Userspace Governor</string>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../styles.css"/>
+<title>CPU governors / Κυβερνήτες της CPU</title>
+</head>
+<body>	
+	<span class="headline">CPU governors / Κυβερνήτες της CPU</span>
+	<br/><br/>
+	<span class="text">Οι CPU governors είναι λογισμικό μέσα στο πυρίνα που ελέγχει τη ταχύτητα της CPU μέσα από διάφορα κριτήρια.</span>
+	<span class="text">
+		Σύμφωνα με το πυρίνα του Linux οι ακόλουθοι κυβερνήτες είναι διαθέσιμα:
+		<ul>
+			<li><span class="bold">ondemand</span><br/>
+			Αλλάζει δυναμικά τη συχνότητα με βάση τη χρήση του επεξεργαστή, με έμφαση στις επιδόσεις.<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheOndemandGovernor.htm?noframes=true">Περισσότερες πληροφορίες...</a>
+			</li>
+			<li><span class="bold">conservative</span><br/>
+			Αλλάζει δυναμικά τη συχνότητα με βάση τη χρήση του επεξεργαστή, με έμφαση στην οικονομία μπαταρίας.<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheConservativeGovernor.htm?noframes=true">Περισσότερες πληροφορίες...</a>
+			</li>
+			<li><span class="bold">performance</span><br/>
+			Κλειδώνει τη συχνότητα στη μέγιστη δυνατή.<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePerformanceGovernor.htm?noframes=true">Περισσότερες πληροφορίες...</a>
+			</li>
+			<li><span class="bold">powersave</span><br/>
+			Κλειδώνει τη συχνότητα στην ελάχιστη δυνατή.<br/>
+			Αυτός ο κυβερνήτης ενδέχεται να παρουσιάσει ανεπιθύμητη συμπεριφορά, καθώς ένα μεγάλο φόρτο εργασίας έχει μεγαλύτερο χρόνο εκτέλεσης από ό,τι θα έπρεπε, χρησιμοποιώντας τον κυβερνήτη OnDemand<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/ThePowersaveGovernor.htm?noframes=true">Περισσότερες πληροφορίες...</a>
+			</li>
+			<li><span class="bold">userspace</span><br/>
+			Τοποθετεί τη συχνότητα αυτόματα σ αυτή που δώσατε.<br>ΔΕΝ ΠΡΕΠΕΙ ΝΑ ΧΡΗΣΙΜΟΠΟΙΕΙΤΑΙ αν δεν ξέρετε τι κάνετε!<br>
+			<a href="http://publib.boulder.ibm.com/infocenter/lnxinfo/v3r0m0/topic/liaai/cpufreq/TheUserspaceGovernor.htm?noframes=true">Περισσότερες πληροφορίες...</a>
+			</li>
+			<li><span class="bold">interactive</span><br/>
+			Σχεδιασμένο για χαμηλό χρόνο απόκρισης σε περίπτωση ξαφνικής απαίτησης μεγάλης επεξεργασίας. Η κλιμάκωση γίνεται όταν η συσκευεί βγαίνει από αδράνεια αντί μέσω polling.
+			</li>
+		</ul>
+	</span>
+</body>
+</html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->
