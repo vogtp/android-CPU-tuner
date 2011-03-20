@@ -16,7 +16,6 @@
 <string name="msgDeleteTriggerNotPossible">Impossibile eliminare il profilo in quanto utilizzato da uno o più trigger!</string>
 <string name="prefBasics">Di Base</string>
 <string name="labelScript">Script:</string>
-<string name="hintScriptToRun">Script da eseguire dopo il cambio di governor.</string>
 <string name="label_governor_tresholds">Soglie:</string>
 <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
 <string name="prefPulseDelayOn">Durata attivazione</string>

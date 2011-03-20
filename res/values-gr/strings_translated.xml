@@ -9,7 +9,6 @@
 <string name="msgDeleteTriggerNotPossible">Δεν μπορείτε να διαγράψετε αυτό το προφίλ γιατί χρησιμοποιείται σε ένα ή περισσότερα εναύσματα!</string>
 <string name="prefBasics">Βασικές</string>
 <string name="labelScript">Script:</string>
-<string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor.</string>
 <string name="label_governor_tresholds">Όριο:</string>
 <string name="prefEnableUserspaceGovernor">Προβολή του Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOn">Είναι δυνατή η επιλογή του Userspace Governor</string>

@@ -7,4 +7,5 @@
 		<item>Ιταλικά</item>
 		<item>Greek</item>
 </string-array>
+<string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor, if unsure leave empty..</string>
 </resources>

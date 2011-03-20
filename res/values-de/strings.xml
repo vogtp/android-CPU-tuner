@@ -13,5 +13,5 @@
 <string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down threshold.</string>
 <string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
 <string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the maximal.</string>
-
+<string name="hintScriptToRun">Skript, das nach einer Änderung, ausgeführt wird. Bei unsicherheit leer lassen.</string>
 </resources>

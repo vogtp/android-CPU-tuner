@@ -4,7 +4,6 @@
 <string name="prefBasics">Grundlegendes</string>
 <string name="label_governor_tresholds">Schwellenwerte:</string>
 <string name="labelScript">Skript:</string>
-<string name="hintScriptToRun">Skript, das nach einer Änderung, ausgeführt wird.</string>
 <string name="prefEnableUserspaceGovernor">Aktivieren des Userspace Reglers</string>
 <string name="prefEnableUserspaceGovernorOn">Es ist möglich, die Wahl des Userspace Regler zu wählen</string>
 <string name="prefEnableUserspaceGovernorOff">Die Userspace Regler werden gefiltert.</string>

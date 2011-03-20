@@ -1,3 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="hintScriptToRun">Script da eseguire dopo il cambio di governor, if unsure leave empty..</string>
 </resources>
