@@ -13,6 +13,7 @@ import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -139,7 +140,9 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 	protected void onResume() {
 		super.onResume();
 		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
-		virtualGovPref.setEnabled(false);//!SettingsStorage.getInstance().isBeginnerUser());
+		if (!Logger.DEBUG) {
+			virtualGovPref.setEnabled(false);// !SettingsStorage.getInstance().isBeginnerUser());
+		}
 		cpuFreqPreference.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(SettingsStorage.getInstance().isBeginnerUser() || SettingsStorage.getInstance().isPowerUser()));
 	}
