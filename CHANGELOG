@@ -24,7 +24,9 @@ V 1.5.2
 
 V 1.5.1 
 * features
-- 
+- go back to previous service state  (non beta now)
+- move capability check to settings/system
+- make allow manual service changes default 
 * bug fixes
 - fix crash on start
 
