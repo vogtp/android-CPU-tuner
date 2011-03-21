@@ -1,4 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor, if unsure leave empty..</string>
 </resources>

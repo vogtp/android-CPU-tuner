@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor.</string>
 <string-array name="prefLanguageEntries">
 		<item>Προεπιλογή</item>
 		<item>Αγγλίκα</item>
@@ -28,14 +29,14 @@
 <string name="prefPulseDelayOffLong">Ο χρόνος (σε λεπτά) για μια ανενεργή υπηρεσία στο pulsed mode.</string> 
 <string name="labelPulseOn">(Pulse ενεργό)</string> 
 <string name="labelPulseOff">(Pulse ανενεργό)</string> 
-<string name="labelCurrentTab">Τωρινά</string> 
-<string name="labelTriggersTab">εναύσματα</string> 
+<string name="labelCurrentTab">Τώρα</string> 
+<string name="labelTriggersTab">Εναύσματα</string> 
 <string name="labelProfilesTab">Προφίλ</string> 
 <string name="labelHelpTab">Βοήθεια</string> 
 <string name="labelSettingsTab">Ρυθμήσεις</string> 
 <string name="labelPowerUserExplain">Πλήρης έλεγχος!</string>
     <string name="labelPowerUser">Έμπειρος χρήστης</string>
-    <string name="labelNormalExplain">Πιο προχωρημένες ρυθμήσεις, όμως και πάλι υπάρχει όριο στον υπερχρονισμό.</string>
+    <string name="labelNormalExplain">Πιο προχωρημένες ρυθμήσεις, όμως υπάρχει όριο στον υπερχρονισμό.</string>
     <string name="labelNormal">Κανονικό</string>
     <string name="labelBeginnerExplain">Εύκολες ρυθμήσεις οι οποίες πρέπει να σωθούν πριν τη χρήση... Υποχρονισμός εφικτός μέχρι ένα σημείο.</string>
     <string name="labelBeginner">Αρχάριος</string>
@@ -102,7 +103,6 @@
 		και δεν έγινε αλλαγή εναύσματος από τότε.</string>
 	<string name="prefAllowManualServiceChangesOff">Να αλλάξετε την κατάσταση μιας υπηρεσίας, ανεξαρτήτως εάν αυτή τροποποιήθηκε χειροκίνητα.</string>
 	<string name="prefAllowManualServiceChanges">Χειροκίνητη αλλαγή υπηρεσιών</string>
-	<string name="hintMailBody">Προσθέστε μερικές πληροφορίες σχετικά με το πρόβλημα που αντιμετωπίζετε.</string>
 	<string name="prefCpuFreqMsg">Διάστημα διαχωρισμένης λίστας συχνοτήτων.</string>
 	<string name="prefCpuFreq">Επιτρέπτές συχνότητες CPU</string>
 	<string name="prefCpuFreqLong">Αφήστε το κενό αν δε γνωρίζετε...!</string>
@@ -153,7 +153,7 @@
 	<string name="labelMax">Μέγιστο:</string>
 	<string name="labelMin">Ελάχιστο:</string>
 	<string name="app_name">CPU tuner</string>
-	<string name="labelPowerProfile">Προφίλ ενέργειας: </string>
+	<string name="labelPowerProfile">Προφίλ: </string>
 	<string name="spinnerPromptGov">Επιλογή governor</string>
 	<string name="buApplyCurProfile">Εφαρμογή στο τωρίνο προφίλ CPU</string>
 	<string name="notEnabled">Μη ενεργό</string>
@@ -196,31 +196,31 @@
 
 
 	<string-array name="deviceStates">
-		<item>Χωρίς αλλαγές</item>
-		<item>Ενεργοποίηση</item>
-		<item>Απενεργοποίηση</item>
-		<item>Επιστροφή στην προτέρα κατάσταση </item>
+		<item>Όχι αλλαγή</item>
+		<item>Ενεργό</item>
+		<item>Ανενεργό</item>
+		<item>Επιστροφή στην πρ. κατάσταση </item>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
-	<item>Χωρίς αλλαγές</item>
-		<item>Ενεργοποίηση</item>
+	<item>Όχι αλλαγή</item>
+		<item>Ενεργό </item>
 		<item>Απενεργοποίηση</item>
-		<item>Επιστροφή στην προτέρα κατάσταση </item>
+		<item>Επιστροφή στην πρ. κατάσταση </item>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="mobiledataStates">
-		<item>Χωρίς αλλαγές</item>
+		<item>Όχι αλλαγή</item>
 		<item>Μόνο 2G</item>
 		<item>3G/2G</item>
-		<item>Επιστροφή στην προτέρα κατάσταση</item>
+		<item>Επιστροφή στην πρ. κατάσταση</item>
 		<item>Μόνο 3G</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
-		<item>Χωρίς αλλαγές</item>
+		<item>Όχι αλλαγή</item>
 		<item>Μόνο 2G</item>
 		<item>3G/2G</item>
-		<item>Επιστροφή στην προτέρα κατάσταση</item>
+		<item>Επιστροφή στην πρ. κατάσταση</item>
 		<item>Μόνο 3G</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntries">
@@ -251,8 +251,8 @@
 <string name="msg_reset_to_default">Επαναφορά στην προεπιλογή θα απορρίψει όλες τις τροποποιήσεις σας σε εναύσματα &amp; προφιλ, συμπεριλαμβανομένων των νεοσύστατων.</string>
 <string name="msg_loading_default_profiles">Φόρτωση προεπιλεγμένων προφίλ</string>
 <string name="profilename_performance">Επίδοση</string>
-<string name="profilename_good">Καλή</string>
-<string name="profilename_normal">Κανονική</string>
+<string name="profilename_good">Καλή μπαταρία</string>
+<string name="profilename_normal">Κανονική μπαταρία</string>
 <string name="profilename_screen_off">Κλειστή οθόνη</string>
 <string name="profilename_extreme_powersave">Ακραία εξοικονόμηση ενέργειας</string>
 <string name="triggername_battery_full">Γεμάτη μπαταρία</string>
