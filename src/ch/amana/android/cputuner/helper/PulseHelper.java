@@ -56,10 +56,10 @@ public class PulseHelper {
 			if (pulseMobiledataConnectionState) {
 				if (SettingsStorage.getInstance().isPulseMobiledataOnWifi()) {
 					ServicesHandler.enableMobileData(ctx, isOn);
-				} else {
+				}else {
 					if (isOn && ServicesHandler.isWifiConnected(ctx)) {
 						Logger.i("Not pulsing mobiledata since wifi is connected");
-					} else {
+					}else {
 						ServicesHandler.enableMobileData(ctx, isOn);
 					}
 				}

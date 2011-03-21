@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="prefPulseMobiledataOnWifi">Pulse mobiledata on wifi</string>
+<string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if wifi is connected.</string>
+<string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is connected to a wifi lan.</string>
 <string name="prefLanguage">Choose language</string>
 <string-array name="prefLanguageEntries">
 		<item>System default</item>
