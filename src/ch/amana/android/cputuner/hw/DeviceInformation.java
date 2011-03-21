@@ -12,6 +12,10 @@ public class DeviceInformation {
 		return NOT_AVAILABLE;
 	}
 
+	public static String getAndroidRelease() {
+		return getProp("ro.build.version.release");
+	}
+
 	public static String getDeviceModel() {
 		return getProp("ro.product.model");
 	}

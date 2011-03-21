@@ -8,6 +8,7 @@ V 1.6.1
 * features
 - Settings option: Pulse mobiledata on connected wifi (default: true)
 - Greek translation
+- report android release
 * bug fixes
 -
  
