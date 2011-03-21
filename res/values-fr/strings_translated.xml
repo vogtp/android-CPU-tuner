@@ -69,8 +69,6 @@
 		and no trigger change happened since then.</string>
 	<string name="prefAllowManualServiceChangesOff">Do change the state of a service regardless if it was modified manually.</string>
 	<string name="prefAllowManualServiceChanges">Manual service changes</string>
-	<string name="hintMailBody">Add some information about the problem you are
-		experiencing.</string>
 	<string name="prefCpuFreqMsg">Space separated list of frequencies</string>
 	<string name="prefCpuFreq">Allowed CPU frequencies</string>
 	<string name="prefCpuFreqLong">Leave empty if unsure...!</string>

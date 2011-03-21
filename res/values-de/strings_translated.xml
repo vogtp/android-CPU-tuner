@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="hintScriptToRun">Skript, das nach einer Änderung, ausgeführt wird.</string>
 <string name="msgDeleteTriggerNotPossible">Dieses Profil kann nicht gelöscht werden, da es in einem oder mehreren Auslöser verwendet wird.</string>
 <string name="prefBasics">Grundlegendes</string>
 <string name="label_governor_tresholds">Schwellenwerte:</string>
@@ -84,7 +85,6 @@
 	<string name="prefAllowManualServiceChangesOn">Falls Dienste manuell umgeschalten wurden, werden diese bis zum nächsten Auslöser nicht mehr geschalten.</string>
 	<string name="prefAllowManualServiceChangesOff">Dienste werden umgeschalten unabhängig davon ob sie manuell geändert wurde.</string>
 	<string name="prefAllowManualServiceChanges">Man. Dienst-Änderung </string>
-	<string name="hintMailBody">Fügen Sie einige Informationen hinzu, welches Problem sie erlebt haben.</string>
 	<string name="prefCpuFreqMsg">Durch Leerzeichen getrennte Liste von Frequenzen</string>
 	<string name="prefCpuFreq">Erlaubte CPU-Frequenzen</string>
 	<string name="prefCpuFreqLong">Leer lassen, wenn Sie unsicher sind...!</string>

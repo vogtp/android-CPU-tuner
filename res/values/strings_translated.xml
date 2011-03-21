@@ -16,7 +16,7 @@
 <string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one or more tiggers!</string>
 <string name="prefBasics">Basics</string>
 <string name="labelScript">Script:</string>
-<string name="hintScriptToRun">Script to run after governor change, if unsure leave empty.</string>
+<string name="hintScriptToRun">Script to run after governor change.</string>
 <string name="label_governor_tresholds">Thresholds:</string>
 <string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
@@ -101,8 +101,6 @@
 		and no trigger change happened since then.</string>
 	<string name="prefAllowManualServiceChangesOff">Do change the state of a service regardless if it was modified manually.</string>
 	<string name="prefAllowManualServiceChanges">Manual service changes</string>
-	<string name="hintMailBody">Add some information about the problem you are
-		experiencing.</string>
 	<string name="prefCpuFreqMsg">Space separated list of frequencies</string>
 	<string name="prefCpuFreq">Allowed CPU frequencies</string>
 	<string name="prefCpuFreqLong">Leave empty if unsure...!</string>

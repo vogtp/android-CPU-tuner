@@ -2,6 +2,8 @@
 <resources>
 	<string name="govPowersave">powersave</string>
 	<string name="govOndemand">ondemand</string>
+	<string name="hintMailBody_en">Add some information about the problem you are
+		experiencing.</string>
 	<string-array name="prefCalcPowerUsageValues">
 		<item>1</item>
 		<item>2</item>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
+<string name="hintScriptToRun">Script da eseguire dopo il cambio di governor.</string>
 <string name="prefLanguage">Lingua</string>
 <string-array name="prefLanguageEntries">
 		<item>Lingua di Sistema</item>
@@ -91,8 +92,6 @@
 		senza che sia cambiato alcun trigger fino al quel momento.</string>
 	<string name="prefAllowManualServiceChangesOff">Cambia lo stato di un servizio nonostante fosse stato modificato manualmente.</string>
 	<string name="prefAllowManualServiceChanges">Modifiche a un servizio</string>
-	<string name="hintMailBody">Aggiungi alcune informazioni sul
-		problema che hai.</string>
 	<string name="prefCpuFreqMsg">Lista di frequenze separate da uno spazio</string>
 	<string name="prefCpuFreq">Frequenze CPU permesse</string>
 	<string name="prefCpuFreqLong">Lascia vuoto nell\'incertezza...!</string>
