@@ -27,25 +27,30 @@ public class ServicesHandler {
 	private static final String NETWORK_MODE = "networkMode";
 	private static WifiManager wifi;
 
-	public static void enableWifi(Context ctx, boolean enable) {
+	private static WifiManager getWifiManager(Context ctx) {
 		if (wifi == null) {
 			wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		}
-		if (!enable && !SettingsStorage.getInstance().isSwitchWifiOnConnectedNetwork()
-				&& wifi.getConnectionInfo().getNetworkId() > -1) {
+		return wifi;
+	}
+
+	public static void enableWifi(Context ctx, boolean enable) {
+		if (!enable && !SettingsStorage.getInstance().isSwitchWifiOnConnectedNetwork() && isWifiConnected(ctx)) {
 			Logger.i("Not switching wifi since we are connected!");
 			return;
 		}
-		if (wifi.setWifiEnabled(enable)) {
+		if (getWifiManager(ctx).setWifiEnabled(enable)) {
 			Logger.i("Switched Wifi to " + enable);
 		}
 	}
 
+	public static boolean isWifiConnected(Context ctx) {
+		return getWifiManager(ctx).getConnectionInfo().getNetworkId() > -1;
+	}
+
+
 	public static boolean isWifiEnabaled(Context ctx) {
-		if (wifi == null) {
-			wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
-		}
-		return wifi.isWifiEnabled();
+		return getWifiManager(ctx).isWifiEnabled();
 	}
 
 	public static boolean isGpsEnabled(Context ctx) {
