@@ -100,6 +100,7 @@ public class SendReportActivity extends Activity {
 		body.append(mailBody).append("\n\n");
 		body.append('\n').append("------------------------------------------").append('\n');
 		openLogFile(FILE_DEVICE_INFO);
+		body.append("Android release: ").append(DeviceInformation.getAndroidRelease()).append('\n');
 		body.append("Device model: ").append(DeviceInformation.getDeviceModel()).append('\n');
 		body.append("Manufacturer: ").append(DeviceInformation.getManufacturer()).append('\n');
 		body.append("Mod version: ").append(DeviceInformation.getModVersion()).append('\n');
