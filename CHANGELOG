@@ -2,12 +2,18 @@ V
 * features
 - 
 * bug fixes
+-
+
+V 
+* features
+- Greek translation
+- 
+* bug fixes
 - 
 
 V 1.6.0
 * features
 - Avoid some system calls by handling sanity checks internally 
-- Greek translation
 - Choose app language
 - force internal installation otherwise boot start will not work
 - run script on profile switch (for power users and non beta now)
@@ -286,4 +292,5 @@ V 0.9.5
 * bug fixes
 - remove capabilities check from main screen
 - install is system app is beta 
+- 'minor' things
 - 'minor' things

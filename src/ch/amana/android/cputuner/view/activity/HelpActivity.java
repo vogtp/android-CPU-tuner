@@ -72,8 +72,9 @@ public class HelpActivity extends Activity {
 	
 	private String getIndexFilePath() {
 		String language = SettingsStorage.getInstance().getLanguage();
+		String[] isoLanguages = Locale.getISOLanguages();
 		if ("".equals(language)) {
-			Locale.getDefault().getLanguage().toLowerCase();
+			language = Locale.getDefault().getLanguage().toLowerCase();
 		}
 		Logger.i("Found language code " + language);
 		String langHelpDir = "help-" + language;
