@@ -336,4 +336,8 @@ public class SettingsStorage {
 	public String getLanguage() {
 		return getPreferences().getString("prefKeyLanguage", "");
 	}
+
+	public boolean isPulseMobiledataOnWifi() {
+		return getPreferences().getBoolean("prefKeyPulseMobiledataOnWifi", true);
+	}
 }

@@ -4,6 +4,13 @@ V
 * bug fixes
 - 
 
+V 1.6.1
+* features
+- Settings option: Pulse mobiledata on connected wifi (default: true)
+- Greek translation
+* bug fixes
+-
+ 
 V 1.6.0
 * features
 - Avoid some system calls by handling sanity checks internally 
