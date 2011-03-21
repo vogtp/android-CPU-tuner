@@ -336,4 +336,9 @@ public class SettingsStorage {
 	public String getLanguage() {
 		return getPreferences().getString("prefKeyLanguage", "");
 	}
+
+	public boolean isUseVirtualGovernors() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

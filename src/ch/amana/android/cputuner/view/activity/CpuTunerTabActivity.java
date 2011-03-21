@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.preference.SettingsPreferenceActivity;
 
 public class CpuTunerTabActivity extends TabActivity {
@@ -18,6 +20,11 @@ public class CpuTunerTabActivity extends TabActivity {
 			setTitle(getTitle() + " - DEBUG MODE");
 		}
 		setTitle(getTitle() + " (" + getString(R.string.version) + ")");
+
+		String lang = SettingsStorage.getInstance().getLanguage();
+		if (!"".equals(lang)) {
+			GuiUtils.setLanguage(this, lang);
+		}
 
 		final TabHost tabHost = getTabHost();
 
