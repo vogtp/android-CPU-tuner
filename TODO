@@ -1,5 +1,5 @@
 - switch gov (in profile editor) to check witch val can be r/w
-- change profile in mainview even if profiles switching is not active
+- use powersave_bias 
 
 - backup restore profiles 
 - virtual governors (incl. thresholds) for inexperienced users 
@@ -15,3 +15,4 @@
 - figure out how to get avail freqs (if not available)
 
 
+- change profile in mainview even if profiles switching is not active
