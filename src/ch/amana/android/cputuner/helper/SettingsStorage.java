@@ -25,6 +25,7 @@ public class SettingsStorage {
 
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
 	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
+	private static final String PREF_KEY_USE_VIRTUAL_GOVS = "prefKeyUseVirtualGovernors";
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -338,7 +339,12 @@ public class SettingsStorage {
 	}
 
 	public boolean isUseVirtualGovernors() {
-		// TODO Auto-generated method stub
-		return false;
+		return getPreferences().getBoolean(PREF_KEY_USE_VIRTUAL_GOVS, true);
+	}
+
+	public void setUseVirtualGovernors(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_USE_VIRTUAL_GOVS, b);
+		editor.commit();
 	}
 }
