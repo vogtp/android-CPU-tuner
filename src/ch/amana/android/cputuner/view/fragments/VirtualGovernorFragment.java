@@ -55,7 +55,6 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				callback.updateModel();
-				long selectedItemId = spinnerSetGov.getSelectedItemId();
 				getProfile().setVirtualGovernor(id);
 				callback.updateView();
 			}
@@ -66,16 +65,21 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			}
 
 		});
+	}
 
+	private VirtualGovernorModel getVirtualGovernorModel(long virtualGovernor) {
+		Cursor c = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, SELECTION_VIRT_GOV, new String[] { Long.toString(virtualGovernor) },
+				VirtualGovernor.SORTORDER_DEFAULT);
+		if (c.moveToFirst()) {
+			return new VirtualGovernorModel(c);
+		}
+		return null;
 	}
 
 	@Override
 	public void updateModel() {
-		long virtualGovernor = profile.getVirtualGovernor();
-		Cursor c = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, SELECTION_VIRT_GOV,
-				new String[] { Long.toString(virtualGovernor) }, VirtualGovernor.SORTORDER_DEFAULT);
-		if (c.moveToFirst()) {
-			VirtualGovernorModel virtGov = new VirtualGovernorModel(c);
+		VirtualGovernorModel virtGov = getVirtualGovernorModel(profile.getVirtualGovernor());
+		if (virtGov != null) {
 			profile.setGov(virtGov.getRealGovernor());
 			profile.setGovernorThresholdUp(virtGov.getGovernorThresholdUp());
 			profile.setGovernorThresholdDown(virtGov.getGovernorThresholdDown());
@@ -90,6 +94,10 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	public void updateView() {
 		long virtualGovernor = getProfile().getVirtualGovernor();
 		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
+		VirtualGovernorModel virtualGov = getVirtualGovernorModel(virtualGovernor);
+		if (virtualGov != null) {
+			tvExplainGov.setText(virtualGov.getDescription(getActivity()));
+		}
 	}
 
 }

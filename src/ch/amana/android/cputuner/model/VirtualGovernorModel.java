@@ -1,8 +1,11 @@
 package ch.amana.android.cputuner.model;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -185,6 +188,22 @@ public class VirtualGovernorModel {
 
 	public String getScript() {
 		return script;
+	}
+
+	public CharSequence getDescription(Context ctx) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(realGov).append("\n");
+		if (governorThresholdUp > 0) {
+			sb.append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
+			if (governorThresholdDown > 0) {
+				sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
+			}
+			sb.append("\n");
+		}
+		if (TextUtils.isEmpty(script)) {
+			sb.append(ctx.getString(R.string.labelScript)).append(" ").append(script).append("\n");
+		}
+		return sb.toString();
 	}
 
 }
