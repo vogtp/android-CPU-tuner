@@ -125,6 +125,7 @@ public class ProfileModel {
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
+		values.put(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
 		values.put(DB.CpuProfile.NAME_SCRIPT, getScript());
 		return values;
 	}
