@@ -66,12 +66,12 @@ public class ProfilesListActivity extends ListActivity {
 					sb.append(cursor.getString(DB.CpuProfile.INDEX_GOVERNOR));
 					int up = cursor.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_UP);
 					if (up > 0) {
-						sb.append(" (").append(up);
+						sb.append(" (");
 						int down = cursor.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_DOWN);
 						if (down > 0) {
-							sb.append("% - ").append(down);
+							sb.append(down).append("% - ");
 						}
-						sb.append("%)");
+						sb.append(up).append("%)");
 					}
 					((TextView) view).setText(sb.toString());
 					return true;
