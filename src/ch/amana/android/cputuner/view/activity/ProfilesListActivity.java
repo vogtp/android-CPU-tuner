@@ -61,6 +61,20 @@ public class ProfilesListActivity extends ListActivity {
 						color = Color.GREEN;
 					}
 					((TextView) view).setTextColor(color);
+				} else if (columnIndex == DB.CpuProfile.INDEX_GOVERNOR) {
+					StringBuilder sb = new StringBuilder();
+					sb.append(cursor.getString(DB.CpuProfile.INDEX_GOVERNOR));
+					int up = cursor.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_UP);
+					if (up > 0) {
+						sb.append(" (").append(up);
+						int down = cursor.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_DOWN);
+						if (down > 0) {
+							sb.append("% - ").append(down);
+						}
+						sb.append("%)");
+					}
+					((TextView) view).setText(sb.toString());
+					return true;
 				} else if (columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MIN
 						|| columnIndex == DB.CpuProfile.INDEX_FREQUENCY_MAX) {
 					int freq = cursor.getInt(columnIndex);
