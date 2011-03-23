@@ -2,6 +2,7 @@
 - use powersave_bias 
 
 - backup restore profiles 
+- switch profile/triggers sets (everything) based on time
 - virtual governors (incl. thresholds) for inexperienced users 
 
 - animate pulsed service in list

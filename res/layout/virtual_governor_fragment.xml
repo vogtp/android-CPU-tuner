@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content" android:layout_width="match_parent"
+	android:id="@+id/llGovernorFragment" android:orientation="vertical">
+	<LinearLayout android:paddingTop="20dp" android:id="@+id/llCpuGov"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:layout_width="wrap_content">
+		<TextView android:text="@string/labelCpuGov" android:id="@+id/textView3"
+			android:paddingRight="5dp" android:textSize="20sp"
+			android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+		<Spinner android:id="@+id/SpinnerCpuGov" android:focusable="true"
+			android:prompt="@string/spinnerPromptGov" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:layout_weight=".7"></Spinner>
+	</LinearLayout>
+	<TextView android:text="Explain Gov" android:id="@+id/tvExplainGov" android:layout_height="wrap_content" android:layout_width="wrap_content"></TextView>
+</LinearLayout>
+

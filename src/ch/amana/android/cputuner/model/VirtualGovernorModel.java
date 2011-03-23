@@ -31,7 +31,7 @@ public class VirtualGovernorModel {
 		this.realGov = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
 		this.governorThresholdUp = c.getInt(DB.VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP);
 		this.governorThresholdDown = c.getInt(DB.VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN);
-		this.setScript(c.getString(DB.VirtualGovernor.INDEX_SCRIPT));
+		this.script = c.getString(DB.VirtualGovernor.INDEX_SCRIPT);
 	}
 
 	public VirtualGovernorModel(Bundle bundle) {
