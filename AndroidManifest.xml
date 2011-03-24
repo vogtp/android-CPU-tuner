@@ -92,6 +92,7 @@
         <action android:name="ch.amana.android.cputuner.ACTION_PULSE"></action>
     </intent-filter>
 </service>
+<activity android:name=".view.activity.StatsActivity"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8"/>
 

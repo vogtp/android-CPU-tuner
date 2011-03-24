@@ -4,7 +4,15 @@ V
 * bug fixes
 -
 
-V 
+V 2.0.0
+* features
+- Virtual governors
+- Settings moved to menu
+- help moved to maenu
+* bug fixes
+-
+
+V 1.6.1
 * features
 - Greek translation
 - 
@@ -292,5 +300,6 @@ V 0.9.5
 * bug fixes
 - remove capabilities check from main screen
 - install is system app is beta 
+- 'minor' things
 - 'minor' things
 - 'minor' things

@@ -1,5 +1,11 @@
 - switch gov (in profile editor) to check witch val can be r/w
 - use powersave_bias 
+- allow freqs < 400 for min
+- remove: "Acknowledge issues and hide from main screen."
+- Show (icons) license
+- context sensitive help
+
+- Feature request: CPU temperature monitoring in addition to battery 
 
 - backup restore profiles 
 - switch profile/triggers sets (everything) based on time

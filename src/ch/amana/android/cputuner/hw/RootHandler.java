@@ -155,6 +155,9 @@ public class RootHandler {
 						if (Logger.DEBUG) {
 							writeLog(line);
 						}
+						if (val.length() > 0) {
+							val.append("\n");
+						}
 						val.append(line);
 						line = reader.readLine();
 					}

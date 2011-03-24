@@ -1,3 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources><string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
+<string name="labelStatisticsTab">Statistics</string>
+<string name="label_time_in_state">Time in state:</string>
 </resources>
