@@ -4,6 +4,14 @@ V
 * bug fixes
 - 
 
+V 
+* features
+- French translation
+- allow min equal max frequency
+- switch reporting to mailing list cputuner-help@lists.sourceforge.net
+* bug fixes
+- fix switching language internally
+
 V 1.6.1
 * features
 - Settings option: Pulse mobiledata on connected wifi (default: true)

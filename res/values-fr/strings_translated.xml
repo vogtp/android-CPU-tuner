@@ -1,224 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources> 
-    <string name="labelPowerUserExplain">Full control!</string>
-    <string name="labelPowerUser">Power User</string>
-    <string name="labelNormalExplain">More advanced configuration options, still underclocking only possible to a point.</string>
+<resources>
+    <string name="labelPowerUserExplain">Contrôle total!</string>
+    <string name="labelPowerUser">Super utilisateur</string>
+    <string name="labelNormalExplain">Options de configuration avancées, surcadencement (overcloking) encore possible à ce point.</string>
     <string name="labelNormal">Normal</string>
-    <string name="labelBeginnerExplain">Easy to configure and all setting should be save to use... Underclocking only possible to a point.</string>
-    <string name="labelBeginner">Beginner</string>
-    <string name="labelBatteryHot">Battery Hot:</string>
-    <string name="labelCallInProgress">Call in progress:</string>
-    <string name="labelOnPower">On Power:</string>
-    <string name="labelScreenLocked">Screen Locked:</string>
-    <string name="labelOnBattery">On Battery:</string>
-    <string name="labelExplainTriggerProfiles">Depending on the state of the device one of the following profiles will be chosen.</string>
-    <string name="labelBatteryLevel">Battery Level</string>
-    <string name="labelExplainTrigger">Activates if the battery charge of the device is below the battery level and no other trigger with a lower and matching battery level is found.</string>
-    <string name="labelSendMail">Send mail</string>
-    <string name="labelBody">Body:</string>
-    <string name="labelGovernor">Governor:</string>
+    <string name="labelBeginnerExplain">Facile à configurer et tous les réglages doivent être enregistrer pour les utiliser ... Souscadencement (Underclocking) seulement possible à ce point.</string>
+    <string name="labelBeginner">Débutant</string>
+    <string name="labelBatteryHot">Batterie chaude:</string>
+    <string name="labelCallInProgress">Appel en cours:</string>
+    <string name="labelOnPower">Lorsque allumé:</string>
+    <string name="labelScreenLocked">Écran verrouillé:</string>
+    <string name="labelOnBattery">Sur batterie:</string>
+    <string name="labelExplainTriggerProfiles">Selon l\'état de l\'appareil un des profils suivants sera choisi.</string>
+    <string name="labelBatteryLevel">Niveau de batterie</string>
+    <string name="labelExplainTrigger">S\'active si la charge de la batterie de l\'appareil est en dessous du niveau de batterie spécifié et qu\'il n\'y en a aucun avec un niveau de batterie plus faible.</string>
+    <string name="labelSendMail">Envoyez un courriel</string>
+    <string name="labelBody">Corps:</string>
+    <string name="labelGovernor">Gouverneur:</string>
     <string name="labelBluetooth">Bluetooth</string>
-    <string name="labelWifi">Wifi</string>
+    <string name="labelWifi">Sans-fils</string>
     <string name="labelGPS">GPS</string>
-    <string name="labelBackgroundSync">Background Sync</string>
-    <string name="labelMobileDataConn">Mobiledata Con.</string>
-    <string name="labelMobileData32G">Mobiledata 2G/3G</string>
+    <string name="labelBackgroundSync">Synchronisation en arrière plan</string>
+    <string name="labelMobileDataConn">Mobile data connection</string>
+    <string name="labelMobileData32G">Mobile data 2G/3G</string>
     <string name="labelServices">Services:</string>
-    <string name="labelDown">Down:</string>
-    <string name="labelThreshsUp">Thresholds:  Up:</string>
-    <string name="labelHome">Home</string>
-    <string name="labelUsage">Usage:</string>
-    <string name="labelBuFindFeq">Find frequencies (beta only)</string>
-    <string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
-    <string name="msgDeviceInfo">Send e-mail with device information</string>
-    <string name="msgNoEmail">Please do not write empty e-mails...</string>
-    <string name="labelResult">Result</string>
-    <string name="labelCheck">Check</string>
-    <string name="labelAppVersion">CPU tuner version:</string>
-    <string name="msgNoIssuesFound">No issues found.</string>
-    <string name="prefVritualGovernorsListLong">Virtual governors are preconfigured cpu governors.</string>
-    <string name="virtualGovernorsList">Virtual Governors</string>
-    <string name="prefBatteryHotTempMsg">Custom temperature to trigger battery hot profile.<br /> Integer value in °C.</string>
-    <string name="prefBatteryHotTempLong">Custom temperature to trigger battery hot profile.</string>
-    <string name="prefBatteryHotTemp">Battery hot temperature</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Profiles switches are allowed during phone calls. Mobiledata will never be switched during calls, regardless of the state of this option.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Profiles switches are forbidden during phone calls. Mobiledata will never be switched during calls, regardless of the state of this option.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdle">Switch profile during call</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOn">Wifi will be switch off even if connected to a wifi network.</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOff">Wifi will not be switch off if connected to a wifi network.</string>
-    <string name="prefSwitchWifiOnConnectedNetwork">Switch wifi if connected</string>
-    <string name="prefServiceSwitches">Service Switches</string>
-    <string name="prefUserLevelLong">Determines how difficult the settings are, and how much you can interfere.</string>
-    <string name="prefUserLevel">Experience Level</string>
-    <string name="prefVarious">Various</string>
-	<string name="notAvailable">not available</string>
-	<string name="yes">yes</string>
-	<string name="no">no</string>
-	<string name="save">save</string>
-	<string name="save">save</string>
-	<string name="cancel">cancel</string>
-	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in power user
-		mode.</string>
-	<string name="prefMinSensibleFrequency">Min displayed frequency</string>
-	<string name="prefResetToDefaultLong">Delete all current profiles and triggers and reload
-		the default set.</string>
-	<string name="prefResetToDefault">Reset Profiles and Triggers</string>
-	<string name="prefKeyProfiles">Profiles and triggers</string>
-	<string name="prefBuyMeABeer">Buy me a beer</string>
-	<string name="prefAllowManualServiceChangesOn">Do not change the state of a service if it was modified manually
-		and no trigger change happened since then.</string>
-	<string name="prefAllowManualServiceChangesOff">Do change the state of a service regardless if it was modified manually.</string>
-	<string name="prefAllowManualServiceChanges">Manual service changes</string>
-	<string name="prefCpuFreqMsg">Space separated list of frequencies</string>
-	<string name="prefCpuFreq">Allowed CPU frequencies</string>
-	<string name="prefCpuFreqLong">Leave empty if unsure...!</string>
-	<string name="mailMessageOK">No issues have been found...
-		If you are pleased and what to give feedback, comments and good ratings
-		on the market are highly appreciated..."</string>
-	<string name="mailMessage"></string>
-	<string name="prefEnableBetaLong">e-mail me</string>
-	<string name="prefKeyCalcPowerUsageLong">This might cost some battery</string>
-	<string name="prefKeyCalcPowerUsage">Calculate power usage</string>
-	<string name="menuItemClearPowerCurrent">Clear power usage</string>
-	<string name="menuItemInsert">Insert</string>
-	<string name="menuItemEdit">Edit</string>
-	<string name="menuItemDelete">Delete</string>
-	<string name="prefEnableBetaMessage">Enable some features which are in beta state.
-	</string>
-	<string name="prefEnableBeta">Enable beta features</string>
-	<string name="prefCapabilitiesLong">Check if the devices supports API needed or if
-		there are any issues.</string>
-	<string name="prefCapabilities">Check Capabilities</string>
-	<string name="prefStatusbarAddToOff">The status bar does not show any information about
-		cpu tuner.</string>
-	<string name="prefStatusbarAddToOn">The status bar shows a entry displaying the current
-		profile.</string>
-	<string name="prefStatusbarAddTo">Add to status bar</string>
-	<string name="prefStatusbarNotificationsOff">Not showing messages in the status bar for profile
-		changes.</string>
-	<string name="prefKeyEnableProfilesOn">Showing a message in the status bar for every
-		profile change.</string>
-	<string name="prefSystemAppOff">Not installed as system app, it will not have
-		access to system settings as gps.</string>
-	<string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
-	<string name="prefSystemApp">Install as System App</string>
-	<string name="prefToastNotifications">Toast notifications</string>
-	<string name="prefStatusbarNotifications">Statusbar notifications</string>
-	<string name="prefCatNotifications">Notifications</string>
-	<string name="prefCatSystem">System</string>
-	<string name="prefEnableProfiles">Enable profiles</string>
-	<string name="prefEnableProfilesOn">CPU tuner will start a background process to manage
-		CPU profiles.  It will start on boot.</string>
-	<string name="prefEnableProfilesOff">No CPU profiles will be managed.</string>
-	<string name="prefSetCpuSetting">CPU Settings</string>
-	<string name="profileBatteryGood">Good Battery</string>
-	<string name="profileBatteryCrtitical">Critical Battery</string>
-	<string name="profileBatteryPower">Battery Power</string>
-	<string name="profileAcPower">AC Power</string>
-	<string name="profileScreenOff">Screen is off</string>
-	<string name="prefSystemPowerProfiles">System Power Profiles</string>
-	<string name="prefPowerProfiles">Power Profiles</string>
-	<string name="prefCustomPowerProfiles">Custom Power Profiles</string>
-	<string name="labelCpuFreq">Frequencies:</string>
-	<string name="labelCpuGov">Governor:</string>
-	<string name="labelCurrent">Current</string>
-	<string name="labelCurrentTrigger">Trigger:</string>
-	<string name="labelCurrentProfile">Profile:</string>
-	<string name="labelCurrentBattery">Battery:</string>
-	<string name="labelAcPower">AC Power:</string>
-	<string name="labelMax">Max:</string>
-	<string name="labelMin">Min:</string>
-	<string name="app_name">CPU tuner</string>
-	<string name="labelPowerProfile">Power Profile: </string>
-	<string name="spinnerPromptGov">Select governor</string>
-	<string name="buApplyCurProfile">Apply to current CPU profile</string>
-	<string name="notEnabled">not enabled</string>
-	<string name="triggersExplain">Triggers define depending on a battery level, what
-		profiles should be applied. For different stated (i.e. the device is
-		on battery, on power or the display is locked) different profiles can
-		be applied.</string>
-
-	<string name="explainGovOnDemand">Dynamically changes frequency based on the CPU
-		utilization with a focus on performance.</string>
-	<string name="explainGovConservative">Dynamically changes frequency based on the CPU
-		utilization with a focus on saving power.</string>
-	<string name="explainGovPerformance">Sets the frequency statically to the highest
-		available CPU frequency.</string>
-	<string name="explainGovPowersave">Sets the frequency statically to the lowest
-		available CPU frequency.</string>
-	<string name="explainGovUserspace">Sets the frequency statically to the given
-		frequency.</string>
-	<string name="explainGovInteractive">Designed for low latency burst workloads. Scaling
-		is done when coming out of idle instead of polling.</string>
-	<string name="label3g2g">2/3G</string>
-	<string name="label2g">2G</string>
-	<string name="label3g">3G</string>
-	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">sync</string>
-	<string name="labelSyncOff">
-		<strike>sync</strike>
-	</string>
-	<string name="labelSyncPrev">sync?</string>
-	<string name="labelWifiOn">wifi</string>
-	<string name="labelWifiOff">
-		<strike>wifi</strike>
-	</string>
-	<string name="labelWifiPrev">wifi?</string>
-	<string name="labelGpsOn">GPS</string>
-	<string name="labelGpsOff">
-		<strike>GPS</strike>
-	</string>
-	<string name="labelGpsPrev">GPS?</string>
-	<string name="labelBluetoothOn">BT</string>
-	<string name="labelBluetoothOff">
-		<strike>BT</strike>
-	</string>
-	<string name="labelBluetoothPrev">BT?</string>
-	<string name="labelMobiledataOn">MD</string>
-	<string name="labelMobiledataOff">
-		<strike>MD</strike>
-	</string>
-	<string name="labelMobiledataPrev">MD?</string>
+    <string name="labelDown">Bas:</string>
+    <string name="labelThreshsUp">Seuil supérieur:</string>
+    <string name="labelHome">Accueil</string>
+    <string name="labelUsage">Utilisation:</string>
+    <string name="labelBuFindFeq">Trouver les fréquences (beta)</string>
+    <string name="msgAckAndHide">Reconnaître les questions et cacher de l\'écran principal.</string>
+    <string name="msgDeviceInfo">Envoyer un e-mail avec les informations du périphérique</string>
+    <string name="msgNoEmail">SVP ne pas écrire de courriels vides...</string>
+    <string name="labelResult">Résultat</string>
+    <string name="labelCheck">Vérifier</string>
+    <string name="labelAppVersion">Version CPU tuner:</string>
+    <string name="msgNoIssuesFound">Aucun problème détecté.</string>
+    <string name="prefVritualGovernorsListLong">Les gouverneurs virtuels sont des gouverneurs préconfigurés.</string>
+    <string name="virtualGovernorsList">Gouverneurs virtuels</string>
+    <string name="prefBatteryHotTempMsg">Température personnalisée pour déclencher le profil de batterie chaude.<br /> Valeur entière.</string>
+    <string name="prefBatteryHotTempLong">Température personnalisée pour déclencher le profil batterie chaude.</string>
+    <string name="prefBatteryHotTemp">Température pour batterie chaude</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Les changements de profils sont autorisés durant les appels. Le mobile data ne sera jamais allumé pendant les appels, quel que soit l\'état de cette option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Les changements de profils sont interdites durant les appels. Le mobile data ne sera jamais allumé pendant les appels, quel que soit l\'état de cette option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdle">Changement de profil durant un appel</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOn">Le sans-fils sera éteint, même s\'il est connecté à un réseau sans-fils.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOff">Le sans-fils ne sera pas éteint, s\'il est connecté à un réseau sans-fils.</string>
+    <string name="prefSwitchWifiOnConnectedNetwork">Changer le sans-fils s\'il est connecté</string>
+    <string name="prefServiceSwitches">Changement de service</string>
+    <string name="prefUserLevelLong">Détermine la façon dont les paramètres avancés sont disponible, et si vous pouvez les modifier.</string>
+    <string name="prefUserLevel">Niveau d\'expérience</string>
+    <string name="prefVarious">Divers</string>
+<string name="notAvailable">pas disponible</string>
+<string name="yes">oui</string>
+<string name="no">non</string>
+<string name="save">enregistrer</string>
+<string name="save">enregistrer</string>
+<string name="cancel">annuler</string>
+<string name="prefMinSensibleFrequencyLong">La fréquence minimum disponible si vous n\'êtes pas en Super utilisateur.</string>
+<string name="prefMinSensibleFrequency">La fréquence minimum affiché</string>
+<string name="prefResetToDefaultLong">Supprimer tous les profils et restaurer la configuration par défaut.</string>
+<string name="prefResetToDefault">Réinitialiser les profils et les déclencheurs</string>
+<string name="prefKeyProfiles">Profils et déclencheurs</string>
+<string name="prefBuyMeABeer">Achetez-moi une bière</string>
+<string name="prefAllowManualServiceChangesOn">Ne pas changer l\'état d\'un service s\'il a été modifié à la main et qu\'il n\'y a eu aucun changement d\'événements depuis.</string>
+<string name="prefAllowManualServiceChangesOff">Ne pas changer l\'état d\'un service, peu importe s\'il a été modifié manuellement.</string>
+<string name="prefAllowManualServiceChanges">Changements des services manuel</string>
+<string name="hintMailBody">Ajouter les informations sur le problème que vous avez rencontré.</string>
+<string name="prefCpuFreqMsg">Un espace sépare la liste des fréquences</string>
+<string name="prefCpuFreq">Fréquences CPU permis</string>
+<string name="prefCpuFreqLong">Laissez vide si incertain...!</string>
+<string name="mailMessageOK">Aucun problème n\'a été trouvé ...Si vous êtes heureux, laisser des commentaires et une bonne évaluation dans le market... "</string>
+<string name="mailMessage"></string>
+<string name="prefEnableBetaLong">Laisser un message</string>
+<string name="prefKeyCalcPowerUsageLong">Cela pourrait consommer de la batterie</string>
+<string name="prefKeyCalcPowerUsage">Calculer la consommation électrique</string>
+<string name="menuItemClearPowerCurrent">Effacer la consommation électrique</string>
+<string name="menuItemInsert">Insérer</string>
+<string name="menuItemEdit">Modifier</string>
+<string name="menuItemDelete">Supprimer</string>
+<string name="prefEnableBetaMessage">Activer quelques fonctionnalités qui sont à l\'état bêta.</string>
+<string name="prefEnableBeta">Activer les fonctionnalités bêta</string>
+<string name="prefCapabilitiesLong">Vérifier si les dispositifs supporte l\'API nécessaire ou s\'il y a des problèmes.</string>
+<string name="prefCapabilities">Vérifiez les capacités</string>
+<string name="prefStatusbarAddToOff">La barre d\'état ne montre pas d\'informations sur Cpu tuner.</string>
+<string name="prefStatusbarAddToOn">La barre d\'état affiche le profil actuel.</string>
+<string name="prefStatusbarAddTo">Ajouter à la barre d\'état</string>
+<string name="prefStatusbarNotificationsOff">Ne pas afficher les messages dans la barre d\'état pour les modifications de profil.</string>
+<string name="prefKeyEnableProfilesOn">Afficher les messages dans la barre d\'état pour toutes les modifications de profil.</string>
+<string name="prefSystemAppOff">Pas installé comme application système, elle n\'aura pas accès aux paramètres GPS.</string>
+<string name="prefSystemAppOn">Est une application système, elle peut modifier les paramètres GPS</string>
+<string name="prefSystemApp">Installer en tant qu\'application système</string>
+<string name="prefToastNotifications">Notifications modales</string>
+<string name="prefStatusbarNotifications">Notifications dans la barre d\'état</string>
+<string name="prefCatNotifications">Notifications</string>
+<string name="prefCatSystem">Système</string>
+<string name="prefEnableProfiles">Activer profils</string>
+<string name="prefEnableProfilesOn">CPU tuner va commencer en processus d\'arrière-plan pour gérer les profils de CPU. Il sera lancé au démarrage.</string>
+<string name="prefEnableProfilesOff">Aucun profil CPU sera géré.</string>
+<string name="prefSetCpuSetting">Paramètres CPU</string>
+<string name="profileBatteryGood">Batterie bonne</string>
+<string name="profileBatteryCrtitical">Batterie critique</string>
+<string name="profileBatteryPower">Puissance de la batterie</string>
+<string name="profileAcPower">Alimentation secteur</string>
+<string name="profileScreenOff">L\'écran est éteint</string>
+<string name="prefSystemPowerProfiles">Profil d\'alimentation système</string>
+<string name="prefPowerProfiles">Profil d\'alimentation</string>
+<string name="prefCustomPowerProfiles">Profils d\'alimentation personnalisés</string>
+<string name="labelCpuFreq">Fréquences:</string>
+<string name="labelCpuGov">Gouverneur:</string>
+<string name="labelCurrent">Courant</string>
+<string name="labelCurrentTrigger">Déclencheur:</string>
+<string name="labelCurrentProfile">Profil:</string>
+<string name="labelCurrentBattery">Batterie:</string>
+<string name="labelAcPower">Alimentation secteur:</string>
+<string name="labelMax">Max:</string>
+<string name="labelMin">Min:</string>
+<string name="app_name">CPU tuner</string>
+<string name="labelPowerProfile">Profil d\'alimentation: </string>
+<string name="spinnerPromptGov">Sélectionnez le gouverneur</string>
+<string name="buApplyCurProfile">Appliquer sur le profil actuel</string>
+<string name="notEnabled">pas activé</string>
+<string name="triggersExplain">Les déclencheurs définits en fonction du niveau de la batterie, 
+décident des profils qui seront appliquées. Pour différents états (comme si le dispositif est
+sur la batterie, ou si l\'écran est verrouillé) différents profils peuvent être appliquée.</string>
+<string name="explainGovOnDemand">La fréquence changera dynamiquement selon l\'utilisation du CPU,
+ avec un accent sur la performance.</string>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<string name="explainGovConservative">Dynamically changes frequency based on the CPU
+utilization with a focus on saving power.</string>
+<string name="explainGovPerformance">Sets the frequency statically to the highest
+available CPU frequency.</string>
+<string name="explainGovPowersave">Sets the frequency statically to the lowest
+available CPU frequency.</string>
+<string name="explainGovUserspace">Sets the frequency statically to the given
+frequency.</string>
+<string name="explainGovInteractive">Designed for low latency burst workloads. Scaling
+is done when coming out of idle instead of polling.</string>
+<string name="label3g2g">2/3G</string>
+<string name="label2g">2G</string>
+<string name="label3g">3G</string>
+<string name="label3g2gPrev">2/3G?</string>
+<string name="labelSyncOn">sync</string>
+<string name="labelSyncOff">
+<strike>sync</strike>
+</string>
+<string name="labelSyncPrev">sync?</string>
+<string name="labelWifiOn">wifi</string>
+<string name="labelWifiOff">
+<strike>wifi</strike>
+</string>
+<string name="labelWifiPrev">wifi?</string>
+<string name="labelGpsOn">GPS</string>
+<string name="labelGpsOff">
+<strike>GPS</strike>
+</string>
+<string name="labelGpsPrev">GPS?</string>
+<string name="labelBluetoothOn">BT</string>
+<string name="labelBluetoothOff">
+<strike>BT</strike>
+</string>
+<string name="labelBluetoothPrev">BT?</string>
+<string name="labelMobiledataOn">MD</string>
+<string name="labelMobiledataOff">
+<strike>MD</strike>
+</string>
+<string name="labelMobiledataPrev">MD?</string>
 
 
-	<string-array name="deviceStates">
-		<item>leave unchanged</item>
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Back to previous</item>
-		<item>Pulse</item>
-	</string-array>
-	<string-array name="deviceStatesBeta">
-		<item>leave unchanged</item>
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Back to previous</item>
-		<item>Pulse</item>
-	</string-array>
-	<string-array name="mobiledataStates">
-		<item>leave unchanged</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>Back to previous</item>
-		<item>3G only</item>
-	</string-array>
-	<string-array name="mobiledataStatesBeta">
-		<item>leave unchanged</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>Back to previous</item>
-		<item>3G only</item>
-	</string-array>
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>Average value</item>
-		<item>Current value</item>
-		<item>No calculation</item>
-	</string-array>
-	<string-array name="prefUserLevelEntries">
-		<item><b>Beginner</b>: cpu tuner tries to be clever.</item>
-		<item><b>Normal</b>: cpu tuner supports you.</item>
-		<item><b>Power user</b>: You\'re the boss!</item>
-	</string-array>
+<string-array name="deviceStates">
+<item>leave unchanged</item>
+<item>Enable</item>
+<item>Disable</item>
+<item>Back to previous</item>
+<item>Pulse</item>
+</string-array>
+<string-array name="deviceStatesBeta">
+<item>leave unchanged</item>
+<item>Enable</item>
+<item>Disable</item>
+<item>Back to previous</item>
+<item>Pulse</item>
+</string-array>
+<string-array name="mobiledataStates">
+<item>leave unchanged</item>
+<item>2G only</item>
+<item>3G/2G</item>
+<item>Back to previous</item>
+<item>3G only</item>
+</string-array>
+<string-array name="mobiledataStatesBeta">
+<item>leave unchanged</item>
+<item>2G only</item>
+<item>3G/2G</item>
+<item>Back to previous</item>
+<item>3G only</item>
+</string-array>
+<string-array name="prefCalcPowerUsageEntries">
+<item>Average value</item>
+<item>Current value</item>
+<item>No calculation</item>
+</string-array>
+<string-array name="prefUserLevelEntries">
+<item><b>Beginner</b>: cpu tuner tries to be clever.</item>
+<item><b>Normal</b>: cpu tuner supports you.</item>
+<item><b>Power user</b>: You\'re the boss!</item>
+</string-array>
 <string name="cbEnableVirtualGovernors">Enable virtual governors</string>
 <string name="userExperianceLevelExplain">CPU tuner can operate on different experience levels. Depending on the level it gives you more choices and lets you do more things.</string>
 <string name="prefCallInProgressProfile">Call in Progress Profile</string>
@@ -251,7 +246,7 @@
 <string name="virtgovname_save_battery">Save Battery</string>
 <string name="virtgovname_extrem_save_battery">Extreme Save Battery</string>
 <string name="title_reboot">Reboot</string>
-<string name="msg_reboot">The automatic (save) reboot failed.  Please do a manual reboot by long pressing the power button, otherwise cpu tuner will not work.</string>
+<string name="msg_reboot">The automatic (save) reboot failed. Please do a manual reboot by long pressing the power button, otherwise cpu tuner will not work.</string>
 <string name="bu_system_reboot">System reboot (not recommended)</string>
 <string name="title_uninstall_sys">Uninstall cpu tuner as system app</string>
 <string name="bu_yes_uninstall_sys">Uninstall and reboot</string>
@@ -299,3 +294,4 @@ Please do not write e-mails unless you think there is something wrong with the c
 <string name="label_tresh_down">down: </string>
 <string name="label_governor_tresholds">Governor thresholds:</string>
 </resources>
+
