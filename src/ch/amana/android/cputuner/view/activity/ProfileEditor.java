@@ -149,7 +149,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 				try {
 					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
 					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
-					if (max > min) {
+					if (max >= min) {
 						updateModel();
 						profile.setMaxFreq(max);
 						updateView();
@@ -180,7 +180,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 				try {
 					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
 					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
-					if (max > min) {
+					if (max >= min) {
 						updateModel();
 						profile.setMinFreq(min);
 						updateView();
