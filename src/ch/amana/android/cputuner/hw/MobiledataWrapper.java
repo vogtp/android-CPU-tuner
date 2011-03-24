@@ -16,11 +16,17 @@ public class MobiledataWrapper {
 
 	private ConnectivityManager cm;
 
+	private boolean canAccessMobileData = false;
+
 	public static MobiledataWrapper getInstance(Context ctx) {
 		if (instance == null) {
 			instance = new MobiledataWrapper(ctx.getApplicationContext());
 		}
 		return instance;
+	}
+
+	public boolean getCanAccessMobileData() {
+		return canAccessMobileData;
 	}
 
 	private MobiledataWrapper(Context ctx) {
@@ -30,6 +36,7 @@ public class MobiledataWrapper {
 			Class<?> c = Class.forName(cm.getClass().getName());
 			setMobileDataEnabled = c.getMethod("setMobileDataEnabled", boolean.class);
 			getMobileDataEnabled = c.getMethod("getMobileDataEnabled");
+			canAccessMobileData = true;
 		} catch (Exception e) {
 			Logger.e("Cannot access mobiledata controll: " + e.getMessage());
 		}
