@@ -3,13 +3,17 @@ package ch.amana.android.cputuner.view.activity;
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SimpleCursorAdapter;
+import android.widget.SimpleCursorAdapter.ViewBinder;
+import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class VirtualGovernorListActivity extends ListActivity {
 
@@ -39,6 +43,29 @@ public class VirtualGovernorListActivity extends ListActivity {
 						DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP },
 				new int[] { R.id.tvVirtualGovernor, R.id.tvGorvernor, R.id.tvThresholdDown, R.id.tvThresholdUp });
 
+		adapter.setViewBinder(new ViewBinder() {
+			
+			@Override
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP) {
+					if (cursor.getInt(columnIndex) < 1) {
+						((TextView) view).setText("-");
+						((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.INVISIBLE);
+						return true;
+					}
+					((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.VISIBLE);
+				}else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN) {
+					if (cursor.getInt(columnIndex) < 1) {
+						((TextView) view).setText("");
+						((View) view.getParent()).findViewById(R.id.labelThresholdDown).setVisibility(View.INVISIBLE);
+						return true;
+					}
+					((View) view.getParent()).findViewById(R.id.labelThresholdDown).setVisibility(View.VISIBLE);
+				}
+				return false;
+			}
+		});
+		
 		getListView().setAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
 
