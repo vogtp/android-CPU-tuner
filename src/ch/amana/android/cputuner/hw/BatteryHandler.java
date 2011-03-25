@@ -9,6 +9,7 @@ public class BatteryHandler extends HardwareHandler {
 	private static final String CAPACITY = "capacity";
 
 	public static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
+	public static final String BATTERY_CPCAP_DIR = "/sys/devices/platform/cpcap_battery/power_supply/battery/";
 	private static final File CURRENT_NOW_FILE = new File(BATTERY_DIR, CURRENT_NOW);
 	private static final File CURRENT_AVG_FILE = new File(BATTERY_DIR, CURRENT_AVG);
 	private static final File CAPACITY_FILE = new File(BATTERY_DIR, CAPACITY);
@@ -28,7 +29,7 @@ public class BatteryHandler extends HardwareHandler {
 	public static int getBatteryCurrentAverage() {
 		int current = getIntFromStr(RootHandler.readFile(CURRENT_AVG_FILE));
 		if (current == NO_VALUE_INT) {
-			current = getIntFromStr(RootHandler.readFile(getBattCurrentFile()));
+			current = getIntFromStr(RootHandler.readFile(getBattAvgFile()));
 		}
 		if (current == NO_VALUE_INT) {
 			return NO_VALUE_INT;
@@ -37,10 +38,34 @@ public class BatteryHandler extends HardwareHandler {
 	}
 
 	public static File getBattCurrentFile() {
-		if (BATT_CURRENT_FILE == null) {
+		if (!canReadFromBattCurFile()) {
 			BATT_CURRENT_FILE = new File(BATTERY_DIR, BATT_CURRENT);
 		}
+		if (!canReadFromBattCurFile()) {
+			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, CURRENT_NOW);
+		}
+		if (!canReadFromBattCurFile()) {
+			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, BATT_CURRENT);
+		}
 		return BATT_CURRENT_FILE;
+	}
+
+	private static boolean canReadFromBattCurFile() {
+		return getIntFromStr(RootHandler.readFile(CURRENT_NOW_FILE)) != NO_VALUE_INT;
+	}
+
+	public static File getBattAvgFile() {
+		if (!canReadFromBattAvgFile()) {
+			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, CURRENT_AVG);
+		}
+		if (!canReadFromBattAvgFile()) {
+			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, BATT_CURRENT);
+		}
+		return BATT_CURRENT_FILE;
+	}
+
+	private static boolean canReadFromBattAvgFile() {
+		return getIntFromStr(RootHandler.readFile(CURRENT_NOW_FILE)) != NO_VALUE_INT;
 	}
 
 	public static int getBatteryLevel() {
