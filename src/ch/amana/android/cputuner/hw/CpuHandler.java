@@ -32,6 +32,7 @@ public class CpuHandler extends HardwareHandler {
 	private static final String SCALING_CUR_FREQ = "scaling_cur_freq";
 	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
 	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
+	private static final String POWERSAVE_BIAS = "powersave_bias";
 
 	private static final String GOV_TRESHOLD_UP = "up_threshold";
 	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
@@ -55,7 +56,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public ProfileModel getCurrentCpuSettings() {
-		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq());
+		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq(), getGovThresholdUp(), getGovThresholdDown(), getPowersaveBias());
 	}
 
 	public void applyCpuSettings(ProfileModel cpu) {
@@ -81,6 +82,7 @@ public class CpuHandler extends HardwareHandler {
 			StringBuilder result = new StringBuilder();
 			RootHandler.execute(cpu.getScript(), result);
 		}
+		setPowersaveBias(cpu.getPowersaveBias());
 	}
 
 	public int getCurCpuFreq() {
@@ -162,6 +164,14 @@ public class CpuHandler extends HardwareHandler {
 
 	public int getGovThresholdDown() {
 		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN)));
+	}
+
+	public boolean setPowersaveBias(int i) {
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), POWERSAVE_BIAS), i + "");
+	}
+
+	public int getPowersaveBias() {
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), POWERSAVE_BIAS)));
 	}
 
 	public boolean setGovThresholdUp(int i) {

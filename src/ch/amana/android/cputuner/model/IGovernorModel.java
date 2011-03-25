@@ -26,4 +26,7 @@ public interface IGovernorModel {
 
 	public long getVirtualGovernor();
 
+	public void setPowersaveBias(int powersaveBias);
+
+	public int getPowersaveBias();
 }

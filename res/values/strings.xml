@@ -8,4 +8,5 @@
 <string name="hintVirtualGovernorName">Virtual Governor Name</string>
 <string name="prefCatGUI">GUI</string>
 <string name="prefCatDisplay">Display</string>
+<string name="labelPowersaveBias">Powersave bias:</string>
 </resources>

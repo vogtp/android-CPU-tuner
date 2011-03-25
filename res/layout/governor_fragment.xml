@@ -28,6 +28,10 @@
 			android:height="16dp" android:id="@+id/etGovTreshDown"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"></EditText>
 	</LinearLayout>
+	<LinearLayout android:id="@+id/llPowersaveBias" android:layout_height="wrap_content" android:layout_width="match_parent">
+		<TextView android:text="@string/labelPowersaveBias" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
+		<SeekBar android:max="1000" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/sbPowersaveBias"></SeekBar>
+	</LinearLayout>
 	<TextView android:text="Explain Gov" android:id="@+id/tvExplainGov" android:layout_height="wrap_content" android:layout_width="wrap_content"></TextView>
 	<LinearLayout android:paddingTop="20dp" android:id="@+id/llScript" android:layout_height="wrap_content" android:layout_width="match_parent">
 		<TextView android:text="@string/labelScript" android:id="@+id/textView1" android:paddingRight="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content"></TextView>

@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private String[] availCpuGovs;
 	private String origThreshUp;
 	private String origThreshDown;
+	private SeekBar sbPowersaveBias;
 
 	public GovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
 		super(callback, governor);
@@ -63,6 +65,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		etGovTreshDown = (EditText) act.findViewById(R.id.etGovTreshDown);
 		spinnerSetGov = (Spinner) act.findViewById(R.id.SpinnerCpuGov);
 		etScript = (EditText) act.findViewById(R.id.etScript);
+		sbPowersaveBias = (SeekBar) act.findViewById(R.id.sbPowersaveBias);
 
 		if (!settings.isEnableScriptOnProfileChange()) {
 			llFragmentTop.removeView(act.findViewById(R.id.llScript));
@@ -130,13 +133,15 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 	@Override
 	public void updateModel() {
-		getGovernorModel().setGovernorThresholdUp(etGovTreshUp.getText().toString());
-		getGovernorModel().setGovernorThresholdDown(etGovTreshDown.getText().toString());
+		IGovernorModel governorModel = getGovernorModel();
+		governorModel.setGovernorThresholdUp(etGovTreshUp.getText().toString());
+		governorModel.setGovernorThresholdDown(etGovTreshDown.getText().toString());
 		if (SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
-			getGovernorModel().setScript(etScript.getText().toString());
+			governorModel.setScript(etScript.getText().toString());
 		} else {
-			getGovernorModel().setScript("");
+			governorModel.setScript("");
 		}
+		governorModel.setPowersaveBias(sbPowersaveBias.getProgress());
 	}
 
 	@Override
@@ -151,6 +156,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		if (SettingsStorage.getInstance().isPowerUser()) {
 			etScript.setText(getGovernorModel().getScript());
 		}
+		getGovernorModel().setPowersaveBias(sbPowersaveBias.getProgress());
 		updateGovernorFeatures();
 	}
 

@@ -18,6 +18,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 	private int governorThresholdUp = 98;
 	private int governorThresholdDown = 95;
 	private String script = "";
+	private int powersaveBias = 0;
 
 	public VirtualGovernorModel() {
 		super();
@@ -31,6 +32,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		this.governorThresholdUp = c.getInt(DB.VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP);
 		this.governorThresholdDown = c.getInt(DB.VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN);
 		this.script = c.getString(DB.VirtualGovernor.INDEX_SCRIPT);
+		this.powersaveBias = c.getInt(DB.VirtualGovernor.INDEX_POWERSEAVE_BIAS);
 	}
 
 	public VirtualGovernorModel(Bundle bundle) {
@@ -49,6 +51,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		bundle.putInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		bundle.putInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		bundle.putString(DB.VirtualGovernor.NAME_SCRIPT, getScript());
+		bundle.putInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS, getPowersaveBias());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -58,6 +61,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		governorThresholdUp = bundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP);
 		governorThresholdDown = bundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN);
 		script = bundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
+		powersaveBias = bundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
 	}
 
 	public ContentValues getValues() {
@@ -71,6 +75,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		values.put(DB.VirtualGovernor.NAME_SCRIPT, getScript());
+		values.put(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS, getPowersaveBias());
 		return values;
 	}
 
@@ -113,6 +118,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		int result = 1;
 		result = prime * result + governorThresholdDown;
 		result = prime * result + governorThresholdUp;
+		result = prime * result + powersaveBias;
 		result = prime * result + ((realGov == null) ? 0 : realGov.hashCode());
 		result = prime * result + ((script == null) ? 0 : script.hashCode());
 		result = prime * result + ((virtualGov == null) ? 0 : virtualGov.hashCode());
@@ -131,6 +137,8 @@ public class VirtualGovernorModel implements IGovernorModel {
 		if (governorThresholdDown != other.governorThresholdDown)
 			return false;
 		if (governorThresholdUp != other.governorThresholdUp)
+			return false;
+		if (powersaveBias != other.powersaveBias)
 			return false;
 		if (realGov == null) {
 			if (other.realGov != null)
@@ -218,6 +226,14 @@ public class VirtualGovernorModel implements IGovernorModel {
 	@Override
 	public long getVirtualGovernor() {
 		throw new RuntimeException("VirtualGovernorModel does not support getVirtualGovernor");
+	}
+
+	public void setPowersaveBias(int powersaveBias) {
+		this.powersaveBias = powersaveBias;
+	}
+
+	public int getPowersaveBias() {
+		return powersaveBias;
 	}
 
 }
