@@ -16,8 +16,6 @@
 					android:summary="@string/prefKeyCalcPowerUsageLong"
 					android:defaultValue="1" android:entries="@array/prefCalcPowerUsageEntries"
 					android:key="prefKeyCalcPowerUsageType" android:entryValues="@array/prefCalcPowerUsageValues"></ListPreference>
-				<Preference android:summary="@string/prefVritualGovernorsListLong"
-					android:key="prefKeyVritualGovernorsList" android:title="@string/virtualGovernorsList"></Preference>
 				<Preference android:key="prefKeyResetToDefault"
 					android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault"
 					android:enabled="true"></Preference>
