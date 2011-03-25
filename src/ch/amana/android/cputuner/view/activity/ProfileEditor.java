@@ -44,7 +44,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private TextView tvCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
 	private TextView tvCpuFreqMin;
-	private int[] availCpuFreqs;
+	private int[] availCpuFreqsMax;
+	private int[] availCpuFreqsMin;
 	private ProfileModel origProfile;
 	private Spinner spWifi;
 	private Spinner spGps;
@@ -86,14 +87,15 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
 
 		cpuHandler = CpuHandler.getInstance();
-		availCpuFreqs = cpuHandler.getAvailCpuFreq();
+		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
+		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
 
 		SettingsStorage settings = SettingsStorage.getInstance();
 
 		if (settings.isUseVirtualGovernors()) {
-			governorFragment = new VirtualGovernorFragment(this, profile, origProfile);
+			governorFragment = new VirtualGovernorFragment(this, profile);
 		} else {
-			governorFragment = new GovernorFragment(this, profile, origProfile);
+			governorFragment = new GovernorFragment(this, profile);
 		}
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -101,15 +103,15 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		fragmentTransaction.commit();
 
 		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency() && settings.isBeginnerUser()) {
-			if (availCpuFreqs != null && availCpuFreqs.length > 0) {
-				profile.setMinFreq(availCpuFreqs[0]);
+			if (availCpuFreqsMin != null && availCpuFreqsMin.length > 0) {
+				profile.setMinFreq(availCpuFreqsMin[0]);
 			}
 		}
 
-		if (ProfileModel.NO_VALUE_INT == profile.getMinFreq() && availCpuFreqs.length > 0) {
+		if (ProfileModel.NO_VALUE_INT == profile.getMinFreq() && availCpuFreqsMin.length > 0) {
 			profile.setMinFreq(cpuHandler.getMinCpuFreq());
 		}
-		if (ProfileModel.NO_VALUE_INT == profile.getMaxFreq() && availCpuFreqs.length > 0) {
+		if (ProfileModel.NO_VALUE_INT == profile.getMaxFreq() && availCpuFreqsMax.length > 0) {
 			profile.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
@@ -137,18 +139,18 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spSync = (Spinner) findViewById(R.id.spSync);
 
 
-		sbCpuFreqMax.requestFocus();
+// sbCpuFreqMax.requestFocus();
 
 		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
 
-		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
+		sbCpuFreqMax.setMax(availCpuFreqsMax.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
-					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
+					int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
+					int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
 					if (max >= min) {
 						updateModel();
 						profile.setMaxFreq(max);
@@ -172,14 +174,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			}
 		});
 
-		sbCpuFreqMin.setMax(availCpuFreqs.length - 1);
+		sbCpuFreqMin.setMax(availCpuFreqsMin.length - 1);
 		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
-					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
+					int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
+					int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
 					if (max >= min) {
 						updateModel();
 						profile.setMinFreq(min);
@@ -389,8 +391,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 	public void updateView() {
 		etName.setText(profile.getProfileName());
-		setSeekbar(profile.getMaxFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(profile.getMinFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
+		setSeekbar(profile.getMaxFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
+		setSeekbar(profile.getMinFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
 		spWifi.setSelection(profile.getWifiState());
 		spGps.setSelection(profile.getGpsState());
 		spBluetooth.setSelection(profile.getBluetoothState());
@@ -441,11 +443,12 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile.readFromBundle(bundle);
 			updateView();
 			finish();
-			break;
+			return true;
+
 		case R.id.menuItemSave:
 			finish();
-			break;
+			return true;
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 }

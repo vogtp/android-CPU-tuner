@@ -48,7 +48,8 @@ public class CurInfo extends Activity {
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
 	private TextView tvCurrentTrigger;
-	private int[] availCpuFreqs;
+	private int[] availCpuFreqsMin;
+	private int[] availCpuFreqsMax;
 	private String[] availCpuGovs;
 	private TextView tvExplainGov;
 	private TextView labelCpuFreqMin;
@@ -117,7 +118,8 @@ public class CurInfo extends Activity {
 		powerProfiles = PowerProfiles.getInstance();
 
 		availCpuGovs = cpuHandler.getAvailCpuGov();
-		availCpuFreqs = cpuHandler.getAvailCpuFreq();
+		availCpuFreqsMax = cpuHandler.getAvailCpuFreq();
+		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
 
 		tvCurrentTrigger = (TextView) findViewById(R.id.tvCurrentTrigger);
 		spProfiles = (Spinner) findViewById(R.id.spProfiles);
@@ -161,13 +163,13 @@ public class CurInfo extends Activity {
 			}
 		});
 
-		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
+		sbCpuFreqMax.setMax(availCpuFreqsMax.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					int val = availCpuFreqs[seekBar.getProgress()];
+					int val = availCpuFreqsMax[seekBar.getProgress()];
 					if (val != cpuHandler.getMaxCpuFreq()) {
 						if (cpuHandler.setMaxCpuFreq(val)) {
 							Toast.makeText(CurInfo.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
@@ -188,13 +190,13 @@ public class CurInfo extends Activity {
 			}
 		});
 
-		sbCpuFreqMin.setMax(availCpuFreqs.length - 1);
+		sbCpuFreqMin.setMax(availCpuFreqsMin.length - 1);
 		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					int val = availCpuFreqs[seekBar.getProgress()];
+					int val = availCpuFreqsMin[seekBar.getProgress()];
 					if (val != cpuHandler.getMinCpuFreq()) {
 						if (cpuHandler.setMinCpuFreq(val)) {
 							Toast.makeText(CurInfo.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
@@ -227,7 +229,7 @@ public class CurInfo extends Activity {
 					boolean ret = cpuHandler.setCurGov(gov);
 					if (ret) {
 						if (CpuHandler.GOV_USERSPACE.equals(gov)) {
-							setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
+							setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
 						}
 						Toast.makeText(parent.getContext(), getString(R.string.msg_setting_govenor, gov), Toast.LENGTH_LONG).show();
 					}
@@ -343,8 +345,8 @@ public class CurInfo extends Activity {
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
 
-		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
+		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
+		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
 		String curGov = cpuHandler.getCurCpuGov();
 		for (int i = 0; i < availCpuGovs.length; i++) {
 			if (curGov.equals(availCpuGovs[i])) {
@@ -353,7 +355,7 @@ public class CurInfo extends Activity {
 		}
 
 		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
-			setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
+			setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
 			labelCpuFreqMax.setText(R.string.labelCpuFreq);
 			labelCpuFreqMin.setVisibility(View.INVISIBLE);
 			tvCpuFreqMin.setVisibility(View.INVISIBLE);

@@ -9,16 +9,12 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class VirtualGovernorModel {
-
-	public static final String NO_VALUE_STR = "None";
-
-	public static final int NO_VALUE_INT = -1;
+public class VirtualGovernorModel implements IGovernorModel {
 
 	private long id = -1;
 
-	private String virtualGov = NO_VALUE_STR;
-	private String realGov = NO_VALUE_STR;
+	private String virtualGov = ProfileModel.NO_VALUE_STR;
+	private String realGov = ProfileModel.NO_VALUE_STR;
 	private int governorThresholdUp = 98;
 	private int governorThresholdDown = 95;
 	private String script = "";
@@ -49,7 +45,7 @@ public class VirtualGovernorModel {
 			bundle.putLong(DB.NAME_ID, -1);
 		}
 		bundle.putString(DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, getVirtualGovernorName());
-		bundle.putString(DB.VirtualGovernor.NAME_REAL_GOVERNOR, getRealGovernor());
+		bundle.putString(DB.VirtualGovernor.NAME_REAL_GOVERNOR, getGov());
 		bundle.putInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		bundle.putInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		bundle.putString(DB.VirtualGovernor.NAME_SCRIPT, getScript());
@@ -71,15 +67,23 @@ public class VirtualGovernorModel {
 		}
 
 		values.put(DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, getVirtualGovernorName());
-		values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, getRealGovernor());
+		values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, getGov());
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		values.put(DB.VirtualGovernor.NAME_SCRIPT, getScript());
 		return values;
 	}
 
-	public String getRealGovernor() {
+	public String getGov() {
+		if (realGov == null) {
+			return ProfileModel.NO_VALUE_STR;
+		}
 		return realGov;
+	}
+
+	@Override
+	public void setGov(String gov) {
+		realGov = gov;
 	}
 
 	public String getVirtualGovernorName() {
@@ -204,6 +208,16 @@ public class VirtualGovernorModel {
 			sb.append(ctx.getString(R.string.labelScript)).append(" ").append(script).append("\n");
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public void setVirtualGovernor(long id) {
+		throw new RuntimeException("VirtualGovernorModel does not support setVirtualGovernor");
+	}
+
+	@Override
+	public long getVirtualGovernor() {
+		throw new RuntimeException("VirtualGovernorModel does not support getVirtualGovernor");
 	}
 
 }

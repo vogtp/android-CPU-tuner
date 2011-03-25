@@ -316,14 +316,17 @@ public class ProfilesListActivity extends ListActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		return handleCommonMenu(item);
+		if (handleCommonMenu(item)) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private boolean handleCommonMenu(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemInsert:
 			startActivity(new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI));
-			break;
+			return true;
 		}
 		return false;
 	}

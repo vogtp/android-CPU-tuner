@@ -208,7 +208,7 @@ public class CpuHandler extends HardwareHandler {
 		return getAvailCpuFreq(false);
 	}
 
-	public int[] getAvailCpuFreq(boolean forcePowerUserMode) {
+	public int[] getAvailCpuFreq(boolean allowLowFreqs) {
 
 		int[] freqs = createListInt(RootHandler.readFile(getFile(CPU_DIR, SCALING_AVAILABLE_FREQUENCIES)));
 		if (freqs[0] == NO_VALUE_INT) {
@@ -241,7 +241,7 @@ public class CpuHandler extends HardwareHandler {
 
 		}
 		availCpuFreq = true;
-		if (forcePowerUserMode ||
+		if (allowLowFreqs ||
 				SettingsStorage.getInstance().isPowerUser()) {
 			Arrays.sort(freqs);
 			return freqs;

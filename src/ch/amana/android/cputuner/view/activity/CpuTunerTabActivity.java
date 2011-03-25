@@ -69,12 +69,12 @@ public class CpuTunerTabActivity extends TabActivity {
 		case R.id.itemSettings:
 			i = new Intent(this, SettingsPreferenceActivity.class);
 			startActivity(i);
-			break;
+			return true;
 
 		case R.id.itemMenuHelp:
 			i = new Intent(this, HelpActivity.class);
 			startActivity(i);
-			break;
+			return true;
 
 		}
 		return super.onOptionsItemSelected(item);

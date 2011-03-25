@@ -15,7 +15,7 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
@@ -27,8 +27,8 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	private TextView tvExplainGov;
 	private Cursor cursor;
 
-	public VirtualGovernorFragment(GovernorFragmentCallback callback, ProfileModel profile, ProfileModel origProfile) {
-		super(callback, profile, origProfile);
+	public VirtualGovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
+		super(callback, governor);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				callback.updateModel();
-				getProfile().setVirtualGovernor(id);
+				getGovernorModel().setVirtualGovernor(id);
 				callback.updateView();
 			}
 
@@ -78,12 +78,13 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 
 	@Override
 	public void updateModel() {
-		VirtualGovernorModel virtGov = getVirtualGovernorModel(profile.getVirtualGovernor());
+		IGovernorModel governorModel = getGovernorModel();
+		VirtualGovernorModel virtGov = getVirtualGovernorModel(governorModel.getVirtualGovernor());
 		if (virtGov != null) {
-			profile.setGov(virtGov.getRealGovernor());
-			profile.setGovernorThresholdUp(virtGov.getGovernorThresholdUp());
-			profile.setGovernorThresholdDown(virtGov.getGovernorThresholdDown());
-			profile.setScript(virtGov.getScript());
+			governorModel.setGov(virtGov.getGov());
+			governorModel.setGovernorThresholdUp(virtGov.getGovernorThresholdUp());
+			governorModel.setGovernorThresholdDown(virtGov.getGovernorThresholdDown());
+			governorModel.setScript(virtGov.getScript());
 		} else {
 			Logger.e("Cannot load virtual governor");
 			Toast.makeText(getActivity(), R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();
@@ -92,7 +93,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 
 	@Override
 	public void updateView() {
-		long virtualGovernor = getProfile().getVirtualGovernor();
+		long virtualGovernor = getGovernorModel().getVirtualGovernor();
 		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
 		VirtualGovernorModel virtualGov = getVirtualGovernorModel(virtualGovernor);
 		if (virtualGov != null) {

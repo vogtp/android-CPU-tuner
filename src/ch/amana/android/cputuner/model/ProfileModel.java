@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class ProfileModel {
+public class ProfileModel implements IGovernorModel {
 
 	public static final String NO_VALUE_STR = "None";
 

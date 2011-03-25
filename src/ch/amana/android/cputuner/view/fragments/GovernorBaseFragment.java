@@ -1,43 +1,30 @@
 package ch.amana.android.cputuner.view.fragments;
 
 import android.support.v4.app.Fragment;
-import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.IGovernorModel;
 
 public abstract class GovernorBaseFragment extends Fragment {
 
 	protected GovernorFragmentCallback callback;
 
-	protected ProfileModel profile;
-	protected ProfileModel origProfile;
+	private IGovernorModel governor;
 
 	private GovernorBaseFragment() {
 		super();
 	}
 
-	public GovernorBaseFragment(GovernorFragmentCallback callback, ProfileModel profile, ProfileModel origProfile) {
+	public GovernorBaseFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
 		this();
 		this.callback = callback;
-		this.profile = profile;
-		if (origProfile == null) {
-			origProfile = profile;
-		}
-		this.origProfile = origProfile;
+		this.governor = governor;
 	}
 
-	public void setProfile(ProfileModel profile) {
-		this.profile = profile;
+	public void setGovernorModel(IGovernorModel governor) {
+		this.governor = governor;
 	}
 
-	public ProfileModel getProfile() {
-		return profile;
-	}
-
-	public void setOrigProfile(ProfileModel origProfile) {
-		this.origProfile = origProfile;
-	}
-
-	public ProfileModel getOrigProfile() {
-		return origProfile;
+	public IGovernorModel getGovernorModel() {
+		return governor;
 	}
 
 	public abstract void updateModel();

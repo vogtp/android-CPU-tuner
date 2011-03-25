@@ -163,7 +163,7 @@
 	<string name="labelMax">Max:</string>
 	<string name="labelMin">Min:</string>
 	<string name="app_name">CPU tuner</string>
-	<string name="labelPowerProfile">Power Profile: </string>
+	<string name="labelPowerProfile">Profile: </string>
 	<string name="spinnerPromptGov">Select governor</string>
 	<string name="buApplyCurProfile">Apply to current CPU profile</string>
 	<string name="notEnabled">not enabled</string>

@@ -18,7 +18,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.IGovernorModel;
 
 public class GovernorFragment extends GovernorBaseFragment {
 
@@ -31,9 +31,13 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private EditText etScript;
 	private LinearLayout llFragmentTop;
 	private String[] availCpuGovs;
+	private String origThreshUp;
+	private String origThreshDown;
 
-	public GovernorFragment(GovernorFragmentCallback callback, ProfileModel profile, ProfileModel origProfile) {
-		super(callback, profile, origProfile);
+	public GovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
+		super(callback, governor);
+		origThreshUp = governor.getGovernorThresholdUp() + "";
+		origThreshDown = governor.getGovernorThresholdDown() + "";
 	}
 
 	@Override
@@ -73,7 +77,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				callback.updateModel();
 				String gov = parent.getItemAtPosition(pos).toString();
-				getProfile().setGov(gov);
+				getGovernorModel().setGov(gov);
 				callback.updateView();
 			}
 
@@ -85,6 +89,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		});
 
 		OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener() {
+
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -99,11 +104,11 @@ public class GovernorFragment extends GovernorBaseFragment {
 						}
 						if (up > 100 || up < 0) {
 							Toast.makeText(getActivity(), R.string.msg_up_threshhold_has_to_be_between_0_and_100, Toast.LENGTH_LONG).show();
-							etGovTreshUp.setText(getOrigProfile().getGovernorThresholdUp() + "");
+							etGovTreshUp.setText(origThreshUp);
 						}
 						if (down > 100 || down < 0) {
 							Toast.makeText(getActivity(), R.string.msg_down_threshhold_has_to_be_between_0_and_100, Toast.LENGTH_LONG).show();
-							etGovTreshDown.setText(getOrigProfile().getGovernorThresholdDown() + "");
+							etGovTreshDown.setText(origThreshDown);
 						}
 						if (up > down) {
 							// all OK
@@ -125,18 +130,18 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 	@Override
 	public void updateModel() {
-		profile.setGovernorThresholdUp(etGovTreshUp.getText().toString());
-		profile.setGovernorThresholdDown(etGovTreshDown.getText().toString());
+		getGovernorModel().setGovernorThresholdUp(etGovTreshUp.getText().toString());
+		getGovernorModel().setGovernorThresholdDown(etGovTreshDown.getText().toString());
 		if (SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
-			profile.setScript(etScript.getText().toString());
+			getGovernorModel().setScript(etScript.getText().toString());
 		} else {
-			profile.setScript("");
+			getGovernorModel().setScript("");
 		}
 	}
 
 	@Override
 	public void updateView() {
-		String curGov = profile.getGov();
+		String curGov = getGovernorModel().getGov();
 		for (int i = 0; i < availCpuGovs.length; i++) {
 			if (curGov.equals(availCpuGovs[i])) {
 				spinnerSetGov.setSelection(i);
@@ -144,13 +149,13 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(getActivity(), curGov));
 		if (SettingsStorage.getInstance().isPowerUser()) {
-			etScript.setText(profile.getScript());
+			etScript.setText(getGovernorModel().getScript());
 		}
 		updateGovernorFeatures();
 	}
 
 	private void updateGovernorFeatures() {
-		String gov = profile.getGov();
+		String gov = getGovernorModel().getGov();
 
 		boolean hasThreshholdUpFeature = true;
 		boolean hasThreshholdDownFeature = true;
@@ -162,8 +167,8 @@ public class GovernorFragment extends GovernorBaseFragment {
 			hasThreshholdDownFeature = false;
 		}
 
-		int up = profile.getGovernorThresholdUp();
-		int down = profile.getGovernorThresholdDown();
+		int up = getGovernorModel().getGovernorThresholdUp();
+		int down = getGovernorModel().getGovernorThresholdDown();
 		if (hasThreshholdUpFeature) {
 			labelGovThreshUp.setVisibility(View.VISIBLE);
 			etGovTreshUp.setVisibility(View.VISIBLE);
@@ -172,7 +177,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			}
 			etGovTreshUp.setText(up + "");
 		} else {
-			profile.setGovernorThresholdUp(0);
+			getGovernorModel().setGovernorThresholdUp(0);
 			etGovTreshUp.setText("");
 			labelGovThreshUp.setVisibility(View.INVISIBLE);
 			etGovTreshUp.setVisibility(View.INVISIBLE);
@@ -190,7 +195,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			}
 			etGovTreshDown.setText(down + "");
 		} else {
-			profile.setGovernorThresholdDown(0);
+			getGovernorModel().setGovernorThresholdDown(0);
 			etGovTreshDown.setText("");
 			labelGovThreshDown.setVisibility(View.INVISIBLE);
 			etGovTreshDown.setVisibility(View.INVISIBLE);

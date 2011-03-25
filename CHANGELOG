@@ -8,7 +8,8 @@ V 2.0.0
 * features
 - Virtual governors
 - Settings moved to menu
-- help moved to maenu
+- help moved to menu
+- allow frequencies < 400 for minimal frequency
 * bug fixes
 -
 
@@ -300,6 +301,7 @@ V 0.9.5
 * bug fixes
 - remove capabilities check from main screen
 - install is system app is beta 
+- 'minor' things
 - 'minor' things
 - 'minor' things
 - 'minor' things
