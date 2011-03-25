@@ -156,7 +156,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		if (SettingsStorage.getInstance().isPowerUser()) {
 			etScript.setText(getGovernorModel().getScript());
 		}
-		getGovernorModel().setPowersaveBias(sbPowersaveBias.getProgress());
+		sbPowersaveBias.setProgress(getGovernorModel().getPowersaveBias());
 		updateGovernorFeatures();
 	}
 

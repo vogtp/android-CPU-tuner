@@ -85,6 +85,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			governorModel.setGovernorThresholdUp(virtGov.getGovernorThresholdUp());
 			governorModel.setGovernorThresholdDown(virtGov.getGovernorThresholdDown());
 			governorModel.setScript(virtGov.getScript());
+			governorModel.setPowersaveBias(virtGov.getPowersaveBias());
 		} else {
 			Logger.e("Cannot load virtual governor");
 			Toast.makeText(getActivity(), R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();

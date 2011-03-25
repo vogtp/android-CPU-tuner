@@ -13,14 +13,18 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 
 public class VirtualGovernorEditorActivity extends FragmentActivity implements GovernorFragmentCallback {
 
+	private static final String PROFILE_SELECTION = CpuProfile.NAME_VIRTUAL_GOVERNOR + "=?";
 	private GovernorBaseFragment governorFragment;
 	private VirtualGovernorModel virtualGovModel;
 	private VirtualGovernorModel origvirtualGovModel;
@@ -66,6 +70,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		virtualGovModel.setVirtualGovernorName(etVirtualGovernorName.getText().toString());
 		governorFragment.updateModel();
 	}
+
 
 	@Override
 	public void updateView() {
@@ -114,12 +119,25 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 					return;
 				}
 				if (!origvirtualGovModel.equals(virtualGovModel)) {
+					updateAllProfiles();
 					getContentResolver().update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), DB.NAME_ID + "=?", new String[] { virtualGovModel.getDbId() + "" });
 				}
 			}
 		} catch (Exception e) {
 			Logger.w("Cannot insert or update", e);
 
+		}
+	}
+
+	private void updateAllProfiles() {
+		Cursor c = managedQuery(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, PROFILE_SELECTION, new String[] { virtualGovModel.getDbId()+"" }, VirtualGovernor.SORTORDER_DEFAULT);
+		while (c.moveToNext()) {
+			ProfileModel profile = new ProfileModel(c);
+			profile.setGov(virtualGovModel.getGov());
+			profile.setGovernorThresholdUp(virtualGovModel.getGovernorThresholdUp());
+			profile.setGovernorThresholdDown(virtualGovModel.getGovernorThresholdDown());
+			profile.setScript(virtualGovModel.getScript());
+			profile.setPowersaveBias(virtualGovModel.getPowersaveBias());
 		}
 	}
 

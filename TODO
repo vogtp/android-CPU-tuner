@@ -1,3 +1,4 @@
+-
 - migrate governor settings to virt gov
 
 - switch gov (in profile editor) to check witch val can be r/w
@@ -11,7 +12,6 @@
 
 - backup restore profiles 
 - switch profile/triggers sets (everything) based on time
-- virtual governors (incl. thresholds) for inexperienced users 
 
 - animate pulsed service in list
 - icons for services
