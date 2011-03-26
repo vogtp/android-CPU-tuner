@@ -259,13 +259,8 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} catch (Throwable t) {
 			Logger.w("Capability check threw ", t);
 		} finally {
-<<<<<<< OURS
 			ctx.startService(batteryServiceIntent);
 			SettingsStorage.getInstance().userLevel = userLevel;
-=======
-			BatteryReceiver.registerBatteryReceiver(ctx);
-			SettingsStorage.getInstance().enablePowerUser = powerUser;
->>>>>>> THEIRS
 			cpuHandler.applyCpuSettings(currentCpuSettings);
 			try {
 				pd.dismiss();

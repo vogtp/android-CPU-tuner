@@ -2,47 +2,34 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory android:key="prefKeyBasics" android:title="@string/prefBasics">
-		<PreferenceScreen android:key="prefKeyProfiles"
+		<PreferenceScreen android:key="prefKeyGuiScreen" android:title="@string/prefCatGUI">
+
+
+
+
+			
+			<PreferenceCategory android:title="@string/prefCatDisplay" android:key="prefkeyCatDisplay"><ListPreference android:title="@string/prefLanguage" android:key="prefKeyLanguage" android:entryValues="@array/prefLanguageValues" android:entries="@array/prefLanguageEntries"></ListPreference><ListPreference android:title="@string/prefUserLevel" android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong" android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference><ListPreference android:title="@string/prefKeyCalcPowerUsage" android:summary="@string/prefKeyCalcPowerUsageLong" android:defaultValue="1" android:entries="@array/prefCalcPowerUsageEntries" android:key="prefKeyCalcPowerUsageType" android:entryValues="@array/prefCalcPowerUsageValues"></ListPreference></PreferenceCategory><PreferenceCategory android:title="@string/prefCatNotifications" android:key="prefKeyCatNotifications">
+				<CheckBoxPreference android:key="prefKeyStatusbarAddTo" android:dependency="prefKeyEnableProfiles" android:defaultValue="true" android:title="@string/prefStatusbarAddTo" android:summaryOff="@string/prefStatusbarAddToOff" android:summaryOn="@string/prefStatusbarAddToOn"></CheckBoxPreference>
+				<CheckBoxPreference android:key="prefKeyStatusbarNotifications" android:defaultValue="true" android:title="@string/prefStatusbarNotifications" android:dependency="prefKeyStatusbarAddTo" android:summaryOff="@string/prefStatusbarNotificationsOff" android:summaryOn="@string/prefKeyEnableProfilesOn"></CheckBoxPreference>
+
+			</PreferenceCategory>
+		</PreferenceScreen><PreferenceScreen android:key="prefKeyProfiles"
 			android:title="@string/prefKeyProfiles">
 			<PreferenceCategory android:key="prefKeyProfiles"
 				android:title="@string/prefKeyProfiles">
 				<CheckBoxPreference android:title="@string/prefEnableProfiles"
 					android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles"
 					android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference>
-				<ListPreference android:title="@string/prefUserLevel"
-					android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong"
-					android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference>
-				<ListPreference android:title="@string/prefKeyCalcPowerUsage"
-					android:summary="@string/prefKeyCalcPowerUsageLong"
-					android:defaultValue="1" android:entries="@array/prefCalcPowerUsageEntries"
-					android:key="prefKeyCalcPowerUsageType" android:entryValues="@array/prefCalcPowerUsageValues"></ListPreference>
-				<Preference android:summary="@string/prefVritualGovernorsListLong"
-					android:key="prefKeyVritualGovernorsList" android:title="@string/virtualGovernorsList"></Preference>
-				<Preference android:key="prefKeyResetToDefault"
+				
+				
+				<CheckBoxPreference android:title="@string/prefCallInProgressProfile" android:key="prefKeyCallInProgressProfile" android:summary="@string/prefCallInProgressProfileLong" android:enabled="true" android:defaultValue="true"></CheckBoxPreference><Preference android:key="prefKeyResetToDefault"
 					android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault"
 					android:enabled="true"></Preference>
-				<CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor" android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor" android:summaryOff="@string/prefEnableUserspaceGovernorOff" android:summaryOn="@string/prefEnableUserspaceGovernorOn"></CheckBoxPreference>
+				
 			</PreferenceCategory>
 		</PreferenceScreen>
 
-		<PreferenceScreen android:title="@string/prefCatNotifications"
-			android:key="prefKeyNotificationScreen">
-
-
-
-
-			<PreferenceCategory android:title="@string/prefCatNotifications">
-				<CheckBoxPreference android:key="prefKeyStatusbarAddTo"
-					android:dependency="prefKeyEnableProfiles" android:defaultValue="true"
-					android:title="@string/prefStatusbarAddTo" android:summaryOff="@string/prefStatusbarAddToOff"
-					android:summaryOn="@string/prefStatusbarAddToOn"></CheckBoxPreference>
-				<CheckBoxPreference android:key="prefKeyStatusbarNotifications"
-					android:defaultValue="true" android:title="@string/prefStatusbarNotifications"
-					android:dependency="prefKeyStatusbarAddTo" android:summaryOff="@string/prefStatusbarNotificationsOff"
-					android:summaryOn="@string/prefKeyEnableProfilesOn"></CheckBoxPreference>
-
-			</PreferenceCategory>
-		</PreferenceScreen>
+		
 
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/prefCatSystem"
@@ -62,9 +49,6 @@
 					android:summaryOn="@string/prefSwitchWifiOnConnectedNetworkOn"
 					android:title="@string/prefSwitchWifiOnConnectedNetwork"
 					android:defaultValue="false"></CheckBoxPreference>
-				<CheckBoxPreference android:title="@string/prefCallInProgressProfile"
-					android:key="prefKeyCallInProgressProfile" android:summary="@string/prefCallInProgressProfileLong"
-					android:enabled="true" android:defaultValue="true"></CheckBoxPreference>
 				<CheckBoxPreference android:key="prefKeySwitchProfileWhilePhoneNotIdle"
 					android:summaryOff="@string/prefSwitchProfileWhilePhoneNotIdleOff"
 					android:summaryOn="@string/prefSwitchProfileWhilePhoneNotIdleOn"
@@ -75,6 +59,7 @@
 		<PreferenceCategory android:title="@string/prefCatPulsedServiceSwitches">
 					<EditTextPreference android:summary="@string/prefPulseDelayOnLong" android:defaultValue="1" android:key="prefKeyPulseDelayOn" android:title="@string/prefPulseDelayOn"></EditTextPreference>
 					<EditTextPreference android:summary="@string/prefPulseDelayOffLong" android:defaultValue="30" android:key="prefKeyPulseDelayOff" android:title="@string/prefPulseDelayOff"></EditTextPreference>
+					<CheckBoxPreference android:title="@string/prefPulseMobiledataOnWifi" android:key="prefKeyPulseMobiledataOnWifi" android:summaryOn="@string/prefPulseMobiledataOnWifiOn" android:summaryOff="@string/prefPulseMobiledataOnWifiOff" android:defaultValue="true"></CheckBoxPreference>
 				</PreferenceCategory></PreferenceScreen>
 		<PreferenceScreen android:title="@string/prefCatSystem"
 			android:key="prefKeySystemScreen">
@@ -83,31 +68,15 @@
 
 
 			<PreferenceCategory android:title="@string/prefCatSystem"
-<<<<<<< OURS
 				android:key="prefKeySystemCat">
 				<Preference android:key="prefKeyCapabilities"
-					android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
-
-				<EditTextPreference android:title="@string/prefBatteryHotTemp"
+					android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference><EditTextPreference android:title="@string/prefBatteryHotTemp"
 					android:key="prefKeyBatteryHotTemp" android:dialogMessage="@string/prefBatteryHotTempMsg"
 					android:dialogTitle="@string/prefBatteryHotTemp" android:summary="@string/prefBatteryHotTempLong"></EditTextPreference>
-				<EditTextPreference android:defaultValue="400"
-					android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency"
-					android:title="@string/prefMinSensibleFrequency"></EditTextPreference>
-=======
-				android:key="prefKeySystemCat"><Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
 				
-				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges" android:title="@string/prefAllowManualServiceChanges" android:summary="@string/prefAllowManualServiceChangesLong" android:defaultValue="false"></CheckBoxPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference><CheckBoxPreference android:summaryOn="@string/prefPowerUserOn"
-					android:title="@string/prefPowerUser" android:summaryOff="@string/prefPowerUserOff"
-					android:key="prefKeyPowerUser" android:defaultValue="false"></CheckBoxPreference>
->>>>>>> THEIRS
-				<CheckBoxPreference android:key="prefKeySystemApp"
-					android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp"
-					android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
-				<EditTextPreference android:summary="@string/prefCpuFreqLong"
-					android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq"
-					android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
-				<ListPreference android:title="@string/prefLanguage" android:key="prefKeyLanguage" android:entryValues="@array/prefLanguageValues" android:entries="@array/prefLanguageEntries"></ListPreference>
+				
+				
+				<CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor" android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor" android:summaryOff="@string/prefEnableUserspaceGovernorOff" android:summaryOn="@string/prefEnableUserspaceGovernorOn"></CheckBoxPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference><EditTextPreference android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference><CheckBoxPreference android:key="prefKeySystemApp" android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp" android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
 				
 
 
@@ -120,13 +89,8 @@
 		</PreferenceScreen>
 	</PreferenceCategory>
 
-<<<<<<< OURS
-=======
-	
->>>>>>> THEIRS
 
 
-<<<<<<< OURS
 
 	<PreferenceCategory android:title="@string/prefVarious"
 		android:key="prefKeyVarious">
@@ -136,7 +100,4 @@
 			android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage"
 			android:dialogTitle="@string/prefEnableBeta"></EditTextPreference>
 	</PreferenceCategory>
-=======
-<PreferenceCategory android:title="@string/prefVarious" android:key="prefKeyVarious"><Preference android:title="@string/prefBuyMeABeer" android:key="prefKeyBuyMeABeer"></Preference><EditTextPreference android:key="prefKeyEnableBeta" android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage" android:dialogTitle="@string/prefEnableBeta" android:summary="@string/prefEnableBetaLong"></EditTextPreference></PreferenceCategory>
->>>>>>> THEIRS
 </PreferenceScreen>
