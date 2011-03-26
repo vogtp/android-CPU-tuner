@@ -2,6 +2,8 @@
 <resources>
 	<string name="govPowersave">powersave</string>
 	<string name="govOndemand">ondemand</string>
+	<string name="hintMailBody_en">Add some information about the problem you are
+		experiencing.</string>
 	<string-array name="prefCalcPowerUsageValues">
 		<item>1</item>
 		<item>2</item>
@@ -12,10 +14,19 @@
 		<item>2</item>
 		<item>3</item>
 	</string-array>
+<string-array name="prefLanguageEntries">
+		<item>System default</item>
+		<item>English (en)</item>
+		<item>Deutsch (de)</item>
+		<item>Française (fr)</item>
+		<item>Italiano (it)</item>
+		<item>Ελληνικά (el)</item>
+</string-array>
 	<string-array name="prefLanguageValues">
 		<item></item>
 		<item>en</item>
 		<item>de</item>
+		<item>fr</item>
 		<item>it</item>
 		<item>el</item>
 	</string-array>

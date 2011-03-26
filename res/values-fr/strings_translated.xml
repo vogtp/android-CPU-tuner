@@ -55,7 +55,6 @@
 	<string name="yes">yes</string>
 	<string name="no">no</string>
 	<string name="save">save</string>
-	<string name="save">save</string>
 	<string name="cancel">cancel</string>
 	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in power user
 		mode.</string>

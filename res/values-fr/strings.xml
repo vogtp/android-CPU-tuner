@@ -32,5 +32,4 @@
 <string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
 <string name="labelScript">Script:</string>
 <string name="hintScriptToRun">Script to run after governor change, if unsure leave empty..</string>
-<string name="label_governor_tresholds">Thresholds:</string>
 </resources>

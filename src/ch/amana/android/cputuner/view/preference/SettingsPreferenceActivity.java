@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.view.preference;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,19 +12,16 @@ import android.preference.PreferenceActivity;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
-import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
-import ch.amana.android.cputuner.view.activity.VirtualGovernorListActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
 	private CheckBoxPreference systemAppPreference;
-	private Preference virtualGovPref;
 	private EditTextPreference cpuFreqPreference;
 	private EditTextPreference prefMinSensibleFrequency;
 
@@ -112,17 +108,6 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			}
 		});
 
-		virtualGovPref = findPreference("prefKeyVritualGovernorsList");
-		virtualGovPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Context ctx = SettingsPreferenceActivity.this;
-				ctx.startActivity(new Intent(ctx, VirtualGovernorListActivity.class));
-				return true;
-			}
-		});
-
 		findPreference("prefKeyLanguage").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			
 			@Override
@@ -140,9 +125,6 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 	protected void onResume() {
 		super.onResume();
 		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
-		if (!Logger.DEBUG) {
-			virtualGovPref.setEnabled(false);// !SettingsStorage.getInstance().isBeginnerUser());
-		}
 		cpuFreqPreference.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(SettingsStorage.getInstance().isBeginnerUser() || SettingsStorage.getInstance().isPowerUser()));
 	}
