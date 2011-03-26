@@ -9,4 +9,5 @@
 <string name="prefCatGUI">GUI</string>
 <string name="prefCatDisplay">Display</string>
 <string name="labelPowersaveBias">Powersave bias:</string>
+<string name="labelVirtualGovernor">Virtual Governor:</string>
 </resources>

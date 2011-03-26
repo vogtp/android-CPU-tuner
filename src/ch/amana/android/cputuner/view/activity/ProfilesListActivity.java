@@ -27,7 +27,10 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class ProfilesListActivity extends ListActivity {
 
@@ -62,6 +65,19 @@ public class ProfilesListActivity extends ListActivity {
 					}
 					((TextView) view).setTextColor(color);
 				} else if (columnIndex == DB.CpuProfile.INDEX_GOVERNOR) {
+					if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+						int virtGovId = cursor.getInt(CpuProfile.INDEX_VIRTUAL_GOVERNOR);
+						if (virtGovId > -1) {
+							Cursor virtGovCursor = managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+									new String[] { virtGovId + "" }, VirtualGovernor.SORTORDER_DEFAULT);
+							if (virtGovCursor.moveToFirst()) {
+								VirtualGovernorModel vgm = new VirtualGovernorModel(virtGovCursor);
+								((TextView) view).setText(vgm.getVirtualGovernorName());
+								((TextView) ((View) view.getParent()).findViewById(R.id.labelGovernor)).setText(R.string.labelVirtualGovernor);
+								return true;
+							}
+						}
+					}
 					StringBuilder sb = new StringBuilder();
 					sb.append(cursor.getString(DB.CpuProfile.INDEX_GOVERNOR));
 					int up = cursor.getInt(DB.CpuProfile.INDEX_GOVERNOR_THRESHOLD_UP);
