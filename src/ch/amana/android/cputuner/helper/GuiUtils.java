@@ -39,6 +39,13 @@ public class GuiUtils {
 		return ctx.getString(R.string.explainNotAvailable);
 	}
 
+	public static void setLanguage(Context ctx) {
+		String lang = SettingsStorage.getInstance().getLanguage();
+		if (!"".equals(lang)) {
+			GuiUtils.setLanguage(ctx, lang);
+		}
+	}
+
 	public static void setLanguage(Context ctx, String lang) {
 			Configuration config = new Configuration();
 			config.locale = new Locale(lang);
