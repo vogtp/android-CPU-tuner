@@ -10,6 +10,7 @@ V 2.0.0
 - Settings and help moved to menu
 - Statistics tab
 - allow frequencies < 400 for minimal frequency
+- use powersave_bias 
 * bug fixes
 -
 
@@ -301,6 +302,7 @@ V 0.9.5
 * bug fixes
 - remove capabilities check from main screen
 - install is system app is beta 
+- 'minor' things
 - 'minor' things
 - 'minor' things
 - 'minor' things

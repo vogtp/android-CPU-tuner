@@ -2,7 +2,6 @@
 - migrate governor settings to virt gov
 
 - switch gov (in profile editor) to check witch val can be r/w
-- use powersave_bias 
 - remove: "Acknowledge issues and hide from main screen."
 
 - Show (icons) license
