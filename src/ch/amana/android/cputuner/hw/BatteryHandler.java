@@ -42,6 +42,9 @@ public class BatteryHandler extends HardwareHandler {
 			BATT_CURRENT_FILE = new File(BATTERY_DIR, BATT_CURRENT);
 		}
 		if (!canReadFromBattCurFile()) {
+			BATT_CURRENT_FILE = new File(BATTERY_DIR, BATT_CURRENT);
+		}
+		if (!canReadFromBattCurFile()) {
 			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, CURRENT_NOW);
 		}
 		if (!canReadFromBattCurFile()) {
@@ -57,6 +60,9 @@ public class BatteryHandler extends HardwareHandler {
 	public static File getBattAvgFile() {
 		if (!canReadFromBattAvgFile()) {
 			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, CURRENT_AVG);
+		}
+		if (!canReadFromBattAvgFile()) {
+			BATT_CURRENT_FILE = new File(BATTERY_DIR, BATT_CURRENT);
 		}
 		if (!canReadFromBattAvgFile()) {
 			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, BATT_CURRENT);
