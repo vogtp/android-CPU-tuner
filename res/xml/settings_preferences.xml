@@ -13,6 +13,7 @@
 				<CheckBoxPreference android:key="prefKeyStatusbarNotifications" android:defaultValue="true" android:title="@string/prefStatusbarNotifications" android:dependency="prefKeyStatusbarAddTo" android:summaryOff="@string/prefStatusbarNotificationsOff" android:summaryOn="@string/prefKeyEnableProfilesOn"></CheckBoxPreference>
 
 			</PreferenceCategory>
+			
 		</PreferenceScreen><PreferenceScreen android:key="prefKeyProfiles"
 			android:title="@string/prefKeyProfiles">
 			<PreferenceCategory android:key="prefKeyProfiles"
@@ -22,7 +23,7 @@
 					android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference>
 				
 				
-				<CheckBoxPreference android:title="@string/prefCallInProgressProfile" android:key="prefKeyCallInProgressProfile" android:summary="@string/prefCallInProgressProfileLong" android:enabled="true" android:defaultValue="true"></CheckBoxPreference><Preference android:key="prefKeyResetToDefault"
+				<CheckBoxPreference android:title="@string/prefCallInProgressProfile" android:key="prefKeyCallInProgressProfile" android:summary="@string/prefCallInProgressProfileLong" android:enabled="true" android:defaultValue="true"></CheckBoxPreference><CheckBoxPreference android:key="prefKeyUseVirtualGovernors" android:summary="@string/prefUseVirtualGovernorsLong" android:title="@string/cbEnableVirtualGovernors" android:defaultValue="true"></CheckBoxPreference><Preference android:key="prefKeyResetToDefault"
 					android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault"
 					android:enabled="true"></Preference>
 				
