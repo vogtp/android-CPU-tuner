@@ -10,6 +10,8 @@
 - backup restore profiles 
 - switch profile/triggers sets (everything) based on time
 
+- Imperial units (°C -> F)
+
 - animate pulsed service in list
 - icons for services
 

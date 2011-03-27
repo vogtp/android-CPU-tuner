@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -117,11 +118,9 @@ public class InstallHelper {
 
 					while (cP.moveToNext()) {
 						ProfileModel profileModel = new ProfileModel(cP);
-						if (profileModel.getVirtualGovernor() < 0) {
-							long virtGovId = migrateToVirtualGov(ctx, resolver, profileModel);
-							profileModel.setVirtualGovernor(virtGovId);
-							insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, profileModel.getValues());
-						}
+						long virtGovId = migrateToVirtualGov(ctx, resolver, profileModel);
+						profileModel.setVirtualGovernor(virtGovId);
+						insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, profileModel.getValues());
 					}
 				}
 			}
@@ -137,26 +136,32 @@ public class InstallHelper {
 
 	private static long migrateToVirtualGov(Context ctx, ContentResolver resolver, ProfileModel profileModel) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(VirtualGovernor.NAME_REAL_GOVERNOR).append("=").append(profileModel.getGov());
-		sb.append(" && ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN).append("=").append(profileModel.getGovernorThresholdDown());
-		sb.append(" && ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP).append("=").append(profileModel.getGovernorThresholdUp());
-		sb.append(" && ").append(VirtualGovernor.NAME_SCRIPT).append("=").append(profileModel.getScript());
-		sb.append(" && ").append(VirtualGovernor.NAME_POWERSEAVE_BIAS).append("=").append(profileModel.getPowersaveBias());
-
-		Cursor cVH = resolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, sb.toString(), null, DB.VirtualGovernor.SORTORDER_DEFAULT);
-		if (cVH != null && cVH.getCount() > 1) {
-			cVH.moveToFirst();
-			return cVH.getLong(DB.INDEX_ID);
+		sb.append(VirtualGovernor.NAME_REAL_GOVERNOR).append("='").append(profileModel.getGov()).append("'");
+		sb.append(" & ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN).append("=").append(profileModel.getGovernorThresholdDown());
+		sb.append(" & ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP).append("=").append(profileModel.getGovernorThresholdUp());
+		String script = profileModel.getScript();
+		if (!TextUtils.isEmpty(script)) {
+			sb.append(" && ").append(VirtualGovernor.NAME_SCRIPT).append("=").append(script);
 		}
-		if (cVH != null) {
-			cVH.close();
+		sb.append(" && ").append(VirtualGovernor.NAME_POWERSEAVE_BIAS).append("=").append(profileModel.getPowersaveBias());
+		try {
+			Cursor cVH = resolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, sb.toString(), null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+			if (cVH != null && cVH.getCount() > 1) {
+				cVH.moveToFirst();
+				return cVH.getLong(DB.INDEX_ID);
+			}
+			if (cVH != null) {
+				cVH.close();
+			}
+		} catch (Throwable e) {
+			Logger.i("Cannot upgrade virtual governor", e);
 		}
 
 		CpuGovernorSettings cgs = new CpuGovernorSettings();
 		cgs.gov = profileModel.getGov();
 		cgs.downThreshold = profileModel.getGovernorThresholdDown();
 		cgs.upThreshold = profileModel.getGovernorThresholdUp();
-		cgs.script = profileModel.getScript();
+		cgs.script = script;
 		cgs.powersaveBias = profileModel.getPowersaveBias();
 		return createVirtualGovernor(resolver, ctx.getString(R.string.labelVirtualGovernor) + " " + profileModel.getProfileName(), cgs);
 	}
@@ -309,7 +314,8 @@ public class InstallHelper {
 	}
 
 	public static void populateDb(Context ctx) {
-		if (VERSION > SettingsStorage.getInstance().getDefaultProfilesVersion()) {
+		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
+		if (VERSION > defaultProfilesVersion) {
 			try {
 				Logger.i("Updating DB conents to version " + VERSION);
 				updateDefaultProfiles(ctx);

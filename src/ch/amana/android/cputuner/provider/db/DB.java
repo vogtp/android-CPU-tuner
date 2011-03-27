@@ -117,8 +117,11 @@ public interface DB {
 
 			case 10:
 				Logger.w("Upgrading to DB Version 11...");
+				try {
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_POWERSEAVE_BIAS + " int;");
 				db.execSQL("alter table " + VirtualGovernor.TABLE_NAME + " add column " + VirtualGovernor.NAME_POWERSEAVE_BIAS + " int;");
+				} catch (Throwable e) {
+				}
 				
 			default:
 				Logger.w("Finished DB upgrading!");
