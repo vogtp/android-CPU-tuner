@@ -42,9 +42,6 @@ public class BatteryHandler extends HardwareHandler {
 			BATT_CURRENT_FILE = new File(BATTERY_DIR, BATT_CURRENT);
 		}
 		if (!canReadFromBattCurFile()) {
-			BATT_CURRENT_FILE = new File(BATTERY_DIR, BATT_CURRENT);
-		}
-		if (!canReadFromBattCurFile()) {
 			BATT_CURRENT_FILE = new File(BATTERY_CPCAP_DIR, CURRENT_NOW);
 		}
 		if (!canReadFromBattCurFile()) {
