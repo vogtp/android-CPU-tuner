@@ -101,12 +101,12 @@ public class InstallHelper {
 
 				}
 
-				if (cP != null) {
-					cP.close();
-				}
 				if (cT != null) {
 					cT.close();
 				}
+			}
+			if (cP != null) {
+				cP.close();
 			}
 			Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null,
 					SORT_ORDER);
