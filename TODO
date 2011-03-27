@@ -1,5 +1,3 @@
--
-- migrate governor settings to virt gov
 
 - switch gov (in profile editor) to check witch val can be r/w
 - remove: "Acknowledge issues and hide from main screen."

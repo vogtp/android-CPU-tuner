@@ -17,21 +17,26 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
+import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class InstallHelper {
+
+	private static final int VERSION = 2;
 
 	static class CpuGovernorSettings {
 		String gov;
 		int upThreshold = -1;
 		int downThreshold = -1;
 		public long virtGov;
+		public String script;
+		public int powersaveBias;
 
 	}
 
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
-	private static final int VERSION = 1;
 	private static CpuGovernorSettings cgsPower;
 	private static CpuGovernorSettings cgsNormal;
 	private static CpuGovernorSettings cgsSave;
@@ -65,7 +70,7 @@ public class InstallHelper {
 
 			ContentResolver resolver = ctx.getContentResolver();
 
-			Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+			Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 			if (cP == null || cP.getCount() < 1) {
 				Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
 				if (cT == null || cT.getCount() < 1) {
@@ -73,10 +78,10 @@ public class InstallHelper {
 					CpuHandler cpuHandler = CpuHandler.getInstance();
 					int freqMax = cpuHandler.getMaxCpuFreq();
 					int freqMin = cpuHandler.getMinCpuFreq();
-					if (freqMin < cpuHandler.getMinimumSensibleFrequency()) {
+					if (freqMax < cpuHandler.getMinimumSensibleFrequency()) {
 						int[] availCpuFreq = cpuHandler.getAvailCpuFreq();
 						if (availCpuFreq != null && availCpuFreq.length > 0) {
-							freqMin = availCpuFreq[0];
+							freqMax = availCpuFreq[0];
 						}
 					}
 					String gov = cpuHandler.getCurCpuGov();
@@ -103,30 +108,57 @@ public class InstallHelper {
 
 				}
 
-				if (cP != null) {
-					cP.close();
-				}
 				if (cT != null) {
 					cT.close();
 				}
+			} else {
+				// migrate to triggers
+				if (cP != null) {
+
+					while (cP.moveToNext()) {
+						ProfileModel profileModel = new ProfileModel(cP);
+						if (profileModel.getVirtualGovernor() < 0) {
+							long virtGovId = migrateToVirtualGov(ctx, resolver, profileModel);
+							profileModel.setVirtualGovernor(virtGovId);
+							insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, profileModel.getValues());
+						}
+					}
+				}
 			}
-			Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null, SORT_ORDER);
-			if (cT != null && cT.getCount() > 1) {
-				OpenHelper oh = new OpenHelper(ctx);
-				oh.getReadableDatabase().execSQL(
-						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP
-								+ " < 1");
-				oh.getReadableDatabase().execSQL(
-						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN
-								+ " < 1");
+			if (cP != null) {
+				cP.close();
 			}
-			if (cT != null) {
-				cT.close();
-			}
+
 			SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
 		} finally {
 			PowerProfiles.setUpdateTrigger(true);
 		}
+	}
+
+	private static long migrateToVirtualGov(Context ctx, ContentResolver resolver, ProfileModel profileModel) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(VirtualGovernor.NAME_REAL_GOVERNOR).append("=").append(profileModel.getGov());
+		sb.append(" && ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN).append("=").append(profileModel.getGovernorThresholdDown());
+		sb.append(" && ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP).append("=").append(profileModel.getGovernorThresholdUp());
+		sb.append(" && ").append(VirtualGovernor.NAME_SCRIPT).append("=").append(profileModel.getScript());
+		sb.append(" && ").append(VirtualGovernor.NAME_POWERSEAVE_BIAS).append("=").append(profileModel.getPowersaveBias());
+
+		Cursor cVH = resolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, sb.toString(), null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+		if (cVH != null && cVH.getCount() > 1) {
+			cVH.moveToFirst();
+			return cVH.getLong(DB.INDEX_ID);
+		}
+		if (cVH != null) {
+			cVH.close();
+		}
+
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
+		cgs.gov = profileModel.getGov();
+		cgs.downThreshold = profileModel.getGovernorThresholdDown();
+		cgs.upThreshold = profileModel.getGovernorThresholdUp();
+		cgs.script = profileModel.getScript();
+		cgs.powersaveBias = profileModel.getPowersaveBias();
+		return createVirtualGovernor(resolver, ctx.getString(R.string.labelVirtualGovernor) + " " + profileModel.getProfileName(), cgs);
 	}
 
 	private static long createVirtualGovernor(ContentResolver resolver, String name, CpuGovernorSettings cgs) {
@@ -135,6 +167,8 @@ public class InstallHelper {
 		values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, cgs.gov);
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, cgs.downThreshold);
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, cgs.upThreshold);
+		values.put(DB.VirtualGovernor.NAME_SCRIPT, cgs.script);
+		values.put(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS, cgs.powersaveBias);
 		return insertOrUpdate(resolver, DB.VirtualGovernor.CONTENT_URI, values);
 	}
 
@@ -277,6 +311,7 @@ public class InstallHelper {
 	public static void populateDb(Context ctx) {
 		if (VERSION > SettingsStorage.getInstance().getDefaultProfilesVersion()) {
 			try {
+				Logger.i("Updating DB conents to version " + VERSION);
 				updateDefaultProfiles(ctx);
 			} catch (Exception e) {
 				Logger.e("Cannot create profiles", e);
