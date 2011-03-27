@@ -45,12 +45,6 @@
 			android:paddingBottom="20dp"></TextView>
 		<Button android:layout_height="wrap_content" android:id="@+id/buSendBugreport"
 			android:layout_width="fill_parent" android:text="@string/msgDeviceInfo"></Button>
-
-		<CheckBox android:layout_height="wrap_content"
-			android:text="@string/msgAckAndHide"
-			android:id="@+id/cbAcknowledge" android:layout_weight=".2"
-			android:layout_gravity="bottom" android:paddingTop="20dp"
-			android:layout_width="fill_parent"></CheckBox>
 		<Button android:layout_height="wrap_content"
 			android:layout_width="match_parent" android:id="@+id/buFindFrequencies"
 			android:text="@string/labelBuFindFeq"></Button>

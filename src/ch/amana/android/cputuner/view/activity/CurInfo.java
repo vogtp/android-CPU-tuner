@@ -6,14 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SimpleCursorAdapter;
@@ -29,7 +26,6 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
-import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -54,7 +50,6 @@ public class CurInfo extends Activity {
 	private TextView tvExplainGov;
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
-	private TextView tvMessage;
 	private TextView tvBatteryCurrent;
 	private TextView tvGovTreshholds;
 	private PowerProfiles powerProfiles;
@@ -266,20 +261,6 @@ public class CurInfo extends Activity {
 		profileChanged();
 		acPowerChanged();
 
-		if (SettingsStorage.getInstance().isEnableBeta()) {
-			if (RootHandler.NOT_AVAILABLE.equals(cpuHandler.getCurCpuGov())
-					|| cpuHandler.getMaxCpuFreq() < 1 || cpuHandler.getMinCpuFreq() < 1) {
-				if (SettingsStorage.getInstance().isDisableDisplayIssues()) {
-					if (tvMessage != null) {
-						LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
-						ll.removeView(tvMessage);
-						tvMessage = null;
-					}
-				} else {
-					getMessageTextView().setText(R.string.msg_found_some_issues);
-				}
-			}
-		}
 	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
@@ -387,21 +368,4 @@ public class CurInfo extends Activity {
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
 	}
 
-	private TextView getMessageTextView() {
-		if (tvMessage == null) {
-			tvMessage = new TextView(this);
-			tvMessage.setTextColor(Color.RED);
-			// tvMessage.setTextSize(18);
-			tvMessage.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					startActivity(new Intent(CurInfo.this, CapabilityCheckerActivity.class));
-				}
-			});
-			LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayoutMessage);
-			ll.addView(tvMessage);
-		}
-		return tvMessage;
-	}
 }

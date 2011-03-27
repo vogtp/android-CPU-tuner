@@ -124,16 +124,6 @@ public class SettingsStorage {
 		return statusbarNotifications;
 	}
 
-	public boolean isDisableDisplayIssues() {
-		return getPreferences().getBoolean(DISABLE_DISPLAY_ISSUES, false);
-	}
-
-	public void setDisableDisplayIssues(boolean display) {
-		Editor edit = getPreferences().edit();
-		edit.putBoolean(DISABLE_DISPLAY_ISSUES, display);
-		edit.commit();
-	}
-
 	public boolean isEnableBeta() {
 		if (!checkedBeta) {
 			checkedBeta = true;
