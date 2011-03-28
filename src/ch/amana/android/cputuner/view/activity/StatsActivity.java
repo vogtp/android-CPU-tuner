@@ -21,17 +21,38 @@ public class StatsActivity extends Activity {
 	@Override
 	protected void onResume() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getString(R.string.label_time_in_state)).append("\n");
+		getTotalTransitions(sb);
+		getTimeInState(sb);
+
+		tvStats.setText(sb.toString());
+		super.onResume();
+	}
+
+	private void getTotalTransitions(StringBuilder sb) {
+		String totaltransitions = CpuHandler.getInstance().getCpuTotalTransitions();
+		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
+			// if (sb.length() > 0) {
+			// sb.append("--------------------------------------\n\n");
+			// }
+			sb.append(getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
+
+			sb.append("\n");
+		}
+	}
+
+	private void getTimeInState(StringBuilder sb) {
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
 		if (!RootHandler.NOT_AVAILABLE.equals(timeinstate)) {
+			// if (sb.length() > 0) {
+			// sb.append("--------------------------------------\n");
+			// }
+			sb.append(getString(R.string.label_time_in_state)).append("\n");
 			String[] states = timeinstate.split("\n");
 			for (int i = 0; i < states.length; i++) {
 				String[] vals = states[i].split(" +");
 				sb.append(Integer.parseInt(vals[0]) / 1000).append(" Mhz").append("\t\t").append(vals[1]).append("\n");
 			}
+			sb.append("\n");
 		}
-
-		tvStats.setText(sb.toString());
-		super.onResume();
 	}
 }

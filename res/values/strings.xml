@@ -6,9 +6,10 @@
 <string name="msgDeleteVirtGovNotPossible">Cannot delete this virtual governor since it is used in one or more profiles!</string>
 <string name="labelName">Name:</string>
 <string name="hintVirtualGovernorName">Virtual Governor Name</string>
-<string name="prefCatGUI">GUI</string>
+<string name="prefCatGUI">User interface</string>
 <string name="prefCatDisplay">Display</string>
 <string name="labelPowersaveBias">Powersave bias:</string>
 <string name="labelVirtualGovernor">Virtual Governor:</string>
 <string name="prefUseVirtualGovernorsLong">Virtual governor abstract the settings of governors from the profile.</string>
+<string name="label_total_transitions">Total transitions:</string>
 </resources>

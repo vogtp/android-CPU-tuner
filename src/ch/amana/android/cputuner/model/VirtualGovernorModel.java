@@ -194,6 +194,10 @@ public class VirtualGovernorModel implements IGovernorModel {
 		}
 	}
 
+	public boolean hasScript() {
+		return script != null && !TextUtils.isEmpty(script.trim());
+	}
+
 	public void setScript(String script) {
 		this.script = script;
 	}
@@ -212,7 +216,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 			}
 			sb.append("\n");
 		}
-		if (TextUtils.isEmpty(script)) {
+		if (!TextUtils.isEmpty(script)) {
 			sb.append(ctx.getString(R.string.labelScript)).append(" ").append(script).append("\n");
 		}
 		return sb.toString();

@@ -35,11 +35,17 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private String origThreshUp;
 	private String origThreshDown;
 	private SeekBar sbPowersaveBias;
+	private boolean disableScript;
 
 	public GovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
+		this(callback, governor, false);
+	}
+
+	public GovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor, boolean disableScript) {
 		super(callback, governor);
-		origThreshUp = governor.getGovernorThresholdUp() + "";
-		origThreshDown = governor.getGovernorThresholdDown() + "";
+		this.origThreshUp = governor.getGovernorThresholdUp() + "";
+		this.origThreshDown = governor.getGovernorThresholdDown() + "";
+		this.disableScript = disableScript;
 	}
 
 	@Override
@@ -67,7 +73,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		etScript = (EditText) act.findViewById(R.id.etScript);
 		sbPowersaveBias = (SeekBar) act.findViewById(R.id.sbPowersaveBias);
 
-		if (!settings.isEnableScriptOnProfileChange()) {
+		if (disableScript || !settings.isEnableScriptOnProfileChange()) {
 			llFragmentTop.removeView(act.findViewById(R.id.llScript));
 		}
 
@@ -158,6 +164,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 		sbPowersaveBias.setProgress(getGovernorModel().getPowersaveBias());
 		updateGovernorFeatures();
+
 	}
 
 	private void updateGovernorFeatures() {

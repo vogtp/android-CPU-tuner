@@ -52,37 +52,11 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryCurrent"></TextView>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content"
-				android:id="@+id/tableRowGov" android:layout_width="match_parent">
-				<TextView android:paddingTop="10dp" android:textSize="20sp"
-					android:layout_width="wrap_content" android:paddingRight="5dp"
-					android:text="@string/labelCpuGov" android:id="@+id/textView1"
-					android:layout_height="wrap_content" android:layout_gravity="center_vertical"></TextView>
-				<Spinner android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:prompt="@string/spinnerPromptGov"
-					android:id="@+id/SpinnerCpuGov" android:paddingTop="10dp" android:layout_marginTop="10dp" android:layout_weight=".1"></Spinner>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content"
-				android:layout_width="match_parent" android:id="@+id/tableRowThresholds">
-				<TextView android:layout_height="wrap_content"
-					android:text="@string/label_governor_tresholds" android:id="@+id/textView2"
-					android:layout_width="wrap_content" android:paddingRight="5dp"></TextView>
-				<TextView android:layout_width="wrap_content"
-					android:paddingRight="7dp" android:text="TextView" android:id="@+id/tvGovTreshholds"
-					android:layout_height="wrap_content"></TextView>
-			</TableRow>
 		</TableLayout>
-		<TextView android:layout_height="wrap_content"
-			android:paddingTop="5dp" android:text="Explain Gov"
-			android:layout_width="wrap_content" android:id="@+id/tvExplainGov"></TextView>
-
-
-		<TextView android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="@string/labelCpuFreq"
-			android:paddingRight="5dp" android:textSize="20sp"
-			android:paddingTop="10dp" />
+		<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/llGovernorFragmentAncor"></LinearLayout>
 		<TableLayout android:layout_height="wrap_content"
 			android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
+			<TextView android:textSize="20sp" android:layout_width="fill_parent" android:id="@+id/textView1" android:layout_height="wrap_content" android:paddingTop="10dp" android:text="@string/labelCpuFreq" android:paddingRight="5dp"></TextView>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
 				android:layout_width="fill_parent">
 
@@ -99,21 +73,10 @@
 					android:paddingBottom="3dp" android:paddingTop="3dp"></SeekBar>
 
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMinFreq"
-				android:layout_width="fill_parent">
-
-
-
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin" android:layout_gravity="center_vertical"></TextView>
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:text="99999" android:id="@+id/tvCpuFreqMin" android:layout_gravity="center_vertical"></TextView>
-				<SeekBar android:layout_height="wrap_content"
-					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMin"
-					android:layout_weight=".3" android:paddingRight="5dp"
-					android:paddingTop="3dp" android:paddingBottom="3dp"></SeekBar>
+			<TableRow android:id="@+id/TableRowMinFreq" android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin" android:layout_gravity="center_vertical" android:text="@+string/labelMin" android:paddingRight="5dp"></TextView>
+				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMin" android:layout_gravity="center_vertical" android:text="99999" android:paddingRight="5dp"></TextView>
+				<SeekBar android:paddingBottom="3dp" android:id="@+id/SeekBarCpuFreqMin" android:paddingRight="5dp" android:paddingTop="3dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight=".3"></SeekBar>
 			</TableRow>
 		</TableLayout>
 	</LinearLayout>

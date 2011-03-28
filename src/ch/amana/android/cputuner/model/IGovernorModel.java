@@ -16,7 +16,9 @@ public interface IGovernorModel {
 
 	public String getGov();
 
-	public CharSequence getScript();
+	public boolean hasScript();
+
+	public String getScript();
 
 	public void setGovernorThresholdUp(int i);
 

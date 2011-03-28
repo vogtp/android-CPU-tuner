@@ -12,6 +12,7 @@ import java.util.WeakHashMap;
 
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandler extends HardwareHandler {
@@ -42,6 +43,7 @@ public class CpuHandler extends HardwareHandler {
 
 	private static final String CPU_STATS_DIR = CPU_DIR + "stats/";
 	private static final String TIME_IN_STATE = "time_in_state";
+	private static final String TOTAL_TRANSITIONS = "total_trans";
 
 	private boolean availCpuFreq = true;
 	private final Map<String, File> fileMap = new WeakHashMap<String, File>();
@@ -59,16 +61,11 @@ public class CpuHandler extends HardwareHandler {
 		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq(), getGovThresholdUp(), getGovThresholdDown(), getPowersaveBias());
 	}
 
-	public void applyCpuSettings(ProfileModel cpu) {
-		setCurGov(cpu.getGov());
-		if (GOV_USERSPACE.equals(cpu.getGov())) {
-			setUserCpuFreq(cpu.getMaxFreq());
-		} else {
-			setMaxCpuFreq(cpu.getMaxFreq());
-			setMinCpuFreq(cpu.getMinFreq());
-		}
-		int thresholdUp = cpu.getGovernorThresholdUp();
-		int thresholdDown = cpu.getGovernorThresholdDown();
+
+	public void applyGovernorSettings(IGovernorModel governor) {
+		setCurGov(governor.getGov());
+		int thresholdUp = governor.getGovernorThresholdUp();
+		int thresholdDown = governor.getGovernorThresholdDown();
 		if (thresholdDown >= thresholdUp) {
 			if (thresholdUp > 30) {
 				thresholdDown = thresholdUp - 10;
@@ -78,11 +75,21 @@ public class CpuHandler extends HardwareHandler {
 		}
 		setGovThresholdUp(thresholdUp);
 		setGovThresholdDown(thresholdDown);
-		if (cpu.hasScript()) {
+		if (governor.hasScript()) {
 			StringBuilder result = new StringBuilder();
-			RootHandler.execute(cpu.getScript(), result);
+			RootHandler.execute(governor.getScript(), result);
 		}
-		setPowersaveBias(cpu.getPowersaveBias());
+		setPowersaveBias(governor.getPowersaveBias());
+	}
+	
+	public void applyCpuSettings(ProfileModel profile) {
+		if (GOV_USERSPACE.equals(profile.getGov())) {
+			setUserCpuFreq(profile.getMaxFreq());
+		} else {
+			setMaxCpuFreq(profile.getMaxFreq());
+			setMinCpuFreq(profile.getMinFreq());
+		}
+		applyGovernorSettings(profile);
 	}
 
 	public int getCurCpuFreq() {
@@ -304,5 +311,10 @@ public class CpuHandler extends HardwareHandler {
 	public String getCpuTimeinstate() {
 		return RootHandler.readFile(getFile(CPU_STATS_DIR, TIME_IN_STATE));
 	}
+
+	public String getCpuTotalTransitions() {
+		return RootHandler.readFile(getFile(CPU_STATS_DIR, TOTAL_TRANSITIONS));
+	}
+
 
 }
