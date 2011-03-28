@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
+<string name="hintScriptToRun">Script da eseguire dopo il cambio di governor.</string>
 <string name="prefLanguage">Lingua</string>
-<string-array name="prefLanguageEntries">
-		<item>Lingua di Sistema</item>
-		<item>Inglese</item>
-		<item>Tedesco</item>
-		<item>Italiano</item>
-		<item>Greco</item>
-</string-array>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">La soglia superiore è in percentuale e deve essere tra 0 e 100.</string>
 <string name="msg_down_threshhold_has_to_be_between_0_and_100">La soglia superiore è in percentuale e deve essere tra 0 e 100.</string>
 <string name="msg_up_threshhold_smaler_than_the_down_threshold">La soglia superiore deve essere maggiore di quella inferiore.</string>
@@ -91,8 +85,6 @@
 		senza che sia cambiato alcun trigger fino al quel momento.</string>
 	<string name="prefAllowManualServiceChangesOff">Cambia lo stato di un servizio nonostante fosse stato modificato manualmente.</string>
 	<string name="prefAllowManualServiceChanges">Modifiche a un servizio</string>
-	<string name="hintMailBody">Aggiungi alcune informazioni sul
-		problema che hai.</string>
 	<string name="prefCpuFreqMsg">Lista di frequenze separate da uno spazio</string>
 	<string name="prefCpuFreq">Frequenze CPU permesse</string>
 	<string name="prefCpuFreqLong">Lascia vuoto nell\'incertezza...!</string>
@@ -317,6 +309,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
 <string name="label_avgerage">media </string>
 <string name="label_tresh_up">superiore: </string>
 <string name="label_tresh_down">inferiore: </string>
+<string name="label_governor_tresholds">Soglie:</string>
 <string name="labelCurrentTab">Corrente</string> 
 <string name="labelTriggersTab">Trigger</string> 
 <string name="labelProfilesTab">Profili</string> 

@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="prefPulseMobiledataOnWifi">Pulse mobiledata on wifi</string>
+<string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if wifi is connected.</string>
+<string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is connected to a wifi lan.</string>
 <string name="prefLanguage">Choose language</string>
-<string-array name="prefLanguageEntries">
-		<item>System default</item>
-		<item>English</item>
-		<item>German</item>
-		<item>Italian</item>
-		<item>Greek</item>
-</string-array>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be between 0 and 100.</string>
 <string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be between 0 and 100.</string>
 <string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down threshold.</string>
@@ -31,5 +27,5 @@
 <string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
 <string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
 <string name="labelScript">Script:</string>
-<string name="hintScriptToRun">Script to run after governor change, if unsure leave empty..</string>
+<string name="hintScriptToRun">Script to run after governor change.</string>
 </resources>
