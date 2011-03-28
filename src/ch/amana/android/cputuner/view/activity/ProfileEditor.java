@@ -25,6 +25,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -399,16 +401,30 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spMobileData3G.setSelection(profile.getMobiledata3GState());
 		spMobileDataConnection.setSelection(profile.getMobiledataConnectionState());
 		spSync.setSelection(profile.getBackgroundSyncState());
-		if (CpuHandler.GOV_USERSPACE.equals(profile.getGov())) {
-			labelCpuFreqMax.setText(R.string.labelCpuFreq);
-			labelCpuFreqMin.setVisibility(View.INVISIBLE);
-			tvCpuFreqMin.setVisibility(View.INVISIBLE);
-			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+
+		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(profile.getGov());
+		if (governorConfig.hasNewLabelCpuFreqMax()) {
+			labelCpuFreqMax.setText(governorConfig.getNewLabelCpuFreqMax(this));
 		} else {
 			labelCpuFreqMax.setText(R.string.labelMax);
+		}
+		if (governorConfig.hasMinFrequency()) {
 			labelCpuFreqMin.setVisibility(View.VISIBLE);
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
+		} else {
+			labelCpuFreqMin.setVisibility(View.INVISIBLE);
+			tvCpuFreqMin.setVisibility(View.INVISIBLE);
+			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+		}
+		if (governorConfig.hasMaxFrequency()) {
+			labelCpuFreqMax.setVisibility(View.VISIBLE);
+			tvCpuFreqMax.setVisibility(View.VISIBLE);
+			sbCpuFreqMax.setVisibility(View.VISIBLE);
+		} else {
+			labelCpuFreqMax.setVisibility(View.INVISIBLE);
+			tvCpuFreqMax.setVisibility(View.INVISIBLE);
+			sbCpuFreqMax.setVisibility(View.INVISIBLE);
 		}
 		governorFragment.updateView();
 	}

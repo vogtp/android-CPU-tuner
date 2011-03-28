@@ -1,5 +1,7 @@
 package ch.amana.android.cputuner.helper;
 
+import android.content.Context;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 
 
@@ -13,6 +15,14 @@ public class GovernorConfigHelper {
 		public boolean hasThreshholdDownFeature();
 
 		public boolean hasPowersaveBias();
+
+		public CharSequence getNewLabelCpuFreqMax(Context ctx);
+
+		public boolean hasNewLabelCpuFreqMax();
+
+		public boolean hasMinFrequency();
+
+		public boolean hasMaxFrequency();
 
 	}
 
@@ -30,7 +40,27 @@ public class GovernorConfigHelper {
 
 		@Override
 		public boolean hasPowersaveBias() {
+			return true;
+		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
 			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
+			return true;
 		}
 	};
 	
@@ -48,6 +78,26 @@ public class GovernorConfigHelper {
 
 		@Override
 		public boolean hasPowersaveBias() {
+			return true;
+		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
 			return true;
 		}
 	};
@@ -69,6 +119,26 @@ public class GovernorConfigHelper {
 		public boolean hasPowersaveBias() {
 			return false;
 		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
+			return true;
+		}
 	};
 
 
@@ -87,6 +157,26 @@ public class GovernorConfigHelper {
 		@Override
 		public boolean hasPowersaveBias() {
 			return false;
+		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
+			return true;
 		}
 	};
 
@@ -107,6 +197,26 @@ public class GovernorConfigHelper {
 		public boolean hasPowersaveBias() {
 			return false;
 		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
+			return true;
+		}
 	};
 
 
@@ -124,6 +234,26 @@ public class GovernorConfigHelper {
 
 		@Override
 		public boolean hasPowersaveBias() {
+			return false;
+		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
 			return false;
 		}
 	};
@@ -144,6 +274,26 @@ public class GovernorConfigHelper {
 		@Override
 		public boolean hasPowersaveBias() {
 			return false;
+		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return ctx.getString(R.string.labelCpuFreq);
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
+			return true;
 		}
 	};	
 	

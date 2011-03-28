@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -71,6 +73,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			batteryLevelChanged();
 			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action)
 					|| Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
+				governorHelper.virtGov = powerProfiles.getCurrentProfile().getVirtualGovernor();
 				profileChanged();
 			}
 
@@ -395,7 +398,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	private void profileChanged() {
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			CharSequence profile = powerProfiles.getCurrentProfileName();
-			governorHelper.virtGov = powerProfiles.getCurrentProfile().getVirtualGovernor();
 			if (PulseHelper.getInstance(this).isPulsing()) {
 				// FIXME show pulsing
 				int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
@@ -416,19 +418,30 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
 		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
-		String curGov = cpuHandler.getCurCpuGov();
 
-		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
-			setSeekbar(cpuHandler.getCurCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
-			labelCpuFreqMax.setText(R.string.labelCpuFreq);
-			labelCpuFreqMin.setVisibility(View.INVISIBLE);
-			tvCpuFreqMin.setVisibility(View.INVISIBLE);
-			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(cpuHandler.getCurCpuGov());
+		if (governorConfig.hasNewLabelCpuFreqMax()) {
+			labelCpuFreqMax.setText(governorConfig.getNewLabelCpuFreqMax(this));
 		} else {
 			labelCpuFreqMax.setText(R.string.labelMax);
+		}
+		if (governorConfig.hasMinFrequency()) {
 			labelCpuFreqMin.setVisibility(View.VISIBLE);
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
+		} else {
+			labelCpuFreqMin.setVisibility(View.INVISIBLE);
+			tvCpuFreqMin.setVisibility(View.INVISIBLE);
+			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+		}
+		if (governorConfig.hasMaxFrequency()) {
+			labelCpuFreqMax.setVisibility(View.VISIBLE);
+			tvCpuFreqMax.setVisibility(View.VISIBLE);
+			sbCpuFreqMax.setVisibility(View.VISIBLE);
+		} else {
+			labelCpuFreqMax.setVisibility(View.INVISIBLE);
+			tvCpuFreqMax.setVisibility(View.INVISIBLE);
+			sbCpuFreqMax.setVisibility(View.INVISIBLE);
 		}
 
 		governorFragment.updateView();

@@ -1,9 +1,10 @@
 
-- switch gov (in profile editor) to check witch val can be r/w
-- widget for profile switch
+- display pulse state on main view
 
 - Show (icons) license
 - context sensitive help
+
+- widget for profile switch
 
 - fix mobiledata connection switch for 2.2
 

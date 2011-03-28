@@ -56,6 +56,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				callback.updateModel();
 				getGovernorModel().setVirtualGovernor(id);
+				callback.updateModel(); // need it twice to get real gov right
 				callback.updateView();
 			}
 
