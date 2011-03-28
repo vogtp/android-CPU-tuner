@@ -144,6 +144,9 @@ public class RootHandler {
 	}
 
 	static String readFile(File file) {
+		if (file == null) {
+			return NOT_AVAILABLE;
+		}
 		synchronized (file) {
 			StringBuilder val = new StringBuilder();
 			BufferedReader reader = null;

@@ -123,8 +123,9 @@ public class SendReportActivity extends Activity {
 		body.append("Max scaling frequency: ").append(cpuHandler.getMaxCpuFreq()).append('\n');
 		body.append("Current governor: ").append(cpuHandler.getCurCpuGov()).append('\n');
 		body.append("Current frequency: ").append(cpuHandler.getCurCpuFreq()).append('\n');
-		body.append("Current power usage: ").append(BatteryHandler.getBatteryCurrentNow()).append('\n');
-		body.append("Average power usage: ").append(BatteryHandler.getBatteryCurrentAverage()).append('\n');
+		BatteryHandler batteryHandler = BatteryHandler.getInstance();
+		body.append("Current power usage: ").append(batteryHandler.getBatteryCurrentNow()).append('\n');
+		body.append("Average power usage: ").append(batteryHandler.getBatteryCurrentAverage()).append('\n');
 		closeLogFile();
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append(CapabilityChecker.getInstance(this).toString());
