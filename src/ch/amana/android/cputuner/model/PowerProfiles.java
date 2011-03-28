@@ -71,8 +71,9 @@ public class PowerProfiles {
 
 	public PowerProfiles(Context ctx) {
 		context = ctx;
-		batteryLevel = BatteryHandler.getBatteryLevel();
-		acPower = BatteryHandler.isOnAcPower();
+		BatteryHandler batteryHandler = BatteryHandler.getInstance();
+		batteryLevel = batteryHandler.getBatteryLevel();
+		acPower = batteryHandler.isOnAcPower();
 		screenOff = false;
 		initActiveStates();
 	}
@@ -447,11 +448,11 @@ public class PowerProfiles {
 		// powerCurrentSum *= powerCurrentCnt;
 		switch (SettingsStorage.getInstance().getTrackCurrentType()) {
 		case SettingsStorage.TRACK_CURRENT_AVG:
-			powerCurrentSum += BatteryHandler.getBatteryCurrentAverage();
+			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentAverage();
 			break;
 
 		default:
-			powerCurrentSum += BatteryHandler.getBatteryCurrentNow();
+			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentNow();
 			break;
 		}
 		powerCurrentCnt++;

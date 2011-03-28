@@ -303,13 +303,14 @@ public class CurInfo extends Activity {
 		bat.append(powerProfiles.getBatteryTemperature()).append(" °C)");
 		tvBatteryLevel.setText(bat.toString());
 		StringBuilder currentText = new StringBuilder();
-		int currentNow = BatteryHandler.getBatteryCurrentNow();
+		BatteryHandler batteryHandler = BatteryHandler.getInstance();
+		int currentNow = batteryHandler.getBatteryCurrentNow();
 		if (currentNow > 0) {
-			currentText.append(BatteryHandler.getBatteryCurrentNow()).append(" mA/h");
+			currentText.append(batteryHandler.getBatteryCurrentNow()).append(" mA/h");
 		}
-		int currentAvg = BatteryHandler.getBatteryCurrentAverage();
+		int currentAvg = batteryHandler.getBatteryCurrentAverage();
 		if (currentAvg != BatteryHandler.NO_VALUE_INT && currentAvg != currentNow) {
-			currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(BatteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
+			currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(batteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
 		}
 		if (currentText.length() > 0) {
 			labelBatteryCurrent.setVisibility(View.VISIBLE);
