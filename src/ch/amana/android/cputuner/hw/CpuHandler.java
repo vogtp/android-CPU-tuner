@@ -174,6 +174,9 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setPowersaveBias(int i) {
+		if (i < 0) {
+			return false;
+		}
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), POWERSAVE_BIAS), i + "");
 	}
 

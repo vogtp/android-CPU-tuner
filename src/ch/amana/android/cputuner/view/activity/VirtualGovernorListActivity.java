@@ -55,7 +55,7 @@ public class VirtualGovernorListActivity extends ListActivity {
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 				if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP) {
 					if (cursor.getInt(columnIndex) < 1) {
-						((TextView) view).setText("-");
+						((TextView) view).setText("");
 						((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.INVISIBLE);
 						return true;
 					}

@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -36,6 +38,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private String origThreshDown;
 	private SeekBar sbPowersaveBias;
 	private boolean disableScript;
+	private TextView labelPowersaveBias;
 
 	public GovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
 		this(callback, governor, false);
@@ -72,6 +75,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		spinnerSetGov = (Spinner) act.findViewById(R.id.SpinnerCpuGov);
 		etScript = (EditText) act.findViewById(R.id.etScript);
 		sbPowersaveBias = (SeekBar) act.findViewById(R.id.sbPowersaveBias);
+		labelPowersaveBias = (TextView) act.findViewById(R.id.labelPowersaveBias);
 
 		if (disableScript || !settings.isEnableScriptOnProfileChange()) {
 			llFragmentTop.removeView(act.findViewById(R.id.llScript));
@@ -168,21 +172,11 @@ public class GovernorFragment extends GovernorBaseFragment {
 	}
 
 	private void updateGovernorFeatures() {
-		String gov = getGovernorModel().getGov();
-
-		boolean hasThreshholdUpFeature = true;
-		boolean hasThreshholdDownFeature = true;
-
-		if (CpuHandler.GOV_POWERSAVE.equals(gov) || CpuHandler.GOV_PERFORMANCE.equals(gov) || CpuHandler.GOV_USERSPACE.equals(gov) || CpuHandler.GOV_INTERACTIVE.equals(gov)) {
-			hasThreshholdUpFeature = false;
-			hasThreshholdDownFeature = false;
-		} else if (CpuHandler.GOV_ONDEMAND.equals(gov)) {
-			hasThreshholdDownFeature = false;
-		}
+		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(getGovernorModel().getGov());
 
 		int up = getGovernorModel().getGovernorThresholdUp();
 		int down = getGovernorModel().getGovernorThresholdDown();
-		if (hasThreshholdUpFeature) {
+		if (governorConfig.hasThreshholdUpFeature()) {
 			labelGovThreshUp.setVisibility(View.VISIBLE);
 			etGovTreshUp.setVisibility(View.VISIBLE);
 			if (up < 2) {
@@ -196,7 +190,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			etGovTreshUp.setVisibility(View.INVISIBLE);
 		}
 
-		if (hasThreshholdDownFeature) {
+		if (governorConfig.hasThreshholdDownFeature()) {
 			labelGovThreshDown.setVisibility(View.VISIBLE);
 			etGovTreshDown.setVisibility(View.VISIBLE);
 			if (down >= up || down < 1) {
@@ -214,5 +208,13 @@ public class GovernorFragment extends GovernorBaseFragment {
 			etGovTreshDown.setVisibility(View.INVISIBLE);
 		}
 
+		if (governorConfig.hasPowersaveBias()) {
+			labelPowersaveBias.setVisibility(View.VISIBLE);
+			sbPowersaveBias.setVisibility(View.VISIBLE);
+		}else {
+			labelPowersaveBias.setVisibility(View.INVISIBLE);
+			sbPowersaveBias.setVisibility(View.INVISIBLE);
+		}
+		
 	}
 }
