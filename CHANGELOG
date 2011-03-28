@@ -4,6 +4,13 @@ V
 * bug fixes
 - 
 
+V 1.6.3
+* features
+- 
+* bug fixes
+- fix forceclose
+- fix read battery current
+ 
 V 1.6.2
 * features
 - French translation
