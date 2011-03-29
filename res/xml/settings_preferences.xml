@@ -100,5 +100,8 @@
 		<EditTextPreference android:key="prefKeyEnableBeta"
 			android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage"
 			android:dialogTitle="@string/prefEnableBeta"></EditTextPreference>
+		<PreferenceScreen android:title="@string/prefScreenLegal" android:key="prefKeyLegal">
+			<Preference android:key="prefKeyLegalOxigenIcons" android:title="@string/prefLegalOxigenIcons" android:summary="@string/prefLegalOxigenIconsLong"></Preference>
+		</PreferenceScreen>
 	</PreferenceCategory>
 </PreferenceScreen>

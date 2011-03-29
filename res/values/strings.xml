@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="labelCurrentFrequency">current</string>
+<string name="prefScreenLegal">Legal stuff</string>
+<string name="prefLegalOxigenIcons">Icons License</string>
+<string name="prefLegalOxigenIconsLong">License of the used oxigen icons.  Thanks for the nice icons.</string>
 </resources>

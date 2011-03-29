@@ -46,11 +46,16 @@ public class StatsActivity extends Activity {
 			// if (sb.length() > 0) {
 			// sb.append("--------------------------------------\n");
 			// }
+			String curCpuFreq = Integer.toString(CpuHandler.getInstance().getCurCpuFreq());
 			sb.append(getString(R.string.label_time_in_state)).append("\n");
 			String[] states = timeinstate.split("\n");
 			for (int i = 0; i < states.length; i++) {
 				String[] vals = states[i].split(" +");
-				sb.append(Integer.parseInt(vals[0]) / 1000).append(" Mhz").append("\t\t").append(vals[1]).append("\n");
+				sb.append(Integer.parseInt(vals[0]) / 1000).append(" Mhz").append("\t\t").append(vals[1]);
+				if (curCpuFreq.equals(vals[0])) {
+					sb.append("\t\t(").append(getString(R.string.labelCurrentFrequency)).append(")");
+				}
+				sb.append("\n");
 			}
 			sb.append("\n");
 		}
