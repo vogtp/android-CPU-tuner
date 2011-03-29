@@ -19,9 +19,8 @@ public class CpuTunerTabActivity extends TabActivity {
 		super.onCreate(savedInstanceState);
 
 		if (Logger.DEBUG) {
-			setTitle(getTitle() + " - DEBUG MODE");
+			setTitle(getTitle() + " - DEBUG MODE" + " (" + getString(R.string.version) + ")");
 		}
-		setTitle(getTitle() + " (" + getString(R.string.version) + ")");
 
 		String lang = SettingsStorage.getInstance().getLanguage();
 		if (!"".equals(lang)) {
