@@ -39,7 +39,7 @@ public class MobiledataWrapper {
 			getMobileDataEnabled = c.getMethod("getMobileDataEnabled");
 			canAccessMobileData = true;
 		} catch (Exception e) {
-			Logger.e("Cannot access mobiledata controll: " + e.getMessage());
+			Logger.e("Cannot access mobiledata controll!", e);
 		}
 	}
 

@@ -2,6 +2,24 @@ V
 * features
 - 
 * bug fixes
+-
+
+V 2.0.0
+* features
+- Virtual governors
+- GUI updates
+- Settings and help moved to menu
+- Statistics tab
+- allow frequencies < 400 for minimal frequency
+- use powersave_bias 
+* bug fixes
+-
+
+V 1.6.1
+* features
+- Greek translation
+- 
+* bug fixes
 - 
 
 V 1.6.3
@@ -30,7 +48,6 @@ V 1.6.1
 V 1.6.0
 * features
 - Avoid some system calls by handling sanity checks internally 
-- Greek translation
 - Choose app language
 - force internal installation otherwise boot start will not work
 - run script on profile switch (for power users and non beta now)

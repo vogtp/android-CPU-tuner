@@ -279,7 +279,10 @@ public class TriggersListActivity extends ListActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		return handleCommonMenu(item);
+		if (handleCommonMenu(item)) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private boolean handleCommonMenu(MenuItem item) {

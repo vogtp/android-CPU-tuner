@@ -12,6 +12,7 @@ import java.util.WeakHashMap;
 
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandler extends HardwareHandler {
@@ -32,12 +33,17 @@ public class CpuHandler extends HardwareHandler {
 	private static final String SCALING_CUR_FREQ = "scaling_cur_freq";
 	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
 	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
+	private static final String POWERSAVE_BIAS = "powersave_bias";
 
 	private static final String GOV_TRESHOLD_UP = "up_threshold";
 	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
 	private static final String CPUINFO_MIN_FREQ = "cpuinfo_min_freq";
 	private static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
 	private static final String GOV_SAMPLING_RATE = "sampling_rate";
+
+	private static final String CPU_STATS_DIR = CPU_DIR + "stats/";
+	private static final String TIME_IN_STATE = "time_in_state";
+	private static final String TOTAL_TRANSITIONS = "total_trans";
 
 	private boolean availCpuFreq = true;
 	private final Map<String, File> fileMap = new WeakHashMap<String, File>();
@@ -52,19 +58,14 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public ProfileModel getCurrentCpuSettings() {
-		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq());
+		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq(), getGovThresholdUp(), getGovThresholdDown(), getPowersaveBias());
 	}
 
-	public void applyCpuSettings(ProfileModel cpu) {
-		setCurGov(cpu.getGov());
-		if (GOV_USERSPACE.equals(cpu.getGov())) {
-			setUserCpuFreq(cpu.getMaxFreq());
-		} else {
-			setMaxCpuFreq(cpu.getMaxFreq());
-			setMinCpuFreq(cpu.getMinFreq());
-		}
-		int thresholdUp = cpu.getGovernorThresholdUp();
-		int thresholdDown = cpu.getGovernorThresholdDown();
+
+	public void applyGovernorSettings(IGovernorModel governor) {
+		setCurGov(governor.getGov());
+		int thresholdUp = governor.getGovernorThresholdUp();
+		int thresholdDown = governor.getGovernorThresholdDown();
 		if (thresholdDown >= thresholdUp) {
 			if (thresholdUp > 30) {
 				thresholdDown = thresholdUp - 10;
@@ -74,18 +75,29 @@ public class CpuHandler extends HardwareHandler {
 		}
 		setGovThresholdUp(thresholdUp);
 		setGovThresholdDown(thresholdDown);
-		if (cpu.hasScript()) {
+		if (governor.hasScript()) {
 			StringBuilder result = new StringBuilder();
-			RootHandler.execute(cpu.getScript(), result);
+			RootHandler.execute(governor.getScript(), result);
 		}
+		setPowersaveBias(governor.getPowersaveBias());
+	}
+	
+	public void applyCpuSettings(ProfileModel profile) {
+		if (GOV_USERSPACE.equals(profile.getGov())) {
+			setUserCpuFreq(profile.getMaxFreq());
+		} else {
+			setMaxCpuFreq(profile.getMaxFreq());
+			setMinCpuFreq(profile.getMinFreq());
+		}
+		applyGovernorSettings(profile);
 	}
 
 	public int getCurCpuFreq() {
-		return getIntFromStr(readFile(SCALING_CUR_FREQ));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR, SCALING_CUR_FREQ)));
 	}
 
 	public String getCurCpuGov() {
-		return readFile(SCALING_GOVERNOR);
+		return RootHandler.readFile(getFile(CPU_DIR, SCALING_GOVERNOR));
 	}
 
 	public boolean setCurGov(String gov) {
@@ -94,7 +106,7 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public String[] getAvailCpuGov() {
-		String readFile = readFile(SCALING_AVAILABLE_GOVERNORS);
+		String readFile = RootHandler.readFile(getFile(CPU_DIR, SCALING_AVAILABLE_GOVERNORS));
 		if (!SettingsStorage.getInstance().isEnableUserspaceGovernor()) {
 			readFile = readFile.replace(GOV_USERSPACE, "");
 		}
@@ -102,11 +114,11 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean hasGovernor(String governor) {
-		return readFile(SCALING_AVAILABLE_GOVERNORS).contains(governor);
+		return RootHandler.readFile(getFile(CPU_DIR, SCALING_AVAILABLE_GOVERNORS)).contains(governor);
 	}
 
 	public int getMaxCpuFreq() {
-		return getIntFromStr(readFile(SCALING_MAX_FREQ));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR, SCALING_MAX_FREQ)));
 	}
 
 	public boolean setUserCpuFreq(int val) {
@@ -115,31 +127,31 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setMaxCpuFreq(int val) {
-		if (val <= getMinCpuFreq()) {
-			if (Logger.DEBUG) {
-				RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
-			}
-			return false;
-		}
+		// if (val <= getMinCpuFreq()) {
+		// if (Logger.DEBUG) {
+		// RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
+		// }
+		// return false;
+		// }
 		Logger.i("Setting max frequency to " + val);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MAX_FREQ), Integer.toString(val));
 	}
 
 	public int getUserCpuFreq() {
-		return getIntFromStr(readFile(SCALING_SETSPEED));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR, SCALING_SETSPEED)));
 	}
 
 	public int getMinCpuFreq() {
-		return getIntFromStr(readFile(SCALING_MIN_FREQ));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR, SCALING_MIN_FREQ)));
 	}
 
 	public boolean setMinCpuFreq(int i) {
-		if (i >= getMaxCpuFreq()) {
-			if (Logger.DEBUG) {
-				RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
-			}
-			return false;
-		}
+		// if (i >= getMaxCpuFreq()) {
+		// if (Logger.DEBUG) {
+		// RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
+		// }
+		// return false;
+		// }
 		Logger.i("Setting min frequency to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MIN_FREQ), Integer.toString(i));
 	}
@@ -159,6 +171,17 @@ public class CpuHandler extends HardwareHandler {
 
 	public int getGovThresholdDown() {
 		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN)));
+	}
+
+	public boolean setPowersaveBias(int i) {
+		if (i < 0) {
+			return false;
+		}
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), POWERSAVE_BIAS), i + "");
+	}
+
+	public int getPowersaveBias() {
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), POWERSAVE_BIAS)));
 	}
 
 	public boolean setGovThresholdUp(int i) {
@@ -205,9 +228,9 @@ public class CpuHandler extends HardwareHandler {
 		return getAvailCpuFreq(false);
 	}
 
-	public int[] getAvailCpuFreq(boolean forcePowerUserMode) {
+	public int[] getAvailCpuFreq(boolean allowLowFreqs) {
 
-		int[] freqs = createListInt(readFile(SCALING_AVAILABLE_FREQUENCIES));
+		int[] freqs = createListInt(RootHandler.readFile(getFile(CPU_DIR, SCALING_AVAILABLE_FREQUENCIES)));
 		if (freqs[0] == NO_VALUE_INT) {
 			availCpuFreq = false;
 			String settingsFreqs = SettingsStorage.getInstance().getCpuFreqs();
@@ -238,7 +261,7 @@ public class CpuHandler extends HardwareHandler {
 
 		}
 		availCpuFreq = true;
-		if (forcePowerUserMode ||
+		if (allowLowFreqs ||
 				SettingsStorage.getInstance().isPowerUser()) {
 			Arrays.sort(freqs);
 			return freqs;
@@ -260,20 +283,17 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public int getCpuInfoMaxFreq() {
-		return getIntFromStr(readFile(CPUINFO_MAX_FREQ));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR, CPUINFO_MAX_FREQ)));
 	}
 
 	public int getCpuInfoMinFreq() {
-		return getIntFromStr(readFile(CPUINFO_MIN_FREQ));
+		return getIntFromStr(RootHandler.readFile(getFile(CPU_DIR, CPUINFO_MIN_FREQ)));
 	}
 
 	public int getMinimumSensibleFrequency() {
 		return SettingsStorage.getInstance().getMinimumSensibeFrequency() * 1000;
 	}
 
-	private String readFile(String filename) {
-		return RootHandler.readFile(getFile(CPU_DIR, filename));
-	}
 
 	public boolean hasGov() {
 		return !RootHandler.NOT_AVAILABLE.equals(getCurCpuGov());
@@ -290,5 +310,14 @@ public class CpuHandler extends HardwareHandler {
 	public boolean hasDownThreshold() {
 		return (new File(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN)).exists();
 	}
+
+	public String getCpuTimeinstate() {
+		return RootHandler.readFile(getFile(CPU_STATS_DIR, TIME_IN_STATE));
+	}
+
+	public String getCpuTotalTransitions() {
+		return RootHandler.readFile(getFile(CPU_STATS_DIR, TOTAL_TRANSITIONS));
+	}
+
 
 }

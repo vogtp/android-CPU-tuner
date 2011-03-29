@@ -124,9 +124,11 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 	@Override
 	protected void onResume() {
 		super.onResume();
-		systemAppPreference.setEnabled(SettingsStorage.getInstance().isInstallAsSystemAppEnabled());
-		cpuFreqPreference.setEnabled(!SettingsStorage.getInstance().isBeginnerUser());
-		prefMinSensibleFrequency.setEnabled(!(SettingsStorage.getInstance().isBeginnerUser() || SettingsStorage.getInstance().isPowerUser()));
+		SettingsStorage settings = SettingsStorage.getInstance();
+		systemAppPreference.setEnabled(settings.isInstallAsSystemAppEnabled());
+		cpuFreqPreference.setEnabled(!settings.isBeginnerUser());
+		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
+		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
 	}
 
 	@Override

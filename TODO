@@ -1,8 +1,19 @@
-- switch gov (in profile editor) to check witch val can be r/w
-- change profile in mainview even if profiles switching is not active
+
+- display pulse state on main view
+
+- Show (icons) license
+- context sensitive help
+
+- widget for profile switch
+
+- fix mobiledata connection switch for 2.2
+
+- Feature request: CPU temperature monitoring in addition to battery 
 
 - backup restore profiles 
-- virtual governors (incl. thresholds) for inexperienced users 
+- switch profile/triggers sets (everything) based on time
+
+- Imperial units (°C -> F)
 
 - animate pulsed service in list
 - icons for services
@@ -15,3 +26,4 @@
 - figure out how to get avail freqs (if not available)
 
 
+- change profile in mainview even if profiles switching is not active

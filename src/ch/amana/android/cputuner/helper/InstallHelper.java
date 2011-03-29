@@ -13,25 +13,35 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
+import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class InstallHelper {
+
+	private static final int VERSION = 2;
 
 	static class CpuGovernorSettings {
 		String gov;
 		int upThreshold = -1;
 		int downThreshold = -1;
 		public long virtGov;
+		public String script;
+		public int powersaveBias;
 
 	}
 
 	private static final String SORT_ORDER = DB.NAME_ID + " DESC";
-	private static final int VERSION = 1;
+	private static CpuGovernorSettings cgsPower;
+	private static CpuGovernorSettings cgsNormal;
+	private static CpuGovernorSettings cgsSave;
+	private static CpuGovernorSettings cgsExtremSave;
 
 	public static void resetToDefault(final Context ctx) {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
@@ -61,7 +71,7 @@ public class InstallHelper {
 
 			ContentResolver resolver = ctx.getContentResolver();
 
-			Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+			Cursor cP = resolver.query(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 			if (cP == null || cP.getCount() < 1) {
 				Cursor cT = resolver.query(DB.Trigger.CONTENT_URI, new String[] { DB.NAME_ID }, null, null, SORT_ORDER);
 				if (cT == null || cT.getCount() < 1) {
@@ -69,10 +79,10 @@ public class InstallHelper {
 					CpuHandler cpuHandler = CpuHandler.getInstance();
 					int freqMax = cpuHandler.getMaxCpuFreq();
 					int freqMin = cpuHandler.getMinCpuFreq();
-					if (freqMin < cpuHandler.getMinimumSensibleFrequency()) {
+					if (freqMax < cpuHandler.getMinimumSensibleFrequency()) {
 						int[] availCpuFreq = cpuHandler.getAvailCpuFreq();
 						if (availCpuFreq != null && availCpuFreq.length > 0) {
-							freqMin = availCpuFreq[0];
+							freqMax = availCpuFreq[0];
 						}
 					}
 					String gov = cpuHandler.getCurCpuGov();
@@ -88,9 +98,7 @@ public class InstallHelper {
 							freqMin);
 					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
 					long profileExtremPowersave = createCpuProfile(resolver, ctx.getString(R.string.profilename_extreme_powersave), getExtremSaveGov(ctx, resolver, availGov, gov),
-							freqMax, freqMin,
-							2, 2, 2,
-							1, 2);
+							freqMax, freqMin, 2, 2, 2, 1, 2);
 
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance, profilePerformance);
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileNormal, profileGood, profilePerformance);
@@ -104,28 +112,58 @@ public class InstallHelper {
 				if (cT != null) {
 					cT.close();
 				}
+			} else {
+				// migrate to triggers
+				if (cP != null) {
+
+					while (cP.moveToNext()) {
+						ProfileModel profileModel = new ProfileModel(cP);
+						long virtGovId = migrateToVirtualGov(ctx, resolver, profileModel);
+						profileModel.setVirtualGovernor(virtGovId);
+						insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, profileModel.getValues());
+					}
+				}
 			}
 			if (cP != null) {
 				cP.close();
 			}
-			Cursor cT = resolver.query(DB.CpuProfile.CONTENT_URI, new String[] { DB.NAME_ID }, DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + "<1", null,
-					SORT_ORDER);
-			if (cT != null && cT.getCount() > 1) {
-				OpenHelper oh = new OpenHelper(ctx);
-				oh.getReadableDatabase().execSQL(
-						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " = 98 where "
-								+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " < 1");
-				oh.getReadableDatabase().execSQL(
-						"update " + DB.CpuProfile.TABLE_NAME + " set " + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " = 95 where "
-								+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " < 1");
-			}
-			if (cT != null) {
-				cT.close();
-			}
+
 			SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
 		} finally {
 			PowerProfiles.setUpdateTrigger(true);
 		}
+	}
+
+	private static long migrateToVirtualGov(Context ctx, ContentResolver resolver, ProfileModel profileModel) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(VirtualGovernor.NAME_REAL_GOVERNOR).append("='").append(profileModel.getGov()).append("'");
+		sb.append(" & ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN).append("=").append(profileModel.getGovernorThresholdDown());
+		sb.append(" & ").append(VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP).append("=").append(profileModel.getGovernorThresholdUp());
+		String script = profileModel.getScript();
+		if (!TextUtils.isEmpty(script)) {
+			sb.append(" && ").append(VirtualGovernor.NAME_SCRIPT).append("=").append(script);
+		}
+		sb.append(" && ").append(VirtualGovernor.NAME_POWERSEAVE_BIAS).append("=").append(profileModel.getPowersaveBias());
+		try {
+			Cursor cVH = resolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, sb.toString(), null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+			if (cVH != null && cVH.getCount() > 1) {
+				cVH.moveToFirst();
+				return cVH.getLong(DB.INDEX_ID);
+			}
+			if (cVH != null) {
+				cVH.close();
+			}
+		} catch (Throwable e) {
+			Logger.i("Cannot upgrade virtual governor", e);
+		}
+
+		CpuGovernorSettings cgs = new CpuGovernorSettings();
+		cgs.gov = profileModel.getGov();
+		cgs.downThreshold = profileModel.getGovernorThresholdDown();
+		cgs.upThreshold = profileModel.getGovernorThresholdUp();
+		cgs.script = script;
+		cgs.powersaveBias = profileModel.getPowersaveBias();
+		return createVirtualGovernor(resolver, ctx.getString(R.string.labelVirtualGovernor) + " " + profileModel.getProfileName(), cgs);
 	}
 
 	private static long createVirtualGovernor(ContentResolver resolver, String name, CpuGovernorSettings cgs) {
@@ -134,6 +172,8 @@ public class InstallHelper {
 		values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, cgs.gov);
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, cgs.downThreshold);
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, cgs.upThreshold);
+		values.put(DB.VirtualGovernor.NAME_SCRIPT, cgs.script);
+		values.put(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS, cgs.powersaveBias);
 		return insertOrUpdate(resolver, DB.VirtualGovernor.CONTENT_URI, values);
 	}
 
@@ -152,8 +192,8 @@ public class InstallHelper {
 		return createCpuProfile(resolver, name, gov, freqMax, freqMin, 0, 0, 0, 0, 0);
 	}
 
-	private static long createCpuProfile(ContentResolver resolver, String name, CpuGovernorSettings gov, int freqMax, int freqMin,
-			int wifiState, int gpsState, int btState, int mbState, int bsState) {
+	private static long createCpuProfile(ContentResolver resolver, String name, CpuGovernorSettings gov, int freqMax, int freqMin, int wifiState, int gpsState, int btState,
+			int mbState, int bsState) {
 
 		ContentValues values = new ContentValues();
 		values.put(DB.CpuProfile.NAME_PROFILE_NAME, name);
@@ -167,87 +207,93 @@ public class InstallHelper {
 		values.put(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, mbState);
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, bsState);
 		if (gov.upThreshold > -1) {
-			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP,
-					gov.upThreshold);
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, gov.upThreshold);
 		}
 		if (gov.downThreshold > -1) {
-			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN,
-					gov.downThreshold);
+			values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, gov.downThreshold);
 		}
 		return insertOrUpdate(resolver, DB.CpuProfile.CONTENT_URI, values);
 	}
 
 	private static CpuGovernorSettings getPowerGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
-		CpuGovernorSettings cgs = new CpuGovernorSettings();
-		if (list == null || list.size() < 1) {
-			cgs.gov = gov;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 85;
-		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
-			cgs.upThreshold = 85;
-			cgs.downThreshold = 40;
-		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			cgs.gov = CpuHandler.GOV_INTERACTIVE;
+		if (cgsPower == null) {
+			cgsPower = new CpuGovernorSettings();
+			if (list == null || list.size() < 1) {
+				cgsPower.gov = gov;
+			} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+				cgsPower.gov = CpuHandler.GOV_ONDEMAND;
+				cgsPower.upThreshold = 85;
+			} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+				cgsPower.gov = CpuHandler.GOV_CONSERVATIVE;
+				cgsPower.upThreshold = 85;
+				cgsPower.downThreshold = 40;
+			} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+				cgsPower.gov = CpuHandler.GOV_INTERACTIVE;
+			}
+			cgsPower.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_full_speed), cgsPower);
 		}
-		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_full_speed), cgs);
-		return cgs;
+		return cgsPower;
 	}
 
 	private static CpuGovernorSettings getNormalGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
-		CpuGovernorSettings cgs = new CpuGovernorSettings();
-		if (list == null || list.size() < 1) {
-			cgs.gov = gov;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 90;
-		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
-			cgs.upThreshold = 90;
-			cgs.downThreshold = 50;
-		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			cgs.gov = CpuHandler.GOV_INTERACTIVE;
+		if (cgsNormal == null) {
+			cgsNormal = new CpuGovernorSettings();
+			if (list == null || list.size() < 1) {
+				cgsNormal.gov = gov;
+			} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+				cgsNormal.gov = CpuHandler.GOV_ONDEMAND;
+				cgsNormal.upThreshold = 90;
+			} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+				cgsNormal.gov = CpuHandler.GOV_CONSERVATIVE;
+				cgsNormal.upThreshold = 90;
+				cgsNormal.downThreshold = 50;
+			} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+				cgsNormal.gov = CpuHandler.GOV_INTERACTIVE;
+			}
+			cgsNormal.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_normal), cgsNormal);
 		}
-		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_normal), cgs);
-		return cgs;
+		return cgsNormal;
 	}
 
 	private static CpuGovernorSettings getSaveGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
-		CpuGovernorSettings cgs = new CpuGovernorSettings();
-		if (list == null || list.size() < 1) {
-			cgs.gov = gov;
+		if (cgsSave == null) {
+			cgsSave = new CpuGovernorSettings();
+			if (list == null || list.size() < 1) {
+				cgsSave.gov = gov;
+			}
+			if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+				cgsSave.gov = CpuHandler.GOV_CONSERVATIVE;
+				cgsSave.upThreshold = 95;
+				cgsSave.downThreshold = 80;
+			} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+				cgsSave.gov = CpuHandler.GOV_ONDEMAND;
+				cgsSave.upThreshold = 94;
+			} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+				cgsSave.gov = CpuHandler.GOV_INTERACTIVE;
+			}
+			cgsSave.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_save_battery), cgsSave);
 		}
-		if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
-			cgs.upThreshold = 95;
-			cgs.downThreshold = 80;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 94;
-		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			cgs.gov = CpuHandler.GOV_INTERACTIVE;
-		}
-		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_save_battery), cgs);
-		return cgs;
+		return cgsSave;
 	}
 
 	private static CpuGovernorSettings getExtremSaveGov(Context ctx, ContentResolver resolver, List<String> list, String gov) {
-		CpuGovernorSettings cgs = new CpuGovernorSettings();
-		if (list == null || list.size() < 1) {
-			cgs.gov = gov;
-		} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
-			cgs.gov = CpuHandler.GOV_CONSERVATIVE;
-			cgs.upThreshold = 98;
-			cgs.downThreshold = 95;
-		} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
-			cgs.gov = CpuHandler.GOV_ONDEMAND;
-			cgs.upThreshold = 97;
-		} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
-			cgs.gov = CpuHandler.GOV_INTERACTIVE;
+		if (cgsExtremSave == null) {
+			cgsExtremSave = new CpuGovernorSettings();
+			if (list == null || list.size() < 1) {
+				cgsExtremSave.gov = gov;
+			} else if (list.contains(CpuHandler.GOV_CONSERVATIVE)) {
+				cgsExtremSave.gov = CpuHandler.GOV_CONSERVATIVE;
+				cgsExtremSave.upThreshold = 98;
+				cgsExtremSave.downThreshold = 95;
+			} else if (list.contains(CpuHandler.GOV_ONDEMAND)) {
+				cgsExtremSave.gov = CpuHandler.GOV_ONDEMAND;
+				cgsExtremSave.upThreshold = 97;
+			} else if (list.contains(CpuHandler.GOV_INTERACTIVE)) {
+				cgsExtremSave.gov = CpuHandler.GOV_INTERACTIVE;
+			}
+			cgsExtremSave.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_extrem_save_battery), cgsExtremSave);
 		}
-		cgs.virtGov = createVirtualGovernor(resolver, ctx.getString(R.string.virtgovname_extrem_save_battery), cgs);
-		return cgs;
+		return cgsExtremSave;
 	}
 
 	public static long insertOrUpdate(ContentResolver resolver, Uri contentUri, ContentValues values) {
@@ -268,11 +314,13 @@ public class InstallHelper {
 	}
 
 	public static void populateDb(Context ctx) {
-		if (VERSION > SettingsStorage.getInstance().getDefaultProfilesVersion()) {
-			try{
+		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
+		if (VERSION > defaultProfilesVersion) {
+			try {
+				Logger.i("Updating DB conents to version " + VERSION);
 				updateDefaultProfiles(ctx);
-			}catch(Exception e){
-				Logger.e("Cannot create profiles",e);
+			} catch (Exception e) {
+				Logger.e("Cannot create profiles", e);
 			}
 		}
 	}

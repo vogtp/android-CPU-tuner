@@ -12,9 +12,6 @@ import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -36,7 +33,6 @@ public class CapabilityCheckerActivity extends Activity {
 	private CapabilityChecker checker;
 	private TextView tvSummary;
 	private TableLayout tlCapabilities;
-	private CheckBox cbAcknowledge;
 	private TextView tvDeviceInfo;
 	private Button buSendBugreport;
 	private TextView tvMailMessage;
@@ -107,7 +103,6 @@ public class CapabilityCheckerActivity extends Activity {
 		tvMailMessage = (TextView) findViewById(R.id.tvMailMessage);
 		tvDeviceInfo = (TextView) findViewById(R.id.tvDeviceInfo);
 		tlCapabilities = (TableLayout) findViewById(R.id.tlCapabilities);
-		cbAcknowledge = (CheckBox) findViewById(R.id.cbAcknowledge);
 		buSendBugreport = (Button) findViewById(R.id.buSendBugreport);
 		buFindFrequencies = (Button) findViewById(R.id.buFindFrequencies);
 
@@ -132,14 +127,6 @@ public class CapabilityCheckerActivity extends Activity {
 			}
 		});
 
-		cbAcknowledge.setChecked(settings.isDisableDisplayIssues());
-		cbAcknowledge.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				settings.setDisableDisplayIssues(isChecked);
-			}
-		});
 	}
 
 	public void dispalyChecks() {

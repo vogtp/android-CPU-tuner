@@ -1,23 +1,23 @@
 package ch.amana.android.cputuner.view.activity;
 
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -25,43 +25,42 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.GuiUtils;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
+import ch.amana.android.cputuner.view.fragments.GovernorFragment;
+import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
+import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
 
-public class ProfileEditor extends Activity {
+public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback {
 
 	private ProfileModel profile;
 	private CpuHandler cpuHandler;
-	private Spinner spinnerSetGov;
 	private SeekBar sbCpuFreqMax;
 	private TextView tvCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
 	private TextView tvCpuFreqMin;
-	private String[] availCpuGovs;
-	private int[] availCpuFreqs;
+	private int[] availCpuFreqsMax;
+	private int[] availCpuFreqsMin;
 	private ProfileModel origProfile;
-	private TextView tvExplainGov;
 	private Spinner spWifi;
 	private Spinner spGps;
 	private Spinner spBluetooth;
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private EditText etName;
-	private EditText etGovTreshUp;
-	private EditText etGovTreshDown;
-	private TextView labelGovThreshUp;
-	private TextView labelGovThreshDown;
 	private Spinner spMobileData3G;
 	private Spinner spSync;
 	private boolean hasDeviceStatesBeta;
 	private Spinner spMobileDataConnection;
-	private EditText etScript;
-	private LinearLayout llTop;
+	// private LinearLayout llTop;
+	private GovernorBaseFragment governorFragment;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -90,20 +89,31 @@ public class ProfileEditor extends Activity {
 		setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
 
 		cpuHandler = CpuHandler.getInstance();
-		availCpuGovs = cpuHandler.getAvailCpuGov();
-		availCpuFreqs = cpuHandler.getAvailCpuFreq();
+		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
+		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
 
 		SettingsStorage settings = SettingsStorage.getInstance();
+
+		if (settings.isUseVirtualGovernors()) {
+			governorFragment = new VirtualGovernorFragment(this, profile);
+		} else {
+			governorFragment = new GovernorFragment(this, profile);
+		}
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
+		fragmentTransaction.commit();
+
 		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency() && settings.isBeginnerUser()) {
-			if (availCpuFreqs != null && availCpuFreqs.length > 0) {
-				profile.setMinFreq(availCpuFreqs[0]);
+			if (availCpuFreqsMin != null && availCpuFreqsMin.length > 0) {
+				profile.setMinFreq(availCpuFreqsMin[0]);
 			}
 		}
 
-		if (ProfileModel.NO_VALUE_INT == profile.getMinFreq() && availCpuFreqs.length > 0) {
+		if (ProfileModel.NO_VALUE_INT == profile.getMinFreq() && availCpuFreqsMin.length > 0) {
 			profile.setMinFreq(cpuHandler.getMinCpuFreq());
 		}
-		if (ProfileModel.NO_VALUE_INT == profile.getMaxFreq() && availCpuFreqs.length > 0) {
+		if (ProfileModel.NO_VALUE_INT == profile.getMaxFreq() && availCpuFreqsMax.length > 0) {
 			profile.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
@@ -115,18 +125,12 @@ public class ProfileEditor extends Activity {
 										Math.max(profile.getBackgroundSyncState(),
 												profile.getWifiState())))));
 
-		llTop = (LinearLayout) findViewById(R.id.llTop);
+		// llTop = (LinearLayout) findViewById(R.id.llTop);
 		etName = (EditText) findViewById(R.id.etName);
 		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
 		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
-		tvExplainGov = (TextView) findViewById(R.id.tvExplainGov);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
-		labelGovThreshUp = (TextView) findViewById(R.id.labelGovThreshUp);
-		labelGovThreshDown = (TextView) findViewById(R.id.labelGovThreshDown);
-		etGovTreshUp = (EditText) findViewById(R.id.etGovTreshUp);
-		etGovTreshDown = (EditText) findViewById(R.id.etGovTreshDown);
-		spinnerSetGov = (Spinner) findViewById(R.id.SpinnerCpuGov);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 		spWifi = (Spinner) findViewById(R.id.spWifi);
@@ -135,24 +139,20 @@ public class ProfileEditor extends Activity {
 		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
 		spMobileDataConnection = (Spinner) findViewById(R.id.spMobileDataConnection);
 		spSync = (Spinner) findViewById(R.id.spSync);
-		etScript = (EditText) findViewById(R.id.etScript);
 
-		if (!settings.isEnableScriptOnProfileChange()) {
-			llTop.removeView(findViewById(R.id.llScript));
-		}
 
-		sbCpuFreqMax.requestFocus();
+// sbCpuFreqMax.requestFocus();
 
 		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
 
-		sbCpuFreqMax.setMax(availCpuFreqs.length - 1);
+		sbCpuFreqMax.setMax(availCpuFreqsMax.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
-					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
+					int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
+					int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
 					if (max >= min) {
 						updateModel();
 						profile.setMaxFreq(max);
@@ -176,14 +176,14 @@ public class ProfileEditor extends Activity {
 			}
 		});
 
-		sbCpuFreqMin.setMax(availCpuFreqs.length - 1);
+		sbCpuFreqMin.setMax(availCpuFreqsMin.length - 1);
 		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				try {
-					int max = availCpuFreqs[sbCpuFreqMax.getProgress()];
-					int min = availCpuFreqs[sbCpuFreqMin.getProgress()];
+					int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
+					int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
 					if (max >= min) {
 						updateModel();
 						profile.setMinFreq(min);
@@ -204,26 +204,6 @@ public class ProfileEditor extends Activity {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 			}
-		});
-
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, availCpuGovs);
-		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinnerSetGov.setAdapter(arrayAdapter);
-		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				updateModel();
-				String gov = parent.getItemAtPosition(pos).toString();
-				profile.setGov(gov);
-				updateView();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				updateView();
-			}
-
 		});
 
 		if (settings.isEnableSwitchWifi()) {
@@ -344,45 +324,7 @@ public class ProfileEditor extends Activity {
 			}
 		});
 
-		OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener() {
-
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (!hasFocus && etGovTreshUp.getVisibility() == View.VISIBLE) {
-					String upthresh = etGovTreshUp.getText().toString();
-					String downthresh = etGovTreshDown.getText().toString();
-					try {
-						int up = Integer.parseInt(upthresh);
-						int down = 0;
-						if (etGovTreshDown.getVisibility() == View.VISIBLE) {
-							down = Integer.parseInt(downthresh);
-						}
-						if (up > 100 || up < 0) {
-							Toast.makeText(ProfileEditor.this, R.string.msg_up_threshhold_has_to_be_between_0_and_100, Toast.LENGTH_LONG).show();
-							etGovTreshUp.setText(origProfile.getGovernorThresholdUp() + "");
-						}
-						if (down > 100 || down < 0) {
-							Toast.makeText(ProfileEditor.this, R.string.msg_down_threshhold_has_to_be_between_0_and_100, Toast.LENGTH_LONG).show();
-							etGovTreshDown.setText(origProfile.getGovernorThresholdDown() + "");
-						}
-						if (up > down) {
-							// all OK
-							return;
-						}
-						Toast.makeText(ProfileEditor.this, R.string.msg_up_threshhold_smaler_than_the_down_threshold, Toast.LENGTH_LONG).show();
-						down = up - 10;
-						etGovTreshDown.setText(down + "");
-					} catch (Exception e) {
-						Toast.makeText(ProfileEditor.this, R.string.msg_threshhold_NaN, Toast.LENGTH_LONG).show();
-					}
-				}
-
-			}
-		};
-		etGovTreshUp.setOnFocusChangeListener(onFocusChangeListener);
-		etGovTreshDown.setOnFocusChangeListener(onFocusChangeListener);
-
-		updateView();
+		// updateView();
 	}
 
 	private ArrayAdapter<CharSequence> getSystemsAdapter() {
@@ -402,15 +344,9 @@ public class ProfileEditor extends Activity {
 		super.onSaveInstanceState(outState);
 	}
 
-	private void updateModel() {
+	public void updateModel() {
 		profile.setProfileName(etName.getText().toString());
-		profile.setGovernorThresholdUp(etGovTreshUp.getText().toString());
-		profile.setGovernorThresholdDown(etGovTreshDown.getText().toString());
-		if (SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
-			profile.setScript(etScript.getText().toString());
-		} else {
-			profile.setScript("");
-		}
+		governorFragment.updateModel();
 	}
 
 	@Override
@@ -455,91 +391,44 @@ public class ProfileEditor extends Activity {
 		}
 	}
 
-	private void updateView() {
+	public void updateView() {
 		etName.setText(profile.getProfileName());
-		setSeekbar(profile.getMaxFreq(), availCpuFreqs, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(profile.getMinFreq(), availCpuFreqs, sbCpuFreqMin, tvCpuFreqMin);
-		String curGov = profile.getGov();
-		for (int i = 0; i < availCpuGovs.length; i++) {
-			if (curGov.equals(availCpuGovs[i])) {
-				spinnerSetGov.setSelection(i);
-			}
-		}
-		tvExplainGov.setText(GuiUtils.getExplainGovernor(this, curGov));
+		setSeekbar(profile.getMaxFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
+		setSeekbar(profile.getMinFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
 		spWifi.setSelection(profile.getWifiState());
 		spGps.setSelection(profile.getGpsState());
 		spBluetooth.setSelection(profile.getBluetoothState());
 		spMobileData3G.setSelection(profile.getMobiledata3GState());
 		spMobileDataConnection.setSelection(profile.getMobiledataConnectionState());
 		spSync.setSelection(profile.getBackgroundSyncState());
-		if (CpuHandler.GOV_USERSPACE.equals(curGov)) {
-			labelCpuFreqMax.setText(R.string.labelCpuFreq);
-			labelCpuFreqMin.setVisibility(View.INVISIBLE);
-			tvCpuFreqMin.setVisibility(View.INVISIBLE);
-			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+
+		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(profile.getGov());
+		if (governorConfig.hasNewLabelCpuFreqMax()) {
+			labelCpuFreqMax.setText(governorConfig.getNewLabelCpuFreqMax(this));
 		} else {
 			labelCpuFreqMax.setText(R.string.labelMax);
+		}
+		if (governorConfig.hasMinFrequency()) {
 			labelCpuFreqMin.setVisibility(View.VISIBLE);
 			tvCpuFreqMin.setVisibility(View.VISIBLE);
 			sbCpuFreqMin.setVisibility(View.VISIBLE);
+		} else {
+			labelCpuFreqMin.setVisibility(View.INVISIBLE);
+			tvCpuFreqMin.setVisibility(View.INVISIBLE);
+			sbCpuFreqMin.setVisibility(View.INVISIBLE);
 		}
-		if (SettingsStorage.getInstance().isPowerUser()) {
-			etScript.setText(profile.getScript());
+		if (governorConfig.hasMaxFrequency()) {
+			labelCpuFreqMax.setVisibility(View.VISIBLE);
+			tvCpuFreqMax.setVisibility(View.VISIBLE);
+			sbCpuFreqMax.setVisibility(View.VISIBLE);
+		} else {
+			labelCpuFreqMax.setVisibility(View.INVISIBLE);
+			tvCpuFreqMax.setVisibility(View.INVISIBLE);
+			sbCpuFreqMax.setVisibility(View.INVISIBLE);
 		}
-		updateGovernorFeatures();
+		governorFragment.updateView();
 	}
 
-	private void updateGovernorFeatures() {
-		String gov = profile.getGov();
-
-		boolean hasThreshholdUpFeature = true;
-		boolean hasThreshholdDownFeature = true;
-
-		if (CpuHandler.GOV_POWERSAVE.equals(gov)
-				|| CpuHandler.GOV_PERFORMANCE.equals(gov)
-				|| CpuHandler.GOV_USERSPACE.equals(gov)
-				|| CpuHandler.GOV_INTERACTIVE.equals(gov)) {
-			hasThreshholdUpFeature = false;
-			hasThreshholdDownFeature = false;
-		} else if (CpuHandler.GOV_ONDEMAND.equals(gov)) {
-			hasThreshholdDownFeature = false;
-		}
-
-		int up = profile.getGovernorThresholdUp();
-		int down = profile.getGovernorThresholdDown();
-		if (hasThreshholdUpFeature) {
-			labelGovThreshUp.setVisibility(View.VISIBLE);
-			etGovTreshUp.setVisibility(View.VISIBLE);
-			if (up < 2) {
-				up = 90;
-			}
-			etGovTreshUp.setText(up + "");
-		} else {
-			profile.setGovernorThresholdUp(0);
-			etGovTreshUp.setText("");
-			labelGovThreshUp.setVisibility(View.INVISIBLE);
-			etGovTreshUp.setVisibility(View.INVISIBLE);
-		}
-
-		if (hasThreshholdDownFeature) {
-			labelGovThreshDown.setVisibility(View.VISIBLE);
-			etGovTreshDown.setVisibility(View.VISIBLE);
-			if (down >= up || down < 1) {
-				if (up > 30) {
-					down = up - 10;
-				} else {
-					down = up - 1;
-				}
-			}
-			etGovTreshDown.setText(down + "");
-		} else {
-			profile.setGovernorThresholdDown(0);
-			etGovTreshDown.setText("");
-			labelGovThreshDown.setVisibility(View.INVISIBLE);
-			etGovTreshDown.setVisibility(View.INVISIBLE);
-		}
-
-	}
 
 	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
 		if (val == HardwareHandler.NO_VALUE_INT) {
@@ -570,11 +459,12 @@ public class ProfileEditor extends Activity {
 			profile.readFromBundle(bundle);
 			updateView();
 			finish();
-			break;
+			return true;
+
 		case R.id.menuItemSave:
 			finish();
-			break;
+			return true;
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 }

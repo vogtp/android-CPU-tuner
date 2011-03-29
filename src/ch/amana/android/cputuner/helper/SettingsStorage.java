@@ -25,6 +25,7 @@ public class SettingsStorage {
 
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
 	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
+	private static final String PREF_KEY_USE_VIRTUAL_GOVS = "prefKeyUseVirtualGovernors";
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -121,16 +122,6 @@ public class SettingsStorage {
 			statusbarNotifications = getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, true);
 		}
 		return statusbarNotifications;
-	}
-
-	public boolean isDisableDisplayIssues() {
-		return getPreferences().getBoolean(DISABLE_DISPLAY_ISSUES, false);
-	}
-
-	public void setDisableDisplayIssues(boolean display) {
-		Editor edit = getPreferences().edit();
-		edit.putBoolean(DISABLE_DISPLAY_ISSUES, display);
-		edit.commit();
 	}
 
 	public boolean isEnableBeta() {
@@ -339,5 +330,15 @@ public class SettingsStorage {
 	
 	public boolean isPulseMobiledataOnWifi() {
 		return getPreferences().getBoolean("prefKeyPulseMobiledataOnWifi", true);
+	}
+		
+	public boolean isUseVirtualGovernors() {
+		return getPreferences().getBoolean(PREF_KEY_USE_VIRTUAL_GOVS, true);
+	}
+
+	public void setUseVirtualGovernors(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_USE_VIRTUAL_GOVS, b);
+		editor.commit();
 	}
 }

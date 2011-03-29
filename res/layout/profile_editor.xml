@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:id="@+id/ScrollView01"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginBottom="20dp">
-	<LinearLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:padding="5dp" android:id="@+id/llTop">
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:layout_marginBottom="20dp">
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:padding="5dp" android:id="@+id/llTop" android:orientation="vertical">
 
 		<LinearLayout android:layout_height="wrap_content"
 			android:id="@+id/LinearLayoutProfile" android:layout_width="fill_parent">
@@ -16,68 +16,71 @@
 				android:layout_width="fill_parent"></EditText>
 
 		</LinearLayout>
-		<TextView android:paddingRight="5dp" android:id="@+id/textView2" android:text="@string/labelServices" android:paddingTop="10dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:textSize="20sp"></TextView>
-		<TableLayout android:id="@+id/TableLayoutServices" android:layout_height="wrap_content" android:layout_width="wrap_content">
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMobileData3G" android:layout_width="wrap_content">
-				<TextView android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="@string/labelMobileData32G" android:layout_width="wrap_content" android:id="@+id/TextView01" android:layout_height="wrap_content"></TextView>
-				<Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spMobileData3G"></Spinner>
+		<TextView android:paddingRight="5dp" android:id="@+id/textView2"
+			android:text="@string/labelServices" android:paddingTop="10dp"
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:textSize="20sp"></TextView>
+		<TableLayout android:id="@+id/TableLayoutServices"
+			android:layout_height="wrap_content" android:layout_width="wrap_content">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMobileData3G"
+				android:layout_width="wrap_content">
+				<TextView android:paddingRight="5dp"
+					android:layout_gravity="center_vertical" android:text="@string/labelMobileData32G"
+					android:layout_width="wrap_content" android:id="@+id/TextView01"
+					android:layout_height="wrap_content"></TextView>
+				<Spinner android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/spMobileData3G"></Spinner>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMobiledataConnection" android:layout_width="wrap_content">
-				<TextView android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="@string/labelMobileDataConn" android:layout_width="wrap_content" android:id="@+id/TextView02" android:layout_height="wrap_content"></TextView>
-				<Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spMobileDataConnection"></Spinner>
+			<TableRow android:layout_height="wrap_content"
+				android:id="@+id/TableRowMobiledataConnection" android:layout_width="wrap_content">
+				<TextView android:paddingRight="5dp"
+					android:layout_gravity="center_vertical" android:text="@string/labelMobileDataConn"
+					android:layout_width="wrap_content" android:id="@+id/TextView02"
+					android:layout_height="wrap_content"></TextView>
+				<Spinner android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/spMobileDataConnection"></Spinner>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowSync" android:layout_width="wrap_content">
-				<TextView android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="@string/labelBackgroundSync" android:layout_width="wrap_content" android:id="@+id/TextView01" android:layout_height="wrap_content"></TextView>
-				<Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spSync"></Spinner>
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowSync"
+				android:layout_width="wrap_content">
+				<TextView android:paddingRight="5dp"
+					android:layout_gravity="center_vertical" android:text="@string/labelBackgroundSync"
+					android:layout_width="wrap_content" android:id="@+id/TextView01"
+					android:layout_height="wrap_content"></TextView>
+				<Spinner android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/spSync"></Spinner>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowGps" android:layout_width="wrap_content">
-				<TextView android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="@string/labelGPS" android:layout_width="wrap_content" android:id="@+id/TextView01" android:layout_height="wrap_content"></TextView>
-				<Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spGps"></Spinner>
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowGps"
+				android:layout_width="wrap_content">
+				<TextView android:paddingRight="5dp"
+					android:layout_gravity="center_vertical" android:text="@string/labelGPS"
+					android:layout_width="wrap_content" android:id="@+id/TextView01"
+					android:layout_height="wrap_content"></TextView>
+				<Spinner android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/spGps"></Spinner>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowWifi" android:layout_width="wrap_content">
-				<TextView android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="@string/labelWifi" android:layout_width="wrap_content" android:id="@+id/TextView01" android:layout_height="wrap_content"></TextView>
-				<Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spWifi"></Spinner>
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowWifi"
+				android:layout_width="wrap_content">
+				<TextView android:paddingRight="5dp"
+					android:layout_gravity="center_vertical" android:text="@string/labelWifi"
+					android:layout_width="wrap_content" android:id="@+id/TextView01"
+					android:layout_height="wrap_content"></TextView>
+				<Spinner android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/spWifi"></Spinner>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth" android:layout_width="wrap_content">
-				<TextView android:paddingRight="5dp" android:layout_gravity="center_vertical" android:text="@string/labelBluetooth" android:layout_width="wrap_content" android:id="@+id/TextView01" android:layout_height="wrap_content"></TextView>
-				<Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spBluetooth"></Spinner>
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth"
+				android:layout_width="wrap_content">
+				<TextView android:paddingRight="5dp"
+					android:layout_gravity="center_vertical" android:text="@string/labelBluetooth"
+					android:layout_width="wrap_content" android:id="@+id/TextView01"
+					android:layout_height="wrap_content"></TextView>
+				<Spinner android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/spBluetooth"></Spinner>
 			</TableRow>
 		</TableLayout>
-		<LinearLayout android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/llCpuGov"
-			android:paddingTop="20dp" android:orientation="horizontal">
-			<TextView android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="@string/labelCpuGov"
-				android:paddingRight="5dp" android:textSize="20sp" />
-			<Spinner android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/SpinnerCpuGov"
-				android:prompt="@string/spinnerPromptGov" android:focusable="true"></Spinner>
-		</LinearLayout>
-		<LinearLayout android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/llGovernorThresholds">
-			<TextView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:paddingRight="7dp"
-				android:text="@string/labelThreshsUp" android:id="@+id/labelGovThreshUp"></TextView>
-			<EditText android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/etGovTreshUp"
-				android:text="98" android:height="16dp" android:inputType="number"></EditText>
-			<TextView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:paddingRight="7dp"
-				android:paddingLeft="7dp" android:text="@string/labelDown" android:id="@+id/labelGovThreshDown"></TextView>
-			<EditText android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="95"
-				android:id="@+id/etGovTreshDown" android:height="16dp"
-				android:inputType="number"></EditText>
-		</LinearLayout>
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="Explain Gov"
-			android:id="@+id/tvExplainGov"></TextView>
-		<TextView android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="@string/labelCpuFreq"
-			android:paddingRight="5dp" android:textSize="20sp"
-			android:paddingTop="20dp" />
+		<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/llGovernorFragmentAncor"></LinearLayout>
 		<TableLayout android:layout_height="wrap_content"
 			android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
+			<TextView android:textSize="20sp" android:layout_width="fill_parent" android:id="@+id/textView1" android:layout_height="wrap_content" android:paddingTop="20dp" android:text="@string/labelCpuFreq" android:paddingRight="5dp"></TextView>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
 				android:layout_width="fill_parent" android:layout_gravity="center_vertical">
 
@@ -110,10 +113,6 @@
 			</TableRow>
 
 		</TableLayout>
-		<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/llScript" android:paddingTop="20dp">
-			<TextView android:layout_height="wrap_content" android:text="@string/labelScript" android:layout_width="wrap_content" android:id="@+id/textView1" android:paddingRight="5dp"></TextView>
-			<EditText android:layout_height="wrap_content" android:id="@+id/etScript" android:layout_width="wrap_content" android:hint="@string/hintScriptToRun"></EditText>
-		</LinearLayout>
 
 
 
@@ -122,5 +121,5 @@
 
 
 	</LinearLayout>
-	
+
 </ScrollView>

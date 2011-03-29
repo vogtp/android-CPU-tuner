@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class ProfileModel {
+public class ProfileModel implements IGovernorModel {
 
 	public static final String NO_VALUE_STR = "None";
 
@@ -31,16 +31,20 @@ public class ProfileModel {
 	private int governorThresholdDown = 0;
 	private long virtualGovernor = -1;
 	private String script = "";
+	private int powersaveBias = 0;
 
 	public ProfileModel() {
 		super();
 	}
 
-	public ProfileModel(String gov, int maxFreq, int minFreq) {
+	public ProfileModel(String gov, int maxFreq, int minFreq, int threshUp, int threshDown, int powersaveBias) {
 		this();
 		this.gov = gov;
 		this.maxFreq = maxFreq;
 		this.minFreq = minFreq;
+		this.governorThresholdUp = threshUp;
+		this.governorThresholdDown = threshDown;
+		this.powersaveBias = powersaveBias;
 	}
 
 	public ProfileModel(Cursor c) {
@@ -60,6 +64,7 @@ public class ProfileModel {
 		this.backgroundSyncState = c.getInt(DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE);
 		this.virtualGovernor = c.getLong(DB.CpuProfile.INDEX_VIRTUAL_GOVERNOR);
 		this.script = c.getString(DB.CpuProfile.INDEX_SCRIPT);
+		this.powersaveBias = c.getInt(DB.CpuProfile.INDEX_POWERSEAVE_BIAS);
 	}
 
 	public ProfileModel(Bundle bundle) {
@@ -87,6 +92,7 @@ public class ProfileModel {
 		bundle.putInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
 		bundle.putLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
 		bundle.putString(DB.CpuProfile.NAME_SCRIPT, getScript());
+		bundle.putInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS, getPowersaveBias());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -105,6 +111,7 @@ public class ProfileModel {
 		backgroundSyncState = bundle.getInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE);
 		virtualGovernor = bundle.getLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR);
 		script = bundle.getString(DB.CpuProfile.NAME_SCRIPT);
+		powersaveBias = bundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
 	}
 
 	public ContentValues getValues() {
@@ -125,7 +132,9 @@ public class ProfileModel {
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
 		values.put(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		values.put(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
+		values.put(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
 		values.put(DB.CpuProfile.NAME_SCRIPT, getScript());
+		values.put(DB.CpuProfile.NAME_POWERSEAVE_BIAS, getPowersaveBias());
 		return values;
 	}
 
@@ -233,6 +242,7 @@ public class ProfileModel {
 		result = prime * result + minFreq;
 		result = prime * result + mobiledata3GState;
 		result = prime * result + mobiledataConnectionState;
+		result = prime * result + powersaveBias;
 		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
 		result = prime * result + ((script == null) ? 0 : script.hashCode());
 		result = prime * result + (int) (virtualGovernor ^ (virtualGovernor >>> 32));
@@ -271,6 +281,8 @@ public class ProfileModel {
 		if (mobiledata3GState != other.mobiledata3GState)
 			return false;
 		if (mobiledataConnectionState != other.mobiledataConnectionState)
+			return false;
+		if (powersaveBias != other.powersaveBias)
 			return false;
 		if (profileName == null) {
 			if (other.profileName != null)
@@ -359,5 +371,13 @@ public class ProfileModel {
 
 	public boolean hasScript() {
 		return script != null && !TextUtils.isEmpty(script.trim());
+	}
+
+	public void setPowersaveBias(int powersaveBias) {
+		this.powersaveBias = powersaveBias;
+	}
+
+	public int getPowersaveBias() {
+		return powersaveBias;
 	}
 }
