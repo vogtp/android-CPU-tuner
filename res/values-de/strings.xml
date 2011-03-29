@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
-<string name="labelStatisticsTab">Statistics</string>
-<string name="label_time_in_state">Time in state:</string>
-<string name="titleVirtualGovernorEditor">Virtual Governor Editor:</string>
-<string name="msgDeleteVirtGovNotPossible">Cannot delete this virtual governor since it is used in one or more profiles!</string>
-<string name="labelName">Name:</string>
-<string name="hintVirtualGovernorName">Virtual Governor Name</string>
-<string name="prefCatGUI">User interface</string>
-<string name="prefCatDisplay">Display</string>
-<string name="labelPowersaveBias">Powersave bias:</string>
-<string name="labelVirtualGovernor">Virtual Governor:</string>
-<string name="prefUseVirtualGovernorsLong">Virtual governor abstract the settings of governors from the profile.</string>
-<string name="label_total_transitions">Total transitions:</string>
 <string name="prefPulseMobiledataOnWifi">Pulse mobiledata on wifi</string>
 <string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if wifi is connected.</string>
 <string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is connected to a wifi lan.</string>
@@ -22,4 +9,6 @@
 <string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down threshold.</string>
 <string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
 <string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the maximal.</string>
+<string name="label_total_transitions">Total transitions:</string>
+<string name="labelPowersaveBias">Powersave bias:</string>
 </resources>

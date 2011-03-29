@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources><string name="msg_cannot_load_virtual_governor">Der virtuelle Regler kann nicht geladen werden...</string>
+<string name="labelStatisticsTab">Statistik</string>
+<string name="label_time_in_state">Time in state:</string>
+<string name="titleVirtualGovernorEditor">Virtueller Regler Editor:</string>
+<string name="msgDeleteVirtGovNotPossible">Dieser Regler kann nicht gelöscht werden, da er in einem oder mehreren Profil verwendet wird.</string>
+<string name="labelName">Name:</string>
+<string name="hintVirtualGovernorName">Virtueller Regler Name</string>
+<string name="prefCatGUI">Oberfläche</string>
+<string name="prefCatDisplay">Darstellung</string>
+<string name="labelVirtualGovernor">Virtueller Regler:</string>
+<string name="prefUseVirtualGovernorsLong">Virtuelle Regler abstrahieren die Einstellungen der CPU Regler von den Profilen.</string>
 <string name="hintScriptToRun">Skript, das nach einer Änderung, ausgeführt wird.</string>
 <string name="msgDeleteTriggerNotPossible">Dieses Profil kann nicht gelöscht werden, da es in einem oder mehreren Auslöser verwendet wird.</string>
 <string name="prefBasics">Grundlegendes</string>
