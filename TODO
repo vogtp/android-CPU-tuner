@@ -1,14 +1,11 @@
 
 - display pulse state on main view
+- use sprintf to display time in state
 
-- Show (icons) license
 - context sensitive help
 
 - widget for profile switch
 
-- fix mobiledata connection switch for 2.2
-
-- Feature request: CPU temperature monitoring in addition to battery 
 
 - backup restore profiles 
 - switch profile/triggers sets (everything) based on time
@@ -25,5 +22,6 @@
 
 - figure out how to get avail freqs (if not available)
 
+- Feature request: CPU temperature monitoring in addition to battery 
 
 - change profile in mainview even if profiles switching is not active
