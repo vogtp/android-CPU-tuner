@@ -10,9 +10,8 @@
 		android:layout_height="wrap_content" android:text="@string/labelBody"></TextView>
 
 	<EditText android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:hint="@string/hintMailBody"
-		android:id="@+id/etMailBody" android:layout_weight="0.9"
-		android:gravity="top" android:text="@string/hintMailBody_en"></EditText>
+		android:layout_width="fill_parent" android:id="@+id/etMailBody" android:layout_weight="0.9"
+		android:gravity="top" android:hint="@string/hintMailBody_en"></EditText>
 	<Button android:layout_height="wrap_content" android:text="@string/labelSendMail"
 		android:layout_width="fill_parent" android:layout_weight="0.1"
 		android:id="@+id/buSendMail"></Button>
