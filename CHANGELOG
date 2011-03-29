@@ -4,6 +4,12 @@ V
 * bug fixes
 -
 
+V 2.0.1
+* features
+- 
+* bug fixes
+- fix fc on orientation change
+
 V 2.0.0
 * features
 - Virtual governors
