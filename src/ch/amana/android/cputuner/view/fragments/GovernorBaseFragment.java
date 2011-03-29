@@ -9,7 +9,7 @@ public abstract class GovernorBaseFragment extends Fragment {
 
 	private IGovernorModel governor;
 
-	private GovernorBaseFragment() {
+	public GovernorBaseFragment() {
 		super();
 	}
 
