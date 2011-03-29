@@ -11,7 +11,7 @@
 <br />
 <span class="text">Profiles are systemwide settings that are
 applied by <a href="trigger.html">triggers</a>.</span>
-<span class="text">At the moment (v. 1.0) there's two categories,
+<span class="text">At the moment (v. 2.0) there's two categories,
 you can adjust:
 <ul>
 	<li><span class="bold">CPU settings</span><br />
@@ -22,14 +22,15 @@ you can adjust:
 	<li><span class="bold">services</span><br />
 	These settings can toggle some system services on and/or off.<br />
 	As said in <a href="battery_drainer.html">battery drainers</a> it's
-	wise to disable syncing, wifi, etc. on some states.<br />
+	wise to disable syncing, wifi, etc. on some states, but you should not switch services too often.<br />
 	You can <span class="bold">leave [the service in question]
 	unchanged</span>, but you may as well <span class="bold">enable</span> or 
 	<span class="bold">disable</span> services with triggers, additionally you can
 	go <span class="bold">back to [the] previous</span> state which activates the state 
-	the service was in before the last switch.
-		
-		<br />
+	the service was in before the last switch. 
+	Furthermore you can <span class="bold">pulse</span> a service, in this case it
+	will be switched off for some time (e.g. 15 min), then automatically switched on for a (short) period
+	(e.g. 1min) and then the cycle begins again.  All pulsed services will be switch on and off at the same time.<br />
 	If you manually override these settings, e.g. cause CPU tuner disables
 	sync at 20% battery, but you need to sync you calendar with Google,
 	this setting will stay untouched by CPU tuner unless a new trigger is
