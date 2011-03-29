@@ -27,6 +27,10 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	private TextView tvExplainGov;
 	private Cursor cursor;
 
+	public VirtualGovernorFragment() {
+		super();
+	}
+
 	public VirtualGovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
 		super(callback, governor);
 	}

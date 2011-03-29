@@ -40,6 +40,10 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private boolean disableScript;
 	private TextView labelPowersaveBias;
 
+	public GovernorFragment() {
+		super();
+	}
+
 	public GovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
 		this(callback, governor, false);
 	}
