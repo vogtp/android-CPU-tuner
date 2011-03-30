@@ -25,6 +25,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.Logger;
@@ -446,6 +447,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		getMenuInflater().inflate(R.menu.edit_option, menu);
 		return true;
 	}
@@ -464,7 +466,12 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		case R.id.menuItemSave:
 			finish();
 			return true;
+
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_PROFILE)) {
+				return true;
+			}
 		}
-		return super.onOptionsItemSelected(item);
+		return false;
 	}
 }

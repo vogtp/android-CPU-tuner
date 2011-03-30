@@ -21,6 +21,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -98,7 +99,10 @@ public class VirtualGovernorListActivity extends ListActivity {
 		if (handleCommonMenu(item)) {
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

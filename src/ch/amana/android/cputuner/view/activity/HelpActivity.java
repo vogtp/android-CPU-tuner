@@ -6,22 +6,33 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class HelpActivity extends Activity {
 
+	public static final String EXTRA_HELP_PAGE = "helpPage";
+
+	public static final String PAGE_INDEX = "index.html";
+	public static final String PAGE_PROFILE = "profile.html";
+	public static final String PAGE_TRIGGER = "trigger.html";
+	public static final String PAGE_VIRTUAL_GOVERNOR = "virtual_governor.html";
+
 	private WebView wvHelp;
 	private Button buHome;
 	private Button buBack;
 	private Button buForward;
-	private String indexFilePath;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -29,6 +40,16 @@ public class HelpActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.help);
+
+		String page = null;
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			page = extras.getString(EXTRA_HELP_PAGE);
+		}
+
+		if (TextUtils.isEmpty(page) || TextUtils.isEmpty(page.trim())) {
+			page = PAGE_INDEX;
+		}
 
 		wvHelp = (WebView) findViewById(R.id.wvHelp);
 		buHome = (Button) findViewById(R.id.buHome);
@@ -43,7 +64,7 @@ public class HelpActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				goHome();
+				go(PAGE_INDEX);
 			}
 		});
 		buBack.setOnClickListener(new OnClickListener() {
@@ -61,13 +82,23 @@ public class HelpActivity extends Activity {
 			}
 		});
 
+		go(page);
+	}
+
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+			if (wvHelp.canGoBack()) {
+				wvHelp.goBack();
+				return true;
+			}
+		}
+		return super.dispatchKeyEvent(event);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		indexFilePath = getIndexFilePath();
-		goHome();
 	}
 	
 	private String getIndexFilePath() {
@@ -80,16 +111,30 @@ public class HelpActivity extends Activity {
 		try {
 			AssetManager assets = getAssets();
 			if (assets.list(langHelpDir).length > 0) {
-				return "file:///android_asset/" + langHelpDir + "/index.html";
+				return "file:///android_asset/" + langHelpDir + "/";
 			}
 		} catch (IOException e) {
-			Logger.e("Cannot open language asset", e);
+			Logger.e("Cannot open language asset for language " + language);
 		}
-		return "file:///android_asset/help/index.html";
+		return "file:///android_asset/help/";
 	}
 
-	private void goHome() {
-		wvHelp.loadUrl(indexFilePath);
+	private void go(String file) {
+		wvHelp.loadUrl(getIndexFilePath() + file);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
+			return true;
+		}
+		return false;
+	}
 }

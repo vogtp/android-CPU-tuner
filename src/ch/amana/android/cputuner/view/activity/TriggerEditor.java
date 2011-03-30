@@ -20,6 +20,7 @@ import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -193,6 +194,7 @@ public class TriggerEditor extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.edit_option, menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		return true;
 	}
 
@@ -209,6 +211,10 @@ public class TriggerEditor extends Activity {
 		case R.id.menuItemSave:
 			finish();
 			break;
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_TRIGGER)) {
+				return true;
+			}
 		}
 		return false;
 	}

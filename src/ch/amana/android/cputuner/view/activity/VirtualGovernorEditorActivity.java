@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
@@ -145,6 +146,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.edit_option, menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		return true;
 	}
 
@@ -161,6 +163,11 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		case R.id.menuItemSave:
 			finish();
 			break;
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
+				return true;
+			}
+
 		}
 		return false;
 	}

@@ -7,10 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.view.preference.SettingsPreferenceActivity;
 
 public class CpuTunerTabActivity extends TabActivity {
 
@@ -59,25 +59,16 @@ public class CpuTunerTabActivity extends TabActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent i;
-		switch (item.getItemId()) {
-		case R.id.itemSettings:
-			i = new Intent(this, SettingsPreferenceActivity.class);
-			startActivity(i);
+		if (GeneralMenuHelper.onOptionsItemSelected(this,item,null)) {
 			return true;
-
-		case R.id.itemMenuHelp:
-			i = new Intent(this, HelpActivity.class);
-			startActivity(i);
-			return true;
-
 		}
-		return super.onOptionsItemSelected(item);
+		return false;
 	}
 }

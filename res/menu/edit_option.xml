@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/menuItemSave" android:title="@string/save"></item><item android:id="@+id/menuItemCancel" android:title="@string/cancel"></item>
+<item android:id="@+id/menuItemSave" android:title="@string/save" android:icon="@android:drawable/ic_menu_save"></item><item android:id="@+id/menuItemCancel" android:title="@string/cancel" android:icon="@android:drawable/ic_menu_close_clear_cancel"></item>
 </menu>

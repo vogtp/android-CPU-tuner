@@ -22,6 +22,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.HardwareHandler;
@@ -335,7 +336,10 @@ public class ProfilesListActivity extends ListActivity {
 		if (handleCommonMenu(item)) {
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_PROFILE)) {
+			return true;
+		}
+		return false;
 	}
 
 	private boolean handleCommonMenu(MenuItem item) {
