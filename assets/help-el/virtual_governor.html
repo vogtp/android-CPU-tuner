@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="styles.css" />
+<title>Virtual governors</title>
+</head>
+<body>
+<span class="headline">Virtual governors</span>
+<br />
+<br />
+<!--  REMOVE IF THE REST OF THE FILE IS TRANSLATED (BEGIN OF BLOCK) -->
+<span class="text">
+<span class="bold">The English help pages have been updated.</span><br/>
+<a href="file:///android_asset/help/virtual_governor.html">
+Consider using the Enlish version</a> 
+</span>
+<!--  REMOVE IF THE REST OF THE FILE IS TRANSLATED (END OF BLOCK) -->
+<span class="text">Virtual governors are an abstraction of the 
+<a href="cpufreq/governor.html">CPU governors</a> and their parameters.</span>
+<span class="text">Since a significant part of the energy saving is done by the
+parameters of the <a href="cpufreq/governor.html">CPU governors</a> switching only
+the CPU governors of a <a href="profile.html">profile</a>
+does (most of the time) not make much sense.
+</span>
+<span class="text">The most important parameters are the thresholds of the ondemand and conservative 
+governors, they are given in percent of the system load and tell the governor when to increase the 
+frequency (up threshold) or decrease the frequency (down threshold).<br>
+For more information on the parameters of the  
+<a href="cpufreq/governor.html">CPU governors</a> see the detailed information of the respective governor.</span>
+<span class="text">
+If the userlevel power user is chosen, there is the additional possibility to run a shell <span class="bold">script</span> (or a shell command)
+after the switching of the governor.
+</span>
+
+<span class="text">
+		Which virtual governors do I need to <a href="howto_save_battery.html">save battery</a>?
+</span>
+</body>
+</html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="styles.css"/>
+<title>Services</title>
+</head>
+<body>	
+	<span class="headline">Services</span>
+	<br/><br/>
+	
+<span class="text">
+	Service switches can be a key to save battery, but you should not switch services too often 
+	since this can use more battery than it saves.
+	As said in <a href="battery_drainer.html">battery drainers</a> it's
+	wise to disable syncing, wifi, etc. on some states
+</span>
+<span class="text">	
+	The following switch states are possible:
+		<ul>
+			<li><span class="bold">leave unchanged</span><br/>
+			Does not change the state of the service. 
+			</li>
+			<li><span class="bold">enable</span><br/>
+			Enables the service (i.e. switches it on).
+			</li>
+			<li><span class="bold">disable</span><br/>
+			Disables the service (i.e. switches it off).
+			</li>
+			<li><span class="bold">back to previous</span><br/>
+			Switches back to the previous state set by cpu tuner.  This overwrites changes
+			that were made outside of cpu tuner.
+			</li>
+			<li><span class="bold">pulse</span><br/>
+			A <span class="bold">pulse</span>d service will be switched off for some time (e.g. 15 min),
+			then automatically switched on for a (short) period (e.g. 1min).
+			After this the cycle begins again. <br/> 
+			All pulsed services will be switch on and off at the same time.
+			</li>
+		</ul>
+	</span>
+<span class="text">	
+	Cpu tuner can be set to allow <span class="bold">manual service changes</span> in settings, in this
+	case manually changed services will not be switched again unless a new trigger occurs.
+</span>	
+<span class="text">	
+	The following services are supported:
+		<ul>
+			<li><span class="bold">Mobiledata 2G/3G (2/3G)</span><br/>
+			Changes the type of the mobiledata connection.  Switching changes 
+			the bandwidth (i.e. speed) of your connection, you still will be able to
+			receive data but slower (or faster).
+			</li>
+			<li><span class="bold">Mobiledata connenction (MD)</span><br/>
+			Switches the mobiledata connection on and off.  If switched off no data from and to the
+			mobilenetwork will be transfered. Wireless networtks will work.
+			</li>
+			<li><span class="bold">Background sync (sync)</span><br/>
+			Tell the system not do background syncing.  Some apps might not honour this setting
+			and continue to sync its data.
+			</li>
+			<li><span class="bold">Wireless (wifi)</span><br/>
+			Switch the wireless interface on and off.
+			</li>
+			<li><span class="bold">Bluetooth (BT)</span><br/>
+			Switch bluetooth on and off.
+			</li>
+			<li><span class="bold">GPS receiver (GPS)</span><br/>
+			Switch the GPS receiver on and off. <br>
+			This only works when installed as system app.
+			</li>
+		</ul>
+	</span>
+
+
+</body>
+</html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

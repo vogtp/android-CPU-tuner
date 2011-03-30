@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="styles.css"/>
+<title>Howto save battery?</title>
+</head>
+<body>	
+	<span class="headline">Howto save battery?</span>
+	<br/><br/>
+	<span class="text">Saving battery is easy: Just turn on airplain mode...<br />
+	... but that is probably not what you want!</span>
+	<span class="text">
+	Saving battery is hard, it depends on the device, the user (i.e. how you use you device) 
+	and a lot of cryptic settings.
+	</span>
+	<span class="text">
+	Both statements are true to a certain extent, but in the end tuning your device is 
+	just some work and experimenting with the settings.<br/>
+	The following hints might help you.
+		<ul>
+			<li><span class="bold">Switch off the services you do not need.</span><br/>
+			Some services like wifi, bluetooth or GPS use quite a lot of battery,
+			if you do not need them switch them off (manually preferable).  If you use
+			your wifi only at home switch it off when you leave your home.<br/>
+			</li>
+			<li><span class="bold">Avoid excessive service switches.</span><br/>
+			Switching a service costs battery if you switch a service each time the
+			screen goes off, this might cost more battery than it saves.
+			</li>
+			<li><span class="bold">Start with the default settings of cpu tuner.</span><br/>
+			If you got a feeling for how much battery it uses, change 
+			<span class="bold">one</span> thing at time. 
+			</li>
+			<li><span class="bold">Use the governor thresholds not the cpu frequencies.</span><br/>
+			E.g. a ondemand governor with a up threshold of 80% yields a fast but rather 
+			battery draining configuration, 
+			where as a conservative governor with and up threshold of 98% and a down threshold
+			of 95% is a battery saving configuration which makes you device a little slow.  
+			</li>
+			<li><span class="bold">Do not trust any readout only trust the battery live.</span></li>
+		</ul>
+	</span>
+	<span class="text">
+	For more insights on saving battery read 
+	"<a href="http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html">make your Android power efficient in any situation</a>" 
+	and
+	"<a href="http://linux-tipps.blogspot.com/2010/11/reducing-power-consumption-on-almost.html">on tweaking cpufreq for Android devices</a>".
+	</span>
+	<span class="text">
+	Have fun experimenting...
+	</span>
+</body>
+</html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->
