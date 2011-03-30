@@ -8,20 +8,32 @@
 <body>	
 	<span class="headline">cpu tuner help</span>
 	<br/><br/>
-	<span class="text">CPU tuner uses a concept of <a href="trigger.html">triggers</a>, <a href="profile.html">profiles</a> and <a href="virtual_governor.html">virtual governors</a>.</span>
-	<span class="text"><a href="trigger.html">Triggers</a> are activated on your phone entering a predefined state. They then apply a predefined profile.</span>
-	<span class="text">The states are defined by a battery level and the phone's status (locked, active or on power).</span>
-	<span class="text"><a href="profile.html">Profiles</a> are essentially a set of policies that are applied to the phone.</span>
-	<span class="text"><a href="virtual_governor.html">Virtual governors</a> are an abstraction of the <a href="cpufreq/governor.html">CPU governors</a> and their parameters.</span>
+	<span class="text">CPU tuner uses a concept of <a href="trigger.html">triggers</a>, 
+		<a href="profile.html">profiles</a> and 
+		<a href="virtual_governor.html">virtual governors</a>.</span>
+	<span class="text"><a href="trigger.html">Triggers</a> are activated on your phone 
+		entering a predefined state. They then apply a predefined profile.</span>
+	<span class="text">The states are defined by a battery level and the phone's status 
+		(locked, active, on power, phone call in progress or even battery hot).</span>
+	<span class="text"><a href="profile.html">Profiles</a> are essentially a set of policies that 
+		are applied to the phone and change the state of <a href="service.html">services</a> as well as the <a href="virtual_governor.html">governor</a>.</span>
+	<span class="text"><a href="virtual_governor.html">Virtual governors</a> are an abstraction of the 
+		<a href="cpufreq/governor.html">CPU governors</a> and their parameters.</span>
 	<span class="text">While doing so, CPU tuner runs event-driven. I.e. it does not run constantly, thus creating only minimal system load on it's own.</span>
-	<br/>
-	<span class="text">This help also includes a <a href="faq/faq.html">FAQ</a> which you might find helpful/interesting.</span>
-	<span class="text">You can find further info on the application's topic in <a href="links.html">this</a> link collection.</span>
+	<span class="text">
+		How should I use this to <a href="howto_save_battery.html">save battery</a>?
+	</span>
+	<span class="text">This help also includes a <a href="faq/faq.html">FAQ</a> which you might find 
+		helpful/interesting.</span>
+	<span class="text">You can find further info on the application's topic in 
+		<a href="links.html">this</a> link collection.</span>
 	<br/>
 	<span class="text">A big THANK YOU goes out to <a href="thanks.html">...</a></span>
 	<br/><br/>
 	<span class="text"><span class="bold">NOTICE:</span></span>
-	<span class="text">To operate as expected, CPU tuner needs a <span class="bold">rooted</span> phone and root permissions granted to it by the user. Be aware that some ROMs don't support adjustment of such deep system parameters!</span>
+	<span class="text">To operate as expected, CPU tuner needs a <span class="bold">rooted</span> phone 
+		and root permissions granted to it by the user. Be aware that some ROMs don't support 
+		adjustment of such deep system parameters!</span>
 </body>
 </html>
 <!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

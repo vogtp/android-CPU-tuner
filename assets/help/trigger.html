@@ -14,24 +14,33 @@
 		Depending on the state of the device a profile is chosen.<br>
 		The states are evaluated in the following order:
 		<ul>
+			<li><span class="bold">On Battery</span><br/>
+			The battery profile is chosen, if no other state is valid.  
+			</li>
+			<li><span class="bold">Screen locked</span><br/>
+			If the screen is off this profile is chosen.  
+			</li>
+			<li><span class="bold">AC Power</span><br/>
+			If the device is connected to a external power source this profile is chosen.  
+			</li>
 			<li><span class="bold">Call in progress</span><br/>
 			If this profile exists and a phone call is active profile is chosen. 
 			</li>
 			<li><span class="bold">Battery hot</span><br/>
 			If this profile exists and the battery is hot this profile is chosen. 
 			</li>
-			<li><span class="bold">Screen off</span><br/>
-			If the screen is off this profile is chosen.  
-			</li>
-			<li><span class="bold">AC Power</span><br/>
-			If the device is connected to a external power source this profile is chosen.  
-			</li>
-			<li><span class="bold">Battery</span><br/>
-			The battery profile is chosen, if no other state is valid.  
-			</li>
 		</ul>
 	</span>
-	<span class="text">CPU tuner does not constantly run and poll those states, but it gets activated by events concerning those states sent by the android system.</span>
+	<span class="text">
+	The sequence in which is check which of the profiles to take is:<br/>
+	Call in progress, Battery hot, Screen locked, AC Power and finally On Battery. <br/>
+	The first match is taken. 
+	</span>
+	<span class="text">CPU tuner does not constantly run and poll those states, 
+	but it gets activated by events concerning those states sent by the android system.</span>
+	<span class="text">
+		What triggers do I need to <a href="howto_save_battery.html">save battery</a>?
+	</span>
 </body>
 </html>
 <!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

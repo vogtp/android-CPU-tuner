@@ -13,14 +13,21 @@
 <a href="cpufreq/governor.html">CPU governors</a> and their parameters.</span>
 <span class="text">Since a significant part of the energy saving is done by the
 parameters of the <a href="cpufreq/governor.html">CPU governors</a> switching only
-the <a href="cpufreq/governor.html">CPU governors</a> of a <a href="profile.html">profile</a>
+the CPU governors of a <a href="profile.html">profile</a>
 does (most of the time) not make much sense.
 </span>
-<span class="text">For more information on the parameters of the  
+<span class="text">The most important parameters are the thresholds of the ondemand and conservative 
+governors, they are given in percent of the system load and tell the governor when to increase the 
+frequency (up threshold) or decrease the frequency (down threshold).<br>
+For more information on the parameters of the  
 <a href="cpufreq/governor.html">CPU governors</a> see the detailed information of the respective governor.</span>
 <span class="text">
-If the userlevel power user is chosen, there is the additional possibility to run a shell script (or a shell command)
+If the userlevel power user is chosen, there is the additional possibility to run a shell <span class="bold">script</span> (or a shell command)
 after the switching of the governor.
+</span>
+
+<span class="text">
+		Which virtual governors do I need to <a href="howto_save_battery.html">save battery</a>?
 </span>
 </body>
 </html>

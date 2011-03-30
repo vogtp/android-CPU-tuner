@@ -11,31 +11,23 @@
 <br />
 <span class="text">Profiles are systemwide settings that are
 applied by <a href="trigger.html">triggers</a>.</span>
-<span class="text">At the moment (v. 2.0) there's two categories,
+<span class="text">There are two categories,
 you can adjust:
 <ul>
+	<li><span class="bold">services</span><br />
+	These settings can toggle some system <a href="service.html">services</a> on and/or off.<br />
+	As said in <a href="battery_drainer.html">battery drainers</a> it's
+	wise to disable syncing, wifi, etc. on some states.<br>But switching services too often might as well cost more battery than it saves.<br />
+	</li>
 	<li><span class="bold">CPU settings</span><br />
-	By setting the  <a href="virtual_governor.html">virtual governor</a> or the 
-	<a href="cpufreq/governor.html">CPU governor</a> and its parameters.<br />
+	By setting the  <a href="virtual_governor.html">virtual governor</a> (or the 
+	<a href="cpufreq/governor.html">CPU governor</a>) its parameters and the cpu <a href="cpufreq/frequency">frequency</a>.<br />
 	These settings determine the CPU's clockspeed ("how fast it is") and
 	power consumption.</li>
-	<li><span class="bold">services</span><br />
-	These settings can toggle some system services on and/or off.<br />
-	As said in <a href="battery_drainer.html">battery drainers</a> it's
-	wise to disable syncing, wifi, etc. on some states, but you should not switch services too often.<br />
-	You can <span class="bold">leave [the service in question]
-	unchanged</span>, but you may as well <span class="bold">enable</span> or 
-	<span class="bold">disable</span> services with triggers, additionally you can
-	go <span class="bold">back to [the] previous</span> state which activates the state 
-	the service was in before the last switch. 
-	Furthermore you can <span class="bold">pulse</span> a service, in this case it
-	will be switched off for some time (e.g. 15 min), then automatically switched on for a (short) period
-	(e.g. 1min) and then the cycle begins again.  All pulsed services will be switch on and off at the same time.<br />
-	If you manually override these settings, e.g. cause CPU tuner disables
-	sync at 20% battery, but you need to sync you calendar with Google,
-	this setting will stay untouched by CPU tuner unless a new trigger is
-	activated and modifies the service's state.</li>
 </ul>
+</span>
+<span class="text">
+		What profiles do I need to <a href="howto_save_battery.html">save battery</a>?
 </span>
 </body>
 </html>
