@@ -62,6 +62,10 @@ public class VirtualGovernorListActivity extends ListActivity {
 					if (virtGovId == cursor.getLong(DB.INDEX_ID)) {
 						color = Color.GREEN;
 					}
+
+					if (!SettingsStorage.getInstance().isUseVirtualGovernors()) {
+						color = Color.DKGRAY;
+					}
 					((TextView) view).setTextColor(color);
 				} else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP) {
 					if (cursor.getInt(columnIndex) < 1) {
