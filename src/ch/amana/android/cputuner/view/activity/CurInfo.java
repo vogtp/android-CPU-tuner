@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
@@ -63,6 +64,12 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	private TextView labelBatteryCurrent;
 	private GovernorBaseFragment governorFragment;
 	private GovernorHelperCurInfo governorHelper;
+	private TextView tvPulse;
+	private TableRow trPulse;
+	private TextView spacerPulse;
+	private TableRow trMaxFreq;
+	private TableRow trMinFreq;
+	private TableRow trBatteryCurrent;
 
 	protected class CpuTunerReceiver extends BroadcastReceiver {
 
@@ -236,6 +243,12 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 		labelBatteryCurrent = (TextView) findViewById(R.id.labelBatteryCurrent);
+		trPulse = (TableRow) findViewById(R.id.TableRowPulse);
+		tvPulse = (TextView) findViewById(R.id.tvPulse);
+		spacerPulse = (TextView) findViewById(R.id.spacerPulse);
+		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
+		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
+		trBatteryCurrent = (TableRow) findViewById(R.id.TableRowBatteryCurrent);
 
 		governorHelper = new GovernorHelperCurInfo();
 		if (settings.isUseVirtualGovernors()) {
@@ -377,31 +390,28 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		if (currentNow > 0) {
 			currentText.append(batteryHandler.getBatteryCurrentNow()).append(" mA/h");
 		}
-		int currentAvg = batteryHandler.getBatteryCurrentAverage();
-		if (currentAvg != BatteryHandler.NO_VALUE_INT && currentAvg != currentNow) {
-			currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(batteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
+		if (batteryHandler.hasAvgCurrent()) {
+			int currentAvg = batteryHandler.getBatteryCurrentAverage();
+			if (currentAvg != BatteryHandler.NO_VALUE_INT) {
+				currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(batteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
+			}
 		}
 		if (currentText.length() > 0) {
-			labelBatteryCurrent.setVisibility(View.VISIBLE);
-			tvBatteryCurrent.setVisibility(View.VISIBLE);
-			tvBatteryCurrent.setHeight(tvAcPower.getHeight());
-			labelBatteryCurrent.setHeight(tvAcPower.getHeight());
+			GuiUtils.showViews(trBatteryCurrent, new View[] { labelBatteryCurrent, tvBatteryCurrent });
 			tvBatteryCurrent.setText(currentText.toString());
 		} else {
-			labelBatteryCurrent.setVisibility(View.INVISIBLE);
-			tvBatteryCurrent.setVisibility(View.INVISIBLE);
-			tvBatteryCurrent.setHeight(0);
-			labelBatteryCurrent.setHeight(0);
+			GuiUtils.hideViews(trBatteryCurrent, new View[] { labelBatteryCurrent, tvBatteryCurrent });
 		}
 	}
 
 	private void profileChanged() {
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
-			CharSequence profile = powerProfiles.getCurrentProfileName();
 			if (PulseHelper.getInstance(this).isPulsing()) {
-				// FIXME show pulsing
+				GuiUtils.showViews(trPulse, new View[] { spacerPulse, tvPulse });
 				int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-				profile = profile + " " + getString(res);
+				tvPulse.setText(res);
+			} else {
+				GuiUtils.hideViews(trPulse, new View[] { spacerPulse, tvPulse });
 			}
 			ProfileModel currentProfile = powerProfiles.getCurrentProfile();
 			if (currentProfile != null) {
@@ -426,22 +436,14 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			labelCpuFreqMin.setVisibility(View.VISIBLE);
-			tvCpuFreqMin.setVisibility(View.VISIBLE);
-			sbCpuFreqMin.setVisibility(View.VISIBLE);
+			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
 		} else {
-			labelCpuFreqMin.setVisibility(View.INVISIBLE);
-			tvCpuFreqMin.setVisibility(View.INVISIBLE);
-			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			labelCpuFreqMax.setVisibility(View.VISIBLE);
-			tvCpuFreqMax.setVisibility(View.VISIBLE);
-			sbCpuFreqMax.setVisibility(View.VISIBLE);
+			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
 		} else {
-			labelCpuFreqMax.setVisibility(View.INVISIBLE);
-			tvCpuFreqMax.setVisibility(View.INVISIBLE);
-			sbCpuFreqMax.setVisibility(View.INVISIBLE);
+			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
 		}
 
 		governorFragment.updateView();

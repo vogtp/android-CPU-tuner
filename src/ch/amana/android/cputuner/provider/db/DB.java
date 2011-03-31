@@ -282,9 +282,8 @@ public interface DB {
 				NAME_SCRIPT, NAME_POWERSEAVE_BIAS };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
-		public static final String SORTORDER_DEFAULT = NAME_VIRTUAL_GOVERNOR_NAME + " DESC";
-
-		static final String SORTORDER_REVERSE = NAME_VIRTUAL_GOVERNOR_NAME + " ASC";
+		public static final String SORTORDER_DEFAULT = NAME_GOVERNOR_THRESHOLD_UP + " ASC";
+		public static final String SORTORDER_REVERSE = NAME_GOVERNOR_THRESHOLD_UP + " DESC";
 
 	}
 }

@@ -7,8 +7,10 @@
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:padding="5dp" android:scrollbars="vertical">
 
-		<TableLayout android:layout_height="wrap_content" android:id="@+id/TableLayoutDeviceInfo" android:layout_width="match_parent">
-			<TableRow android:id="@+id/TableRowTrigger" android:layout_height="wrap_content" android:layout_width="match_parent">
+		<TableLayout android:layout_height="wrap_content"
+			android:id="@+id/TableLayoutDeviceInfo" android:layout_width="match_parent">
+			<TableRow android:id="@+id/TableRowTrigger"
+				android:layout_height="wrap_content" android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelCurrentTrigger"
@@ -17,15 +19,25 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvCurrentTrigger"></TextView>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowProfile" android:layout_width="match_parent" android:baselineAligned="true">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowProfile"
+				android:layout_width="match_parent" android:baselineAligned="true">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelCurrentProfile"
 					android:text="@+string/labelCurrentProfile"></TextView>
 				<Spinner android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:id="@+id/spProfiles" android:layout_weight=".1"></Spinner>
+					android:layout_width="wrap_content" android:id="@+id/spProfiles"
+					android:layout_weight=".1"></Spinner>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBattery" android:layout_width="match_parent">
+			<TableRow android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/TableRowPulse">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/spacerPulse"></TextView>
+				<TextView android:text="TextView" android:layout_height="wrap_content"
+					android:id="@+id/tvPulse" android:layout_width="wrap_content"></TextView>
+			</TableRow>
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBattery"
+				android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:id="@+id/labelCurrentBattery" android:text="@+string/labelCurrentBattery"
@@ -34,7 +46,8 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryLevel"></TextView>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowPower" android:layout_width="match_parent">
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowPower"
+				android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelAcPower"
@@ -43,7 +56,8 @@
 					android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvAcPower"></TextView>
 			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBatteryCurrent" android:layout_width="match_parent">
+			<TableRow android:layout_height="wrap_content"
+				android:id="@+id/TableRowBatteryCurrent" android:layout_width="match_parent">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:textSize="18sp" android:id="@+id/labelBatteryCurrent"
@@ -53,30 +67,46 @@
 					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryCurrent"></TextView>
 			</TableRow>
 		</TableLayout>
-		<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/llGovernorFragmentAncor"></LinearLayout>
+		<LinearLayout android:layout_height="wrap_content"
+			android:layout_width="match_parent" android:id="@+id/llGovernorFragmentAncor"></LinearLayout>
 		<TableLayout android:layout_height="wrap_content"
 			android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
-			<TextView android:textSize="20sp" android:layout_width="fill_parent" android:id="@+id/textView1" android:layout_height="wrap_content" android:paddingTop="10dp" android:text="@string/labelCpuFreq" android:paddingRight="5dp"></TextView>
+			<TextView android:textSize="20sp" android:layout_width="fill_parent"
+				android:id="@+id/textView1" android:layout_height="wrap_content"
+				android:paddingTop="10dp" android:text="@string/labelCpuFreq"
+				android:paddingRight="5dp"></TextView>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
 				android:layout_width="fill_parent">
 
 
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax" android:layout_gravity="center_vertical"></TextView>
+					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"
+					android:layout_gravity="center_vertical"></TextView>
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax"
-					android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax" android:layout_gravity="center_vertical"></TextView>
+					android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax"
+					android:layout_gravity="center_vertical"></TextView>
 				<SeekBar android:layout_height="wrap_content"
 					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
 					android:layout_weight=".3" android:paddingRight="5dp"
 					android:paddingBottom="3dp" android:paddingTop="3dp"></SeekBar>
 
 			</TableRow>
-			<TableRow android:id="@+id/TableRowMinFreq" android:layout_height="wrap_content" android:layout_width="fill_parent">
-				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin" android:layout_gravity="center_vertical" android:text="@+string/labelMin" android:paddingRight="5dp"></TextView>
-				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMin" android:layout_gravity="center_vertical" android:text="99999" android:paddingRight="5dp"></TextView>
-				<SeekBar android:paddingBottom="3dp" android:id="@+id/SeekBarCpuFreqMin" android:paddingRight="5dp" android:paddingTop="3dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight=".3"></SeekBar>
+			<TableRow android:id="@+id/TableRowMinFreq"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin"
+					android:layout_gravity="center_vertical" android:text="@+string/labelMin"
+					android:paddingRight="5dp"></TextView>
+				<TextView android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMin"
+					android:layout_gravity="center_vertical" android:text="99999"
+					android:paddingRight="5dp"></TextView>
+				<SeekBar android:paddingBottom="3dp" android:id="@+id/SeekBarCpuFreqMin"
+					android:paddingRight="5dp" android:paddingTop="3dp"
+					android:layout_height="wrap_content" android:layout_width="fill_parent"
+					android:layout_weight=".3"></SeekBar>
 			</TableRow>
 		</TableLayout>
 	</LinearLayout>

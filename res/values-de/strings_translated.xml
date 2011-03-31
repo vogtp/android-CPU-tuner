@@ -23,8 +23,8 @@
 <string name="prefPulseDelayOnLong">Zeit (in Minuten) ist ein Dienst ein, während der gepulste Modus aktiv ist.</string> 
 <string name="prefPulseDelayOff">Dienst Aus Zeit</string>
 <string name="prefPulseDelayOffLong">Zeit (in Minuten) ist eine Dienst aus, während der gepulste Modus aktiv ist.</string> 
-<string name="labelPulseOn">(Pulse ist eingeschaltet)</string> 
-<string name="labelPulseOff">(Pulse ist ausgeschaltet)</string> 
+<string name="labelPulseOn">Pulse ist eingeschaltet</string> 
+<string name="labelPulseOff">Pulse ist ausgeschaltet</string> 
 <string name="labelCurrentTab">Aktuell</string> 
 <string name="labelTriggersTab">Abstufung</string> 
 <string name="labelProfilesTab">Profile</string> 

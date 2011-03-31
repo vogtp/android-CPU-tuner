@@ -208,16 +208,16 @@ public class VirtualGovernorModel implements IGovernorModel {
 
 	public CharSequence getDescription(Context ctx) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(realGov).append("\n");
+		sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(realGov);
 		if (governorThresholdUp > 0) {
-			sb.append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
+			sb.append("\n").append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
 			if (governorThresholdDown > 0) {
 				sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
 			}
-			sb.append("\n");
+			// sb.append("\n");
 		}
 		if (!TextUtils.isEmpty(script)) {
-			sb.append(ctx.getString(R.string.labelScript)).append(" ").append(script).append("\n");
+			sb.append("\n").append(ctx.getString(R.string.labelScript)).append(" ").append(script);
 		}
 		return sb.toString();
 	}

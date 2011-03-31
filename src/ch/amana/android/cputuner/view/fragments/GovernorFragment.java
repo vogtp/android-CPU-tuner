@@ -39,6 +39,8 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private SeekBar sbPowersaveBias;
 	private boolean disableScript;
 	private TextView labelPowersaveBias;
+	private LinearLayout llPowersaveBias;
+	private LinearLayout llGovernorThresholds;
 
 	public GovernorFragment() {
 		super();
@@ -72,12 +74,14 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 		llFragmentTop = (LinearLayout) act.findViewById(R.id.llGovernorFragment);
 		tvExplainGov = (TextView) act.findViewById(R.id.tvExplainGov);
+		llGovernorThresholds = (LinearLayout) act.findViewById(R.id.llGovernorThresholds);
 		labelGovThreshUp = (TextView) act.findViewById(R.id.labelGovThreshUp);
 		labelGovThreshDown = (TextView) act.findViewById(R.id.labelGovThreshDown);
 		etGovTreshUp = (EditText) act.findViewById(R.id.etGovTreshUp);
 		etGovTreshDown = (EditText) act.findViewById(R.id.etGovTreshDown);
 		spinnerSetGov = (Spinner) act.findViewById(R.id.SpinnerCpuGov);
 		etScript = (EditText) act.findViewById(R.id.etScript);
+		llPowersaveBias = (LinearLayout) act.findViewById(R.id.llPowersaveBias);
 		sbPowersaveBias = (SeekBar) act.findViewById(R.id.sbPowersaveBias);
 		labelPowersaveBias = (TextView) act.findViewById(R.id.labelPowersaveBias);
 
@@ -180,9 +184,21 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 		int up = getGovernorModel().getGovernorThresholdUp();
 		int down = getGovernorModel().getGovernorThresholdDown();
-		if (governorConfig.hasThreshholdUpFeature()) {
+		boolean hasThreshholdUp = governorConfig.hasThreshholdUpFeature();
+		boolean hasThreshholdDown = governorConfig.hasThreshholdDownFeature();
+
+		if (hasThreshholdUp) {
+			GuiUtils.showViews(llGovernorThresholds, new View[] { labelGovThreshUp, etGovTreshUp, labelGovThreshDown, etGovTreshDown });
+		} else {
+			GuiUtils.hideViews(llGovernorThresholds, new View[] { labelGovThreshUp, etGovTreshUp, labelGovThreshDown, etGovTreshDown });
+		}
+
+		if (hasThreshholdUp) {
 			labelGovThreshUp.setVisibility(View.VISIBLE);
 			etGovTreshUp.setVisibility(View.VISIBLE);
+			if (up < 2) {
+				up = Integer.parseInt(origThreshUp);
+			}
 			if (up < 2) {
 				up = 90;
 			}
@@ -194,9 +210,12 @@ public class GovernorFragment extends GovernorBaseFragment {
 			etGovTreshUp.setVisibility(View.INVISIBLE);
 		}
 
-		if (governorConfig.hasThreshholdDownFeature()) {
+		if (hasThreshholdDown) {
 			labelGovThreshDown.setVisibility(View.VISIBLE);
 			etGovTreshDown.setVisibility(View.VISIBLE);
+			if (down < 1) {
+				down = Integer.parseInt(origThreshDown);
+			}
 			if (down >= up || down < 1) {
 				if (up > 30) {
 					down = up - 10;
@@ -213,11 +232,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 
 		if (governorConfig.hasPowersaveBias()) {
-			labelPowersaveBias.setVisibility(View.VISIBLE);
-			sbPowersaveBias.setVisibility(View.VISIBLE);
+			GuiUtils.showViews(llPowersaveBias, new View[] { labelPowersaveBias, sbPowersaveBias });
 		}else {
-			labelPowersaveBias.setVisibility(View.INVISIBLE);
-			sbPowersaveBias.setVisibility(View.INVISIBLE);
+			GuiUtils.hideViews(llPowersaveBias, new View[] { labelPowersaveBias, sbPowersaveBias });
 		}
 		
 	}
