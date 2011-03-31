@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar;
@@ -338,6 +339,22 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			}
 		});
 
+		OnClickListener startBattery = new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					Intent i = new Intent();
+					i.setClassName("com.android.settings", "com.android.settings.fuelgauge.PowerUsageSummary");
+					startActivity(i);
+				} catch (Throwable e) {
+				}
+
+			}
+		};
+		((TableRow) findViewById(R.id.TableRowBattery)).setOnClickListener(startBattery);
+		((TableRow) findViewById(R.id.TableRowBatteryCurrent)).setOnClickListener(startBattery);
+		((TableRow) findViewById(R.id.TableRowPower)).setOnClickListener(startBattery);
 	}
 
 	@Override
