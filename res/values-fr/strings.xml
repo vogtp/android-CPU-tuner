@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="labelCurrentFrequency">current</string>
+<string name="prefScreenLegal">Legal stuff</string>
+<string name="prefLegalOxigenIcons">Tab icon License</string>
+<string name="prefLegalOxigenIconsLong">License of the used oxigen icons.  Thanks for the nice icons.</string>
+<string name="virtual_governor">virtual governor</string>
 <string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
 <string name="labelStatisticsTab">Statistics</string>
 <string name="label_time_in_state">Time in state:</string>
