@@ -26,13 +26,16 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	private Spinner spinnerSetGov;
 	private TextView tvExplainGov;
 	private Cursor cursor;
+	private boolean updateVirtGov;
 
 	public VirtualGovernorFragment() {
 		super();
+		updateVirtGov = true;
 	}
 
 	public VirtualGovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
 		super(callback, governor);
+		updateVirtGov = true;
 	}
 
 	@Override
@@ -58,10 +61,13 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				callback.updateModel();
-				getGovernorModel().setVirtualGovernor(id);
-				callback.updateModel(); // need it twice to get real gov right
-				callback.updateView();
+				if (updateVirtGov) {
+					callback.updateModel();
+					getGovernorModel().setVirtualGovernor(id);
+					callback.updateModel(); // need it twice to get real gov
+											// right
+					callback.updateView();
+				}
 			}
 
 			@Override
@@ -100,7 +106,9 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	@Override
 	public void updateView() {
 		long virtualGovernor = getGovernorModel().getVirtualGovernor();
+		updateVirtGov = false;
 		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
+		updateVirtGov = true;
 		VirtualGovernorModel virtualGov = getVirtualGovernorModel(virtualGovernor);
 		if (virtualGov != null) {
 			tvExplainGov.setText(virtualGov.getDescription(getActivity()));

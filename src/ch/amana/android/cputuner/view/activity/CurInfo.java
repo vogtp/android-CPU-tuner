@@ -80,7 +80,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			batteryLevelChanged();
 			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action)
 					|| Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
-				governorHelper.virtGov = powerProfiles.getCurrentProfile().getVirtualGovernor();
 				profileChanged();
 			}
 
@@ -114,8 +113,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	}
 
 	private class GovernorHelperCurInfo implements IGovernorModel {
-
-		private long virtGov;
 
 		@Override
 		public int getGovernorThresholdUp() {
@@ -180,18 +177,18 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 		@Override
 		public void setVirtualGovernor(long id) {
-			virtGov = id;
 			Cursor c = managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
 					VirtualGovernor.SORTORDER_DEFAULT);
 			if (c.moveToFirst()) {
 				VirtualGovernorModel vgm = new VirtualGovernorModel(c);
 				cpuHandler.applyGovernorSettings(vgm);
+				powerProfiles.getCurrentProfile().setVirtualGovernor(id);
 			}
 		}
 
 		@Override
 		public long getVirtualGovernor() {
-			return virtGov;
+			return powerProfiles.getCurrentProfile().getVirtualGovernor();
 		}
 
 		@Override

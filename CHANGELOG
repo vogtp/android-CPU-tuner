@@ -7,8 +7,9 @@ V
 V 
 * features
 - GUI cleanup
+- colorise current virtual governor
 * bug fixes
--
+- fix wrong virtual governor bug
 
 V 2.0.2
 * features
