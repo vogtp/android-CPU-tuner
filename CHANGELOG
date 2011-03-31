@@ -4,11 +4,11 @@ V
 * bug fixes
 -
 
-V 
+V 2.0.4
 * features
 - Show battery info when clicking on power information (hidden feature)
 * bug fixes
--
+- fix force close
 
 V 2.0.3
 * features

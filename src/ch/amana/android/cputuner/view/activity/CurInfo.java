@@ -189,6 +189,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 		@Override
 		public long getVirtualGovernor() {
+			if (powerProfiles == null || powerProfiles.getCurrentProfile() == null) {
+				return -1;
+			}
 			return powerProfiles.getCurrentProfile().getVirtualGovernor();
 		}
 
