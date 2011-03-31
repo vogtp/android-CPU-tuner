@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,6 +25,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
@@ -54,7 +56,14 @@ public class VirtualGovernorListActivity extends ListActivity {
 			
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-				if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP) {
+				if (columnIndex == VirtualGovernor.INDEX_VIRTUAL_GOVERNOR_NAME) {
+					long virtGovId = PowerProfiles.getInstance().getCurrentProfile().getVirtualGovernor();
+					int color = Color.LTGRAY;
+					if (virtGovId == cursor.getLong(DB.INDEX_ID)) {
+						color = Color.GREEN;
+					}
+					((TextView) view).setTextColor(color);
+				} else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP) {
 					if (cursor.getInt(columnIndex) < 1) {
 						((TextView) view).setText("");
 						((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.INVISIBLE);
