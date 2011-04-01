@@ -297,6 +297,43 @@ public class GovernorConfigHelper {
 		}
 	};	
 	
+	private static final GovernorConfig GOV_SMARTASS = new GovernorConfig() {
+
+		@Override
+		public boolean hasThreshholdUpFeature() {
+			return false;
+		}
+
+		@Override
+		public boolean hasThreshholdDownFeature() {
+			return false;
+		}
+
+		@Override
+		public boolean hasPowersaveBias() {
+			return false;
+		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
+			return false;
+		}
+	};
 	
 	public static GovernorConfig getGovernorConfig(String governor) {
 
@@ -317,6 +354,9 @@ public class GovernorConfigHelper {
 		}
 		if (CpuHandler.GOV_USERSPACE.equals(governor)) {
 			return GOV_USERSPACE;
+		}
+		if (CpuHandler.GOV_SMARTASS.equals(governor)) {
+			return GOV_SMARTASS;
 		}
 //		if (CpuHandler.GOV_.equals(governor)) {
 //			return GOV_;
