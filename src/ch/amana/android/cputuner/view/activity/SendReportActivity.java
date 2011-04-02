@@ -94,7 +94,8 @@ public class SendReportActivity extends Activity {
 		getDeviceInfo();
 		getKernelInfo();
 
-		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "cputuner-help@lists.sourceforge.net" });
+		// sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]
+		// { "cputuner-help@lists.sourceforge.net" });
 		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner report: " + mailSubject);
 		StringBuilder body = new StringBuilder();
 		body.append(mailBody).append("\n\n");
