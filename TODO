@@ -1,8 +1,7 @@
 
-- display pulse state on main view
 - use sprintf to display time in state
 
-- open battery stat from cpu tuner
+- use time in state to gather cpu frequencies as well
 
 - fix capability check to honor thresholds only
 

@@ -57,6 +57,10 @@ public class CapabilityCheckerActivity extends Activity {
 			TextView tv;
 			switch (cr) {
 			case SUCCESS:
+				tv = getTextView(R.string.msg_fully_working);
+				tv.setTextColor(Color.GREEN);
+				return tv;
+			case WORKING:
 				return getTextView(R.string.msg_working);
 			case FAILURE:
 				tv = getTextView(R.string.msg_not_working);
@@ -130,12 +134,17 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	public void dispalyChecks() {
-
-		tvSummary.setText(checker.getSummary());
-		if (checker.hasIssues()) {
-			tvSummary.setTextColor(Color.RED);
-		} else {
+		tvSummary.setText(checker.getSummary(this));
+		switch (checker.hasIssues()) {
+		case SUCCESS:
 			tvSummary.setTextColor(Color.LTGRAY);
+			break;
+		case WORKING:
+			tvSummary.setTextColor(Color.YELLOW);
+			break;
+		case FAILURE:
+			tvSummary.setTextColor(Color.RED);
+			break;
 		}
 
 		Collection<GovernorResult> governorsCheckResults = checker.getGovernorsCheckResults();
@@ -148,12 +157,14 @@ public class CapabilityCheckerActivity extends Activity {
 		String mailMessage = getString(R.string.msg_premail_no_issues);
 		if (!RootHandler.isRoot()) {
 			mailMessage = getString(R.string.msg_premail_no_root);
-		} else if (CapabilityChecker.getInstance(this).hasIssues()) {
+		} else if (CapabilityChecker.getInstance(this).hasIssues() == CheckResult.FAILURE) {
 			mailMessage = getString(R.string.msg_premail_issues);
 			if (!DeviceInformation.getRomManagerDeveloperId().toLowerCase().contains("cyanogenmod")) {
 				mailMessage += getString(R.string.msg_premail_issues_cm);
 			}
 			mailMessage += "\n";
+		} else if (CapabilityChecker.getInstance(this).hasIssues() == CheckResult.WORKING) {
+			mailMessage = getString(R.string.msg_premail_working);
 		}
 
 		tvMailMessage.setText(mailMessage);
@@ -167,7 +178,7 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	private TextView getTextView(boolean b) {
-		TextView tv = getTextView(getString(b ? R.string.msg_working : R.string.msg_not_working));
+		TextView tv = getTextView(getString(b ? R.string.msg_fully_working : R.string.msg_not_working));
 		if (!b) {
 			tv.setTextColor(Color.RED);
 		}
