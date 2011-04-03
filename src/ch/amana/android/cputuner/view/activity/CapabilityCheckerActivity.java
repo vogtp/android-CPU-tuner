@@ -128,6 +128,7 @@ public class CapabilityCheckerActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(CapabilityCheckerActivity.this, SendReportActivity.class));
+				CapabilityCheckerActivity.this.finish();
 			}
 		});
 
