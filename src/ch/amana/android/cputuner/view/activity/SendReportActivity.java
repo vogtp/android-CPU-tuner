@@ -22,7 +22,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import ch.almana.android.backupDb2Xml.DataXmlExporter;
+import ch.almana.android.backupDb.exporter.DataExporter;
+import ch.almana.android.backupDb.exporter.DataJsonExporter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.Logger;
@@ -134,10 +135,10 @@ public class SendReportActivity extends Activity {
 
 		try {
 			DB.OpenHelper oh = new OpenHelper(this);
-			DataXmlExporter dm = new DataXmlExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
+			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
 			try {
 				dm.export(DB.DATABASE_NAME);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Logger.w("Error exporting DB", e);
 			}
 		} catch (Throwable e) {
@@ -153,7 +154,7 @@ public class SendReportActivity extends Activity {
 			addFileToZip(zip, "", CapabilityCheckerActivity.FILE_CAPABILITIESCHECK);
 			addFileToZip(zip, "", FILE_GETPROP);
 			addFileToZip(zip, "", FILE_KERNEL_CPUFREQ_CONFIG);
-			addFileToZip(zip, "DB", DB.DATABASE_NAME + ".xml");
+			addFileToZip(zip, "DB", DB.DATABASE_NAME + ".json");
 			addDirectoryToZip(zip, "cpufreq", new File(CpuHandler.CPU_DIR), true);
 			addDirectoryToZip(zip, "battery", new File(BatteryHandler.BATTERY_DIR), true);
 			zip.flush();
