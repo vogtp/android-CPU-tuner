@@ -179,6 +179,11 @@ public class ServicesHandler {
 
 	 public static void enableMobileData(Context context, boolean enable) {
 		try {
+
+			if (!isPhoneIdle(context)) {
+				Logger.w("Phone not idle, not switching mobledata");
+				return;
+			}
 			MobiledataWrapper mdw = MobiledataWrapper.getInstance(context);
 			if (!mdw.canUse()) {
 				return;
