@@ -22,12 +22,14 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -62,6 +64,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private Spinner spMobileDataConnection;
 	// private LinearLayout llTop;
 	private GovernorBaseFragment governorFragment;
+	private TableRow trMinFreq;
+	private TableRow trMaxFreq;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -140,6 +144,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
 		spMobileDataConnection = (Spinner) findViewById(R.id.spMobileDataConnection);
 		spSync = (Spinner) findViewById(R.id.spSync);
+		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
+		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
 
 
 // sbCpuFreqMax.requestFocus();
@@ -410,22 +416,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			labelCpuFreqMin.setVisibility(View.VISIBLE);
-			tvCpuFreqMin.setVisibility(View.VISIBLE);
-			sbCpuFreqMin.setVisibility(View.VISIBLE);
+			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
 		} else {
-			labelCpuFreqMin.setVisibility(View.INVISIBLE);
-			tvCpuFreqMin.setVisibility(View.INVISIBLE);
-			sbCpuFreqMin.setVisibility(View.INVISIBLE);
+			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			labelCpuFreqMax.setVisibility(View.VISIBLE);
-			tvCpuFreqMax.setVisibility(View.VISIBLE);
-			sbCpuFreqMax.setVisibility(View.VISIBLE);
+			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
 		} else {
-			labelCpuFreqMax.setVisibility(View.INVISIBLE);
-			tvCpuFreqMax.setVisibility(View.INVISIBLE);
-			sbCpuFreqMax.setVisibility(View.INVISIBLE);
+			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
 		}
 		governorFragment.updateView();
 	}

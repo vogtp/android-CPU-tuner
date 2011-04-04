@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory android:key="prefKeyBasics" android:title="@string/prefBasics">
-		<PreferenceScreen android:key="prefKeyGuiScreen" android:title="@string/prefCatGUI">
+		<PreferenceScreen android:key="prefKeyGuiScreen" android:title="@string/prefCatGUI" >
 
 
 

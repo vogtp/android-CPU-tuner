@@ -22,7 +22,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import ch.almana.android.backupDb2Xml.DataXmlExporter;
+import ch.almana.android.backupDb.exporter.DataExporter;
+import ch.almana.android.backupDb.exporter.DataJsonExporter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.Logger;
@@ -35,6 +36,9 @@ import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class SendReportActivity extends Activity {
+
+	public static final String EXTRAS_SEND_DIRECTLY = "sendDirectly";
+
 	private static final String FILE_KERNEL_CPUFREQ_CONFIG = "kernel_cpufreq_config.txt";
 	private static final String FILE_DEVICE_INFO = "device_info.txt";
 	static final String DIR_REPORT = "/report";
@@ -43,12 +47,20 @@ public class SendReportActivity extends Activity {
 	private EditText etSubject;
 	private EditText etMailBody;
 	private Button buSendMail;
+	private boolean sendDirectly;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.send_report);
+
+		Bundle extras = getIntent().getExtras();
+		if (extras.containsKey(EXTRAS_SEND_DIRECTLY)) {
+			sendDirectly = extras.getBoolean(EXTRAS_SEND_DIRECTLY);
+		} else {
+			sendDirectly = false;
+		}
 
 		etSubject = (EditText) findViewById(R.id.etSubject);
 		etMailBody = (EditText) findViewById(R.id.etMailBody);
@@ -60,6 +72,10 @@ public class SendReportActivity extends Activity {
 				sendBugReport();
 			}
 		});
+
+		if (sendDirectly) {
+			sendBugReport();
+		}
 	}
 
 	private void sendBugReport() {
@@ -67,7 +83,7 @@ public class SendReportActivity extends Activity {
 		String mailSubject = etSubject.getText().toString();
 		String mailBody = etMailBody.getText().toString();
 
-		if (TextUtils.isEmpty(mailSubject) || TextUtils.isEmpty(mailBody)) {
+		if (!sendDirectly && (TextUtils.isEmpty(mailSubject) || TextUtils.isEmpty(mailBody))) {
 			Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle("E-mail report");
 			alertBuilder.setMessage("Please enter a subject and some text describing your problem!");
@@ -94,7 +110,8 @@ public class SendReportActivity extends Activity {
 		getDeviceInfo();
 		getKernelInfo();
 
-		sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "cputuner-help@lists.sourceforge.net" });
+		// sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]
+		// { "cputuner-help@lists.sourceforge.net" });
 		sendIntent.putExtra(Intent.EXTRA_SUBJECT, "cpu tuner report: " + mailSubject);
 		StringBuilder body = new StringBuilder();
 		body.append(mailBody).append("\n\n");
@@ -133,10 +150,10 @@ public class SendReportActivity extends Activity {
 
 		try {
 			DB.OpenHelper oh = new OpenHelper(this);
-			DataXmlExporter dm = new DataXmlExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
+			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
 			try {
 				dm.export(DB.DATABASE_NAME);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Logger.w("Error exporting DB", e);
 			}
 		} catch (Throwable e) {
@@ -152,7 +169,7 @@ public class SendReportActivity extends Activity {
 			addFileToZip(zip, "", CapabilityCheckerActivity.FILE_CAPABILITIESCHECK);
 			addFileToZip(zip, "", FILE_GETPROP);
 			addFileToZip(zip, "", FILE_KERNEL_CPUFREQ_CONFIG);
-			addFileToZip(zip, "DB", DB.DATABASE_NAME + ".xml");
+			addFileToZip(zip, "DB", DB.DATABASE_NAME + ".json");
 			addDirectoryToZip(zip, "cpufreq", new File(CpuHandler.CPU_DIR), true);
 			addDirectoryToZip(zip, "battery", new File(BatteryHandler.BATTERY_DIR), true);
 			zip.flush();

@@ -62,7 +62,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		FAILURE,
 		DOES_NOT_APPLY,
 		CANNOT_CHECK,
-		HAS_ISSUES;
+ WORKING;
 	}
 
 	public class GovernorResult {
@@ -153,9 +153,11 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		public CheckResult getOverallIssue() {
 			CheckResult res = getWorstIssue();
 			if (res == CheckResult.FAILURE) {
-				if (isCheckOk(readGovernor) && isCheckOk(writeGovernor) && isCheckOk(readGovernor) && isCheckOk(writeMinFreq) &&
-						isCheckFailed(writeMaxFreq) && isCheckFailed(writeMinFreq)) {
-					res = CheckResult.HAS_ISSUES;
+				if (isCheckOk(readGovernor) && isCheckOk(writeGovernor) && isCheckOk(writeDownThreshold) && isCheckOk(writeUpThreshold)
+						&& (isCheckFailed(writeMaxFreq) || isCheckFailed(writeMinFreq))) {
+					if (GovernorConfigHelper.getGovernorConfig(governor).hasThreshholdUpFeature()) {
+						res = CheckResult.WORKING;
+					}
 				}
 			}
 			return res;
@@ -383,7 +385,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} else {
 			result.writeUpThreshold = CheckResult.FAILURE;
 		}
-
+		// result.writeUpThreshold = CheckResult.FAILURE;// FIXME
 	}
 
 	private void checkMinCpuFreq(GovernorResult result) {
@@ -416,6 +418,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} else {
 			result.writeMinFreq = CheckResult.FAILURE;
 		}
+		// result.writeMinFreq = CheckResult.FAILURE; // FIXME
 
 	}
 
@@ -450,6 +453,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			result.writeMaxFreq = CheckResult.FAILURE;
 		}
 
+		// result.writeMaxFreq = CheckResult.FAILURE;// FIXME
 	}
 
 	private void checkUserCpuFreq(GovernorResult result) {
@@ -484,16 +488,20 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 
 	}
 
-	public boolean hasIssues() {
+	public CheckResult hasIssues() {
 		if (!rooted) {
-			return true;
+			return CheckResult.FAILURE;
 		}
+		CheckResult result = CheckResult.SUCCESS;
 		for (GovernorResult res : govChecks.values()) {
 			if (res.hasIssues()) {
-				return true;
+				result = CheckResult.FAILURE;
 			}
 		}
-		return false;
+		if (result == CheckResult.FAILURE && govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
+			return CheckResult.WORKING;
+		}
+		return result;
 	}
 
 	@Override
@@ -513,13 +521,27 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		return rooted;
 	}
 
-	public CharSequence getSummary() {
+	public CharSequence getSummary(Context ctx) {
 		if (!rooted) {
-			return "CPU tuner does not have root access!\n All CPU tuning related features will not work.\n\nDid root your device?\nDid you grant CPU tuner root access?";
-		} else if (hasIssues()) {
-			return "Found some issues... Some features might not work.";
+			return ctx.getString(R.string.msg_capcheck_not_rooted);
+		} else if (hasIssues() != CheckResult.SUCCESS) {
+			StringBuilder sb = new StringBuilder();
+			if (govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
+				sb.append(CpuHandler.GOV_ONDEMAND);
+			}
+			if (govChecks.get(CpuHandler.GOV_CONSERVATIVE).getOverallIssue() != CheckResult.FAILURE) {
+				if (sb.length() > 0) {
+					sb.append(" ").append(ctx.getString(R.string.and)).append(" ");
+				}
+				sb.append(CpuHandler.GOV_CONSERVATIVE);
+			}
+			if (sb.length() > 0) {
+				sb.append(" ").append(ctx.getString(R.string.msg_capcheck_work_but_cannot_set_frequency));
+				return sb.toString();
+			}
+			return ctx.getString(R.string.msg_capcheck_found_some_issues);
 		}
-		return "No issues found...";
+		return ctx.getString(R.string.msg_capcheck_no_issues);
 	}
 
 	public Collection<GovernorResult> getGovernorsCheckResults() {

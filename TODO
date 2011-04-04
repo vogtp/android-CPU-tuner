@@ -1,16 +1,10 @@
+- backup restore profiles 
+- move send report to menu (and add help)
 
-- display pulse state on main view
 - use sprintf to display time in state
-
-- open battery stat from cpu tuner
-
-- fix capability check to honor thresholds only
 
 - widget for profile switch
 
-- context sensitive help
-
-- backup restore profiles 
 - switch profile/triggers sets (everything) based on time
 
 - Imperial units (°C -> F)

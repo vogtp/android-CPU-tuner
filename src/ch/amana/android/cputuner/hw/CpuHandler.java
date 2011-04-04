@@ -23,6 +23,7 @@ public class CpuHandler extends HardwareHandler {
 	public static final String GOV_PERFORMANCE = "performance";
 	public static final String GOV_INTERACTIVE = "interactive";
 	public static final String GOV_USERSPACE = "userspace";
+	public static final String GOV_SMARTASS = "smartass";
 
 	public static final String CPU_DIR = "/sys/devices/system/cpu/cpu0/cpufreq/";
 

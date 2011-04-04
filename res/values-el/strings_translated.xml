@@ -20,8 +20,8 @@
 <string name="prefPulseDelayOnLong">Ο χρόνος (σε λεπτά) για μια ενεργή υπηρεσία στο pulsed mode.</string> 
 <string name="prefPulseDelayOff">Χρόνος απενεργοποίησης</string>
 <string name="prefPulseDelayOffLong">Ο χρόνος (σε λεπτά) για μια ανενεργή υπηρεσία στο pulsed mode.</string> 
-<string name="labelPulseOn">(Pulse ενεργό)</string> 
-<string name="labelPulseOff">(Pulse ανενεργό)</string> 
+<string name="labelPulseOn">Pulse ενεργό</string> 
+<string name="labelPulseOff">Pulse ανενεργό</string> 
 <string name="labelCurrentTab">Τώρα</string> 
 <string name="labelTriggersTab">Εναύσματα</string> 
 <string name="labelProfilesTab">Προφίλ</string> 

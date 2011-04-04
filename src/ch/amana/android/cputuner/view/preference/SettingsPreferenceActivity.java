@@ -9,7 +9,12 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -18,12 +23,14 @@ import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
 	private CheckBoxPreference systemAppPreference;
 	private EditTextPreference cpuFreqPreference;
 	private EditTextPreference prefMinSensibleFrequency;
+	private String helpPage;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -31,6 +38,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.settings_preferences);
+
+		helpPage = HelpActivity.PAGE_SETTINGS;
 
 		Preference capabilityPreference = findPreference("prefKeyCapabilities");
 		capabilityPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -129,6 +138,32 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			}
 		});
 		
+		PreferenceScreen guiScreen = (PreferenceScreen) findPreference("prefKeyGuiScreen");
+		guiScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				helpPage = HelpActivity.PAGE_SETTINGS_GUI;
+				return false;
+			}
+		});
+	}
+
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (event.getKeyCode()) {
+		case KeyEvent.KEYCODE_BACK:
+			helpPage = HelpActivity.PAGE_SETTINGS;
+			break;
+		case KeyEvent.KEYCODE_MENU:
+			openOptionsMenu();
+			break;
+
+		default:
+			break;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
@@ -139,6 +174,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		cpuFreqPreference.setEnabled(!settings.isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
 		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
+		findPreference("prefKeyEnableUserspaceGovernor").setEnabled(settings.isPowerUser());
 	}
 
 	@Override
@@ -147,4 +183,22 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		SettingsStorage.getInstance().forgetValues();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, helpPage)) {
+				return true;
+			}
+
+		}
+		return false;
+	}
 }

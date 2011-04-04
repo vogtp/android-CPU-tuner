@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.CapabilityChecker.CheckResult;
 import ch.amana.android.cputuner.helper.CapabilityChecker.GovernorResult;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -57,6 +60,10 @@ public class CapabilityCheckerActivity extends Activity {
 			TextView tv;
 			switch (cr) {
 			case SUCCESS:
+				tv = getTextView(R.string.msg_fully_working);
+				tv.setTextColor(Color.GREEN);
+				return tv;
+			case WORKING:
 				return getTextView(R.string.msg_working);
 			case FAILURE:
 				tv = getTextView(R.string.msg_not_working);
@@ -108,6 +115,8 @@ public class CapabilityCheckerActivity extends Activity {
 
 		tvDeviceInfo.setText("(Tap result for more information.)");
 
+		buSendBugreport.setVisibility(View.INVISIBLE);
+		
 		final SettingsStorage settings = SettingsStorage.getInstance();
 		buFindFrequencies.setEnabled(settings.isEnableBeta());
 		buFindFrequencies.setVisibility(View.INVISIBLE);
@@ -124,18 +133,24 @@ public class CapabilityCheckerActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(CapabilityCheckerActivity.this, SendReportActivity.class));
+				CapabilityCheckerActivity.this.finish();
 			}
 		});
 
 	}
 
 	public void dispalyChecks() {
-
-		tvSummary.setText(checker.getSummary());
-		if (checker.hasIssues()) {
-			tvSummary.setTextColor(Color.RED);
-		} else {
+		tvSummary.setText(checker.getSummary(this));
+		switch (checker.hasIssues()) {
+		case SUCCESS:
 			tvSummary.setTextColor(Color.LTGRAY);
+			break;
+		case WORKING:
+			tvSummary.setTextColor(Color.YELLOW);
+			break;
+		case FAILURE:
+			tvSummary.setTextColor(Color.RED);
+			break;
 		}
 
 		Collection<GovernorResult> governorsCheckResults = checker.getGovernorsCheckResults();
@@ -148,12 +163,14 @@ public class CapabilityCheckerActivity extends Activity {
 		String mailMessage = getString(R.string.msg_premail_no_issues);
 		if (!RootHandler.isRoot()) {
 			mailMessage = getString(R.string.msg_premail_no_root);
-		} else if (CapabilityChecker.getInstance(this).hasIssues()) {
+		} else if (CapabilityChecker.getInstance(this).hasIssues() == CheckResult.FAILURE) {
 			mailMessage = getString(R.string.msg_premail_issues);
 			if (!DeviceInformation.getRomManagerDeveloperId().toLowerCase().contains("cyanogenmod")) {
 				mailMessage += getString(R.string.msg_premail_issues_cm);
 			}
 			mailMessage += "\n";
+		} else if (CapabilityChecker.getInstance(this).hasIssues() == CheckResult.WORKING) {
+			mailMessage = getString(R.string.msg_premail_working);
 		}
 
 		tvMailMessage.setText(mailMessage);
@@ -167,7 +184,7 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	private TextView getTextView(boolean b) {
-		TextView tv = getTextView(getString(b ? R.string.msg_working : R.string.msg_not_working));
+		TextView tv = getTextView(getString(b ? R.string.msg_fully_working : R.string.msg_not_working));
 		if (!b) {
 			tv.setTextColor(Color.RED);
 		}
@@ -200,4 +217,30 @@ public class CapabilityCheckerActivity extends Activity {
 		return new File(path, fileName);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
+		getMenuInflater().inflate(R.menu.capabilitycheck_option, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.menuItemSendMail:
+			Intent intent = new Intent(this, SendReportActivity.class);
+			intent.putExtra(SendReportActivity.EXTRAS_SEND_DIRECTLY, true);
+			startActivity(intent);
+			finish();
+			return true;
+
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_CAPABILITY_CHECK)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

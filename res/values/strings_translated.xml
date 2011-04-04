@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="msg_fully_working">Fully working</string>
+<string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU tuning related features will not work.\nDid root your device?\nDid you grant CPU tuner root access?</string>
+<string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
+<string name="msg_capcheck_no_issues">No issues found...</string>
+<string name="and">and</string>
+<string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields quite good results.</string>
+<string name="msg_premail_working">Some governors are mostly working.\nThe not working governors are most likely due to the kernel/ROM. You have three possibilities:\n1) Use the working governors and ignore the other.  This will probably still yield nice results.\n2) Flash a new kernel\n3) Flash a new ROM</string>
+<string name="labelCurrentFrequency">current</string>
+<string name="prefScreenLegal">Legal stuff</string>
+<string name="prefLegalOxigenIcons">Tab icon License</string>
+<string name="prefLegalOxigenIconsLong">License of the used oxigen icons.  Thanks for the nice icons.</string>
+<string name="virtual_governor">virtual governor</string>
 <string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
 <string name="labelStatisticsTab">Statistics</string>
 <string name="label_time_in_state">Time in state:</string>
@@ -35,8 +47,8 @@
 <string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in pulsed mode.</string> 
 <string name="prefPulseDelayOff">Service off time</string>
 <string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in pulsed mode.</string> 
-<string name="labelPulseOn">(Pulse is on)</string> 
-<string name="labelPulseOff">(Pulse is off)</string> 
+<string name="labelPulseOn">Pulse is on</string> 
+<string name="labelPulseOff">Pulse is off</string> 
 <string name="labelCurrentTab">Current</string> 
 <string name="labelTriggersTab">Triggers</string> 
 <string name="labelProfilesTab">Profiles</string> 
@@ -303,28 +315,10 @@
 <string name="msg_has_issues">Has issues</string>
 <string name="msg_not_working">Not working</string>
 <string name="msg_working">Working</string>
-<string name="msg_premail_no_issues">No issues have been found...
-If you are pleased and want to give feedback:
-Comments and good ratings on the market are highly appreciated...
-
-Please do not write empty e-mails!</string>
-<string name="msg_premail_no_root">CPU tuner does not have root access!
-Cpu tuner cannot do anything!
-
-Please do not write e-mails unless you think there is something wrong with the check or the app.
-
-Please do not write empty e-mails!</string>
-<string name="msg_premail_issues">You configuration has issues...
-This is most likely due to the kernel/ROM.You have two possibilities:
-
-1) Flash a new kernel
-
-2) Flash a new ROM
-</string>
-<string name="msg_premail_issues_cm">You might want to have a look at http://wiki.cyanogenmod.com they do very nice ROMS
-
-Please do not write e-mails unless you think there is something wrong with the check or the app.
-</string>
+<string name="msg_premail_no_issues">No issues have been found...\nIf you are pleased and want to give feedback:\nComments and good ratings on the market are highly appreciated...</string>
+<string name="msg_premail_no_root">CPU tuner does not have root access!\nCpu tuner cannot do anything!</string>
+<string name="msg_premail_issues">You configuration has issues...\nThis is most likely due to the kernel/ROM. You have two possibilities:\n1) Flash a new kernel\n2) Flash a new ROM</string>
+<string name="msg_premail_issues_cm">You configuration has issues...\nThis is most likely due to the kernel/ROM. You have two possibilities:\n1) Flash a new kernel\n2) Flash a new ROM\nYou might want to have a look at http://wiki.cyanogenmod.com they do very nice ROMS.</string>
 <string name="title_profile_editor">Profile Editor: </string>
 <string name="title_profiles">Profiles</string>
 <string name="title_trigger_editor">Trigger Editor: </string>

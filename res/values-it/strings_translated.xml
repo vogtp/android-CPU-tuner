@@ -16,8 +16,8 @@
 <string name="prefPulseDelayOnLong">Periodo (in minuti) durante il quale un servizio è attivo in modalità pulse.</string> 
 <string name="prefPulseDelayOff">Durata disattivazione</string>
 <string name="prefPulseDelayOffLong">Periodo (in minuti) durante il quale un servizio è disattivato in modalità pulse.</string> 
-<string name="labelPulseOn">(Pulse Attivo)</string> 
-<string name="labelPulseOff">(Pulse Disattivo)</string> 
+<string name="labelPulseOn">Pulse Attivo</string> 
+<string name="labelPulseOff">Pulse Disattivo</string> 
     <string name="labelPowerUserExplain">Controllo totale!</string>
     <string name="labelPowerUser">Esperto</string>
     <string name="labelNormalExplain">Opzioni di configurazione più avanzate, l\' Underclock è possibile solo fino ad un certo valore.</string>

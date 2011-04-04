@@ -133,6 +133,7 @@ public class CpuTunerProvider extends ContentProvider {
 	private void notifyChange(Uri uri) {
 		PowerProfiles.getInstance().reapplyProfile(true);
 		getContext().getContentResolver().notifyChange(uri, null);
+		// BackupRestoreHelper.backup(getContext());
 	}
 
 	static {

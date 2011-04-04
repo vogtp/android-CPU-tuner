@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="msg_fully_working">Fully working</string>
+<string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU tuning related features will not work.\nDid root your device?\nDid you grant CPU tuner root access?</string>
+<string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
+<string name="msg_capcheck_no_issues">No issues found...</string>
+<string name="and">and</string>
+<string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields quite good results.</string>
+<string name="msg_premail_working">Some governors are mostly working.\nThe not working governors are most likely due to the kernel/ROM. You have three possibilities:\n1) Use the working governors and ignore the other.  This will probably still yield nice results.\n2) Flash a new kernel\n3) Flash a new ROM\nPlease do not write e-mails unless you think there is something wrong with the check or the app.</string>
+<string name="labelCurrentFrequency">current</string>
+<string name="prefScreenLegal">Legal stuff</string>
+<string name="prefLegalOxigenIcons">Tab icon License</string>
+<string name="prefLegalOxigenIconsLong">License of the used oxigen icons.  Thanks for the nice icons.</string>
+<string name="virtual_governor">virtual governor</string>
 <string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
 <string name="labelStatisticsTab">Statistics</string>
 <string name="label_time_in_state">Time in state:</string>

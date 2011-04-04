@@ -163,7 +163,7 @@ public class InstallHelper {
 		cgs.upThreshold = profileModel.getGovernorThresholdUp();
 		cgs.script = script;
 		cgs.powersaveBias = profileModel.getPowersaveBias();
-		return createVirtualGovernor(resolver, ctx.getString(R.string.labelVirtualGovernor) + " " + profileModel.getProfileName(), cgs);
+		return createVirtualGovernor(resolver, profileModel.getProfileName() + " " + ctx.getString(R.string.virtual_governor), cgs);
 	}
 
 	private static long createVirtualGovernor(ContentResolver resolver, String name, CpuGovernorSettings cgs) {

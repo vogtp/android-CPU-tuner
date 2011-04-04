@@ -23,8 +23,8 @@
 <string name="prefPulseDelayOnLong">Zeit (in Minuten) ist ein Dienst ein, während der gepulste Modus aktiv ist.</string> 
 <string name="prefPulseDelayOff">Dienst Aus Zeit</string>
 <string name="prefPulseDelayOffLong">Zeit (in Minuten) ist eine Dienst aus, während der gepulste Modus aktiv ist.</string> 
-<string name="labelPulseOn">(Pulse ist eingeschaltet)</string> 
-<string name="labelPulseOff">(Pulse ist ausgeschaltet)</string> 
+<string name="labelPulseOn">Pulse ist eingeschaltet</string> 
+<string name="labelPulseOff">Pulse ist ausgeschaltet</string> 
 <string name="labelCurrentTab">Aktuell</string> 
 <string name="labelTriggersTab">Abstufung</string> 
 <string name="labelProfilesTab">Profile</string> 
@@ -279,22 +279,10 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
 <string name="msg_has_issues">Hat Probleme</string>
 <string name="msg_not_working">Funktioniert nicht</string>
 <string name="msg_working">Funktioniert</string>
-<string name="msg_premail_no_issues">Keine Probleme gefunden worden...
-Bist Du zufrieden und möchtest ein Feedback geben:
-Kommentare und gute Bewertungen auf dem Markt werden geschätzt...
-
-Bitte schreiben Sie keine leeren E-Mails!</string>
-<string name="msg_premail_no_root">Der CPU-Tuner verfügt nicht über Root-Zugriff!
-Die meisten Funktionen von CPU-Tuner gehen so nicht!
-
-Bitte schreiben Sie nicht leere E-Mails!</string>
+<string name="msg_premail_no_issues">Keine Probleme gefunden worden...\nBist Du zufrieden und möchtest ein Feedback geben:\nKommentare und gute Bewertungen auf dem Markt werden geschätzt...</string>
+<string name="msg_premail_no_root">Der CPU-Tuner verfügt nicht über Root-Zugriff!\nDie meisten Funktionen von CPU-Tuner gehen so nicht!</string>
 <string name="msg_premail_issues">Deine Konfiguration hat Probleme ...
-Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Du hast zwei Möglichkeiten:
-
-1) Flashen eines neuen Kernels
-
-2) Flashen eines neuen ROMs
-</string>
+Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n1) Flashen eines neuen Kernels\n\n2) Flashen eines neuen ROMs</string>
 <string name="msg_premail_issues_cm">Vielleicht schaust du unter http://wiki.cyanogenmod.com nach, sie machen sehr gute ROMs
 </string>
 <string name="title_profile_editor">Profil Bearbeitung: </string>

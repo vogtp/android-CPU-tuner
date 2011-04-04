@@ -4,6 +4,27 @@ V
 * bug fixes
 -
 
+V 2.0.5
+* features
+- fix capability check to honor thresholds
+- capability check: help page and remove e-mail address 
+- help pages for settings
+* bug fixes
+-
+
+V 2.0.4
+* features
+- Show battery info when clicking on power information (hidden feature)
+* bug fixes
+- fix force close
+
+V 2.0.3
+* features
+- GUI cleanup
+- colorise current virtual governor
+* bug fixes
+- fix wrong virtual governor bug
+
 V 2.0.2
 * features
 - context sensitive help

@@ -14,8 +14,12 @@
 		Depending on the state of the device a profile is chosen.<br>
 		The states are evaluated in the following order:
 		<ul>
-			<li><span class="bold">On Battery</span><br/>
-			The battery profile is chosen, if no other state is valid.  
+			<li><span class="bold">Call in progress</span><br/>
+			If this profile exists and a phone call is active profile is chosen. <br/>
+			This state can be enable/disabled in the settings.
+			</li>
+			<li><span class="bold">Battery hot</span><br/>
+			If this profile exists and the battery is hot this profile is chosen. 
 			</li>
 			<li><span class="bold">Screen locked</span><br/>
 			If the screen is off this profile is chosen.  
@@ -23,11 +27,8 @@
 			<li><span class="bold">AC Power</span><br/>
 			If the device is connected to a external power source this profile is chosen.  
 			</li>
-			<li><span class="bold">Call in progress</span><br/>
-			If this profile exists and a phone call is active profile is chosen. 
-			</li>
-			<li><span class="bold">Battery hot</span><br/>
-			If this profile exists and the battery is hot this profile is chosen. 
+			<li><span class="bold">On Battery</span><br/>
+			The battery profile is chosen, if no other state is valid.  
 			</li>
 		</ul>
 	</span>

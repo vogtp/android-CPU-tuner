@@ -28,6 +28,11 @@ public class HelpActivity extends Activity {
 	public static final String PAGE_PROFILE = "profile.html";
 	public static final String PAGE_TRIGGER = "trigger.html";
 	public static final String PAGE_VIRTUAL_GOVERNOR = "virtual_governor.html";
+	public static final String PAGE_CAPABILITY_CHECK = "capability_check.html";
+
+	public static final String PAGE_SETTINGS = "settings/index.html";
+	public static final String PAGE_SETTINGS_GUI = "settings/gui.html";
+
 
 	private WebView wvHelp;
 	private Button buHome;

@@ -11,6 +11,8 @@ public class BatteryHandler extends HardwareHandler {
 	public static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
 	public static final String BATTERY_CPCAP_DIR = "/sys/devices/platform/cpcap_battery/power_supply/battery/";
 
+	private boolean hasAvgCurrent = true;
+
 	private File CURRENT_NOW_FILE;
 	private File CURRENT_AVG_FILE;
 	private File CAPACITY_FILE = new File(BATTERY_DIR, CAPACITY);
@@ -74,6 +76,7 @@ public class BatteryHandler extends HardwareHandler {
 		}
 		if (!canReadFromBattAvgFile()) {
 			CURRENT_AVG_FILE = getBattCurrentFile();
+			hasAvgCurrent = false;
 		}
 		return CURRENT_AVG_FILE;
 	}
@@ -89,6 +92,10 @@ public class BatteryHandler extends HardwareHandler {
 
 	public int getBatteryLevel() {
 		return getIntFromStr(RootHandler.readFile(CAPACITY_FILE));
+	}
+
+	public boolean hasAvgCurrent() {
+		return hasAvgCurrent;
 	}
 
 	public boolean isOnAcPower() {
