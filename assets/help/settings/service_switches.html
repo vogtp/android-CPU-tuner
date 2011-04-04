@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="../styles.css"/>
+<title>Settings: Service switches</title>
+</head>
+<body>	
+	<span class="headline">Settings: Service switches</span>
+	<br/><br/>
+	<span class="text">
+		<ul>
+			<li><span class="bold">Manual service switches</span><br/>
+			If check this allows a service being changes manually (or outside cpu tuner)
+			without cpu tuner switching it back on the next profile change.<br>
+			Or more exactly cpu tuner will only switch a service if it is in the same state as it
+			was switched to by cpu tuner. 
+			</li>
+			<li><span class="bold">Switch wifi if connected</span><br/>
+			If check cpu tuner will switch wifi (off) even if the device is connected to a wireless network.
+			</li>
+			<li><span class="bold">Switch profile during call</span><br/>
+			If checked cpu tuner will switch profiles even during a phone call.<br/>
+			Mobiledata type and connecting will never be switch during a call, since this would end your call.
+			</li>
+		</ul>
+	</span>
+	<span class="text">
+			Pulsed services will be switched off for some time,
+			then automatically switched on for a period.
+			After this the cycle begins again. <br/> 
+			All pulsed services will be switch on and off at the same time.
+		<ul>
+			<li><span class="bold">Service on time</span><br/>
+			The time in minutes a service will be on when pulsed.
+			</li>
+			<li><span class="bold">Service off time</span><br/>
+			The time in minutes a service will be off when pulsed.
+			</li>
+			<li><span class="bold">Pulse mobiledata on wifi</span><br/>
+			If not checked the mobiledata connection will not be pulsed while connected to a wireless network.
+			</li>
+		</ul>
+	</span>
+</body>
+</html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->
