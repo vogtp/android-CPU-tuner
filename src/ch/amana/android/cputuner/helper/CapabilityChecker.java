@@ -529,7 +529,8 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			if (govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
 				sb.append(CpuHandler.GOV_ONDEMAND);
 			}
-			if (govChecks.get(CpuHandler.GOV_CONSERVATIVE).getOverallIssue() != CheckResult.FAILURE) {
+			GovernorResult governorResult = govChecks.get(CpuHandler.GOV_CONSERVATIVE);
+			if (governorResult != null && governorResult.getOverallIssue() != CheckResult.FAILURE) {
 				if (sb.length() > 0) {
 					sb.append(" ").append(ctx.getString(R.string.and)).append(" ");
 				}
