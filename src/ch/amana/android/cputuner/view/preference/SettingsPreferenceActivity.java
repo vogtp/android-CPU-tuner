@@ -174,6 +174,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		cpuFreqPreference.setEnabled(!settings.isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
 		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
+		findPreference("prefKeyEnableUserspaceGovernor").setEnabled(settings.isPowerUser());
 	}
 
 	@Override
