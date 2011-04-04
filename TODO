@@ -1,15 +1,10 @@
+- backup restore profiles 
+- move send report to menu (and add help)
 
 - use sprintf to display time in state
 
-- use time in state to gather cpu frequencies as well
-
-- fix capability check to honor thresholds only
-
 - widget for profile switch
 
-- context sensitive help
-
-- backup restore profiles 
 - switch profile/triggers sets (everything) based on time
 
 - Imperial units (°C -> F)
