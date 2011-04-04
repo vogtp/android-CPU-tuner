@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.CapabilityChecker.CheckResult;
 import ch.amana.android.cputuner.helper.CapabilityChecker.GovernorResult;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -112,6 +115,8 @@ public class CapabilityCheckerActivity extends Activity {
 
 		tvDeviceInfo.setText("(Tap result for more information.)");
 
+		buSendBugreport.setVisibility(View.INVISIBLE);
+		
 		final SettingsStorage settings = SettingsStorage.getInstance();
 		buFindFrequencies.setEnabled(settings.isEnableBeta());
 		buFindFrequencies.setVisibility(View.INVISIBLE);
@@ -212,4 +217,30 @@ public class CapabilityCheckerActivity extends Activity {
 		return new File(path, fileName);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
+		getMenuInflater().inflate(R.menu.capabilitycheck_option, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.menuItemSendMail:
+			Intent intent = new Intent(this, SendReportActivity.class);
+			intent.putExtra(SendReportActivity.EXTRAS_SEND_DIRECTLY, true);
+			startActivity(intent);
+			finish();
+			return true;
+
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_CAPABILITY_CHECK)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

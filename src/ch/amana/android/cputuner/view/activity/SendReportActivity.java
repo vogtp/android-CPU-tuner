@@ -36,6 +36,9 @@ import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class SendReportActivity extends Activity {
+
+	public static final String EXTRAS_SEND_DIRECTLY = "sendDirectly";
+
 	private static final String FILE_KERNEL_CPUFREQ_CONFIG = "kernel_cpufreq_config.txt";
 	private static final String FILE_DEVICE_INFO = "device_info.txt";
 	static final String DIR_REPORT = "/report";
@@ -44,12 +47,20 @@ public class SendReportActivity extends Activity {
 	private EditText etSubject;
 	private EditText etMailBody;
 	private Button buSendMail;
+	private boolean sendDirectly;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.send_report);
+
+		Bundle extras = getIntent().getExtras();
+		if (extras.containsKey(EXTRAS_SEND_DIRECTLY)) {
+			sendDirectly = extras.getBoolean(EXTRAS_SEND_DIRECTLY);
+		} else {
+			sendDirectly = false;
+		}
 
 		etSubject = (EditText) findViewById(R.id.etSubject);
 		etMailBody = (EditText) findViewById(R.id.etMailBody);
@@ -61,6 +72,10 @@ public class SendReportActivity extends Activity {
 				sendBugReport();
 			}
 		});
+
+		if (sendDirectly) {
+			sendBugReport();
+		}
 	}
 
 	private void sendBugReport() {
@@ -68,7 +83,7 @@ public class SendReportActivity extends Activity {
 		String mailSubject = etSubject.getText().toString();
 		String mailBody = etMailBody.getText().toString();
 
-		if (TextUtils.isEmpty(mailSubject) || TextUtils.isEmpty(mailBody)) {
+		if (!sendDirectly && (TextUtils.isEmpty(mailSubject) || TextUtils.isEmpty(mailBody))) {
 			Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle("E-mail report");
 			alertBuilder.setMessage("Please enter a subject and some text describing your problem!");

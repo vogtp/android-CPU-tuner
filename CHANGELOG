@@ -1,6 +1,7 @@
 V 
 * features
-- 
+- fix capability check to honor thresholds
+- capability check: help page and remove e-mail address 
 * bug fixes
 -
 
