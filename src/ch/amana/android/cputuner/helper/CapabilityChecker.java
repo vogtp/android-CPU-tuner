@@ -498,7 +498,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 				result = CheckResult.FAILURE;
 			}
 		}
-		if (result == CheckResult.FAILURE && govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
+		if (result == CheckResult.FAILURE && govChecks.containsKey(CpuHandler.GOV_ONDEMAND) && govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
 			return CheckResult.WORKING;
 		}
 		return result;
@@ -526,7 +526,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			return ctx.getString(R.string.msg_capcheck_not_rooted);
 		} else if (hasIssues() != CheckResult.SUCCESS) {
 			StringBuilder sb = new StringBuilder();
-			if (govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
+			if (govChecks.containsKey(CpuHandler.GOV_ONDEMAND) && govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
 				sb.append(CpuHandler.GOV_ONDEMAND);
 			}
 			GovernorResult governorResult = govChecks.get(CpuHandler.GOV_CONSERVATIVE);
