@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources><string name="email">e-mail</string>
 <string name="msg_fully_working">Fully working</string>
 <string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU tuning related features will not work.\nDid root your device?\nDid you grant CPU tuner root access?</string>
 <string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
