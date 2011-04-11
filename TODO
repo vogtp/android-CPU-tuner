@@ -1,3 +1,4 @@
+- fix orientation change in virtual gov editor
 - backup restore profiles 
 - move send report to menu (and add help)
 
