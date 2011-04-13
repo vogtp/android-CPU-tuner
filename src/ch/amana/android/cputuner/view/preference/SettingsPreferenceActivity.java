@@ -142,7 +142,8 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				helpPage = HelpActivity.PAGE_SETTINGS_GUI;
+				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationManageActivity.class);
+				startActivity(i);
 				return true;
 			}
 		});
