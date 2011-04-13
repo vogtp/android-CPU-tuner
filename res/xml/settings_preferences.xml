@@ -16,19 +16,9 @@
 			
 		</PreferenceScreen><PreferenceScreen android:key="prefKeyProfiles"
 			android:title="@string/prefKeyProfiles">
-			<PreferenceCategory android:key="prefKeyProfiles"
-				android:title="@string/prefKeyProfiles">
-				<CheckBoxPreference android:title="@string/prefEnableProfiles"
-					android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles"
-					android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference>
-				
-				
-				<CheckBoxPreference android:title="@string/prefCallInProgressProfile" android:key="prefKeyCallInProgressProfile" android:summary="@string/prefCallInProgressProfileLong" android:enabled="true" android:defaultValue="true"></CheckBoxPreference><CheckBoxPreference android:key="prefKeyUseVirtualGovernors" android:summary="@string/prefUseVirtualGovernorsLong" android:title="@string/cbEnableVirtualGovernors" android:defaultValue="true"></CheckBoxPreference><Preference android:key="prefKeyResetToDefault"
-					android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault"
-					android:enabled="true"></Preference>
-				
-			</PreferenceCategory>
+			<CheckBoxPreference android:title="@string/prefEnableProfiles" android:summaryOn="@string/prefEnableProfilesOn" android:key="prefKeyEnableProfiles" android:defaultValue="true" android:summaryOff="@string/prefEnableProfilesOff"></CheckBoxPreference><CheckBoxPreference android:title="@string/prefCallInProgressProfile" android:key="prefKeyCallInProgressProfile" android:summary="@string/prefCallInProgressProfileLong" android:enabled="true" android:defaultValue="true"></CheckBoxPreference><CheckBoxPreference android:key="prefKeyUseVirtualGovernors" android:summary="@string/prefUseVirtualGovernorsLong" android:title="@string/cbEnableVirtualGovernors" android:defaultValue="true"></CheckBoxPreference><Preference android:key="prefKeyResetToDefault" android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault" android:enabled="true"></Preference>
 		</PreferenceScreen>
+		<PreferenceScreen android:title="@string/prefConfigurations" android:key="prefKeyConfigurations"></PreferenceScreen>
 
 		
 
@@ -68,25 +58,7 @@
 
 
 
-			<PreferenceCategory android:title="@string/prefCatSystem"
-				android:key="prefKeySystemCat">
-				<Preference android:key="prefKeyCapabilities"
-					android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference><EditTextPreference android:title="@string/prefBatteryHotTemp"
-					android:key="prefKeyBatteryHotTemp" android:dialogMessage="@string/prefBatteryHotTempMsg"
-					android:dialogTitle="@string/prefBatteryHotTemp" android:summary="@string/prefBatteryHotTempLong"></EditTextPreference>
-				
-				
-				
-				<CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor" android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor" android:summaryOff="@string/prefEnableUserspaceGovernorOff" android:summaryOn="@string/prefEnableUserspaceGovernorOn"></CheckBoxPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference><EditTextPreference android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference><CheckBoxPreference android:key="prefKeySystemApp" android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp" android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
-				
-
-
-
-
-
-
-
-			</PreferenceCategory>
+			<Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference><EditTextPreference android:title="@string/prefBatteryHotTemp" android:key="prefKeyBatteryHotTemp" android:dialogMessage="@string/prefBatteryHotTempMsg" android:dialogTitle="@string/prefBatteryHotTemp" android:summary="@string/prefBatteryHotTempLong"></EditTextPreference><CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor" android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor" android:summaryOff="@string/prefEnableUserspaceGovernorOff" android:summaryOn="@string/prefEnableUserspaceGovernorOn"></CheckBoxPreference><EditTextPreference android:defaultValue="400" android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency" android:title="@string/prefMinSensibleFrequency"></EditTextPreference><EditTextPreference android:summary="@string/prefCpuFreqLong" android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq" android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference><CheckBoxPreference android:key="prefKeySystemApp" android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp" android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
 		</PreferenceScreen>
 	</PreferenceCategory>
 

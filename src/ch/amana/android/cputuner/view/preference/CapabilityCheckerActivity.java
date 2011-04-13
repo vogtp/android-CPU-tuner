@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.view.activity;
+package ch.amana.android.cputuner.view.preference;
 
 import java.io.File;
 import java.util.Collection;
@@ -26,6 +26,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class CapabilityCheckerActivity extends Activity {
 	//
