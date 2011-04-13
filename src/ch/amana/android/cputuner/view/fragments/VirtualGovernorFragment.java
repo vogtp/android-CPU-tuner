@@ -79,6 +79,9 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	}
 
 	private VirtualGovernorModel getVirtualGovernorModel(long virtualGovernor) {
+		if (getActivity() == null) {
+			return null;
+		}
 		Cursor c = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, SELECTION_VIRT_GOV, new String[] { Long.toString(virtualGovernor) },
 				VirtualGovernor.SORTORDER_DEFAULT);
 		if (c.moveToFirst()) {
