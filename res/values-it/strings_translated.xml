@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources> 
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"> 
 <string name="hintScriptToRun">Script da eseguire dopo il cambio di governor.</string>
 <string name="prefLanguage">Lingua</string>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">La soglia superiore è in percentuale e deve essere tra 0 e 100.</string>
