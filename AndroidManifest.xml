@@ -82,11 +82,10 @@
 			android:authorities="ch.amana.android.cputuner"></provider>
 		<activity android:name=".view.activity.TriggersListActivity"></activity>
 		<activity android:name=".view.activity.ProfilesListActivity"></activity>
-		<activity android:name="view.preference.CapabilityCheckerActivity"
-			android:configChanges="orientation"></activity>
+		<activity android:configChanges="orientation" android:name=".view.preference.CapabilityCheckerActivity"></activity>
 		<activity android:name=".view.activity.HelpActivity"></activity>
-		<activity android:name="view.preference.SendReportActivity"></activity>
-		<activity android:name="view.preference.FindFrequenciesActivity"></activity>
+		<activity android:name=".view.preference.SendReportActivity"></activity>
+		<activity android:name=".view.preference.FindFrequenciesActivity"></activity>
 		<activity android:name=".view.activity.VirtualGovernorListActivity"
 			android:label="@string/virtualGovernorsList"></activity>
 		<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>

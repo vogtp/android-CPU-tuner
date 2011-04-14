@@ -150,7 +150,7 @@ public class SendReportActivity extends Activity {
 
 		try {
 			DB.OpenHelper oh = new OpenHelper(this);
-			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
+			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), new File(path, DIR_REPORT));
 			try {
 				dm.export(DB.DATABASE_NAME);
 			} catch (Exception e) {
