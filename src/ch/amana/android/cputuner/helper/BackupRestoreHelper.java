@@ -11,13 +11,12 @@ import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class BackupRestoreHelper {
 
-	public static void backup(Context ctx, String directroy) {
-		File externalStoragePath = getStoragePath(ctx, directroy);
-		if (!externalStoragePath.isDirectory()) {
-			externalStoragePath.mkdir();
+	public static void backup(Context ctx, File storagePath) {
+		if (!storagePath.isDirectory()) {
+			storagePath.mkdir();
 		}
 		SQLiteDatabase db = new OpenHelper(ctx).getWritableDatabase();
-		ExportDataTask exportDataTask = new ExportDataTask(ctx, db, externalStoragePath.getAbsolutePath(), ExportDataTask.ExportType.JSON);
+		ExportDataTask exportDataTask = new ExportDataTask(ctx, db, storagePath, ExportDataTask.ExportType.JSON);
 		exportDataTask.execute(new String[] { DB.DATABASE_NAME });
 	}
 
