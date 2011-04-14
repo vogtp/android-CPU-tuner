@@ -5,6 +5,7 @@ import java.io.File;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.widget.Toast;
 import ch.almana.android.backupDb.ExportDataTask;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
@@ -22,6 +23,10 @@ public class BackupRestoreHelper {
 
 	public static File getStoragePath(Context ctx, String directroy) {
 		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directroy);
+	}
+
+	public static void restore(Context ctx, File directroy) {
+		Toast.makeText(ctx, "Not yet implemented, not restoring " + directroy.getName(), Toast.LENGTH_SHORT).show();
 	}
 
 }

@@ -4,5 +4,5 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent" android:orientation="vertical">
     <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/buAddConfiguration" android:text="@string/buAddConfiguration"></Button>
-    <ListView android:id="@+id/lvConfiguration" android:layout_width="match_parent" android:layout_height="match_parent"></ListView>
+    <ListView android:id="@+id/android:list" android:layout_width="match_parent" android:layout_height="match_parent"></ListView>
 </LinearLayout>

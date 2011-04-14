@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><string name="email">e-mail</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<string name="email">e-mail</string>
 <string name="prefConfigurations">Configurations</string>
 <string name="titleManageConfigurations">Manage configurations</string>
 <string name="buAddConfiguration">Add current configuration</string>
+<string name="menuReplaceWithCurrent">Replace with current</string>
+<string name="menuLoad">Load</string>
+<string name="delete">Delete</string>
+<string name="msg_delete_configuration">Delete configuration \'<xliff:g id="string">%s</xliff:g>\'?</string>
+<string name="msg_replace_with_current">Replace configuration \'<xliff:g id="string">%s</xliff:g>\' with the currently active?</string>
+<string name="msg_load_configuration">Load configuration \'<xliff:g id="string">%s</xliff:g>\' to be the active?</string>
 </resources>

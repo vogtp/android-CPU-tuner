@@ -2,6 +2,8 @@ package ch.amana.android.cputuner.view.preference;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -26,11 +28,13 @@ public class ConfigurationsAdapter extends BaseAdapter {
 
 	private LayoutInflater layoutInflator;
 
+	private File configurationsDir;
+
 	public ConfigurationsAdapter(Context ctx) {
 		super();
 		layoutInflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		File configurationsDir = BackupRestoreHelper.getStoragePath(ctx, ConfigurationManageActivity.DIRECTORY);
-		configDirs = configurationsDir.listFiles(FILTER);
+		configurationsDir = BackupRestoreHelper.getStoragePath(ctx, ConfigurationManageActivity.DIRECTORY);
+		refresh();
 	}
 
 	@Override
@@ -40,6 +44,10 @@ public class ConfigurationsAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
+		return getDirectory(position);
+	}
+
+	public File getDirectory(int position) {
 		return configDirs[position];
 	}
 
@@ -51,8 +59,19 @@ public class ConfigurationsAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		TwoLineListItem view = (convertView != null) ? (TwoLineListItem) convertView : createView(parent);
-		view.getText1().setText(configDirs[position].getName());
+		view.getText1().setText(getDirectory(position).getName());
+		view.getText2().setText(SimpleDateFormat.getInstance().format(new Date(getNewestFile(position))));
 		return view;
+	}
+
+	private long getNewestFile(int position) {
+		File directory = getDirectory(position);
+		File[] files = directory.listFiles();
+		long ts = directory.lastModified();
+		for (int i = 0; i < files.length; i++) {
+			ts = Math.max(ts, files[i].lastModified());
+		}
+		return ts;
 	}
 
 	private TwoLineListItem createView(ViewGroup parent) {
@@ -62,5 +81,15 @@ public class ConfigurationsAdapter extends BaseAdapter {
 		item.getText1().setEllipsize(TextUtils.TruncateAt.END);
 		item.getText2().setEllipsize(TextUtils.TruncateAt.END);
 		return item;
+	}
+
+	@Override
+	public void notifyDataSetChanged() {
+		refresh();
+		super.notifyDataSetChanged();
+	}
+
+	private void refresh() {
+		configDirs = configurationsDir.listFiles(FILTER);
 	}
 }
