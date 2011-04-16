@@ -19,6 +19,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
@@ -52,10 +53,7 @@ public class InstallHelper {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				ContentResolver resolver = ctx.getContentResolver();
-				resolver.delete(DB.Trigger.CONTENT_URI, null, null);
-				resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
-				resolver.delete(DB.VirtualGovernor.CONTENT_URI, null, null);
+				CpuTunerProvider.deleteAllTables(ctx);
 				updateDefaultProfiles(ctx);
 
 			}

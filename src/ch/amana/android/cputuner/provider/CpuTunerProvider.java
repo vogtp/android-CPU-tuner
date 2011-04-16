@@ -1,7 +1,9 @@
 package ch.amana.android.cputuner.provider;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
@@ -144,6 +146,13 @@ public class CpuTunerProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DB.CpuProfile.CONTENT_ITEM_NAME + "/#", CPU_PROFILE);
 		sUriMatcher.addURI(AUTHORITY, DB.VirtualGovernor.CONTENT_ITEM_NAME, VIRTUAL_GOVERNOR);
 		sUriMatcher.addURI(AUTHORITY, DB.VirtualGovernor.CONTENT_ITEM_NAME + "/#", VIRTUAL_GOVERNOR);
+	}
+
+	public static void deleteAllTables(Context ctx) {
+		ContentResolver resolver = ctx.getContentResolver();
+		resolver.delete(DB.Trigger.CONTENT_URI, null, null);
+		resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
+		resolver.delete(DB.VirtualGovernor.CONTENT_URI, null, null);
 	}
 
 }
