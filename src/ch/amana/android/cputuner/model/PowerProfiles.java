@@ -538,10 +538,16 @@ public class PowerProfiles {
 	}
 
 	public TriggerModel getCurrentTrigger() {
+		if (currentTrigger == null) {
+			currentTrigger = new TriggerModel();
+		}
 		return currentTrigger;
 	}
 
 	public ProfileModel getCurrentProfile() {
+		if (currentProfile == null) {
+			currentProfile = new ProfileModel();
+		}
 		return currentProfile;
 	}
 
