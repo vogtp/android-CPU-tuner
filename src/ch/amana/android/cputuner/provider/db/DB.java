@@ -132,7 +132,7 @@ public interface DB {
 
 	public interface Trigger {
 
-		static final String TABLE_NAME = "triggers";
+		public static final String TABLE_NAME = "triggers";
 
 		public static final String CONTENT_ITEM_NAME = "trigger";
 		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
@@ -196,7 +196,7 @@ public interface DB {
 
 	public interface CpuProfile {
 
-		static final String TABLE_NAME = "cpuProfiles";
+		public static final String TABLE_NAME = "cpuProfiles";
 
 		public static final String CONTENT_ITEM_NAME = "cpuProfile";
 		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
@@ -253,7 +253,7 @@ public interface DB {
 
 	public interface VirtualGovernor {
 
-		static final String TABLE_NAME = "virtualGovernor";
+		public static final String TABLE_NAME = "virtualGovernor";
 
 		public static final String CONTENT_ITEM_NAME = "virtualGovernor";
 		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
@@ -286,4 +286,5 @@ public interface DB {
 		public static final String SORTORDER_REVERSE = NAME_GOVERNOR_THRESHOLD_UP + " DESC";
 
 	}
+
 }
