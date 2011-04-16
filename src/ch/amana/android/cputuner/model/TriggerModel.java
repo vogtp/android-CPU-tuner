@@ -1,5 +1,8 @@
 package ch.amana.android.cputuner.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -104,6 +107,27 @@ public class TriggerModel {
 	}
 
 	public void readFromBundle(Bundle bundle) {
+		id = bundle.getLong(DB.NAME_ID);
+		name = bundle.getString(DB.Trigger.NAME_TRIGGER_NAME);
+		batteryLevel = bundle.getInt(DB.Trigger.NAME_BATTERY_LEVEL);
+		screenOffProfileId = bundle.getLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID);
+		batteryProfileId = bundle.getLong(DB.Trigger.NAME_BATTERY_PROFILE_ID);
+		powerProfileId = bundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
+		hotProfileId = bundle.getLong(DB.Trigger.NAME_HOT_PROFILE_ID);
+		callInProgessProfileId = bundle.getLong(DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID);
+		powerCurrentSumPower = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_POW);
+		powerCurrentCntPower = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_POW);
+		powerCurrentSumBattery = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_BAT);
+		powerCurrentCntBattery = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_BAT);
+		powerCurrentSumScreenLocked = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_LCK);
+		powerCurrentCntScreenLocked = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_LCK);
+		powerCurrentSumHot = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_HOT);
+		powerCurrentCntHot = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT);
+		powerCurrentSumCall = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL);
+		powerCurrentCntCall = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL);
+	}
+
+	public void readFromJson(JSONObject bundle) throws JSONException {
 		id = bundle.getLong(DB.NAME_ID);
 		name = bundle.getString(DB.Trigger.NAME_TRIGGER_NAME);
 		batteryLevel = bundle.getInt(DB.Trigger.NAME_BATTERY_LEVEL);

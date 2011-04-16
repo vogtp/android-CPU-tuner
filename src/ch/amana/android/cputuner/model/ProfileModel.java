@@ -1,5 +1,8 @@
 package ch.amana.android.cputuner.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -96,6 +99,25 @@ public class ProfileModel implements IGovernorModel {
 	}
 
 	public void readFromBundle(Bundle bundle) {
+		id = bundle.getLong(DB.NAME_ID);
+		profileName = bundle.getString(DB.CpuProfile.NAME_PROFILE_NAME);
+		gov = bundle.getString(DB.CpuProfile.NAME_GOVERNOR);
+		maxFreq = bundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MAX);
+		minFreq = bundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MIN);
+		wifiState = bundle.getInt(DB.CpuProfile.NAME_WIFI_STATE);
+		gpsState = bundle.getInt(DB.CpuProfile.NAME_GPS_STATE);
+		bluetoothState = bundle.getInt(DB.CpuProfile.NAME_BLUETOOTH_STATE);
+		mobiledata3GState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE);
+		mobiledataConnectionState = bundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE);
+		governorThresholdUp = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP);
+		governorThresholdDown = bundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN);
+		backgroundSyncState = bundle.getInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE);
+		virtualGovernor = bundle.getLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR);
+		script = bundle.getString(DB.CpuProfile.NAME_SCRIPT);
+		powersaveBias = bundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
+	}
+
+	public void readFromJson(JSONObject bundle) throws JSONException {
 		id = bundle.getLong(DB.NAME_ID);
 		profileName = bundle.getString(DB.CpuProfile.NAME_PROFILE_NAME);
 		gov = bundle.getString(DB.CpuProfile.NAME_GOVERNOR);
