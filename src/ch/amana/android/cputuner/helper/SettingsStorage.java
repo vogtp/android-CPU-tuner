@@ -341,4 +341,8 @@ public class SettingsStorage {
 		editor.putBoolean(PREF_KEY_USE_VIRTUAL_GOVS, b);
 		editor.commit();
 	}
+
+	public boolean isEnableAirplaneMode() {
+		return true;
+	}
 }

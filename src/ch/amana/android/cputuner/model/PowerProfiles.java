@@ -59,6 +59,10 @@ public class PowerProfiles {
 
 	private boolean callInProgress = false;
 
+	private boolean lastActiveStateAirplanemode;
+
+	private int lastSetStateAirplaneMode = -1;
+
 	private static PowerProfiles instance;
 
 	public static void initInstance(Context ctx) {
@@ -76,6 +80,7 @@ public class PowerProfiles {
 		acPower = batteryHandler.isOnAcPower();
 		screenOff = false;
 		initActiveStates();
+		resetServiceState();
 	}
 
 	public void initActiveStates() {
@@ -85,6 +90,7 @@ public class PowerProfiles {
 		lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
 		lastActiveStateMobileData3G = ServicesHandler.whichMobiledata3G(context);
 		lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
+		lastActiveStateAirplanemode = ServicesHandler.isAirplaineModeEnabled(context);
 	}
 
 	private void resetServiceState() {
@@ -94,6 +100,7 @@ public class PowerProfiles {
 		lastSetStateMobiledata3G = -1;
 		lastSetStateBluetooth = -1;
 		lastSetStateBackgroundSync = -1;
+		lastSetStateAirplaneMode = -1;
 	}
 
 	public void reapplyProfile(boolean force) {
@@ -166,6 +173,7 @@ public class PowerProfiles {
 				applyMobiledata3GState(currentProfile.getMobiledata3GState());
 				applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
 				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
+				applyAirplanemodeState(currentProfile.getAirplainemodeState());
 				try {
 					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName()
 						+ "< on batterylevel "
@@ -360,6 +368,36 @@ public class PowerProfiles {
 				lastSetStateBackgroundSync = state;
 			}
 			ServicesHandler.enableBackgroundSync(context, state == SERVICE_STATE_ON ? true : false);
+		}
+	}
+
+	private void applyAirplanemodeState(int state) {
+		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableAirplaneMode()) {
+			if (state == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulseAirplanemodeState(true);
+				lastSetStateAirplaneMode = state;
+				return;
+			} else {
+				PulseHelper.getInstance(context).pulseAirplanemodeState(false);
+			}
+			boolean stateBefore = lastActiveStateAirplanemode;
+			lastActiveStateAirplanemode = ServicesHandler.isAirplaineModeEnabled(context);
+			if (state == SERVICE_STATE_PREV) {
+				Logger.v("Sitching airplanemode to last state which was " + stateBefore);
+				ServicesHandler.enableAirplaneMode(context, stateBefore);
+				lastSetStateAirplaneMode = -1;
+				return;
+			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+				if (lastSetStateAirplaneMode > -1 && lastSetStateAirplaneMode < SERVICE_STATE_PREV) {
+					boolean b = lastSetStateAirplaneMode == SERVICE_STATE_ON ? true : false;
+					if (b != stateBefore) {
+						Logger.v("Not sitching airplanemode it changed since state since last time");
+						return;
+					}
+				}
+				lastSetStateAirplaneMode = state;
+			}
+			ServicesHandler.enableAirplaneMode(context, state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 

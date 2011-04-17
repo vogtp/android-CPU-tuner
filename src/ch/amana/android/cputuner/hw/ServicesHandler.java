@@ -200,8 +200,8 @@ public class ServicesHandler {
 		Logger.i("Switched mobiledata to " + enable);
 	 }
 
-	public void enableAirplaneMode(Context context, boolean enabled) {
-		if (getAirplaineMode(context) == enabled) {
+	public static void enableAirplaneMode(Context context, boolean enabled) {
+		if (isAirplaineModeEnabled(context) == enabled) {
 			return;
 		}
 		Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, enabled ? 1 : 0);
@@ -210,7 +210,7 @@ public class ServicesHandler {
 		context.sendBroadcast(intent);
 	}
 
-	public boolean getAirplaineMode(Context context) {
+	public static boolean isAirplaineModeEnabled(Context context) {
 		try {
 			int airplaineMode = Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON);
 			return airplaineMode != 0;

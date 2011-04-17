@@ -47,9 +47,9 @@ public class ProfilesListActivity extends ListActivity {
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
 				DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
 				DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
-				DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE },
+				DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE, DB.CpuProfile.NAME_AIRPLANEMODE_STATE },
 				new int[] { R.id.tvName, R.id.tvGov, R.id.tvFreqMin, R.id.tvFreqMax, R.id.tvWifi, R.id.tvGPS, R.id.tvBluetooth,
-				R.id.tvMobiledata3G, R.id.tvSync, R.id.tvMobiledataConnection });
+ R.id.tvMobiledata3G, R.id.tvSync, R.id.tvMobiledataConnection, R.id.tvAirplaneMode });
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -238,6 +238,31 @@ public class ProfilesListActivity extends ListActivity {
 						color = Color.LTGRAY;
 					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
 						textRes = R.string.labelMobiledataOn;
+						color = Color.YELLOW;
+					}
+					textView.setTextColor(color);
+					textView.setText(textRes);
+					return true;
+				} else if (columnIndex == DB.CpuProfile.INDEX_AIRPLANEMODE_STATE) {
+					TextView textView = (TextView) view;
+					if (!SettingsStorage.getInstance().isEnableAirplaneMode()) {
+						textView.setText("");
+						return true;
+					}
+					int state = cursor.getInt(columnIndex);
+					int color = Color.DKGRAY;
+					int textRes = R.string.labelAirplaneModeOn;
+					if (state == PowerProfiles.SERVICE_STATE_ON) {
+						color = Color.LTGRAY;
+						textRes = R.string.labelAirplaneModeOn;
+					} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+						color = Color.LTGRAY;
+						textRes = R.string.labelAirplaneModeOff;
+					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+						textRes = R.string.labelAirplaneModePrev;
+						color = Color.LTGRAY;
+					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+						textRes = R.string.labelAirplaneModeOn;
 						color = Color.YELLOW;
 					}
 					textView.setTextColor(color);
