@@ -23,7 +23,6 @@ import ch.amana.android.cputuner.helper.Logger;
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
 	public static final String DIRECTORY = "configurations";
-	private ListView lvConfiguration;
 	private ConfigurationsAdapter configurationsAdapter;
 	private int configId;
 
@@ -33,12 +32,20 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.titleManageConfigurations);
 
-		lvConfiguration = getListView();
+		ListView lvConfiguration = getListView();
 		configurationsAdapter = new ConfigurationsAdapter(this);
 		lvConfiguration.setAdapter(configurationsAdapter);
 		lvConfiguration.setOnCreateContextMenuListener(this);
 		lvConfiguration.setOnItemClickListener(this);
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (configurationsAdapter.getCount() < 1) {
+			add();
+		}
 	}
 
 	private void saveConfig(String name) {
@@ -57,7 +64,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		configId = position;
-		lvConfiguration.showContextMenu();
+		getListView().showContextMenu();
 	}
 
 	@Override
