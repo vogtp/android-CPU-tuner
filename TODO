@@ -1,5 +1,4 @@
-- backup restore profiles 
-- move send report to menu (and add help)
+- fix orientation change in virtual gov editor
 
 - use sprintf to display time in state
 
@@ -15,7 +14,7 @@
 - do not change bt while paired -> setting
   
 - set brightness
-- set a black wall paper (and honour live wallpapers)
+- set a black wall paper (and honor live wallpapers)
 
 - figure out how to get avail freqs (if not available)
 

@@ -16,8 +16,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
+import ch.amana.android.cputuner.helper.Logger;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
@@ -51,11 +53,16 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void saveConfig(String name) {
-		BackupRestoreHelper.backup(ConfigurationManageActivity.this, new File(DIRECTORY, name));
+		BackupRestoreHelper.backup(ConfigurationManageActivity.this, new File(BackupRestoreHelper.getStoragePath(this, DIRECTORY), name));
 	}
 
 	private void loadConfig(String name) {
-		BackupRestoreHelper.restore(ConfigurationManageActivity.this, new File(DIRECTORY, name));
+		try {
+			BackupRestoreHelper.restore(ConfigurationManageActivity.this, new File(BackupRestoreHelper.getStoragePath(this, DIRECTORY), name));
+			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+			Logger.e("Cannot load configuration");
+		}
 	}
 
 	@Override

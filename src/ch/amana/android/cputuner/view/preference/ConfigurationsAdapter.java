@@ -24,6 +24,8 @@ public class ConfigurationsAdapter extends BaseAdapter {
 		}
 	};
 
+	private static final File[] NO_CONFIGS = new File[0];
+
 	private File[] configDirs;
 
 	private LayoutInflater layoutInflator;
@@ -91,5 +93,8 @@ public class ConfigurationsAdapter extends BaseAdapter {
 
 	private void refresh() {
 		configDirs = configurationsDir.listFiles(FILTER);
+		if (configDirs == null) {
+			configDirs = NO_CONFIGS;
+		}
 	}
 }

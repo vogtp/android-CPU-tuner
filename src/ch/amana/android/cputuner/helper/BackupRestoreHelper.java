@@ -2,11 +2,20 @@ package ch.amana.android.cputuner.helper;
 
 import java.io.File;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
-import android.widget.Toast;
-import ch.almana.android.backupDb.ExportDataTask;
+import ch.almana.android.importexportdb.ExportDataTask;
+import ch.almana.android.importexportdb.importer.DataJsonImporter;
+import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.TriggerModel;
+import ch.amana.android.cputuner.model.VirtualGovernorModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
@@ -21,12 +30,49 @@ public class BackupRestoreHelper {
 		exportDataTask.execute(new String[] { DB.DATABASE_NAME });
 	}
 
-	public static File getStoragePath(Context ctx, String directroy) {
-		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directroy);
+	public static File getStoragePath(Context ctx, String directory) {
+		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directory);
 	}
 
-	public static void restore(Context ctx, File directroy) {
-		Toast.makeText(ctx, "Not yet implemented, not restoring " + directroy.getName(), Toast.LENGTH_SHORT).show();
+	public static void restore(Context ctx, File storagePath) throws Exception {
+		CpuTunerProvider.deleteAllTables(ctx);
+		ContentResolver contentResolver = ctx.getContentResolver();
+		DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, storagePath);
+		try {
+			loadVirtualGovernors(contentResolver, dje);
+			loadCpuProfiles(contentResolver, dje);
+			loadTriggers(contentResolver, dje);
+		} catch (JSONException e) {
+			Logger.e("Cannot restore tables", e);
+			throw new Exception("Error restoring", e);
+		}
+	}
+
+	private static void loadVirtualGovernors(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+		JSONArray table = dje.getTables(DB.VirtualGovernor.TABLE_NAME);
+		for (int i = 0; i < table.length(); i++) {
+			VirtualGovernorModel vgm = new VirtualGovernorModel();
+			vgm.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			contentResolver.insert(DB.VirtualGovernor.CONTENT_URI, vgm.getValues());
+		}
+	}
+
+	private static void loadCpuProfiles(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+		JSONArray table = dje.getTables(DB.CpuProfile.TABLE_NAME);
+		for (int i = 0; i < table.length(); i++) {
+			ProfileModel pm = new ProfileModel();
+			pm.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			contentResolver.insert(DB.CpuProfile.CONTENT_URI, pm.getValues());
+		}
+	}
+
+	private static void loadTriggers(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+		JSONArray table = dje.getTables(DB.Trigger.TABLE_NAME);
+		for (int i = 0; i < table.length(); i++) {
+			TriggerModel tr = new TriggerModel();
+			tr.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			contentResolver.insert(DB.Trigger.CONTENT_URI, tr.getValues());
+		}
 	}
 
 }
