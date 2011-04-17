@@ -9,12 +9,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
@@ -33,7 +32,6 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.titleManageConfigurations);
-		setContentView(R.layout.configuration_manage);
 
 		lvConfiguration = getListView();
 		configurationsAdapter = new ConfigurationsAdapter(this);
@@ -41,15 +39,6 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		lvConfiguration.setOnCreateContextMenuListener(this);
 		lvConfiguration.setOnItemClickListener(this);
 
-		Button buAddConfiguration = (Button) findViewById(R.id.buAddConfiguration);
-		buAddConfiguration.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				saveConfig("current");
-			}
-
-		});
 	}
 
 	private void saveConfig(String name) {
@@ -72,6 +61,22 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.configuration_option, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.itemAdd:
+			add();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		if (menuInfo != null) {
@@ -84,6 +89,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	public boolean onContextItemSelected(MenuItem item) {
 		File file = configurationsAdapter.getDirectory(configId);
 		switch (item.getItemId()) {
+		case R.id.itemAdd:
+			add();
+			return true;
 		case R.id.itemReplace:
 			replace(file);
 			return true;
@@ -97,6 +105,11 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		}
 
 		return super.onContextItemSelected(item);
+	}
+
+	private void add() {
+		saveConfig("current");
+		updateListView();
 	}
 
 	private void replace(final File configuration) {
@@ -159,5 +172,6 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	private void updateListView() {
 		configurationsAdapter.notifyDataSetChanged();
+		getListView().refreshDrawableState();
 	}
 }

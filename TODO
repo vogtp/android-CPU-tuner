@@ -1,10 +1,14 @@
 - fix orientation change in virtual gov editor
-
+- move load profile to task
 - use sprintf to display time in state
+
+- create airplane mode
+
+- switch profile/triggers sets (everything) based on time
+
 
 - widget for profile switch
 
-- switch profile/triggers sets (everything) based on time
 
 - Imperial units (°C -> F)
 
