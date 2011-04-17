@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.Logger;
@@ -199,10 +200,23 @@ public class ServicesHandler {
 		Logger.i("Switched mobiledata to " + enable);
 	 }
 
-	// private void setBrightness(Activity context) {
-	// // TODO Auto-generated method stub
-	// WindowManager.LayoutParams lp = context.getWindow().getAttributes();
-	// lp.screenBrightness = 100 / 100.0f;
-	// context.getWindow().setAttributes(lp);
-	// }
+	public void enableAirplaneMode(Context context, boolean enabled) {
+		if (getAirplaineMode(context) == enabled) {
+			return;
+		}
+		Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, enabled ? 1 : 0);
+		Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+		intent.putExtra("state", enabled);
+		context.sendBroadcast(intent);
+	}
+
+	public boolean getAirplaineMode(Context context) {
+		try {
+			int airplaineMode = Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON);
+			return airplaineMode != 0;
+		} catch (SettingNotFoundException e) {
+			Logger.e("Cannot read airplaine mode, assuming no", e);
+			return false;
+		}
+	}
 }
