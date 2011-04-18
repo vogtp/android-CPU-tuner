@@ -597,6 +597,7 @@ public class PowerProfiles {
 		if (batteryTemperature != temperature) {
 			batteryTemperature = temperature;
 			sendDeviceStatusChangedBroadcast();
+			applyPowerProfile(false, false);
 		}
 	}
 
