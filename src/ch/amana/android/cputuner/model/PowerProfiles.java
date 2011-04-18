@@ -484,8 +484,13 @@ public class PowerProfiles {
 		} else {
 			powerCurrentSum = currentTrigger.getPowerCurrentSumBattery();
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntBattery();
-
 		}
+
+		if (powerCurrentSum > Long.MAX_VALUE / 2) {
+			powerCurrentSum = powerCurrentSum / 2;
+			powerCurrentCnt = powerCurrentCnt / 2;
+		}
+
 		// powerCurrentSum *= powerCurrentCnt;
 		switch (SettingsStorage.getInstance().getTrackCurrentType()) {
 		case SettingsStorage.TRACK_CURRENT_AVG:
