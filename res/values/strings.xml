@@ -11,4 +11,6 @@
 		<item>Battery % per hour</item>
 		<item>No calculation</item>
 	</string-array>
+		<string name="msg_add_current_configuration">Add current configuration</string>
+		<string name="msg_choose_name_for_config">Choose a name for the configuration</string>
 </resources>

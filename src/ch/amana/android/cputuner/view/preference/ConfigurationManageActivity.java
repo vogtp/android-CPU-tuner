@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
@@ -115,8 +116,20 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void add() {
-		saveConfig("current");
-		updateListView();
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setTitle(R.string.msg_add_current_configuration);
+		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
+		final EditText input = new EditText(this);
+		alertBuilder.setView(input);
+		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String name = input.getText().toString();
+				saveConfig(name);
+				updateListView();
+			}
+		});
+		alertBuilder.setNegativeButton(android.R.string.cancel, null);
+		alertBuilder.show();
 	}
 
 	private void replace(final File configuration) {
@@ -161,7 +174,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alertBuilder.setMessage(getString(R.string.msg_delete_configuration, configuration.getName()));
 		alertBuilder.setNegativeButton(R.string.no, null);
 		alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				File[] files = configuration.listFiles();
