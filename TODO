@@ -1,5 +1,4 @@
-- ask for name when saving configuration
-- rename configuration
+- make freq spinner more usable (max freq)
 - show configuration in main screen
 
 - fix orientation change in virtual gov editor
