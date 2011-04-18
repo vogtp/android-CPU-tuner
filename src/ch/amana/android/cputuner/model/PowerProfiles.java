@@ -501,8 +501,8 @@ public class PowerProfiles {
 			if (lastBatteryLevel != batteryLevel) {
 				if (lastBatteryLevelTimestamp != -1) {
 					long deltaBat = lastBatteryLevel - batteryLevel;
-					if (deltaBat > 0) {
-						long deltaT = System.currentTimeMillis() - lastBatteryLevelTimestamp;
+					long deltaT = System.currentTimeMillis() - lastBatteryLevelTimestamp;
+					if (deltaBat > 0 && deltaT > 0) {
 						double db = (double) deltaBat / (double) deltaT;
 						db = db * MILLIES_TO_HOURS;
 						if (powerCurrentCnt > 0) {
