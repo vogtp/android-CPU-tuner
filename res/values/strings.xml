@@ -13,4 +13,6 @@
 	</string-array>
 		<string name="msg_add_current_configuration">Add current configuration</string>
 		<string name="msg_choose_name_for_config">Choose a name for the configuration</string>
+		<string name="rename">Rename</string>
+		<string name="msg_rename_configuration">Rename configuration</string>
 </resources>

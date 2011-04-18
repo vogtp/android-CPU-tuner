@@ -109,6 +109,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		case R.id.itemDelete:
 			delete(file);
 			return true;
+		case R.id.itemRename:
+			rename(file);
+			return true;
 
 		}
 
@@ -125,6 +128,26 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = input.getText().toString();
 				saveConfig(name);
+				updateListView();
+			}
+		});
+		alertBuilder.setNegativeButton(android.R.string.cancel, null);
+		alertBuilder.show();
+	}
+
+	private void rename(final File file) {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setTitle(R.string.msg_rename_configuration);
+		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
+		final EditText input = new EditText(this);
+		input.setText(file.getName());
+		alertBuilder.setView(input);
+		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String name = input.getText().toString();
+				String path = file.getPath();
+				File dest = new File(path.substring(0, path.lastIndexOf("/")), name);
+				file.renameTo(dest);
 				updateListView();
 			}
 		});
