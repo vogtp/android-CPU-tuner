@@ -1,7 +1,7 @@
 V 2.1.0
 * features
-- configurations: backupd/restore
-- switch airplane mode
+- configurations: backup/restore
+- switch airplane mode (the ultimate battery saver - wait for 2.2 then it will make more sense)
 * bug fixes
 -
 

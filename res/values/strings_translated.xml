@@ -274,11 +274,6 @@
 		<item>Back to previous</item>
 		<item>3G only</item>
 	</string-array>
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>Average value</item>
-		<item>Current value</item>
-		<item>No calculation</item>
-	</string-array>
 	<string-array name="prefUserLevelEntries">
 		<item><b>Beginner</b>: cpu tuner tries to be clever.</item>
 		<item><b>Normal</b>: cpu tuner supports you.</item>

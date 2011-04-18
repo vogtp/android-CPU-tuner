@@ -26,6 +26,8 @@ public class PowerProfiles {
 	public static final int SERVICE_STATE_2G_3G = SERVICE_STATE_OFF;
 	public static final int SERVICE_STATE_3G = 4;
 
+	private static final long MILLIES_TO_HOURS = 1000 * 60 * 60;
+
 	private final Context context;
 
 	private int batteryLevel;
@@ -62,6 +64,10 @@ public class PowerProfiles {
 	private boolean lastActiveStateAirplanemode;
 
 	private int lastSetStateAirplaneMode = -1;
+
+	private int lastBatteryLevel = -1;
+
+	private long lastBatteryLevelTimestamp = -1;
 
 	private static PowerProfiles instance;
 
@@ -160,8 +166,8 @@ public class PowerProfiles {
 
 		Cursor c = null;
 		try {
-			c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT,
-					DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
+			c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, DB.NAME_ID + "=?", new String[] { profileId + "" },
+					DB.CpuProfile.SORTORDER_DEFAULT);
 			if (c != null && c.moveToFirst()) {
 				currentProfile = new ProfileModel(c);
 
@@ -175,9 +181,7 @@ public class PowerProfiles {
 				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
 				applyAirplanemodeState(currentProfile.getAirplainemodeState());
 				try {
-					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName()
-						+ "< on batterylevel "
-						+ batteryLevel + "%");
+					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName() + "< on batterylevel " + batteryLevel + "%");
 				} catch (Exception e) {
 					Logger.w("Error printing switch profile", e);
 				}
@@ -191,8 +195,8 @@ public class PowerProfiles {
 			if (c != null && !c.isClosed()) {
 				try {
 					c.close();
-				}catch (Exception e) {
-					Logger.e("Cannot close cursor",e);
+				} catch (Exception e) {
+					Logger.e("Cannot close cursor", e);
 				}
 			}
 		}
@@ -404,8 +408,8 @@ public class PowerProfiles {
 	private boolean changeTrigger(boolean force) {
 		Cursor cursor = null;
 		try {
-			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
-					DB.Trigger.NAME_BATTERY_LEVEL + ">=?", new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
+			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, DB.Trigger.NAME_BATTERY_LEVEL + ">=?",
+					new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
 			if (cursor != null && cursor.moveToFirst()) {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
@@ -424,8 +428,7 @@ public class PowerProfiles {
 			}
 		}
 		try {
-			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
-						null, null, DB.Trigger.SORTORDER_DEFAULT);
+			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 			if (cursor != null && cursor.moveToFirst()) {
 				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
 					currentTrigger = new TriggerModel(cursor);
@@ -489,6 +492,27 @@ public class PowerProfiles {
 			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentAverage();
 			break;
 
+		case SettingsStorage.TRACK_BATTERY_LEVEL:
+			if (lastBatteryLevel != batteryLevel) {
+				if (lastBatteryLevelTimestamp != -1) {
+					long deltaBat = lastBatteryLevel - batteryLevel;
+					if (deltaBat > 0) {
+						long deltaT = System.currentTimeMillis() - lastBatteryLevelTimestamp;
+						double db = (double) deltaBat / (double) deltaT;
+						db = db * MILLIES_TO_HOURS;
+						if (powerCurrentCnt > 0) {
+							powerCurrentCnt = 2;
+						} else {
+							powerCurrentCnt = 0;
+						}
+						powerCurrentCnt = 2 * powerCurrentSum + Math.round(db);
+					}
+				}
+				lastBatteryLevel = batteryLevel;
+				lastBatteryLevelTimestamp = System.currentTimeMillis();
+			}
+			break;
+
 		default:
 			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentNow();
 			break;
@@ -512,10 +536,9 @@ public class PowerProfiles {
 		}
 		updateTrigger = false;
 		try {
-		context.getContentResolver().update(DB.Trigger.CONTENT_URI, currentTrigger.getValues(), DB.NAME_ID + "=?",
-				new String[] { currentTrigger.getDbId() + "" });
-		} catch(Exception e) {
-			Logger.w("Error saving power current information",e);
+			context.getContentResolver().update(DB.Trigger.CONTENT_URI, currentTrigger.getValues(), DB.NAME_ID + "=?", new String[] { currentTrigger.getDbId() + "" });
+		} catch (Exception e) {
+			Logger.w("Error saving power current information", e);
 		}
 		updateTrigger = true;
 	}

@@ -5,4 +5,10 @@
 		<strike>AP</strike>
 	</string>
 	<string name="labelAirplaneModePrev">AP?</string>
+	<string-array name="prefCalcPowerUsageEntries">
+		<item>Average value</item>
+		<item>Current value</item>
+		<item>Battery % per hour</item>
+		<item>No calculation</item>
+	</string-array>
 </resources>
