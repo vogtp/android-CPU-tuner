@@ -1,18 +1,12 @@
-
-- make freq spinner more usable (max freq)
 - show configuration in main screen
+- switch profile/triggers sets (everything) based on time
 
 - fix orientation change in virtual gov editor
 
 - move load profile to task
 - use sprintf to display time in state
 
-- switch profile/triggers sets (everything) based on time
-
-
 - widget for profile switch
-
-
 - Imperial units (°C -> F)
 
 - animate pulsed service in list
@@ -26,5 +20,4 @@
 - figure out how to get avail freqs (if not available)
 
 - Feature request: CPU temperature monitoring in addition to battery 
-
 - change profile in mainview even if profiles switching is not active
