@@ -1,7 +1,8 @@
+- fix orientation change in virtual gov editor
 - show configuration in main screen
 - switch profile/triggers sets (everything) based on time
 
-- fix orientation change in virtual gov editor
+- enable/disable services in settings
 
 - move load profile to task
 - use sprintf to display time in state
