@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.view.activity;
+package ch.amana.android.cputuner.view.preference;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,8 +22,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import ch.almana.android.backupDb.exporter.DataExporter;
-import ch.almana.android.backupDb.exporter.DataJsonExporter;
+import ch.almana.android.importexportdb.exporter.DataExporter;
+import ch.almana.android.importexportdb.exporter.DataJsonExporter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CapabilityChecker;
 import ch.amana.android.cputuner.helper.Logger;
@@ -150,7 +150,7 @@ public class SendReportActivity extends Activity {
 
 		try {
 			DB.OpenHelper oh = new OpenHelper(this);
-			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), path.getAbsolutePath() + DIR_REPORT);
+			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), new File(path, DIR_REPORT));
 			try {
 				dm.export(DB.DATABASE_NAME);
 			} catch (Exception e) {

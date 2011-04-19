@@ -15,7 +15,7 @@ import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.service.BatteryService;
-import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
+import ch.amana.android.cputuner.view.preference.CapabilityCheckerActivity;
 
 public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecker> {
 
@@ -498,10 +498,18 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 				result = CheckResult.FAILURE;
 			}
 		}
-		if (result == CheckResult.FAILURE && govChecks.containsKey(CpuHandler.GOV_ONDEMAND) && govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
+		if (result == CheckResult.FAILURE && isWorking(CpuHandler.GOV_ONDEMAND)) {
 			return CheckResult.WORKING;
 		}
 		return result;
+	}
+
+	private boolean isWorking(String gov) {
+		GovernorResult governorResult = govChecks.get(gov);
+		if (governorResult == null) {
+			return false;
+		}
+		return governorResult.getOverallIssue() != CheckResult.FAILURE;
 	}
 
 	@Override
@@ -526,11 +534,10 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			return ctx.getString(R.string.msg_capcheck_not_rooted);
 		} else if (hasIssues() != CheckResult.SUCCESS) {
 			StringBuilder sb = new StringBuilder();
-			if (govChecks.containsKey(CpuHandler.GOV_ONDEMAND) && govChecks.get(CpuHandler.GOV_ONDEMAND).getOverallIssue() != CheckResult.FAILURE) {
+			if (isWorking(CpuHandler.GOV_ONDEMAND)) {
 				sb.append(CpuHandler.GOV_ONDEMAND);
 			}
-			GovernorResult governorResult = govChecks.get(CpuHandler.GOV_CONSERVATIVE);
-			if (governorResult != null && governorResult.getOverallIssue() != CheckResult.FAILURE) {
+			if (isWorking(CpuHandler.GOV_CONSERVATIVE)) {
 				if (sb.length() > 0) {
 					sb.append(" ").append(ctx.getString(R.string.and)).append(" ");
 				}

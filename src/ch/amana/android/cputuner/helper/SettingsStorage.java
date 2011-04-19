@@ -22,6 +22,7 @@ public class SettingsStorage {
 	public static final int TRACK_CURRENT_AVG = 1;
 	public static final int TRACK_CURRENT_CUR = 2;
 	public static final int TRACK_CURRENT_HIDE = 3;
+	public static final int TRACK_BATTERY_LEVEL = 4;
 
 	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
 	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
@@ -340,5 +341,9 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(PREF_KEY_USE_VIRTUAL_GOVS, b);
 		editor.commit();
+	}
+
+	public boolean isEnableAirplaneMode() {
+		return true;
 	}
 }

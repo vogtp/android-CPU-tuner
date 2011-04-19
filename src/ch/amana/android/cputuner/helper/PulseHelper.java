@@ -24,6 +24,8 @@ public class PulseHelper {
 
 	private boolean pulseMobiledataConnectionState = false;
 
+	private boolean pulseAirplanemodeState;
+
 	private static PulseHelper instance;
 
 
@@ -52,6 +54,9 @@ public class PulseHelper {
 			}
 			if (pulseWifiState) {
 				ServicesHandler.enableWifi(ctx, isOn);
+			}
+			if (pulseAirplanemodeState) {
+				ServicesHandler.enableAirplaneMode(ctx, isOn);
 			}
 			if (pulseMobiledataConnectionState) {
 				if (SettingsStorage.getInstance().isPulseMobiledataOnWifi()) {
@@ -121,6 +126,11 @@ public class PulseHelper {
 
 	public boolean isOn() {
 		return pulseOn;
+	}
+
+	public void pulseAirplanemodeState(boolean b) {
+		pulseAirplanemodeState = b;
+		doPulsing(b);
 	}
 
 }

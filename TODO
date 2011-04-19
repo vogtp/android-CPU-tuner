@@ -1,12 +1,17 @@
-- fix orientation change in virtual gov editor
-- backup restore profiles 
-- move send report to menu (and add help)
 
+- make freq spinner more usable (max freq)
+- show configuration in main screen
+
+- fix orientation change in virtual gov editor
+
+- move load profile to task
 - use sprintf to display time in state
+
+- switch profile/triggers sets (everything) based on time
+
 
 - widget for profile switch
 
-- switch profile/triggers sets (everything) based on time
 
 - Imperial units (°C -> F)
 
@@ -16,7 +21,7 @@
 - do not change bt while paired -> setting
   
 - set brightness
-- set a black wall paper (and honour live wallpapers)
+- set a black wall paper (and honor live wallpapers)
 
 - figure out how to get avail freqs (if not available)
 

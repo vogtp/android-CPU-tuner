@@ -66,6 +66,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private GovernorBaseFragment governorFragment;
 	private TableRow trMinFreq;
 	private TableRow trMaxFreq;
+	private Spinner spAirplaneMode;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -143,6 +144,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spBluetooth = (Spinner) findViewById(R.id.spBluetooth);
 		spMobileData3G = (Spinner) findViewById(R.id.spMobileData3G);
 		spMobileDataConnection = (Spinner) findViewById(R.id.spMobileDataConnection);
+		spAirplaneMode = (Spinner) findViewById(R.id.spAirplaneMode);
 		spSync = (Spinner) findViewById(R.id.spSync);
 		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
@@ -321,6 +323,22 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			tlServices.removeView(findViewById(R.id.TableRowSync));
 		}
 
+		if (settings.isEnableAirplaneMode()) {
+			spAirplaneMode.setAdapter(getSystemsAdapter());
+			spAirplaneMode.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+					profile.setAirplainemodeState(pos);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		} else {
+			tlServices.removeView(findViewById(R.id.TableRowAirplaneMode));
+		}
 		// hide keyboard
 		etName.setInputType(InputType.TYPE_NULL);
 		etName.setOnTouchListener(new OnTouchListener() {
@@ -408,6 +426,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spMobileData3G.setSelection(profile.getMobiledata3GState());
 		spMobileDataConnection.setSelection(profile.getMobiledataConnectionState());
 		spSync.setSelection(profile.getBackgroundSyncState());
+		spAirplaneMode.setSelection(profile.getAirplainemodeState());
 
 		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(profile.getGov());
 		if (governorConfig.hasNewLabelCpuFreqMax()) {

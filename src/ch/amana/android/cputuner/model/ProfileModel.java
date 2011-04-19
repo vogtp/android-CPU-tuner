@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -32,6 +33,7 @@ public class ProfileModel implements IGovernorModel {
 	private long virtualGovernor = -1;
 	private String script = "";
 	private int powersaveBias = 0;
+	private int airplainemodeState = 0;
 
 	public ProfileModel() {
 		super();
@@ -65,6 +67,7 @@ public class ProfileModel implements IGovernorModel {
 		this.virtualGovernor = c.getLong(DB.CpuProfile.INDEX_VIRTUAL_GOVERNOR);
 		this.script = c.getString(DB.CpuProfile.INDEX_SCRIPT);
 		this.powersaveBias = c.getInt(DB.CpuProfile.INDEX_POWERSEAVE_BIAS);
+		this.airplainemodeState = c.getInt(DB.CpuProfile.INDEX_AIRPLANEMODE_STATE);
 	}
 
 	public ProfileModel(Bundle bundle) {
@@ -93,6 +96,7 @@ public class ProfileModel implements IGovernorModel {
 		bundle.putLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
 		bundle.putString(DB.CpuProfile.NAME_SCRIPT, getScript());
 		bundle.putInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS, getPowersaveBias());
+		bundle.putInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE, getAirplainemodeState());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -112,6 +116,27 @@ public class ProfileModel implements IGovernorModel {
 		virtualGovernor = bundle.getLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR);
 		script = bundle.getString(DB.CpuProfile.NAME_SCRIPT);
 		powersaveBias = bundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
+		airplainemodeState = bundle.getInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE);
+	}
+
+	public void readFromJson(JSONBundle jsonBundle) {
+		id = jsonBundle.getLong(DB.NAME_ID);
+		profileName = jsonBundle.getString(DB.CpuProfile.NAME_PROFILE_NAME);
+		gov = jsonBundle.getString(DB.CpuProfile.NAME_GOVERNOR);
+		maxFreq = jsonBundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MAX);
+		minFreq = jsonBundle.getInt(DB.CpuProfile.NAME_FREQUENCY_MIN);
+		wifiState = jsonBundle.getInt(DB.CpuProfile.NAME_WIFI_STATE);
+		gpsState = jsonBundle.getInt(DB.CpuProfile.NAME_GPS_STATE);
+		bluetoothState = jsonBundle.getInt(DB.CpuProfile.NAME_BLUETOOTH_STATE);
+		mobiledata3GState = jsonBundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE);
+		mobiledataConnectionState = jsonBundle.getInt(DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE);
+		governorThresholdUp = jsonBundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP);
+		governorThresholdDown = jsonBundle.getInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN);
+		backgroundSyncState = jsonBundle.getInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE);
+		virtualGovernor = jsonBundle.getLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR);
+		script = jsonBundle.getString(DB.CpuProfile.NAME_SCRIPT);
+		powersaveBias = jsonBundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
+		airplainemodeState = jsonBundle.getInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE);
 	}
 
 	public ContentValues getValues() {
@@ -135,6 +160,7 @@ public class ProfileModel implements IGovernorModel {
 		values.put(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
 		values.put(DB.CpuProfile.NAME_SCRIPT, getScript());
 		values.put(DB.CpuProfile.NAME_POWERSEAVE_BIAS, getPowersaveBias());
+		values.put(DB.CpuProfile.NAME_AIRPLANEMODE_STATE, getAirplainemodeState());
 		return values;
 	}
 
@@ -232,6 +258,7 @@ public class ProfileModel implements IGovernorModel {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + airplainemodeState;
 		result = prime * result + backgroundSyncState;
 		result = prime * result + bluetoothState;
 		result = prime * result + ((gov == null) ? 0 : gov.hashCode());
@@ -259,6 +286,8 @@ public class ProfileModel implements IGovernorModel {
 		if (getClass() != obj.getClass())
 			return false;
 		ProfileModel other = (ProfileModel) obj;
+		if (airplainemodeState != other.airplainemodeState)
+			return false;
 		if (backgroundSyncState != other.backgroundSyncState)
 			return false;
 		if (bluetoothState != other.bluetoothState)
@@ -379,5 +408,13 @@ public class ProfileModel implements IGovernorModel {
 
 	public int getPowersaveBias() {
 		return powersaveBias;
+	}
+
+	public void setAirplainemodeState(int airplainemodeState) {
+		this.airplainemodeState = airplainemodeState;
+	}
+
+	public int getAirplainemodeState() {
+		return airplainemodeState;
 	}
 }

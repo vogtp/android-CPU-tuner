@@ -18,7 +18,7 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 11;
+		private static final int DATABASE_VERSION = 12;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -38,7 +38,8 @@ public interface DB {
  + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 0,"
 				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 0,"
  + DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int, " + DB.CpuProfile.NAME_VIRTUAL_GOVERNOR
-				+ " int default -1," + DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int, " + DB.CpuProfile.NAME_SCRIPT + " text, "+DB.CpuProfile.NAME_POWERSEAVE_BIAS+" int)";
+				+ " int default -1," + DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int, " + DB.CpuProfile.NAME_SCRIPT + " text, " + DB.CpuProfile.NAME_POWERSEAVE_BIAS
+				+ " int," + DB.CpuProfile.NAME_AIRPLANEMODE_STATE + " int)";
 
 		private static final String CREATE_VIRTUAL_GOVERNOR_TABLE = "create table if not exists " + VirtualGovernor.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
@@ -122,6 +123,10 @@ public interface DB {
 				db.execSQL("alter table " + VirtualGovernor.TABLE_NAME + " add column " + VirtualGovernor.NAME_POWERSEAVE_BIAS + " int;");
 				} catch (Throwable e) {
 				}
+
+			case 11:
+				Logger.w("Upgrading to DB Version 12...");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_AIRPLANEMODE_STATE + " int;");
 				
 			default:
 				Logger.w("Finished DB upgrading!");
@@ -132,7 +137,7 @@ public interface DB {
 
 	public interface Trigger {
 
-		static final String TABLE_NAME = "triggers";
+		public static final String TABLE_NAME = "triggers";
 
 		public static final String CONTENT_ITEM_NAME = "trigger";
 		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
@@ -196,7 +201,7 @@ public interface DB {
 
 	public interface CpuProfile {
 
-		static final String TABLE_NAME = "cpuProfiles";
+		public static final String TABLE_NAME = "cpuProfiles";
 
 		public static final String CONTENT_ITEM_NAME = "cpuProfile";
 		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
@@ -221,6 +226,7 @@ public interface DB {
 		public static final String NAME_MOBILEDATA_CONNECTION_STATE = "mobiledataConnectionState";
 		public static final String NAME_SCRIPT = "script";
 		public static final String NAME_POWERSEAVE_BIAS = "powersaveBias";
+		public static final String NAME_AIRPLANEMODE_STATE = "AIRPLANEMODE";
 
 		public static final int INDEX_PROFILE_NAME = 1;
 		public static final int INDEX_GOVERNOR = 2;
@@ -237,11 +243,12 @@ public interface DB {
 		public static final int INDEX_MOBILEDATA_CONNECTION_STATE = 13;
 		public static final int INDEX_SCRIPT = 14;
 		public static final int INDEX_POWERSEAVE_BIAS = 15;
+		public static final int INDEX_AIRPLANEMODE_STATE = 16;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
 				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_3G_STATE, NAME_GOVERNOR_THRESHOLD_UP,
  NAME_GOVERNOR_THRESHOLD_DOWN, NAME_BACKGROUND_SYNC_STATE, NAME_VIRTUAL_GOVERNOR,
-				NAME_MOBILEDATA_CONNECTION_STATE, NAME_SCRIPT, NAME_POWERSEAVE_BIAS };
+				NAME_MOBILEDATA_CONNECTION_STATE, NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_AIRPLANEMODE_STATE };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
 
@@ -253,7 +260,7 @@ public interface DB {
 
 	public interface VirtualGovernor {
 
-		static final String TABLE_NAME = "virtualGovernor";
+		public static final String TABLE_NAME = "virtualGovernor";
 
 		public static final String CONTENT_ITEM_NAME = "virtualGovernor";
 		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
@@ -286,4 +293,5 @@ public interface DB {
 		public static final String SORTORDER_REVERSE = NAME_GOVERNOR_THRESHOLD_UP + " DESC";
 
 	}
+
 }

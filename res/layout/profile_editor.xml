@@ -77,6 +77,10 @@
 				<Spinner android:layout_height="wrap_content"
 					android:layout_width="wrap_content" android:id="@+id/spBluetooth"></Spinner>
 			</TableRow>
+			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowAirplaneMode" android:layout_width="wrap_content">
+				<TextView android:paddingRight="5dp" android:layout_gravity="center_vertical" android:id="@+id/TextView03" android:text="@string/labelAirplaneMode" android:layout_height="wrap_content" android:layout_width="wrap_content"></TextView>
+				<Spinner android:layout_height="wrap_content" android:id="@+id/spAirplaneMode" android:layout_width="wrap_content"></Spinner>
+			</TableRow>
 		</TableLayout>
 		<LinearLayout android:orientation="vertical"
 			android:layout_height="wrap_content" android:layout_width="match_parent"

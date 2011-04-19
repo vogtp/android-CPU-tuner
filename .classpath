@@ -3,8 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="src" path="/backupDB"/>
 	<classpathentry exported="true" kind="lib" path="/home/vogtp/android/android-sdk-linux_x86/extras/android/compatibility/v4/android-support-v4.jar" sourcepath="/home/vogtp/android/android-sdk-linux_x86/extras/android/compatibility/v4/src"/>
-	<classpathentry kind="src" path="backupDB_src"/>
+	<classpathentry kind="src" path="importExportDB_src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

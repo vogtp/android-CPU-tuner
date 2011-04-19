@@ -32,9 +32,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>backupDB_src</name>
+			<name>importExportDB_src</name>
 			<type>2</type>
-			<locationURI>_android_backupDB_7e7a15c0/src</locationURI>
+			<locationURI>_android_importExportDB_a76761f7/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

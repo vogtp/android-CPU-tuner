@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.view.activity;
+package ch.amana.android.cputuner.view.preference;
 
 import java.io.File;
 import java.util.SortedSet;

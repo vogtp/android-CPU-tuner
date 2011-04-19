@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 <string name="email">e-mail</string>
+<string name="prefConfigurations">Configurations</string>
+<string name="titleManageConfigurations">Manage configurations</string>
+<string name="buAddConfiguration">Add current configuration</string>
+<string name="menuReplaceWithCurrent">Replace with current</string>
+<string name="menuLoad">Load</string>
+<string name="delete">Delete</string>
+<string name="msg_delete_configuration">Delete configuration \'<xliff:g id="string">%s</xliff:g>\'?</string>
+<string name="msg_replace_with_current">Replace configuration \'<xliff:g id="string">%s</xliff:g>\' with the currently active?</string>
+<string name="msg_load_configuration">Load configuration \'<xliff:g id="string">%s</xliff:g>\' to be the active?</string>
+<string name="msg_loaded">Loaded \'<xliff:g id="string">%s</xliff:g>\'</string>
+<string name="menuAddCurrent">Add Current</string>
 <string name="msg_fully_working">Fully working</string>
 <string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU tuning related features will not work.\nDid root your device?\nDid you grant CPU tuner root access?</string>
 <string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>

@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
+import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggerModel {
@@ -122,6 +123,27 @@ public class TriggerModel {
 		powerCurrentCntHot = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT);
 		powerCurrentSumCall = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL);
 		powerCurrentCntCall = bundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL);
+	}
+
+	public void readFromJson(JSONBundle jsonBundle) {
+		id = jsonBundle.getLong(DB.NAME_ID);
+		name = jsonBundle.getString(DB.Trigger.NAME_TRIGGER_NAME);
+		batteryLevel = jsonBundle.getInt(DB.Trigger.NAME_BATTERY_LEVEL);
+		screenOffProfileId = jsonBundle.getLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID);
+		batteryProfileId = jsonBundle.getLong(DB.Trigger.NAME_BATTERY_PROFILE_ID);
+		powerProfileId = jsonBundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
+		hotProfileId = jsonBundle.getLong(DB.Trigger.NAME_HOT_PROFILE_ID);
+		callInProgessProfileId = jsonBundle.getLong(DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID);
+		powerCurrentSumPower = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_POW);
+		powerCurrentCntPower = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_POW);
+		powerCurrentSumBattery = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_BAT);
+		powerCurrentCntBattery = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_BAT);
+		powerCurrentSumScreenLocked = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_LCK);
+		powerCurrentCntScreenLocked = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_LCK);
+		powerCurrentSumHot = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_HOT);
+		powerCurrentCntHot = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT);
+		powerCurrentSumCall = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL);
+		powerCurrentCntCall = jsonBundle.getLong(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL);
 	}
 
 	public ContentValues getValues() {

@@ -22,7 +22,6 @@ import ch.amana.android.cputuner.helper.SystemAppHelper;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
-import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
@@ -138,13 +137,14 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			}
 		});
 		
-		PreferenceScreen guiScreen = (PreferenceScreen) findPreference("prefKeyGuiScreen");
-		guiScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		PreferenceScreen configurationsScreen = (PreferenceScreen) findPreference("prefKeyConfigurations");
+		configurationsScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				helpPage = HelpActivity.PAGE_SETTINGS_GUI;
-				return false;
+				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationManageActivity.class);
+				startActivity(i);
+				return true;
 			}
 		});
 	}

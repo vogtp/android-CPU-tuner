@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -62,6 +63,16 @@ public class VirtualGovernorModel implements IGovernorModel {
 		governorThresholdDown = bundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN);
 		script = bundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 		powersaveBias = bundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
+	}
+
+	public void readFromJson(JSONBundle jsonBundle) {
+		id = jsonBundle.getLong(DB.NAME_ID);
+		virtualGov = jsonBundle.getString(DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME);
+		realGov = jsonBundle.getString(DB.VirtualGovernor.NAME_REAL_GOVERNOR);
+		governorThresholdUp = jsonBundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP);
+		governorThresholdDown = jsonBundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN);
+		script = jsonBundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
+		powersaveBias = jsonBundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
 	}
 
 	public ContentValues getValues() {
