@@ -190,11 +190,6 @@ sur la batterie, ou si l\'écran est verrouillé) différents profils peuvent ê
 <item>Retour en arrière</item>
 <item>3G seulement</item>
 </string-array>
-<string-array name="prefCalcPowerUsageEntries">
-<item>Valeur moyenne</item>
-<item>Valeur actuelle</item>
-<item>Pas de calcul</item>
-</string-array>
 <string-array name="prefUserLevelEntries">
 <item><b>Débutant</b>: cpu tuner essaie d\'être intelligent.</item>
 <item><b>Normal</b>: cpu tuner vous soutient.</item>

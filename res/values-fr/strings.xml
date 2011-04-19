@@ -1,68 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-<string name="email">e-mail</string>
-<string name="prefConfigurations">Configurations</string>
-<string name="titleManageConfigurations">Manage configurations</string>
-<string name="buAddConfiguration">Add current configuration</string>
-<string name="menuReplaceWithCurrent">Replace with current</string>
-<string name="menuLoad">Load</string>
-<string name="delete">Delete</string>
-<string name="msg_delete_configuration">Delete configuration \'<xliff:g id="string">%s</xliff:g>\'?</string>
-<string name="msg_replace_with_current">Replace configuration \'<xliff:g id="string">%s</xliff:g>\' with the currently active?</string>
-<string name="msg_load_configuration">Load configuration \'<xliff:g id="string">%s</xliff:g>\' to be the active?</string>
-<string name="msg_loaded">Loaded \'<xliff:g id="string">%s</xliff:g>\'</string>
-<string name="menuAddCurrent">Add Current</string>
-<string name="msg_fully_working">Fully working</string>
-<string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU tuning related features will not work.\nDid root your device?\nDid you grant CPU tuner root access?</string>
-<string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
-<string name="msg_capcheck_no_issues">No issues found...</string>
-<string name="and">and</string>
-<string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields quite good results.</string>
-<string name="msg_premail_working">Some governors are mostly working.\nThe not working governors are most likely due to the kernel/ROM. You have three possibilities:\n1) Use the working governors and ignore the other.  This will probably still yield nice results.\n2) Flash a new kernel\n3) Flash a new ROM\nPlease do not write e-mails unless you think there is something wrong with the check or the app.</string>
-<string name="labelCurrentFrequency">current</string>
-<string name="prefScreenLegal">Legal stuff</string>
-<string name="prefLegalOxigenIcons">Tab icon License</string>
-<string name="prefLegalOxigenIconsLong">License of the used oxigen icons.  Thanks for the nice icons.</string>
-<string name="virtual_governor">virtual governor</string>
-<string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
-<string name="labelStatisticsTab">Statistics</string>
-<string name="label_time_in_state">Time in state:</string>
-<string name="titleVirtualGovernorEditor">Virtual Governor Editor:</string>
-<string name="msgDeleteVirtGovNotPossible">Cannot delete this virtual governor since it is used in one or more profiles!</string>
-<string name="labelName">Name:</string>
-<string name="hintVirtualGovernorName">Virtual Governor Name</string>
-<string name="prefCatGUI">User interface</string>
-<string name="prefCatDisplay">Display</string>
-<string name="labelPowersaveBias">Powersave bias:</string>
-<string name="labelVirtualGovernor">Virtual Governor:</string>
-<string name="prefUseVirtualGovernorsLong">Virtual governor abstract the settings of governors from the profile.</string>
-<string name="label_total_transitions">Total transitions:</string>
-<string name="prefPulseMobiledataOnWifi">Pulse mobiledata on wifi</string>
-<string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if wifi is connected.</string>
-<string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is connected to a wifi lan.</string>
-<string name="prefLanguage">Choose language</string>
-<string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be between 0 and 100.</string>
-<string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be between 0 and 100.</string>
-<string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down threshold.</string>
-<string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
-<string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the maximal.</string>
-<string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one or more triggers!</string>
-<string name="prefBasics">Basics</string>
-<string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
-<string name="prefPulseDelayOn">Service on time</string>
-<string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in pulsed mode.</string> 
-<string name="prefPulseDelayOff">Service off time</string>
-<string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in pulsed mode.</string> 
-<string name="labelPulseOn">Pulse is on</string> 
-<string name="labelPulseOff">Pulse is off</string> 
-<string name="labelCurrentTab">Current</string> 
-<string name="labelTriggersTab">Triggers</string> 
-<string name="labelProfilesTab">Profiles</string> 
-<string name="labelHelpTab">Help</string> 
-<string name="labelSettingsTab">Settings</string> 
-<string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
-<string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
-<string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
-<string name="labelScript">Script:</string>
-<string name="hintScriptToRun">Script to run after governor change.</string>
+	<string name="labelAirplaneMode">Airplane mode</string>
+	<string name="labelAirplaneModeOn">AP</string>
+	<string name="labelAirplaneModeOff">
+		<strike>AP</strike>
+	</string>
+	<string name="labelAirplaneModePrev">AP?</string>
+	<string name="msg_add_current_configuration">Add current configuration</string>
+	<string name="msg_choose_name_for_config">Choose a name for the configuration</string>
+	<string name="rename">Rename</string>
+	<string name="msg_rename_configuration">Rename configuration</string>
+	<string name="email">e-mail</string>
+	<string name="prefConfigurations">Configurations</string>
+	<string name="titleManageConfigurations">Manage configurations</string>
+	<string name="buAddConfiguration">Add current configuration</string>
+	<string name="menuReplaceWithCurrent">Replace with current</string>
+	<string name="menuLoad">Load</string>
+	<string name="delete">Delete</string>
+	<string name="msg_delete_configuration">
+		Delete configuration \'
+		<xliff:g id="string">%s</xliff:g>
+		\'?
+	</string>
+	<string name="msg_replace_with_current">
+		Replace configuration \'
+		<xliff:g id="string">%s</xliff:g>
+		\' with the currently active?
+	</string>
+	<string name="msg_load_configuration">
+		Load configuration \'
+		<xliff:g id="string">%s</xliff:g>
+		\' to be the active?
+	</string>
+	<string name="msg_loaded">
+		Loaded \'
+		<xliff:g id="string">%s</xliff:g>
+		\'
+	</string>
+	<string name="menuAddCurrent">Add Current</string>
+	<string name="msg_fully_working">Fully working</string>
+	<string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU
+		tuning related features will not work.\nDid root your device?\nDid you
+		grant CPU tuner root access?</string>
+	<string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
+	<string name="msg_capcheck_no_issues">No issues found...</string>
+	<string name="and">and</string>
+	<string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields
+		quite good results.</string>
+	<string name="msg_premail_working">Some governors are mostly working.\nThe not working
+		governors are most likely due to the kernel/ROM. You have three
+		possibilities:\n1) Use the working governors and ignore the other.
+		This will probably still yield nice results.\n2) Flash a new
+		kernel\n3) Flash a new ROM\nPlease do not write e-mails unless you
+		think there is something wrong with the check or the app.</string>
+	<string name="labelCurrentFrequency">current</string>
+	<string name="prefScreenLegal">Legal stuff</string>
+	<string name="prefLegalOxigenIcons">Tab icon License</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
+		nice icons.</string>
+	<string name="virtual_governor">virtual governor</string>
+	<string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
+	<string name="labelStatisticsTab">Statistics</string>
+	<string name="label_time_in_state">Time in state:</string>
+	<string name="titleVirtualGovernorEditor">Virtual Governor Editor:</string>
+	<string name="msgDeleteVirtGovNotPossible">Cannot delete this virtual governor since it is
+		used in one or more profiles!</string>
+	<string name="labelName">Name:</string>
+	<string name="hintVirtualGovernorName">Virtual Governor Name</string>
+	<string name="prefCatGUI">User interface</string>
+	<string name="prefCatDisplay">Display</string>
+	<string name="labelPowersaveBias">Powersave bias:</string>
+	<string name="labelVirtualGovernor">Virtual Governor:</string>
+	<string name="prefUseVirtualGovernorsLong">Virtual governor abstract the settings of governors
+		from the profile.</string>
+	<string name="label_total_transitions">Total transitions:</string>
+	<string name="prefPulseMobiledataOnWifi">Pulse mobiledata on wifi</string>
+	<string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if wifi is
+		connected.</string>
+	<string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is
+		connected to a wifi lan.</string>
+	<string name="prefLanguage">Choose language</string>
+	<string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be
+		between 0 and 100.</string>
+	<string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be
+		between 0 and 100.</string>
+	<string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down
+		threshold.</string>
+	<string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
+	<string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the
+		maximal.</string>
+	<string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one
+		or more triggers!</string>
+	<string name="prefBasics">Basics</string>
+	<string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
+	<string name="prefPulseDelayOn">Service on time</string>
+	<string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in
+		pulsed mode.</string>
+	<string name="prefPulseDelayOff">Service off time</string>
+	<string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in
+		pulsed mode.</string>
+	<string name="labelPulseOn">Pulse is on</string>
+	<string name="labelPulseOff">Pulse is off</string>
+	<string name="labelCurrentTab">Current</string>
+	<string name="labelTriggersTab">Triggers</string>
+	<string name="labelProfilesTab">Profiles</string>
+	<string name="labelHelpTab">Help</string>
+	<string name="labelSettingsTab">Settings</string>
+	<string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
+	<string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
+	<string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
+	<string name="labelScript">Script:</string>
+	<string name="hintScriptToRun">Script to run after governor change.</string>
 </resources>
