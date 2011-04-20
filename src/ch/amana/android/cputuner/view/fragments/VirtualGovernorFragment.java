@@ -102,7 +102,10 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			governorModel.setPowersaveBias(virtGov.getPowersaveBias());
 		} else {
 			Logger.e("Cannot load virtual governor");
-			Toast.makeText(getActivity(), R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();
+			try {
+				Toast.makeText(getActivity(), R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();
+			} catch (Exception e) {
+			}
 		}
 	}
 
