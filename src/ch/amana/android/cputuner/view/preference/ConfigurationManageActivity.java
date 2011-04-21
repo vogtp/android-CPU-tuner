@@ -19,7 +19,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
@@ -71,6 +73,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.configuration_option, menu);
+		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -81,7 +84,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			add();
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		return GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_CONFIGURATION);
 	}
 
 	@Override
