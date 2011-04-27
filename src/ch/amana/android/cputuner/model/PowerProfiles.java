@@ -191,6 +191,8 @@ public class PowerProfiles {
 				Notifier.notifyProfile(currentProfile.getProfileName());
 				context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 			}
+		} catch (Throwable e) {
+			Logger.e("Failure while appling a profile", e);
 		} finally {
 			if (c != null && !c.isClosed()) {
 				try {
