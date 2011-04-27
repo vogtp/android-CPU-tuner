@@ -6,9 +6,10 @@ V
 
 V 2.1.2
 * features
-- 
+- basic help page for configurations
 * bug fixes
 - some devices seem the need the vibrate permission .oO(strange...)
+- prevent errors while switching profiles
 
 V 2.1.1
 * features
