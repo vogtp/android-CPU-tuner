@@ -3,8 +3,10 @@
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Average value</item>
 		<item>Current value</item>
-		<!-- <item>Battery % per hour</item>  -->
+		<!-- <item>Battery % per hour</item> -->
 		<item>No calculation</item>
 	</string-array>
+		<string name="prefConfigurationsManage">Manage configurations</string>
+		<string name="prefConfigurationsAutoLoad">Autoload configurations</string>
 </resources>
 

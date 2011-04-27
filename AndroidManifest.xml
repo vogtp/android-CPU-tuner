@@ -110,6 +110,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".view.preference.ConfigurationManageActivity"></activity>
+		<activity android:name=".view.preference.ConfigurationAutoloadActivity"></activity>
 	</application>
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
 
