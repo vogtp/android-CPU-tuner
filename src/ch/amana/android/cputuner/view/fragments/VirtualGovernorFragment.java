@@ -103,7 +103,10 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		} else {
 			Logger.e("Cannot load virtual governor");
 			try {
-				Toast.makeText(getActivity(), R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();
+				FragmentActivity activity = getActivity();
+				if (activity != null) {
+					Toast.makeText(activity, R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();
+				}
 			} catch (Exception e) {
 			}
 		}
