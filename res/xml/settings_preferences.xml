@@ -54,7 +54,6 @@
 		</PreferenceScreen>
 		<PreferenceScreen android:title="@string/prefConfigurations"
 			android:key="prefKeyConfigurations">
-			<!--
 			<PreferenceCategory android:title="@string/prefConfigurations"
 				android:key="prefKeyConfigurations">
 				<PreferenceScreen android:key="prefKeyConfigurationsManage"
@@ -62,7 +61,6 @@
 				<PreferenceScreen android:key="prefKeyConfigurationsAutoLoad"
 					android:title="@string/prefConfigurationsAutoLoad"></PreferenceScreen>
 			</PreferenceCategory>
-			-->
 		</PreferenceScreen>
 
 

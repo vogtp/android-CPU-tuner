@@ -1,8 +1,8 @@
 - fix orientation change in virtual gov editor
-- helppage for configurations
+- help page for configurations
 - save configuration on switch
 - show configuration in main screen
-- switch profile/triggers sets (everything) based on time
+- switch configuration based on time
 
 - I think it would be a good help to have a log of the last x profile changes on the statistics screen, giving timestamp, profile and trigger.
 

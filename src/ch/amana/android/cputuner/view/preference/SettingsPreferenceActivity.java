@@ -137,9 +137,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			}
 		});
 		
-		PreferenceScreen configurationsManageScreen = (PreferenceScreen) findPreference("prefKeyConfigurations");
-		// PreferenceScreen configurationsManageScreen = (PreferenceScreen)
-		// findPreference("prefKeyConfigurationsManage");
+		PreferenceScreen configurationsManageScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsManage");
 		configurationsManageScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
@@ -149,19 +147,16 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 				return true;
 			}
 		});
-		// PreferenceScreen configurationsAutoloadScreen =
-		// (PreferenceScreen)findPreference("prefKeyConfigurationsAutoLoad");
-		// configurationsAutoloadScreen.setOnPreferenceClickListener(new
-		// OnPreferenceClickListener() {
-		//
-		// @Override
-		// public boolean onPreferenceClick(Preference preference) {
-		// Intent i = new Intent(SettingsPreferenceActivity.this,
-		// ConfigurationAutoloadActivity.class);
-		// startActivity(i);
-		// return true;
-		// }
-		// });
+		PreferenceScreen configurationsAutoloadScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsAutoLoad");
+		configurationsAutoloadScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationAutoloadActivity.class);
+				startActivity(i);
+				return true;
+			}
+		});
 	}
 
 
