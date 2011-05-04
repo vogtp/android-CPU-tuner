@@ -152,7 +152,7 @@ public class ServicesHandler {
 		try {
 			state = android.provider.Settings.Secure.getInt(context
 					.getContentResolver(), "preferred_network_mode");
-		} catch (SettingNotFoundException e) {
+		} catch (Exception e) {
 		}
 		return state;
 	}
