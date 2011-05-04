@@ -4,6 +4,12 @@ V
 * bug fixes
 -
 
+V 2.1.3
+* features
+- 
+* bug fixes
+- give the smartass governor a max frequency slider back
+
 V 2.1.2
 * features
 - basic help page for configurations

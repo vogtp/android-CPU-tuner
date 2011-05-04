@@ -331,7 +331,7 @@ public class GovernorConfigHelper {
 
 		@Override
 		public boolean hasMaxFrequency() {
-			return false;
+			return true;
 		}
 	};
 	
