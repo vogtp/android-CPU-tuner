@@ -23,6 +23,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
+import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
@@ -37,7 +38,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		setTitle(R.string.titleManageConfigurations);
 
 		ListView lvConfiguration = getListView();
-		configurationsAdapter = new ConfigurationsAdapter(this);
+		configurationsAdapter = new ConfigurationsListAdapter(this);
 		lvConfiguration.setAdapter(configurationsAdapter);
 		lvConfiguration.setOnCreateContextMenuListener(this);
 		lvConfiguration.setOnItemClickListener(this);
