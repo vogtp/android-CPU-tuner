@@ -13,7 +13,7 @@ public class ConfigurationAutoloadModel {
 	private int hour;
 	private int minute;
 	private int weekday;
-	private long profile;
+	private String configuration;
 
 	public ConfigurationAutoloadModel() {
 		super();
@@ -25,7 +25,7 @@ public class ConfigurationAutoloadModel {
 		this.hour = c.getInt(DB.ConfigurationAutoload.INDEX_HOUR);
 		this.minute = c.getInt(DB.ConfigurationAutoload.INDEX_MINUTE);
 		this.weekday = c.getInt(DB.ConfigurationAutoload.INDEX_WEEKDAY);
-		this.profile = c.getLong(DB.ConfigurationAutoload.INDEX_PROFILE);
+		this.configuration = c.getString(DB.ConfigurationAutoload.INDEX_CONFIGURATION);
 	}
 
 	public ConfigurationAutoloadModel(Bundle bundle) {
@@ -42,7 +42,7 @@ public class ConfigurationAutoloadModel {
 		bundle.putInt(DB.ConfigurationAutoload.NAME_HOUR, getHour());
 		bundle.putInt(DB.ConfigurationAutoload.NAME_MINUTE, getMinute());
 		bundle.putInt(DB.ConfigurationAutoload.NAME_WEEKDAY, getWeekday());
-		bundle.putLong(DB.ConfigurationAutoload.NAME_PROFILE, getProfile());
+		bundle.putString(DB.ConfigurationAutoload.NAME_CONFIGURATION, getConfiguration());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -50,7 +50,7 @@ public class ConfigurationAutoloadModel {
 		hour = bundle.getInt(DB.ConfigurationAutoload.NAME_HOUR);
 		minute = bundle.getInt(DB.ConfigurationAutoload.NAME_MINUTE);
 		weekday = bundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
-		profile = bundle.getLong(DB.ConfigurationAutoload.NAME_PROFILE);
+		configuration = bundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -58,7 +58,7 @@ public class ConfigurationAutoloadModel {
 		hour = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_HOUR);
 		minute = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_MINUTE);
 		weekday = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
-		profile = jsonBundle.getLong(DB.ConfigurationAutoload.NAME_PROFILE);
+		configuration = jsonBundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
 	}
 
 	public ContentValues getValues() {
@@ -69,7 +69,7 @@ public class ConfigurationAutoloadModel {
 		values.put(DB.ConfigurationAutoload.NAME_HOUR, getHour());
 		values.put(DB.ConfigurationAutoload.NAME_MINUTE, getMinute());
 		values.put(DB.ConfigurationAutoload.NAME_WEEKDAY, getWeekday());
-		values.put(DB.ConfigurationAutoload.NAME_PROFILE, getProfile());
+		values.put(DB.ConfigurationAutoload.NAME_CONFIGURATION, getConfiguration());
 		return values;
 	}
 
@@ -113,12 +113,13 @@ public class ConfigurationAutoloadModel {
 		this.weekday = weekday;
 	}
 
-	public long getProfile() {
-		return profile;
+	public void setConfiguration(String configuration) {
+		this.configuration = configuration;
 	}
 
-	public void setProfile(long profile) {
-		this.profile = profile;
+	public String getConfiguration() {
+		return configuration;
 	}
+
 
 }

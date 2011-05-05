@@ -50,7 +50,7 @@ public interface DB {
 		private static final String CREATE_CONFIGURATION_AUTOLOAD_TABLE = "create table if not exists " + ConfigurationAutoload.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
  + DB.ConfigurationAutoload.NAME_HOUR + " int, " + DB.ConfigurationAutoload.NAME_MINUTE + " int, "
-				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_PROFILE + " long)";
+				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_CONFIGURATION + " text)";
 
 		public OpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
@@ -327,14 +327,14 @@ public interface DB {
 		public static final String NAME_HOUR = "hour";
 		public static final String NAME_MINUTE = "minute";
 		public static final String NAME_WEEKDAY = "weekday";
-		public static final String NAME_PROFILE = "profile";
+		public static final String NAME_CONFIGURATION = "configuration";
 
 		public static final int INDEX_HOUR = 1;
 		public static final int INDEX_MINUTE = 2;
 		public static final int INDEX_WEEKDAY = 3;
-		public static final int INDEX_PROFILE = 4;
+		public static final int INDEX_CONFIGURATION = 4;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_HOUR, NAME_MINUTE, NAME_WEEKDAY, NAME_PROFILE };
+		public static final String[] colNames = new String[] { NAME_ID, NAME_HOUR, NAME_MINUTE, NAME_WEEKDAY, NAME_CONFIGURATION };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String SORTORDER_DEFAULT = NAME_HOUR + " ASC";
