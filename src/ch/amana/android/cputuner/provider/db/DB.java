@@ -18,7 +18,7 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 12;
+		private static final int DATABASE_VERSION = 13;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -47,6 +47,11 @@ public interface DB {
  + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP
 				+ " int DEFAULT 98," + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95, " + DB.VirtualGovernor.NAME_SCRIPT + " text, "+DB.VirtualGovernor.NAME_POWERSEAVE_BIAS+" int)";
 
+		private static final String CREATE_CONFIGURATION_AUTOLOAD_TABLE = "create table if not exists " + ConfigurationAutoload.TABLE_NAME + " (" + DB.NAME_ID
+				+ " integer primary key, "
+ + DB.ConfigurationAutoload.NAME_HOUR + " int, " + DB.ConfigurationAutoload.NAME_MINUTE + " int, "
+				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_PROFILE + " long)";
+
 		public OpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
 		}
@@ -56,6 +61,7 @@ public interface DB {
 			db.execSQL(CREATE_TRIGGERS_TABLE);
 			db.execSQL(CREATE_CPUPROFILES_TABLE);
 			db.execSQL(CREATE_VIRTUAL_GOVERNOR_TABLE);
+			db.execSQL(CREATE_CONFIGURATION_AUTOLOAD_TABLE);
 			db.execSQL("create index idx_trigger_battery_level on " + Trigger.TABLE_NAME + " (" + Trigger.NAME_BATTERY_LEVEL + "); ");
 			db.execSQL("create index idx_cpuprofiles_profilename on " + CpuProfile.TABLE_NAME + " (" + CpuProfile.NAME_PROFILE_NAME + "); ");
 			Logger.i("Created tables ");
@@ -127,6 +133,10 @@ public interface DB {
 			case 11:
 				Logger.w("Upgrading to DB Version 12...");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_AIRPLANEMODE_STATE + " int;");
+
+			case 12:
+				Logger.w("Upgrading to DB Version 13...");
+				db.execSQL(CREATE_CONFIGURATION_AUTOLOAD_TABLE);
 				
 			default:
 				Logger.w("Finished DB upgrading!");
@@ -294,4 +304,41 @@ public interface DB {
 
 	}
 
+	public interface ConfigurationAutoload {
+
+		public static final String TABLE_NAME = "configurationAutoload";
+
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		public static final int FLAG_SUNDAY = 1;
+		public static final int FLAG_MONDAY = 2;
+		public static final int FLAG_TUESDAY = 4;
+		public static final int FLAG_WEDNESDAY = 8;
+		public static final int FLAG_THURSDAY = 16;
+		public static final int FLAG_FRIDAY = 32;
+		public static final int FLAG_SATURDAY = 64;
+
+		public static final String NAME_HOUR = "hour";
+		public static final String NAME_MINUTE = "minute";
+		public static final String NAME_WEEKDAY = "weekday";
+		public static final String NAME_PROFILE = "profile";
+
+		public static final int INDEX_HOUR = 1;
+		public static final int INDEX_MINUTE = 2;
+		public static final int INDEX_WEEKDAY = 3;
+		public static final int INDEX_PROFILE = 4;
+
+		public static final String[] colNames = new String[] { NAME_ID, NAME_HOUR, NAME_MINUTE, NAME_WEEKDAY, NAME_PROFILE };
+		public static final String[] PROJECTION_DEFAULT = colNames;
+
+		public static final String SORTORDER_DEFAULT = NAME_HOUR + " ASC";
+		public static final String SORTORDER_REVERSE = NAME_HOUR + " DESC";
+
+	}
 }
