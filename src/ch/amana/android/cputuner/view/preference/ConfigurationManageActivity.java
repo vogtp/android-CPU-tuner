@@ -139,6 +139,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void rename(final File file) {
+		// FIXME check if configuration is used
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.msg_rename_configuration);
 		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
@@ -195,6 +196,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void delete(final File configuration) {
+		// FIXME check if configuration is used
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.menuItemDelete);
 		alertBuilder.setMessage(getString(R.string.msg_delete_configuration, configuration.getName()));
