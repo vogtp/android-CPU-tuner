@@ -22,6 +22,7 @@ import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
