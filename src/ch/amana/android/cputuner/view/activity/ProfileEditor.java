@@ -417,7 +417,10 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	}
 
 	public void updateView() {
-		etName.setText(profile.getProfileName());
+		String profileName = profile.getProfileName();
+		if (!ProfileModel.NO_VALUE_STR.equals(profileName)) {
+			etName.setText(profileName);
+		}
 		setSeekbar(profile.getMaxFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
 		setSeekbar(profile.getMinFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
 		spWifi.setSelection(profile.getWifiState());

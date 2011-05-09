@@ -14,7 +14,7 @@
 				android:text="@string/labelPowerProfile" android:paddingRight="5dp"
 				android:textSize="22sp"></TextView>
 			<EditText android:layout_height="wrap_content" android:id="@+id/etName"
-				android:layout_width="fill_parent"></EditText>
+				android:layout_width="fill_parent" android:hint="@string/hint_profile_name"></EditText>
 
 		</LinearLayout>
 		<TextView android:paddingRight="5dp" android:id="@+id/textView2"

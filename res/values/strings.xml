@@ -8,5 +8,7 @@
 	</string-array>
 		<string name="prefConfigurationsManage">Manage configurations</string>
 		<string name="prefConfigurationsAutoLoad">Autoload configurations</string>
+		<string name="title_configuration_autoload_editor">Configuration autoload editor</string>
+		<string name="hint_profile_name">Profile name</string>
 </resources>
 
