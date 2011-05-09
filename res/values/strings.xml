@@ -10,5 +10,9 @@
 		<string name="prefConfigurationsAutoLoad">Autoload configurations</string>
 		<string name="title_configuration_autoload_editor">Configuration autoload editor</string>
 		<string name="hint_profile_name">Profile name</string>
+		<string name="label_profile_switches">Profile switches:</string>
+		<string name="not_enabled">Not enabled</string>
+		<string name="prefProfileSwitchLogSize">Profile switch log size</string>
+		<string name="prefProfileSwitchLogSizeLong">Number of entries in the profile switch log. Use 0 to disable</string>
 </resources>
 

@@ -59,6 +59,8 @@ public class SettingsStorage {
 	private long pulseDelayOff;
 	private boolean checkedEnableUserspaceGovernor = false;
 	private boolean enableUserspaceGovernor;
+	private boolean checkedProfileSwitchLogSize = false;
+	private int profileSwitchLogSize;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -74,6 +76,7 @@ public class SettingsStorage {
 		checkedPulseDelayOn = false;
 		checkedPulseDelayOff = false;
 		checkedEnableUserspaceGovernor = false;
+		checkedProfileSwitchLogSize = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -350,5 +353,13 @@ public class SettingsStorage {
 	public boolean is24Hour() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public int getProfileSwitchLogSize() {
+		if (!checkedProfileSwitchLogSize) {
+			checkedProfileSwitchLogSize = true;
+			profileSwitchLogSize = getPreferences().getInt("prefKeyProfileSwitchLogSize", 1);
+		}
+		return profileSwitchLogSize;
 	}
 }
