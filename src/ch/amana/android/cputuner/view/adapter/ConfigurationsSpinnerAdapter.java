@@ -32,4 +32,16 @@ public class ConfigurationsSpinnerAdapter extends ConfigurationsAdapter {
 		return item;
 	}
 
+	public int getIndexOf(String configuration) {
+		if (configuration == null) {
+			return -1;
+		}
+		for (int i = 0; i < getCount(); i++) {
+			if (configuration.equals(getDirectory(i).getName())) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 }
