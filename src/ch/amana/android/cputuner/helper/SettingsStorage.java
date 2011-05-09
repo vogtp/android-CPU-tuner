@@ -346,4 +346,9 @@ public class SettingsStorage {
 	public boolean isEnableAirplaneMode() {
 		return true;
 	}
+
+	public boolean is24Hour() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

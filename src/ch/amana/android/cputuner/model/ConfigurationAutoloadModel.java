@@ -1,5 +1,7 @@
 package ch.amana.android.cputuner.model;
 
+import java.util.Calendar;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,6 +9,40 @@ import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ConfigurationAutoloadModel {
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((configuration == null) ? 0 : configuration.hashCode());
+		result = prime * result + hour;
+		result = prime * result + minute;
+		result = prime * result + weekday;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConfigurationAutoloadModel other = (ConfigurationAutoloadModel) obj;
+		if (configuration == null) {
+			if (other.configuration != null)
+				return false;
+		} else if (!configuration.equals(other.configuration))
+			return false;
+		if (hour != other.hour)
+			return false;
+		if (minute != other.minute)
+			return false;
+		if (weekday != other.weekday)
+			return false;
+		return true;
+	}
 
 	private long id = -1;
 
@@ -121,5 +157,18 @@ public class ConfigurationAutoloadModel {
 		return configuration;
 	}
 
+	public long getNextExecution() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, hour);
+		cal.set(Calendar.MINUTE, minute);
+		long delta = -1;
+		while (delta < 0) {
+			delta = cal.getTimeInMillis() - System.currentTimeMillis();
+			if (delta < 0) {
+				cal.add(Calendar.DAY_OF_YEAR, 1);
+			}
+		}
+		return cal.getTimeInMillis();
+	}
 
 }

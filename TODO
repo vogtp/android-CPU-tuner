@@ -3,6 +3,7 @@
 - save configuration on switch
 - show configuration in main screen
 - switch configuration based on time
+- handle rename delete configuration if autoloaded
 
 - I think it would be a good help to have a log of the last x profile changes on the statistics screen, giving timestamp, profile and trigger.
 
