@@ -48,9 +48,9 @@ public class ConfigurationAutoloadActivity extends ListActivity {
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 				if (columnIndex == DB.ConfigurationAutoload.INDEX_HOUR) {
 					StringBuffer sb = new StringBuffer();
-					sb.append(cursor.getInt(ConfigurationAutoload.INDEX_HOUR));
+					appendDigit(sb, cursor.getInt(ConfigurationAutoload.INDEX_HOUR));
 					sb.append(":");
-					sb.append(cursor.getInt(ConfigurationAutoload.INDEX_MINUTE));
+					appendDigit(sb, cursor.getInt(ConfigurationAutoload.INDEX_MINUTE));
 					sb.append("\t");
 					sb.append(cursor.getString(ConfigurationAutoload.INDEX_CONFIGURATION));
 					((TextView) view).setText(sb.toString());
@@ -60,6 +60,13 @@ public class ConfigurationAutoloadActivity extends ListActivity {
 					return true;
 				}
 				return false;
+			}
+
+			private void appendDigit(StringBuffer sb, int i) {
+				if (i < 10) {
+					sb.append("0");
+				}
+				sb.append(i);
 			}
 
 		});
