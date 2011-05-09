@@ -6,7 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuTunerTabActivity;
 
 public class Notifier {

@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.model;
+package ch.amana.android.cputuner.hw;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,9 +7,8 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.hw.BatteryHandler;
-import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.ServicesHandler;
+import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class PowerProfiles {

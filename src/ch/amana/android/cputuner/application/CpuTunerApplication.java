@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 
 public class CpuTunerApplication extends Application {

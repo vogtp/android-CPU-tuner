@@ -13,7 +13,7 @@ import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
 
 public class BatteryReceiver extends BroadcastReceiver {
