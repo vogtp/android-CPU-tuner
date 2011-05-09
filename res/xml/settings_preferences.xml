@@ -48,10 +48,10 @@
 			<CheckBoxPreference android:key="prefKeyUseVirtualGovernors"
 				android:summary="@string/prefUseVirtualGovernorsLong" android:title="@string/cbEnableVirtualGovernors"
 				android:defaultValue="true"></CheckBoxPreference>
-			<Preference android:key="prefKeyResetToDefault"
+			<EditTextPreference android:summary="@string/prefProfileSwitchLogSizeLong" android:title="@string/prefProfileSwitchLogSize" android:defaultValue="10" android:key="prefKeyProfileSwitchLogSize"></EditTextPreference><Preference android:key="prefKeyResetToDefault"
 				android:summary="@string/prefResetToDefaultLong" android:title="@string/prefResetToDefault"
 				android:enabled="true"></Preference>
-			<EditTextPreference android:summary="@string/prefProfileSwitchLogSizeLong" android:title="@string/prefProfileSwitchLogSize" android:defaultValue="10" android:key="prefKeyProfileSwitchLogSize"></EditTextPreference>
+			
 		</PreferenceScreen>
 		<PreferenceScreen android:title="@string/prefConfigurations"
 			android:key="prefKeyConfigurations">

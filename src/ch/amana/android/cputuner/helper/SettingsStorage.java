@@ -358,7 +358,12 @@ public class SettingsStorage {
 	public int getProfileSwitchLogSize() {
 		if (!checkedProfileSwitchLogSize) {
 			checkedProfileSwitchLogSize = true;
-			profileSwitchLogSize = getPreferences().getInt("prefKeyProfileSwitchLogSize", 1);
+			try {
+				profileSwitchLogSize = Integer.parseInt(getPreferences().getString("prefKeyProfileSwitchLogSize", "10"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyProfileSwitchLogSize as int", e);
+				profileSwitchLogSize = 10;
+			}
 		}
 		return profileSwitchLogSize;
 	}
