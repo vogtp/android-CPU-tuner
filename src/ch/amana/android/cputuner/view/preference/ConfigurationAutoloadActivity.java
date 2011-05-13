@@ -15,6 +15,7 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.provider.ConfigurationAutoloadAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.ConfigurationAutoload;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -33,14 +34,21 @@ public class ConfigurationAutoloadActivity extends ListActivity {
 		cursor = managedQuery(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
 
 		adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[] { DB.ConfigurationAutoload.NAME_HOUR,
-				DB.ConfigurationAutoload.NAME_CONFIGURATION }, new int[] { android.R.id.text1, android.R.id.text2 });
+				DB.ConfigurationAutoload.NAME_NEXT_EXEC }, new int[] { android.R.id.text1, android.R.id.text2 });
 
 		getListView().setAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
 	}
 
 	@Override
+	protected void onPause() {
+		cursor.deactivate();
+		super.onPause();
+	}
+
+	@Override
 	protected void onResume() {
+		ConfigurationAutoloadAccess.updateNextExecution(this, false);
 		cursor.requery();
 		adapter.setViewBinder(new ViewBinder() {
 
@@ -55,8 +63,10 @@ public class ConfigurationAutoloadActivity extends ListActivity {
 					sb.append(cursor.getString(ConfigurationAutoload.INDEX_CONFIGURATION));
 					((TextView) view).setText(sb.toString());
 					return true;
-				} else if (columnIndex == DB.ConfigurationAutoload.INDEX_CONFIGURATION) {
-					((TextView) view).setText("");
+				} else if (columnIndex == DB.ConfigurationAutoload.INDEX_NEXT_EXEC) {
+					long nextExecution = cursor.getLong(DB.ConfigurationAutoload.INDEX_NEXT_EXEC) - System.currentTimeMillis();
+					nextExecution /= 60 * 1000;
+					((TextView) view).setText("Next run: " + nextExecution + " min");
 					return true;
 				}
 				return false;

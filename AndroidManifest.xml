@@ -6,7 +6,7 @@
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication"
-		android:allowClearUserData="true">
+		android:allowClearUserData="true" android:allowBackup="true" android:backupAgent="ch.amana.android.cputuner.helper.CpuTunerBackupAgent">
 
 		<activity android:label="@string/app_name" android:name=".view.activity.CurInfo">
 

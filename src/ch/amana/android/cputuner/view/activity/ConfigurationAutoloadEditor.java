@@ -81,7 +81,7 @@ public class ConfigurationAutoloadEditor extends Activity {
 					return;
 				}
 				if (!caModel.equals(origCaModel)) {
-					getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues(), DB.NAME_ID + "=?", new String[] { caModel.getDbId() + "" });
+					getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues(), DB.NAME_ID + "=?", new String[] { Long.toString(caModel.getDbId()) });
 				}
 			}
 		} catch (Exception e) {

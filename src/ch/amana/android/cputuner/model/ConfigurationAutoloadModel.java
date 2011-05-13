@@ -6,43 +6,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ConfigurationAutoloadModel {
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((configuration == null) ? 0 : configuration.hashCode());
-		result = prime * result + hour;
-		result = prime * result + minute;
-		result = prime * result + weekday;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ConfigurationAutoloadModel other = (ConfigurationAutoloadModel) obj;
-		if (configuration == null) {
-			if (other.configuration != null)
-				return false;
-		} else if (!configuration.equals(other.configuration))
-			return false;
-		if (hour != other.hour)
-			return false;
-		if (minute != other.minute)
-			return false;
-		if (weekday != other.weekday)
-			return false;
-		return true;
-	}
 
 	private long id = -1;
 
@@ -50,6 +18,8 @@ public class ConfigurationAutoloadModel {
 	private int minute;
 	private int weekday;
 	private String configuration;
+
+	private long nextExecution = -1;
 
 	public ConfigurationAutoloadModel() {
 		super();
@@ -62,6 +32,7 @@ public class ConfigurationAutoloadModel {
 		this.minute = c.getInt(DB.ConfigurationAutoload.INDEX_MINUTE);
 		this.weekday = c.getInt(DB.ConfigurationAutoload.INDEX_WEEKDAY);
 		this.configuration = c.getString(DB.ConfigurationAutoload.INDEX_CONFIGURATION);
+		this.nextExecution = c.getLong(DB.ConfigurationAutoload.INDEX_NEXT_EXEC);
 	}
 
 	public ConfigurationAutoloadModel(Bundle bundle) {
@@ -79,6 +50,7 @@ public class ConfigurationAutoloadModel {
 		bundle.putInt(DB.ConfigurationAutoload.NAME_MINUTE, getMinute());
 		bundle.putInt(DB.ConfigurationAutoload.NAME_WEEKDAY, getWeekday());
 		bundle.putString(DB.ConfigurationAutoload.NAME_CONFIGURATION, getConfiguration());
+		bundle.putLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC, getNextExecution());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -87,6 +59,7 @@ public class ConfigurationAutoloadModel {
 		minute = bundle.getInt(DB.ConfigurationAutoload.NAME_MINUTE);
 		weekday = bundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
 		configuration = bundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
+		nextExecution = bundle.getLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC);
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -95,6 +68,7 @@ public class ConfigurationAutoloadModel {
 		minute = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_MINUTE);
 		weekday = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
 		configuration = jsonBundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
+		nextExecution = jsonBundle.getLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC);
 	}
 
 	public ContentValues getValues() {
@@ -106,6 +80,7 @@ public class ConfigurationAutoloadModel {
 		values.put(DB.ConfigurationAutoload.NAME_MINUTE, getMinute());
 		values.put(DB.ConfigurationAutoload.NAME_WEEKDAY, getWeekday());
 		values.put(DB.ConfigurationAutoload.NAME_CONFIGURATION, getConfiguration());
+		values.put(DB.ConfigurationAutoload.NAME_NEXT_EXEC, getNextExecution());
 		return values;
 	}
 
@@ -158,6 +133,13 @@ public class ConfigurationAutoloadModel {
 	}
 
 	public long getNextExecution() {
+		if (nextExecution <= System.currentTimeMillis()) {
+			calcNextExecution();
+		}
+		return nextExecution ;
+	}
+
+	public void calcNextExecution() {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY, hour);
 		cal.set(Calendar.MINUTE, minute);
@@ -168,7 +150,41 @@ public class ConfigurationAutoloadModel {
 				cal.add(Calendar.DAY_OF_YEAR, 1);
 			}
 		}
-		return cal.getTimeInMillis();
+		Logger.d("Next execution: " + cal.toString());
+		nextExecution = cal.getTimeInMillis();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((configuration == null) ? 0 : configuration.hashCode());
+		result = prime * result + hour;
+		result = prime * result + minute;
+		result = prime * result + weekday;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConfigurationAutoloadModel other = (ConfigurationAutoloadModel) obj;
+		if (configuration == null) {
+			if (other.configuration != null)
+				return false;
+		} else if (!configuration.equals(other.configuration))
+			return false;
+		if (hour != other.hour)
+			return false;
+		if (minute != other.minute)
+			return false;
+		if (weekday != other.weekday)
+			return false;
+		return true;
+	}
 }
