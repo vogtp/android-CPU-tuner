@@ -27,7 +27,6 @@ import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
-	public static final String DIRECTORY = "configurations";
 	private ConfigurationsAdapter configurationsAdapter;
 	private int configId;
 
@@ -54,12 +53,12 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void saveConfig(String name) {
-		BackupRestoreHelper.backup(ConfigurationManageActivity.this, new File(BackupRestoreHelper.getStoragePath(this, DIRECTORY), name));
+		BackupRestoreHelper.backupConfiguration(this, name);
 	}
 
 	private void loadConfig(String name) {
 		try {
-			BackupRestoreHelper.restore(ConfigurationManageActivity.this, new File(BackupRestoreHelper.getStoragePath(this, DIRECTORY), name));
+			BackupRestoreHelper.restoreConfiguration(this, name);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");

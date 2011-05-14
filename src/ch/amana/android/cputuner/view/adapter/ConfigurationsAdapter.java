@@ -8,7 +8,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
-import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
 public abstract class ConfigurationsAdapter extends BaseAdapter {
 
@@ -31,7 +30,7 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 	public ConfigurationsAdapter(Context ctx) {
 		super();
 		layoutInflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		configurationsDir = BackupRestoreHelper.getStoragePath(ctx, ConfigurationManageActivity.DIRECTORY);
+		configurationsDir = BackupRestoreHelper.getStoragePath(ctx, BackupRestoreHelper.DIRECTORY_CONFIGURATIONS);
 		refresh();
 	}
 

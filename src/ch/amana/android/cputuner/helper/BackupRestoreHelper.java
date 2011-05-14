@@ -21,6 +21,8 @@ import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
 
 public class BackupRestoreHelper {
 
+	public static final String DIRECTORY_CONFIGURATIONS = "configurations";
+
 	public static void backup(Context ctx, File storagePath) {
 		if (!storagePath.isDirectory()) {
 			storagePath.mkdir();
@@ -73,6 +75,14 @@ public class BackupRestoreHelper {
 			tr.readFromJson(new JSONBundle(table.getJSONObject(i)));
 			contentResolver.insert(DB.Trigger.CONTENT_URI, tr.getValues());
 		}
+	}
+
+	public static void backupConfiguration(Context ctx, String name) {
+		backup(ctx, new File(BackupRestoreHelper.getStoragePath(ctx, DIRECTORY_CONFIGURATIONS), name));
+	}
+
+	public static void restoreConfiguration(Context ctx, String name) throws Exception {
+		restore(ctx, new File(BackupRestoreHelper.getStoragePath(ctx, DIRECTORY_CONFIGURATIONS), name));
 	}
 
 }
