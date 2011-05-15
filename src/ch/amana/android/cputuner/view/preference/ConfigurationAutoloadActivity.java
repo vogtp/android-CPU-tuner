@@ -15,9 +15,9 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
-import ch.amana.android.cputuner.provider.ConfigurationAutoloadAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.ConfigurationAutoload;
+import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class ConfigurationAutoloadActivity extends ListActivity {
@@ -48,7 +48,7 @@ public class ConfigurationAutoloadActivity extends ListActivity {
 
 	@Override
 	protected void onResume() {
-		ConfigurationAutoloadAccess.updateNextExecution(this, false);
+		ConfigurationAutoloadService.scheduleNextEvent(this);
 		cursor.requery();
 		adapter.setViewBinder(new ViewBinder() {
 

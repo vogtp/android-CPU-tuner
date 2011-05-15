@@ -121,6 +121,9 @@
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.configurationAutoload"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>
 			</intent-filter></activity>
+		<service android:name=".service.ConfigurationAutoloadService"><intent-filter>
+				<action android:name="ch.amana.android.cputuner.INTENT_SCEDULE_AUTOLOAD"></action>
+			</intent-filter></service>
 	</application>
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
 

@@ -7,6 +7,7 @@ import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.service.BatteryService;
+import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
 
 public class CpuTunerApplication extends Application {
 	@Override
@@ -30,6 +31,7 @@ public class CpuTunerApplication extends Application {
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
 			startService(new Intent(ctx, BatteryService.class));
 			PowerProfiles.getInstance().reapplyProfile(true);
+			ConfigurationAutoloadService.scheduleNextEvent(ctx);
 		}
 	}
 }

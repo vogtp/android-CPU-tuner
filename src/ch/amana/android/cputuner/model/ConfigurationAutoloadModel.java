@@ -105,6 +105,7 @@ public class ConfigurationAutoloadModel {
 	}
 
 	public void setHour(int hour) {
+		nextExecution = -1;
 		this.hour = hour;
 	}
 
@@ -113,6 +114,7 @@ public class ConfigurationAutoloadModel {
 	}
 
 	public void setMinute(int minute) {
+		nextExecution = -1;
 		this.minute = minute;
 	}
 
@@ -133,9 +135,9 @@ public class ConfigurationAutoloadModel {
 	}
 
 	public long getNextExecution() {
-		if (nextExecution <= System.currentTimeMillis()) {
+		// if (nextExecution <= System.currentTimeMillis()) {
 			calcNextExecution();
-		}
+		// }
 		return nextExecution ;
 	}
 
