@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.Toast;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
@@ -85,7 +84,7 @@ public class ConfigurationAutoloadService extends IntentService {
 					String configuration = cam.getConfiguration();
 					try {
 						BackupRestoreHelper.restoreConfiguration(getApplicationContext(), configuration, false);
-						Toast.makeText(this, "Loaded configuration " + configuration, Toast.LENGTH_LONG).show();
+						Logger.addToLog("Loaded configuration " + configuration);
 					} catch (Exception e) {
 						Logger.e("Cannot autoload configuration " + configuration, e);
 					}
