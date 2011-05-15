@@ -134,6 +134,9 @@ public class ServicesHandler {
 		case PowerProfiles.SERVICE_STATE_3G:
 			state = MODE_3G_ONLY;
 			break;
+		default:
+			Logger.w("Not setting mobiledata state since " + profileState + " is unknown");
+			return;
 		
 		}
 		
