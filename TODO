@@ -1,15 +1,12 @@
-- calc next execution on save and sort by it
-- backup/restore autoload unless autoloaded 
+- make log more generic, save autoload configurations to it
+
 - fix orientation change in virtual gov editor
 - help page for configurations
 - save configuration on switch
 - show configuration in main screen
-- switch configuration based on time
 - handle rename delete configuration if autoloaded
 
-- I think it would be a good help to have a log of the last x profile changes on the statistics screen, giving timestamp, profile and trigger.
 
-- backup/restore settings
 
 - enable/disable services in settings
 

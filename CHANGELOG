@@ -1,6 +1,8 @@
 V 
 * features
 - autoload configurations
+- backup/restore settings to cloud
+- log profile switching and autoload
 - Profile switch log
 * bug fixes
 -

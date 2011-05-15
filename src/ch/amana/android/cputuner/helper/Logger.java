@@ -1,11 +1,54 @@
 package ch.amana.android.cputuner.helper;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+
+import android.content.Context;
 import android.util.Log;
+import ch.amana.android.cputuner.R;
 
 public class Logger {
 	private static final String TAG = "CPUTuner";
 
 	public final static boolean DEBUG = false;
+
+	private static ArrayList<String> log;
+
+	private static Date now;
+
+	private static SimpleDateFormat simpleDateFormat;
+
+	public static void addToLog(String msg) {
+		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
+		if (log == null) {
+			log = new ArrayList<String>(logSize);
+			now = new Date();
+			simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		}
+		now.setTime(System.currentTimeMillis());
+		StringBuilder sb = new StringBuilder();
+		sb.append(simpleDateFormat.format(now)).append(": ").append(msg);
+		log.add(0, sb.toString());
+		if (log.size() > logSize) {
+			log.remove(logSize);
+		}
+	}
+
+	public static String getLog(Context context) {
+		if (log == null || SettingsStorage.getInstance().getProfileSwitchLogSize() < 1) {
+			return context.getString(R.string.not_enabled);
+		}
+		StringBuilder sb = new StringBuilder();
+		for (Iterator<String> profileLogItr = log.iterator(); profileLogItr.hasNext();) {
+			String log = profileLogItr.next();
+			if (log != null) {
+				sb.append(log).append("\n");
+			}
+		}
+		return sb.toString();
+	}
 
 	public static void e(String msg, Throwable t) {
 		try {

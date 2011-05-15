@@ -1,14 +1,8 @@
 package ch.amana.android.cputuner.hw;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.PulseHelper;
@@ -75,12 +69,6 @@ public class PowerProfiles {
 	private long lastBatteryLevelTimestamp = -1;
 
 	private static PowerProfiles instance;
-
-	private ArrayList<String> profileSwitchLog;
-
-	private Date now;
-
-	private SimpleDateFormat simpleDateFormat;
 
 	public static void initInstance(Context ctx) {
 		instance = new PowerProfiles(ctx);
@@ -183,7 +171,7 @@ public class PowerProfiles {
 				currentProfile = new ProfileModel(c);
 
 				if (SettingsStorage.getInstance().getProfileSwitchLogSize() > 0) {
-					updateProfileSwitchStack();
+					updateProfileSwitchLog();
 				}
 
 				CpuHandler cpuHandler = new CpuHandler();
@@ -219,36 +207,13 @@ public class PowerProfiles {
 		}
 	}
 
-	private void updateProfileSwitchStack() {
-		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
-		if (profileSwitchLog == null) {
-			profileSwitchLog = new ArrayList<String>(logSize);
-			now = new Date();
-			simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		}
-		now.setTime(System.currentTimeMillis());
+
+
+	private void updateProfileSwitchLog() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(simpleDateFormat.format(now)).append(": ");
 		sb.append(currentTrigger.getName()).append(" -> ");
 		sb.append(currentProfile.getProfileName());
-		profileSwitchLog.add(0, sb.toString());
-		if (profileSwitchLog.size() > logSize) {
-			profileSwitchLog.remove(logSize);
-		}
-	}
-
-	public String getProfileSwitchLog() {
-		if (SettingsStorage.getInstance().getProfileSwitchLogSize() < 1) {
-			return context.getString(R.string.not_enabled);
-		}
-		StringBuilder sb = new StringBuilder();
-		for (Iterator<String> profileLogItr = profileSwitchLog.iterator(); profileLogItr.hasNext();) {
-			String log = profileLogItr.next();
-			if (log != null) {
-				sb.append(log).append("\n");
-			}
-		}
-		return sb.toString();
+		Logger.addToLog(sb.toString());
 	}
 
 	private void applyWifiState(int state) {

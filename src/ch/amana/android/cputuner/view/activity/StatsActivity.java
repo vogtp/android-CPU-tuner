@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 public class StatsActivity extends Activity {
@@ -32,7 +32,7 @@ public class StatsActivity extends Activity {
 
 	private void getProfileSwitches(StringBuilder sb) {
 		sb.append(getString(R.string.label_profile_switches)).append("\n");
-		sb.append(PowerProfiles.getInstance().getProfileSwitchLog());
+		sb.append(Logger.getLog(this));
 
 	}
 
