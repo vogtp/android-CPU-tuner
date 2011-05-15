@@ -12,6 +12,7 @@ import android.os.Environment;
 import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
@@ -36,14 +37,17 @@ public class BackupRestoreHelper {
 		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directory);
 	}
 
-	public static void restore(Context ctx, File storagePath) throws Exception {
-		CpuTunerProvider.deleteAllTables(ctx);
+	public static void restore(Context ctx, File storagePath, boolean inclAutoloadConfig) throws Exception {
+		CpuTunerProvider.deleteAllTables(ctx, inclAutoloadConfig);
 		ContentResolver contentResolver = ctx.getContentResolver();
 		DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, storagePath);
 		try {
 			loadVirtualGovernors(contentResolver, dje);
 			loadCpuProfiles(contentResolver, dje);
 			loadTriggers(contentResolver, dje);
+			if (inclAutoloadConfig) {
+				loadAutoloadConfig(contentResolver, dje);
+			}
 		} catch (JSONException e) {
 			Logger.e("Cannot restore tables", e);
 			throw new Exception("Error restoring", e);
@@ -77,12 +81,21 @@ public class BackupRestoreHelper {
 		}
 	}
 
+	private static void loadAutoloadConfig(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+		JSONArray table = dje.getTables(DB.ConfigurationAutoload.TABLE_NAME);
+		for (int i = 0; i < table.length(); i++) {
+			ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel();
+			cam.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			contentResolver.insert(DB.ConfigurationAutoload.CONTENT_URI, cam.getValues());
+		}
+	}
+
 	public static void backupConfiguration(Context ctx, String name) {
 		backup(ctx, new File(BackupRestoreHelper.getStoragePath(ctx, DIRECTORY_CONFIGURATIONS), name));
 	}
 
-	public static void restoreConfiguration(Context ctx, String name) throws Exception {
-		restore(ctx, new File(BackupRestoreHelper.getStoragePath(ctx, DIRECTORY_CONFIGURATIONS), name));
+	public static void restoreConfiguration(Context ctx, String name, boolean inclAutoloadConfig) throws Exception {
+		restore(ctx, new File(BackupRestoreHelper.getStoragePath(ctx, DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
 	}
 
 }

@@ -84,7 +84,7 @@ public class ConfigurationAutoloadService extends IntentService {
 				if (cam != null) {
 					String configuration = cam.getConfiguration();
 					try {
-						BackupRestoreHelper.restoreConfiguration(getApplicationContext(), configuration);
+						BackupRestoreHelper.restoreConfiguration(getApplicationContext(), configuration, false);
 						Toast.makeText(this, "Loaded configuration " + configuration, Toast.LENGTH_LONG).show();
 					} catch (Exception e) {
 						Logger.e("Cannot autoload configuration " + configuration, e);

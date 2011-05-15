@@ -166,12 +166,14 @@ public class CpuTunerProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DB.ConfigurationAutoload.CONTENT_ITEM_NAME + "/#", CONFIGURATION_AUTOLOAD);
 	}
 
-	public static void deleteAllTables(Context ctx) {
+	public static void deleteAllTables(Context ctx, boolean deleteAutoloadConfig) {
 		ContentResolver resolver = ctx.getContentResolver();
 		resolver.delete(DB.Trigger.CONTENT_URI, null, null);
 		resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
 		resolver.delete(DB.VirtualGovernor.CONTENT_URI, null, null);
-		resolver.delete(DB.ConfigurationAutoload.CONTENT_URI, null, null);
+		if (deleteAutoloadConfig) {
+			resolver.delete(DB.ConfigurationAutoload.CONTENT_URI, null, null);
+		}
 	}
 
 }

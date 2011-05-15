@@ -58,7 +58,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	private void loadConfig(String name) {
 		try {
-			BackupRestoreHelper.restoreConfiguration(this, name);
+			BackupRestoreHelper.restoreConfiguration(this, name, false);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");
