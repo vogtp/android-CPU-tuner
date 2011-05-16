@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import ch.amana.android.cputuner.R;
@@ -25,6 +26,7 @@ public class ConfigurationAutoloadEditor extends Activity {
 	private ConfigurationAutoloadModel caModel;
 	private ConfigurationAutoloadModel origCaModel;
 	private ConfigurationsSpinnerAdapter configurationsSpinnerAdapter;
+	private CheckBox cbExactScheduling;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -55,6 +57,8 @@ public class ConfigurationAutoloadEditor extends Activity {
 
 		tpLoadTime = (TimePicker) findViewById(R.id.tpLoadTime);
 		tpLoadTime.setIs24HourView(SettingsStorage.getInstance().is24Hour());
+
+		cbExactScheduling = (CheckBox) findViewById(R.id.cbExactScheduling);
 
 	}
 
@@ -110,12 +114,14 @@ public class ConfigurationAutoloadEditor extends Activity {
 		caModel.setConfiguration(configurationsSpinnerAdapter.getDirectory(spConfiguration.getSelectedItemPosition()).getName());
 		caModel.setHour(tpLoadTime.getCurrentHour());
 		caModel.setMinute(tpLoadTime.getCurrentMinute());
+		caModel.setExactScheduling(cbExactScheduling.isChecked());
 	}
 
 	private void updateView() {
 		spConfiguration.setSelection(configurationsSpinnerAdapter.getIndexOf(caModel.getConfiguration()));
 		tpLoadTime.setCurrentHour(caModel.getHour());
 		tpLoadTime.setCurrentMinute(caModel.getMinute());
+		cbExactScheduling.setChecked(caModel.isExactScheduling());
 	}
 
 	@Override

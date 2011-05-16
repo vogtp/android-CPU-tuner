@@ -14,5 +14,7 @@
 		<string name="not_enabled">Not enabled</string>
 		<string name="prefProfileSwitchLogSize">Profile switch log size</string>
 		<string name="prefProfileSwitchLogSizeLong">Number of entries in the profile switch log. Use 0 to disable</string>
+		<string name="cbExactScheduling">Use exact scheduling.</string>
+		<string name="labelExactSchedulingExplain">Exact scheduling consumes more battery.\nWith inexact scheduling the configuration change may delay up to half an hour.</string>
 </resources>
 

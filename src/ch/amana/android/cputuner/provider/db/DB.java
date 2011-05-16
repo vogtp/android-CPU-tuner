@@ -50,7 +50,8 @@ public interface DB {
 		private static final String CREATE_CONFIGURATION_AUTOLOAD_TABLE = "create table if not exists " + ConfigurationAutoload.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
  + DB.ConfigurationAutoload.NAME_HOUR + " int, " + DB.ConfigurationAutoload.NAME_MINUTE + " int, "
-				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_CONFIGURATION + " text, " + DB.ConfigurationAutoload.NAME_NEXT_EXEC + " long)";
+				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_CONFIGURATION + " text, " + DB.ConfigurationAutoload.NAME_NEXT_EXEC + " long, "
+				+ DB.ConfigurationAutoload.NAME_EXACT_SCEDULING + " int DEFAULT 0)";
 
 		public OpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
@@ -329,14 +330,16 @@ public interface DB {
 		public static final String NAME_WEEKDAY = "weekday";
 		public static final String NAME_CONFIGURATION = "configuration";
 		public static final String NAME_NEXT_EXEC = "nextExecution";
+		public static final String NAME_EXACT_SCEDULING = "exactSceduling";
 
 		public static final int INDEX_HOUR = 1;
 		public static final int INDEX_MINUTE = 2;
 		public static final int INDEX_WEEKDAY = 3;
 		public static final int INDEX_CONFIGURATION = 4;
 		public static final int INDEX_NEXT_EXEC = 5;
+		public static final int INDEX_EXACT_SCEDULING = 6;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_HOUR, NAME_MINUTE, NAME_WEEKDAY, NAME_CONFIGURATION, NAME_NEXT_EXEC };
+		public static final String[] colNames = new String[] { NAME_ID, NAME_HOUR, NAME_MINUTE, NAME_WEEKDAY, NAME_CONFIGURATION, NAME_NEXT_EXEC, NAME_EXACT_SCEDULING };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String SORTORDER_DEFAULT = NAME_NEXT_EXEC + " ASC";

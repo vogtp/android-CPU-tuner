@@ -18,6 +18,7 @@ public class ConfigurationAutoloadModel {
 	private int minute;
 	private int weekday;
 	private String configuration;
+	private boolean exactScheduling = false;
 
 	private long nextExecution = -1;
 
@@ -33,6 +34,7 @@ public class ConfigurationAutoloadModel {
 		this.weekday = c.getInt(DB.ConfigurationAutoload.INDEX_WEEKDAY);
 		this.configuration = c.getString(DB.ConfigurationAutoload.INDEX_CONFIGURATION);
 		this.nextExecution = c.getLong(DB.ConfigurationAutoload.INDEX_NEXT_EXEC);
+		setExactScheduling(c.getInt(DB.ConfigurationAutoload.INDEX_EXACT_SCEDULING));
 	}
 
 	public ConfigurationAutoloadModel(Bundle bundle) {
@@ -51,6 +53,7 @@ public class ConfigurationAutoloadModel {
 		bundle.putInt(DB.ConfigurationAutoload.NAME_WEEKDAY, getWeekday());
 		bundle.putString(DB.ConfigurationAutoload.NAME_CONFIGURATION, getConfiguration());
 		bundle.putLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC, getNextExecution());
+		bundle.putBoolean(DB.ConfigurationAutoload.NAME_EXACT_SCEDULING, isExactScheduling());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -60,6 +63,8 @@ public class ConfigurationAutoloadModel {
 		weekday = bundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
 		configuration = bundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
 		nextExecution = bundle.getLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC);
+		exactScheduling = bundle.getBoolean(DB.ConfigurationAutoload.NAME_EXACT_SCEDULING);
+
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -69,6 +74,7 @@ public class ConfigurationAutoloadModel {
 		weekday = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
 		configuration = jsonBundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
 		nextExecution = jsonBundle.getLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC);
+		setExactScheduling(jsonBundle.getInt(DB.ConfigurationAutoload.NAME_EXACT_SCEDULING));
 	}
 
 	public ContentValues getValues() {
@@ -81,6 +87,7 @@ public class ConfigurationAutoloadModel {
 		values.put(DB.ConfigurationAutoload.NAME_WEEKDAY, getWeekday());
 		values.put(DB.ConfigurationAutoload.NAME_CONFIGURATION, getConfiguration());
 		values.put(DB.ConfigurationAutoload.NAME_NEXT_EXEC, getNextExecution());
+		values.put(DB.ConfigurationAutoload.NAME_EXACT_SCEDULING, getExactScheduling());
 		return values;
 	}
 
@@ -161,8 +168,10 @@ public class ConfigurationAutoloadModel {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((configuration == null) ? 0 : configuration.hashCode());
+		result = prime * result + (exactScheduling ? 1231 : 1237);
 		result = prime * result + hour;
 		result = prime * result + minute;
+		result = prime * result + (int) (nextExecution ^ (nextExecution >>> 32));
 		result = prime * result + weekday;
 		return result;
 	}
@@ -181,12 +190,32 @@ public class ConfigurationAutoloadModel {
 				return false;
 		} else if (!configuration.equals(other.configuration))
 			return false;
+		if (exactScheduling != other.exactScheduling)
+			return false;
 		if (hour != other.hour)
 			return false;
 		if (minute != other.minute)
 			return false;
+		if (nextExecution != other.nextExecution)
+			return false;
 		if (weekday != other.weekday)
 			return false;
 		return true;
+	}
+
+	public void setExactScheduling(boolean useExactScheduling) {
+		this.exactScheduling = useExactScheduling;
+	}
+
+	public boolean isExactScheduling() {
+		return exactScheduling;
+	}
+
+	private void setExactScheduling(int i) {
+		this.exactScheduling = i != 0;
+	}
+
+	private int getExactScheduling() {
+		return exactScheduling ? 1 : 0;
 	}
 }

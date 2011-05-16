@@ -1,4 +1,4 @@
-- make log more generic, save autoload configurations to it
+- check for root on start
 
 - fix orientation change in virtual gov editor
 - help page for configurations
@@ -6,7 +6,8 @@
 - show configuration in main screen
 - handle rename delete configuration if autoloaded
 
-
+- move logging to file or logcat
+- add controls for 4G(wimax)
 
 - enable/disable services in settings
 
