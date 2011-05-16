@@ -133,6 +133,9 @@ public class ServicesHandler {
 		case PowerProfiles.SERVICE_STATE_3G:
 			state = MODE_3G_ONLY;
 			break;
+		default:
+			Logger.w("Not setting mobiledata state since " + profileState + " is unknown");
+			return;
 		
 		}
 		
@@ -151,7 +154,7 @@ public class ServicesHandler {
 		try {
 			state = android.provider.Settings.Secure.getInt(context
 					.getContentResolver(), "preferred_network_mode");
-		} catch (SettingNotFoundException e) {
+		} catch (Exception e) {
 		}
 		return state;
 	}
