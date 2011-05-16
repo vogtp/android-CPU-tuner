@@ -28,7 +28,6 @@ import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
 	private ConfigurationsAdapter configurationsAdapter;
-	private int configId;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -67,8 +66,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		configId = position;
-		getListView().showContextMenu();
+		File file = configurationsAdapter.getDirectory((int) id);
+		load(file);
 	}
 
 	@Override
@@ -91,15 +90,12 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		if (menuInfo != null) {
-			configId = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
-		}
 		getMenuInflater().inflate(R.menu.configuration_context, menu);
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		File file = configurationsAdapter.getDirectory(configId);
+		File file = configurationsAdapter.getDirectory((int) getListView().getSelectedItemId());
 		switch (item.getItemId()) {
 		case R.id.itemAdd:
 			add();
