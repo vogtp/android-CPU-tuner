@@ -5,6 +5,7 @@ import java.io.File;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -21,12 +22,14 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
+	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	private ConfigurationsAdapter configurationsAdapter;
 
 	/** Called when the activity is first created. */
@@ -147,13 +150,22 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = input.getText().toString();
 				String path = file.getPath();
-				File dest = new File(path.substring(0, path.lastIndexOf("/")), name);
+				int idx = path.lastIndexOf("/");
+				String oldName = path.substring(idx + 1);
+				File dest = new File(path.substring(0, idx), name);
 				file.renameTo(dest);
+				renameDB(oldName, name);
 				updateListView();
 			}
 		});
 		alertBuilder.setNegativeButton(android.R.string.cancel, null);
 		alertBuilder.show();
+	}
+
+	protected void renameDB(String oldName, String name) {
+		ContentValues values = new ContentValues(1);
+		values.put(DB.ConfigurationAutoload.NAME_CONFIGURATION, name);
+		getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, values, SELECT_CONFIG_BY_NAME, new String[] { oldName });
 	}
 
 	private void replace(final File configuration) {
