@@ -31,25 +31,15 @@
 	<string name="menuReplaceWithCurrent">Replace with current</string>
 	<string name="menuLoad">Load</string>
 	<string name="delete">Delete</string>
-	<string name="msg_delete_configuration">
-		Delete configuration \'
-		<xliff:g id="string">%s</xliff:g>
-		\'?
-	</string>
+	<string name="msg_delete_configuration">Delete configuration \'<xliff:g id="string">%s</xliff:g>\'?</string>
 	<string name="msg_replace_with_current">
-		Replace configuration \'
-		<xliff:g id="string">%s</xliff:g>
-		\' with the currently active?
+		Replace configuration \'<xliff:g id="string">%s</xliff:g>\' with the currently active?
 	</string>
 	<string name="msg_load_configuration">
-		Load configuration \'
-		<xliff:g id="string">%s</xliff:g>
-		\' to be the active?
+		Load configuration \'<xliff:g id="string">%s</xliff:g>\' to be the active?
 	</string>
 	<string name="msg_loaded">
-		Loaded \'
-		<xliff:g id="string">%s</xliff:g>
-		\'
+		Loaded \'<xliff:g id="string">%s</xliff:g>\'
 	</string>
 	<string name="menuAddCurrent">Add Current</string>
 	<string name="msg_fully_working">Fully working</string>
