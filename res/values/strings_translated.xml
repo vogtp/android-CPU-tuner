@@ -18,9 +18,7 @@
 	<string name="menuLoad">Load</string>
 	<string name="delete">Delete</string>
 	<string name="msg_delete_configuration">
-		Delete configuration \'
-		<xliff:g id="string">%s</xliff:g>
-		\'?
+		Delete configuration \'<xliff:g id="string">%s</xliff:g>\'?
 	</string>
 	<string name="msg_replace_with_current">
 		Replace configuration \'

@@ -10,7 +10,6 @@ import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.model.PowerProfiles;
 
 public class ServicesHandler {
 

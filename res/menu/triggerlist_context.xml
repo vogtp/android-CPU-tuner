@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:title="@string/menuItemInsert" android:id="@+id/menuItemInsert"></item>
-	<item android:title="@string/menuItemEdit" android:id="@+id/menuItemEdit"></item>
-	<item android:title="@string/menuItemDelete" android:id="@+id/menuItemDelete"></item>
 
 <item android:id="@+id/menuItemClearPowerCurrent" android:title="@string/menuItemClearPowerCurrent"></item>
 </menu>

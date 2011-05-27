@@ -21,7 +21,16 @@ public class GuiUtils {
 				return;
 			}
 		}
+	}
 
+	public static void setSpinner(Spinner spinner, String text) {
+		SpinnerAdapter adapter = spinner.getAdapter();
+		for (int i = 0; i < adapter.getCount(); i++) {
+			if (adapter.getItem(i) == text) {
+				spinner.setSelection(i);
+				return;
+			}
+		}
 	}
 
 	public static CharSequence getExplainGovernor(Context ctx, String gov) {

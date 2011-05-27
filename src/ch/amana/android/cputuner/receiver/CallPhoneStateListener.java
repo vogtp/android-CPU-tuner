@@ -1,7 +1,7 @@
 package ch.amana.android.cputuner.receiver;
 
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.model.PowerProfiles;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 

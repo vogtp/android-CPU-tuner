@@ -59,6 +59,9 @@ public class SettingsStorage {
 	private long pulseDelayOff;
 	private boolean checkedEnableUserspaceGovernor = false;
 	private boolean enableUserspaceGovernor;
+	private boolean checkedProfileSwitchLogSize = false;
+	private int profileSwitchLogSize;
+	private String configuration;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -74,6 +77,7 @@ public class SettingsStorage {
 		checkedPulseDelayOn = false;
 		checkedPulseDelayOff = false;
 		checkedEnableUserspaceGovernor = false;
+		checkedProfileSwitchLogSize = false;
 	}
 
 	public static void initInstance(Context ctx) {
@@ -345,5 +349,31 @@ public class SettingsStorage {
 
 	public boolean isEnableAirplaneMode() {
 		return true;
+	}
+
+	public boolean is24Hour() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	public int getProfileSwitchLogSize() {
+		if (!checkedProfileSwitchLogSize) {
+			checkedProfileSwitchLogSize = true;
+			try {
+				profileSwitchLogSize = Integer.parseInt(getPreferences().getString("prefKeyProfileSwitchLogSize", "10"));
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyProfileSwitchLogSize as int", e);
+				profileSwitchLogSize = 10;
+			}
+		}
+		return profileSwitchLogSize;
+	}
+
+	public void setCurrentConfiguration(String configuration) {
+		this.configuration = configuration;
+	}
+
+	public String getCurrentConfiguration() {
+		return configuration;
 	}
 }

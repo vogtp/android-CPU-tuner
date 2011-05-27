@@ -1,16 +1,15 @@
 - fix orientation change in virtual gov editor
-- helppage for configurations
+
+- handle two configuration have the same name
+
 - save configuration on switch
-- show configuration in main screen
-- switch profile/triggers sets (everything) based on time
 
-- I think it would be a good help to have a log of the last x profile changes on the statistics screen, giving timestamp, profile and trigger.
-
+- move logging to file or logcat
+- add controls for 4G(wimax)
 
 - enable/disable services in settings
 
 - move load profile to task
-- use sprintf to display time in state
 
 - widget for profile switch
 - Imperial units (°C -> F)

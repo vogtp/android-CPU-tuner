@@ -5,7 +5,9 @@ import java.io.File;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -21,13 +23,16 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
+import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
 
-	public static final String DIRECTORY = "configurations";
+	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	private ConfigurationsAdapter configurationsAdapter;
-	private int configId;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -36,7 +41,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		setTitle(R.string.titleManageConfigurations);
 
 		ListView lvConfiguration = getListView();
-		configurationsAdapter = new ConfigurationsAdapter(this);
+		configurationsAdapter = new ConfigurationsListAdapter(this);
 		lvConfiguration.setAdapter(configurationsAdapter);
 		lvConfiguration.setOnCreateContextMenuListener(this);
 		lvConfiguration.setOnItemClickListener(this);
@@ -52,12 +57,12 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void saveConfig(String name) {
-		BackupRestoreHelper.backup(ConfigurationManageActivity.this, new File(BackupRestoreHelper.getStoragePath(this, DIRECTORY), name));
+		BackupRestoreHelper.backupConfiguration(this, name);
 	}
 
 	private void loadConfig(String name) {
 		try {
-			BackupRestoreHelper.restore(ConfigurationManageActivity.this, new File(BackupRestoreHelper.getStoragePath(this, DIRECTORY), name));
+			BackupRestoreHelper.restoreConfiguration(this, name, false);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");
@@ -66,8 +71,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		configId = position;
-		getListView().showContextMenu();
+		File file = configurationsAdapter.getDirectory((int) id);
+		load(file);
 	}
 
 	@Override
@@ -90,15 +95,14 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		if (menuInfo != null) {
-			configId = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
-		}
 		getMenuInflater().inflate(R.menu.configuration_context, menu);
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		File file = configurationsAdapter.getDirectory(configId);
+		// long selectedItemId = getListView().getSelectedItemId();
+		long itemId = ((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).id;
+		File file = configurationsAdapter.getDirectory((int) itemId);
 		switch (item.getItemId()) {
 		case R.id.itemAdd:
 			add();
@@ -139,6 +143,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void rename(final File file) {
+		// FIXME check if configuration is used
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.msg_rename_configuration);
 		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
@@ -149,13 +154,22 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = input.getText().toString();
 				String path = file.getPath();
-				File dest = new File(path.substring(0, path.lastIndexOf("/")), name);
+				int idx = path.lastIndexOf("/");
+				String oldName = path.substring(idx + 1);
+				File dest = new File(path.substring(0, idx), name);
 				file.renameTo(dest);
+				renameDB(oldName, name);
 				updateListView();
 			}
 		});
 		alertBuilder.setNegativeButton(android.R.string.cancel, null);
 		alertBuilder.show();
+	}
+
+	protected void renameDB(String oldName, String name) {
+		ContentValues values = new ContentValues(1);
+		values.put(DB.ConfigurationAutoload.NAME_CONFIGURATION, name);
+		getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, values, SELECT_CONFIG_BY_NAME, new String[] { oldName });
 	}
 
 	private void replace(final File configuration) {
@@ -185,7 +199,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				loadConfig(configuration.getName());
+				String configName = configuration.getName();
+				loadConfig(configName);
+				SettingsStorage.getInstance().setCurrentConfiguration(configName);
 				updateListView();
 			}
 
@@ -195,23 +211,38 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void delete(final File configuration) {
+		// FIXME check if configuration is used
+		Cursor cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, SELECT_CONFIG_BY_NAME,
+				new String[] { configuration.getName() }, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
+
+		// while (cursor.moveToNext()) {
+		// String string =
+		// cursor.getString(DB.ConfigurationAutoload.INDEX_CONFIGURATION);
+		// System.out.println(string);
+		// }
+
 		Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setTitle(R.string.menuItemDelete);
-		alertBuilder.setMessage(getString(R.string.msg_delete_configuration, configuration.getName()));
-		alertBuilder.setNegativeButton(R.string.no, null);
-		alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+		if (cursor.moveToNext()) {
+			alertBuilder.setTitle(R.string.msg_cannot_delete_configuration);
+			alertBuilder.setNegativeButton(android.R.string.ok, null);
+		} else {
+			alertBuilder.setTitle(R.string.menuItemDelete);
+			alertBuilder.setMessage(getString(R.string.msg_delete_configuration, configuration.getName()));
+			alertBuilder.setNegativeButton(R.string.no, null);
+			alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				File[] files = configuration.listFiles();
-				for (int i = 0; i < files.length; i++) {
-					files[i].delete();
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					File[] files = configuration.listFiles();
+					for (int i = 0; i < files.length; i++) {
+						files[i].delete();
+					}
+					configuration.delete();
+					updateListView();
 				}
-				configuration.delete();
-				updateListView();
-			}
 
-		});
+			});
+		}
 		AlertDialog alert = alertBuilder.create();
 		alert.show();
 	}
