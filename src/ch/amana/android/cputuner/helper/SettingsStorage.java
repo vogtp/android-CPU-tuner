@@ -61,6 +61,7 @@ public class SettingsStorage {
 	private boolean enableUserspaceGovernor;
 	private boolean checkedProfileSwitchLogSize = false;
 	private int profileSwitchLogSize;
+	private String configuration;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -366,5 +367,13 @@ public class SettingsStorage {
 			}
 		}
 		return profileSwitchLogSize;
+	}
+
+	public void setCurrentConfiguration(String configuration) {
+		this.configuration = configuration;
+	}
+
+	public String getCurrentConfiguration() {
+		return configuration;
 	}
 }
