@@ -41,6 +41,7 @@ import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
+import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
 public class CurInfo extends FragmentActivity implements GovernorFragmentCallback {
 
@@ -71,6 +72,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	private TableRow trMaxFreq;
 	private TableRow trMinFreq;
 	private TableRow trBatteryCurrent;
+	private TableRow trConfig;
+	private TextView labelConfig;
+	private TextView tvConfig;
 
 	protected class CpuTunerReceiver extends BroadcastReceiver {
 
@@ -250,6 +254,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
 		trBatteryCurrent = (TableRow) findViewById(R.id.TableRowBatteryCurrent);
+		trConfig = (TableRow) findViewById(R.id.TableRowConfig);
+		labelConfig = (TextView) findViewById(R.id.labelConfig);
+		tvConfig = (TextView) findViewById(R.id.tvConfig);
 
 		governorHelper = new GovernorHelperCurInfo();
 		if (settings.isUseVirtualGovernors()) {
@@ -358,6 +365,15 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		((TableRow) findViewById(R.id.TableRowBattery)).setOnClickListener(startBattery);
 		((TableRow) findViewById(R.id.TableRowBatteryCurrent)).setOnClickListener(startBattery);
 		((TableRow) findViewById(R.id.TableRowPower)).setOnClickListener(startBattery);
+
+		trConfig.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Context ctx = CurInfo.this;
+				ctx.startActivity(new Intent(ctx, ConfigurationManageActivity.class));
+			}
+		});
 	}
 
 	@Override
@@ -422,13 +438,21 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	}
 
 	private void profileChanged() {
-		if (SettingsStorage.getInstance().isEnableProfiles()) {
+		SettingsStorage settings = SettingsStorage.getInstance();
+		if (settings.isEnableProfiles()) {
 			if (PulseHelper.getInstance(this).isPulsing()) {
 				GuiUtils.showViews(trPulse, new View[] { spacerPulse, tvPulse });
 				int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
 				tvPulse.setText(res);
 			} else {
 				GuiUtils.hideViews(trPulse, new View[] { spacerPulse, tvPulse });
+			}
+			String config = settings.getCurrentConfiguration();
+			if (config != null && !config.trim().equals("")) {
+				GuiUtils.showViews(trConfig, new View[] { labelConfig, tvConfig });
+				tvConfig.setText(config);
+			} else {
+				GuiUtils.hideViews(trConfig, new View[] { labelConfig, tvConfig });
 			}
 			ProfileModel currentProfile = powerProfiles.getCurrentProfile();
 			if (currentProfile != null) {

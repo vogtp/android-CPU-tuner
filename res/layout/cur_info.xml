@@ -29,6 +29,16 @@
 					android:layout_width="wrap_content" android:id="@+id/spProfiles"
 					android:layout_weight=".1"></Spinner>
 			</TableRow>
+			<TableRow android:layout_width="match_parent"
+				android:layout_height="wrap_content" android:id="@+id/TableRowConfig">
+				<TextView android:textSize="18sp"
+					android:paddingRight="5dp" android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/labelConfig"
+					android:text="@string/labelConfig"></TextView>
+				<TextView android:textSize="18sp" android:paddingRight="5dp"
+					android:text="@+id/TextView01" android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:id="@+id/tvConfig"></TextView>
+			</TableRow>
 			<TableRow android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/TableRowPulse">
 				<TextView android:layout_width="wrap_content"
@@ -90,7 +100,8 @@
 				<SeekBar android:layout_height="wrap_content"
 					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
 					android:layout_weight=".3" android:paddingRight="5dp"
-					android:paddingBottom="3dp" android:paddingTop="3dp" android:layout_marginRight="5dp"></SeekBar>
+					android:paddingBottom="3dp" android:paddingTop="3dp"
+					android:layout_marginRight="5dp"></SeekBar>
 
 			</TableRow>
 			<TableRow android:id="@+id/TableRowMinFreq"
