@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent" android:layout_height="match_parent"
-	android:orientation="vertical">
+	android:orientation="vertical" android:layout_gravity="bottom">
+    <TextView android:layout_height="wrap_content" android:text="@string/label_load_configuration_1" android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
 	<Spinner android:layout_width="match_parent"
 		android:layout_height="wrap_content" android:id="@+id/spConfiguration"></Spinner>
+	<TextView android:layout_height="wrap_content" android:text="@string/label_load_configuration_2" android:layout_width="wrap_content" android:id="@+id/textView3"></TextView>
 	<TimePicker android:layout_height="wrap_content" android:id="@+id/tpLoadTime"
 		android:layout_width="wrap_content">
 	</TimePicker>
+	<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1"></LinearLayout>
 	<CheckBox android:id="@+id/cbExactScheduling"
 		android:layout_height="wrap_content" android:layout_width="match_parent"
 		android:text="@string/cbExactScheduling"></CheckBox>
 	<TextView android:layout_height="wrap_content" android:id="@+id/textView1"
 		android:text="@string/labelExactSchedulingExplain"
 		android:layout_marginLeft="2dp" android:layout_marginRight="2dp"
-		android:layout_width="match_parent"></TextView>
+		android:layout_width="match_parent" android:gravity="bottom" android:layout_gravity="bottom"></TextView>
 </LinearLayout>
