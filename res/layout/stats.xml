@@ -3,7 +3,7 @@
 	android:layout_height="match_parent" android:layout_width="match_parent">
     <ScrollView android:id="@+id/scrollView1" android:layout_height="match_parent" android:layout_width="match_parent">
         <LinearLayout android:id="@+id/linearLayout1" android:layout_width="match_parent" android:layout_height="match_parent">
-        	<TextView android:text="TextView" android:layout_height="match_parent" android:layout_width="match_parent" android:id="@+id/tvStats"></TextView>
+        	<TextView android:text="TextView" android:layout_height="match_parent" android:layout_width="match_parent" android:id="@+id/tvStats" android:typeface="monospace" android:textSize="11sp"></TextView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
