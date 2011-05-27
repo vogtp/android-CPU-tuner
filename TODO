@@ -1,9 +1,8 @@
-
 - fix orientation change in virtual gov editor
-- help page for configurations
+
+- handle two configuration have the same name
+
 - save configuration on switch
-- show configuration in main screen
-- handle rename delete configuration if autoloaded
 
 - move logging to file or logcat
 - add controls for 4G(wimax)
@@ -11,7 +10,6 @@
 - enable/disable services in settings
 
 - move load profile to task
-- use sprintf to display time in state
 
 - widget for profile switch
 - Imperial units (°C -> F)
