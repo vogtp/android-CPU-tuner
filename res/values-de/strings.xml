@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<string name="prefConfigurationsManage">Manage configurations</string>
+		<string name="prefConfigurationsAutoLoad">Autoload configurations</string>
+		<string name="title_configuration_autoload_editor">Configuration autoload editor</string>
+		<string name="hint_profile_name">Profile name</string>
+		<string name="label_profile_switches">Profile switches:</string>
+		<string name="not_enabled">Not enabled</string>
+		<string name="prefProfileSwitchLogSize">Profile switch log size</string>
+		<string name="prefProfileSwitchLogSizeLong">Number of entries in the profile switch log. Use 0 to disable</string>
+		<string name="cbExactScheduling">Use exact scheduling.</string>
+		<string name="labelExactSchedulingExplain">Exact scheduling consumes more battery.\nWith inexact scheduling the configuration change may delay up to half an hour.</string>
+		<string name="msg_cannot_delete_configuration">Cannot delete configuration since it is used in autoloading.</string>
+		<string name="label_load_configuration_1">Load configuration </string>
+		<string name="label_load_configuration_2">at</string>
+		<string name="labelConfig">Config:</string>
 	<string name="labelAirplaneMode">Airplane mode</string>
 	<string name="labelAirplaneModeOn">AP</string>
 	<string name="labelAirplaneModeOff">
