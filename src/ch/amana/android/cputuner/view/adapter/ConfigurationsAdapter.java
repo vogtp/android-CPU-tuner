@@ -71,9 +71,9 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 
 	private void refresh() {
 		configDirs = configurationsDir.listFiles(FILTER);
-		Arrays.sort(configDirs);
 		if (configDirs == null) {
 			configDirs = NO_CONFIGS;
 		}
+		Arrays.sort(configDirs);
 	}
 }
