@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -85,6 +86,7 @@ public class ConfigurationAutoloadService extends IntentService {
 					try {
 						BackupRestoreHelper.restoreConfiguration(getApplicationContext(), configuration, false);
 						Logger.addToLog("Loaded configuration " + configuration);
+						SettingsStorage.getInstance().setCurrentConfiguration(configuration);
 					} catch (Exception e) {
 						Logger.e("Cannot autoload configuration " + configuration, e);
 					}
