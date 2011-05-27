@@ -51,15 +51,15 @@ public class StatsActivity extends Activity {
 	private void getTimeInState(StringBuilder sb) {
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
 		if (!RootHandler.NOT_AVAILABLE.equals(timeinstate)) {
-			// if (sb.length() > 0) {
-			// sb.append("--------------------------------------\n");
-			// }
+
 			String curCpuFreq = Integer.toString(CpuHandler.getInstance().getCurCpuFreq());
 			sb.append(getString(R.string.label_time_in_state)).append("\n");
 			String[] states = timeinstate.split("\n");
 			for (int i = 0; i < states.length; i++) {
 				String[] vals = states[i].split(" +");
-				sb.append(Integer.parseInt(vals[0]) / 1000).append(" Mhz").append("\t\t").append(vals[1]);
+				sb.append(String.format("%5d", Integer.parseInt(vals[0]) / 1000));
+				sb.append(" Mhz");
+				sb.append(String.format("%13s", vals[1]));
 				if (curCpuFreq.equals(vals[0])) {
 					sb.append("\t\t(").append(getString(R.string.labelCurrentFrequency)).append(")");
 				}
