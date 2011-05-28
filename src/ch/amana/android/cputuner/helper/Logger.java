@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.helper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -12,24 +11,22 @@ import ch.amana.android.cputuner.R;
 public class Logger {
 	private static final String TAG = "CPUTuner";
 
-	public final static boolean DEBUG = true;
+	public final static boolean DEBUG = false;
 
 	private static ArrayList<String> log;
 
 	private static Date now;
 
-	private static SimpleDateFormat simpleDateFormat;
 
 	public static void addToLog(String msg) {
 		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
 		if (log == null) {
 			log = new ArrayList<String>(logSize);
 			now = new Date();
-			simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		}
 		now.setTime(System.currentTimeMillis());
 		StringBuilder sb = new StringBuilder();
-		sb.append(simpleDateFormat.format(now)).append(": ").append(msg);
+		sb.append(SettingsStorage.getInstance().getSimpledateformat().format(now)).append(": ").append(msg);
 		log.add(0, sb.toString());
 		if (log.size() > logSize) {
 			log.remove(logSize);

@@ -6,6 +6,7 @@
 		<!-- <item>Battery % per hour</item> -->
 		<item>No calculation</item>
 	</string-array>
+	<string name="saved_at">Saved at </string>
 		
 </resources>
 

@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.view.adapter;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Context;
@@ -8,6 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TwoLineListItem;
+import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class ConfigurationsListAdapter extends ConfigurationsAdapter {
 
@@ -19,7 +20,10 @@ public class ConfigurationsListAdapter extends ConfigurationsAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		TwoLineListItem view = (convertView != null) ? (TwoLineListItem) convertView : createView(parent);
 		view.getText1().setText(getDirectory(position).getName());
-		view.getText2().setText(SimpleDateFormat.getInstance().format(new Date(getNewestFile(position))));
+		StringBuilder savedAtStr = new StringBuilder();
+		savedAtStr.append(parent.getResources().getText(R.string.saved_at)).append(" ");
+		savedAtStr.append(SettingsStorage.getInstance().getSimpledateformat().format(new Date(getNewestFile(position))));
+		view.getText2().setText(savedAtStr);
 		return view;
 	}
 

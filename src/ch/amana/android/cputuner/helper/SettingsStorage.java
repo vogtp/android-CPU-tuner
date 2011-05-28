@@ -1,5 +1,7 @@
 package ch.amana.android.cputuner.helper;
 
+import java.text.SimpleDateFormat;
+
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +11,8 @@ import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 public class SettingsStorage {
+
+	private final static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
 	private static final String PREF_KEY_USER_LEVEL = "prefKeyUserLevel";
 	private static final String PREF_KEY_USER_LEVEL_SET = "prefKeyUserLevelSet";
@@ -373,7 +377,13 @@ public class SettingsStorage {
 		this.configuration = configuration;
 	}
 
+
 	public String getCurrentConfiguration() {
 		return configuration;
 	}
+
+	public SimpleDateFormat getSimpledateformat() {
+		return simpleDateFormat;
+	}
+
 }
