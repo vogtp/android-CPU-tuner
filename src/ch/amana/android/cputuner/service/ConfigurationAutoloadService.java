@@ -31,11 +31,6 @@ public class ConfigurationAutoloadService extends IntentService {
 	private static ConfigurationAutoloadModel getModelForNextExecution(Context ctx) {
 		String selection = null;
 		String[] selectionArgs = null;
-		// if (!updateAll) {
-		// selection = DB.ConfigurationAutoload.NAME_NEXT_EXEC + "<=?";
-		// selectionArgs = new String[1];
-		// selectionArgs[0] = Long.toString(System.currentTimeMillis());
-		// }
 
 		Cursor cursor = null;
 		long nextExec = Long.MAX_VALUE;
@@ -71,7 +66,11 @@ public class ConfigurationAutoloadService extends IntentService {
 			nextCam.saveToBundle(bundle);
 			intent.putExtra(EXTRA_VALUES, bundle);
 			PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-			am.setInexactRepeating(AlarmManager.RTC_WAKEUP, nextCam.getNextExecution(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, operation );
+			if (nextCam.isExactScheduling()) {
+				am.setRepeating(AlarmManager.RTC_WAKEUP, nextCam.getNextExecution(), -1, operation);
+			} else {
+				am.setInexactRepeating(AlarmManager.RTC_WAKEUP, nextCam.getNextExecution(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, operation);
+			}
 		}
 	}
 
