@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:id="@+id/ScrollView01"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:layout_marginBottom="40dp">
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:padding="5dp" android:id="@+id/llTop"
-		android:orientation="vertical">
+	android:layout_width="match_parent"  android:layout_height="match_parent">
+	<LinearLayout android:layout_width="match_parent"
+		android:layout_height="match_parent"  android:id="@+id/llTop"
+		android:orientation="vertical" android:padding="5dp">
 
 		<LinearLayout android:layout_height="wrap_content"
-			android:id="@+id/LinearLayoutProfile" android:layout_width="fill_parent">
+			android:id="@+id/LinearLayoutProfile" android:layout_width="fill_parent" android:layout_margin="7dp">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/labelPowerProfile"
 				android:text="@string/labelPowerProfile" android:paddingRight="5dp"
@@ -92,7 +91,7 @@
 				android:paddingTop="10dp" android:text="@string/labelCpuFreq"
 				android:paddingRight="5dp"></TextView>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
-				android:layout_width="fill_parent" android:layout_gravity="center_vertical">
+				android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:layout_margin="7dp">
 
 
 
@@ -105,10 +104,10 @@
 					android:layout_gravity="right"></TextView>
 				<SeekBar android:layout_height="wrap_content"
 					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
-					android:layout_weight=".3" android:paddingRight="5dp"></SeekBar>
+					android:layout_weight=".3" android:paddingRight="5dp" ></SeekBar>
 			</TableRow>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMinFreq"
-				android:layout_width="fill_parent" android:layout_gravity="center_vertical">
+				android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:layout_margin="7dp">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin"></TextView>
@@ -119,7 +118,7 @@
 
 				<SeekBar android:layout_height="wrap_content"
 					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMin"
-					android:layout_weight=".3" android:paddingRight="5dp"></SeekBar>
+					android:layout_weight=".3" android:paddingRight="5dp" ></SeekBar>
 			</TableRow>
 
 		</TableLayout>
