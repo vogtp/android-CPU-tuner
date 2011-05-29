@@ -1,5 +1,9 @@
 - fix orientation change in virtual gov editor
 
+- make autoload restoreable
+- backup configuration
+- create a default config
+
 - handle two configuration have the same name
 
 - save configuration on switch
