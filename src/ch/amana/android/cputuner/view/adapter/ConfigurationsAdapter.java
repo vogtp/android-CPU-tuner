@@ -45,6 +45,9 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 	}
 
 	public File getDirectory(int position) {
+		if (configDirs == null || position < 0 || position > configDirs.length) {
+			return null;
+		}
 		return configDirs[position];
 	}
 
