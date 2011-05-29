@@ -4,6 +4,14 @@ V
 * bug fixes
 -
 
+V 2.2.1
+* features
+- 
+* bug fixes
+- really do exact scheduling
+- fix profile editor layout
+- fixed force close in autoload editor 
+
 V 2.2.0
 * features
 - time-specific configurations (autoloading configurations)

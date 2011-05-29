@@ -1,4 +1,6 @@
-- fix orientation change in virtual gov editor
+- fragments: fix orientation change 
+- fragments: fix scrolling in profile editor
+
 
 - handle two configuration have the same name
 
