@@ -1,30 +1,26 @@
 - fragments: fix orientation change 
 - fragments: fix scrolling in profile editor
 
+- make autoload restoreable
+- backup configuration
+- create a default config
 
 - handle two configuration have the same name
-
 - save configuration on switch
 
-- move logging to file or logcat
 - add controls for 4G(wimax)
 
+- move logging to file or logcat
 - enable/disable services in settings
-
-- move load profile to task
+- do not change bt while paired -> setting
 
 - widget for profile switch
 - Imperial units (°C -> F)
-
 - animate pulsed service in list
 - icons for services
 
-- do not change bt while paired -> setting
-  
 - set brightness
 - set a black wall paper (and honor live wallpapers)
-
 - figure out how to get avail freqs (if not available)
-
 - Feature request: CPU temperature monitoring in addition to battery 
 - change profile in mainview even if profiles switching is not active
