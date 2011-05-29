@@ -6,7 +6,7 @@ V
 
 V 2.2.0
 * features
-- autoloading (time-specific) configurations 
+- time-specific configurations (autoloading configurations)
 - backup/restore settings to cloud
 - log profile and configuration switching
 * bug fixes
