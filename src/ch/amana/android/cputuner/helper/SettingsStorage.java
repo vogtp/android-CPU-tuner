@@ -28,7 +28,6 @@ public class SettingsStorage {
 	public static final int TRACK_CURRENT_HIDE = 3;
 	public static final int TRACK_BATTERY_LEVEL = 4;
 
-	private static final String DISABLE_DISPLAY_ISSUES = "prefKeyDisplayIssues";
 	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
 	private static final String PREF_KEY_USE_VIRTUAL_GOVS = "prefKeyUseVirtualGovernors";
 
