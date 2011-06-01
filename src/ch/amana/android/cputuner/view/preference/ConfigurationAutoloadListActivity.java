@@ -1,26 +1,33 @@
 package ch.amana.android.cputuner.view.preference;
 
+import java.util.Calendar;
+
 import android.app.ListActivity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.ConfigurationAutoload;
 import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class ConfigurationAutoloadActivity extends ListActivity {
+public class ConfigurationAutoloadListActivity extends ListActivity {
 
 	private SimpleCursorAdapter adapter;
 	private Cursor cursor;
@@ -66,7 +73,49 @@ public class ConfigurationAutoloadActivity extends ListActivity {
 				} else if (columnIndex == DB.ConfigurationAutoload.INDEX_NEXT_EXEC) {
 					long nextExecution = cursor.getLong(DB.ConfigurationAutoload.INDEX_NEXT_EXEC) - System.currentTimeMillis();
 					nextExecution /= 60 * 1000;
-					((TextView) view).setText("Next run: " + nextExecution + " min");
+					StringBuilder sb = new StringBuilder();
+					ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel(cursor);
+					if (cam.isWeekday(Calendar.SUNDAY)) {
+						sb.append(getString(R.string.day_sun)).append(" ");
+					}
+					if (cam.isWeekday(Calendar.MONDAY)) {
+						sb.append(getString(R.string.day_mon)).append(" ");
+					}
+					if (cam.isWeekday(Calendar.TUESDAY)) {
+						sb.append(getString(R.string.day_tue)).append(" ");
+					}
+					if (cam.isWeekday(Calendar.WEDNESDAY)) {
+						sb.append(getString(R.string.day_wed)).append(" ");
+					}
+					if (cam.isWeekday(Calendar.THURSDAY)) {
+						sb.append(getString(R.string.day_thu)).append(" ");
+					}
+					if (cam.isWeekday(Calendar.FRIDAY)) {
+						sb.append(getString(R.string.day_fri)).append(" ");
+					}
+					if (cam.isWeekday(Calendar.SATURDAY)) {
+						sb.append(getString(R.string.day_sat)).append(" ");
+					}
+					if (sb.length() > 0) {
+						sb.append("\n");
+					}
+					if (sb.length() > 0) {
+						sb.insert(0, " ");
+						sb.insert(0, getString(R.string.label_weekdays));
+					}
+					sb.append("Next run: ");
+					StringBuilder ne = new StringBuilder();
+					ne.append(nextExecution % 60).append(" min");
+					nextExecution = nextExecution / 60;
+					if (nextExecution > 0) {
+						ne.insert(0, " h ").insert(0, nextExecution % 24);
+						nextExecution = nextExecution / 24;
+						if (nextExecution > 0) {
+							ne.insert(0, " d ").insert(0, nextExecution);
+						}
+					}
+					sb.append(ne);
+					((TextView) view).setText(sb.toString());
 					return true;
 				}
 				return false;
@@ -120,39 +169,38 @@ public class ConfigurationAutoloadActivity extends ListActivity {
 		return false;
 	}
 
-	// @Override
-	// public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo
-	// menuInfo) {
-	// super.onCreateContextMenu(menu, v, menuInfo);
-	// getMenuInflater().inflate(R.menu.profilelist_context, menu); genaralise
-	// }
-	//
-	// @Override
-	// public boolean onContextItemSelected(MenuItem item) {
-	// super.onContextItemSelected(item);
-	//
-	// AdapterView.AdapterContextMenuInfo info;
-	// try {
-	// info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-	// } catch (ClassCastException e) {
-	// Logger.e("bad menuInfo", e);
-	// return false;
-	// }
-	//
-	// final Uri uri = ContentUris.withAppendedId(DB.CpuProfile.CONTENT_URI,
-	// info.id);
-	// switch (item.getItemId()) {
-	// case R.id.menuItemDelete:
-	// deleteProfile(uri);
-	// return true;
-	//
-	// case R.id.menuItemEdit:
-	// startActivity(new Intent(Intent.ACTION_EDIT, uri));
-	// return true;
-	//
-	// default:
-	// return handleCommonMenu(item);
-	// }
-	//
-	// }
+	@Override
+	 public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo
+	 menuInfo) {
+	 super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.db_list_context, menu);
+	 }
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		super.onContextItemSelected(item);
+
+		AdapterView.AdapterContextMenuInfo info;
+		try {
+			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+		} catch (ClassCastException e) {
+			Logger.e("bad menuInfo", e);
+			return false;
+		}
+
+		final Uri uri = ContentUris.withAppendedId(DB.ConfigurationAutoload.CONTENT_URI, info.id);
+		switch (item.getItemId()) {
+		case R.id.menuItemDelete:
+			getContentResolver().delete(uri, null, null);
+			return true;
+
+		case R.id.menuItemEdit:
+			startActivity(new Intent(Intent.ACTION_EDIT, uri));
+			return true;
+
+		default:
+			return handleCommonMenu(item);
+		}
+
+	}
 }

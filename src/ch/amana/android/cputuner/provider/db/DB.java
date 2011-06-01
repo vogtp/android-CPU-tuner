@@ -317,13 +317,14 @@ public interface DB {
 
 		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
 
-		public static final int FLAG_SUNDAY = 1;
-		public static final int FLAG_MONDAY = 2;
-		public static final int FLAG_TUESDAY = 4;
-		public static final int FLAG_WEDNESDAY = 8;
-		public static final int FLAG_THURSDAY = 16;
-		public static final int FLAG_FRIDAY = 32;
-		public static final int FLAG_SATURDAY = 64;
+		//
+		// public static final int FLAG_SUNDAY = Calendar.SUNDAY;
+		// public static final int FLAG_MONDAY = Calendar.MONDAY;
+		// public static final int FLAG_TUESDAY = Calendar.TUESDAY;
+		// public static final int FLAG_WEDNESDAY = Calendar.WEDNESDAY;
+		// public static final int FLAG_THURSDAY = Calendar.THURSDAY;
+		// public static final int FLAG_FRIDAY = Calendar.FRIDAY;
+		// public static final int FLAG_SATURDAY = Calendar.SATURDAY;
 
 		public static final String NAME_HOUR = "hour";
 		public static final String NAME_MINUTE = "minute";
