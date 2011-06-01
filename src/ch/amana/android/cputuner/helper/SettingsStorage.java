@@ -32,6 +32,8 @@ public class SettingsStorage {
 	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
 	private static final String PREF_KEY_USE_VIRTUAL_GOVS = "prefKeyUseVirtualGovernors";
 
+	private static final String PREF_KEY_CONFIGURATION = "prefKeyConfiguration";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -374,16 +376,17 @@ public class SettingsStorage {
 	}
 
 	public void setCurrentConfiguration(String configuration) {
-		this.configuration = configuration;
+		Editor edit = getPreferences().edit();
+		edit.putString(PREF_KEY_CONFIGURATION, configuration);
+		edit.commit();
 	}
 
 
 	public String getCurrentConfiguration() {
-		return configuration;
+		return getPreferences().getString(PREF_KEY_CONFIGURATION, null);
 	}
 
 	public SimpleDateFormat getSimpledateformat() {
 		return simpleDateFormat;
 	}
-
 }
