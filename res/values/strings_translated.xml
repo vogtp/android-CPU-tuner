@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<string name="saved_at">Saved at </string>
+	<string name="day_mon">Mon</string>
+	<string name="day_tue">Tue</string>
+	<string name="day_wed">Wed</string>
+	<string name="day_thu">Thu</string>
+	<string name="day_fri">Fri</string>
+	<string name="day_sat">Sat</string>
+	<string name="day_sun">Sun</string>
+	<string name="label_weekdays">Weekdays: </string>
 	<string name="prefConfigurationsManage">Manage configurations</string>
 	<string name="prefConfigurationsAutoLoad">Autoload configurations</string>
 	<string name="title_configuration_autoload_editor">Configuration autoload editor</string>
