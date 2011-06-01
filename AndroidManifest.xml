@@ -114,7 +114,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".view.preference.ConfigurationManageActivity"></activity>
-		<activity android:name=".view.preference.ConfigurationAutoloadActivity"></activity>
+		<activity android:name=".view.preference.ConfigurationAutoloadListActivity"></activity>
 		<activity android:name=".view.preference.ConfigurationAutoloadEditor"><intent-filter>
 				<action android:name="android.intent.action.INSERT"></action>
 				<data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.configurationAutoload"></data>

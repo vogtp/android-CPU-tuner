@@ -23,7 +23,7 @@ import ch.amana.android.cputuner.provider.db.DB.ConfigurationAutoload;
 import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class ConfigurationAutoloadActivity extends ListActivity {
+public class ConfigurationAutoloadListActivity extends ListActivity {
 
 	private SimpleCursorAdapter adapter;
 	private Cursor cursor;

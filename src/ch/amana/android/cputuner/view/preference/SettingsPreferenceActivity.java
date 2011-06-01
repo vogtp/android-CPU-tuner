@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.view.preference;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,17 +11,23 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
@@ -152,7 +159,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationAutoloadActivity.class);
+				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationAutoloadListActivity.class);
 				startActivity(i);
 				return true;
 			}
@@ -211,4 +218,48 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		}
 		return false;
 	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.db_list_context, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		super.onContextItemSelected(item);
+
+		AdapterView.AdapterContextMenuInfo info;
+		try {
+			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+		} catch (ClassCastException e) {
+			Logger.e("bad menuInfo", e);
+			return false;
+		}
+
+		final Uri uri = ContentUris.withAppendedId(DB.ConfigurationAutoload.CONTENT_URI, info.id);
+		switch (item.getItemId()) {
+		case R.id.menuItemDelete:
+			// deleteProfile(uri);
+			return true;
+
+		case R.id.menuItemEdit:
+			startActivity(new Intent(Intent.ACTION_EDIT, uri));
+			return true;
+
+		default:
+			return handleCommonMenu(item);
+		}
+
+	}
+
+	private boolean handleCommonMenu(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menuItemInsert:
+			startActivity(new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI));
+			return true;
+		}
+		return false;
+	}
+
 }
