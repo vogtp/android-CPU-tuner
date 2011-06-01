@@ -1,6 +1,8 @@
 - fragments: fix orientation change 
 - fragments: fix scrolling in profile editor
 
+- context menu for autoload
+
 - make autoload restoreable
 - backup configuration
 - create a default config

@@ -1,4 +1,6 @@
-package ch.amana.android.cputuner.view.activity;
+package ch.amana.android.cputuner.view.preference;
+
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.ContentUris;
@@ -17,6 +19,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsSpinnerAdapter;
 
 public class ConfigurationAutoloadEditor extends Activity {
@@ -27,6 +30,13 @@ public class ConfigurationAutoloadEditor extends Activity {
 	private ConfigurationAutoloadModel origCaModel;
 	private ConfigurationsSpinnerAdapter configurationsSpinnerAdapter;
 	private CheckBox cbExactScheduling;
+	private CheckBox cbMon;
+	private CheckBox cbTue;
+	private CheckBox cbWed;
+	private CheckBox cbThu;
+	private CheckBox cbFri;
+	private CheckBox cbSat;
+	private CheckBox cbSun;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -59,6 +69,14 @@ public class ConfigurationAutoloadEditor extends Activity {
 		tpLoadTime.setIs24HourView(SettingsStorage.getInstance().is24Hour());
 
 		cbExactScheduling = (CheckBox) findViewById(R.id.cbExactScheduling);
+
+		cbMon = (CheckBox) findViewById(R.id.cbMon);
+		cbTue = (CheckBox) findViewById(R.id.cbTue);
+		cbWed = (CheckBox) findViewById(R.id.cbWed);
+		cbThu = (CheckBox) findViewById(R.id.cbThu);
+		cbFri = (CheckBox) findViewById(R.id.cbFri);
+		cbSat = (CheckBox) findViewById(R.id.cbSat);
+		cbSun = (CheckBox) findViewById(R.id.cbSun);
 
 	}
 
@@ -115,6 +133,13 @@ public class ConfigurationAutoloadEditor extends Activity {
 		caModel.setHour(tpLoadTime.getCurrentHour());
 		caModel.setMinute(tpLoadTime.getCurrentMinute());
 		caModel.setExactScheduling(cbExactScheduling.isChecked());
+		caModel.setWeekdayBit(Calendar.SUNDAY, cbSun.isChecked());
+		caModel.setWeekdayBit(Calendar.MONDAY, cbMon.isChecked());
+		caModel.setWeekdayBit(Calendar.TUESDAY, cbTue.isChecked());
+		caModel.setWeekdayBit(Calendar.WEDNESDAY, cbWed.isChecked());
+		caModel.setWeekdayBit(Calendar.THURSDAY, cbThu.isChecked());
+		caModel.setWeekdayBit(Calendar.FRIDAY, cbFri.isChecked());
+		caModel.setWeekdayBit(Calendar.SATURDAY, cbSat.isChecked());
 	}
 
 	private void updateView() {
@@ -122,6 +147,13 @@ public class ConfigurationAutoloadEditor extends Activity {
 		tpLoadTime.setCurrentHour(caModel.getHour());
 		tpLoadTime.setCurrentMinute(caModel.getMinute());
 		cbExactScheduling.setChecked(caModel.isExactScheduling());
+		cbSun.setChecked(caModel.isWeekday(Calendar.SUNDAY));
+		cbMon.setChecked(caModel.isWeekday(Calendar.MONDAY));
+		cbTue.setChecked(caModel.isWeekday(Calendar.TUESDAY));
+		cbWed.setChecked(caModel.isWeekday(Calendar.WEDNESDAY));
+		cbThu.setChecked(caModel.isWeekday(Calendar.THURSDAY));
+		cbFri.setChecked(caModel.isWeekday(Calendar.FRIDAY));
+		cbSat.setChecked(caModel.isWeekday(Calendar.SATURDAY));
 	}
 
 	@Override

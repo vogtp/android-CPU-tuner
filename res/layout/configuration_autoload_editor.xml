@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent" android:layout_height="match_parent"
-	android:orientation="vertical" android:layout_gravity="bottom">
+	android:layout_gravity="bottom" android:orientation="vertical">
     <TextView android:layout_height="wrap_content" android:text="@string/label_load_configuration_1" android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
 	<Spinner android:layout_width="match_parent"
 		android:layout_height="wrap_content" android:id="@+id/spConfiguration"></Spinner>
@@ -9,7 +9,19 @@
 	<TimePicker android:layout_height="wrap_content" android:id="@+id/tpLoadTime"
 		android:layout_width="wrap_content">
 	</TimePicker>
-	<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1"></LinearLayout>
+	<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/llWeekdays" android:layout_margin="4dp">
+		<TableRow android:layout_height="match_parent" android:layout_width="wrap_content" android:id="@+id/linearLayout1">
+			<CheckBox android:id="@+id/cbMon" android:text="@string/day_mon" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+			<CheckBox android:id="@+id/cbTue" android:text="@string/day_tue" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+			<CheckBox android:id="@+id/cbWed" android:text="@string/day_wed" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+			<CheckBox android:id="@+id/cbThu" android:text="@string/day_thu" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+		</TableRow>
+	<TableRow android:layout_height="match_parent" android:layout_width="wrap_content" android:id="@+id/linearLayout1">
+			<CheckBox android:id="@+id/cbFri" android:text="@string/day_fri" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+			<CheckBox android:id="@+id/cbSat" android:text="@string/day_sat" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+			<CheckBox android:id="@+id/cbSun" android:text="@string/day_sun" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+		</TableRow>
+	</TableLayout>
 	<CheckBox android:id="@+id/cbExactScheduling"
 		android:layout_height="wrap_content" android:layout_width="match_parent"
 		android:text="@string/cbExactScheduling"></CheckBox>

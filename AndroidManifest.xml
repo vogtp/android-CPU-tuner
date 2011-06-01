@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="ch.amana.android.cputuner" android:versionName="@string/version"
-	android:installLocation="internalOnly" android:versionCode="201105291">
+	android:installLocation="internalOnly" android:versionCode="201106010">
     <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
@@ -115,7 +115,7 @@
 		</activity>
 		<activity android:name=".view.preference.ConfigurationManageActivity"></activity>
 		<activity android:name=".view.preference.ConfigurationAutoloadActivity"></activity>
-		<activity android:name=".view.activity.ConfigurationAutoloadEditor"><intent-filter>
+		<activity android:name=".view.preference.ConfigurationAutoloadEditor"><intent-filter>
 				<action android:name="android.intent.action.INSERT"></action>
 				<data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.configurationAutoload"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>

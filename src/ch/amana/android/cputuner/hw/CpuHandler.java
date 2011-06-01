@@ -147,12 +147,6 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setMinCpuFreq(int i) {
-		// if (i >= getMaxCpuFreq()) {
-		// if (Logger.DEBUG) {
-		// RootHandler.writeLog("Not setting MinCpuFreq since higher than MaxCpuFreq");
-		// }
-		// return false;
-		// }
 		Logger.i("Setting min frequency to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MIN_FREQ), Integer.toString(i));
 	}
@@ -189,10 +183,6 @@ public class CpuHandler extends HardwareHandler {
 		if (i < 1) {
 			return false;
 		}
-		// int govThresholdDown = getGovThresholdDown();
-		// if (i <= govThresholdDown) {
-		// i = govThresholdDown + 10;
-		// }
 		if (i > 100) {
 			i = 98;
 		}
@@ -218,9 +208,6 @@ public class CpuHandler extends HardwareHandler {
 		if (i > 100) {
 			i = 95;
 		}
-		// if (i >= govThresholdUp) {
-		// i = govThresholdUp - 10;
-		// }
 		Logger.i("Setting threshold down to " + i);
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), i + "");
 	}

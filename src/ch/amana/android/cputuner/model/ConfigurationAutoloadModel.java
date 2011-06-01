@@ -11,7 +11,6 @@ import ch.amana.android.cputuner.provider.db.DB;
 
 public class ConfigurationAutoloadModel {
 
-
 	private long id = -1;
 
 	private int hour;
@@ -31,7 +30,7 @@ public class ConfigurationAutoloadModel {
 		this.id = c.getLong(DB.INDEX_ID);
 		this.hour = c.getInt(DB.ConfigurationAutoload.INDEX_HOUR);
 		this.minute = c.getInt(DB.ConfigurationAutoload.INDEX_MINUTE);
-		this.weekday = c.getInt(DB.ConfigurationAutoload.INDEX_WEEKDAY);
+		setWeekday(c.getInt(DB.ConfigurationAutoload.INDEX_WEEKDAY));
 		this.configuration = c.getString(DB.ConfigurationAutoload.INDEX_CONFIGURATION);
 		this.nextExecution = c.getLong(DB.ConfigurationAutoload.INDEX_NEXT_EXEC);
 		setExactScheduling(c.getInt(DB.ConfigurationAutoload.INDEX_EXACT_SCEDULING));
@@ -60,7 +59,7 @@ public class ConfigurationAutoloadModel {
 		id = bundle.getLong(DB.NAME_ID);
 		hour = bundle.getInt(DB.ConfigurationAutoload.NAME_HOUR);
 		minute = bundle.getInt(DB.ConfigurationAutoload.NAME_MINUTE);
-		weekday = bundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
+		setWeekday(bundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY));
 		configuration = bundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
 		nextExecution = bundle.getLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC);
 		exactScheduling = bundle.getBoolean(DB.ConfigurationAutoload.NAME_EXACT_SCEDULING);
@@ -71,7 +70,7 @@ public class ConfigurationAutoloadModel {
 		id = jsonBundle.getLong(DB.NAME_ID);
 		hour = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_HOUR);
 		minute = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_MINUTE);
-		weekday = jsonBundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY);
+		setWeekday(jsonBundle.getInt(DB.ConfigurationAutoload.NAME_WEEKDAY));
 		configuration = jsonBundle.getString(DB.ConfigurationAutoload.NAME_CONFIGURATION);
 		nextExecution = jsonBundle.getLong(DB.ConfigurationAutoload.NAME_NEXT_EXEC);
 		setExactScheduling(jsonBundle.getInt(DB.ConfigurationAutoload.NAME_EXACT_SCEDULING));
@@ -129,6 +128,37 @@ public class ConfigurationAutoloadModel {
 		return weekday;
 	}
 
+	private void printWeekday() {
+		String out = "";
+		for (int i = 0; i < 7; i++) {
+			out = out + (isWeekdayInt(i) ? "1" : "0");
+		}
+		Logger.d("Weekday: " + out);
+	}
+
+	public boolean isWeekday(int weekdayBit) {
+		boolean b = isWeekdayInt(weekdayBit);
+		Logger.d("Weekday bit " + weekdayBit + " is set " + b);
+		printWeekday();
+		return b;
+	}
+
+	private boolean isWeekdayInt(int weekdayBit) {
+		boolean b = ((weekday >>> weekdayBit) & 1) != 0;
+		return b;
+	}
+
+	public void setWeekdayBit(int weekdayBit, boolean b) {
+		int weekdayBitMask = (int) Math.pow(2, weekdayBit);
+		Logger.d("Weekday bit " + weekdayBit + " set to " + b);
+		if (b) {
+			weekday |= weekdayBitMask;
+		} else {
+			weekday &= ~weekdayBitMask;
+		}
+		printWeekday();
+	}
+
 	public void setWeekday(int weekday) {
 		this.weekday = weekday;
 	}
@@ -143,9 +173,9 @@ public class ConfigurationAutoloadModel {
 
 	public long getNextExecution() {
 		// if (nextExecution <= System.currentTimeMillis()) {
-			calcNextExecution();
+		calcNextExecution();
 		// }
-		return nextExecution ;
+		return nextExecution;
 	}
 
 	public void calcNextExecution() {
@@ -159,8 +189,18 @@ public class ConfigurationAutoloadModel {
 				cal.add(Calendar.DAY_OF_YEAR, 1);
 			}
 		}
-		Logger.d("Next execution: " + cal.toString());
+		if (weekday > 0) {
+			boolean loop = true;
+			for (int i = 0; loop && i < 8; i++) {
+				if (isWeekday(cal.get(Calendar.DAY_OF_WEEK))) {
+					loop = false;
+				} else {
+					cal.add(Calendar.DAY_OF_MONTH, 1);
+				}
+			}
+		}
 		nextExecution = cal.getTimeInMillis();
+		Logger.d("Next execution: " + cal.toString());
 	}
 
 	@Override
@@ -218,4 +258,5 @@ public class ConfigurationAutoloadModel {
 	private int getExactScheduling() {
 		return exactScheduling ? 1 : 0;
 	}
+
 }
