@@ -4,6 +4,12 @@ V
 * bug fixes
 -
 
+V 2.2.2
+* features
+- 
+* bug fixes
+- fix force close in autoload editor
+
 V 2.2.1
 * features
 - 

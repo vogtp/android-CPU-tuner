@@ -1,11 +1,14 @@
 package ch.amana.android.cputuner.view.activity;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
@@ -73,19 +76,23 @@ public class ConfigurationAutoloadEditor extends Activity {
 		super.onPause();
 		updateModel();
 		try {
-			String action = getIntent().getAction();
-			if (Intent.ACTION_INSERT.equals(action)) {
-				Uri uri = getContentResolver().insert(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues());
-				long id = ContentUris.parseId(uri);
-				if (id > 0) {
-					caModel.setDbId(id);
-				}
-			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (caModel.equals(origCaModel)) {
-					return;
-				}
-				if (!caModel.equals(origCaModel)) {
-					getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues(), DB.NAME_ID + "=?", new String[] { Long.toString(caModel.getDbId()) });
+			String config = caModel.getConfiguration();
+			if (config != null && !TextUtils.isEmpty(config.trim())) {
+				String action = getIntent().getAction();
+				if (Intent.ACTION_INSERT.equals(action)) {
+					Uri uri = getContentResolver().insert(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues());
+					long id = ContentUris.parseId(uri);
+					if (id > 0) {
+						caModel.setDbId(id);
+					}
+				} else if (Intent.ACTION_EDIT.equals(action)) {
+					if (caModel.equals(origCaModel)) {
+						return;
+					}
+					if (!caModel.equals(origCaModel)) {
+						getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues(), 
+								DB.NAME_ID + "=?", new String[] { Long.toString(caModel.getDbId()) });
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -111,7 +118,10 @@ public class ConfigurationAutoloadEditor extends Activity {
 	}
 
 	private void updateModel() {
-		caModel.setConfiguration(configurationsSpinnerAdapter.getDirectory(spConfiguration.getSelectedItemPosition()).getName());
+		File directory = configurationsSpinnerAdapter.getDirectory(spConfiguration.getSelectedItemPosition());
+		if (directory != null) {
+			caModel.setConfiguration(directory.getName());
+		}
 		caModel.setHour(tpLoadTime.getCurrentHour());
 		caModel.setMinute(tpLoadTime.getCurrentMinute());
 		caModel.setExactScheduling(cbExactScheduling.isChecked());
