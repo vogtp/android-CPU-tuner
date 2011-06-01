@@ -8,15 +8,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.ConfigurationAutoload;
@@ -165,39 +169,38 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 		return false;
 	}
 
-	// @Override
-	// public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo
-	// menuInfo) {
-	// super.onCreateContextMenu(menu, v, menuInfo);
-	// getMenuInflater().inflate(R.menu.profilelist_context, menu); genaralise
-	// }
-	//
-	// @Override
-	// public boolean onContextItemSelected(MenuItem item) {
-	// super.onContextItemSelected(item);
-	//
-	// AdapterView.AdapterContextMenuInfo info;
-	// try {
-	// info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-	// } catch (ClassCastException e) {
-	// Logger.e("bad menuInfo", e);
-	// return false;
-	// }
-	//
-	// final Uri uri = ContentUris.withAppendedId(DB.CpuProfile.CONTENT_URI,
-	// info.id);
-	// switch (item.getItemId()) {
-	// case R.id.menuItemDelete:
-	// deleteProfile(uri);
-	// return true;
-	//
-	// case R.id.menuItemEdit:
-	// startActivity(new Intent(Intent.ACTION_EDIT, uri));
-	// return true;
-	//
-	// default:
-	// return handleCommonMenu(item);
-	// }
-	//
-	// }
+	@Override
+	 public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo
+	 menuInfo) {
+	 super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.db_list_context, menu);
+	 }
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		super.onContextItemSelected(item);
+
+		AdapterView.AdapterContextMenuInfo info;
+		try {
+			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+		} catch (ClassCastException e) {
+			Logger.e("bad menuInfo", e);
+			return false;
+		}
+
+		final Uri uri = ContentUris.withAppendedId(DB.ConfigurationAutoload.CONTENT_URI, info.id);
+		switch (item.getItemId()) {
+		case R.id.menuItemDelete:
+			getContentResolver().delete(uri, null, null);
+			return true;
+
+		case R.id.menuItemEdit:
+			startActivity(new Intent(Intent.ACTION_EDIT, uri));
+			return true;
+
+		default:
+			return handleCommonMenu(item);
+		}
+
+	}
 }
