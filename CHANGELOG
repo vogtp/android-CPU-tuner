@@ -8,6 +8,7 @@ V 2.3.0
 * features
 - autoload based on weekdays 
 - context menu for autoload
+- fix trigger list layout with long profile names
 * bug fixes
 -
 
