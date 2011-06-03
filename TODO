@@ -1,12 +1,12 @@
+- handle two configuration have the same name
+- save configuration on switch
+
 - fragments: fix orientation change 
 - fragments: fix scrolling in profile editor
 
 - make autoload restoreable
 - backup configuration
 - create a default config
-
-- handle two configuration have the same name
-- save configuration on switch
 
 - add controls for 4G(wimax)
 
