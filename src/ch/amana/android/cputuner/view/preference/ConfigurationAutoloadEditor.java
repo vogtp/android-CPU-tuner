@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
@@ -91,6 +92,10 @@ public class ConfigurationAutoloadEditor extends Activity {
 		super.onPause();
 		updateModel();
 		try {
+			String configuration = caModel.getConfiguration();
+			if (configuration == null || !TextUtils.isEmpty(configuration.trim())) {
+				return;
+			}
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
 				Uri uri = getContentResolver().insert(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues());
@@ -129,7 +134,11 @@ public class ConfigurationAutoloadEditor extends Activity {
 	}
 
 	private void updateModel() {
-		caModel.setConfiguration(configurationsSpinnerAdapter.getDirectory(spConfiguration.getSelectedItemPosition()).getName());
+		try {
+			caModel.setConfiguration(configurationsSpinnerAdapter.getDirectory(spConfiguration.getSelectedItemPosition()).getName());
+		} catch (Exception e) {
+			Logger.w("No configuration chosen");
+		}
 		caModel.setHour(tpLoadTime.getCurrentHour());
 		caModel.setMinute(tpLoadTime.getCurrentMinute());
 		caModel.setExactScheduling(cbExactScheduling.isChecked());
