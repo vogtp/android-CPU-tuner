@@ -4,10 +4,10 @@ V
 * bug fixes
 -
 
-V 2.3.0
+V 2.2.2
 * features
 - autoload based on weekdays 
-- context menu for autoload
+- delete autoload configurations
 - fix trigger list layout with long profile names
 * bug fixes
 - fix force close in autoload editor
