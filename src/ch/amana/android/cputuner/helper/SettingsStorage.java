@@ -388,4 +388,13 @@ public class SettingsStorage {
 	public SimpleDateFormat getSimpledateformat() {
 		return simpleDateFormat;
 	}
+
+	public boolean isSaveConfigOnSwitch() {
+		return getPreferences().getBoolean("prefKeySaveConfigOnSwitch", true);
+	}
+
+	public boolean hasCurrentConfiguration() {
+		String config = getCurrentConfiguration();
+		return config != null && !config.trim().equals("");
+	}
 }

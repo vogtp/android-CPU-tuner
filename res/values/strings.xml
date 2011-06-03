@@ -6,6 +6,8 @@
 		<!-- <item>Battery % per hour</item> -->
 		<item>No calculation</item>
 	</string-array>
+		<string name="prefConfigurationsSettings">Configurations Settings</string>
+		<string name="prefSaveConfigOnSwitch">Save on autoload</string>
 		
 </resources>
 

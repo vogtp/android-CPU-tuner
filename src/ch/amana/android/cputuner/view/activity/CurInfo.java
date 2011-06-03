@@ -447,10 +447,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			} else {
 				GuiUtils.hideViews(trPulse, new View[] { spacerPulse, tvPulse });
 			}
-			String config = settings.getCurrentConfiguration();
-			if (config != null && !config.trim().equals("")) {
+			if (settings.hasCurrentConfiguration()) {
 				GuiUtils.showViews(trConfig, new View[] { labelConfig, tvConfig });
-				tvConfig.setText(config);
+				tvConfig.setText(settings.getCurrentConfiguration());
 			} else {
 				GuiUtils.hideViews(trConfig, new View[] { labelConfig, tvConfig });
 			}

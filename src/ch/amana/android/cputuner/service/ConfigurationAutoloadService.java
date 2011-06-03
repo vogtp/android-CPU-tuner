@@ -83,9 +83,14 @@ public class ConfigurationAutoloadService extends IntentService {
 				if (cam != null) {
 					String configuration = cam.getConfiguration();
 					try {
+						SettingsStorage settings = SettingsStorage.getInstance();
+						if (settings.isSaveConfigOnSwitch() && settings.hasCurrentConfiguration()) {
+							BackupRestoreHelper.backupConfiguration(getApplicationContext(), settings.getCurrentConfiguration());
+						}
+
 						BackupRestoreHelper.restoreConfiguration(getApplicationContext(), configuration, false);
 						Logger.addToLog("Loaded configuration " + configuration);
-						SettingsStorage.getInstance().setCurrentConfiguration(configuration);
+						settings.setCurrentConfiguration(configuration);
 					} catch (Exception e) {
 						Logger.e("Cannot autoload configuration " + configuration, e);
 					}
