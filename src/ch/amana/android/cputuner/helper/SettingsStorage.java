@@ -397,4 +397,8 @@ public class SettingsStorage {
 		String config = getCurrentConfiguration();
 		return config != null && !config.trim().equals("");
 	}
+
+	public boolean useMulticore() {
+		return isEnableBeta();
+	}
 }

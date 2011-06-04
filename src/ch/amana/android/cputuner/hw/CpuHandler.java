@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.hw;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -25,26 +26,27 @@ public class CpuHandler extends HardwareHandler {
 	public static final String GOV_USERSPACE = "userspace";
 	public static final String GOV_SMARTASS = "smartass";
 
-	public static final String CPU_DIR = "/sys/devices/system/cpu/cpu0/cpufreq/";
+	public static final String CPU_BASE_DIR = "/sys/devices/system/cpu/";
+	public static final String CPU_DIR = CPU_BASE_DIR + "/cpu0/cpufreq/";
 
-	private static final String SCALING_GOVERNOR = "scaling_governor";
+	protected static final String SCALING_GOVERNOR = "scaling_governor";
 	public static final String SCALING_MAX_FREQ = "scaling_max_freq";
-	private static final String SCALING_MIN_FREQ = "scaling_min_freq";
-	private static final String SCALING_SETSPEED = "scaling_setspeed";
-	private static final String SCALING_CUR_FREQ = "scaling_cur_freq";
-	private static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
-	private static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
-	private static final String POWERSAVE_BIAS = "powersave_bias";
+	protected static final String SCALING_MIN_FREQ = "scaling_min_freq";
+	protected static final String SCALING_SETSPEED = "scaling_setspeed";
+	protected static final String SCALING_CUR_FREQ = "scaling_cur_freq";
+	protected static final String SCALING_AVAILABLE_GOVERNORS = "scaling_available_governors";
+	protected static final String SCALING_AVAILABLE_FREQUENCIES = "scaling_available_frequencies";
+	protected static final String POWERSAVE_BIAS = "powersave_bias";
 
-	private static final String GOV_TRESHOLD_UP = "up_threshold";
-	private static final String GOV_TRESHOLD_DOWN = "down_threshold";
-	private static final String CPUINFO_MIN_FREQ = "cpuinfo_min_freq";
-	private static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
-	private static final String GOV_SAMPLING_RATE = "sampling_rate";
+	protected static final String GOV_TRESHOLD_UP = "up_threshold";
+	protected static final String GOV_TRESHOLD_DOWN = "down_threshold";
+	protected static final String CPUINFO_MIN_FREQ = "cpuinfo_min_freq";
+	protected static final String CPUINFO_MAX_FREQ = "cpuinfo_max_freq";
+	protected static final String GOV_SAMPLING_RATE = "sampling_rate";
 
-	private static final String CPU_STATS_DIR = CPU_DIR + "stats/";
-	private static final String TIME_IN_STATE = "time_in_state";
-	private static final String TOTAL_TRANSITIONS = "total_trans";
+	protected static final String CPU_STATS_DIR = CPU_DIR + "stats/";
+	protected static final String TIME_IN_STATE = "time_in_state";
+	protected static final String TOTAL_TRANSITIONS = "total_trans";
 
 	private boolean availCpuFreq = true;
 	private final Map<String, File> fileMap = new WeakHashMap<String, File>();
@@ -53,7 +55,27 @@ public class CpuHandler extends HardwareHandler {
 
 	public static CpuHandler getInstance() {
 		if (instance == null) {
-			instance = new CpuHandler();
+			if (SettingsStorage.getInstance().isEnableBeta()) {
+				File cpuBase = new File(CPU_BASE_DIR);
+				String[] cpus = cpuBase.list(new FilenameFilter() {
+
+					@Override
+					public boolean accept(File dir, String filename) {
+						File file = new File(dir, filename);
+						return file.isDirectory() && filename.matches("cpu\\d");
+					}
+				});
+				Logger.i("Found " + cpus.length + " CPUs");
+				if (cpus.length > 1 && SettingsStorage.getInstance().useMulticore()) {
+					Logger.i("Using multicore code");
+					instance = new CpuHandlerMulticore(cpus);
+				} else {
+					Logger.i("Using singlecore code");
+					instance = new CpuHandler();
+				}
+			} else {
+				instance = new CpuHandler();
+			}
 		}
 		return instance;
 	}
@@ -128,12 +150,6 @@ public class CpuHandler extends HardwareHandler {
 	}
 
 	public boolean setMaxCpuFreq(int val) {
-		// if (val <= getMinCpuFreq()) {
-		// if (Logger.DEBUG) {
-		// RootHandler.writeLog("Not setting MaxCpuFreq since lower than MinCpuFreq");
-		// }
-		// return false;
-		// }
 		Logger.i("Setting max frequency to " + val);
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_MAX_FREQ), Integer.toString(val));
 	}
@@ -190,7 +206,7 @@ public class CpuHandler extends HardwareHandler {
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP), i + "");
 	}
 
-	private File getFile(String path, String name) {
+	protected File getFile(String path, String name) {
 		StringBuilder sb = new StringBuilder(path.length() + 30);
 		sb.append(path).append("/").append(name);
 		File file = fileMap.get(sb.toString());
