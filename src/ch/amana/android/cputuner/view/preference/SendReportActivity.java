@@ -170,8 +170,8 @@ public class SendReportActivity extends Activity {
 			addFileToZip(zip, "", FILE_GETPROP);
 			addFileToZip(zip, "", FILE_KERNEL_CPUFREQ_CONFIG);
 			addFileToZip(zip, "DB", DB.DATABASE_NAME + ".json");
-			addDirectoryToZip(zip, "cpufreq", new File(CpuHandler.CPU_DIR), true);
-			addDirectoryToZip(zip, "battery", new File(BatteryHandler.BATTERY_DIR), true);
+			addDirectoryToZip(zip, "cpufreq", new File(CpuHandler.CPU_BASE_DIR), 5);
+			addDirectoryToZip(zip, "battery", new File(BatteryHandler.BATTERY_DIR), 5);
 			zip.flush();
 			zip.close();
 
@@ -185,14 +185,17 @@ public class SendReportActivity extends Activity {
 		}
 	}
 
-	private void addDirectoryToZip(ZipOutputStream zip, String prefix, File cpuFreqDir, boolean traverse) {
+	private void addDirectoryToZip(ZipOutputStream zip, String prefix, File cpuFreqDir, int depth) {
+		if (depth < 0) {
+			return;
+		}
 		File[] cpufreqFiles = cpuFreqDir.listFiles();
 		if (cpufreqFiles == null) {
 			return;
 		}
 		for (int i = 0; i < cpufreqFiles.length; i++) {
-			if (traverse && cpufreqFiles[i].isDirectory()) {
-				addDirectoryToZip(zip, prefix + "/" + cpufreqFiles[i].getName(), cpufreqFiles[i], false);
+			if (cpufreqFiles[i].isDirectory()) {
+				addDirectoryToZip(zip, prefix + "/" + cpufreqFiles[i].getName(), cpufreqFiles[i], depth - 1);
 			} else {
 				addFileToZip(zip, prefix, cpufreqFiles[i]);
 			}
