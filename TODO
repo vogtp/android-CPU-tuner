@@ -1,12 +1,14 @@
+- fix multicore: update profile on updating virtual governors
+- diable cores: echo 0 >> /sys/devices/system/cpu/cpu1/online
+
+- handle two configuration have the same name
+
 - fragments: fix orientation change 
 - fragments: fix scrolling in profile editor
 
 - make autoload restoreable
 - backup configuration
 - create a default config
-
-- handle two configuration have the same name
-- save configuration on switch
 
 - add controls for 4G(wimax)
 
