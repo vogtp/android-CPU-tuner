@@ -84,7 +84,8 @@ public class DBBackendVirtualGovernor {
 		}
 
 		// Get the database and run the query
-		SQLiteDatabase db = openHelper.getReadableDatabase();
+		// SQLiteDatabase db = openHelper.getReadableDatabase();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
 		Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
 
 		return c;

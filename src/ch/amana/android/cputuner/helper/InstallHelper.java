@@ -53,7 +53,7 @@ public class InstallHelper {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				CpuTunerProvider.deleteAllTables(ctx, true);
+				CpuTunerProvider.deleteAllTables(ctx, false);
 				updateDefaultProfiles(ctx);
 
 			}
