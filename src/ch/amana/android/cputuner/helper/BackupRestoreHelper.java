@@ -31,6 +31,7 @@ public class BackupRestoreHelper {
 		SQLiteDatabase db = new OpenHelper(ctx).getWritableDatabase();
 		ExportDataTask exportDataTask = new ExportDataTask(ctx, db, storagePath, ExportDataTask.ExportType.JSON);
 		exportDataTask.execute(new String[] { DB.DATABASE_NAME });
+		db.close();
 	}
 
 	public static File getStoragePath(Context ctx, String directory) {
