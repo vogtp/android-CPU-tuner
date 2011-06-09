@@ -11,6 +11,12 @@ V
 * bug fixes
 -
 
+V 2.2.3 
+* features
+- 
+* bug fixes
+- fix forcecloses
+
 V 2.2.2
 * features
 - autoload based on weekdays 
