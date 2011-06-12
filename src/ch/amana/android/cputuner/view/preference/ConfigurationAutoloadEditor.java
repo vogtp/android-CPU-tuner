@@ -93,7 +93,7 @@ public class ConfigurationAutoloadEditor extends Activity {
 		updateModel();
 		try {
 			String configuration = caModel.getConfiguration();
-			if (configuration == null || !TextUtils.isEmpty(configuration.trim())) {
+			if (configuration == null || TextUtils.isEmpty(configuration.trim())) {
 				return;
 			}
 			String action = getIntent().getAction();
