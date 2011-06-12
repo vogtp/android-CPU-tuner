@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -29,7 +31,7 @@ import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 
-public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener {
+public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	private ConfigurationsAdapter configurationsAdapter;
@@ -135,8 +137,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = input.getText().toString();
 				saveConfig(name);
-				updateListView();
 			}
+
 		});
 		alertBuilder.setNegativeButton(android.R.string.cancel, null);
 		alertBuilder.show();
@@ -250,5 +252,15 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	private void updateListView() {
 		configurationsAdapter.notifyDataSetChanged();
 		getListView().refreshDrawableState();
+	}
+
+	@Override
+	public Context getContext() {
+		return this;
+	}
+
+	@Override
+	public void hasFinished(boolean success) {
+		updateListView();
 	}
 }

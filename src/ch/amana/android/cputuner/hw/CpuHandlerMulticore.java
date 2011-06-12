@@ -81,5 +81,8 @@ public class CpuHandlerMulticore extends CpuHandler {
 		return writeFile(getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
 	}
 
+	public int numberOfCpus() {
+		return cpus.length;
+	}
 
 }

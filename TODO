@@ -1,5 +1,4 @@
-- fix multicore: update profile on updating virtual governors
-- diable cores: echo 0 >> /sys/devices/system/cpu/cpu1/online
+- disable cores: echo 0 >> /sys/devices/system/cpu/cpu1/online
 
 - handle two configuration have the same name
 

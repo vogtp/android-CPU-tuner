@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
@@ -24,21 +25,21 @@ public class BackupRestoreHelper {
 
 	public static final String DIRECTORY_CONFIGURATIONS = "configurations";
 
-	public static void backup(Context ctx, File storagePath) {
+	public static void backup(BackupRestoreCallback cb, File storagePath) {
 		if (!storagePath.isDirectory()) {
 			storagePath.mkdir();
 		}
-		SQLiteDatabase db = new OpenHelper(ctx).getWritableDatabase();
-		ExportDataTask exportDataTask = new ExportDataTask(ctx, db, storagePath, ExportDataTask.ExportType.JSON);
+		SQLiteDatabase db = new OpenHelper(cb.getContext()).getWritableDatabase();
+		ExportDataTask exportDataTask = new ExportDataTask(cb, db, storagePath, ExportDataTask.ExportType.JSON);
 		exportDataTask.execute(new String[] { DB.DATABASE_NAME });
-		db.close();
 	}
 
 	public static File getStoragePath(Context ctx, String directory) {
 		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directory);
 	}
 
-	public static void restore(Context ctx, File storagePath, boolean inclAutoloadConfig) throws Exception {
+	public static void restore(BackupRestoreCallback cb, File storagePath, boolean inclAutoloadConfig) throws Exception {
+		Context ctx = cb.getContext();
 		CpuTunerProvider.deleteAllTables(ctx, inclAutoloadConfig);
 		ContentResolver contentResolver = ctx.getContentResolver();
 		DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, storagePath);
@@ -49,8 +50,10 @@ public class BackupRestoreHelper {
 			if (inclAutoloadConfig) {
 				loadAutoloadConfig(contentResolver, dje);
 			}
+			cb.hasFinished(true);
 		} catch (JSONException e) {
 			Logger.e("Cannot restore tables", e);
+			cb.hasFinished(false);
 			throw new Exception("Error restoring", e);
 		}
 	}
@@ -91,12 +94,12 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	public static void backupConfiguration(Context ctx, String name) {
-		backup(ctx, new File(BackupRestoreHelper.getStoragePath(ctx, DIRECTORY_CONFIGURATIONS), name));
+	public static void backupConfiguration(BackupRestoreCallback cb, String name) {
+		backup(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name));
 	}
 
-	public static void restoreConfiguration(Context ctx, String name, boolean inclAutoloadConfig) throws Exception {
-		restore(ctx, new File(BackupRestoreHelper.getStoragePath(ctx, DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
+	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean inclAutoloadConfig) throws Exception {
+		restore(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
 	}
 
 }

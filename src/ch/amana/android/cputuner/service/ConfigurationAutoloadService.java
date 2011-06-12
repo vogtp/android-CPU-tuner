@@ -8,13 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class ConfigurationAutoloadService extends IntentService {
+public class ConfigurationAutoloadService extends IntentService implements BackupRestoreCallback {
 
 	public static final String ACTION_SCEDULE_AUTOLOAD = "ch.amana.android.cputuner.INTENT_SCEDULE_AUTOLOAD";
 
@@ -85,10 +86,10 @@ public class ConfigurationAutoloadService extends IntentService {
 					try {
 						SettingsStorage settings = SettingsStorage.getInstance();
 						if (settings.isSaveConfigOnSwitch() && settings.hasCurrentConfiguration()) {
-							BackupRestoreHelper.backupConfiguration(getApplicationContext(), settings.getCurrentConfiguration());
+							BackupRestoreHelper.backupConfiguration(this, settings.getCurrentConfiguration());
 						}
 
-						BackupRestoreHelper.restoreConfiguration(getApplicationContext(), configuration, false);
+						BackupRestoreHelper.restoreConfiguration(this, configuration, false);
 						Logger.addToLog("Loaded configuration " + configuration);
 						settings.setCurrentConfiguration(configuration);
 					} catch (Exception e) {
@@ -98,5 +99,15 @@ public class ConfigurationAutoloadService extends IntentService {
 			}
 		}
 		scheduleNextEvent(this);
+	}
+
+	@Override
+	public Context getContext() {
+		return getApplicationContext();
+	}
+
+	@Override
+	public void hasFinished(boolean success) {
+		// no need to do something
 	}
 }
