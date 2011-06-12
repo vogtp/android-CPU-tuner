@@ -23,6 +23,13 @@ public class ConfigurationAutoloadModel {
 
 	public ConfigurationAutoloadModel() {
 		super();
+		setWeekdayBit(Calendar.MONDAY, true);
+		setWeekdayBit(Calendar.TUESDAY, true);
+		setWeekdayBit(Calendar.WEDNESDAY, true);
+		setWeekdayBit(Calendar.THURSDAY, true);
+		setWeekdayBit(Calendar.FRIDAY, true);
+		setWeekdayBit(Calendar.SATURDAY, true);
+		setWeekdayBit(Calendar.SUNDAY, true);
 	}
 
 	public ConfigurationAutoloadModel(Cursor c) {
