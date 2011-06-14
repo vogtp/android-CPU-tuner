@@ -102,4 +102,21 @@ public class BackupRestoreHelper {
 		restore(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
 	}
 
+	public static void saveConfiguration(final Context ctx) {
+		SettingsStorage settings = SettingsStorage.getInstance();
+		if (settings.isSaveConfiguration()) {
+			BackupRestoreCallback callback = new BackupRestoreCallback() {
+				@Override
+				public void hasFinished(boolean success) {
+				}
+
+				@Override
+				public Context getContext() {
+					return ctx;
+				}
+			};
+			BackupRestoreHelper.backupConfiguration(callback, settings.getCurrentConfiguration());
+		}
+	}
+
 }
