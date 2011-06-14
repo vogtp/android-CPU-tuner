@@ -96,6 +96,9 @@ public class ConfigurationAutoloadEditor extends Activity {
 			if (configuration == null || TextUtils.isEmpty(configuration.trim())) {
 				return;
 			}
+			if (caModel.equals(origCaModel)) {
+				return;
+			}
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
 				Uri uri = getContentResolver().insert(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues());
@@ -104,9 +107,6 @@ public class ConfigurationAutoloadEditor extends Activity {
 					caModel.setDbId(id);
 				}
 			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (caModel.equals(origCaModel)) {
-					return;
-				}
 				if (!caModel.equals(origCaModel)) {
 					getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues(), DB.NAME_ID + "=?", new String[] { Long.toString(caModel.getDbId()) });
 				}
@@ -177,9 +177,7 @@ public class ConfigurationAutoloadEditor extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			Bundle bundle = new Bundle();
-			origCaModel.saveToBundle(bundle);
-			caModel.readFromBundle(bundle);
+			origCaModel = caModel;
 			updateView();
 			finish();
 			return true;
