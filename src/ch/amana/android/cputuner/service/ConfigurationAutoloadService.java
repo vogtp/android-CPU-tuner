@@ -85,10 +85,6 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 					String configuration = cam.getConfiguration();
 					try {
 						SettingsStorage settings = SettingsStorage.getInstance();
-						if (settings.isSaveConfigOnSwitch() && settings.hasCurrentConfiguration()) {
-							BackupRestoreHelper.backupConfiguration(this, settings.getCurrentConfiguration());
-						}
-
 						BackupRestoreHelper.restoreConfiguration(this, configuration, false);
 						Logger.addToLog("Loaded configuration " + configuration);
 						settings.setCurrentConfiguration(configuration);

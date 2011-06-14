@@ -26,6 +26,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
@@ -402,12 +403,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 				if (id > 0) {
 					profile.setDbId(id);
 				}
+				BackupRestoreHelper.saveConfiguration(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (origProfile.equals(profile)) {
 					return;
 				}
 				if (!profile.equals(origProfile)) {
 					getContentResolver().update(DB.CpuProfile.CONTENT_URI, profile.getValues(), DB.NAME_ID + "=?", new String[] { profile.getDbId() + "" });
+					BackupRestoreHelper.saveConfiguration(this);
 				}
 			}
 		} catch (Exception e) {

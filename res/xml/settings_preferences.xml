@@ -63,7 +63,7 @@
 					android:title="@string/prefConfigurationsAutoLoad"></PreferenceScreen>
 			</PreferenceCategory>
 			<PreferenceCategory android:key="prefkeyConfigurationsSettings" android:title="@string/prefConfigurationsSettings">
-				<CheckBoxPreference android:title="@string/prefSaveConfigOnSwitch" android:key="prefKeySaveConfigOnSwitch" android:defaultValue="true"></CheckBoxPreference>
+				<CheckBoxPreference android:title="@string/prefSaveConfigOnSwitch" android:key="prefKeySaveConfigOnSwitch" android:defaultValue="true" android:summary="@string/prefSaveConfigOnSwitchFull"></CheckBoxPreference>
 			</PreferenceCategory>
 		</PreferenceScreen>
 

@@ -389,7 +389,7 @@ public class SettingsStorage {
 		return simpleDateFormat;
 	}
 
-	public boolean isSaveConfigOnSwitch() {
+	public boolean isSaveConfiguration() {
 		return getPreferences().getBoolean("prefKeySaveConfigOnSwitch", true);
 	}
 

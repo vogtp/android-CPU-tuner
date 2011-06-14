@@ -6,8 +6,7 @@
 - fragments: fix scrolling in profile editor
 
 - make autoload restoreable
-- backup configuration
-- create a default config
+- create a different default configs and load on init 
 
 - add controls for 4G(wimax)
 

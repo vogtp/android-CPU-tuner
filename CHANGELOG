@@ -7,9 +7,9 @@ V
 V 
 * features
 - handle multicore devices (beta feature)
-- save configuration on switch
+- save current configuration on change 
 * bug fixes
--
+- autoload configuration does not get saved
 
 V 2.2.3 
 * features
