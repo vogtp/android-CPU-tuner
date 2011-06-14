@@ -1,8 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">		
+	<string name="labelPowersaveBias">Gewichtung Energiesparmodus:</string>
+	<string name="msg_up_threshhold_has_to_be_between_0_and_100">Der obere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>
+	<string name="msg_down_threshhold_has_to_be_between_0_and_100">Der untere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>
+	<string name="msg_up_threshhold_smaler_than_the_down_threshold">Der obere Schwellenwert muss grösser als der untere Schwellenwert sein.</string>
+	<string name="msg_threshhold_NaN">Der Schwellenwert muss eine ganze Zahl sein.</string>
+	<string name="msg_minimal_frequency_bigger_than_the_maximal">Die minimale Frequenz muss kleiner als die Maximale sein.</string>
+	<string name="label_total_transitions">Anzahl Übergänge:</string>
+	<string name="labelCurrentFrequency">Aktuell</string>
+	<string name="prefScreenLegal">Rechtiliches</string>
+	<string name="prefLegalOxigenIcons">Tab icon License</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
+		nice icons.</string>
+	<string name="virtual_governor">Virtuelle Regler</string>
+	<string name="prefPulseMobiledataOnWifi">Pulsiere MD bei Wifi Verbindung</string>
+	<string name="prefPulseMobiledataOnWifiOn">Die Mobiledata Verbindung wird pulsieren wenn eine Wifi Verbindung existiert.</string>
+	<string name="prefPulseMobiledataOnWifiOff">Die Mobiledata Verbindung wird nicht pulsieren wenn eine Wifi Verbindung existiert.</string>
+	<string name="prefLanguage">Wähle eine Sprache</string>
+<string name="prefConfigurationsSettings">Konfigurationen Einstellungen</string>
+		<string name="prefSaveConfigOnSwitch">Speichere Konfiguration</string>
+		<string name="prefSaveConfigOnSwitchFull">Speichere Änderungen an Auslösern, Progilen oder Regler in der aktuellen Konfiguration.</string>
+	<string name="saved_at">Gespeichert um </string>
+	<string name="day_mon">Mo</string>
+	<string name="day_tue">Di</string>
+	<string name="day_wed">Mi</string>
+	<string name="day_thu">Do</string>
+	<string name="day_fri">Fr</string>
+	<string name="day_sat">Sa</string>
+	<string name="day_sun">So</string>
+	<string name="label_weekdays">Wochentage: </string>
+<string name="prefConfigurationsManage">Konfigurationen verwalten</string>
+		<string name="prefConfigurationsAutoLoad">Auto-Laden von Konfigurationen</string>
+		<string name="title_configuration_autoload_editor">Konfiguration Auto-Laden Editor</string>
+		<string name="hint_profile_name">Profil Name</string>
+		<string name="label_profile_switches">Profil wechsel:</string>
+		<string name="not_enabled">Nicht aktiviert</string>
+		<string name="prefProfileSwitchLogSize">Anz. gespeicherter Profil Wechsel</string>
+		<string name="prefProfileSwitchLogSizeLong">Anzahl Einträge in Profile-Wechsel Log. Verwende 0 um das Speichern abzuschalten.</string>
+		<string name="cbExactScheduling">Genaue Wechsel</string>
+		<string name="labelExactSchedulingExplain">Genaue Wechsel braucht mehr Batterie.\nUngenaue Wechsel können bis zu einer halben Stunde später erfolgen.</string>
+		<string name="msg_cannot_delete_configuration">Diese Kongiuration kann nicht gelöscht werden, da sie im Auto-Laden verwendet wird..</string>
+		<string name="label_load_configuration_1">Lade Konfiguration </string>
+		<string name="label_load_configuration_2">um</string>
+		<string name="labelConfig">Konfig:</string>
+	<string name="labelAirplaneMode">Flug Modus</string>
+	<string name="labelAirplaneModeOn">FM</string>
+	<string name="labelAirplaneModeOff">
+		<strike>FM</strike>
+	</string>
+	<string name="labelAirplaneModePrev">FM?</string>
+	<string name="msg_add_current_configuration">Aktuelle Konfiguration hinzufügen.</string>
+	<string name="msg_choose_name_for_config">Bitte einen Namen für die Konfiguration wählen.</string>
+	<string name="rename">Umbenennen</string>
+	<string name="msg_rename_configuration">Konfiguration umbenennen</string>
+	<string name="email">e-Mail</string>
+	<string name="prefConfigurations">Konfigurationen</string>
+	<string name="titleManageConfigurations">Verwalte Konfigurationen</string>
+	<string name="buAddConfiguration">Aktuelle Konfiguration hinzufügen</string>
+	<string name="menuReplaceWithCurrent">Mit der aktuellen ersetzten</string>
+	<string name="menuLoad">Laden</string>
+	<string name="delete">Löschen</string>
+	<string name="msg_delete_configuration">Lösche Konfiguration \'<xliff:g id="string">%s</xliff:g>\'?</string>
+	<string name="msg_replace_with_current">
+		Ersetze Konfiguration \'<xliff:g id="string">%s</xliff:g>\' mit der Aktuellen?
+	</string>
+	<string name="msg_load_configuration">
+		Mach Konfiguration \'<xliff:g id="string">%s</xliff:g>\' zur aktulle aktiven?
+	</string>
+	<string name="msg_loaded">
+		Geladen: \'<xliff:g id="string">%s</xliff:g>\'
+	</string>
+	<string name="menuAddCurrent">Aktuelle hinzufügen</string>
 <string name="msg_cannot_load_virtual_governor">Der virtuelle Regler kann nicht geladen werden...</string>
 <string name="labelStatisticsTab">Statistik</string>
-<string name="label_time_in_state">Time in state:</string>
+<string name="label_time_in_state">Zeit pro Frequenz:</string>
 <string name="titleVirtualGovernorEditor">Virtueller Regler Editor:</string>
 <string name="msgDeleteVirtGovNotPossible">Dieser Regler kann nicht gelöscht werden, da er in einem oder mehreren Profil verwendet wird.</string>
 <string name="labelName">Name:</string>
@@ -16,7 +87,7 @@
 <string name="prefBasics">Grundlegendes</string>
 <string name="label_governor_tresholds">Schwellenwerte:</string>
 <string name="labelScript">Skript:</string>
-<string name="prefEnableUserspaceGovernor">Aktivieren des Userspace Reglers</string>
+<string name="prefEnableUserspaceGovernor">Userspace Reglers</string>
 <string name="prefEnableUserspaceGovernorOn">Es ist möglich, die Wahl des Userspace Regler zu wählen</string>
 <string name="prefEnableUserspaceGovernorOff">Die Userspace Regler werden gefiltert.</string>
 <string name="prefCatPulsedServiceSwitches">Gepulste Dienste</string>
@@ -27,7 +98,7 @@
 <string name="labelPulseOn">Pulse ist eingeschaltet</string> 
 <string name="labelPulseOff">Pulse ist ausgeschaltet</string> 
 <string name="labelCurrentTab">Aktuell</string> 
-<string name="labelTriggersTab">Abstufung</string> 
+<string name="labelTriggersTab">Auslöser</string> 
 <string name="labelProfilesTab">Profile</string> 
 <string name="labelHelpTab">Hilfe</string> 
 <string name="labelSettingsTab">Einstellungen</string> 
@@ -40,7 +111,7 @@
     <string name="labelBatteryHot">Batterie heiss:</string>
     <string name="labelCallInProgress">Während Anruf:</string>
     <string name="labelOnPower">Am Ladegerät:</string>
-    <string name="labelScreenLocked">Bildschirm gesperrt:</string>
+    <string name="labelScreenLocked">Bildschirm aus:</string>
     <string name="labelOnBattery">Batteriebetrieb:</string>
     <string name="labelExplainTriggerProfiles">Je nach Zustand des Gerätes, kann einer der folgenden Profile gewählt werden.</string>
     <string name="labelBatteryLevel">Ladezustand:</string>
@@ -52,13 +123,13 @@
     <string name="labelWifi">Wifi</string>
     <string name="labelGPS">GPS</string>
     <string name="labelBackgroundSync">Hintergrund Sync</string>
-    <string name="labelMobileDataConn">Mobiledata Con.</string>
-    <string name="labelMobileData32G">Mobiledata 2G/3G</string>
+    <string name="labelMobileDataConn">Mobile Verb.</string>
+    <string name="labelMobileData32G">2G/3G</string>
     <string name="labelServices">Dienste:</string>
     <string name="labelDown"> unterer:</string>
     <string name="labelThreshsUp">Schwellenwerte:  oberer:</string>
     <string name="labelHome">Home</string>
-    <string name="labelUsage">Nutzung:</string>
+    <string name="labelUsage">Verbrauch:</string>
     <string name="labelBuFindFeq">Finde Frequenzen (beta)</string>
     <string name="msgAckAndHide">Bestätige die Fragen und zurück zum Haupt-Bildschirm.</string>
     <string name="msgDeviceInfo">E-Mail mit den Geräteinformationen senden</string>
@@ -72,12 +143,12 @@
     <string name="prefBatteryHotTempMsg">Individuelle Temperatur-Auslöser für das Profil "Akku heiss".<br /> Wert in °C.</string>
     <string name="prefBatteryHotTempLong">Individuelle Temperatur-Auslöser für das Profil "Akku heiss".</string>
     <string name="prefBatteryHotTemp">Akkutemperatur heiss</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Profilwechsel sind während des Telefonierens erlaubt. Mobiledata wird nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Profilwechsel während des Telefonierens verboten. Mobiledata wird nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
-    <string name="prefSwitchProfileWhilePhoneNotIdle">Profilwechsel während des Telefonierens</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Profilwechsel erfolgen während des Telefonierens. Mobiledata wird nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Profilwechsel erfolgen während des Telefonierens nicht. Mobiledata wird nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdle">Profilwechsel bei Anruf</string>
     <string name="prefSwitchWifiOnConnectedNetworkOn">Wireless Netzwerk wird ausgeschaltet, auch wenn eine WiFi Verbindung besteht.</string>
     <string name="prefSwitchWifiOnConnectedNetworkOff">Wireless Netzwerk wird nicht ausgeschaltet, wenn eine WiFi Verbindung besteht</string>
-    <string name="prefSwitchWifiOnConnectedNetwork">Wifi während Gebrauch</string>
+    <string name="prefSwitchWifiOnConnectedNetwork">Lasse aktives Wifi</string>
     <string name="prefServiceSwitches">Dienste</string>
     <string name="prefUserLevelLong">Legt fest, wie schwierig die Einstellungen sind und wie tief eingegriffen werden kann.</string>
     <string name="prefUserLevel">Erfahrungsstufe</string>
@@ -90,7 +161,7 @@
 	<string name="prefMinSensibleFrequencyLong">Minimale Frequenz anzeigen, wenn nicht im Profi-Modus.</string>
 	<string name="prefMinSensibleFrequency">Min. angezeigte Frequenz</string>
 	<string name="prefResetToDefaultLong">Löschen aller aktuellen Profile und Auslöser sowie laden der Standardwerte.</string>
-	<string name="prefResetToDefault">Rückstellen aller Profile und Auslöser</string>
+	<string name="prefResetToDefault">Rückstellen der Profile, Auslöser und Regler</string>
 	<string name="prefKeyProfiles">Profile und Auslöser</string>
 	<string name="prefBuyMeABeer">Kauf mir ein Bier</string>
 	<string name="prefAllowManualServiceChangesOn">Falls Dienste manuell umgeschalten wurden, werden diese bis zum nächsten Auslöser nicht mehr geschalten.</string>
@@ -135,7 +206,7 @@
 	<string name="profileBatteryGood">Guter Akkuzustand</string>
 	<string name="profileBatteryCrtitical">Kritischer Akkuzustand</string>
 	<string name="profileBatteryPower">Akku</string>
-	<string name="profileAcPower">Ladestrom</string>
+	<string name="profileAcPower">Laden</string>
 	<string name="profileScreenOff">Bildschirm ist ausgeschaltet</string>
 	<string name="prefSystemPowerProfiles">System Leistung Profile</string>
 	<string name="prefPowerProfiles">Leistungsprofile</string>
@@ -146,7 +217,7 @@
 	<string name="labelCurrentTrigger">Auslöser:</string>
 	<string name="labelCurrentProfile">Profil:</string>
 	<string name="labelCurrentBattery">Batterie:</string>
-	<string name="labelAcPower">Ladestrom:</string>
+	<string name="labelAcPower">Am laden:</string>
 	<string name="labelMax">Max:</string>
 	<string name="labelMin">Min:</string>
 	<string name="app_name">CPU-Tuner</string>
@@ -233,11 +304,11 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
 		<item>Keine Berechnung</item>
 	</string-array>
 	<string-array name="prefUserLevelEntries">
-		<item><b>Anfänger</b>: CPU-Tuner versucht, schlaue Einstellungen zu wählen.</item>
-		<item><b>Normal</b>: CPU-Tuner unterstützt Dich bei den Einstellungen.</item>
+		<item><b>Anfänger</b>: CPU-Tuner versucht schlau zu sein.</item>
+		<item><b>Normal</b>: CPU-Tuner unterstützt Dich.</item>
 		<item><b>Profi</b>: Du weisst. was Du tust.</item>
 	</string-array>
-<string name="cbEnableVirtualGovernors">Aktivieren der virtuellen Regler</string>
+<string name="cbEnableVirtualGovernors">Virtuellen Regler</string>
 <string name="userExperianceLevelExplain">CPU-Tuner kennt verschiedenen Erfahrungs-Ebenen ansetzen. Abhängig von der Erfahrungsstufe kannst Du aus einer größeren Auswahl auswählen und Du kannst mehr Änderungen vornehmen.</string>
 <string name="prefCallInProgressProfile">Profil während eines Anrufes</string>
 <string name="prefCallInProgressProfileLong">Aktiviert ein Profil, das während der Telefonverbindung ausgelöste wird.</string>

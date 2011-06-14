@@ -6,9 +6,6 @@
 		<!-- <item>Battery % per hour</item> -->
 		<item>No calculation</item>
 	</string-array>
-		<string name="prefConfigurationsSettings">Configurations Settings</string>
-		<string name="prefSaveConfigOnSwitch">Save configuration</string>
-		<string name="prefSaveConfigOnSwitchFull">Save changes to profiles, triggers or governors to the current configuration.</string>
 		
 </resources>
 

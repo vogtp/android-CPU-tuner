@@ -1,56 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="saved_at">Saved at </string>
-	<string name="day_mon">Mon</string>
-	<string name="day_tue">Tue</string>
-	<string name="day_wed">Wed</string>
-	<string name="day_thu">Thu</string>
-	<string name="day_fri">Fri</string>
-	<string name="day_sat">Sat</string>
-	<string name="day_sun">Sun</string>
-	<string name="label_weekdays">Weekdays: </string>
-<string name="prefConfigurationsManage">Manage configurations</string>
-		<string name="prefConfigurationsAutoLoad">Autoload configurations</string>
-		<string name="title_configuration_autoload_editor">Configuration autoload editor</string>
-		<string name="hint_profile_name">Profile name</string>
-		<string name="label_profile_switches">Profile switches:</string>
-		<string name="not_enabled">Not enabled</string>
-		<string name="prefProfileSwitchLogSize">Profile switch log size</string>
-		<string name="prefProfileSwitchLogSizeLong">Number of entries in the profile switch log. Use 0 to disable</string>
-		<string name="cbExactScheduling">Use exact scheduling.</string>
-		<string name="labelExactSchedulingExplain">Exact scheduling consumes more battery.\nWith inexact scheduling the configuration change may delay up to half an hour.</string>
-		<string name="msg_cannot_delete_configuration">Cannot delete configuration since it is used in autoloading.</string>
-		<string name="label_load_configuration_1">Load configuration </string>
-		<string name="label_load_configuration_2">at</string>
-		<string name="labelConfig">Config:</string>
-	<string name="labelAirplaneMode">Airplane mode</string>
-	<string name="labelAirplaneModeOn">AP</string>
-	<string name="labelAirplaneModeOff">
-		<strike>AP</strike>
-	</string>
-	<string name="labelAirplaneModePrev">AP?</string>
-	<string name="msg_add_current_configuration">Add current configuration</string>
-	<string name="msg_choose_name_for_config">Choose a name for the configuration</string>
-	<string name="rename">Rename</string>
-	<string name="msg_rename_configuration">Rename configuration</string>
-	<string name="email">e-mail</string>
-	<string name="prefConfigurations">Configurations</string>
-	<string name="titleManageConfigurations">Manage configurations</string>
-	<string name="buAddConfiguration">Add current configuration</string>
-	<string name="menuReplaceWithCurrent">Replace with current</string>
-	<string name="menuLoad">Load</string>
-	<string name="delete">Delete</string>
-	<string name="msg_delete_configuration">Delete configuration \'<xliff:g id="string">%s</xliff:g>\'?</string>
-	<string name="msg_replace_with_current">
-		Replace configuration \'<xliff:g id="string">%s</xliff:g>\' with the currently active?
-	</string>
-	<string name="msg_load_configuration">
-		Load configuration \'<xliff:g id="string">%s</xliff:g>\' to be the active?
-	</string>
-	<string name="msg_loaded">
-		Loaded \'<xliff:g id="string">%s</xliff:g>\'
-	</string>
-	<string name="menuAddCurrent">Add Current</string>
+
 	<string name="msg_fully_working">Fully working</string>
 	<string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU
 		tuning related features will not work.\nDid root your device?\nDid you
@@ -66,27 +16,4 @@
 		This will probably still yield nice results.\n2) Flash a new
 		kernel\n3) Flash a new ROM\nPlease do not write e-mails unless you
 		think there is something wrong with the check or the app.</string>
-	<string name="labelCurrentFrequency">current</string>
-	<string name="prefScreenLegal">Legal stuff</string>
-	<string name="prefLegalOxigenIcons">Tab icon License</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
-		nice icons.</string>
-	<string name="virtual_governor">virtual governor</string>
-	<string name="prefPulseMobiledataOnWifi">Pulse mobiledata on wifi</string>
-	<string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if wifi is
-		connected.</string>
-	<string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is
-		connected to a wifi lan.</string>
-	<string name="prefLanguage">Choose language</string>
-	<string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be
-		between 0 and 100.</string>
-	<string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be
-		between 0 and 100.</string>
-	<string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down
-		threshold.</string>
-	<string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
-	<string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the
-		maximal.</string>
-	<string name="label_total_transitions">Total transitions:</string>
-	<string name="labelPowersaveBias">Powersave bias:</string>
 </resources>

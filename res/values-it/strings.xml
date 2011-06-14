@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+		<string name="prefConfigurationsSettings">Configurations Settings</string>
+		<string name="prefSaveConfigOnSwitch">Save configuration</string>
+		<string name="prefSaveConfigOnSwitchFull">Save changes to profiles, triggers or governors to the current configuration.</string>
 	<string name="saved_at">Saved at </string>
 	<string name="day_mon">Mon</string>
 	<string name="day_tue">Tue</string>
