@@ -7,8 +7,9 @@ V
 V 
 * features
 - German translation
+- Italian translation
 * bug fixes
--
+- fixed crash on start bug (finally and hopefully)
 
 V 2.3.0
 * features
