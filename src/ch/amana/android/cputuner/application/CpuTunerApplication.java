@@ -3,7 +3,6 @@ package ch.amana.android.cputuner.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -31,13 +30,14 @@ public class CpuTunerApplication extends Application {
 
 		try {
 			InstallHelper.populateDb(ctx);
-		} catch (SQLiteException e) {
+			if (SettingsStorage.getInstance().isEnableProfiles()) {
+				startService(new Intent(ctx, BatteryService.class));
+				PowerProfiles.getInstance().reapplyProfile(true);
+				ConfigurationAutoloadService.scheduleNextEvent(ctx);
+			}
+		} catch (RuntimeException e) {
 			Logger.e("Cannot update DB", e);
-		}
-		if (SettingsStorage.getInstance().isEnableProfiles()) {
-			startService(new Intent(ctx, BatteryService.class));
-			PowerProfiles.getInstance().reapplyProfile(true);
-			ConfigurationAutoloadService.scheduleNextEvent(ctx);
+			InstallHelper.magicallyHeal(ctx);
 		}
 	}
 }

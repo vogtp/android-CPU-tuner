@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.helper;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -320,6 +322,18 @@ public class InstallHelper {
 			} catch (Exception e) {
 				Logger.e("Cannot create profiles", e);
 			}
+		}
+	}
+
+
+	public static void magicallyHeal(Context ctx) {
+		Logger.w("Magically healing cpu tuner");
+		File dataDirectory = ctx.getDatabasePath("cputuner").getParentFile().getParentFile();
+		if (!dataDirectory.isDirectory()) {
+			Logger.w("Healing: Creating directory " + dataDirectory.getAbsolutePath());
+			RootHandler.execute("mkdir -p " + dataDirectory.getAbsolutePath());
+			RootHandler.execute("chown -R " + android.os.Process.myUid() + " " + dataDirectory.getAbsolutePath());
+			updateDefaultProfiles(ctx);
 		}
 	}
 
