@@ -6,10 +6,11 @@ V
 
 V 2.3.1
 * features
-- German translation
-- Italian translation
+-
 * bug fixes
 - fixed crash on start bug (finally and hopefully)
+- German translation update
+- Italian translation update
 
 V 2.3.0
 * features
