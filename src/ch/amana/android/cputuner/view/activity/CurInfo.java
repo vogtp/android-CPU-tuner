@@ -439,20 +439,20 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 	private void profileChanged() {
 		SettingsStorage settings = SettingsStorage.getInstance();
+		if (PulseHelper.getInstance(this).isPulsing()) {
+			GuiUtils.showViews(trPulse, new View[] { spacerPulse, tvPulse });
+			int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+			tvPulse.setText(res);
+		} else {
+			GuiUtils.hideViews(trPulse, new View[] { spacerPulse, tvPulse });
+		}
+		if (settings.hasCurrentConfiguration()) {
+			GuiUtils.showViews(trConfig, new View[] { labelConfig, tvConfig });
+			tvConfig.setText(settings.getCurrentConfiguration());
+		} else {
+			GuiUtils.hideViews(trConfig, new View[] { labelConfig, tvConfig });
+		}
 		if (settings.isEnableProfiles()) {
-			if (PulseHelper.getInstance(this).isPulsing()) {
-				GuiUtils.showViews(trPulse, new View[] { spacerPulse, tvPulse });
-				int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-				tvPulse.setText(res);
-			} else {
-				GuiUtils.hideViews(trPulse, new View[] { spacerPulse, tvPulse });
-			}
-			if (settings.hasCurrentConfiguration()) {
-				GuiUtils.showViews(trConfig, new View[] { labelConfig, tvConfig });
-				tvConfig.setText(settings.getCurrentConfiguration());
-			} else {
-				GuiUtils.hideViews(trConfig, new View[] { labelConfig, tvConfig });
-			}
 			ProfileModel currentProfile = powerProfiles.getCurrentProfile();
 			if (currentProfile != null) {
 				GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());

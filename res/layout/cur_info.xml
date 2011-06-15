@@ -42,8 +42,8 @@
 				android:layout_height="wrap_content" android:id="@+id/TableRowPulse">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:id="@+id/spacerPulse"></TextView>
-				<TextView android:text="TextView" android:layout_height="wrap_content"
-					android:id="@+id/tvPulse" android:layout_width="wrap_content"></TextView>
+				<TextView android:layout_height="wrap_content"
+					android:id="@+id/tvPulse" android:layout_width="wrap_content" android:text="No pulse"></TextView>
 			</TableRow>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBattery"
 				android:layout_width="match_parent">
