@@ -1,5 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"> 
+		<string name="prefConfigurationsSettings">Impostazioni Configurazioni</string>
+		<string name="prefSaveConfigOnSwitch">Salva configurazione</string>
+		<string name="prefSaveConfigOnSwitchFull">Salva modifiche ai profili, trigger o governor nella configurazione attuale.</string>
+	<string name="saved_at">Salvato a </string>
+	<string name="day_mon">Lun</string>
+	<string name="day_tue">Mar</string>
+	<string name="day_wed">Mer</string>
+	<string name="day_thu">Gio</string>
+	<string name="day_fri">Ven</string>
+	<string name="day_sat">Sab</string>
+	<string name="day_sun">Dom</string>
+	<string name="label_weekdays">Giorni: </string>
+<string name="prefConfigurationsManage">Gestisci configurazioni</string>
+		<string name="prefConfigurationsAutoLoad">Carica configurazioni automaticamente</string>
+		<string name="title_configuration_autoload_editor">Configuration autoload editor</string>
+		<string name="hint_profile_name">Nome profilo</string>
+		<string name="label_profile_switches">Scambia profili:</string>
+		<string name="not_enabled">Non abilitato</string>
+		<string name="prefProfileSwitchLogSize">Dimensione log scambio profili</string>
+		<string name="prefProfileSwitchLogSizeLong">Numero di voci nel log scambio profili. Usa 0 perdisabilitarlo</string>
+		<string name="cbExactScheduling">Usa programmazione precisa.</string>
+		<string name="labelExactSchedulingExplain">La programmazione precisa consuma maggiore batteria.\nCon la programmazione imprecisa il cambio di configurazione potrebbe essere ritardato fino a mezzora</string>
+		<string name="msg_cannot_delete_configuration">Impossibile cancellare la configurazione dal momento che viene caricata automaticamente.</string>
+		<string name="label_load_configuration_1">Carica configurazione </string>
+		<string name="label_load_configuration_2">su</string>
+		<string name="labelConfig">Config:</string>
+	<string name="labelAirplaneMode">Modalità aereo</string>
+	<string name="labelAirplaneModeOn">MA</string>
+	<string name="labelAirplaneModeOff">
+		<strike>MA</strike>
+	</string>
+	<string name="labelAirplaneModePrev">MA?</string>
+	<string name="msg_add_current_configuration">Aggiungi configurazione in uso</string>
+	<string name="msg_choose_name_for_config">Scegli un nome per la configurazione</string>
+	<string name="rename">Rinomina</string>
+	<string name="msg_rename_configuration">Rinomina configurazione</string>
+	<string name="email">e-mail</string>
+	<string name="prefConfigurations">Configurazioni</string>
+	<string name="titleManageConfigurations">Gestisci configurazioni</string>
+	<string name="buAddConfiguration">Aggiungi configurazione in uso</string>
+	<string name="menuReplaceWithCurrent">Sostituisci con l\'attuale</string>
+	<string name="menuLoad">Carica</string>
+	<string name="delete">Elimina</string>
+	<string name="msg_delete_configuration">
+		Eliminare la configurazione \'<xliff:g id="string">%s</xliff:g>\'?
+	</string>
+	<string name="msg_replace_with_current">
+		Sostituire la configurazione \'<xliff:g id="string">%s</xliff:g>\' con quella attualemnte attiva?
+	</string>
+	<string name="msg_load_configuration">
+		Rendere la configurazione \'<xliff:g id="string">%s</xliff:g>\' attiva?
+	</string>
+	<string name="msg_loaded">
+		\'<xliff:g id="string">%s</xliff:g>\' Caricata
+	</string>
+	<string name="menuAddCurrent">Aggiungo corrente</string>
+	<string name="msg_fully_working">Perfettamente funzionante</string>
+	<string name="msg_capcheck_not_rooted">CPU tuner non ha l\'accesso di root!\nTutte le funzionalità
+		correlate alla CPU non funzioneranno.\nHai rootato il dispositivo?\nHai dato il permesso
+		a CPU tuner?</string>
+	<string name="msg_capcheck_found_some_issues">Trovati alcuni problemi... Alcune funzioni potrebbero non andare.</string>
+	<string name="msg_capcheck_no_issues">Nessun problema rilevato...</string>
+	<string name="and">e</string>
+	<string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields
+		quite good results.</string>
+	<string name="msg_premail_working">Alcuni governor funzionano meglio.\n
+		Se alcuni non funzionano probabilmente è colpa del kernel/ROM. Hai tre
+		possibilità:\n1) Usa il governor funzionante e ignora gli altri.
+		Ciò di sicuro avrà risultato discreto.\n2) Flasha un nuovo kernel\n
+		3) Flasha una nuova ROM\nPer favore non scrivere e-mail se non sei certo
+		che il problema risiede nel controllo o nell\'app.</string>
+	<string name="labelCurrentFrequency">in uso</string>
+	<string name="prefScreenLegal">Note legali</string>
+	<string name="prefLegalOxigenIcons">Tab icon License</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
+		nice icons.</string>
+	<string name="virtual_governor">governor virtuale</string>
+	<string name="msg_cannot_load_virtual_governor">Impossibile caricare il governor virtuale...</string>
+	<string name="labelStatisticsTab">Statistiche</string>
+	<string name="label_time_in_state">Time in state:</string>
+	<string name="titleVirtualGovernorEditor">Editor Governor Virtuale:</string>
+	<string name="msgDeleteVirtGovNotPossible">Impossibile eliminare questo governor virtuale dal momento che
+		è utilizzato in uno o più profili!</string>
+	<string name="labelName">Nome:</string>
+	<string name="hintVirtualGovernorName">Nome Governor Virtuale</string>
+	<string name="prefCatGUI">Interfaccia utentee</string>
+	<string name="prefCatDisplay">Display</string>
+	<string name="labelPowersaveBias">Powersave bias:</string>
+	<string name="labelVirtualGovernor">Governor Virtuale:</string>
+	<string name="prefUseVirtualGovernorsLong">Il governor virtuale astrae le impostazioni
+		dei governors dal profilo.</string>
+	<string name="label_total_transitions">Transizioni totali:</string>
+	<string name="prefPulseMobiledataOnWifi">Pulsa la connesione dati sotto wifi</string>
+	<string name="prefPulseMobiledataOnWifiOn">La connessione dati sarà pulsante anche con il wifi connesso.</string>
+	<string name="prefPulseMobiledataOnWifiOff">La connessione dati non sarà pulsante se
+		connesso a una rete wifi.</string>
 <string name="hintScriptToRun">Script da eseguire dopo il cambio di governor.</string>
 <string name="prefLanguage">Lingua</string>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">La soglia superiore è in percentuale e deve essere tra 0 e 100.</string>
