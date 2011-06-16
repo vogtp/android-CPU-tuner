@@ -332,9 +332,9 @@ public class InstallHelper {
 		if (!dataDirectory.isDirectory()) {
 			Logger.w("Healing: Creating directory " + dataDirectory.getAbsolutePath());
 			RootHandler.execute("mkdir -p " + dataDirectory.getAbsolutePath());
-			RootHandler.execute("chown -R " + android.os.Process.myUid() + " " + dataDirectory.getAbsolutePath());
 			updateDefaultProfiles(ctx);
 		}
+		RootHandler.execute("chown -R " + android.os.Process.myUid() + " " + dataDirectory.getAbsolutePath());
 	}
 
 }
