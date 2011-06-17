@@ -38,6 +38,7 @@ public class CpuTunerApplication extends Application {
 		} catch (RuntimeException e) {
 			Logger.e("Cannot update DB", e);
 			InstallHelper.magicallyHeal(ctx);
+			throw e;
 		}
 	}
 }
