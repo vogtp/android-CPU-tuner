@@ -517,7 +517,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			int val = availCpuFreqsMax[position];
 			if (val != cpuHandler.getMaxCpuFreq()) {
 				if (cpuHandler.setMaxCpuFreq(val)) {
-					Toast.makeText(CurInfo.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
+					Toast.makeText(this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
 				}
 				updateView();
 			}
@@ -531,7 +531,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			int val = availCpuFreqsMin[position];
 			if (val != cpuHandler.getMinCpuFreq()) {
 				if (cpuHandler.setMinCpuFreq(val)) {
-					Toast.makeText(CurInfo.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
+					Toast.makeText(this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
 				}
 				updateView();
 			}
