@@ -92,10 +92,7 @@
 					android:layout_height="wrap_content" android:paddingRight="5dp"
 					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"
 					android:layout_gravity="center_vertical"></TextView>
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax"
-					android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax"
-					android:layout_gravity="center_vertical"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spCpuFreqMax"></Spinner>
 				<SeekBar android:layout_height="wrap_content"
 					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
 					android:layout_weight=".3" android:paddingRight="5dp"
@@ -109,10 +106,7 @@
 					android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin"
 					android:layout_gravity="center_vertical" android:text="@+string/labelMin"
 					android:paddingRight="5dp"></TextView>
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:id="@+id/tvCpuFreqMin"
-					android:layout_gravity="center_vertical" android:text="99999"
-					android:paddingRight="5dp"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spCpuFreqMin"></Spinner>
 				<SeekBar android:paddingBottom="3dp" android:id="@+id/SeekBarCpuFreqMin"
 					android:paddingRight="5dp" android:paddingTop="3dp"
 					android:layout_height="wrap_content" android:layout_width="fill_parent"

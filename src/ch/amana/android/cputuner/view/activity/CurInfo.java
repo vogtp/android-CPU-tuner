@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,6 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -50,9 +51,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 	private CpuHandler cpuHandler;
 	private SeekBar sbCpuFreqMax;
-	private TextView tvCpuFreqMax;
+	private Spinner spCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
-	private TextView tvCpuFreqMin;
+	private Spinner spCpuFreqMin;
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
 	private TextView tvCurrentTrigger;
@@ -241,8 +242,8 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
 		tvBatteryCurrent = (TextView) findViewById(R.id.tvBatteryCurrent);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
-		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
-		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
+		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
+		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
@@ -295,23 +296,40 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			}
 		});
 
+		
+		spCpuFreqMax.setAdapter(getCpufreqSpinnerAdapter(availCpuFreqsMax));
+		spCpuFreqMax.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				setMaxCpuFreq(position);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+		spCpuFreqMin.setAdapter(getCpufreqSpinnerAdapter(availCpuFreqsMin));
+		spCpuFreqMin.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				setMinCpuFreq(position);
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+
 		sbCpuFreqMax.setMax(availCpuFreqsMax.length - 1);
 		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int val = availCpuFreqsMax[seekBar.getProgress()];
-					if (val != cpuHandler.getMaxCpuFreq()) {
-						if (cpuHandler.setMaxCpuFreq(val)) {
-							Toast.makeText(CurInfo.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
-						}
-						updateView();
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set max freq in gui", e);
-				}
+				int position = seekBar.getProgress();
+				setMaxCpuFreq(position);
 			}
+
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
@@ -327,17 +345,8 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int val = availCpuFreqsMin[seekBar.getProgress()];
-					if (val != cpuHandler.getMinCpuFreq()) {
-						if (cpuHandler.setMinCpuFreq(val)) {
-							Toast.makeText(CurInfo.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
-						}
-						updateView();
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set min freq in gui", e);
-				}
+				int position = seekBar.getProgress();
+				setMinCpuFreq(position);
 			}
 
 			@Override
@@ -376,6 +385,15 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		});
 	}
 
+	private SpinnerAdapter getCpufreqSpinnerAdapter(int[] freqs) {
+		ArrayAdapter<Integer> cpuFreqAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+		cpuFreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		for (int freq : freqs) {
+			cpuFreqAdapter.add(freq);
+		}
+		return cpuFreqAdapter;
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -395,14 +413,10 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		acPowerChanged();
 	}
 
-	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
-		if (val == HardwareHandler.NO_VALUE_INT) {
-			textView.setText(R.string.notAvailable);
-		} else {
-			textView.setText(ProfileModel.convertFreq2GHz(val));
-		}
+	private void setSeekbar(int val, int[] valList, SeekBar seekBar, Spinner spinner) {
 		for (int i = 0; i < valList.length; i++) {
 			if (val == valList[i]) {
+				spinner.setSelection(i);
 				seekBar.setProgress(i);
 			}
 		}
@@ -466,8 +480,8 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
 
-		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
+		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, spCpuFreqMax);
+		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqsMin, sbCpuFreqMin, spCpuFreqMin);
 
 		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(cpuHandler.getCurCpuGov());
 		if (governorConfig.hasNewLabelCpuFreqMax()) {
@@ -476,14 +490,14 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
+			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
 		} else {
-			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
+			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
+			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
 		} else {
-			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
+			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
 		}
 
 		governorFragment.updateView();
@@ -498,4 +512,31 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		// not used
 	}
 
+	private void setMaxCpuFreq(int position) {
+		try {
+			int val = availCpuFreqsMax[position];
+			if (val != cpuHandler.getMaxCpuFreq()) {
+				if (cpuHandler.setMaxCpuFreq(val)) {
+					Toast.makeText(CurInfo.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
+				}
+				updateView();
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			Logger.e("Cannot set max freq in gui", e);
+		}
+	}
+
+	private void setMinCpuFreq(int position) {
+		try {
+			int val = availCpuFreqsMin[position];
+			if (val != cpuHandler.getMinCpuFreq()) {
+				if (cpuHandler.setMinCpuFreq(val)) {
+					Toast.makeText(CurInfo.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
+				}
+				updateView();
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			Logger.e("Cannot set min freq in gui", e);
+		}
+	}
 }
