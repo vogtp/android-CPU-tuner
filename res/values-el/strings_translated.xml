@@ -1,5 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+		<string name="prefConfigurationsSettings">Ρυθμίσεις διαμόρφωσης</string>
+		<string name="prefSaveConfigOnSwitch">Αποθήκευση διαμόρφωσης</string>
+		<string name="prefSaveConfigOnSwitchFull">Αποθήκευση αλλαγών για προφίλ, εναύσματα ή governors στη τρέχουσα διαμόρφωση.</string>
+	<string name="saved_at">Αποθήκευση σε </string>
+	<string name="day_mon">Δευ</string>
+	<string name="day_tue">Τρι</string>
+	<string name="day_wed">Τετ</string>
+	<string name="day_thu">Πεμ</string>
+	<string name="day_fri">Παρ</string>
+	<string name="day_sat">Σαβ</string>
+	<string name="day_sun">Κυρ</string>
+	<string name="label_weekdays">Καθημερινές: </string>
+<string name="prefConfigurationsManage">Διαχείριση ρυθμίσεων</string>
+		<string name="prefConfigurationsAutoLoad">διαμορφώσεις αυτόματης φορτώσεως</string>
+		<string name="title_configuration_autoload_editor">Επεξεργαστής διαμορφώσεων αυτ. φόρτωσης</string>
+		<string name="hint_profile_name">Όνομα προφίλ</string>
+		<string name="label_profile_switches">Διακόπτες προφίλ:</string>
+		<string name="not_enabled">Μη ενεργό</string>
+		<string name="prefProfileSwitchLogSize">Μέγεθος αρχείου καταγραφής αλλαγών προφίλ</string>
+		<string name="prefProfileSwitchLogSizeLong">Αριθμός των καταχωρήσεων στη καταγραφή αλλαγών προφίλ. Βάλτε 0 για απενεργοποίηση</string>
+		<string name="cbExactScheduling">Χρήση ακριβούς προγραμματισμού.</string>
+		<string name="labelExactSchedulingExplain">Ο ακριβής προγραμματισμός καταναλώνει περισσότερη μπαταρία.\nΜε τον ανακριβής προγραμματισμό η αλλαγή διαμόρφωσης μπορεί να καθυστερήσει έως και μισή ώρα.</string>
+		<string name="msg_cannot_delete_configuration">Δεν μπορείτε να διαγράψετε τη διαμόρφωση, δεδομένου ότι χρησιμοποιείται σε αυτόματη φόρτωση.</string>
+		<string name="label_load_configuration_1">Φόρτωση διαμόρφωσης</string>
+		<string name="label_load_configuration_2">σε</string>
+		<string name="labelConfig">Ρύθμιση:</string>
+	<string name="labelAirplaneMode">Λειτουργία πτήσης</string>
+	<string name="labelAirplaneModeOn">ΛΠ</string>
+	<string name="labelAirplaneModeOff">
+		<strike>ΛΠ</strike>
+	</string>
+	<string name="labelAirplaneModePrev">ΛΠ?</string>
+	<string name="msg_add_current_configuration">Προσθήκη τρέχουσας διαμόρφωσης</string>
+	<string name="msg_choose_name_for_config">Επιλέξτε όνομα για τη διαμόρφωση</string>
+	<string name="rename">Μετονομασία</string>
+	<string name="msg_rename_configuration">Μετονομασία διαμόρφωσης</string>
+	<string name="email">e-mail</string>
+	<string name="prefConfigurations">Διαμορφώσεις</string>
+	<string name="titleManageConfigurations">Διαχείρηση διαμορφώσεψν</string>
+	<string name="buAddConfiguration">Προσθήκη τρέχουσας διαμόρφωσης</string>
+	<string name="menuReplaceWithCurrent">Αντικαταστήστε με την τρέχουσαt</string>
+	<string name="menuLoad">Φόρτωση</string>
+	<string name="delete">Διαγραφή</string>
+	<string name="msg_delete_configuration">
+		Διαγραφή διαμόρφωσης \'
+		<xliff:g id="string">%s</xliff:g>
+		\'?
+	</string>
+	<string name="msg_replace_with_current">
+		Αντικατάσταση διαμόρφωσης \'
+		<xliff:g id="string">%s</xliff:g>
+		\' με την τρέχουσα ενεργή;
+	</string>
+	<string name="msg_load_configuration">
+		Φόρτωση διαμόρφωσης \'
+		<xliff:g id="string">%s</xliff:g>
+		\' ως ενεργή;
+	</string>
+	<string name="msg_loaded">
+		Φορτώθηκε \'
+		<xliff:g id="string">%s</xliff:g>
+		\'
+	</string>
+	<string name="menuAddCurrent">Προσθήκη τρέχουσας</string>
+	<string name="msg_fully_working">Πλήρως ενεργό</string>
+	<string name="msg_capcheck_not_rooted">Το CPU tuner δεν έχει προσβαση υπερχρήστη (root)!\nΌλες οι
+		λειτουργίες ρύθμισης της CPU ΔΕΝ ΘΑ λειτουργούν.\nΈχετε δικαιώματα υπερ-χρήστη στη συσκευή?\nΔώσατε
+		στο CPU tuner προνόμμια υπερχρήστη?</string>
+	<string name="msg_capcheck_found_some_issues">Βρέθηκαν κάποια θέματα... Ορισμένες λειτουργίες ενδέχεται να μην δουλεύουν.</string>
+	<string name="msg_capcheck_no_issues">Δε βρέθηκαν προβλήματα...</string>
+	<string name="and">και</string>
+	<string name="msg_capcheck_work_but_cannot_set_frequency">Λειτουργεί, αλλά δεν μπορεί να ορίσει συχνότητα.\nΑκόμα κι έτσι
+		έχουμε καλά αποτελέσματα.</string>
+	<string name="msg_premail_working">Οι governors είναι επί το πλείστον  ενεργοί.\n
+		Για τους governors που δεν λειτουργούν φταίει ο πυρήνας / ROM. Έχετε 3
+		δυνατότητες:\n1) Κάνετε χρήση των λειτουργικών governors και αγνοήστε τους άλλους.
+		Ακόμα κι έτσι υπάρχουν αρκετά καλά αποτελέσματα.\n2) Βάλτε έναν
+		άλλο πυρίνα\n3) Βάλτε άλλη ROM\nΠαρακαλώ μην στέλνετε e-mail εκτός και αν 
+				πιστεύετε ότι κάτι δεν πάει καλά με τον έλεγχο ή την εφαρμογή.</string>
+	<string name="labelCurrentFrequency">τρέχων</string>
+	<string name="prefScreenLegal">Νομικά θέματα</string>
+	<string name="prefLegalOxigenIcons">Καρτέλα άδειας χρήσης εικονιδίου</string>
+	<string name="prefLegalOxigenIconsLong">Άδεια για τη χρήση εικόνων oxygen. Ευχαριστώ για τα 
+	ωραία εικονίδια.</string>
+	<string name="virtual_governor">Εικονικός governor</string>
+	<string name="msg_cannot_load_virtual_governor">Δε μπορεί να γίνει φόρτωση του εικονικού governor...</string>
+	<string name="labelStatisticsTab">Στατιστικά</string>
+	<string name="label_time_in_state">Χρόνος σε κατάσταση:</string>
+	<string name="titleVirtualGovernorEditor">Επεξεργαστής εικονικού Governor:</string>
+	<string name="msgDeleteVirtGovNotPossible">Δε μπορεί διαγραφεί ο εικονικός Governor επειδή
+		είναι σε χρήση από κάποιο(α) προφίλ!</string>
+	<string name="labelName">Όνομα:</string>
+	<string name="hintVirtualGovernorName">Όνομα εικονικού Governor</string>
+	<string name="prefCatGUI">Διεπαφή χρήστη</string>
+	<string name="prefCatDisplay">Προβολή</string>
+	<string name="labelPowersaveBias">Powersave bias:</string>
+	<string name="labelVirtualGovernor">Εικονικός Governor:</string>
+	<string name="prefUseVirtualGovernorsLong">Ο εικονικός governor αποσπά τις ρυθμίσεις των governors
+		απο το προφίλ.</string>
+	<string name="label_total_transitions">Σύνολο μεταβάσεων:</string>
+	<string name="prefPulseMobiledataOnWifi">Διατήρηση σύνδεσης δεδομένων σε wifi</string>
+	<string name="prefPulseMobiledataOnWifiOn">Η σύνδεση δεδομένων θα παραμένει ενεργή έστω κι αν
+		υπάρχει συνδεδεμένο WiFi.</string>
+	<string name="prefPulseMobiledataOnWifiOff">Η σύνδεση δεδομένων ΔΕΝ ΘΑ παραμένει ενεργή όταν
+		υπάρχει σύνδεση WiFi.</string>
 <string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor.</string>
 <string name="prefLanguage">Επιλογή γλώσσας</string>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">Το μέγιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
