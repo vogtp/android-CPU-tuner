@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.helper;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -9,6 +10,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
@@ -165,8 +167,33 @@ public class CpuFrequencyChooser {
 
 	}
 
+	class FrequencyAdaper extends ArrayAdapter<Integer> {
+
+		public FrequencyAdaper(Context context, int resource, int textViewResourceId) {
+			super(context, resource, textViewResourceId);
+		}
+
+		private View addMHz(int position, View v) {
+			TextView tv = (TextView) v.findViewById(android.R.id.text1);
+			String s = getItem(position) / 1000 + " MHz";
+			tv.setText(s);
+			return v;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			return addMHz(position, super.getView(position, convertView, parent));
+		}
+
+		@Override
+		public View getDropDownView(int position, View convertView, ViewGroup parent) {
+			return addMHz(position, super.getDropDownView(position, convertView, parent));
+		}
+
+	}
+
 	private SpinnerAdapter buildCpufreqAdapter(int[] freqs) {
-		ArrayAdapter<Integer> cpuFreqAdapter = new ArrayAdapter<Integer>(callback.getContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+		FrequencyAdaper cpuFreqAdapter = new FrequencyAdaper(callback.getContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
 		cpuFreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		for (int i = freqs.length - 1; i > -1; i--) {
 			cpuFreqAdapter.add(freqs[i]);
