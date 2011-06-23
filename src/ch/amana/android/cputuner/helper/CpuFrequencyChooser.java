@@ -55,7 +55,7 @@ public class CpuFrequencyChooser {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				try {
-					int val = availCpuFreqsMax[position];
+					int val = availCpuFreqsMax[availCpuFreqsMax.length - position - 1];
 					fireMaxCpuFreqChanged(val);
 				} catch (ArrayIndexOutOfBoundsException e) {
 					Logger.e("Cannot set max freq in gui", e);
@@ -72,7 +72,7 @@ public class CpuFrequencyChooser {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				try {
-					int val = availCpuFreqsMin[position];
+					int val = availCpuFreqsMin[availCpuFreqsMin.length - position - 1];
 					fireMinCpuFreqChanged(val);
 				} catch (ArrayIndexOutOfBoundsException e) {
 					Logger.e("Cannot set min freq in gui", e);
@@ -150,20 +150,10 @@ public class CpuFrequencyChooser {
 		}
 	}
 
-	// private SpinnerAdapter getCpufreqSpinnerAdapter(int[] freqs) {
-	// ArrayAdapter<Integer> cpuFreqAdapter = new ArrayAdapter<Integer>(this,
-	// android.R.layout.simple_spinner_item, android.R.id.text1);
-	// cpuFreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	// for (int i = freqs.length - 1; i > -1; i--) {
-	// cpuFreqAdapter.add(freqs[i]);
-	// }
-	// return cpuFreqAdapter;
-	// }
-
 	private SpinnerAdapter getCpufreqSpinnerAdapter(int[] freqs) {
 		ArrayAdapter<Integer> cpuFreqAdapter = new ArrayAdapter<Integer>(callback.getContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
 		cpuFreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		for (int i = 0; i < freqs.length; i++) {
+		for (int i = freqs.length - 1; i > -1; i--) {
 			cpuFreqAdapter.add(freqs[i]);
 		}
 		return cpuFreqAdapter;
