@@ -14,7 +14,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TableRow;
@@ -22,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
+import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -30,7 +31,6 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -43,21 +43,19 @@ import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
 import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
-public class CurInfo extends FragmentActivity implements GovernorFragmentCallback {
+public class CurInfo extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback {
 
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
 
 	private CpuHandler cpuHandler;
 	private SeekBar sbCpuFreqMax;
-	private TextView tvCpuFreqMax;
+	private Spinner spCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
-	private TextView tvCpuFreqMin;
+	private Spinner spCpuFreqMin;
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
 	private TextView tvCurrentTrigger;
-	private int[] availCpuFreqsMin;
-	private int[] availCpuFreqsMax;
 	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private TextView tvBatteryCurrent;
@@ -75,6 +73,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	private TableRow trConfig;
 	private TextView labelConfig;
 	private TextView tvConfig;
+	private CpuFrequencyChooser cpuFrequencyChooser;
 
 	protected class CpuTunerReceiver extends BroadcastReceiver {
 
@@ -232,17 +231,14 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();
 
-		availCpuFreqsMax = cpuHandler.getAvailCpuFreq();
-		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
-
 		tvCurrentTrigger = (TextView) findViewById(R.id.tvCurrentTrigger);
 		spProfiles = (Spinner) findViewById(R.id.spProfiles);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
 		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
 		tvBatteryCurrent = (TextView) findViewById(R.id.tvBatteryCurrent);
 		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
-		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
-		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
+		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
+		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
@@ -258,6 +254,8 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		labelConfig = (TextView) findViewById(R.id.labelConfig);
 		tvConfig = (TextView) findViewById(R.id.tvConfig);
 
+		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
+		
 		governorHelper = new GovernorHelperCurInfo();
 		if (settings.isUseVirtualGovernors()) {
 			governorFragment = new VirtualGovernorFragment(this, governorHelper);
@@ -295,59 +293,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			}
 		});
 
-		sbCpuFreqMax.setMax(availCpuFreqsMax.length - 1);
-		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int val = availCpuFreqsMax[seekBar.getProgress()];
-					if (val != cpuHandler.getMaxCpuFreq()) {
-						if (cpuHandler.setMaxCpuFreq(val)) {
-							Toast.makeText(CurInfo.this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
-						}
-						updateView();
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set max freq in gui", e);
-				}
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			}
-		});
-
-		sbCpuFreqMin.setMax(availCpuFreqsMin.length - 1);
-		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int val = availCpuFreqsMin[seekBar.getProgress()];
-					if (val != cpuHandler.getMinCpuFreq()) {
-						if (cpuHandler.setMinCpuFreq(val)) {
-							Toast.makeText(CurInfo.this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
-						}
-						updateView();
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set min freq in gui", e);
-				}
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			}
-		});
+		
 
 		OnClickListener startBattery = new OnClickListener() {
 
@@ -376,6 +322,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		});
 	}
 
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -393,19 +340,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		batteryLevelChanged();
 		profileChanged();
 		acPowerChanged();
-	}
-
-	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
-		if (val == HardwareHandler.NO_VALUE_INT) {
-			textView.setText(R.string.notAvailable);
-		} else {
-			textView.setText(ProfileModel.convertFreq2GHz(val));
-		}
-		for (int i = 0; i < valList.length; i++) {
-			if (val == valList[i]) {
-				seekBar.setProgress(i);
-			}
-		}
 	}
 
 	private void batteryLevelChanged() {
@@ -466,8 +400,8 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
 
-		setSeekbar(cpuHandler.getMaxCpuFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(cpuHandler.getMinCpuFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
+		cpuFrequencyChooser.setMinCpuFreq(cpuHandler.getMinCpuFreq());
+		cpuFrequencyChooser.setMaxCpuFreq(cpuHandler.getMaxCpuFreq());
 
 		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(cpuHandler.getCurCpuGov());
 		if (governorConfig.hasNewLabelCpuFreqMax()) {
@@ -476,14 +410,14 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
+			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
 		} else {
-			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
+			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
+			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
 		} else {
-			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
+			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
 		}
 
 		governorFragment.updateView();
@@ -498,4 +432,28 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		// not used
 	}
 
+	@Override
+	public void setMaxCpuFreq(int val) {
+		if (val != cpuHandler.getMaxCpuFreq()) {
+			if (cpuHandler.setMaxCpuFreq(val)) {
+				Toast.makeText(this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
+			}
+			updateView();
+		}
+	}
+
+	@Override
+	public void setMinCpuFreq(int val) {
+		if (val != cpuHandler.getMinCpuFreq()) {
+			if (cpuHandler.setMinCpuFreq(val)) {
+				Toast.makeText(this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
+			}
+			updateView();
+		}
+	}
+
+	@Override
+	public Context getContext() {
+		return this;
+	};
 }

@@ -4,11 +4,12 @@ V
 * bug fixes
 -
 
-V 
+V 2.4.0
 * features
-- 
+- Use spinner to choose frequencies
 * bug fixes
-- Greek translation
+- fix jumping profile editor
+- Greek translation update
 
 V 2.3.2 
 * features

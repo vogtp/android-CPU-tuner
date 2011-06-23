@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,22 +20,21 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
+import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
@@ -42,14 +42,14 @@ import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
 
-public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback {
+public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback {
 
 	private ProfileModel profile;
 	private CpuHandler cpuHandler;
 	private SeekBar sbCpuFreqMax;
-	private TextView tvCpuFreqMax;
+	private Spinner spCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
-	private TextView tvCpuFreqMin;
+	private Spinner spCpuFreqMin;
 	private int[] availCpuFreqsMax;
 	private int[] availCpuFreqsMin;
 	private ProfileModel origProfile;
@@ -68,6 +68,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private TableRow trMinFreq;
 	private TableRow trMaxFreq;
 	private Spinner spAirplaneMode;
+	private CpuFrequencyChooser cpuFrequencyChooser;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -134,8 +135,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 		// llTop = (LinearLayout) findViewById(R.id.llTop);
 		etName = (EditText) findViewById(R.id.etName);
-		tvCpuFreqMax = (TextView) findViewById(R.id.tvCpuFreqMax);
-		tvCpuFreqMin = (TextView) findViewById(R.id.tvCpuFreqMin);
+		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
+		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
@@ -151,71 +152,9 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
 
 
-// sbCpuFreqMax.requestFocus();
+		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
 		TableLayout tlServices = (TableLayout) findViewById(R.id.TableLayoutServices);
-
-		sbCpuFreqMax.setMax(availCpuFreqsMax.length - 1);
-		sbCpuFreqMax.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
-					int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
-					if (max >= min) {
-						updateModel();
-						profile.setMaxFreq(max);
-						updateView();
-					} else {
-						Toast.makeText(ProfileEditor.this, R.string.msg_minimal_frequency_bigger_than_the_maximal, Toast.LENGTH_LONG).show();
-						updateView();
-					}
-
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set max freq in gui", e);
-				}
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			}
-		});
-
-		sbCpuFreqMin.setMax(availCpuFreqsMin.length - 1);
-		sbCpuFreqMin.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				try {
-					int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
-					int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
-					if (max >= min) {
-						updateModel();
-						profile.setMinFreq(min);
-						updateView();
-					} else {
-						Toast.makeText(ProfileEditor.this, R.string.msg_minimal_frequency_bigger_than_the_maximal, Toast.LENGTH_LONG).show();
-						updateView();
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					Logger.e("Cannot set max freq in gui", e);
-				}
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			}
-		});
-
 		if (settings.isEnableSwitchWifi()) {
 			spWifi.setAdapter(getSystemsAdapter());
 			spWifi.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -424,8 +363,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		if (!ProfileModel.NO_VALUE_STR.equals(profileName)) {
 			etName.setText(profileName);
 		}
-		setSeekbar(profile.getMaxFreq(), availCpuFreqsMax, sbCpuFreqMax, tvCpuFreqMax);
-		setSeekbar(profile.getMinFreq(), availCpuFreqsMin, sbCpuFreqMin, tvCpuFreqMin);
+		cpuFrequencyChooser.setMaxCpuFreq(profile.getMaxFreq());
+		cpuFrequencyChooser.setMinCpuFreq(profile.getMinFreq());
 		spWifi.setSelection(profile.getWifiState());
 		spGps.setSelection(profile.getGpsState());
 		spBluetooth.setSelection(profile.getBluetoothState());
@@ -441,30 +380,16 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
+			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
 		} else {
-			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, tvCpuFreqMin, sbCpuFreqMin });
+			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
+			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
 		} else {
-			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, tvCpuFreqMax, sbCpuFreqMax });
+			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
 		}
 		governorFragment.updateView();
-	}
-
-
-	private void setSeekbar(int val, int[] valList, SeekBar seekBar, TextView textView) {
-		if (val == HardwareHandler.NO_VALUE_INT) {
-			textView.setText(R.string.notAvailable);
-		} else {
-			textView.setText(ProfileModel.convertFreq2GHz(val));
-		}
-		for (int i = 0; i < valList.length; i++) {
-			if (val == valList[i]) {
-				seekBar.setProgress(i);
-			}
-		}
 	}
 
 	@Override
@@ -496,5 +421,42 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			}
 		}
 		return false;
+	}
+
+
+// private void setFrequency() {
+	// try {
+	// int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
+	// int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
+	// if (max >= min) {
+	// updateModel();
+	// profile.setMaxFreq(max);
+	// profile.setMinFreq(min);
+	// updateView();
+	// } else {
+	// Toast.makeText(ProfileEditor.this,
+	// R.string.msg_minimal_frequency_bigger_than_the_maximal,
+	// Toast.LENGTH_LONG).show();
+	// updateView();
+	// }
+	//
+	// } catch (ArrayIndexOutOfBoundsException e) {
+	// Logger.e("Cannot set max freq in gui", e);
+	// }
+	// }
+
+	@Override
+	public Context getContext() {
+		return this;
+	}
+
+	@Override
+	public void setMaxCpuFreq(int val) {
+		profile.setMaxFreq(val);
+	}
+
+	@Override
+	public void setMinCpuFreq(int val) {
+		profile.setMinFreq(val);
 	}
 }
