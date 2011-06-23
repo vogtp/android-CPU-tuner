@@ -84,51 +84,41 @@
 		<LinearLayout android:orientation="vertical"
 			android:layout_height="wrap_content" android:layout_width="match_parent"
 			android:id="@+id/llGovernorFragmentAncor"></LinearLayout>
-		<TableLayout android:layout_height="wrap_content"
+	<TableLayout android:layout_height="wrap_content"
 			android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
 			<TextView android:textSize="20sp" android:layout_width="fill_parent"
 				android:id="@+id/textView1" android:layout_height="wrap_content"
 				android:paddingTop="10dp" android:text="@string/labelCpuFreq"
 				android:paddingRight="5dp"></TextView>
 			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
-				android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:layout_margin="7dp">
-
+				android:layout_width="fill_parent">
 
 
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"></TextView>
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="@+id/tvCpuFreqMax"
-					android:paddingRight="5dp" android:id="@+id/tvCpuFreqMax"
-					android:layout_gravity="right"></TextView>
+					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"
+					android:layout_gravity="center_vertical"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spCpuFreqMax"></Spinner>
 				<SeekBar android:layout_height="wrap_content"
 					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
-					android:layout_weight=".3" android:paddingRight="5dp" ></SeekBar>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMinFreq"
-				android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:layout_margin="7dp">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:text="@+string/labelMin" android:id="@+id/labelCpuFreqMin"></TextView>
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:text="99999" android:id="@+id/tvCpuFreqMin"
-					android:layout_gravity="right"></TextView>
+					android:layout_weight=".3" android:paddingRight="5dp"
+					android:paddingBottom="3dp" android:paddingTop="3dp"
+					android:layout_marginRight="5dp"></SeekBar>
 
-				<SeekBar android:layout_height="wrap_content"
-					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMin"
-					android:layout_weight=".3" android:paddingRight="5dp" ></SeekBar>
 			</TableRow>
-
+			<TableRow android:id="@+id/TableRowMinFreq"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin"
+					android:layout_gravity="center_vertical" android:text="@+string/labelMin"
+					android:paddingRight="5dp"></TextView>
+				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spCpuFreqMin"></Spinner>
+				<SeekBar android:paddingBottom="3dp" android:id="@+id/SeekBarCpuFreqMin"
+					android:paddingRight="5dp" android:paddingTop="3dp"
+					android:layout_height="wrap_content" android:layout_width="fill_parent"
+					android:layout_weight=".3" android:layout_marginRight="5dp"></SeekBar>
+			</TableRow>
 		</TableLayout>
-
-
-
-
-
-
-
 	</LinearLayout>
 
 </ScrollView>
