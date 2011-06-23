@@ -1,15 +1,14 @@
-- Fix allow manual service changes
-
 - disable cores: echo 0 >> /sys/devices/system/cpu/cpu1/online
 - update docu for script clarify root
 
 - handle two configuration have the same name
 
 - fragments: fix orientation change 
-- fragments: fix scrolling in profile editor
 
 - make autoload restoreable
 - create a different default configs and load on init 
+- make profiles manually changeable (the same as manual service changes) 
+	and add a reset button 
 
 - add controls for 4G(wimax)
 
