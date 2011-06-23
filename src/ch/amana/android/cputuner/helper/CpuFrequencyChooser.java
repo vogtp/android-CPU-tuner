@@ -9,6 +9,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
 
@@ -151,6 +152,20 @@ public class CpuFrequencyChooser {
 	}
 
 	private SpinnerAdapter getCpufreqSpinnerAdapter(int[] freqs) {
+		if (freqs.length > 1) {
+			return buildCpufreqAdapter(freqs);
+		}
+		if (freqs.length == 1 && freqs[0] != HardwareHandler.NO_VALUE_INT) {
+			return buildCpufreqAdapter(freqs);
+		}
+		ArrayAdapter<String> cpuFreqAdapter = new ArrayAdapter<String>(callback.getContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+		cpuFreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		cpuFreqAdapter.add(callback.getContext().getString(R.string.notAvailable));
+		return cpuFreqAdapter;
+
+	}
+
+	private SpinnerAdapter buildCpufreqAdapter(int[] freqs) {
 		ArrayAdapter<Integer> cpuFreqAdapter = new ArrayAdapter<Integer>(callback.getContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
 		cpuFreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		for (int i = freqs.length - 1; i > -1; i--) {
