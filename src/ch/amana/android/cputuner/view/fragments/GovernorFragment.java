@@ -21,6 +21,7 @@ import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.CpuHandlerMulticore;
 import ch.amana.android.cputuner.model.IGovernorModel;
 
 public class GovernorFragment extends GovernorBaseFragment {
@@ -43,6 +44,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private LinearLayout llGovernorThresholds;
 	private Spinner spUseCpus;
 	private boolean isEnableMulticore;
+	private int numberOfCpus;
 
 	public GovernorFragment() {
 		super();
@@ -92,19 +94,18 @@ public class GovernorFragment extends GovernorBaseFragment {
 			llFragmentTop.removeView(act.findViewById(R.id.llScript));
 		}
 
-		int numberOfCpus = CpuHandler.getInstance().getNumberOfCpus();
-		isEnableMulticore = settings.isUseMulticore() && numberOfCpus > 1;
-		if (isEnableMulticore) {
+		numberOfCpus = CpuHandler.getInstance().getNumberOfCpus();
+		if (CpuHandler.getInstance() instanceof CpuHandlerMulticore) {
 			ArrayAdapter<Integer> cpuAdapter = new ArrayAdapter<Integer>(act, android.R.layout.simple_spinner_item);
 			cpuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			for (int i = 1; i <= numberOfCpus; i++) {
+			for (int i = numberOfCpus; i <= 1; i++) {
 				cpuAdapter.add(i);
 			}
 			spUseCpus.setAdapter(cpuAdapter );
 			spUseCpus.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-					getGovernorModel().setUseNumberOfCpus(position);
+					getGovernorModel().setUseNumberOfCpus(numberOfCpus - position);
 				}
 
 				@Override
