@@ -4,6 +4,12 @@ V
 * bug fixes
 -
 
+V 
+* features
+- enable/disable cpus (for mulitcore devices)
+* bug fixes
+-
+
 V 2.4.0
 * features
 - Use spinner to choose frequencies

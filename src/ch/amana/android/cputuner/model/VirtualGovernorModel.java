@@ -20,6 +20,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 	private int governorThresholdDown = 95;
 	private String script = "";
 	private int powersaveBias = 0;
+	private int useNumberOfCpus;
 
 	public VirtualGovernorModel() {
 		super();
@@ -34,6 +35,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		this.governorThresholdDown = c.getInt(DB.VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN);
 		this.script = c.getString(DB.VirtualGovernor.INDEX_SCRIPT);
 		this.powersaveBias = c.getInt(DB.VirtualGovernor.INDEX_POWERSEAVE_BIAS);
+		this.useNumberOfCpus = c.getInt(DB.VirtualGovernor.INDEX_USE_NUMBER_OF_CPUS);
 	}
 
 	public VirtualGovernorModel(Bundle bundle) {
@@ -53,6 +55,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		bundle.putInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		bundle.putString(DB.VirtualGovernor.NAME_SCRIPT, getScript());
 		bundle.putInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS, getPowersaveBias());
+		bundle.putInt(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS, getUseNumberOfCpus());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -63,6 +66,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		governorThresholdDown = bundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN);
 		script = bundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 		powersaveBias = bundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
+		useNumberOfCpus = bundle.getInt(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS);
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -73,6 +77,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		governorThresholdDown = jsonBundle.getInt(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN);
 		script = jsonBundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 		powersaveBias = jsonBundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
+		useNumberOfCpus = jsonBundle.getInt(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS);
 	}
 
 	public ContentValues getValues() {
@@ -87,6 +92,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
 		values.put(DB.VirtualGovernor.NAME_SCRIPT, getScript());
 		values.put(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS, getPowersaveBias());
+		values.put(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS, getUseNumberOfCpus());
 		return values;
 	}
 
@@ -132,6 +138,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		result = prime * result + powersaveBias;
 		result = prime * result + ((realGov == null) ? 0 : realGov.hashCode());
 		result = prime * result + ((script == null) ? 0 : script.hashCode());
+		result = prime * result + useNumberOfCpus;
 		result = prime * result + ((virtualGov == null) ? 0 : virtualGov.hashCode());
 		return result;
 	}
@@ -160,6 +167,8 @@ public class VirtualGovernorModel implements IGovernorModel {
 			if (other.script != null)
 				return false;
 		} else if (!script.equals(other.script))
+			return false;
+		if (useNumberOfCpus != other.useNumberOfCpus)
 			return false;
 		if (virtualGov == null) {
 			if (other.virtualGov != null)
@@ -251,4 +260,13 @@ public class VirtualGovernorModel implements IGovernorModel {
 		return powersaveBias;
 	}
 
+	@Override
+	public void setUseNumberOfCpus(int useNumberOfCpus) {
+		this.useNumberOfCpus = useNumberOfCpus;
+	}
+
+	@Override
+	public int getUseNumberOfCpus() {
+		return useNumberOfCpus;
+	}
 }

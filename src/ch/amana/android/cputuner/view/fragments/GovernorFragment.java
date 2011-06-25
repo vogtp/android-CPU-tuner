@@ -41,6 +41,8 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private TextView labelPowersaveBias;
 	private LinearLayout llPowersaveBias;
 	private LinearLayout llGovernorThresholds;
+	private Spinner spUseCpus;
+	private boolean isEnableMulticore;
 
 	public GovernorFragment() {
 		super();
@@ -84,9 +86,33 @@ public class GovernorFragment extends GovernorBaseFragment {
 		llPowersaveBias = (LinearLayout) act.findViewById(R.id.llPowersaveBias);
 		sbPowersaveBias = (SeekBar) act.findViewById(R.id.sbPowersaveBias);
 		labelPowersaveBias = (TextView) act.findViewById(R.id.labelPowersaveBias);
+		spUseCpus = (Spinner) act.findViewById(R.id.spUseCpus);
 
 		if (disableScript || !settings.isEnableScriptOnProfileChange()) {
 			llFragmentTop.removeView(act.findViewById(R.id.llScript));
+		}
+
+		int numberOfCpus = CpuHandler.getInstance().getNumberOfCpus();
+		isEnableMulticore = settings.isUseMulticore() && numberOfCpus > 1;
+		if (isEnableMulticore) {
+			ArrayAdapter<Integer> cpuAdapter = new ArrayAdapter<Integer>(act, android.R.layout.simple_spinner_item);
+			cpuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			for (int i = 1; i <= numberOfCpus; i++) {
+				cpuAdapter.add(i);
+			}
+			spUseCpus.setAdapter(cpuAdapter );
+			spUseCpus.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+					getGovernorModel().setUseNumberOfCpus(position);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
+				}
+			});
+		} else {
+			llFragmentTop.removeView(act.findViewById(R.id.llUseCpus));
 		}
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(act, android.R.layout.simple_spinner_item, availCpuGovs);
@@ -164,7 +190,8 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 	@Override
 	public void updateView() {
-		String curGov = getGovernorModel().getGov();
+		IGovernorModel governorModel = getGovernorModel();
+		String curGov = governorModel.getGov();
 		for (int i = 0; i < availCpuGovs.length; i++) {
 			if (curGov.equals(availCpuGovs[i])) {
 				spinnerSetGov.setSelection(i);
@@ -172,18 +199,19 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(getActivity(), curGov));
 		if (SettingsStorage.getInstance().isPowerUser()) {
-			etScript.setText(getGovernorModel().getScript());
+			etScript.setText(governorModel.getScript());
 		}
-		sbPowersaveBias.setProgress(getGovernorModel().getPowersaveBias());
+		sbPowersaveBias.setProgress(governorModel.getPowersaveBias());
 		updateGovernorFeatures();
-
+		spUseCpus.setSelection(governorModel.getUseNumberOfCpus() - 1);
 	}
 
 	private void updateGovernorFeatures() {
-		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(getGovernorModel().getGov());
+		IGovernorModel governorModel = getGovernorModel();
+		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(governorModel.getGov());
 
-		int up = getGovernorModel().getGovernorThresholdUp();
-		int down = getGovernorModel().getGovernorThresholdDown();
+		int up = governorModel.getGovernorThresholdUp();
+		int down = governorModel.getGovernorThresholdDown();
 		boolean hasThreshholdUp = governorConfig.hasThreshholdUpFeature();
 		boolean hasThreshholdDown = governorConfig.hasThreshholdDownFeature();
 
@@ -204,7 +232,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			}
 			etGovTreshUp.setText(up + "");
 		} else {
-			getGovernorModel().setGovernorThresholdUp(0);
+			governorModel.setGovernorThresholdUp(0);
 			etGovTreshUp.setText("");
 			labelGovThreshUp.setVisibility(View.INVISIBLE);
 			etGovTreshUp.setVisibility(View.INVISIBLE);
@@ -225,7 +253,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			}
 			etGovTreshDown.setText(down + "");
 		} else {
-			getGovernorModel().setGovernorThresholdDown(0);
+			governorModel.setGovernorThresholdDown(0);
 			etGovTreshDown.setText("");
 			labelGovThreshDown.setVisibility(View.INVISIBLE);
 			etGovTreshDown.setVisibility(View.INVISIBLE);

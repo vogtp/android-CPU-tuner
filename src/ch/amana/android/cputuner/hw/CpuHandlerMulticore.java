@@ -4,6 +4,7 @@ import ch.amana.android.cputuner.helper.Logger;
 
 public class CpuHandlerMulticore extends CpuHandler {
 
+	private static final String CPU_ONLINE = "online";
 	private String[] cpus;
 
 	public CpuHandlerMulticore(String[] cpus) {
@@ -17,14 +18,18 @@ public class CpuHandlerMulticore extends CpuHandler {
 
 	private boolean writeFile(String subDir, String file, String value) {
 		for (int i = 0; i < cpus.length; i++) {
-			StringBuilder path = new StringBuilder(CPU_BASE_DIR);
-			path.append("/").append(cpus[i]);
-			if (subDir != null) {
-				path.append("/").append(subDir);
-			}
-			RootHandler.writeFile(getFile(path.toString(), file), value);
+			writeCpuFile(subDir, file, value, i);
 		}
 		return false;
+	}
+
+	private void writeCpuFile(String subDir, String file, String value, int i) {
+		StringBuilder path = new StringBuilder(CPU_BASE_DIR);
+		path.append("/").append(cpus[i]);
+		if (subDir != null) {
+			path.append("/").append(subDir);
+		}
+		RootHandler.writeFile(getFile(path.toString(), file), value);
 	}
 
 	public boolean setCurGov(String gov) {
@@ -81,8 +86,39 @@ public class CpuHandlerMulticore extends CpuHandler {
 		return writeFile(getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
 	}
 
-	public int numberOfCpus() {
+	public int getNumberOfCpus() {
 		return cpus.length;
 	}
 
+	public void setNumberOfActiveCpus(int activeCpus) {
+		if (activeCpus < 1) {
+			return;
+		}
+		int i;
+		for (i = 0; i < activeCpus; i++) {
+			Logger.i("Switching on cpu"+i);
+			writeCpuFile(null, CPU_ONLINE, "1", i);
+		}
+		for (int j = i+1; j < getNumberOfCpus(); j++) {
+			Logger.i("Switching off cpu" + j);
+			writeCpuFile(null, CPU_ONLINE, "0", j);
+		}
+	}
+
+	public int getNumberOfActiveCpus() {
+		int count = 0;
+		for (int i = 0; i < getNumberOfCpus(); i++) {
+			StringBuilder path = new StringBuilder(CPU_BASE_DIR);
+			path.append("/").append(cpus[i]);
+			String online = RootHandler.readFile(getFile(path.toString(), CPU_ONLINE));
+			if ("1".equals(online)) {
+				count++;
+				if (Logger.DEBUG) {
+					Logger.d("CPU" + i + " is online");
+				}
+			}
+		}
+		Logger.d("Found " + count + " online cpus");
+		return count;
+	}
 }

@@ -55,7 +55,7 @@ public class CpuHandler extends HardwareHandler {
 
 	public static CpuHandler getInstance() {
 		if (instance == null) {
-			if (SettingsStorage.getInstance().useMulticore()) {
+			if (SettingsStorage.getInstance().isUseMulticore()) {
 				File cpuBase = new File(CPU_BASE_DIR);
 				String[] cpus = cpuBase.list(new FilenameFilter() {
 
@@ -323,7 +323,14 @@ public class CpuHandler extends HardwareHandler {
 		return RootHandler.readFile(getFile(CPU_STATS_DIR, TOTAL_TRANSITIONS));
 	}
 
-	public int numberOfCpus() {
+	public int getNumberOfCpus() {
+		return 1;
+	}
+
+	public void setNumberOfActiveCpus(int position) {
+	}
+
+	public int getNumberOfActiveCpus() {
 		return 1;
 	}
 

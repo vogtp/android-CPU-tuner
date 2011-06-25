@@ -31,4 +31,8 @@ public interface IGovernorModel {
 	public void setPowersaveBias(int powersaveBias);
 
 	public int getPowersaveBias();
+
+	public void setUseNumberOfCpus(int position);
+
+	public int getUseNumberOfCpus();
 }

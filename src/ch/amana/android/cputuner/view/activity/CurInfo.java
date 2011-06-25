@@ -20,10 +20,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.GovernorConfigHelper;
-import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
-import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
+import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -211,6 +211,16 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		@Override
 		public boolean hasScript() {
 			return false;
+		}
+
+		@Override
+		public void setUseNumberOfCpus(int position) {
+			cpuHandler.setNumberOfActiveCpus(position);
+		}
+
+		@Override
+		public int getUseNumberOfCpus() {
+			return cpuHandler.getNumberOfActiveCpus();
 		}
 
 	}

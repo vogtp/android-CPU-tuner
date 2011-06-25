@@ -399,7 +399,7 @@ public class SettingsStorage {
 		return config != null && !config.trim().equals("");
 	}
 
-	public boolean useMulticore() {
+	public boolean isUseMulticore() {
 		return isEnableBeta();
 	}
 }
