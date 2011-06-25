@@ -25,6 +25,7 @@ import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.SystemAppHelper;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -192,12 +193,14 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
 		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
 		findPreference("prefKeyEnableUserspaceGovernor").setEnabled(settings.isPowerUser());
+		findPreference("prefKeyForceMulticoreCode").setEnabled(settings.isEnableBeta());
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		SettingsStorage.getInstance().forgetValues();
+		CpuHandler.resetInstance();
 	}
 
 	@Override

@@ -8,4 +8,7 @@
     </string-array>
     <string name="labelUseCpus_front">Use </string>
     <string name="labelUseCpus_end">CPUs</string>
+    <string name="prefForceMulticoreCode">Force multicore CPU code</string>
+    <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
+    <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
 </resources>

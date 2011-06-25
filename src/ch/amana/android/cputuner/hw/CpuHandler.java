@@ -53,9 +53,15 @@ public class CpuHandler extends HardwareHandler {
 
 	private static CpuHandler instance = null;
 
+	public static CpuHandler resetInstance() {
+		instance = null;
+		return getInstance();
+	}
+
 	public static CpuHandler getInstance() {
 		if (instance == null) {
-			if (SettingsStorage.getInstance().isUseMulticore()) {
+			SettingsStorage settingsStorage = SettingsStorage.getInstance();
+			if (settingsStorage.isUseMulticore()) {
 				File cpuBase = new File(CPU_BASE_DIR);
 				String[] cpus = cpuBase.list(new FilenameFilter() {
 
@@ -66,7 +72,7 @@ public class CpuHandler extends HardwareHandler {
 					}
 				});
 				Logger.i("Found " + cpus.length + " CPUs");
-				if (cpus.length > 1) {
+				if (cpus.length > 1 || settingsStorage.isForceUseMulticoreCode()) {
 					Logger.i("Using multicore code");
 					instance = new CpuHandlerMulticore(cpus);
 				} else {

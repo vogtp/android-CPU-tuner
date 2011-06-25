@@ -402,4 +402,8 @@ public class SettingsStorage {
 	public boolean isUseMulticore() {
 		return isEnableBeta();
 	}
+
+	public boolean isForceUseMulticoreCode() {
+		return getPreferences().getBoolean("prefKeyForceMulticoreCode", false);
+	}
 }
