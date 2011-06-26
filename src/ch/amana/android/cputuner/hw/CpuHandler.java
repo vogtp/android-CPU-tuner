@@ -27,7 +27,8 @@ public class CpuHandler extends HardwareHandler {
 	public static final String GOV_SMARTASS = "smartass";
 
 	public static final String CPU_BASE_DIR = "/sys/devices/system/cpu/";
-	public static final String CPU_DIR = CPU_BASE_DIR + "/cpu0/cpufreq/";
+	protected static final String CPUFREQ_DIR = "cpufreq/";
+	public static final String CPU_DIR = CPU_BASE_DIR + "/cpu0/" + CPUFREQ_DIR;
 
 	protected static final String SCALING_GOVERNOR = "scaling_governor";
 	public static final String SCALING_MAX_FREQ = "scaling_max_freq";
