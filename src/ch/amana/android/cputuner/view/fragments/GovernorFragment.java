@@ -205,7 +205,11 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 		sbPowersaveBias.setProgress(governorModel.getPowersaveBias());
 		updateGovernorFeatures();
-		spUseCpus.setSelection(numberOfCpus - governorModel.getUseNumberOfCpus());
+
+		int position = numberOfCpus - governorModel.getUseNumberOfCpus();
+		if (position < spUseCpus.getAdapter().getCount()) {
+			spUseCpus.setSelection(position);
+		}
 	}
 
 	private void updateGovernorFeatures() {
