@@ -105,7 +105,8 @@ public class GovernorFragment extends GovernorBaseFragment {
 			spUseCpus.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-					getGovernorModel().setUseNumberOfCpus(numberOfCpus - position);
+					int num = numberOfCpus - position;
+					getGovernorModel().setUseNumberOfCpus(num);
 				}
 
 				@Override
@@ -204,7 +205,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 		sbPowersaveBias.setProgress(governorModel.getPowersaveBias());
 		updateGovernorFeatures();
-		spUseCpus.setSelection(governorModel.getUseNumberOfCpus() - 1);
+		spUseCpus.setSelection(numberOfCpus - governorModel.getUseNumberOfCpus());
 	}
 
 	private void updateGovernorFeatures() {
