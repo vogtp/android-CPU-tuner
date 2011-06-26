@@ -154,14 +154,20 @@ public class PowerProfiles {
 				Logger.i("Not switching profile since phone not idle");
 				return;
 			}
-			applyProfile(profileId);
+			applyProfile(profileId, force);
 		}
 	}
 
 	public void applyProfile(long profileId) {
+		applyProfile(profileId, false);
+	}
+
+	private void applyProfile(long profileId, boolean force) {
 		if (currentProfile != null && currentProfile.getDbId() == profileId) {
-			Logger.i("Not switching profile since it is the correct one " + currentProfile.getProfileName());
-			return;
+			if (!force) {
+				Logger.i("Not switching profile since it is the correct one " + currentProfile.getProfileName());
+				return;
+			}
 		}
 
 		Cursor cursorProfile = null;
