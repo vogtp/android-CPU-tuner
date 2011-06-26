@@ -31,6 +31,7 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.CpuHandlerMulticore;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -221,6 +222,25 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		@Override
 		public int getUseNumberOfCpus() {
 			return cpuHandler.getNumberOfActiveCpus();
+		}
+
+		@Override
+		public CharSequence getDescription(Context ctx) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(getGov());
+			int governorThresholdUp = getGovernorThresholdUp();
+			if (governorThresholdUp > 0) {
+				sb.append("\n").append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
+			}
+			int governorThresholdDown = getGovernorThresholdDown();
+			if (governorThresholdDown > 0) {
+				sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
+			}
+			if (cpuHandler instanceof CpuHandlerMulticore) {
+				sb.append("\n").append(ctx.getString(R.string.labelActiveCpus)).append(" ").append(getUseNumberOfCpus());
+
+			}
+			return sb.toString();
 		}
 
 	}

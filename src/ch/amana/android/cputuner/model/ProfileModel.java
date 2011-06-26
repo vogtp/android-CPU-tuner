@@ -1,10 +1,12 @@
 package ch.amana.android.cputuner.model;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -436,5 +438,21 @@ public class ProfileModel implements IGovernorModel {
 	@Override
 	public int getUseNumberOfCpus() {
 		return useNumberOfCpus;
+	}
+
+	@Override
+	public CharSequence getDescription(Context ctx) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(gov);
+		if (governorThresholdUp > 0) {
+			sb.append("\n").append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
+		}
+		if (governorThresholdDown > 0) {
+			sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
+		}
+		if (!TextUtils.isEmpty(script)) {
+			sb.append("\n").append(ctx.getString(R.string.labelScript)).append(" ").append(script);
+		}
+		return sb.toString();
 	}
 }

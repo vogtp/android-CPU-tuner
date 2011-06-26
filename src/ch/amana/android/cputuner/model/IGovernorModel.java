@@ -1,5 +1,7 @@
 package ch.amana.android.cputuner.model;
 
+import android.content.Context;
+
 public interface IGovernorModel {
 
 	public void setVirtualGovernor(long id);
@@ -35,4 +37,6 @@ public interface IGovernorModel {
 	public int getPowersaveBias();
 
 	public int getUseNumberOfCpus();
+
+	CharSequence getDescription(Context ctx);
 }
