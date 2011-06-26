@@ -237,8 +237,13 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 				sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
 			}
 			if (cpuHandler instanceof CpuHandlerMulticore) {
-				sb.append("\n").append(ctx.getString(R.string.labelActiveCpus)).append(" ").append(getUseNumberOfCpus());
-
+				int useNumberOfCpus = getUseNumberOfCpus();
+				int numberOfCpus = cpuHandler.getNumberOfCpus();
+				if (useNumberOfCpus < 1 || useNumberOfCpus > numberOfCpus) {
+					useNumberOfCpus = numberOfCpus;
+				}
+				sb.append("\n").append(ctx.getString(R.string.labelActiveCpus)).append(" ").append(useNumberOfCpus);
+				sb.append("/").append(numberOfCpus);
 			}
 			return sb.toString();
 		}

@@ -118,10 +118,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		updateVirtGov = false;
 		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
 		updateVirtGov = true;
-		VirtualGovernorModel virtualGov = getVirtualGovernorModel(virtualGovernor);
-		if (virtualGov != null) {
-			tvExplainGov.setText(virtualGov.getDescription(getActivity()));
-		}
+		tvExplainGov.setText(getGovernorModel().getDescription(getActivity()));
 	}
 
 }
