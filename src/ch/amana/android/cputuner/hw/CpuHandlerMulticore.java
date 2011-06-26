@@ -61,14 +61,14 @@ public class CpuHandlerMulticore extends CpuHandler {
 	}
 
 	public boolean setGovSamplingRate(int i) {
-		return writeFile(getCurCpuGov(), GOV_SAMPLING_RATE, i + "");
+		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_SAMPLING_RATE, i + "");
 	}
 
 	public boolean setPowersaveBias(int i) {
 		if (i < 0) {
 			return false;
 		}
-		return writeFile(getCurCpuGov(), POWERSAVE_BIAS, i + "");
+		return writeFile(CPUFREQ_DIR + getCurCpuGov(), POWERSAVE_BIAS, i + "");
 	}
 
 	public boolean setGovThresholdUp(int i) {
@@ -79,7 +79,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 			i = 98;
 		}
 		Logger.i("Setting multicore threshold up to " + i);
-		return writeFile(getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
+		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
 	}
 
 	public boolean setGovThresholdDown(int i) {
@@ -90,7 +90,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 			i = 95;
 		}
 		Logger.i("Setting multicore threshold down to " + i);
-		return writeFile(getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
+		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
 	}
 
 	public int getNumberOfCpus() {
