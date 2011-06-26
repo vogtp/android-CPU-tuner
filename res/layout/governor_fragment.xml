@@ -36,8 +36,9 @@
 		android:layout_width="wrap_content"
 		android:layout_gravity="center_vertical" android:id="@+id/llUseCpus">
 		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:text="@string/labelUseCpus_front" android:id="@+id/labelUseCpus_front"></TextView>
-		<Spinner android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_gravity="center_vertical"
+	android:text="@string/labelUseCpus_front" android:id="@+id/labelUseCpus_front"></TextView>
+		<Spinner android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" android:layout_weight="1"
 			android:layout_gravity="center_vertical" android:id="@+id/spUseCpus" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"></Spinner>
 		<TextView android:layout_width="wrap_content"
