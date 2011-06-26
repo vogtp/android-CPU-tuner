@@ -106,7 +106,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 			Logger.i("Switching on cpu"+i);
 			writeCpuFile(null, CPU_ONLINE, "1", i);
 		}
-		for (int j = i+1; j < getNumberOfCpus(); j++) {
+		for (int j = i; j < getNumberOfCpus(); j++) {
 			Logger.i("Switching off cpu" + j);
 			writeCpuFile(null, CPU_ONLINE, "0", j);
 		}
