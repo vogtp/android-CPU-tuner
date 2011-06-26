@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.hw;
 
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandlerMulticore extends CpuHandler {
 
@@ -10,6 +11,12 @@ public class CpuHandlerMulticore extends CpuHandler {
 	public CpuHandlerMulticore(String[] cpus) {
 		super();
 		this.cpus = cpus;
+	}
+
+	@Override
+	public void applyCpuSettings(ProfileModel profile) {
+		super.applyCpuSettings(profile);
+		setNumberOfActiveCpus(profile.getUseNumberOfCpus());
 	}
 
 	private boolean writeFile(String file, String value) {
