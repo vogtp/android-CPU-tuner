@@ -179,7 +179,7 @@ public class CpuTunerProvider extends ContentProvider {
 
 	public static void configChanged(Context ctx) {
 		BackupRestoreHelper.saveConfiguration(ctx);
-		PowerProfiles.getInstance().reapplyProfile(true);
+
 	}
 
 }
