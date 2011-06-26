@@ -41,23 +41,23 @@ public class CpuHandlerMulticore extends CpuHandler {
 
 	public boolean setCurGov(String gov) {
 		Logger.i("Setting multicore governor to " + gov);
-		return writeFile(SCALING_GOVERNOR, gov);
+		return writeFile(CPUFREQ_DIR, SCALING_GOVERNOR, gov);
 	}
 
 
 	public boolean setUserCpuFreq(int val) {
 		Logger.i("Setting  multicore user frequency to " + val);
-		return writeFile(SCALING_SETSPEED, val + "");
+		return writeFile(CPUFREQ_DIR, SCALING_SETSPEED, val + "");
 	}
 
 	public boolean setMaxCpuFreq(int val) {
 		Logger.i("Setting multicore max frequency to " + val);
-		return writeFile(SCALING_MAX_FREQ, Integer.toString(val));
+		return writeFile(CPUFREQ_DIR, SCALING_MAX_FREQ, Integer.toString(val));
 	}
 
 	public boolean setMinCpuFreq(int i) {
 		Logger.i("Setting multicore min frequency to " + i);
-		return writeFile(SCALING_MIN_FREQ, Integer.toString(i));
+		return writeFile(CPUFREQ_DIR, SCALING_MIN_FREQ, Integer.toString(i));
 	}
 
 	public boolean setGovSamplingRate(int i) {
