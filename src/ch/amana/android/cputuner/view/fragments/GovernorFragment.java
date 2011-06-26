@@ -43,7 +43,6 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private LinearLayout llPowersaveBias;
 	private LinearLayout llGovernorThresholds;
 	private Spinner spUseCpus;
-	private boolean isEnableMulticore;
 	private int numberOfCpus;
 
 	public GovernorFragment() {
@@ -74,7 +73,8 @@ public class GovernorFragment extends GovernorBaseFragment {
 		SettingsStorage settings = SettingsStorage.getInstance();
 		FragmentActivity act = getActivity();
 
-		availCpuGovs = CpuHandler.getInstance().getAvailCpuGov();
+		CpuHandler cpuHandler = CpuHandler.getInstance();
+		availCpuGovs = cpuHandler.getAvailCpuGov();
 
 		llFragmentTop = (LinearLayout) act.findViewById(R.id.llGovernorFragment);
 		tvExplainGov = (TextView) act.findViewById(R.id.tvExplainGov);
@@ -94,11 +94,11 @@ public class GovernorFragment extends GovernorBaseFragment {
 			llFragmentTop.removeView(act.findViewById(R.id.llScript));
 		}
 
-		numberOfCpus = CpuHandler.getInstance().getNumberOfCpus();
-		if (CpuHandler.getInstance() instanceof CpuHandlerMulticore) {
+		numberOfCpus = cpuHandler.getNumberOfCpus();
+		if (cpuHandler instanceof CpuHandlerMulticore) {
 			ArrayAdapter<Integer> cpuAdapter = new ArrayAdapter<Integer>(act, android.R.layout.simple_spinner_item);
 			cpuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			for (int i = numberOfCpus; i <= 1; i++) {
+			for (int i = numberOfCpus; i >= 1; i--) {
 				cpuAdapter.add(i);
 			}
 			spUseCpus.setAdapter(cpuAdapter );
