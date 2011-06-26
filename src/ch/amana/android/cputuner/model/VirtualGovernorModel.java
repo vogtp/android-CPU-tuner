@@ -96,6 +96,15 @@ public class VirtualGovernorModel implements IGovernorModel {
 		return values;
 	}
 
+	public void applyToProfile(ProfileModel currentProfile) {
+		currentProfile.setGov(realGov);
+		currentProfile.setGovernorThresholdUp(governorThresholdUp);
+		currentProfile.setGovernorThresholdDown(governorThresholdDown);
+		currentProfile.setScript(script);
+		currentProfile.setPowersaveBias(powersaveBias);
+		currentProfile.setUseNumberOfCpus(useNumberOfCpus);
+	}
+
 	public String getGov() {
 		if (realGov == null) {
 			return ProfileModel.NO_VALUE_STR;

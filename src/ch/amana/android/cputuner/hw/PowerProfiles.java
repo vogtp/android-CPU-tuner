@@ -9,6 +9,7 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
+import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class PowerProfiles {
@@ -163,18 +164,34 @@ public class PowerProfiles {
 			return;
 		}
 
-		Cursor c = null;
+		Cursor cursorProfile = null;
+		Cursor cursorVirtGov = null;
 		try {
-			c = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, DB.NAME_ID + "=?", new String[] { profileId + "" },
+			cursorProfile = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, DB.NAME_ID + "=?", new String[] { profileId + "" },
 					DB.CpuProfile.SORTORDER_DEFAULT);
-			if (c != null && c.moveToFirst()) {
-				currentProfile = new ProfileModel(c);
+			if (cursorProfile != null && cursorProfile.moveToFirst()) {
+				currentProfile = new ProfileModel(cursorProfile);
 
-				if (SettingsStorage.getInstance().getProfileSwitchLogSize() > 0) {
+				SettingsStorage settings = SettingsStorage.getInstance();
+				if (settings.isUseVirtualGovernors()) {
+					// TODO move to DB (done to often)
+					long virtualGovernorId = currentProfile.getVirtualGovernor();
+					if (virtualGovernorId > -1) {
+						cursorVirtGov = context.getContentResolver().query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, DB.NAME_ID + "=?",
+								new String[] { virtualGovernorId + "" }, DB.VirtualGovernor.SORTORDER_DEFAULT);
+						if (cursorVirtGov.moveToFirst()) {
+							VirtualGovernorModel virtualGovernor = new VirtualGovernorModel(cursorVirtGov);
+							Logger.i("Using virtual governor " + virtualGovernor.getVirtualGovernorName());
+							virtualGovernor.applyToProfile(currentProfile);
+						}
+					}
+				}
+
+				if (settings.getProfileSwitchLogSize() > 0) {
 					updateProfileSwitchLog();
 				}
 
-				CpuHandler cpuHandler = new CpuHandler();
+				CpuHandler cpuHandler = CpuHandler.getInstance();
 				cpuHandler.applyCpuSettings(currentProfile);
 				applyWifiState(currentProfile.getWifiState());
 				applyGpsState(currentProfile.getGpsState());
@@ -197,9 +214,18 @@ public class PowerProfiles {
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);
 		} finally {
-			if (c != null && !c.isClosed()) {
+			if (cursorProfile != null && !cursorProfile.isClosed()) {
 				try {
-					c.close();
+					cursorProfile.close();
+					cursorProfile = null;
+				} catch (Exception e) {
+					Logger.e("Cannot close cursor", e);
+				}
+			}
+			if (cursorVirtGov != null && !cursorVirtGov.isClosed()) {
+				try {
+					cursorVirtGov.close();
+					cursorVirtGov = null;
 				} catch (Exception e) {
 					Logger.e("Cannot close cursor", e);
 				}
