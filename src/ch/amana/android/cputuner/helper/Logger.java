@@ -11,7 +11,9 @@ import ch.amana.android.cputuner.R;
 public class Logger {
 	private static final String TAG = "CPUTuner";
 
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
+
+	public static final boolean FAKE_MULTICORE = false;
 
 	private static ArrayList<String> log;
 

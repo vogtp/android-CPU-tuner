@@ -72,6 +72,14 @@ public class CpuHandler extends HardwareHandler {
 						return file.isDirectory() && filename.matches("cpu\\d");
 					}
 				});
+
+				if (Logger.FAKE_MULTICORE) {
+					cpus = new String[7];
+					for (int i = 0; i < cpus.length; i++) {
+						cpus[i] = "cpu" + i;
+					}
+				}
+
 				Logger.i("Found " + cpus.length + " CPUs");
 				if (cpus.length > 1 || settingsStorage.isForceUseMulticoreCode()) {
 					Logger.i("Using multicore code");
