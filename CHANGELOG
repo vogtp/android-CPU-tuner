@@ -6,9 +6,10 @@ V
 
 V 
 * features
-- enable/disable cpus (for mulitcore devices)
+- enable/disable cpus (for mulitcore devices and still a beta feature)
 * bug fixes
--
+- fix apply virtual governor to profile
+- apply to system after changing trigger, profile or governor
 
 V 2.4.0
 * features
