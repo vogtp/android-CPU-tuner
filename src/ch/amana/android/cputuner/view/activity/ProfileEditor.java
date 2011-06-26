@@ -25,7 +25,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -36,6 +35,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
@@ -342,14 +342,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 				if (id > 0) {
 					profile.setDbId(id);
 				}
-				BackupRestoreHelper.saveConfiguration(this);
+				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (origProfile.equals(profile)) {
 					return;
 				}
 				if (!profile.equals(origProfile)) {
 					getContentResolver().update(DB.CpuProfile.CONTENT_URI, profile.getValues(), DB.NAME_ID + "=?", new String[] { profile.getDbId() + "" });
-					BackupRestoreHelper.saveConfiguration(this);
+					CpuTunerProvider.configChanged(this);
 				}
 			}
 		} catch (Exception e) {

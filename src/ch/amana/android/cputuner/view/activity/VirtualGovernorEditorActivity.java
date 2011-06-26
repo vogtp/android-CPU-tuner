@@ -12,11 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
@@ -116,7 +116,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 				if (id > 0) {
 					virtualGovModel.setDbId(id);
 				}
-				BackupRestoreHelper.saveConfiguration(this);
+				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (origvirtualGovModel.equals(virtualGovModel)) {
 					return;
@@ -124,7 +124,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 				if (!origvirtualGovModel.equals(virtualGovModel)) {
 					updateAllProfiles();
 					getContentResolver().update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), DB.NAME_ID + "=?", new String[] { virtualGovModel.getDbId() + "" });
-					BackupRestoreHelper.saveConfiguration(this);
+					CpuTunerProvider.configChanged(this);
 				}
 			}
 		} catch (Exception e) {
