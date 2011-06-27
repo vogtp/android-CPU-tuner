@@ -69,6 +69,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private TableRow trMaxFreq;
 	private Spinner spAirplaneMode;
 	private CpuFrequencyChooser cpuFrequencyChooser;
+	private boolean save;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -327,6 +328,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	protected void onResume() {
 		super.onResume();
+		save = true;
 		updateView();
 	}
 
@@ -337,6 +339,9 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
+				if (!save) {
+					return;
+				}
 				Uri uri = getContentResolver().insert(DB.CpuProfile.CONTENT_URI, profile.getValues());
 				long id = ContentUris.parseId(uri);
 				if (id > 0) {
@@ -344,7 +349,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 				}
 				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (origProfile.equals(profile)) {
+				if (!save) {
 					return;
 				}
 				if (!profile.equals(origProfile)) {
@@ -404,10 +409,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			Bundle bundle = new Bundle();
-			origProfile.saveToBundle(bundle);
-			profile.readFromBundle(bundle);
-			updateView();
+			save = false;
 			finish();
 			return true;
 

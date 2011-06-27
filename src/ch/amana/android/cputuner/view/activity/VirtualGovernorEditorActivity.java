@@ -31,6 +31,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	private VirtualGovernorModel virtualGovModel;
 	private VirtualGovernorModel origvirtualGovModel;
 	private EditText etVirtualGovernorName;
+	private boolean save;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -101,6 +102,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	@Override
 	protected void onResume() {
 		super.onResume();
+		save = true;
 		updateView();
 	}
 
@@ -111,6 +113,9 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
+				if (!save) {
+					return;
+				}
 				Uri uri = getContentResolver().insert(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues());
 				long id = ContentUris.parseId(uri);
 				if (id > 0) {
@@ -118,10 +123,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 				}
 				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (origvirtualGovModel.equals(virtualGovModel)) {
-					return;
-				}
-				if (!origvirtualGovModel.equals(virtualGovModel)) {
+				if (save) {
 					updateAllProfiles();
 					getContentResolver().update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), DB.NAME_ID + "=?", new String[] { virtualGovModel.getDbId() + "" });
 					CpuTunerProvider.configChanged(this);
@@ -137,11 +139,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		Cursor c = managedQuery(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, PROFILE_SELECTION, new String[] { virtualGovModel.getDbId()+"" }, VirtualGovernor.SORTORDER_DEFAULT);
 		while (c.moveToNext()) {
 			ProfileModel profile = new ProfileModel(c);
-			profile.setGov(virtualGovModel.getGov());
-			profile.setGovernorThresholdUp(virtualGovModel.getGovernorThresholdUp());
-			profile.setGovernorThresholdDown(virtualGovModel.getGovernorThresholdDown());
-			profile.setScript(virtualGovModel.getScript());
-			profile.setPowersaveBias(virtualGovModel.getPowersaveBias());
+			virtualGovModel.applyToProfile(profile);
 		}
 	}
 
@@ -157,10 +155,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			Bundle bundle = new Bundle();
-			origvirtualGovModel.saveToBundle(bundle);
-			virtualGovModel.readFromBundle(bundle);
-			updateView();
+			save = false;
 			finish();
 			break;
 		case R.id.menuItemSave:

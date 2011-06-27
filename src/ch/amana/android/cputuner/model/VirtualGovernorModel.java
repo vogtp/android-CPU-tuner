@@ -96,13 +96,13 @@ public class VirtualGovernorModel implements IGovernorModel {
 		return values;
 	}
 
-	public void applyToProfile(ProfileModel currentProfile) {
-		currentProfile.setGov(realGov);
-		currentProfile.setGovernorThresholdUp(governorThresholdUp);
-		currentProfile.setGovernorThresholdDown(governorThresholdDown);
-		currentProfile.setScript(script);
-		currentProfile.setPowersaveBias(powersaveBias);
-		currentProfile.setUseNumberOfCpus(useNumberOfCpus);
+	public void applyToProfile(ProfileModel profile) {
+		profile.setGov(realGov);
+		profile.setGovernorThresholdUp(governorThresholdUp);
+		profile.setGovernorThresholdDown(governorThresholdDown);
+		profile.setScript(script);
+		profile.setPowersaveBias(powersaveBias);
+		profile.setUseNumberOfCpus(useNumberOfCpus);
 	}
 
 	public String getGov() {
@@ -278,4 +278,5 @@ public class VirtualGovernorModel implements IGovernorModel {
 	public int getUseNumberOfCpus() {
 		return useNumberOfCpus;
 	}
+
 }
