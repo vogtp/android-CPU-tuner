@@ -109,6 +109,7 @@ public class SendReportActivity extends Activity {
 
 		getDeviceInfo();
 		getKernelInfo();
+		CpuHandler cpuHandler = CpuHandler.getInstance();
 
 		// sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]
 		// { "cputuner-help@lists.sourceforge.net" });
@@ -128,9 +129,9 @@ public class SendReportActivity extends Activity {
 		body.append("Language: ").append(Locale.getDefault().getLanguage()).append('\n');
 		body.append("Userlevel: ").append(SettingsStorage.getInstance().getUserLevel()).append('\n');
 		body.append("Beta mode: ").append(SettingsStorage.getInstance().isEnableBeta()).append('\n');
+		body.append("Multicore: ").append(cpuHandler.getClass().getName()).append('\n');
 		body.append("Installed as system app: ").append(RootHandler.isSystemApp(this)).append('\n');
 		body.append('\n').append("------------------------------------------").append('\n');
-		CpuHandler cpuHandler = CpuHandler.getInstance();
 		body.append("CPU governors: ").append(Arrays.toString(cpuHandler.getAvailCpuGov())).append('\n');
 		body.append("CPU frequencies: ").append(Arrays.toString(cpuHandler.getAvailCpuFreq(true)));
 		if (!cpuHandler.hasAvailCpuFreq()) {

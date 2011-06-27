@@ -3,17 +3,21 @@
 	android:layout_height="wrap_content" android:layout_width="match_parent"
 	android:id="@+id/llGovernorFragment" android:orientation="vertical">
 	<LinearLayout android:paddingTop="20dp" android:id="@+id/llCpuGov"
-		android:layout_height="wrap_content" android:orientation="horizontal" android:layout_width="match_parent">
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:layout_width="match_parent">
 		<TextView android:text="@string/labelCpuGov" android:id="@+id/textView3"
 			android:paddingRight="5dp" android:textSize="20sp"
-			android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center_vertical"></TextView>
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_gravity="center_vertical"></TextView>
 		<Spinner android:id="@+id/SpinnerCpuGov" android:focusable="true"
 			android:prompt="@string/spinnerPromptGov" android:layout_height="wrap_content"
 			android:layout_weight=".7" android:layout_width="match_parent"></Spinner>
 	</LinearLayout>
-	<TextView android:text="Explain Gov" android:id="@+id/tvExplainGov" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	<TextView android:text="Explain Gov" android:id="@+id/tvExplainGov"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 	<LinearLayout android:id="@+id/llGovernorThresholds"
-		android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal">
+		android:layout_height="wrap_content" android:layout_width="match_parent"
+		android:orientation="horizontal">
 		<TextView android:text="@string/labelThreshsUp" android:id="@+id/labelGovThreshUp"
 			android:paddingRight="7dp" android:layout_height="wrap_content"
 			android:layout_width="wrap_content"></TextView>
@@ -28,13 +32,35 @@
 			android:height="16dp" android:id="@+id/etGovTreshDown"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"></EditText>
 	</LinearLayout>
-	<LinearLayout android:id="@+id/llPowersaveBias" android:layout_height="wrap_content" android:layout_width="match_parent">
-		<TextView android:text="@string/labelPowersaveBias" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center_vertical" android:id="@+id/labelPowersaveBias"></TextView>
-		<SeekBar android:max="1000" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/sbPowersaveBias"></SeekBar>
+	<LinearLayout android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:layout_gravity="center_vertical" android:id="@+id/llUseCpus">
+		<TextView android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_gravity="center_vertical"
+	android:text="@string/labelUseCpus_front" android:id="@+id/labelUseCpus_front"></TextView>
+		<Spinner android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:layout_gravity="center_vertical" android:id="@+id/spUseCpus" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"></Spinner>
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:text="@string/labelUseCpus_end" android:id="@+id/labelUseCpus_end"></TextView>
 	</LinearLayout>
-	<LinearLayout android:paddingTop="20dp" android:id="@+id/llScript" android:layout_height="wrap_content" android:layout_width="match_parent">
-		<TextView android:text="@string/labelScript" android:paddingRight="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/labelScript" android:layout_gravity="center_vertical"></TextView>
-		<EditText android:text="EditText" android:hint="@string/hintScriptToRun" android:id="@+id/etScript" android:layout_height="wrap_content" android:layout_width="wrap_content" android:maxLines="1"></EditText>
+	<LinearLayout android:id="@+id/llPowersaveBias"
+		android:layout_height="wrap_content" android:layout_width="match_parent">
+		<TextView android:text="@string/labelPowersaveBias"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_gravity="center_vertical" android:id="@+id/labelPowersaveBias"></TextView>
+		<SeekBar android:max="1000" android:layout_height="wrap_content"
+			android:layout_width="match_parent" android:id="@+id/sbPowersaveBias"></SeekBar>
+	</LinearLayout>
+	<LinearLayout android:paddingTop="20dp" android:id="@+id/llScript"
+		android:layout_height="wrap_content" android:layout_width="match_parent">
+		<TextView android:text="@string/labelScript"
+			android:paddingRight="5dp" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:id="@+id/labelScript"
+			android:layout_gravity="center_vertical"></TextView>
+		<EditText android:text="EditText" android:hint="@string/hintScriptToRun"
+			android:id="@+id/etScript" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:maxLines="1"></EditText>
 	</LinearLayout>
 </LinearLayout>
 

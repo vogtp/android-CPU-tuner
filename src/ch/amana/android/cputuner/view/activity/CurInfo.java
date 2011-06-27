@@ -20,10 +20,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.GovernorConfigHelper;
-import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
-import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
+import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -31,6 +31,7 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.CpuHandlerMulticore;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -211,6 +212,40 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		@Override
 		public boolean hasScript() {
 			return false;
+		}
+
+		@Override
+		public void setUseNumberOfCpus(int position) {
+			cpuHandler.setNumberOfActiveCpus(position);
+		}
+
+		@Override
+		public int getUseNumberOfCpus() {
+			return cpuHandler.getNumberOfActiveCpus();
+		}
+
+		@Override
+		public CharSequence getDescription(Context ctx) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(getGov());
+			int governorThresholdUp = getGovernorThresholdUp();
+			if (governorThresholdUp > 0) {
+				sb.append("\n").append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
+			}
+			int governorThresholdDown = getGovernorThresholdDown();
+			if (governorThresholdDown > 0) {
+				sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
+			}
+			if (cpuHandler instanceof CpuHandlerMulticore) {
+				int useNumberOfCpus = getUseNumberOfCpus();
+				int numberOfCpus = cpuHandler.getNumberOfCpus();
+				if (useNumberOfCpus < 1 || useNumberOfCpus > numberOfCpus) {
+					useNumberOfCpus = numberOfCpus;
+				}
+				sb.append("\n").append(ctx.getString(R.string.labelActiveCpus)).append(" ").append(useNumberOfCpus);
+				sb.append("/").append(numberOfCpus);
+			}
+			return sb.toString();
 		}
 
 	}

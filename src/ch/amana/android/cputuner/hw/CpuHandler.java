@@ -27,7 +27,8 @@ public class CpuHandler extends HardwareHandler {
 	public static final String GOV_SMARTASS = "smartass";
 
 	public static final String CPU_BASE_DIR = "/sys/devices/system/cpu/";
-	public static final String CPU_DIR = CPU_BASE_DIR + "/cpu0/cpufreq/";
+	protected static final String CPUFREQ_DIR = "cpufreq/";
+	public static final String CPU_DIR = CPU_BASE_DIR + "/cpu0/" + CPUFREQ_DIR;
 
 	protected static final String SCALING_GOVERNOR = "scaling_governor";
 	public static final String SCALING_MAX_FREQ = "scaling_max_freq";
@@ -53,9 +54,15 @@ public class CpuHandler extends HardwareHandler {
 
 	private static CpuHandler instance = null;
 
+	public static CpuHandler resetInstance() {
+		instance = null;
+		return getInstance();
+	}
+
 	public static CpuHandler getInstance() {
 		if (instance == null) {
-			if (SettingsStorage.getInstance().useMulticore()) {
+			SettingsStorage settingsStorage = SettingsStorage.getInstance();
+			if (settingsStorage.isUseMulticore()) {
 				File cpuBase = new File(CPU_BASE_DIR);
 				String[] cpus = cpuBase.list(new FilenameFilter() {
 
@@ -65,8 +72,16 @@ public class CpuHandler extends HardwareHandler {
 						return file.isDirectory() && filename.matches("cpu\\d");
 					}
 				});
+
+				if (Logger.FAKE_MULTICORE) {
+					cpus = new String[7];
+					for (int i = 0; i < cpus.length; i++) {
+						cpus[i] = "cpu" + i;
+					}
+				}
+
 				Logger.i("Found " + cpus.length + " CPUs");
-				if (cpus.length > 1) {
+				if (cpus.length > 1 || settingsStorage.isForceUseMulticoreCode()) {
 					Logger.i("Using multicore code");
 					instance = new CpuHandlerMulticore(cpus);
 				} else {
@@ -323,7 +338,14 @@ public class CpuHandler extends HardwareHandler {
 		return RootHandler.readFile(getFile(CPU_STATS_DIR, TOTAL_TRANSITIONS));
 	}
 
-	public int numberOfCpus() {
+	public int getNumberOfCpus() {
+		return 1;
+	}
+
+	public void setNumberOfActiveCpus(int position) {
+	}
+
+	public int getNumberOfActiveCpus() {
 		return 1;
 	}
 

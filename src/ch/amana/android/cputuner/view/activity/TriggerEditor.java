@@ -20,12 +20,12 @@ import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.TriggerModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggerEditor extends Activity {
@@ -179,12 +179,12 @@ public class TriggerEditor extends Activity {
 				if (id > 0) {
 					triggerModel.setDbId(id);
 				}
-				BackupRestoreHelper.saveConfiguration(this);
+				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (!triggerModel.equals(origTriggerModel)) {
 					getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?",
 							new String[] { triggerModel.getDbId() + "" });
-					BackupRestoreHelper.saveConfiguration(this);
+					CpuTunerProvider.configChanged(this);
 				}
 			}
 		} catch (Exception e) {
@@ -192,6 +192,7 @@ public class TriggerEditor extends Activity {
 
 		}
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

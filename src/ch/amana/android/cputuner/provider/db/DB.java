@@ -18,7 +18,7 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 13;
+		private static final int DATABASE_VERSION = 14;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -39,13 +39,14 @@ public interface DB {
 				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 0,"
  + DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int, " + DB.CpuProfile.NAME_VIRTUAL_GOVERNOR
 				+ " int default -1," + DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int, " + DB.CpuProfile.NAME_SCRIPT + " text, " + DB.CpuProfile.NAME_POWERSEAVE_BIAS
-				+ " int," + DB.CpuProfile.NAME_AIRPLANEMODE_STATE + " int)";
+				+ " int," + DB.CpuProfile.NAME_AIRPLANEMODE_STATE + " int," + DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS + " int)";
 
 		private static final String CREATE_VIRTUAL_GOVERNOR_TABLE = "create table if not exists " + VirtualGovernor.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
 				+ DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME + " text, " + DB.VirtualGovernor.NAME_REAL_GOVERNOR + " text,"
  + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP
-				+ " int DEFAULT 98," + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95, " + DB.VirtualGovernor.NAME_SCRIPT + " text, "+DB.VirtualGovernor.NAME_POWERSEAVE_BIAS+" int)";
+				+ " int DEFAULT 98," + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95, " + DB.VirtualGovernor.NAME_SCRIPT + " text, "
+				+ DB.VirtualGovernor.NAME_POWERSEAVE_BIAS + " int, " + DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS + " int)";
 
 		private static final String CREATE_CONFIGURATION_AUTOLOAD_TABLE = "create table if not exists " + ConfigurationAutoload.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
@@ -138,6 +139,11 @@ public interface DB {
 			case 12:
 				Logger.w("Upgrading to DB Version 13...");
 				db.execSQL(CREATE_CONFIGURATION_AUTOLOAD_TABLE);
+
+			case 13:
+				Logger.w("Upgrading to DB Version 14...");
+				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_USE_NUMBER_OF_CPUS + " int;");
+				db.execSQL("alter table " + VirtualGovernor.TABLE_NAME + " add column " + VirtualGovernor.NAME_USE_NUMBER_OF_CPUS + " int;");
 				
 			default:
 				Logger.w("Finished DB upgrading!");
@@ -238,6 +244,7 @@ public interface DB {
 		public static final String NAME_SCRIPT = "script";
 		public static final String NAME_POWERSEAVE_BIAS = "powersaveBias";
 		public static final String NAME_AIRPLANEMODE_STATE = "AIRPLANEMODE";
+		public static final String NAME_USE_NUMBER_OF_CPUS = "useNumberOfCpus";
 
 		public static final int INDEX_PROFILE_NAME = 1;
 		public static final int INDEX_GOVERNOR = 2;
@@ -255,11 +262,12 @@ public interface DB {
 		public static final int INDEX_SCRIPT = 14;
 		public static final int INDEX_POWERSEAVE_BIAS = 15;
 		public static final int INDEX_AIRPLANEMODE_STATE = 16;
+		public static final int INDEX_USE_NUMBER_OF_CPUS = 17;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
 				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_3G_STATE, NAME_GOVERNOR_THRESHOLD_UP,
  NAME_GOVERNOR_THRESHOLD_DOWN, NAME_BACKGROUND_SYNC_STATE, NAME_VIRTUAL_GOVERNOR,
-				NAME_MOBILEDATA_CONNECTION_STATE, NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_AIRPLANEMODE_STATE };
+				NAME_MOBILEDATA_CONNECTION_STATE, NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_AIRPLANEMODE_STATE, NAME_USE_NUMBER_OF_CPUS };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
 
@@ -287,6 +295,7 @@ public interface DB {
 		public static final String NAME_GOVERNOR_THRESHOLD_DOWN = "governorThresholdDown";
 		public static final String NAME_SCRIPT = "script";
 		public static final String NAME_POWERSEAVE_BIAS = "powersaveBias";
+		public static final String NAME_USE_NUMBER_OF_CPUS = "useNumberOfCpus";
 
 		public static final int INDEX_VIRTUAL_GOVERNOR_NAME = 1;
 		public static final int INDEX_REAL_GOVERNOR = 2;
@@ -294,10 +303,11 @@ public interface DB {
 		public static final int INDEX_GOVERNOR_THRESHOLD_DOWN = 4;
 		public static final int INDEX_SCRIPT = 5;
 		public static final int INDEX_POWERSEAVE_BIAS = 6;
+		public static final int INDEX_USE_NUMBER_OF_CPUS = 7;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_VIRTUAL_GOVERNOR_NAME, NAME_REAL_GOVERNOR,
  NAME_GOVERNOR_THRESHOLD_UP, NAME_GOVERNOR_THRESHOLD_DOWN,
-				NAME_SCRIPT, NAME_POWERSEAVE_BIAS };
+				NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_USE_NUMBER_OF_CPUS };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String SORTORDER_DEFAULT = NAME_GOVERNOR_THRESHOLD_UP + " ASC";

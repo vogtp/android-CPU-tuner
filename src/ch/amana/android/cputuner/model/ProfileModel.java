@@ -1,10 +1,12 @@
 package ch.amana.android.cputuner.model;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -34,6 +36,8 @@ public class ProfileModel implements IGovernorModel {
 	private String script = "";
 	private int powersaveBias = 0;
 	private int airplainemodeState = 0;
+
+	private int useNumberOfCpus;
 
 	public ProfileModel() {
 		super();
@@ -68,6 +72,7 @@ public class ProfileModel implements IGovernorModel {
 		this.script = c.getString(DB.CpuProfile.INDEX_SCRIPT);
 		this.powersaveBias = c.getInt(DB.CpuProfile.INDEX_POWERSEAVE_BIAS);
 		this.airplainemodeState = c.getInt(DB.CpuProfile.INDEX_AIRPLANEMODE_STATE);
+		this.useNumberOfCpus = c.getInt(DB.CpuProfile.INDEX_USE_NUMBER_OF_CPUS);
 	}
 
 	public ProfileModel(Bundle bundle) {
@@ -97,6 +102,7 @@ public class ProfileModel implements IGovernorModel {
 		bundle.putString(DB.CpuProfile.NAME_SCRIPT, getScript());
 		bundle.putInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS, getPowersaveBias());
 		bundle.putInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE, getAirplainemodeState());
+		bundle.putInt(DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS, getUseNumberOfCpus());
 	}
 
 	public void readFromBundle(Bundle bundle) {
@@ -117,6 +123,7 @@ public class ProfileModel implements IGovernorModel {
 		script = bundle.getString(DB.CpuProfile.NAME_SCRIPT);
 		powersaveBias = bundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
 		airplainemodeState = bundle.getInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE);
+		useNumberOfCpus = bundle.getInt(DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS);
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -137,6 +144,7 @@ public class ProfileModel implements IGovernorModel {
 		script = jsonBundle.getString(DB.CpuProfile.NAME_SCRIPT);
 		powersaveBias = jsonBundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
 		airplainemodeState = jsonBundle.getInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE);
+		useNumberOfCpus = jsonBundle.getInt(DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS);
 	}
 
 	public ContentValues getValues() {
@@ -161,6 +169,7 @@ public class ProfileModel implements IGovernorModel {
 		values.put(DB.CpuProfile.NAME_SCRIPT, getScript());
 		values.put(DB.CpuProfile.NAME_POWERSEAVE_BIAS, getPowersaveBias());
 		values.put(DB.CpuProfile.NAME_AIRPLANEMODE_STATE, getAirplainemodeState());
+		values.put(DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS, getUseNumberOfCpus());
 		return values;
 	}
 
@@ -272,6 +281,7 @@ public class ProfileModel implements IGovernorModel {
 		result = prime * result + powersaveBias;
 		result = prime * result + ((profileName == null) ? 0 : profileName.hashCode());
 		result = prime * result + ((script == null) ? 0 : script.hashCode());
+		result = prime * result + useNumberOfCpus;
 		result = prime * result + (int) (virtualGovernor ^ (virtualGovernor >>> 32));
 		result = prime * result + wifiState;
 		return result;
@@ -322,6 +332,8 @@ public class ProfileModel implements IGovernorModel {
 			if (other.script != null)
 				return false;
 		} else if (!script.equals(other.script))
+			return false;
+		if (useNumberOfCpus != other.useNumberOfCpus)
 			return false;
 		if (virtualGovernor != other.virtualGovernor)
 			return false;
@@ -416,5 +428,31 @@ public class ProfileModel implements IGovernorModel {
 
 	public int getAirplainemodeState() {
 		return airplainemodeState;
+	}
+
+	@Override
+	public void setUseNumberOfCpus(int useNumberOfCpus) {
+		this.useNumberOfCpus = useNumberOfCpus;
+	}
+
+	@Override
+	public int getUseNumberOfCpus() {
+		return useNumberOfCpus;
+	}
+
+	@Override
+	public CharSequence getDescription(Context ctx) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(gov);
+		if (governorThresholdUp > 0) {
+			sb.append("\n").append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
+		}
+		if (governorThresholdDown > 0) {
+			sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
+		}
+		if (!TextUtils.isEmpty(script)) {
+			sb.append("\n").append(ctx.getString(R.string.labelScript)).append(" ").append(script);
+		}
+		return sb.toString();
 	}
 }

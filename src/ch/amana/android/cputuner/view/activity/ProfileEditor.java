@@ -25,17 +25,17 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
+import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
-import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
@@ -342,14 +342,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 				if (id > 0) {
 					profile.setDbId(id);
 				}
-				BackupRestoreHelper.saveConfiguration(this);
+				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (origProfile.equals(profile)) {
 					return;
 				}
 				if (!profile.equals(origProfile)) {
 					getContentResolver().update(DB.CpuProfile.CONTENT_URI, profile.getValues(), DB.NAME_ID + "=?", new String[] { profile.getDbId() + "" });
-					BackupRestoreHelper.saveConfiguration(this);
+					CpuTunerProvider.configChanged(this);
 				}
 			}
 		} catch (Exception e) {
@@ -422,28 +422,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		}
 		return false;
 	}
-
-
-// private void setFrequency() {
-	// try {
-	// int max = availCpuFreqsMax[sbCpuFreqMax.getProgress()];
-	// int min = availCpuFreqsMin[sbCpuFreqMin.getProgress()];
-	// if (max >= min) {
-	// updateModel();
-	// profile.setMaxFreq(max);
-	// profile.setMinFreq(min);
-	// updateView();
-	// } else {
-	// Toast.makeText(ProfileEditor.this,
-	// R.string.msg_minimal_frequency_bigger_than_the_maximal,
-	// Toast.LENGTH_LONG).show();
-	// updateView();
-	// }
-	//
-	// } catch (ArrayIndexOutOfBoundsException e) {
-	// Logger.e("Cannot set max freq in gui", e);
-	// }
-	// }
 
 	@Override
 	public Context getContext() {

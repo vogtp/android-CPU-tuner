@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
@@ -174,6 +175,11 @@ public class CpuTunerProvider extends ContentProvider {
 		if (deleteAutoloadConfig) {
 			resolver.delete(DB.ConfigurationAutoload.CONTENT_URI, null, null);
 		}
+	}
+
+	public static void configChanged(Context ctx) {
+		BackupRestoreHelper.saveConfiguration(ctx);
+
 	}
 
 }

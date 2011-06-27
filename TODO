@@ -1,5 +1,8 @@
-- disable cores: echo 0 >> /sys/devices/system/cpu/cpu1/online
+
 - update docu for script clarify root
+- save config on switch (or on update)
+
+- move to DB: apply virutalgov to profile (done to often)
 
 - handle two configuration have the same name
 
