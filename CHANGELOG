@@ -4,7 +4,7 @@ V
 * bug fixes
 -
 
-V 
+V 2.5.0
 * features
 - enable/disable cpus (for mulitcore devices and still a beta feature)
 * bug fixes
