@@ -1,4 +1,4 @@
-
+- fix cancel editors on insert
 - update docu for script clarify root
 - save config on switch (or on update)
 
