@@ -41,6 +41,7 @@ public class TriggerEditor extends Activity {
 	private SeekBar sbBatteryLevel;
 	private CheckBox cbHot;
 	private Spinner spCall;
+	private boolean save;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -107,6 +108,13 @@ public class TriggerEditor extends Activity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		save = true;
+		updateView();
+		super.onResume();
+	}
+
 	private void updateView() {
 		boolean hasHotProfile = triggerModel.getHotProfileId() > -1;
 		cbHot.setChecked(hasHotProfile);
@@ -160,8 +168,7 @@ public class TriggerEditor extends Activity {
 	private void setProfilesAdapter(Spinner spinner) {
 		Cursor cursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor,
-				new String[] { DB.CpuProfile.NAME_PROFILE_NAME },
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor, new String[] { DB.CpuProfile.NAME_PROFILE_NAME },
 				new int[] { android.R.id.text1 });
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
@@ -174,16 +181,17 @@ public class TriggerEditor extends Activity {
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
-				Uri uri = getContentResolver().insert(DB.Trigger.CONTENT_URI, triggerModel.getValues());
-				long id = ContentUris.parseId(uri);
-				if (id > 0) {
-					triggerModel.setDbId(id);
+				if (save) {
+					Uri uri = getContentResolver().insert(DB.Trigger.CONTENT_URI, triggerModel.getValues());
+					long id = ContentUris.parseId(uri);
+					if (id > 0) {
+						triggerModel.setDbId(id);
+					}
+					CpuTunerProvider.configChanged(this);
 				}
-				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (!triggerModel.equals(origTriggerModel)) {
-					getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?",
-							new String[] { triggerModel.getDbId() + "" });
+				if (save) {
+					getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 					CpuTunerProvider.configChanged(this);
 				}
 			}
@@ -192,7 +200,6 @@ public class TriggerEditor extends Activity {
 
 		}
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -206,10 +213,7 @@ public class TriggerEditor extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			Bundle bundle = new Bundle();
-			origTriggerModel.saveToBundle(bundle);
-			triggerModel.readFromBundle(bundle);
-			updateView();
+			save = false;
 			finish();
 			break;
 		case R.id.menuItemSave:

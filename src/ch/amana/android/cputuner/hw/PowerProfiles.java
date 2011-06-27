@@ -9,7 +9,6 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
-import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class PowerProfiles {
@@ -179,19 +178,24 @@ public class PowerProfiles {
 				currentProfile = new ProfileModel(cursorProfile);
 
 				SettingsStorage settings = SettingsStorage.getInstance();
-				if (settings.isUseVirtualGovernors()) {
-					// TODO move to DB (done to often)
-					long virtualGovernorId = currentProfile.getVirtualGovernor();
-					if (virtualGovernorId > -1) {
-						cursorVirtGov = context.getContentResolver().query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, DB.NAME_ID + "=?",
-								new String[] { virtualGovernorId + "" }, DB.VirtualGovernor.SORTORDER_DEFAULT);
-						if (cursorVirtGov.moveToFirst()) {
-							VirtualGovernorModel virtualGovernor = new VirtualGovernorModel(cursorVirtGov);
-							Logger.i("Using virtual governor " + virtualGovernor.getVirtualGovernorName());
-							virtualGovernor.applyToProfile(currentProfile);
-						}
-					}
-				}
+				// if (settings.isUseVirtualGovernors()) {
+				// // TODO move to DB (done to often)
+				// long virtualGovernorId = currentProfile.getVirtualGovernor();
+				// if (virtualGovernorId > -1) {
+				// cursorVirtGov =
+				// context.getContentResolver().query(DB.VirtualGovernor.CONTENT_URI,
+				// DB.VirtualGovernor.PROJECTION_DEFAULT, DB.NAME_ID + "=?",
+				// new String[] { virtualGovernorId + "" },
+				// DB.VirtualGovernor.SORTORDER_DEFAULT);
+				// if (cursorVirtGov.moveToFirst()) {
+				// VirtualGovernorModel virtualGovernor = new
+				// VirtualGovernorModel(cursorVirtGov);
+				// Logger.i("Using virtual governor " +
+				// virtualGovernor.getVirtualGovernorName());
+				// virtualGovernor.applyToProfile(currentProfile);
+				// }
+				// }
+				// }
 
 				if (settings.getProfileSwitchLogSize() > 0) {
 					updateProfileSwitchLog();
