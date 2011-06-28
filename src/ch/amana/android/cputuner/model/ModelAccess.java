@@ -69,9 +69,14 @@ public class ModelAccess {
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs) {
+		update(uri, values, where, selectionArgs, true);
+	}
+
+	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs, boolean saveConfig) {
 		handler.post(new Runnable() {
 			public void run() {
 				contentResolver.update(uri, values, where, selectionArgs);
+				configChanged();
 			}
 		});
 	}
@@ -126,8 +131,7 @@ public class ModelAccess {
 		}
 		update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 		profileCache.put(id, profile);
-		configChanged();
-
+		// configChanged() in update
 	}
 
 	public VirtualGovernorModel getVirtualGovernor(Uri uri) {
@@ -172,7 +176,7 @@ public class ModelAccess {
 		update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 		virtgovCache.put(id, virtualGovModel);
 		updateAllProfilesFromVirtualGovernor(virtualGovModel);
-		configChanged();
+		// configChanged() in update
 	}
 
 	private void updateAllProfilesFromVirtualGovernor(VirtualGovernorModel virtualGovModel) {
@@ -232,10 +236,14 @@ public class ModelAccess {
 	}
 
 	public void updateTrigger(TriggerModel triggerModel) {
-		update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
+		updateTrigger(triggerModel, true);
+	}
+
+	public void updateTrigger(TriggerModel triggerModel, boolean saveConfig) {
+		update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" }, false);
 		triggerCache.put(triggerModel.getId(), triggerModel);
 		initTriggerByBatteryLevelCache();
-		configChanged();
+		// configChanged() in update
 	}
 
 	private void initTriggerByBatteryLevelCache() {

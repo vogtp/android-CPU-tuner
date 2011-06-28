@@ -522,7 +522,7 @@ public class PowerProfiles {
 		}
 		updateTrigger = false;
 		try {
-			modelAccess.updateTrigger(currentTrigger);
+			modelAccess.updateTrigger(currentTrigger, false);
 		} catch (Exception e) {
 			Logger.w("Error saving power current information", e);
 		}

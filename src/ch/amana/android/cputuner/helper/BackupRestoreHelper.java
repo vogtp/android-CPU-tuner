@@ -95,10 +95,16 @@ public class BackupRestoreHelper {
 	}
 
 	public static void backupConfiguration(BackupRestoreCallback cb, String name) {
+		if (name == null) {
+			return;
+		}
 		backup(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name));
 	}
 
 	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean inclAutoloadConfig) throws Exception {
+		if (name == null) {
+			return;
+		}
 		restore(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
 	}
 

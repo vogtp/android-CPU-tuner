@@ -390,8 +390,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isSaveConfiguration() {
-		return false; // getPreferences().getBoolean("prefKeySaveConfigOnSwitch",
-						// true);
+		return isEnableBeta() && getPreferences().getBoolean("prefKeySaveConfigOnSwitch", true);
 	}
 
 	public boolean hasCurrentConfiguration() {

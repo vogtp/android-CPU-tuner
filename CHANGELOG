@@ -6,6 +6,7 @@ V
 
 V 
 * features
+- save current config on change
 - cache for DB
 * bug fixes
 - fix cancel editor if inserting

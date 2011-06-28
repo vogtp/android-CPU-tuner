@@ -1,11 +1,7 @@
-- get triggers from ModelAccess
+
+- stop on update
 - triggers cannot have to same battery level
 - move dbactions to handler -> check with ThreadPolicy
-- fix cancel editors on insert
-- fix set virtgov on profile change
-- update docu for script clarify root
-- save config on switch (or on update)
-
 
 - handle two configuration have the same name
 
