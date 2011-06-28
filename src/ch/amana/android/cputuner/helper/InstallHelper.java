@@ -21,6 +21,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
@@ -28,7 +29,7 @@ import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class InstallHelper {
 
-	private static final int VERSION = 2;
+	private static final int VERSION = 3;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -322,9 +323,24 @@ public class InstallHelper {
 			} catch (Exception e) {
 				Logger.e("Cannot create profiles", e);
 			}
+			updateProfilesFromVirtGovs(ctx);
 		}
 	}
 
+	private static void updateProfilesFromVirtGovs(Context ctx) {
+		ContentResolver contentResolver = ctx.getContentResolver();
+		Cursor cursorVirtGov = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, null, null, VirtualGovernor.SORTORDER_DEFAULT);
+		while (cursorVirtGov.moveToNext()) {
+			VirtualGovernorModel virtualGovModel = new VirtualGovernorModel(cursorVirtGov);
+			Cursor c = contentResolver.query(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, CpuProfile.NAME_VIRTUAL_GOVERNOR + "=?",
+					new String[] { virtualGovModel.getDbId() + "" },
+					VirtualGovernor.SORTORDER_DEFAULT);
+			while (c.moveToNext()) {
+				ProfileModel profile = new ProfileModel(c);
+				virtualGovModel.applyToProfile(profile);
+			}
+		}
+	}
 
 	public static void magicallyHeal(Context ctx) {
 		Logger.w("Magically healing cpu tuner");
