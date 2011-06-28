@@ -1,10 +1,8 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -24,8 +22,8 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggerEditor extends Activity {
@@ -35,13 +33,13 @@ public class TriggerEditor extends Activity {
 	private Spinner spScreenLocked;
 	private Spinner spHot;
 	private TriggerModel triggerModel;
-	private TriggerModel origTriggerModel;
 	private EditText etName;
 	private EditText etBatteryLevel;
 	private SeekBar sbBatteryLevel;
 	private CheckBox cbHot;
 	private Spinner spCall;
 	private boolean save;
+	private ModelAccess modelAccess;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,20 +47,16 @@ public class TriggerEditor extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trigger_editor);
 
+		modelAccess = ModelAccess.getInstace(this);
+
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
-			Cursor c = managedQuery(getIntent().getData(), DB.Trigger.PROJECTION_DEFAULT, null, null, null);
-			if (c.moveToFirst()) {
-				triggerModel = new TriggerModel(c);
-				origTriggerModel = new TriggerModel(c);
-			}
-			c.close();
+			triggerModel = modelAccess.getTrigger(getIntent().getData());
 		}
 
 		if (triggerModel == null) {
 			triggerModel = new TriggerModel();
 			triggerModel.setName("");
-			origTriggerModel = new TriggerModel();
 		}
 		setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
 
@@ -182,17 +176,11 @@ public class TriggerEditor extends Activity {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
 				if (save) {
-					Uri uri = getContentResolver().insert(DB.Trigger.CONTENT_URI, triggerModel.getValues());
-					long id = ContentUris.parseId(uri);
-					if (id > 0) {
-						triggerModel.setDbId(id);
-					}
-					CpuTunerProvider.configChanged(this);
+					modelAccess.insertTrigger(triggerModel);
 				}
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (save) {
-					getContentResolver().update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
-					CpuTunerProvider.configChanged(this);
+					modelAccess.updateTrigger(triggerModel);
 				}
 			}
 		} catch (Exception e) {

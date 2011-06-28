@@ -1,8 +1,11 @@
+- get triggers from ModelAccess
+- triggers cannot have to same battery level
+- move dbactions to handler -> check with ThreadPolicy
 - fix cancel editors on insert
+- fix set virtgov on profile change
 - update docu for script clarify root
 - save config on switch (or on update)
 
-- move to DB: apply virutalgov to profile (done to often)
 
 - handle two configuration have the same name
 

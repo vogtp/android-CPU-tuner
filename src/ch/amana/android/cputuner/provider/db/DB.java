@@ -206,6 +206,8 @@ public interface DB {
 				NAME_POWER_CURRENT_CNT_HOT,  NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL};
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
+		public static final String[] PROJECTION_BATTERY_LEVEL = new String[] { NAME_ID, NAME_BATTERY_LEVEL };
+
 		static final String[] PROJECTION_MINIMAL_HOT_PROFILE = new String[] { NAME_HOT_PROFILE_ID };
 
 		public static final String SORTORDER_DEFAULT = NAME_BATTERY_LEVEL + " DESC";
@@ -213,6 +215,7 @@ public interface DB {
 		static final String SORTORDER_REVERSE = NAME_BATTERY_LEVEL + " ASC";
 
 		static final String SORTORDER_MINIMAL_HOT_PROFILE = NAME_HOT_PROFILE_ID + " ASC";
+
 
 	}
 

@@ -2,16 +2,16 @@ package ch.amana.android.cputuner.hw;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
-import ch.amana.android.cputuner.provider.db.DB;
 
 public class PowerProfiles {
+
 
 	public static final String UNKNOWN = "Unknown";
 
@@ -70,6 +70,8 @@ public class PowerProfiles {
 
 	private static PowerProfiles instance;
 
+	private ModelAccess modelAccess;
+
 	public static void initInstance(Context ctx) {
 		instance = new PowerProfiles(ctx);
 	}
@@ -80,6 +82,7 @@ public class PowerProfiles {
 
 	public PowerProfiles(Context ctx) {
 		context = ctx;
+		modelAccess = ModelAccess.getInstace(ctx);
 		BatteryHandler batteryHandler = BatteryHandler.getInstance();
 		batteryLevel = batteryHandler.getBatteryLevel();
 		acPower = batteryHandler.isOnAcPower();
@@ -169,81 +172,38 @@ public class PowerProfiles {
 			}
 		}
 
-		Cursor cursorProfile = null;
-		Cursor cursorVirtGov = null;
 		try {
-			cursorProfile = context.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, DB.NAME_ID + "=?", new String[] { profileId + "" },
-					DB.CpuProfile.SORTORDER_DEFAULT);
-			if (cursorProfile != null && cursorProfile.moveToFirst()) {
-				currentProfile = new ProfileModel(cursorProfile);
+			currentProfile = modelAccess.getProfile(profileId);
 
-				SettingsStorage settings = SettingsStorage.getInstance();
-				// if (settings.isUseVirtualGovernors()) {
-				// // TODO move to DB (done to often)
-				// long virtualGovernorId = currentProfile.getVirtualGovernor();
-				// if (virtualGovernorId > -1) {
-				// cursorVirtGov =
-				// context.getContentResolver().query(DB.VirtualGovernor.CONTENT_URI,
-				// DB.VirtualGovernor.PROJECTION_DEFAULT, DB.NAME_ID + "=?",
-				// new String[] { virtualGovernorId + "" },
-				// DB.VirtualGovernor.SORTORDER_DEFAULT);
-				// if (cursorVirtGov.moveToFirst()) {
-				// VirtualGovernorModel virtualGovernor = new
-				// VirtualGovernorModel(cursorVirtGov);
-				// Logger.i("Using virtual governor " +
-				// virtualGovernor.getVirtualGovernorName());
-				// virtualGovernor.applyToProfile(currentProfile);
-				// }
-				// }
-				// }
+			SettingsStorage settings = SettingsStorage.getInstance();
 
-				if (settings.getProfileSwitchLogSize() > 0) {
-					updateProfileSwitchLog();
-				}
-
-				CpuHandler cpuHandler = CpuHandler.getInstance();
-				cpuHandler.applyCpuSettings(currentProfile);
-				applyWifiState(currentProfile.getWifiState());
-				applyGpsState(currentProfile.getGpsState());
-				applyBluetoothState(currentProfile.getBluetoothState());
-				applyMobiledata3GState(currentProfile.getMobiledata3GState());
-				applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
-				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
-				applyAirplanemodeState(currentProfile.getAirplainemodeState());
-				try {
-					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName() + "< on batterylevel " + batteryLevel + "%");
-				} catch (Exception e) {
-					Logger.w("Error printing switch profile", e);
-				}
-				StringBuilder sb = new StringBuilder(50);
-				sb.append("Setting power profile to ");
-				sb.append(currentProfile.getProfileName());
-				Notifier.notifyProfile(currentProfile.getProfileName());
-				context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+			if (settings.getProfileSwitchLogSize() > 0) {
+				updateProfileSwitchLog();
 			}
+
+			CpuHandler cpuHandler = CpuHandler.getInstance();
+			cpuHandler.applyCpuSettings(currentProfile);
+			applyWifiState(currentProfile.getWifiState());
+			applyGpsState(currentProfile.getGpsState());
+			applyBluetoothState(currentProfile.getBluetoothState());
+			applyMobiledata3GState(currentProfile.getMobiledata3GState());
+			applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
+			applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
+			applyAirplanemodeState(currentProfile.getAirplainemodeState());
+			try {
+				Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName() + "< on batterylevel " + batteryLevel + "%");
+			} catch (Exception e) {
+				Logger.w("Error printing switch profile", e);
+			}
+			StringBuilder sb = new StringBuilder(50);
+			sb.append("Setting power profile to ");
+			sb.append(currentProfile.getProfileName());
+			Notifier.notifyProfile(currentProfile.getProfileName());
+			context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);
-		} finally {
-			if (cursorProfile != null && !cursorProfile.isClosed()) {
-				try {
-					cursorProfile.close();
-					cursorProfile = null;
-				} catch (Exception e) {
-					Logger.e("Cannot close cursor", e);
-				}
-			}
-			if (cursorVirtGov != null && !cursorVirtGov.isClosed()) {
-				try {
-					cursorVirtGov.close();
-					cursorVirtGov = null;
-				} catch (Exception e) {
-					Logger.e("Cannot close cursor", e);
-				}
-			}
 		}
 	}
-
-
 
 	private void updateProfileSwitchLog() {
 		StringBuilder sb = new StringBuilder();
@@ -456,44 +416,15 @@ public class PowerProfiles {
 	}
 
 	private boolean changeTrigger(boolean force) {
-		Cursor cursor = null;
-		try {
-			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, DB.Trigger.NAME_BATTERY_LEVEL + ">=?",
-					new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
-			if (cursor != null && cursor.moveToFirst()) {
-				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
-					currentTrigger = new TriggerModel(cursor);
-					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-					context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
-					resetServiceState();
-					return true;
-				} else {
-					// no change
-					return false;
-				}
-			}
-		} finally {
-			if (cursor != null && !cursor.isClosed()) {
-				cursor.close();
-			}
+		TriggerModel trigger = modelAccess.getTriggerByBatteryLevel(batteryLevel);
+		if (!force && trigger == currentTrigger) {
+			return false;
 		}
-		try {
-			cursor = context.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
-			if (cursor != null && cursor.moveToFirst()) {
-				if (force || currentTrigger == null || currentTrigger.getDbId() != cursor.getLong(DB.INDEX_ID)) {
-					currentTrigger = new TriggerModel(cursor);
-					Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
-					context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
-					resetServiceState();
-					return true;
-				}
-			}
-		} finally {
-			if (cursor != null && !cursor.isClosed()) {
-				cursor.close();
-			}
-		}
-		return false;
+		currentTrigger = trigger;
+		Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
+		context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
+		resetServiceState();
+		return true;
 	}
 
 	public void setBatteryLevel(int level) {
@@ -591,7 +522,7 @@ public class PowerProfiles {
 		}
 		updateTrigger = false;
 		try {
-			context.getContentResolver().update(DB.Trigger.CONTENT_URI, currentTrigger.getValues(), DB.NAME_ID + "=?", new String[] { currentTrigger.getDbId() + "" });
+			modelAccess.updateTrigger(currentTrigger);
 		} catch (Exception e) {
 			Logger.w("Error saving power current information", e);
 		}

@@ -1,9 +1,6 @@
 package ch.amana.android.cputuner.view.activity;
 
-import android.content.ContentUris;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -14,24 +11,19 @@ import android.widget.EditText;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
-import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 
 public class VirtualGovernorEditorActivity extends FragmentActivity implements GovernorFragmentCallback {
 
-	private static final String PROFILE_SELECTION = CpuProfile.NAME_VIRTUAL_GOVERNOR + "=?";
 	private GovernorBaseFragment governorFragment;
 	private VirtualGovernorModel virtualGovModel;
-	private VirtualGovernorModel origvirtualGovModel;
 	private EditText etVirtualGovernorName;
 	private boolean save;
+	private ModelAccess modelAccess;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -40,32 +32,26 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 
 		setContentView(R.layout.virtual_governor_editor);
 
-		etVirtualGovernorName = (EditText) findViewById(R.id.etVirtualGovernorName);
+		modelAccess = ModelAccess.getInstace(this);
 
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
-			Cursor c = managedQuery(getIntent().getData(), DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, null);
-			if (c.moveToFirst()) {
-				virtualGovModel = new VirtualGovernorModel(c);
-				origvirtualGovModel = new VirtualGovernorModel(c);
-			}
-			c.close();
+			virtualGovModel = modelAccess.getVirtualGovernor(getIntent().getData());
 		}
 
 		if (virtualGovModel == null) {
 			virtualGovModel = new VirtualGovernorModel();
 			virtualGovModel.setVirtualGovernorName("");
-			origvirtualGovModel = new VirtualGovernorModel();
 		}
 
 		setTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
 
+		etVirtualGovernorName = (EditText) findViewById(R.id.etVirtualGovernorName);
 		governorFragment = new GovernorFragment(this, virtualGovModel);
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
 		fragmentTransaction.commit();
-	    // TODO Auto-generated method stub
 	}
 
 	@Override
@@ -113,20 +99,12 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
-				if (!save) {
-					return;
+				if (save) {
+					modelAccess.insertVirtualGovernor(virtualGovModel);
 				}
-				Uri uri = getContentResolver().insert(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues());
-				long id = ContentUris.parseId(uri);
-				if (id > 0) {
-					virtualGovModel.setDbId(id);
-				}
-				CpuTunerProvider.configChanged(this);
 			} else if (Intent.ACTION_EDIT.equals(action)) {
 				if (save) {
-					updateAllProfiles();
-					getContentResolver().update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), DB.NAME_ID + "=?", new String[] { virtualGovModel.getDbId() + "" });
-					CpuTunerProvider.configChanged(this);
+					modelAccess.updateVirtualGovernor(virtualGovModel);
 				}
 			}
 		} catch (Exception e) {
@@ -135,13 +113,6 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		}
 	}
 
-	private void updateAllProfiles() {
-		Cursor c = managedQuery(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, PROFILE_SELECTION, new String[] { virtualGovModel.getDbId()+"" }, VirtualGovernor.SORTORDER_DEFAULT);
-		while (c.moveToNext()) {
-			ProfileModel profile = new ProfileModel(c);
-			virtualGovModel.applyToProfile(profile);
-		}
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

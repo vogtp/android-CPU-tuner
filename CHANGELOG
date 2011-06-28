@@ -4,6 +4,12 @@ V
 * bug fixes
 -
 
+V 
+* features
+- cache for DB
+* bug fixes
+- fix cancel editor if inserting
+
 V 2.5.0
 * features
 - enable/disable cpus (for mulitcore devices and still a beta feature)

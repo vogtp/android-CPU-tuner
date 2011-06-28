@@ -1,10 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -34,9 +31,8 @@ import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
@@ -52,7 +48,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private Spinner spCpuFreqMin;
 	private int[] availCpuFreqsMax;
 	private int[] availCpuFreqsMin;
-	private ProfileModel origProfile;
 	private Spinner spWifi;
 	private Spinner spGps;
 	private Spinner spBluetooth;
@@ -70,6 +65,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private Spinner spAirplaneMode;
 	private CpuFrequencyChooser cpuFrequencyChooser;
 	private boolean save;
+	private ModelAccess modelAccess;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -77,22 +73,20 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_editor);
 
+		modelAccess = ModelAccess.getInstace(this);
+
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
-			Cursor c = managedQuery(getIntent().getData(), DB.CpuProfile.PROJECTION_DEFAULT, null, null, null);
-			if (c.moveToFirst()) {
-				profile = new ProfileModel(c);
-				origProfile = new ProfileModel(c);
-			}
-			c.close();
-		} else if (Intent.ACTION_EDIT.equals(action)) {
-			profile = CpuHandler.getInstance().getCurrentCpuSettings();
-			origProfile = CpuHandler.getInstance().getCurrentCpuSettings();
+			profile = modelAccess.getProfile(getIntent().getData());
 		}
+		// TODO remove -- we should never get there
+		// else if (Intent.ACTION_EDIT.equals(action)) {
+		// profile = CpuHandler.getInstance().getCurrentCpuSettings();
+		// origProfile = CpuHandler.getInstance().getCurrentCpuSettings();
+		// }
 
 		if (profile == null) {
 			profile = new ProfileModel();
-			origProfile = new ProfileModel();
 		}
 
 		setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
@@ -339,21 +333,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		try {
 			String action = getIntent().getAction();
 			if (Intent.ACTION_INSERT.equals(action)) {
-				if (!save) {
-					return;
+				if (save) {
+					modelAccess.insertProfile(profile);
 				}
-				Uri uri = getContentResolver().insert(DB.CpuProfile.CONTENT_URI, profile.getValues());
-				long id = ContentUris.parseId(uri);
-				if (id > 0) {
-					profile.setDbId(id);
-				}
-				CpuTunerProvider.configChanged(this);
+
 			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (!save) {
-					return;
+				if (save) {
+					modelAccess.updateProfile(profile);
 				}
-					getContentResolver().update(DB.CpuProfile.CONTENT_URI, profile.getValues(), DB.NAME_ID + "=?", new String[] { profile.getDbId() + "" });
-					CpuTunerProvider.configChanged(this);
 			}
 		} catch (Exception e) {
 			Logger.w("Cannot insert or update", e);
