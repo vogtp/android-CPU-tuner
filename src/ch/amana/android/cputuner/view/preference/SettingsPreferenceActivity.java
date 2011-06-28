@@ -193,7 +193,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
 		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
 		findPreference("prefKeyEnableUserspaceGovernor").setEnabled(settings.isPowerUser());
-		findPreference("prefKeyForceMulticoreCode").setEnabled(settings.isEnableBeta());
+		findPreference("prefKeyMulticore").setEnabled(settings.isEnableBeta());
 	}
 
 	@Override

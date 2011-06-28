@@ -28,6 +28,10 @@ public class SettingsStorage {
 	public static final int TRACK_CURRENT_HIDE = 3;
 	public static final int TRACK_BATTERY_LEVEL = 4;
 
+	public static final int MULTICORE_CODE_AUTO = 2;
+	public static final int MULTICORE_CODE_ENABLE = 1;
+	public static final int MULTICORE_CODE_DISABLE = 0;
+
 	private static final String PREF_DEFAULT_PROFILES_VERSION = "prefKeyDefaultProfileVersion";
 	private static final String PREF_KEY_USE_VIRTUAL_GOVS = "prefKeyUseVirtualGovernors";
 
@@ -402,7 +406,15 @@ public class SettingsStorage {
 		return isEnableBeta();
 	}
 
-	public boolean isForceUseMulticoreCode() {
-		return getPreferences().getBoolean("prefKeyForceMulticoreCode", false);
+	public int isUseMulticoreCode() {
+		if (!isEnableBeta()) {
+			return 0;
+		}
+		try {
+			return Integer.parseInt(getPreferences().getString("prefKeyMulticore", "2"));
+		} catch (NumberFormatException e) {
+			Logger.w("Cannot parse prefKeyMulticore as int", e);
+			return 2;
+		}
 	}
 }

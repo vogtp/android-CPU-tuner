@@ -122,13 +122,14 @@
 				android:summaryOn="@string/prefEnableUserspaceGovernorOn"></CheckBoxPreference>
 			<EditTextPreference android:defaultValue="400"
 				android:summary="@string/prefMinSensibleFrequencyLong" android:key="prefKeyMinSensibleFrequency"
-				android:title="@string/prefMinSensibleFrequency"></EditTextPreference><CheckBoxPreference android:title="@string/prefForceMulticoreCode" android:summaryOn="@string/prefForceMulticoreCodeOn" android:summaryOff="@string/prefForceMulticoreCodeOff" android:key="prefKeyForceMulticoreCode" android:defaultValue="false"></CheckBoxPreference>
-			<EditTextPreference android:summary="@string/prefCpuFreqLong"
+				android:title="@string/prefMinSensibleFrequency"></EditTextPreference>
+			<ListPreference android:entries="@array/prefMulticoreEntries" android:key="prefKeyMulticore" android:entryValues="@array/prefMulticoreValues" android:defaultValue="2" android:summary="@string/prefMulticoreLong" android:title="@string/prefMulticore"></ListPreference><EditTextPreference android:summary="@string/prefCpuFreqLong"
 				android:key="prefKeyCpuFreq" android:title="@string/prefCpuFreq"
 				android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
 			<CheckBoxPreference android:key="prefKeySystemApp"
 				android:summaryOn="@string/prefSystemAppOn" android:title="@string/prefSystemApp"
 				android:defaultValue="false" android:summaryOff="@string/prefSystemAppOff"></CheckBoxPreference>
+			
 			
 		</PreferenceScreen>
 	</PreferenceCategory>

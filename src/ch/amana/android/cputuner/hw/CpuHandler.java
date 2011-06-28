@@ -81,7 +81,8 @@ public class CpuHandler extends HardwareHandler {
 				}
 
 				Logger.i("Found " + cpus.length + " CPUs");
-				if (cpus.length > 1 || settingsStorage.isForceUseMulticoreCode()) {
+				int useMulticore = settingsStorage.isUseMulticoreCode();
+				if ((cpus.length > 1 || useMulticore == SettingsStorage.MULTICORE_CODE_ENABLE) && useMulticore != SettingsStorage.MULTICORE_CODE_DISABLE) {
 					Logger.i("Using multicore code");
 					instance = new CpuHandlerMulticore(cpus);
 				} else {
