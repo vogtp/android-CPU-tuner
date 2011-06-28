@@ -2,8 +2,6 @@
 - stop on update
 - triggers cannot have to same battery level
 
-- move dbactions to handler -> check with ThreadPolicy
-
 - handle two configuration have the same name
 
 - fragments: fix orientation change 
@@ -13,6 +11,7 @@
 - make profiles manually changeable (the same as manual service changes) 
 	and add a reset button 
 
+- move dbactions to handler -> check with ThreadPolicy
 - add controls for 4G(wimax)
 
 - move logging to file or logcat

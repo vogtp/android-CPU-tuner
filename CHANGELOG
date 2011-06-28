@@ -10,6 +10,7 @@ V
 - cache for DB
 * bug fixes
 - fix cancel editor if inserting
+- fix force close in configuration autoloading 
 
 V 2.5.0
 * features
