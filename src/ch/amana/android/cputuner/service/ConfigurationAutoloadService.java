@@ -40,6 +40,9 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 			ContentResolver contentResolver = ctx.getContentResolver();
 			cursor = contentResolver.query(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, selection, selectionArgs,
 					DB.ConfigurationAutoload.SORTORDER_DEFAULT);
+			if (cursor == null) {
+				return null;
+			}
 			while (cursor.moveToNext()) {
 				ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel(cursor);
 				contentResolver.update(DB.ConfigurationAutoload.CONTENT_URI, cam.getValues(), DB.NAME_ID + "=?", new String[] { Long.toString(cam.getDbId()) });
