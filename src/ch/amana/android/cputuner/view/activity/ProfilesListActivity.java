@@ -27,6 +27,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -321,14 +322,8 @@ public class ProfilesListActivity extends ListActivity {
 	}
 
 	private void deleteProfile(final Uri uri) {
-		String id = ContentUris.parseId(uri) + "";
-		Cursor cursor = getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT,
-					DB.Trigger.NAME_BATTERY_PROFILE_ID + "=? OR " +
-							DB.Trigger.NAME_POWER_PROFILE_ID + "=? OR " +
-							DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + "=?",
-				new String[] { id, id, id }, DB.Trigger.SORTORDER_DEFAULT);
 		Builder alertBuilder = new AlertDialog.Builder(this);
-		if (cursor != null && cursor.getCount() > 0) {
+		if (ModelAccess.getInstace(this).isProfileUsed(ContentUris.parseId(uri))) {
 			// no not delete
 			alertBuilder.setTitle(R.string.menuItemDelete);
 			alertBuilder.setMessage(R.string.msgDeleteTriggerNotPossible);

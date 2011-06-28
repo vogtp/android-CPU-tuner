@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,13 +22,16 @@ import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class ModelAccess {
 
-	private static final String SELECTION_ID = DB.NAME_ID + "=?";
-	private static final String PROFILE_SELECTION = CpuProfile.NAME_VIRTUAL_GOVERNOR + "=?";
+	private static final String SELECTION_BY_ID = DB.NAME_ID + "=?";
 	private static final String SELECTION_TRIGGER_BY_BATTERYLEVEL = DB.Trigger.NAME_BATTERY_LEVEL + ">=?";
+	private static final String SELECTION_PROFILE_BY_VIRTGOV = DB.CpuProfile.NAME_VIRTUAL_GOVERNOR + "=? ";
+	private static final String SELECTION_GET_TRIGGERS_WITH_PROFILE = DB.Trigger.NAME_BATTERY_PROFILE_ID + "=? OR " + DB.Trigger.NAME_POWER_PROFILE_ID + "=? OR "
+			+ DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + "=?";
 
 	private static ModelAccess instace;
 
 	private final Context ctx;
+	private ContentResolver contentResolver;
 	private final Handler handler;
 	private final Map<Long, TriggerModel> triggerCache;
 	private final Map<Long, ProfileModel> profileCache;
@@ -41,9 +45,10 @@ public class ModelAccess {
 		return instace;
 	}
 
-
 	private ModelAccess(Context ctx) {
 		super();
+		this.ctx = ctx;
+		contentResolver = ctx.getContentResolver();
 		handler = new Handler();
 		triggerCache = new HashMap<Long, TriggerModel>();
 		profileCache = new HashMap<Long, ProfileModel>();
@@ -56,7 +61,6 @@ public class ModelAccess {
 			}
 		};
 		triggerByBatteryLevelCache = new TreeMap<Integer, Long>(batteryLevelComparator);
-		this.ctx = ctx;
 	}
 
 	public void configChanged() {
@@ -66,7 +70,7 @@ public class ModelAccess {
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs) {
 		handler.post(new Runnable() {
 			public void run() {
-				ctx.getContentResolver().update(uri, values, where, selectionArgs);
+				contentResolver.update(uri, values, where, selectionArgs);
 			}
 		});
 	}
@@ -84,7 +88,7 @@ public class ModelAccess {
 		if (profile == null) {
 			Cursor c = null;
 			try {
-				c = ctx.getContentResolver().query(CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, SELECTION_ID, new String[] { Long.toString(id) }, null);
+				c = contentResolver.query(CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, SELECTION_BY_ID, new String[] { Long.toString(id) }, null);
 				if (c.moveToFirst()) {
 					profile = new ProfileModel(c);
 				}
@@ -103,7 +107,7 @@ public class ModelAccess {
 	}
 
 	public void insertProfile(ProfileModel profile) {
-		Uri uri = ctx.getContentResolver().insert(DB.CpuProfile.CONTENT_URI, profile.getValues());
+		Uri uri = contentResolver.insert(DB.CpuProfile.CONTENT_URI, profile.getValues());
 		long id = getIdFromUri(uri);
 		if (id > -1) {
 			profile.setDbId(id);
@@ -119,7 +123,7 @@ public class ModelAccess {
 			VirtualGovernorModel vg = getVirtualGovernor(virtualGovernor);
 			vg.applyToProfile(profile);
 		}
-		update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_ID, new String[] { Long.toString(id) });
+		update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 		profileCache.put(id, profile);
 		configChanged();
 
@@ -134,7 +138,7 @@ public class ModelAccess {
 		if (virtGov == null) {
 			Cursor c = null;
 			try {
-				c = ctx.getContentResolver().query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, SELECTION_ID, new String[] { Long.toString(id) }, null);
+				c = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, SELECTION_BY_ID, new String[] { Long.toString(id) }, null);
 				if (c.moveToFirst()) {
 					virtGov = new VirtualGovernorModel(c);
 				}
@@ -153,7 +157,7 @@ public class ModelAccess {
 	}
 
 	public void insertVirtualGovernor(VirtualGovernorModel virtualGovModel) {
-		Uri uri = ctx.getContentResolver().insert(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues());
+		Uri uri = contentResolver.insert(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues());
 		long id = ContentUris.parseId(uri);
 		if (id > -1) {
 			virtualGovModel.setDbId(id);
@@ -164,17 +168,16 @@ public class ModelAccess {
 
 	public void updateVirtualGovernor(VirtualGovernorModel virtualGovModel) {
 		long id = virtualGovModel.getDbId();
-		update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_ID, new String[] { Long.toString(id) });
+		update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 		virtgovCache.put(id, virtualGovModel);
 		updateAllProfilesFromVirtualGovernor(virtualGovModel);
 		configChanged();
 	}
 
-
 	private void updateAllProfilesFromVirtualGovernor(VirtualGovernorModel virtualGovModel) {
 		Cursor c = null;
 		try {
-			c = ctx.getContentResolver().query(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, PROFILE_SELECTION, new String[] { virtualGovModel.getDbId() + "" },
+			c = contentResolver.query(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, SELECTION_PROFILE_BY_VIRTGOV, new String[] { virtualGovModel.getDbId() + "" },
 					VirtualGovernor.SORTORDER_DEFAULT);
 			while (c.moveToNext()) {
 				ProfileModel profile = getProfile(c.getLong(DB.INDEX_ID));
@@ -197,7 +200,7 @@ public class ModelAccess {
 		if (trigger == null) {
 			Cursor c = null;
 			try {
-				c = ctx.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, SELECTION_ID, new String[] { Long.toString(id) }, null);
+				c = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, SELECTION_BY_ID, new String[] { Long.toString(id) }, null);
 				if (c.moveToFirst()) {
 					trigger = new TriggerModel(c);
 				}
@@ -217,7 +220,7 @@ public class ModelAccess {
 	}
 
 	public void insertTrigger(TriggerModel triggerModel) {
-		Uri uri = ctx.getContentResolver().insert(DB.Trigger.CONTENT_URI, triggerModel.getValues());
+		Uri uri = contentResolver.insert(DB.Trigger.CONTENT_URI, triggerModel.getValues());
 		long id = ContentUris.parseId(uri);
 		if (id > -1) {
 			triggerModel.setDbId(id);
@@ -263,8 +266,8 @@ public class ModelAccess {
 	private long getTriggerByBatteryLevelFromDB(int batteryLevel) {
 		Cursor cursor = null;
 		try {
-			cursor = ctx.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, SELECTION_TRIGGER_BY_BATTERYLEVEL,
-					new String[] { batteryLevel + "" }, DB.Trigger.SORTORDER_REVERSE);
+			cursor = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, SELECTION_TRIGGER_BY_BATTERYLEVEL, new String[] { batteryLevel + "" },
+					DB.Trigger.SORTORDER_REVERSE);
 			if (cursor != null && cursor.moveToFirst()) {
 				long id = cursor.getLong(DB.INDEX_ID);
 				triggerCache.put(id, new TriggerModel(cursor));
@@ -276,7 +279,7 @@ public class ModelAccess {
 			}
 		}
 		try {
-			cursor = ctx.getContentResolver().query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+			cursor = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 			if (cursor != null && cursor.moveToFirst()) {
 				long id = cursor.getLong(DB.INDEX_ID);
 				triggerCache.put(id, new TriggerModel(cursor));
@@ -288,6 +291,34 @@ public class ModelAccess {
 			}
 		}
 		return -1;
+	}
+
+	public boolean isProfileUsed(long profileId) {
+		String id = Long.toString(profileId);
+		Cursor cursor = null;
+		try {
+			cursor = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, SELECTION_GET_TRIGGERS_WITH_PROFILE, new String[] { id, id, id },
+					DB.Trigger.SORTORDER_DEFAULT);
+			return cursor != null && cursor.getCount() > 0;
+		} finally {
+			if (cursor != null && !cursor.isClosed()) {
+				cursor.close();
+			}
+		}
+	}
+
+	public boolean isVirtualGovernorUsed(long virtgovId) {
+		String id = Long.toString(virtgovId);
+		Cursor cursor = null;
+		try {
+			cursor = contentResolver.query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, SELECTION_PROFILE_BY_VIRTGOV, new String[] { id },
+					DB.CpuProfile.SORTORDER_DEFAULT);
+			return cursor != null && cursor.getCount() > 0;
+		} finally {
+			if (cursor != null && !cursor.isClosed()) {
+				cursor.close();
+			}
+		}
 	}
 
 }

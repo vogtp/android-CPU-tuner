@@ -26,6 +26,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
@@ -163,11 +164,8 @@ public class VirtualGovernorListActivity extends ListActivity {
 	}
 
 	private void deleteVirtualGovernor(final Uri uri) {
-		String id = ContentUris.parseId(uri) + "";
-		Cursor cursor = getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, DB.CpuProfile.NAME_VIRTUAL_GOVERNOR + "=? ", new String[] { id },
-				DB.CpuProfile.SORTORDER_DEFAULT);
 		Builder alertBuilder = new AlertDialog.Builder(this);
-		if (cursor != null && cursor.getCount() > 0) {
+		if (ModelAccess.getInstace(this).isVirtualGovernorUsed(ContentUris.parseId(uri))) {
 			// no not delete
 			alertBuilder.setTitle(R.string.menuItemDelete);
 			alertBuilder.setMessage(R.string.msgDeleteVirtGovNotPossible);
