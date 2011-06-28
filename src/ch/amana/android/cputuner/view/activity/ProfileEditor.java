@@ -352,10 +352,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 				if (!save) {
 					return;
 				}
-				if (!profile.equals(origProfile)) {
 					getContentResolver().update(DB.CpuProfile.CONTENT_URI, profile.getValues(), DB.NAME_ID + "=?", new String[] { profile.getDbId() + "" });
 					CpuTunerProvider.configChanged(this);
-				}
 			}
 		} catch (Exception e) {
 			Logger.w("Cannot insert or update", e);
