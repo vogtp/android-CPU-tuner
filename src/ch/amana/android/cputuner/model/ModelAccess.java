@@ -61,6 +61,7 @@ public class ModelAccess {
 			}
 		};
 		triggerByBatteryLevelCache = new TreeMap<Integer, Long>(batteryLevelComparator);
+		initTriggerByBatteryLevelCache();
 	}
 
 	public void configChanged() {
@@ -213,7 +214,7 @@ public class ModelAccess {
 				trigger = new TriggerModel();
 			} else {
 				triggerCache.put(id, trigger);
-				updateTriggerByBatteryLevelCache();
+				initTriggerByBatteryLevelCache();
 			}
 		}
 		return trigger;
@@ -225,7 +226,7 @@ public class ModelAccess {
 		if (id > -1) {
 			triggerModel.setDbId(id);
 			triggerCache.put(id, triggerModel);
-			updateTriggerByBatteryLevelCache();
+			initTriggerByBatteryLevelCache();
 		}
 		configChanged();
 	}
@@ -233,14 +234,24 @@ public class ModelAccess {
 	public void updateTrigger(TriggerModel triggerModel) {
 		update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 		triggerCache.put(triggerModel.getId(), triggerModel);
-		updateTriggerByBatteryLevelCache();
+		initTriggerByBatteryLevelCache();
 		configChanged();
 	}
 
-	private void updateTriggerByBatteryLevelCache() {
+	private void initTriggerByBatteryLevelCache() {
 		triggerByBatteryLevelCache.clear();
-		for (TriggerModel trigger : triggerCache.values()) {
-			triggerByBatteryLevelCache.put(trigger.getBatteryLevel(), trigger.getDbId());
+		Cursor cursor = null;
+		try {
+			cursor = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+			while (cursor.moveToNext()) {
+				long id = cursor.getLong(DB.INDEX_ID);
+				int bl = cursor.getInt(DB.Trigger.INDEX_BATTERY_LEVEL);
+				triggerByBatteryLevelCache.put(bl, id);
+			}
+		} finally {
+			if (cursor != null && !cursor.isClosed()) {
+				cursor.close();
+			}
 		}
 	}
 
@@ -251,46 +262,16 @@ public class ModelAccess {
 				triggerId = triggerByBatteryLevelCache.get(bl);
 			}
 		}
-		if (triggerId < 0) {
-			triggerId = getTriggerByBatteryLevelFromDB(batteryLevel);
+		TriggerModel tm = null;
+		if (triggerId > -1) {
+			tm = getTrigger(triggerId);
 		}
-		TriggerModel tm = triggerCache.get(triggerId);
 		if (tm == null) {
 			tm = new TriggerModel();
 			tm.setName(ctx.getString(R.string.notAvailable));
 		}
 		return tm;
 
-	}
-
-	private long getTriggerByBatteryLevelFromDB(int batteryLevel) {
-		Cursor cursor = null;
-		try {
-			cursor = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, SELECTION_TRIGGER_BY_BATTERYLEVEL, new String[] { batteryLevel + "" },
-					DB.Trigger.SORTORDER_REVERSE);
-			if (cursor != null && cursor.moveToFirst()) {
-				long id = cursor.getLong(DB.INDEX_ID);
-				triggerCache.put(id, new TriggerModel(cursor));
-				return id;
-			}
-		} finally {
-			if (cursor != null && !cursor.isClosed()) {
-				cursor.close();
-			}
-		}
-		try {
-			cursor = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
-			if (cursor != null && cursor.moveToFirst()) {
-				long id = cursor.getLong(DB.INDEX_ID);
-				triggerCache.put(id, new TriggerModel(cursor));
-				return id;
-			}
-		} finally {
-			if (cursor != null && !cursor.isClosed()) {
-				cursor.close();
-			}
-		}
-		return -1;
 	}
 
 	public boolean isProfileUsed(long profileId) {
