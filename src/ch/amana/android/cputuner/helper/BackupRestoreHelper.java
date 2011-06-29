@@ -14,6 +14,7 @@ import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
@@ -51,6 +52,7 @@ public class BackupRestoreHelper {
 				loadAutoloadConfig(contentResolver, dje);
 			}
 			cb.hasFinished(true);
+			ModelAccess.getInstace(cb.getContext()).clearCache();
 		} catch (JSONException e) {
 			Logger.e("Cannot restore tables", e);
 			cb.hasFinished(false);

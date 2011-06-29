@@ -33,10 +33,11 @@ public class ModelAccess {
 	private final Context ctx;
 	private ContentResolver contentResolver;
 	private final Handler handler;
-	private final Map<Long, TriggerModel> triggerCache;
-	private final Map<Long, ProfileModel> profileCache;
-	private final Map<Long, VirtualGovernorModel> virtgovCache;
-	private final SortedMap<Integer, Long> triggerByBatteryLevelCache;
+	private Map<Long, TriggerModel> triggerCache;
+	private Map<Long, ProfileModel> profileCache;
+	private Map<Long, VirtualGovernorModel> virtgovCache;
+	private SortedMap<Integer, Long> triggerByBatteryLevelCache;
+	private final Comparator<Integer> batteryLevelComparator;
 
 	public static ModelAccess getInstace(Context ctx) {
 		if (instace == null) {
@@ -50,16 +51,20 @@ public class ModelAccess {
 		this.ctx = ctx;
 		contentResolver = ctx.getContentResolver();
 		handler = new Handler();
-		triggerCache = new HashMap<Long, TriggerModel>();
-		profileCache = new HashMap<Long, ProfileModel>();
-		virtgovCache = new HashMap<Long, VirtualGovernorModel>();
-		Comparator<Integer> batteryLevelComparator = new Comparator<Integer>() {
+		batteryLevelComparator = new Comparator<Integer>() {
 
 			@Override
 			public int compare(Integer level1, Integer level2) {
 				return level2.compareTo(level1);
 			}
 		};
+		clearCache();
+	}
+
+	public void clearCache() {
+		triggerCache = new HashMap<Long, TriggerModel>();
+		profileCache = new HashMap<Long, ProfileModel>();
+		virtgovCache = new HashMap<Long, VirtualGovernorModel>();
 		triggerByBatteryLevelCache = new TreeMap<Integer, Long>(batteryLevelComparator);
 		initTriggerByBatteryLevelCache();
 	}
