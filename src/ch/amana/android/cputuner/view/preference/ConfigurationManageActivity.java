@@ -34,13 +34,17 @@ import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
+	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
 	private ConfigurationsAdapter configurationsAdapter;
+	private boolean closeOnLoad = false;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.titleManageConfigurations);
+
+		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
 
 		ListView lvConfiguration = getListView();
 		configurationsAdapter = new ConfigurationsListAdapter(this);
@@ -66,6 +70,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		try {
 			BackupRestoreHelper.restoreConfiguration(this, name, false);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
+			if (closeOnLoad) {
+				finish();
+			}
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");
 		}

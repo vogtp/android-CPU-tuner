@@ -352,7 +352,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			@Override
 			public void onClick(View v) {
 				Context ctx = CurInfo.this;
-				ctx.startActivity(new Intent(ctx, ConfigurationManageActivity.class));
+				Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
+				intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
+				ctx.startActivity(intent);
 			}
 		});
 	}

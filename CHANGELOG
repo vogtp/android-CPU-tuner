@@ -8,6 +8,7 @@ V
 * features
 - save current config on change
 - cache for DB
+- close configuration manager after load if called directly
 * bug fixes
 - fix cancel editor if inserting
 - fix force close in configuration autoloading 
