@@ -16,4 +16,28 @@
 		This will probably still yield nice results.\n2) Flash a new
 		kernel\n3) Flash a new ROM\nPlease do not write e-mails unless you
 		think there is something wrong with the check or the app.</string>
+    <string name="labelUseCpus_front">Use </string>
+    <string name="labelUseCpus_end">CPUs</string>
+    <string name="prefMulticore">Use multicore CPU features</string>
+    <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
+    <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
+    <string name="labelActiveCpus">Active CPUs:</string>
+    <string name="prefEnableCputuner">Enable CPU tuner</string>
+    <string-array name="prefMulticoreEntries">
+        <item>Auto</item>
+        <item>Enable</item>
+        <item>Disable</item>
+    </string-array>
+    <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
+    <string name="config_default">Default</string>
+    <string name="prefConfigurationsLong">Backup and restore</string>
+    <string name="prefCpu">CPU Settings</string>
+    <string name="prefChangelog">Show Changelog</string>
+    <string name="label_version">Version:</string>
+    <string name="prefLegalGnomeIcons">Main icon License</string>
+    <string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
+		nice icons.</string>
+    <string name="msg_disable_cpu_tuner">Disable CPU tuner</string>
+    <string name="msg_disable_cputuner_question">Do you want to stop CPU tuner?</string>
+		
 </resources>
