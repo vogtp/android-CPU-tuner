@@ -145,6 +145,15 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 				return true;
 			}
 		});
+		findPreference("prefKeyLegalGnomeIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent i = new Intent(Intent.ACTION_DEFAULT, Uri.parse("http://www.gnu.org/licenses/gpl-2.0.html"));
+				startActivity(i);
+				return true;
+			}
+		});
 		
 		PreferenceScreen configurationsManageScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsManage");
 		configurationsManageScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -175,6 +184,18 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent i = new Intent(SettingsPreferenceActivity.this, ChangelogActivity.class);
+				startActivity(i);
+				return true;
+			}
+		});
+
+		findPreference("prefKeyVersion").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				Uri fromParts = Uri.parse("market://search?q=pname:" + getPackageName());
+				i.setData(fromParts);
 				startActivity(i);
 				return true;
 			}

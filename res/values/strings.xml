@@ -24,4 +24,7 @@
     <string name="prefCpu">CPU Settings</string>
     <string name="prefChangelog">Show Changelog</string>
     <string name="label_version">Version:</string>
+    <string name="prefLegalGnomeIcons">Main icon License</string>
+    <string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
+		nice icons.</string>
 </resources>

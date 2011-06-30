@@ -149,7 +149,7 @@
 	<Preference android:key="prefKeyVersion"></Preference><Preference android:key="prefKeyChangelog" android:title="@string/prefChangelog"></Preference><PreferenceScreen android:title="@string/prefScreenLegal"
 		android:key="prefKeyLegal">
 		
-		<Preference android:key="prefKeyLegalOxigenIcons"
+		<Preference android:key="prefKeyLegalGnomeIcons" android:summary="@string/prefLegalGnomeIconsLong" android:title="@string/prefLegalGnomeIcons"></Preference><Preference android:key="prefKeyLegalOxigenIcons"
 			android:title="@string/prefLegalOxigenIcons" android:summary="@string/prefLegalOxigenIconsLong"></Preference>
 		
 	</PreferenceScreen>
