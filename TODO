@@ -2,6 +2,8 @@
 - stop on update
 - triggers cannot have to same battery level
 
+- remove strings: prefEnableProfilesOn and prefEnableProfilesOff
+
 - handle two configuration have the same name
 
 - fragments: fix orientation change 

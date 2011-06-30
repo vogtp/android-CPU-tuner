@@ -13,10 +13,15 @@
     <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
     <string name="labelActiveCpus">Active CPUs:</string>
     <string name="prefEnableCputuner">Enable CPU tuner</string>
-	<string-array name="prefMulticoreEntries">
-		<item>Auto</item>
-		<item>Enable</item>
-		<item>Disable</item>
-	</string-array>
-		<string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
+    <string-array name="prefMulticoreEntries">
+        <item>Auto</item>
+        <item>Enable</item>
+        <item>Disable</item>
+    </string-array>
+    <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
+    <string name="config_default">Default</string>
+    <string name="prefConfigurationsLong">Backup and restore</string>
+    <string name="prefCpu">CPU Settings</string>
+    <string name="prefChangelog">Show Changelog</string>
+    <string name="label_version">Version:</string>
 </resources>

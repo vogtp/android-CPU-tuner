@@ -4,7 +4,6 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -24,17 +23,15 @@ import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.helper.SystemAppHelper;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
-	private CheckBoxPreference systemAppPreference;
+	// private CheckBoxPreference systemAppPreference;
 	private EditTextPreference cpuFreqPreference;
 	private EditTextPreference prefMinSensibleFrequency;
 	private String helpPage;
@@ -93,16 +90,20 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
-		systemAppPreference = (CheckBoxPreference) findPreference("prefKeySystemApp");
-		systemAppPreference.setChecked(RootHandler.isSystemApp(this));
-		systemAppPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
-			@Override
-			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				return SystemAppHelper.install(SettingsPreferenceActivity.this, (Boolean) newValue);
-			}
-
-		});
+		// systemAppPreference = (CheckBoxPreference)
+		// findPreference("prefKeySystemApp");
+		// systemAppPreference.setChecked(RootHandler.isSystemApp(this));
+		// systemAppPreference.setOnPreferenceChangeListener(new
+		// OnPreferenceChangeListener() {
+		//
+		// @Override
+		// public boolean onPreferenceChange(Preference preference, Object
+		// newValue) {
+		// return SystemAppHelper.install(SettingsPreferenceActivity.this,
+		// (Boolean) newValue);
+		// }
+		//
+		// });
 		prefMinSensibleFrequency = (EditTextPreference) findPreference("prefKeyMinSensibleFrequency");
 cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 //		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
@@ -165,6 +166,19 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 				return true;
 			}
 		});
+
+		StringBuffer versionSB = new StringBuffer();
+		versionSB.append(getString(R.string.label_version)).append(" ").append(getString(R.string.version));
+		findPreference("prefKeyVersion").setTitle(versionSB.toString());
+		findPreference("prefKeyChangelog").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent i = new Intent(SettingsPreferenceActivity.this, ChangelogActivity.class);
+				startActivity(i);
+				return true;
+			}
+		});
 	}
 
 
@@ -188,7 +202,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 	protected void onResume() {
 		super.onResume();
 		SettingsStorage settings = SettingsStorage.getInstance();
-		systemAppPreference.setEnabled(settings.isInstallAsSystemAppEnabled());
+		// systemAppPreference.setEnabled(settings.isInstallAsSystemAppEnabled());
 		cpuFreqPreference.setEnabled(!settings.isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
 		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());

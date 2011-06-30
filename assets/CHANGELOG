@@ -7,11 +7,14 @@ V
 V 
 * features
 - save current config on change
-- cache for DB
 - close configuration manager after load if called directly
+- menu reorganisation
+- display changelog
 * bug fixes
 - fix cancel editor if inserting
-- fix force close in configuration autoloading 
+- fix force close in configuration autoloading nge
+* internal
+- cache DB access
 
 V 2.5.0
 * features

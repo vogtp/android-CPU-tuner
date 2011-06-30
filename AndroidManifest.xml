@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="ch.amana.android.cputuner" android:versionName="@string/version"
-	android:installLocation="internalOnly" android:versionCode="201106272">
+	android:installLocation="internalOnly" android:versionCode="201106300">
     <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
     <uses-permission android:name="com.android.vending.BILLING"></uses-permission>
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication"
-		android:allowClearUserData="true" android:allowBackup="true" 
+		android:allowClearUserData="true" android:allowBackup="true"
 		android:backupAgent="ch.amana.android.cputuner.helper.CpuTunerBackupAgent">
-			<meta-data android:name="com.google.android.backup.api_key"
-    android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
+		<meta-data android:name="com.google.android.backup.api_key"
+			android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
 
 		<activity android:label="@string/app_name" android:name=".view.activity.CurInfo">
 
@@ -87,7 +87,8 @@
 			android:authorities="ch.amana.android.cputuner"></provider>
 		<activity android:name=".view.activity.TriggersListActivity"></activity>
 		<activity android:name=".view.activity.ProfilesListActivity"></activity>
-		<activity android:configChanges="orientation" android:name=".view.preference.CapabilityCheckerActivity"></activity>
+		<activity android:configChanges="orientation"
+			android:name=".view.preference.CapabilityCheckerActivity"></activity>
 		<activity android:name=".view.activity.HelpActivity"></activity>
 		<activity android:name=".view.preference.SendReportActivity"></activity>
 		<activity android:name=".view.preference.FindFrequenciesActivity"></activity>
@@ -116,18 +117,26 @@
 		</activity>
 		<activity android:name=".view.preference.ConfigurationManageActivity"></activity>
 		<activity android:name=".view.preference.ConfigurationAutoloadListActivity"></activity>
-		<activity android:name=".view.preference.ConfigurationAutoloadEditor"><intent-filter>
+		<activity android:name=".view.preference.ConfigurationAutoloadEditor">
+			<intent-filter>
 				<action android:name="android.intent.action.INSERT"></action>
-				<data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.configurationAutoload"></data>
+				<data
+					android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.configurationAutoload"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter><intent-filter>
+			</intent-filter>
+			<intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
-				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.configurationAutoload"></data>
+				<data
+					android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.configurationAutoload"></data>
 				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter></activity>
-		<service android:name=".service.ConfigurationAutoloadService"><intent-filter>
+			</intent-filter>
+		</activity>
+		<service android:name=".service.ConfigurationAutoloadService">
+			<intent-filter>
 				<action android:name="ch.amana.android.cputuner.INTENT_SCEDULE_AUTOLOAD"></action>
-			</intent-filter></service>
+			</intent-filter>
+		</service>
+		<activity android:name=".view.preference.ChangelogActivity"></activity>
 	</application>
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
 

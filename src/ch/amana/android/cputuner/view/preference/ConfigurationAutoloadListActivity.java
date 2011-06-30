@@ -45,6 +45,7 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 
 		getListView().setAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
+
 	}
 
 	@Override
