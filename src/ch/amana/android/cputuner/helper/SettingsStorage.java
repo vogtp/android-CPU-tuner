@@ -74,7 +74,6 @@ public class SettingsStorage {
 	private boolean enableUserspaceGovernor;
 	private boolean checkedProfileSwitchLogSize = false;
 	private int profileSwitchLogSize;
-	private String configuration;
 
 	public void forgetValues() {
 		checkedBeta = false;

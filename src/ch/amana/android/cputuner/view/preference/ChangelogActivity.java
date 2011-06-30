@@ -14,7 +14,6 @@ import ch.amana.android.cputuner.helper.Logger;
 public class ChangelogActivity extends Activity {
 
 	private static final String CHANGELOG = "CHANGELOG";
-	private static final String CHANGELOG2 = "file:///android_asset/CHANGELOG";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -23,7 +23,8 @@ import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 public class ModelAccess {
 
 	private static final String SELECTION_BY_ID = DB.NAME_ID + "=?";
-	private static final String SELECTION_TRIGGER_BY_BATTERYLEVEL = DB.Trigger.NAME_BATTERY_LEVEL + ">=?";
+	// private static final String SELECTION_TRIGGER_BY_BATTERYLEVEL =
+	// DB.Trigger.NAME_BATTERY_LEVEL + ">=?";
 	private static final String SELECTION_PROFILE_BY_VIRTGOV = DB.CpuProfile.NAME_VIRTUAL_GOVERNOR + "=? ";
 	private static final String SELECTION_GET_TRIGGERS_WITH_PROFILE = DB.Trigger.NAME_BATTERY_PROFILE_ID + "=? OR " + DB.Trigger.NAME_POWER_PROFILE_ID + "=? OR "
 			+ DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + "=?";
