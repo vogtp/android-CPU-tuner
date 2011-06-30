@@ -35,10 +35,10 @@ public class CpuTunerApplication extends Application {
 				PowerProfiles.getInstance().reapplyProfile(true);
 				ConfigurationAutoloadService.scheduleNextEvent(ctx);
 			}
-		} catch (RuntimeException e) {
+		} catch (Throwable e) {
 			Logger.e("Cannot update DB", e);
 			InstallHelper.magicallyHeal(ctx);
-			throw e;
+			throw new RuntimeException("Cannot start cpu tuner", e);
 		}
 	}
 }
