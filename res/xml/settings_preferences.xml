@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="@string/labelSettingsTab">
-	<PreferenceScreen android:title="@string/prefConfigurations"
+	<CheckBoxPreference android:key="prefKeyEnableProfiles"
+		android:defaultValue="true" android:title="@string/prefEnableCputuner"></CheckBoxPreference><PreferenceScreen android:title="@string/prefConfigurations"
 		android:key="prefKeyConfigurations" android:summary="@string/prefConfigurationsLong">
 		<PreferenceCategory android:title="@string/prefConfigurations"
 			android:key="prefKeyConfigurations" android:summary="@string/prefConfigurationsLong">
@@ -55,9 +56,7 @@
 
 	</PreferenceScreen>
 	<PreferenceScreen android:title="@string/prefCatSystem"
-		android:key="prefKeySystemScreen">
-		<CheckBoxPreference android:key="prefKeyEnableProfiles"
-		android:defaultValue="true" android:title="@string/prefEnableCputuner"></CheckBoxPreference><PreferenceScreen android:key="prefKeyProfiles"
+		android:key="prefKeySystemScreen"><PreferenceScreen android:key="prefKeyProfiles"
 			android:title="@string/prefKeyProfiles">
 
 			<CheckBoxPreference android:title="@string/prefCallInProgressProfile"

@@ -1,9 +1,14 @@
 package ch.amana.android.cputuner.view.preference;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.ContentUris;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -24,7 +29,6 @@ import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -45,6 +49,38 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 
 		helpPage = HelpActivity.PAGE_SETTINGS;
 
+		findPreference(SettingsStorage.ENABLE_PROFILES).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(final Preference preference, Object newValue) {
+				if (newValue instanceof Boolean) {
+					Boolean b = (Boolean) newValue;
+					if (!b) {
+						Builder alertBuilder = new AlertDialog.Builder(SettingsPreferenceActivity.this);
+						alertBuilder.setTitle(R.string.msg_disable_cpu_tuner);
+						alertBuilder.setMessage(R.string.msg_disable_cputuner_question);
+						alertBuilder.setNegativeButton(R.string.no, new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								SettingsStorage.getInstance().setEnableProfiles(true);
+								((CheckBoxPreference) preference).setChecked(true);
+							}
+						});
+						alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								SettingsStorage.getInstance().setEnableProfiles(false);
+								((CheckBoxPreference) preference).setChecked(false);
+							}
+						});
+						AlertDialog alert = alertBuilder.create();
+						alert.show();
+						return false;
+					}
+				}
+				return true;
+			}
+		});
+
 		Preference capabilityPreference = findPreference("prefKeyCapabilities");
 		capabilityPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -57,24 +93,28 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
-		Preference enableProfilePreference = findPreference(SettingsStorage.ENABLE_PROFILES);
-		enableProfilePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
-			@Override
-			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				if (newValue instanceof Boolean) {
-					Boolean enableProfile = (Boolean) newValue;
-					Intent intent = new Intent(SettingsPreferenceActivity.this, BatteryService.class);
-					if (enableProfile) {
-						startService(intent);
-						PowerProfiles.getInstance().reapplyProfile(true);
-					} else {
-						stopService(intent);
-					}
-				}
-				return true;
-			}
-		});
+		// Preference enableProfilePreference =
+		// findPreference(SettingsStorage.ENABLE_PROFILES);
+		// enableProfilePreference.setOnPreferenceChangeListener(new
+		// OnPreferenceChangeListener() {
+		//
+		// @Override
+		// public boolean onPreferenceChange(Preference preference, Object
+		// newValue) {
+		// if (newValue instanceof Boolean) {
+		// Boolean enableProfile = (Boolean) newValue;
+		// Intent intent = new Intent(SettingsPreferenceActivity.this,
+		// BatteryService.class);
+		// if (enableProfile) {
+		// startService(intent);
+		// PowerProfiles.getInstance().reapplyProfile(true);
+		// } else {
+		// stopService(intent);
+		// }
+		// }
+		// return true;
+		// }
+		// });
 		Preference enableStatusBarPreference = findPreference(SettingsStorage.ENABLE_STATUSBAR_ADDTO);
 		enableStatusBarPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
@@ -105,8 +145,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		//
 		// });
 		prefMinSensibleFrequency = (EditTextPreference) findPreference("prefKeyMinSensibleFrequency");
-cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
-//		cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
+		cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
+		// cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
 
 		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -126,7 +166,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 		});
 
 		findPreference("prefKeyLanguage").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-			
+
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				if (newValue instanceof String) {
@@ -135,9 +175,9 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 				return true;
 			}
 		});
-		
+
 		findPreference("prefKeyLegalOxigenIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			
+
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent i = new Intent(Intent.ACTION_DEFAULT, Uri.parse("http://www.oxygen-icons.org/?page_id=4"));
@@ -154,7 +194,7 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 				return true;
 			}
 		});
-		
+
 		PreferenceScreen configurationsManageScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsManage");
 		configurationsManageScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -201,7 +241,6 @@ cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
 			}
 		});
 	}
-
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

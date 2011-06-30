@@ -27,4 +27,6 @@
     <string name="prefLegalGnomeIcons">Main icon License</string>
     <string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
 		nice icons.</string>
+    <string name="msg_disable_cpu_tuner">Disable CPU tuner</string>
+    <string name="msg_disable_cputuner_question">Do you want to stop CPU tuner?</string>
 </resources>

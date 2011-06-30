@@ -4,12 +4,15 @@ import java.text.SimpleDateFormat;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.GpsHandler;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.service.BatteryService;
 
 public class SettingsStorage {
 
@@ -117,6 +120,20 @@ public class SettingsStorage {
 
 	protected SharedPreferences getPreferences() {
 		return PreferenceManager.getDefaultSharedPreferences(context);
+	}
+
+	public void setEnableProfiles(boolean b) {
+		enableProfiles = b;
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(ENABLE_PROFILES, b);
+		editor.commit();
+		Intent intent = new Intent(context, BatteryService.class);
+		if (enableProfiles) {
+			context.startService(intent);
+			PowerProfiles.getInstance().reapplyProfile(true);
+		} else {
+			context.stopService(intent);
+		}
 	}
 
 	public boolean isEnableProfiles() {
@@ -418,4 +435,5 @@ public class SettingsStorage {
 			return 2;
 		}
 	}
+
 }
