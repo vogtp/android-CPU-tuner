@@ -17,7 +17,6 @@ public class Notifier {
 
 	private static final int NOTIFICATION_PROFILE = 1;
 	private final NotificationManager notificationManager;
-	// private Notification notification;
 	private final Context context;
 	private String contentTitle;
 	private PendingIntent contentIntent;
