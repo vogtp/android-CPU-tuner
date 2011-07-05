@@ -41,12 +41,6 @@ public class CpuTunerTabActivity extends TabActivity {
 				.setContent(new Intent(this, VirtualGovernorListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 		tabHost.addTab(tabHost.newTabSpec("tabStats").setIndicator(getString(R.string.labelStatisticsTab), getResources().getDrawable(R.drawable.stats))
 				.setContent(new Intent(this, StatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-		// tabHost.addTab(tabHost.newTabSpec("tabHelp").setIndicator(getString(R.string.labelHelpTab),
-		// getResources().getDrawable(R.drawable.help))
-		// .setContent(new Intent(this, HelpActivity.class)));
-		// tabHost.addTab(tabHost.newTabSpec("tabSettings").setIndicator(getString(R.string.labelSettingsTab),
-		// getResources().getDrawable(R.drawable.configure))
-		// .setContent(new Intent(this, SettingsPreferenceActivity.class)));
 
 	}
 
