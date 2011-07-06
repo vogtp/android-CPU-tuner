@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.helper;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
@@ -29,7 +27,7 @@ import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class InstallHelper {
 
-	private static final int VERSION = 3;
+	private static final int VERSION = 4;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -129,7 +127,6 @@ public class InstallHelper {
 				cP.close();
 			}
 
-			SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
 		} finally {
 			PowerProfiles.setUpdateTrigger(true);
 		}
@@ -316,15 +313,17 @@ public class InstallHelper {
 
 	public static void populateDb(Context ctx) {
 		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
-		if (VERSION > defaultProfilesVersion) {
-			try {
-				Logger.i("Updating DB conents to version " + VERSION);
-				updateDefaultProfiles(ctx);
-			} catch (Exception e) {
-				Logger.e("Cannot create profiles", e);
-			}
+		switch (defaultProfilesVersion) {
+		case 2:
+			Logger.i("Initalising cpu tuner to level 2");
+			updateDefaultProfiles(ctx);
 			updateProfilesFromVirtGovs(ctx);
+
+		case 3:
+			Logger.i("Initalising cpu tuner to level 3");
+
 		}
+		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
 	}
 
 	private static void updateProfilesFromVirtGovs(Context ctx) {
@@ -345,15 +344,18 @@ public class InstallHelper {
 		}
 	}
 
-	public static void magicallyHeal(Context ctx) {
-		Logger.w("Magically healing cpu tuner");
-		File dataDirectory = ctx.getDatabasePath("cputuner").getParentFile().getParentFile();
-		if (!dataDirectory.isDirectory()) {
-			Logger.w("Healing: Creating directory " + dataDirectory.getAbsolutePath());
-			RootHandler.execute("mkdir -p " + dataDirectory.getAbsolutePath());
-			updateDefaultProfiles(ctx);
-		}
-		RootHandler.execute("chown -R " + android.os.Process.myUid() + " " + dataDirectory.getAbsolutePath());
-	}
+	// public static void magicallyHeal(Context ctx) {
+	// Logger.w("Magically healing cpu tuner");
+	// File dataDirectory =
+	// ctx.getDatabasePath("cputuner").getParentFile().getParentFile();
+	// if (!dataDirectory.isDirectory()) {
+	// Logger.w("Healing: Creating directory " +
+	// dataDirectory.getAbsolutePath());
+	// RootHandler.execute("mkdir -p " + dataDirectory.getAbsolutePath());
+	// updateDefaultProfiles(ctx);
+	// }
+	// RootHandler.execute("chown -R " + android.os.Process.myUid() + " " +
+	// dataDirectory.getAbsolutePath());
+	// }
 
 }
