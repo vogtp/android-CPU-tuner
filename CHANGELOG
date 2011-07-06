@@ -4,6 +4,15 @@ V
 * bug fixes
 -
 
+V 2.6.1
+* features
+- 
+* bug fixes
+- fix force closes
+* internal
+- Check networkmode before changing it
+- Handle concurency in DB cache
+
 V 2.6.0
 * features
 - save current config on change
