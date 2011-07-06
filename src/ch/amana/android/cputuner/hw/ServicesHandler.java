@@ -121,6 +121,12 @@ public class ServicesHandler {
 			Logger.w("Phone not idle, not switching moble data");
 			return;
 		}
+		int networkMode = getMobiledataState(context);
+
+		if (networkMode < 0 || networkMode > 3) {
+			Logger.w("Unknown networkmode (Networkmode is " + networkMode + ")! Not switching moble data...");
+			return;
+		}
 
 		int state = -7;
 		switch (profileState) {
@@ -139,7 +145,7 @@ public class ServicesHandler {
 		
 		}
 		
-		if (state == getMobiledataState(context)) {
+		if (state == networkMode) {
 			Logger.i("Not switching 2G/3G since it's already in correct state.");
 			return;
 		}
