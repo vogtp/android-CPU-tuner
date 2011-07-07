@@ -226,6 +226,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 		@Override
 		public CharSequence getDescription(Context ctx) {
+			if (ctx == null) {
+				return "";
+			}
 			StringBuilder sb = new StringBuilder();
 			sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(getGov());
 			int governorThresholdUp = getGovernorThresholdUp();
@@ -373,6 +376,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		unregisterReceiver();
 	}
 
+	@Override
 	public void updateView() {
 		batteryLevelChanged();
 		profileChanged();
