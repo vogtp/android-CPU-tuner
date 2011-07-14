@@ -92,6 +92,7 @@ public class ModelAccess {
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs, boolean saveConfig) {
 		handler.post(new Runnable() {
+			@Override
 			public void run() {
 				contentResolver.update(uri, values, where, selectionArgs);
 				configChanged();
@@ -288,6 +289,9 @@ public class ModelAccess {
 			Cursor cursor = null;
 			try {
 				cursor = contentResolver.query(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+				if (cursor == null) {
+					return;
+				}
 				while (cursor.moveToNext()) {
 					long id = cursor.getLong(DB.INDEX_ID);
 					int bl = cursor.getInt(DB.Trigger.INDEX_BATTERY_LEVEL);
