@@ -330,6 +330,9 @@ public class InstallHelper {
 	private static void updateProfilesFromVirtGovs(Context ctx) {
 		ContentResolver contentResolver = ctx.getContentResolver();
 		Cursor cursorVirtGov = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, null, null, VirtualGovernor.SORTORDER_DEFAULT);
+		if (cursorVirtGov == null) {
+			return;
+		}
 		while (cursorVirtGov.moveToNext()) {
 			VirtualGovernorModel virtualGovModel = new VirtualGovernorModel(cursorVirtGov);
 			Cursor c = contentResolver.query(DB.CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, CpuProfile.NAME_VIRTUAL_GOVERNOR + "=?",
