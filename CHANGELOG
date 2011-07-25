@@ -6,7 +6,13 @@ V
 
 V 2.6.4
 * features
+<<<<<<< OURS
 - 
+=======
+- make configuration loadable from other apps (with the correct permission)
+- ask before deleting autoload configuration
+- change networkmode (2G/3G) on wifi connected
+>>>>>>> THEIRS
 * bug fixes
 - fix force close
 
