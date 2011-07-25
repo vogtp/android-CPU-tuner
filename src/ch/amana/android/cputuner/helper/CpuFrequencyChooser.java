@@ -29,10 +29,10 @@ public class CpuFrequencyChooser {
 	private Spinner spCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
 	private Spinner spCpuFreqMin;
-	private int[] availCpuFreqsMin;
-	private int[] availCpuFreqsMax;
+	private final int[] availCpuFreqsMin;
+	private final int[] availCpuFreqsMax;
 	private FrequencyChangeCallback callback;
-	private CpuHandler cpuHandler;
+	private final CpuHandler cpuHandler;
 	private int maxFreq;
 	private int minFreq;
 
@@ -41,8 +41,13 @@ public class CpuFrequencyChooser {
 		cpuHandler = CpuHandler.getInstance();
 		availCpuFreqsMax = cpuHandler.getAvailCpuFreq();
 		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
-		maxFreq = availCpuFreqsMax[availCpuFreqsMax.length - 1];
-		minFreq = availCpuFreqsMin[0];
+		if (availCpuFreqsMax.length > 1) {
+			maxFreq = availCpuFreqsMax[availCpuFreqsMax.length - 1];
+			minFreq = availCpuFreqsMin[0];
+		} else {
+			minFreq = availCpuFreqsMin[0];
+			maxFreq = minFreq;
+		}
 	}
 
 	public CpuFrequencyChooser(FrequencyChangeCallback callback, SeekBar sbCpuFreqMin, Spinner spCpuFreqMin, SeekBar sbCpuFreqMax, Spinner spCpuFreqMax) {
