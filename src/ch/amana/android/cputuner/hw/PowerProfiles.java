@@ -104,17 +104,6 @@ public class PowerProfiles {
 		lastActiveStateAirplanemode = ServicesHandler.isAirplaineModeEnabled(context);
 	}
 
-	//
-	// private void resetServiceState() {
-	// lastSetStateWifi = -1;
-	// lastSetStateGps = -1;
-	// lastSetStateMobiledataConnection = -1;
-	// lastSetStateMobiledata3G = -1;
-	// lastSetStateBluetooth = -1;
-	// lastSetStateBackgroundSync = -1;
-	// lastSetStateAirplaneMode = -1;
-	// }
-
 	public void reapplyProfile(boolean force) {
 		if (!updateTrigger) {
 			return;
