@@ -12,7 +12,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Handler;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -33,7 +32,7 @@ public class ModelAccess {
 
 	private final Context ctx;
 	private ContentResolver contentResolver;
-	private final Handler handler;
+	// private final Handler handler2;
 	private Map<Long, TriggerModel> triggerCache;
 	private Map<Long, ProfileModel> profileCache;
 	private Map<Long, VirtualGovernorModel> virtgovCache;
@@ -55,7 +54,7 @@ public class ModelAccess {
 		super();
 		this.ctx = ctx;
 		contentResolver = ctx.getContentResolver();
-		handler = new Handler();
+		// handler = new Handler();
 		batteryLevelComparator = new Comparator<Integer>() {
 
 			@Override
@@ -91,13 +90,13 @@ public class ModelAccess {
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs, boolean saveConfig) {
-		handler.post(new Runnable() {
-			@Override
-			public void run() {
+//		handler.post(new Runnable() {
+//			@Override
+//			public void run() {
 				contentResolver.update(uri, values, where, selectionArgs);
 				configChanged();
-			}
-		});
+		// }
+//		});
 	}
 
 	private long getIdFromUri(Uri uri) {

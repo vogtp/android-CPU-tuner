@@ -2,8 +2,12 @@ package ch.amana.android.cputuner.view.preference;
 
 import java.util.Calendar;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.content.ContentUris;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -192,7 +196,7 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 		final Uri uri = ContentUris.withAppendedId(DB.ConfigurationAutoload.CONTENT_URI, info.id);
 		switch (item.getItemId()) {
 		case R.id.menuItemDelete:
-			getContentResolver().delete(uri, null, null);
+			delete(uri);
 			return true;
 
 		case R.id.menuItemEdit:
@@ -203,5 +207,20 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 			return handleCommonMenu(item);
 		}
 
+	}
+
+	private void delete(final Uri uri) {
+		Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setTitle(R.string.menuItemDelete);
+		alertBuilder.setMessage(R.string.msg_delete_selected_item);
+		alertBuilder.setNegativeButton(R.string.no, null);
+		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				getContentResolver().delete(uri, null, null);
+			}
+		});
+		AlertDialog alert = alertBuilder.create();
+		alert.show();
 	}
 }

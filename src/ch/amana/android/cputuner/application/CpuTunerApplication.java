@@ -36,9 +36,9 @@ public class CpuTunerApplication extends Application {
 				ConfigurationAutoloadService.scheduleNextEvent(ctx);
 			}
 		} catch (Throwable e) {
-			Logger.e("Cannot update DB", e);
-			InstallHelper.magicallyHeal(ctx);
-			throw new RuntimeException("Cannot start cpu tuner", e);
+			 Logger.e("Cannot update DB", e);
+			// InstallHelper.magicallyHeal(ctx);
+			// throw new RuntimeException("Cannot start cpu tuner", e);
 		}
 	}
 }

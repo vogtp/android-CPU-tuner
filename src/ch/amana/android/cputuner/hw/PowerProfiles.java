@@ -70,10 +70,14 @@ public class PowerProfiles {
 
 	private static PowerProfiles instance;
 
-	private ModelAccess modelAccess;
+	private final ModelAccess modelAccess;
+
+	private boolean wifiManaged3gState = false;
 
 	public static void initInstance(Context ctx) {
-		instance = new PowerProfiles(ctx);
+		if (instance == null) {
+			instance = new PowerProfiles(ctx);
+		}
 	}
 
 	public static PowerProfiles getInstance() {
@@ -88,7 +92,6 @@ public class PowerProfiles {
 		acPower = batteryHandler.isOnAcPower();
 		screenOff = false;
 		initActiveStates();
-		resetServiceState();
 	}
 
 	public void initActiveStates() {
@@ -101,15 +104,16 @@ public class PowerProfiles {
 		lastActiveStateAirplanemode = ServicesHandler.isAirplaineModeEnabled(context);
 	}
 
-	private void resetServiceState() {
-		lastSetStateWifi = -1;
-		lastSetStateGps = -1;
-		lastSetStateMobiledataConnection = -1;
-		lastSetStateMobiledata3G = -1;
-		lastSetStateBluetooth = -1;
-		lastSetStateBackgroundSync = -1;
-		lastSetStateAirplaneMode = -1;
-	}
+	//
+	// private void resetServiceState() {
+	// lastSetStateWifi = -1;
+	// lastSetStateGps = -1;
+	// lastSetStateMobiledataConnection = -1;
+	// lastSetStateMobiledata3G = -1;
+	// lastSetStateBluetooth = -1;
+	// lastSetStateBackgroundSync = -1;
+	// lastSetStateAirplaneMode = -1;
+	// }
 
 	public void reapplyProfile(boolean force) {
 		if (!updateTrigger) {
@@ -303,24 +307,31 @@ public class PowerProfiles {
 	}
 
 	private void applyMobiledata3GState(int state) {
+		if (wifiManaged3gState) {
+			return;
+		}
 		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
-			int stateBefore = lastActiveStateMobileData3G;
-			lastActiveStateMobileData3G = ServicesHandler.whichMobiledata3G(context);
+			int stateNow = ServicesHandler.whichMobiledata3G(context);
+			// handle wifi connected
+			if (SettingsStorage.getInstance().getNetworkStateOnWifi() != SERVICE_STATE_LEAVE) {
+				if (ServicesHandler.isWifiConnected(context)) {
+					state = SettingsStorage.getInstance().getNetworkStateOnWifi();
+				}
+			}
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching mobiledata 3G to last state which was " + stateBefore);
-				ServicesHandler.enable2gOnly(context, stateBefore);
+				Logger.v("Sitching mobiledata 3G to last state which was " + lastActiveStateMobileData3G);
+				ServicesHandler.enable2gOnly(context, lastActiveStateMobileData3G);
 				lastSetStateMobiledata3G = -1;
 				return;
 			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateMobiledata3G > -1) {
-
-					if (lastActiveStateMobileData3G != stateBefore) {
+					if (stateNow != lastActiveStateMobileData3G) {
 						Logger.v("Not sitching mobiledata it changed state since last time");
 						return;
 					}
 				}
-				lastSetStateMobiledata3G = state;
 			}
+			lastSetStateMobiledata3G = state;
 			ServicesHandler.enable2gOnly(context, state);
 		}
 	}
@@ -423,7 +434,7 @@ public class PowerProfiles {
 		currentTrigger = trigger;
 		Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
 		context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
-		resetServiceState();
+		initActiveStates();
 		return true;
 	}
 
@@ -619,6 +630,23 @@ public class PowerProfiles {
 			callInProgress = b;
 			sendDeviceStatusChangedBroadcast();
 			applyPowerProfile(false, false);
+		}
+	}
+
+	public void setWifiConnected(boolean wifiConnected) {
+		int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
+		if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
+			wifiManaged3gState = false;
+			return;
+		}
+		lastSetStateMobiledata3G = -1;
+		if (wifiConnected) {
+			wifiManaged3gState = false;
+			applyMobiledata3GState(state);
+			wifiManaged3gState = true;
+		} else {
+			wifiManaged3gState = false;
+			applyMobiledata3GState(currentProfile.getMobiledata3GState());
 		}
 	}
 

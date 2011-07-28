@@ -1,5 +1,6 @@
+- fix allow manual service switches: i.e. allow manual service changes -> use stateNow not stateBefore
+- add manual profile
 
-- stop on update
 - triggers cannot have to same battery level
 
 - remove strings: prefEnableProfilesOn and prefEnableProfilesOff
@@ -10,8 +11,6 @@
 
 - make autoload restoreable
 - create a different default configs and load on init 
-- make profiles manually changeable (the same as manual service changes) 
-	and add a reset button 
 
 - move dbactions to handler -> check with ThreadPolicy
 - add controls for 4G(wimax)

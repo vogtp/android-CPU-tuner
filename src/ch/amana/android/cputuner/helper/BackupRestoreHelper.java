@@ -30,7 +30,7 @@ public class BackupRestoreHelper {
 		if (!storagePath.isDirectory()) {
 			storagePath.mkdir();
 		}
-		ModelAccess.getInstace(cb.getContext()).applyDelayedTriggerUpdates();
+		// ModelAccess.getInstace(cb.getContext()).applyDelayedTriggerUpdates();
 		SQLiteDatabase db = new OpenHelper(cb.getContext()).getWritableDatabase();
 		ExportDataTask exportDataTask = new ExportDataTask(cb, db, storagePath, ExportDataTask.ExportType.JSON);
 		exportDataTask.execute(new String[] { DB.DATABASE_NAME });

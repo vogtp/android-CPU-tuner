@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.PowerManager;
@@ -158,6 +160,12 @@ public class BatteryReceiver extends BroadcastReceiver {
 			powerProfiles.setScreenOff(true);
 		} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
 			powerProfiles.setScreenOff(false);
+		} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
+			int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
+			if (state != PowerProfiles.SERVICE_STATE_LEAVE) {
+				NetworkInfo ni = (NetworkInfo) intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+				powerProfiles.setWifiConnected(ni.isConnected());
+			}
 		}
 	}
 }

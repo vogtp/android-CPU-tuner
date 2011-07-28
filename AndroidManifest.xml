@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ch.amana.android.cputuner" android:versionName="@string/version"
-	android:installLocation="internalOnly" android:versionCode="201107250">
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
-    <uses-permission android:name="com.android.vending.BILLING"></uses-permission>
+<manifest package="ch.amana.android.cputuner"
+	android:versionName="@string/version" android:installLocation="internalOnly"
+	xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="201107070">
+	<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+	<uses-permission android:name="com.android.vending.BILLING"></uses-permission>
+	<permission android:name="ch.amana.android.cputuner.LOAD_CONFIGURATION" android:protectionLevel="dangerous"></permission>
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication"
@@ -44,26 +45,29 @@
 			</intent-filter>
 		</activity>
 
-		<receiver android:name=".receiver.BatteryReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.SCREEN_OFF"></action>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.BATTERY_LOW"></action>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.BATTERY_OK"></action>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.SCREEN_ON"></action>
-			</intent-filter>
-		</receiver>
+	<receiver android:name=".receiver.BatteryReceiver">
+		<intent-filter>
+			<action android:name="android.intent.action.SCREEN_OFF"></action>
+		</intent-filter>
+		<intent-filter>
+			<action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
+		</intent-filter>
+		<intent-filter>
+			<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
+		</intent-filter>
+		<intent-filter>
+			<action android:name="android.intent.action.BATTERY_LOW"></action>
+		</intent-filter>
+		<intent-filter>
+			<action android:name="android.intent.action.BATTERY_OK"></action>
+		</intent-filter>
+		<intent-filter>
+			<action android:name="android.intent.action.SCREEN_ON"></action>
+		</intent-filter>
+	<intent-filter>
+		<action android:name="android.net.wifi.STATE_CHANGE"></action>
+	</intent-filter>
+	</receiver>
 		<activity android:name=".view.activity.CpuTunerTabActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -137,6 +141,12 @@
 			</intent-filter>
 		</service>
 		<activity android:name=".view.preference.ChangelogActivity"></activity>
+		<activity android:name=".service.ConfigurationLoadServiceActivity" android:permission="ch.amana.android.cputuner.LOAD_CONFIGURATION">
+			<intent-filter>
+				<action android:name="ch.amana.android.cputuner.LOAD_CONFIG"></action>
+				<category android:name="android.intent.category.DEFAULT"></category>
+			</intent-filter>
+		</activity>
 	</application>
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
 
