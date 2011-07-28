@@ -9,7 +9,7 @@ V
 - ask before deleting autoload configuration
 - change networkmode (2G/3G) on wifi connected
 * bug fixes
--
+- fix manual service changes for networkmode (2G/3G)
 
 V 2.6.4
 * features

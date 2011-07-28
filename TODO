@@ -1,4 +1,4 @@
-- fix allow manual service switches: i.e. allow manual service changes -> use stateNow not stateBefore
+- fix allow manual service switches: check for all (and use networkmode)
 - add manual profile
 
 - triggers cannot have to same battery level

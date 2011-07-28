@@ -318,18 +318,19 @@ public class PowerProfiles {
 					state = SettingsStorage.getInstance().getNetworkStateOnWifi();
 				}
 			}
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching mobiledata 3G to last state which was " + lastActiveStateMobileData3G);
-				ServicesHandler.enable2gOnly(context, lastActiveStateMobileData3G);
-				lastSetStateMobiledata3G = -1;
-				return;
-			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+			if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateMobiledata3G > -1) {
 					if (stateNow != lastActiveStateMobileData3G) {
 						Logger.v("Not sitching mobiledata it changed state since last time");
 						return;
 					}
 				}
+			}
+			if (state == SERVICE_STATE_PREV) {
+				Logger.v("Sitching mobiledata 3G to last state which was " + lastActiveStateMobileData3G);
+				ServicesHandler.enable2gOnly(context, lastActiveStateMobileData3G);
+				lastSetStateMobiledata3G = -1;
+				return;
 			}
 			lastSetStateMobiledata3G = state;
 			ServicesHandler.enable2gOnly(context, state);
