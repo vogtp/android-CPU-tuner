@@ -14,7 +14,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,6 +37,7 @@ import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
@@ -307,9 +307,13 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 		Cursor cursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor, new String[] { DB.CpuProfile.NAME_PROFILE_NAME },
-				new int[] { android.R.id.text1 });
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+		// android.R.layout.simple_spinner_item, cursor, new String[] {
+		// DB.CpuProfile.NAME_PROFILE_NAME },
+		// new int[] { android.R.id.text1 });
+		// adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		ProfileAdaper adapter = new ProfileAdaper(this, cursor);
 		spProfiles.setAdapter(adapter);
 
 		spProfiles.setOnItemSelectedListener(new OnItemSelectedListener() {

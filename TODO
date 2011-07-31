@@ -1,4 +1,3 @@
-- fix allow manual service switches: check for all (and use networkmode)
 - add manual profile
 
 - triggers cannot have to same battery level
