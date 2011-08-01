@@ -9,6 +9,7 @@ V
 - ask before deleting autoload configuration
 - change networkmode (2G/3G) on wifi connected
 - manually change profile
+- multicore features non beta now
 * bug fixes
 - fix manual service changes for networkmode (2G/3G)
 

@@ -62,34 +62,30 @@ public class CpuHandler extends HardwareHandler {
 	public static CpuHandler getInstance() {
 		if (instance == null) {
 			SettingsStorage settingsStorage = SettingsStorage.getInstance();
-			if (settingsStorage.isUseMulticore()) {
-				File cpuBase = new File(CPU_BASE_DIR);
-				String[] cpus = cpuBase.list(new FilenameFilter() {
+			File cpuBase = new File(CPU_BASE_DIR);
+			String[] cpus = cpuBase.list(new FilenameFilter() {
 
-					@Override
-					public boolean accept(File dir, String filename) {
-						File file = new File(dir, filename);
-						return file.isDirectory() && filename.matches("cpu\\d");
-					}
-				});
-
-				if (Logger.FAKE_MULTICORE) {
-					cpus = new String[7];
-					for (int i = 0; i < cpus.length; i++) {
-						cpus[i] = "cpu" + i;
-					}
+				@Override
+				public boolean accept(File dir, String filename) {
+					File file = new File(dir, filename);
+					return file.isDirectory() && filename.matches("cpu\\d");
 				}
+			});
 
-				Logger.i("Found " + cpus.length + " CPUs");
-				int useMulticore = settingsStorage.isUseMulticoreCode();
-				if ((cpus.length > 1 || useMulticore == SettingsStorage.MULTICORE_CODE_ENABLE) && useMulticore != SettingsStorage.MULTICORE_CODE_DISABLE) {
-					Logger.i("Using multicore code");
-					instance = new CpuHandlerMulticore(cpus);
-				} else {
-					Logger.i("Using singlecore code");
-					instance = new CpuHandler();
+			if (Logger.FAKE_MULTICORE) {
+				cpus = new String[7];
+				for (int i = 0; i < cpus.length; i++) {
+					cpus[i] = "cpu" + i;
 				}
+			}
+
+			Logger.i("Found " + cpus.length + " CPUs");
+			int useMulticore = settingsStorage.isUseMulticoreCode();
+			if ((cpus.length > 1 || useMulticore == SettingsStorage.MULTICORE_CODE_ENABLE) && useMulticore != SettingsStorage.MULTICORE_CODE_DISABLE) {
+				Logger.i("Using multicore code");
+				instance = new CpuHandlerMulticore(cpus);
 			} else {
+				Logger.i("Using singlecore code");
 				instance = new CpuHandler();
 			}
 		}
@@ -99,7 +95,6 @@ public class CpuHandler extends HardwareHandler {
 	public ProfileModel getCurrentCpuSettings() {
 		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq(), getGovThresholdUp(), getGovThresholdDown(), getPowersaveBias());
 	}
-
 
 	public void applyGovernorSettings(IGovernorModel governor) {
 		setCurGov(governor.getGov());
@@ -120,7 +115,7 @@ public class CpuHandler extends HardwareHandler {
 		}
 		setPowersaveBias(governor.getPowersaveBias());
 	}
-	
+
 	public void applyCpuSettings(ProfileModel profile) {
 		if (GOV_USERSPACE.equals(profile.getGov())) {
 			setUserCpuFreq(profile.getMaxFreq());
@@ -281,8 +276,7 @@ public class CpuHandler extends HardwareHandler {
 
 		}
 		availCpuFreq = true;
-		if (allowLowFreqs ||
-				SettingsStorage.getInstance().isPowerUser()) {
+		if (allowLowFreqs || SettingsStorage.getInstance().isPowerUser()) {
 			Arrays.sort(freqs);
 			return freqs;
 		}
@@ -313,7 +307,6 @@ public class CpuHandler extends HardwareHandler {
 	public int getMinimumSensibleFrequency() {
 		return SettingsStorage.getInstance().getMinimumSensibeFrequency() * 1000;
 	}
-
 
 	public boolean hasGov() {
 		return !RootHandler.NOT_AVAILABLE.equals(getCurCpuGov());

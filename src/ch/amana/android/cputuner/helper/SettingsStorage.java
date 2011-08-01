@@ -419,14 +419,7 @@ public class SettingsStorage {
 		return config != null && !config.trim().equals("");
 	}
 
-	public boolean isUseMulticore() {
-		return isEnableBeta();
-	}
-
 	public int isUseMulticoreCode() {
-		if (!isEnableBeta()) {
-			return 0;
-		}
 		try {
 			return Integer.parseInt(getPreferences().getString("prefKeyMulticore", "2"));
 		} catch (NumberFormatException e) {
@@ -436,9 +429,6 @@ public class SettingsStorage {
 	}
 
 	public int getNetworkStateOnWifi() {
-		if (!isEnableBeta()) {
-			return 0;
-		}
 		try {
 			return Integer.parseInt(getPreferences().getString("prefKeyNetworkModeOnWifiConnected", "0"));
 		} catch (NumberFormatException e) {
