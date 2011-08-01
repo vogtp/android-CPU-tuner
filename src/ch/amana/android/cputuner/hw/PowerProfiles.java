@@ -72,6 +72,8 @@ public class PowerProfiles {
 
 	private final ModelAccess modelAccess;
 
+	private boolean manualProfile = false;
+
 	private boolean wifiManaged3gState = false;
 
 	public static void initInstance(Context ctx) {
@@ -95,6 +97,7 @@ public class PowerProfiles {
 	}
 
 	public void initActiveStates() {
+		manualProfile = false;
 		lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
 		lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
 		lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
@@ -158,6 +161,10 @@ public class PowerProfiles {
 	}
 
 	private void applyProfile(long profileId, boolean force) {
+		if (manualProfile && !force) {
+			Logger.i("Not switching profile since it is manually chosen.");
+			return;
+		}
 		if (currentProfile != null && currentProfile.getDbId() == profileId) {
 			if (!force) {
 				Logger.i("Not switching profile since it is the correct one " + currentProfile.getProfileName());
@@ -638,6 +645,14 @@ public class PowerProfiles {
 			wifiManaged3gState = false;
 			applyMobiledata3GState(currentProfile.getMobiledata3GState());
 		}
+	}
+
+	public boolean isManualProfile() {
+		return manualProfile;
+	}
+
+	public void setManualProfile(boolean manualProfile) {
+		this.manualProfile = manualProfile;
 	}
 
 }

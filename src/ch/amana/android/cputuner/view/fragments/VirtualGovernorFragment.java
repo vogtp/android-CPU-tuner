@@ -26,16 +26,13 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	private Spinner spinnerSetGov;
 	private TextView tvExplainGov;
 	private Cursor cursor;
-	private boolean updateVirtGov;
 
 	public VirtualGovernorFragment() {
 		super();
-		updateVirtGov = true;
 	}
 
 	public VirtualGovernorFragment(GovernorFragmentCallback callback, IGovernorModel governor) {
 		super(callback, governor);
-		updateVirtGov = true;
 	}
 
 	@Override

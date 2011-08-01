@@ -8,6 +8,7 @@ V
 * features
 - ask before deleting autoload configuration
 - change networkmode (2G/3G) on wifi connected
+- manually change profile
 * bug fixes
 - fix manual service changes for networkmode (2G/3G)
 

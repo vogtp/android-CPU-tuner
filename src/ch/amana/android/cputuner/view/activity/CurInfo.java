@@ -83,8 +83,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			String action = intent.getAction();
 			acPowerChanged();
 			batteryLevelChanged();
-			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action)
-					|| Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
+			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action) || Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
 				profileChanged();
 			}
 
@@ -162,7 +161,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		public String getGov() {
 			return cpuHandler.getCurCpuGov();
 		}
-
 
 		@Override
 		public String getScript() {
@@ -257,15 +255,15 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		SettingsStorage settings = SettingsStorage.getInstance();
 		if (!settings.isUserLevelSet()) {
 			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this);
 			uec.show();
 		}
-		
+
 		setContentView(R.layout.cur_info);
-		
+
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();
 
@@ -293,7 +291,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		tvConfig = (TextView) findViewById(R.id.tvConfig);
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
-		
+
 		governorHelper = new GovernorHelperCurInfo();
 		if (settings.isUseVirtualGovernors()) {
 			governorFragment = new VirtualGovernorFragment(this, governorHelper);
@@ -320,10 +318,20 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String profile = parent.getItemAtPosition(pos).toString();
 				ProfileModel currentProfile = powerProfiles.getCurrentProfile();
-				if (profile != null && !profile.equals(currentProfile)) {
-					powerProfiles.applyProfile(id);
+				if (pos > 0) {
+					// let us change the profile
+					// FIXME add to setManualProfile
+					powerProfiles.setManualProfile(false);
+					String profile = parent.getItemAtPosition(pos).toString();
+					if (profile != null && !profile.equals(currentProfile)) {
+						powerProfiles.applyProfile(id);
+						governorFragment.updateView();
+					}
+					powerProfiles.setManualProfile(true);
+				} else {
+					powerProfiles.setManualProfile(false);
+					powerProfiles.applyProfile(currentProfile.getDbId());
 					governorFragment.updateView();
 				}
 			}
@@ -334,8 +342,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 			}
 		});
-
-		
 
 		OnClickListener startBattery = new OnClickListener() {
 
@@ -366,17 +372,18 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		});
 	}
 
-
 	@Override
 	protected void onResume() {
 		super.onResume();
 		registerReceiver();
 		updateView();
+		governorFragment.updateVirtGov(true);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		governorFragment.updateVirtGov(false);
 		unregisterReceiver();
 	}
 
@@ -434,14 +441,19 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		if (settings.isEnableProfiles()) {
 			ProfileModel currentProfile = powerProfiles.getCurrentProfile();
 			if (currentProfile != null) {
-				GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
+				if (powerProfiles.isManualProfile()) {
+					GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
+				} else {
+					spProfiles.setSelection(0);
+				}
 				spProfiles.setEnabled(true);
 			} else {
 				spProfiles.setEnabled(false);
 			}
 			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
 		} else {
-			spProfiles.setEnabled(false);
+			// Does this work now?
+			// spProfiles.setEnabled(false);
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
 

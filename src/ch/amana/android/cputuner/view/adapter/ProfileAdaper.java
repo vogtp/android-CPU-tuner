@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
@@ -53,6 +54,8 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 			if (cursor.moveToPosition(position - 1)) {
 				text = cursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
 			}
+		} else {
+			text = AUTO + ": " + PowerProfiles.getInstance().getCurrentProfileName();
 		}
 		view.setText(text);
 		return view;
