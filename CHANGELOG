@@ -4,6 +4,13 @@ V
 * bug fixes
 -
 
+V 2.7.1
+* features
+- display if profile is manually changed in notification
+* bug fixes
+- switch to correct profile on manually change 
+- fix capability check send report errors
+
 V 2.7.0
 * features
 - ask before deleting autoload configuration
