@@ -43,7 +43,11 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return position - 1;
+		if (position == 0) {
+			return -1;
+		}
+		cursor.moveToPosition(position - 1);
+		return cursor.getLong(DB.INDEX_ID);
 	}
 
 	@Override
@@ -55,7 +59,9 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 				text = cursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
 			}
 		} else {
-			text = AUTO + ": " + PowerProfiles.getInstance().getCurrentProfileName();
+			if (parent instanceof Spinner) {
+				text = AUTO + ": " + PowerProfiles.getInstance().getCurrentProfileName();
+			}
 		}
 		view.setText(text);
 		return view;
