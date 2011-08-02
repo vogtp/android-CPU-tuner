@@ -4,7 +4,7 @@ V
 * bug fixes
 -
 
-V 
+V 2.7.0
 * features
 - ask before deleting autoload configuration
 - change networkmode (2G/3G) on wifi connected
