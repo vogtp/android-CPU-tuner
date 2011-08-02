@@ -44,7 +44,10 @@ public class Notifier {
 			StringBuffer sb = new StringBuffer(25); 
 			// sb.append(contentTitle).append(" ");
 			sb.append(context.getString(R.string.labelCurrentProfile));
-			sb.append(" ").append(profileName);			
+			sb.append(" ").append(profileName);
+			if (PowerProfiles.getInstance().isManualProfile()) {
+				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+			}
 			if (PulseHelper.getInstance(context).isPulsing()) {
 				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
 				sb.append(" ").append(context.getString(res));
