@@ -15,4 +15,6 @@
         <item>3G/2G</item>
         <item>3G only</item>
     </string-array>
+        <string name="auto">Auto</string>
+        <string name="msg_manual_profile">manual profile</string>
 </resources>

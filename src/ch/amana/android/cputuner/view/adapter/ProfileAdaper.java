@@ -10,12 +10,13 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
-	private static final String AUTO = "Auto";
+	private final String AUTO;
 	private final Cursor cursor;
 	private final Context context;
 	private final LayoutInflater layoutInflator;
@@ -25,6 +26,7 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 		this.context = context;
 		this.cursor = c;
 		this.layoutInflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.AUTO = context.getString(R.string.auto);
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		TextView view = convertView != null ? (TextView) convertView : createView(parent);
-		String text = AUTO;
+		String text = "";
 		if (position > 0) {
 			if (cursor.moveToPosition(position - 1)) {
 				text = cursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
@@ -61,6 +63,8 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 		} else {
 			if (parent instanceof Spinner) {
 				text = AUTO + ": " + PowerProfiles.getInstance().getCurrentProfileName();
+			} else {
+				text = AUTO;
 			}
 		}
 		view.setText(text);
