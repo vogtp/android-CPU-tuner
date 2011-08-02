@@ -321,16 +321,14 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 				ProfileModel currentProfile = powerProfiles.getCurrentProfile();
 				if (pos > 0) {
 					// let us change the profile
-					// FIXME add to setManualProfile
-					powerProfiles.setManualProfile(false);
 					String profile = parent.getItemAtPosition(pos).toString();
-					if (profile != null && !profile.equals(currentProfile)) {
+					if (profile != null) {
+						powerProfiles.setManualProfile(id);
 						powerProfiles.applyProfile(id);
 						governorFragment.updateView();
 					}
-					powerProfiles.setManualProfile(true);
 				} else {
-					powerProfiles.setManualProfile(false);
+					powerProfiles.setManualProfile(-1);
 					powerProfiles.applyProfile(currentProfile.getDbId());
 					governorFragment.updateView();
 				}
