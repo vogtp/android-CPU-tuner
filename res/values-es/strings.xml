@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
     <string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
     <string name="prefNetworkModeOnWifiConnected">Netmode on wifi connected</string>
     <string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a wifi network is connected. If the network is disconnected cpu tuner goes back to previous.</string>
@@ -9,7 +10,14 @@
         <item>3G/2G</item>
         <item>3G only</item>
     </string-array>
-    <string name="labelUseCpus_front">Use </string>
+    <!-- Sent to translator: -->
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Average value</item>
+        <item>Current value</item>
+        <!-- <item>Battery % per hour</item> -->
+        <item>No calculation</item>
+    </string-array>
+        <string name="labelUseCpus_front">Use </string>
     <string name="labelUseCpus_end">CPUs</string>
     <string name="prefMulticore">Use multicore CPU features</string>
     <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
