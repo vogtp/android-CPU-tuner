@@ -25,6 +25,8 @@ public class PowerProfiles {
 	public static final int SERVICE_STATE_2G_3G = SERVICE_STATE_OFF;
 	public static final int SERVICE_STATE_3G = 4;
 
+	public static final long AUTOMATIC_PROFILE = -1;
+
 	private static final long MILLIES_TO_HOURS = 1000 * 60 * 60;
 
 	private final Context context;
@@ -72,7 +74,7 @@ public class PowerProfiles {
 
 	private final ModelAccess modelAccess;
 
-	private long manualProfileID = -1;
+	private long manualProfileID = AUTOMATIC_PROFILE;
 
 	private boolean wifiManaged3gState = false;
 
@@ -97,7 +99,7 @@ public class PowerProfiles {
 	}
 
 	public void initActiveStates() {
-		manualProfileID = -1;
+		manualProfileID = AUTOMATIC_PROFILE;
 		lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
 		lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
 		lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
@@ -648,7 +650,7 @@ public class PowerProfiles {
 	}
 
 	public boolean isManualProfile() {
-		return manualProfileID != -1;
+		return manualProfileID != AUTOMATIC_PROFILE;
 	}
 
 	public void setManualProfile(long manualProfileID) {

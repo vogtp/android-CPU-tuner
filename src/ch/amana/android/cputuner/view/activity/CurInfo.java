@@ -328,7 +328,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 						governorFragment.updateView();
 					}
 				} else {
-					powerProfiles.setManualProfile(-1);
+					powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
 					powerProfiles.applyProfile(currentProfile.getDbId());
 					governorFragment.updateView();
 				}

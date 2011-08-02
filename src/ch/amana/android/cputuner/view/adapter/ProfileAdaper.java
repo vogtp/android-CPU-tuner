@@ -46,7 +46,7 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 	@Override
 	public long getItemId(int position) {
 		if (position == 0) {
-			return -1;
+			return PowerProfiles.AUTOMATIC_PROFILE;
 		}
 		cursor.moveToPosition(position - 1);
 		return cursor.getLong(DB.INDEX_ID);
