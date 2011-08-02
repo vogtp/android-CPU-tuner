@@ -13,8 +13,6 @@ public class Logger {
 
 	public final static boolean DEBUG = false;
 
-	public static final boolean FAKE_MULTICORE = false;
-
 	private static ArrayList<String> log;
 
 	private static Date now;
