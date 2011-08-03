@@ -177,6 +177,11 @@ public class PowerProfiles {
 		try {
 			currentProfile = modelAccess.getProfile(profileId);
 
+			if (currentProfile == ProfileModel.NO_PROFILE) {
+				Logger.i("no profile found");
+				return;
+			}
+
 			SettingsStorage settings = SettingsStorage.getInstance();
 
 			if (settings.getProfileSwitchLogSize() > 0) {

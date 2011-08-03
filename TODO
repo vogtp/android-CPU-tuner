@@ -1,5 +1,11 @@
 - triggers cannot have to same battery level
 
+- add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
+
+- label powersave bias
+- add sampling intervall (coupled parameter?)
+- add long text for settings
+
 - remove strings: prefEnableProfilesOn and prefEnableProfilesOff
 
 - handle two configuration have the same name
@@ -9,7 +15,6 @@
 - make autoload restoreable
 - create a different default configs and load on init 
 
-- move dbactions to handler -> check with ThreadPolicy
 - add controls for 4G(wimax)
 
 - move logging to file or logcat

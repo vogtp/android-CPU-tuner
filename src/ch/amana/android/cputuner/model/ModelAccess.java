@@ -123,7 +123,7 @@ public class ModelAccess {
 					}
 				}
 				if (profile == null) {
-					profile = new ProfileModel();
+					profile = ProfileModel.NO_PROFILE;
 				} else {
 					profileCache.put(id, profile);
 				}

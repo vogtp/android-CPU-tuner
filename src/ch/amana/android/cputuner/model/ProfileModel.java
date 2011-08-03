@@ -16,6 +16,8 @@ public class ProfileModel implements IGovernorModel {
 
 	public static final int NO_VALUE_INT = -1;
 
+	public static final ProfileModel NO_PROFILE = new ProfileModel();
+
 	private String profileName = NO_VALUE_STR;
 
 	private long id = -1;
@@ -173,6 +175,7 @@ public class ProfileModel implements IGovernorModel {
 		return values;
 	}
 
+	@Override
 	public String getGov() {
 		if (gov == null) {
 			return NO_VALUE_STR;
@@ -180,6 +183,7 @@ public class ProfileModel implements IGovernorModel {
 		return gov;
 	}
 
+	@Override
 	public void setGov(String gov) {
 		this.gov = gov;
 	}
@@ -342,26 +346,31 @@ public class ProfileModel implements IGovernorModel {
 		return true;
 	}
 
+	@Override
 	public int getGovernorThresholdUp() {
 		return governorThresholdUp;
 	}
 
+	@Override
 	public void setGovernorThresholdUp(int i) {
 		if (i < 101) {
 			this.governorThresholdUp = i;
 		}
 	}
 
+	@Override
 	public int getGovernorThresholdDown() {
 		return governorThresholdDown;
 	}
 
+	@Override
 	public void setGovernorThresholdDown(int i) {
 		if (i < 101) {
 			this.governorThresholdDown = i;
 		}
 	}
 
+	@Override
 	public void setGovernorThresholdUp(String string) {
 		try {
 			setGovernorThresholdUp(Integer.parseInt(string));
@@ -370,6 +379,7 @@ public class ProfileModel implements IGovernorModel {
 		}
 	}
 
+	@Override
 	public void setGovernorThresholdDown(String string) {
 		try {
 			setGovernorThresholdDown(Integer.parseInt(string));
@@ -386,10 +396,12 @@ public class ProfileModel implements IGovernorModel {
 		return backgroundSyncState;
 	}
 
+	@Override
 	public void setVirtualGovernor(long virtualGovernor) {
 		this.virtualGovernor = virtualGovernor;
 	}
 
+	@Override
 	public long getVirtualGovernor() {
 		return virtualGovernor;
 	}
@@ -402,22 +414,27 @@ public class ProfileModel implements IGovernorModel {
 		return mobiledataConnectionState;
 	}
 
+	@Override
 	public void setScript(String script) {
 		this.script = script;
 	}
 
+	@Override
 	public String getScript() {
 		return script;
 	}
 
+	@Override
 	public boolean hasScript() {
 		return script != null && !TextUtils.isEmpty(script.trim());
 	}
 
+	@Override
 	public void setPowersaveBias(int powersaveBias) {
 		this.powersaveBias = powersaveBias;
 	}
 
+	@Override
 	public int getPowersaveBias() {
 		return powersaveBias;
 	}
