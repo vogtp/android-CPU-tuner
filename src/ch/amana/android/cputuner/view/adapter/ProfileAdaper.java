@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -57,8 +58,12 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 		TextView view = convertView != null ? (TextView) convertView : createView(parent);
 		String text = "";
 		if (position > 0) {
-			if (cursor.moveToPosition(position - 1)) {
-				text = cursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
+			try {
+				if (cursor.moveToPosition(position - 1)) {
+					text = cursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
+				}
+			} catch (Exception e) {
+				Logger.i("Cannot get profilename from cursor", e);
 			}
 		} else {
 			if (parent instanceof Spinner) {
