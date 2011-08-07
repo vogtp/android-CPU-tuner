@@ -116,21 +116,16 @@ public class PowerProfiles {
 		if (force) {
 			changeTrigger(force);
 		}
-		applyPowerProfile(force, force);
+		applyPowerProfile(force);
 	}
 
 	public void reapplyProfile() {
-		applyPowerProfile(true, false);
+		applyPowerProfile(true);
 	}
 
-	private void applyPowerProfile(boolean force, boolean ignoreSettings) {
+	private void applyPowerProfile(boolean force) {
 		if (!updateTrigger) {
 			return;
-		}
-		if (!SettingsStorage.getInstance().isEnableProfiles()) {
-			if (!ignoreSettings) {
-				return;
-			}
 		}
 		if (currentTrigger == null) {
 			sendDeviceStatusChangedBroadcast();
@@ -448,7 +443,7 @@ public class PowerProfiles {
 			trackCurrent();
 			boolean chagned = changeTrigger(false);
 			if (chagned) {
-				applyPowerProfile(false, false);
+				applyPowerProfile(false);
 			} else {
 				sendDeviceStatusChangedBroadcast();
 			}
@@ -553,7 +548,7 @@ public class PowerProfiles {
 			acPower = power;
 			sendDeviceStatusChangedBroadcast();
 			trackCurrent();
-			applyPowerProfile(false, false);
+			applyPowerProfile(false);
 		}
 	}
 
@@ -561,7 +556,7 @@ public class PowerProfiles {
 		if (screenOff != b) {
 			screenOff = b;
 			trackCurrent();
-			applyPowerProfile(false, false);
+			applyPowerProfile(false);
 		}
 	}
 
@@ -569,7 +564,7 @@ public class PowerProfiles {
 		if (batteryHot != b) {
 			batteryHot = b;
 			trackCurrent();
-			applyPowerProfile(false, false);
+			applyPowerProfile(false);
 		}
 	}
 
@@ -621,7 +616,7 @@ public class PowerProfiles {
 		if (batteryTemperature != temperature) {
 			batteryTemperature = temperature;
 			sendDeviceStatusChangedBroadcast();
-			applyPowerProfile(false, false);
+			applyPowerProfile(false);
 		}
 	}
 
@@ -633,7 +628,7 @@ public class PowerProfiles {
 		if (callInProgress != b) {
 			callInProgress = b;
 			sendDeviceStatusChangedBroadcast();
-			applyPowerProfile(false, false);
+			applyPowerProfile(false);
 		}
 	}
 

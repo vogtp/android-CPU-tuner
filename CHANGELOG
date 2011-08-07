@@ -6,6 +6,12 @@ V
 
 V 
 * features
+- allow profile setting if cpu tuner is switched off
+* bug fixes
+-
+
+V 2.7.3
+* features
 - 
 * bug fixes
 - fix fc

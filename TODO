@@ -3,6 +3,9 @@
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 
 - label powersave bias
+
+- long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
+
 - add sampling intervall (coupled parameter?)
 - add long text for settings
 
