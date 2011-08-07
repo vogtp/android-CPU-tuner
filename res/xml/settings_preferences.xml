@@ -116,8 +116,8 @@
 			android:key="prefKeyCpu">
 			<ListPreference android:entries="@array/prefMulticoreEntries"
 				android:key="prefKeyMulticore" android:entryValues="@array/prefMulticoreValues"
-				android:defaultValue="2" android:summary="@string/prefMulticoreLong"
-				android:title="@string/prefMulticore"></ListPreference>
+				android:summary="@string/prefMulticoreLong"
+				android:title="@string/prefMulticore" android:defaultValue="0"></ListPreference>
 			<CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor"
 				android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor"
 				android:summaryOff="@string/prefEnableUserspaceGovernorOff"

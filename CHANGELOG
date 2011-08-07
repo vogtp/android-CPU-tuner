@@ -8,7 +8,7 @@ V
 * features
 - allow profile setting if cpu tuner is switched off
 * bug fixes
--
+- make multicore "auto" by default (on new installs)
 
 V 2.7.3
 * features
