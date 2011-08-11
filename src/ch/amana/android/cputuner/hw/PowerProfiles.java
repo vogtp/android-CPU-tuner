@@ -650,7 +650,9 @@ public class PowerProfiles {
 			wifiManaged3gState = true;
 		} else {
 			wifiManaged3gState = false;
-			applyMobiledata3GState(currentProfile.getMobiledata3GState());
+			if (currentProfile != null) {
+				applyMobiledata3GState(currentProfile.getMobiledata3GState());
+			}
 		}
 	}
 

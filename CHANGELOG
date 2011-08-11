@@ -4,11 +4,11 @@ V
 * bug fixes
 -
 
-V 
+V 2.7.3
 * features
 - 
 * bug fixes
-- fix fc
+- fix forcecloses
 
 V 2.7.2
 * features

@@ -56,7 +56,11 @@ public class Notifier {
 			Notification notification = getNotification(contentText);
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-			notificationManager.notify(NOTIFICATION_PROFILE, notification);
+			try {
+				notificationManager.notify(NOTIFICATION_PROFILE, notification);
+			} catch (Exception e) {
+				Logger.e("Cannot notify " + notification);
+			}
 		}
 	}
 

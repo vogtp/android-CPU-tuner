@@ -62,7 +62,7 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 				if (cursor.moveToPosition(position - 1)) {
 					text = cursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
 				}
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				Logger.i("Cannot get profilename from cursor", e);
 			}
 		} else {
