@@ -46,11 +46,17 @@ public class BackupRestoreHelper {
 		ContentResolver contentResolver = ctx.getContentResolver();
 		DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, storagePath);
 		try {
-			loadVirtualGovernors(contentResolver, dje);
-			loadCpuProfiles(contentResolver, dje);
-			loadTriggers(contentResolver, dje);
-			if (inclAutoloadConfig) {
-				loadAutoloadConfig(contentResolver, dje);
+			synchronized (ModelAccess.virtgovCacheMutex) {
+				synchronized (ModelAccess.profileCacheMutex) {
+					synchronized (ModelAccess.triggerCacheMutex) {
+						loadVirtualGovernors(contentResolver, dje);
+						loadCpuProfiles(contentResolver, dje);
+						loadTriggers(contentResolver, dje);
+						if (inclAutoloadConfig) {
+							loadAutoloadConfig(contentResolver, dje);
+						}
+					}
+				}
 			}
 			cb.hasFinished(true);
 			ModelAccess.getInstace(cb.getContext()).clearCache();
