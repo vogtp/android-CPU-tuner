@@ -4,6 +4,15 @@ V
 * bug fixes
 -
 
+V 2.7.4
+* features
+- 
+* bug fixes
+- fix loss of profiles, tiggers and/or virt. governors
+- fix configuration autoload
+- start notification if profiles are enabled again
+
+
 V 2.7.3
 * features
 - 
