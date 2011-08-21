@@ -63,9 +63,9 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 	public static void scheduleNextEvent(Context context) {
 		Context ctx = context.getApplicationContext();
 		ConfigurationAutoloadModel nextCam = getModelForNextExecution(ctx);
+		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+		Intent intent = new Intent(ACTION_SCEDULE_AUTOLOAD);
 		if (nextCam != null) {
-			AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-			Intent intent = new Intent(ACTION_SCEDULE_AUTOLOAD);
 			Bundle bundle = new Bundle();
 			nextCam.saveToBundle(bundle);
 			intent.putExtra(EXTRA_VALUES, bundle);
@@ -75,6 +75,9 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 			} else {
 				am.setInexactRepeating(AlarmManager.RTC_WAKEUP, nextCam.getNextExecution(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, operation);
 			}
+		} else {
+			PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+			am.cancel(operation);
 		}
 	}
 
