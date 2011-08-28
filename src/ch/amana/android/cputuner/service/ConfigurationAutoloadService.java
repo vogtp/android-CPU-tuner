@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.Logger;
@@ -30,6 +31,7 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 	}
 
 	private static ConfigurationAutoloadModel getModelForNextExecution(Context ctx) {
+		long now = System.currentTimeMillis();
 		String selection = null;
 		String[] selectionArgs = null;
 
@@ -46,9 +48,10 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 			while (cursor.moveToNext()) {
 				ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel(cursor);
 				contentResolver.update(DB.ConfigurationAutoload.CONTENT_URI, cam.getValues(), DB.NAME_ID + "=?", new String[] { Long.toString(cam.getDbId()) });
-				if (cam.getNextExecution() < nextExec) {
+				long thisExec = cam.getNextExecution();
+				if (thisExec < nextExec && thisExec > now) {
 					nextCam = cam;
-					nextExec = cam.getNextExecution();
+					nextExec = thisExec;
 				}
 			}
 			return nextCam;
@@ -89,13 +92,15 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 				ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel(bundle);
 				if (cam != null) {
 					String configuration = cam.getConfiguration();
-					try {
-						SettingsStorage settings = SettingsStorage.getInstance();
-						BackupRestoreHelper.restoreConfiguration(this, configuration, false);
-						Logger.addToLog("Loaded configuration " + configuration);
-						settings.setCurrentConfiguration(configuration);
-					} catch (Exception e) {
-						Logger.e("Cannot autoload configuration " + configuration, e);
+					if (!TextUtils.isEmpty(configuration)) {
+						try {
+							SettingsStorage settings = SettingsStorage.getInstance();
+							BackupRestoreHelper.restoreConfiguration(this, configuration, false);
+							Logger.addToLog("Loaded configuration " + configuration);
+							settings.setCurrentConfiguration(configuration);
+						} catch (Exception e) {
+							Logger.e("Cannot autoload configuration " + configuration, e);
+						}
 					}
 				}
 			}

@@ -4,6 +4,13 @@ V
 * bug fixes
 -
 
+V 
+* features
+- 
+* bug fixes
+- fix autoloading empty configurations
+- not not save config on battery stats update 
+
 V 2.7.4
 * features
 - 
