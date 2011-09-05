@@ -4,6 +4,14 @@ V
 * bug fixes
 -
 
+V 2.7.6
+* features
+- 
+* bug fixes
+- fix configuration manage fc
+- evaluate profile trigger on install/start/load
+- Do not enable statusbar notifications by default
+
 V 2.7.5
 * features
 - 
