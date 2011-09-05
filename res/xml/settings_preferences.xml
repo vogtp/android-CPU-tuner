@@ -48,9 +48,9 @@
 				android:title="@string/prefStatusbarAddTo" android:summaryOff="@string/prefStatusbarAddToOff"
 				android:summaryOn="@string/prefStatusbarAddToOn"></CheckBoxPreference>
 			<CheckBoxPreference android:key="prefKeyStatusbarNotifications"
-				android:defaultValue="true" android:title="@string/prefStatusbarNotifications"
+				android:title="@string/prefStatusbarNotifications"
 				android:dependency="prefKeyStatusbarAddTo" android:summaryOff="@string/prefStatusbarNotificationsOff"
-				android:summaryOn="@string/prefKeyEnableProfilesOn"></CheckBoxPreference>
+				android:summaryOn="@string/prefKeyEnableProfilesOn" android:defaultValue="false"></CheckBoxPreference>
 
 		</PreferenceCategory>
 
