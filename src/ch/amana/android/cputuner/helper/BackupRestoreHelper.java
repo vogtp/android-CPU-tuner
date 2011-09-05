@@ -13,6 +13,7 @@ import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -115,6 +116,7 @@ public class BackupRestoreHelper {
 			return;
 		}
 		restore(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
+		PowerProfiles.getInstance().reapplyProfile(true);
 	}
 
 	public static void saveConfiguration(final Context ctx) {

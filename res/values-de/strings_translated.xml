@@ -354,7 +354,7 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
 <string name="msg_premail_no_issues">Keine Probleme gefunden worden...\nBist Du zufrieden und möchtest ein Feedback geben:\nKommentare und gute Bewertungen auf dem Markt werden geschätzt...</string>
 <string name="msg_premail_no_root">Der CPU-Tuner verfügt nicht über Root-Zugriff!\nDie meisten Funktionen von CPU-Tuner gehen so nicht!</string>
 <string name="msg_premail_issues">Deine Konfiguration hat Probleme ...
-Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n1) Flashen eines neuen Kernels\n\n2) Flashen eines neuen ROMs</string>
+Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n1) Flashen eines neuen Kernels\n\n2) Flashen eines neuen ROMs.\n</string>
 <string name="msg_premail_issues_cm">Vielleicht schaust du unter http://wiki.cyanogenmod.com nach, sie machen sehr gute ROMs
 </string>
 <string name="title_profile_editor">Profil Bearbeitung: </string>

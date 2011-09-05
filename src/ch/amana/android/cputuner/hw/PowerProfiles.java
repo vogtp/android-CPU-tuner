@@ -96,6 +96,7 @@ public class PowerProfiles {
 		acPower = batteryHandler.isOnAcPower();
 		screenOff = false;
 		initActiveStates();
+		reapplyProfile(true);
 	}
 
 	public void initActiveStates() {
