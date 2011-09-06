@@ -6,15 +6,4 @@
         <!-- <item>Battery % per hour</item> -->
         <item>No calculation</item>
     </string-array>
-    <string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
-    <string name="prefNetworkModeOnWifiConnected">Netmode on wifi connected</string>
-    <string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a wifi network is connected. If the network is disconnected cpu tuner goes back to previous.</string>
-    <string-array name="mobiledataOnWifiStatesEnties">
-        <item>leave unchanged</item>
-        <item>2G only</item>
-        <item>3G/2G</item>
-        <item>3G only</item>
-    </string-array>
-        <string name="auto">Auto</string>
-        <string name="msg_manual_profile">manual profile</string>
 </resources>
