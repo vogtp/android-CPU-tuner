@@ -39,7 +39,7 @@ public class CpuFrequencyChooser {
 	private CpuFrequencyChooser() {
 		super();
 		cpuHandler = CpuHandler.getInstance();
-		availCpuFreqsMax = cpuHandler.getAvailCpuFreq();
+		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
 		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
 		if (availCpuFreqsMax.length > 1) {
 			maxFreq = availCpuFreqsMax[availCpuFreqsMax.length - 1];

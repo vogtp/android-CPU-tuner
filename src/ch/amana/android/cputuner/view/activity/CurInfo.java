@@ -346,10 +346,16 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			@Override
 			public void onClick(View v) {
 				try {
-					Intent i = new Intent();
-					i.setClassName("com.android.settings", "com.android.settings.fuelgauge.PowerUsageSummary");
+					Intent i = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
 					startActivity(i);
 				} catch (Throwable e) {
+					// 'old' -> fallback
+					try {
+						Intent i = new Intent();
+						i.setClassName("com.android.settings", "com.android.settings.fuelgauge.PowerUsageSummary");
+						startActivity(i);
+					} catch (Throwable e1) {
+					}
 				}
 
 			}
