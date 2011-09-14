@@ -19,12 +19,10 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
 	private final String AUTO;
 	private final Cursor cursor;
-	private final Context context;
 	private final LayoutInflater layoutInflator;
 
 	public ProfileAdaper(Context context, Cursor c) {
 		super();
-		this.context = context;
 		this.cursor = c;
 		this.layoutInflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.AUTO = context.getString(R.string.auto);
@@ -32,6 +30,9 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
 	@Override
 	public int getCount() {
+		if (cursor == null) {
+			return 1;
+		}
 		return cursor.getCount() + 1;
 	}
 
