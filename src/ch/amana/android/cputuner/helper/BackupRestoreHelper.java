@@ -13,6 +13,7 @@ import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -46,11 +47,17 @@ public class BackupRestoreHelper {
 		ContentResolver contentResolver = ctx.getContentResolver();
 		DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, storagePath);
 		try {
-			loadVirtualGovernors(contentResolver, dje);
-			loadCpuProfiles(contentResolver, dje);
-			loadTriggers(contentResolver, dje);
-			if (inclAutoloadConfig) {
-				loadAutoloadConfig(contentResolver, dje);
+			synchronized (ModelAccess.virtgovCacheMutex) {
+				synchronized (ModelAccess.profileCacheMutex) {
+					synchronized (ModelAccess.triggerCacheMutex) {
+						loadVirtualGovernors(contentResolver, dje);
+						loadCpuProfiles(contentResolver, dje);
+						loadTriggers(contentResolver, dje);
+						if (inclAutoloadConfig) {
+							loadAutoloadConfig(contentResolver, dje);
+						}
+					}
+				}
 			}
 			cb.hasFinished(true);
 			ModelAccess.getInstace(cb.getContext()).clearCache();
@@ -109,6 +116,7 @@ public class BackupRestoreHelper {
 			return;
 		}
 		restore(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
+		PowerProfiles.getInstance().reapplyProfile(true);
 	}
 
 	public static void saveConfiguration(final Context ctx) {

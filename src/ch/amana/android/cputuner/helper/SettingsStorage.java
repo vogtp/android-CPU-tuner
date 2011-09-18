@@ -150,7 +150,7 @@ public class SettingsStorage {
 	public boolean isStatusbarNotifications() {
 		if (!checkedStatusbarNotifications) {
 			checkedStatusbarNotifications = true;
-			statusbarNotifications = getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, true);
+			statusbarNotifications = getPreferences().getBoolean(ENABLE_STATUSBAR_NOTI, false);
 		}
 		return statusbarNotifications;
 	}

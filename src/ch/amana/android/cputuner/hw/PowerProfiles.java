@@ -96,6 +96,7 @@ public class PowerProfiles {
 		acPower = batteryHandler.isOnAcPower();
 		screenOff = false;
 		initActiveStates();
+		reapplyProfile(true);
 	}
 
 	public void initActiveStates() {
@@ -532,7 +533,11 @@ public class PowerProfiles {
 		}
 		updateTrigger = false;
 		try {
-			modelAccess.updateTrigger(currentTrigger, false);
+			synchronized (ModelAccess.triggerCacheMutex) {
+
+				modelAccess.updateTrigger(currentTrigger, false);
+			}
+
 		} catch (Exception e) {
 			Logger.w("Error saving power current information", e);
 		}
@@ -645,7 +650,9 @@ public class PowerProfiles {
 			wifiManaged3gState = true;
 		} else {
 			wifiManaged3gState = false;
-			applyMobiledata3GState(currentProfile.getMobiledata3GState());
+			if (currentProfile != null) {
+				applyMobiledata3GState(currentProfile.getMobiledata3GState());
+			}
 		}
 	}
 

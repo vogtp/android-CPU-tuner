@@ -34,6 +34,9 @@ public class GuiUtils {
 	}
 
 	public static CharSequence getExplainGovernor(Context ctx, String gov) {
+		if (ctx == null) {
+			return "";
+		}
 		if (CpuHandler.GOV_ONDEMAND.equals(gov)) {
 			return ctx.getString(R.string.explainGovOnDemand);
 		} else if (CpuHandler.GOV_CONSERVATIVE.equals(gov)) {

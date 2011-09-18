@@ -8,7 +8,7 @@
     <string name="labelBeginner">Débutant</string>
     <string name="labelBatteryHot">Batterie chaude:</string>
     <string name="labelCallInProgress">Appel en cours:</string>
-    <string name="labelOnPower">Lorsque allumé:</string>
+    <string name="labelOnPower">Branché:</string>
     <string name="labelScreenLocked">Écran verrouillé:</string>
     <string name="labelOnBattery">Sur batterie:</string>
     <string name="labelExplainTriggerProfiles">Selon l\'état de l\'appareil un des profils suivants sera choisi.</string>

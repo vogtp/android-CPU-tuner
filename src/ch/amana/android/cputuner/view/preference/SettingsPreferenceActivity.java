@@ -27,6 +27,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -63,6 +64,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 							public void onClick(DialogInterface dialog, int which) {
 								SettingsStorage.getInstance().setEnableProfiles(true);
 								((CheckBoxPreference) preference).setChecked(true);
+								Notifier.startStatusbarNotifications(getApplicationContext());
 							}
 						});
 						alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {

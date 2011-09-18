@@ -232,11 +232,16 @@ public class CpuHandler extends HardwareHandler {
 		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), i + "");
 	}
 
-	public int[] getAvailCpuFreq() {
-		return getAvailCpuFreq(false);
+	public int[] getAvailCpuFreq(boolean allowLowFreqs) {
+		int[] ret = getAvailCpuFreqInternal(allowLowFreqs);
+		if (ret.length < 1) {
+			ret = new int[1];
+			ret[0] = NO_VALUE_INT;
+		}
+		return ret;
 	}
 
-	public int[] getAvailCpuFreq(boolean allowLowFreqs) {
+	private int[] getAvailCpuFreqInternal(boolean allowLowFreqs) {
 
 		int[] freqs = createListInt(RootHandler.readFile(getFile(CPU_DIR, SCALING_AVAILABLE_FREQUENCIES)));
 		if (freqs[0] == NO_VALUE_INT) {

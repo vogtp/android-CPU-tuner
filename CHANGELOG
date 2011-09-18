@@ -3,7 +3,6 @@ V
 - 
 * bug fixes
 -
-
 V 
 * features
 - allow profile setting if cpu tuner is switched off
@@ -14,7 +13,37 @@ V 2.7.3
 * features
 - 
 * bug fixes
-- fix fc
+- fix force close
+
+V 2.7.6
+* features
+- 
+* bug fixes
+- fix configuration manage fc
+- evaluate profile trigger on install/start/load
+- Do not enable statusbar notifications by default
+
+V 2.7.5
+* features
+- 
+* bug fixes
+- fix autoloading empty configurations
+- not not save config on battery stats update 
+
+V 2.7.4
+* features
+- 
+* bug fixes
+- fix loss of profiles, tiggers and/or virt. governors
+- fix configuration autoload
+- start notification if profiles are enabled again
+
+
+V 2.7.3
+* features
+- 
+* bug fixes
+- fix forcecloses
 
 V 2.7.2
 * features

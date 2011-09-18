@@ -79,7 +79,7 @@ public class InstallHelper {
 					int freqMax = cpuHandler.getMaxCpuFreq();
 					int freqMin = cpuHandler.getMinCpuFreq();
 					if (freqMax < cpuHandler.getMinimumSensibleFrequency()) {
-						int[] availCpuFreq = cpuHandler.getAvailCpuFreq();
+						int[] availCpuFreq = cpuHandler.getAvailCpuFreq(false);
 						if (availCpuFreq != null && availCpuFreq.length > 0) {
 							freqMax = availCpuFreq[0];
 						}

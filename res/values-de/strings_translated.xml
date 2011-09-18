@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">		
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">		<string name="labelUseCpus_front">Benutze </string>
+    <string name="labelUseCpus_end">CPUs</string>
+    <string name="prefMulticore">Benutze mehrkern CPU Funktionen</string>
+    <string name="prefForceMulticoreCodeOn">Benutze mehrkern CPU Funktionen, unabhängig davon welcher Typ CPU gefunden wurde. </string>
+    <string name="prefForceMulticoreCodeOff">Benutze mehrkern CPU Funktionen, wenn eine mehrkern CPU gefunden wurde. </string>
+    <string name="labelActiveCpus">Aktive CPUs:</string>
+    <string name="prefEnableCputuner">Aktiviere CPU tuner</string>
+    <string-array name="prefMulticoreEntries">
+        <item>Auto</item>
+        <item>Aktivieren</item>
+        <item>Deaktivieren</item>
+    </string-array>
+    <string name="prefMulticoreLong">Soll CPU tuner auf allen CPU Kernen arbeiten.</string>
+    <string name="config_default">Standard</string>
+    <string name="prefConfigurationsLong">Backup und restore</string>
+    <string name="prefCpu">CPU Einstellungen</string>
+    <string name="prefChangelog">Zeige das Changelog</string>
+    <string name="label_version">Version:</string>
+    <string name="prefLegalGnomeIcons">Haupt Icon Lizenz</string>
+    <string name="prefLegalGnomeIconsLong">Lizenz des Benutzen Icons aus dem Gnome Projekt. Danke für das schöne Icon.</string>
+    <string name="msg_disable_cpu_tuner">Deaktiviere CPU tuner</string>
+    <string name="msg_disable_cputuner_question">Möchtest Du CPU tuner stoppen?</string>
+    <string name="msg_delete_autoload_configuration">Lösche diese Auto-Laden Konfiguration?</string>
+    <string name="prefNetworkModeOnWifiConnected">Netzwerkmodus falls Wifi verbunden ist</string>
+    <string name="prefNetworkModeOnWifiConnectedLong">Wähle den Netzwerkmodus der verwendet wird falls Wifi Verbindung besteht. Wenn die Verbindung nicht mehr besteht geht CPU tuner zurück zum vorherigen.</string>
+    <string-array name="mobiledataOnWifiStatesEnties">
+        <item>Unverändert lassen</item>
+        <item>Nur 2G</item>
+        <item>3G/2G</item>
+        <item>Nur 3G</item>
+    </string-array>
+        <string name="auto">Auto</string>
+        <string name="msg_manual_profile">Manuelles Profil</string>
 	<string name="labelPowersaveBias">Gewichtung Energiesparmodus:</string>
 	<string name="msg_up_threshhold_has_to_be_between_0_and_100">Der obere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>
 	<string name="msg_down_threshhold_has_to_be_between_0_and_100">Der untere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>
@@ -351,11 +383,28 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
 <string name="msg_has_issues">Hat Probleme</string>
 <string name="msg_not_working">Funktioniert nicht</string>
 <string name="msg_working">Funktioniert</string>
-<string name="msg_premail_no_issues">Keine Probleme gefunden worden...\nBist Du zufrieden und möchtest ein Feedback geben:\nKommentare und gute Bewertungen auf dem Markt werden geschätzt...</string>
-<string name="msg_premail_no_root">Der CPU-Tuner verfügt nicht über Root-Zugriff!\nDie meisten Funktionen von CPU-Tuner gehen so nicht!</string>
-<string name="msg_premail_issues">Deine Konfiguration hat Probleme ...
-Dies ist wahrscheinlich aufgrund des Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n1) Flashen eines neuen Kernels\n\n2) Flashen eines neuen ROMs</string>
-<string name="msg_premail_issues_cm">Vielleicht schaust du unter http://wiki.cyanogenmod.com nach, sie machen sehr gute ROMs
+<string name="msg_fully_working">Funktioniert vollkommen</string>
+<string name="msg_premail_no_issues">Es sind keine Probleme gefunden worden...\n
+Bist Du zufrieden und möchtest ein Feedback geben:\n
+Kommentare und gute Bewertungen auf dem Markt werden geschätzt...</string>
+    <string name="msg_capcheck_not_rooted">CPU-Tuner verfügt nicht über Root-Zugriff!\n
+Die meisten Funktionen von CPU-Tuner gehen so nicht!\nHast Du Dein Gerät gerooted?\nHast Du CPU-Tuner root Zugriff gegeben?</string>
+    <string name="msg_capcheck_found_some_issues">Kleinere Probleme gefunden... Einige Funktionen werden nicht gehen.</string>
+    <string name="msg_capcheck_no_issues">Keine Probleme gefunden...</string>
+    <string name="and">und</string>
+    <string name="msg_capcheck_work_but_cannot_set_frequency"> funktioniert, aber kann die mininale und maximale Frequenz nicht setzten.\n
+Dies ergibt jedoch noch immer gute resultate</string>
+    <string name="msg_premail_working">Einige Regler funtionieren weitgehend.\nDass einige Regler nicht funtionieren liegt wohl am kernel/ROM. Du hahst drei Möglichkeiten:\n
+    1) Benutze die funktionierenden Regler und ignorier die anderen.
+		Dies ergibt wohl noch immer gute Resultate.\n
+		2) Flashe einen neuen Kernel\n3) Flashe ein anderes ROM\n</string>
+<string name="msg_premail_no_root">CPU-Tuner verfügt nicht über Root-Zugriff!\n
+Die meisten Funktionen von CPU-Tuner gehen so nicht!</string>
+<string name="msg_premail_issues">Deine Konfiguration hat Probleme ...\n
+Dies liegt wahrscheinlich am Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n
+1) Flashen eines neuen Kernels\n\n
+2) Flashen eines neuen ROMs.\n</string>
+<string name="msg_premail_issues_cm">Vielleicht schaust Du Dir http://wiki.cyanogenmod.com an, sie machen sehr gute ROMs
 </string>
 <string name="title_profile_editor">Profil Bearbeitung: </string>
 <string name="title_profiles">Profile</string>

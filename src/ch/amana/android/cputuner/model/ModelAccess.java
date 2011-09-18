@@ -38,9 +38,9 @@ public class ModelAccess {
 	private Map<Long, VirtualGovernorModel> virtgovCache;
 	private SortedMap<Integer, Long> triggerByBatteryLevelCache;
 	private final Comparator<Integer> batteryLevelComparator;
-	private static final Object triggerCacheMutex = new Object();
-	private static final Object profileCacheMutex = new Object();
-	private static final Object virtgovCacheMutex = new Object();
+	public static final Object triggerCacheMutex = new Object();
+	public static final Object profileCacheMutex = new Object();
+	public static final Object virtgovCacheMutex = new Object();
 	private static final Object triggerByBatteryLevelCacheMutex = new Object();
 
 	public static ModelAccess getInstace(Context ctx) {
@@ -93,8 +93,10 @@ public class ModelAccess {
 //		handler.post(new Runnable() {
 //			@Override
 //			public void run() {
-				contentResolver.update(uri, values, where, selectionArgs);
-				configChanged();
+		contentResolver.update(uri, values, where, selectionArgs);
+		if (saveConfig) {
+			configChanged();
+		}
 		// }
 //		});
 	}
@@ -275,7 +277,7 @@ public class ModelAccess {
 
 	public void updateTrigger(TriggerModel triggerModel, boolean saveConfig) {
 		synchronized (triggerCacheMutex) {
-			update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" }, false);
+			update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" }, saveConfig);
 			triggerCache.put(triggerModel.getId(), triggerModel);
 			initTriggerByBatteryLevelCache();
 		}
