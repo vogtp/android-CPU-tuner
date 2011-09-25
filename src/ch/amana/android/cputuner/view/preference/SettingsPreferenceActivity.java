@@ -36,7 +36,6 @@ import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
-	// private CheckBoxPreference systemAppPreference;
 	private EditTextPreference cpuFreqPreference;
 	private EditTextPreference prefMinSensibleFrequency;
 	private String helpPage;
@@ -95,28 +94,6 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
-		// Preference enableProfilePreference =
-		// findPreference(SettingsStorage.ENABLE_PROFILES);
-		// enableProfilePreference.setOnPreferenceChangeListener(new
-		// OnPreferenceChangeListener() {
-		//
-		// @Override
-		// public boolean onPreferenceChange(Preference preference, Object
-		// newValue) {
-		// if (newValue instanceof Boolean) {
-		// Boolean enableProfile = (Boolean) newValue;
-		// Intent intent = new Intent(SettingsPreferenceActivity.this,
-		// BatteryService.class);
-		// if (enableProfile) {
-		// startService(intent);
-		// PowerProfiles.getInstance().reapplyProfile(true);
-		// } else {
-		// stopService(intent);
-		// }
-		// }
-		// return true;
-		// }
-		// });
 		Preference enableStatusBarPreference = findPreference(SettingsStorage.ENABLE_STATUSBAR_ADDTO);
 		enableStatusBarPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
@@ -132,24 +109,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
-		// systemAppPreference = (CheckBoxPreference)
-		// findPreference("prefKeySystemApp");
-		// systemAppPreference.setChecked(RootHandler.isSystemApp(this));
-		// systemAppPreference.setOnPreferenceChangeListener(new
-		// OnPreferenceChangeListener() {
-		//
-		// @Override
-		// public boolean onPreferenceChange(Preference preference, Object
-		// newValue) {
-		// return SystemAppHelper.install(SettingsPreferenceActivity.this,
-		// (Boolean) newValue);
-		// }
-		//
-		// });
 		prefMinSensibleFrequency = (EditTextPreference) findPreference("prefKeyMinSensibleFrequency");
 		cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
-		// cpuFreqPreference.setEnabled(!CpuHandler.getInstance().hasAvailCpuFreq());
-
 		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
