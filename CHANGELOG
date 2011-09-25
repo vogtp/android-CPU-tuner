@@ -3,10 +3,13 @@ V
 - 
 * bug fixes
 -
-V 
+
+V 2.7.7
 * features
 - 
 * bug fixes
+- load default values on first boot
+- German translation finished
 - fix force close
 
 V 2.7.6

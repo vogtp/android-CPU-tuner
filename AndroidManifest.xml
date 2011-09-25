@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="ch.amana.android.cputuner"
 	android:versionName="@string/version" android:installLocation="internalOnly"
-	xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="201109180">
+	xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="201109250">
 	<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 	<uses-permission android:name="com.android.vending.BILLING"></uses-permission>
 	<permission android:name="ch.amana.android.cputuner.LOAD_CONFIGURATION"
