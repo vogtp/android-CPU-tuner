@@ -11,7 +11,7 @@ import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 
 public abstract class ConfigurationsAdapter extends BaseAdapter {
 
-	public static final FilenameFilter FILTER = new FilenameFilter() {
+	protected static final FilenameFilter FILTER = new FilenameFilter() {
 		@Override
 		public boolean accept(File dir, String filename) {
 			File file = new File(dir, filename);
@@ -25,7 +25,7 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 
 	protected LayoutInflater layoutInflator;
 
-	private File configurationsDir;
+	private final File configurationsDir;
 
 	public ConfigurationsAdapter(Context ctx) {
 		super();
