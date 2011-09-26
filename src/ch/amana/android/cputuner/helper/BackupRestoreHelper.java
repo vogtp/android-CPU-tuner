@@ -116,22 +116,22 @@ public class BackupRestoreHelper {
 		backup(cb, storagePath);
 	}
 
-	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean isUserConfig) throws Exception {
+	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean isUserConfig, boolean restoreAutoload) throws Exception {
 		if (name == null) {
 			return;
 		}
 		if (isUserConfig) {
 			File file = new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
 			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
-			restore(cb, dje, !isUserConfig);
+			restore(cb, dje, restoreAutoload);
 		} else {
 			String fileName = DIRECTORY_CONFIGURATIONS + "/" + name + "/" + DB.DATABASE_NAME + JsonConstants.FILE_NAME;
 			InputStream is = cb.getContext().getAssets().open(fileName);
 			//			getconfig 
 			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
-			restore(cb, dje, !isUserConfig);
-			//			fix frequencies
-			//			fix governors
+			restore(cb, dje, restoreAutoload);
+			//	FIXME		fix frequencies
+			//	FIXME		fix governors
 		}
 		PowerProfiles.getInstance().reapplyProfile(true);
 	}

@@ -68,7 +68,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	private void loadConfig(String name) {
 		try {
-			BackupRestoreHelper.restoreConfiguration(this, name, false);
+			BackupRestoreHelper.restoreConfiguration(this, name, false, true);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 			if (closeOnLoad) {
 				finish();
@@ -141,6 +141,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		final EditText input = new EditText(this);
 		alertBuilder.setView(input);
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = input.getText().toString();
 				saveConfig(name);
@@ -160,6 +161,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		input.setText(file.getName());
 		alertBuilder.setView(input);
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = input.getText().toString();
 				String path = file.getPath();
