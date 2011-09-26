@@ -336,7 +336,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
