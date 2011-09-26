@@ -109,7 +109,11 @@ public class BackupRestoreHelper {
 		if (name == null) {
 			return;
 		}
-		backup(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name));
+		File storagePath = new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
+		if (!storagePath.isDirectory()) {
+			storagePath.mkdirs();
+		}
+		backup(cb, storagePath);
 	}
 
 	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean isUserConfig) throws Exception {
