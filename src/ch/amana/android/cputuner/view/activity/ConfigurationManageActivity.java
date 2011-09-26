@@ -87,7 +87,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	private void loadConfig(String name, boolean isUserConfig) {
 		try {
 			BackupRestoreHelper.restoreConfiguration(this, name, isUserConfig);
-			SettingsStorage.getInstance().setCurrentConfiguration(name);
+			SettingsStorage.getInstance().setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 			if (closeOnLoad) {
 				finish();
@@ -230,7 +230,6 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				loadConfig(configName, isUserConfig);
-				SettingsStorage.getInstance().setCurrentConfiguration(configName);
 				updateListView();
 			}
 
