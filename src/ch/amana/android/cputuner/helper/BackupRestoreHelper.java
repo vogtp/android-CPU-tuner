@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.helper;
 
 import java.io.File;
+import java.io.InputStream;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.almana.android.importexportdb.ExportDataTask;
+import ch.almana.android.importexportdb.constants.JsonConstants;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.hw.PowerProfiles;
@@ -41,11 +43,10 @@ public class BackupRestoreHelper {
 		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directory);
 	}
 
-	public static void restore(BackupRestoreCallback cb, File storagePath, boolean inclAutoloadConfig) throws Exception {
+	private static void restore(BackupRestoreCallback cb, DataJsonImporter dje, boolean inclAutoloadConfig) throws Exception {
 		Context ctx = cb.getContext();
 		CpuTunerProvider.deleteAllTables(ctx, inclAutoloadConfig);
 		ContentResolver contentResolver = ctx.getContentResolver();
-		DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, storagePath);
 		try {
 			synchronized (ModelAccess.virtgovCacheMutex) {
 				synchronized (ModelAccess.profileCacheMutex) {
@@ -111,11 +112,23 @@ public class BackupRestoreHelper {
 		backup(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name));
 	}
 
-	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean inclAutoloadConfig) throws Exception {
+	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean isUserConfig) throws Exception {
 		if (name == null) {
 			return;
 		}
-		restore(cb, new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name), inclAutoloadConfig);
+		if (isUserConfig) {
+			File file = new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
+			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
+			restore(cb, dje, !isUserConfig);
+		} else {
+			String fileName = DIRECTORY_CONFIGURATIONS + "/" + name + "/" + DB.DATABASE_NAME + JsonConstants.FILE_NAME;
+			InputStream is = cb.getContext().getAssets().open(fileName);
+			//			getconfig 
+			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
+			restore(cb, dje, !isUserConfig);
+			//			fix frequencies
+			//			fix governors
+		}
 		PowerProfiles.getInstance().reapplyProfile(true);
 	}
 

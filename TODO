@@ -1,3 +1,9 @@
+- create a different default configs and load on init
+* save default frequencies on first boot (in settings or sd card)
+* handle governors
+* handle frequencies 
+* make autoload restoreable
+
 - triggers cannot have to same battery level
 
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
@@ -11,11 +17,6 @@
 - handle two configuration have the same name
 
 - fragments: fix orientation change 
-
-- make autoload restoreable
-- create a different default configs and load on init 
-
-- add controls for 4G(wimax)
 
 - move logging to file or logcat
 - enable/disable services in settings
