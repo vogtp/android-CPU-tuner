@@ -120,7 +120,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
-		// FIXME remove?
+		// TODO remove?
 		hasDeviceStatesBeta = 3 == Math.max(profile.getWifiState(),
 				Math.max(profile.getGpsState(),
 						Math.max(profile.getMobiledata3GState(),
@@ -304,6 +304,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		super.onSaveInstanceState(outState);
 	}
 
+	@Override
 	public void updateModel() {
 		profile.setProfileName(etName.getText().toString());
 		governorFragment.updateModel();
@@ -348,6 +349,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		}
 	}
 
+	@Override
 	public void updateView() {
 		String profileName = profile.getProfileName();
 		if (!ProfileModel.NO_VALUE_STR.equals(profileName)) {
