@@ -86,7 +86,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	private void loadConfig(String name, boolean isUserConfig) {
 		try {
-			BackupRestoreHelper.restoreConfiguration(this, name, isUserConfig);
+			BackupRestoreHelper.restoreConfiguration(this, name, isUserConfig, true);
 			SettingsStorage.getInstance().setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 			if (closeOnLoad) {
@@ -172,12 +172,15 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void rename(final File file) {
-		// FIXME check if configuration is used
+		String name = file.getName();
+		if (name == null) {
+			return;
+		}
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.msg_rename_configuration);
 		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
 		final EditText input = new EditText(this);
-		input.setText(file.getName());
+		input.setText(name);
 		alertBuilder.setView(input);
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
@@ -189,6 +192,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 				File dest = new File(path.substring(0, idx), name);
 				file.renameTo(dest);
 				renameDB(oldName, name);
+				SettingsStorage.getInstance().setCurrentConfiguration(name);
 				updateListView();
 			}
 		});
@@ -239,9 +243,16 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void delete(final File configuration) {
-		// FIXME check if configuration is used
+		String name = configuration.getName();
+		if (name == null) {
+			return;
+		}
+		if (name.equals(SettingsStorage.getInstance().getCurrentConfiguration())) {
+			Toast.makeText(this, R.string.msg_cannot_delete_current_configuration, Toast.LENGTH_LONG).show();
+			return;
+		}
 		Cursor cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, SELECT_CONFIG_BY_NAME,
-				new String[] { configuration.getName() }, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
+				new String[] { name }, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
 
 		// while (cursor.moveToNext()) {
 		// String string =
@@ -255,7 +266,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			alertBuilder.setNegativeButton(android.R.string.ok, null);
 		} else {
 			alertBuilder.setTitle(R.string.menuItemDelete);
-			alertBuilder.setMessage(getString(R.string.msg_delete_configuration, configuration.getName()));
+			alertBuilder.setMessage(getString(R.string.msg_delete_configuration, name));
 			alertBuilder.setNegativeButton(R.string.no, null);
 			alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 

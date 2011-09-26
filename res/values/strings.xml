@@ -8,4 +8,5 @@
     </string-array>
         <string name="labelYourConfigurations">Your configurations</string>
         <string name="labelSystemConfigurations">System configurations</string>
+        <string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
 </resources>
