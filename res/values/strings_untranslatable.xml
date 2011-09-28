@@ -22,7 +22,6 @@
 		<item>Française (fr)</item>
 		<item>Italiano (it)</item>
 		<item>Ελληνικά (el)</item>
-		<item>Turkish (tr)</item>
 </string-array>
 	<string-array name="prefLanguageValues">
 		<item></item>
