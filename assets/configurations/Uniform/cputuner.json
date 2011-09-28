@@ -2,40 +2,35 @@
  "cputuner": {
   "configurationAutoload": [],
   "virtualGovernor": [
-   {
-    "useNumberOfCpus": "0",
-    "governor": "ondemand",
+     {
+    "governor": "ondemand|interactive|conservative|smartass|performance",
     "virtualGovernor": "Full speed",
     "_id": "1",
     "powersaveBias": "0",
     "governorThresholdUp": "85",
-    "governorThresholdDown": "-1"
+    "governorThresholdDown": "55"
    },
    {
-    "useNumberOfCpus": "0",
+    "governor": "ondemand|interactive|conservative|smartass|performance",
     "virtualGovernor": "Normal",
     "_id": "2",
     "powersaveBias": "0",
-    "governor": "ondemand",
-    "script": "",
     "governorThresholdUp": "90",
-    "governorThresholdDown": "0"
+    "governorThresholdDown": "60"
    },
    {
-    "useNumberOfCpus": "0",
-    "governor": "conservative",
+    "governor": "conservative|interactive|smartass|ondemand|powersave",
     "virtualGovernor": "Extreme Save Battery",
     "_id": "3",
-    "powersaveBias": "0",
+    "powersaveBias": "1000",
     "governorThresholdUp": "98",
     "governorThresholdDown": "95"
    },
    {
-    "useNumberOfCpus": "0",
-    "governor": "conservative",
+    "governor": "conservative|interactive|smartass|ondemand|powersave",
     "virtualGovernor": "Save Battery",
     "_id": "4",
-    "powersaveBias": "0",
+    "powersaveBias": "300",
     "governorThresholdUp": "95",
     "governorThresholdDown": "80"
    }
