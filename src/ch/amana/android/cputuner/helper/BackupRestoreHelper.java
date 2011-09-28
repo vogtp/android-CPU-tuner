@@ -132,19 +132,19 @@ public class BackupRestoreHelper {
 				return;
 			}
 			try {
+				Context context = cb.getContext();
 				if (isUserConfig) {
-					File file = new File(getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
+					File file = new File(getStoragePath(context, DIRECTORY_CONFIGURATIONS), name);
 					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
 					restore(dje, restoreAutoload);
 				} else {
 					String fileName = DIRECTORY_CONFIGURATIONS + "/" + name + "/" + DB.DATABASE_NAME + JsonConstants.FILE_NAME;
-					InputStream is = cb.getContext().getAssets().open(fileName);
-					//	getconfig 
+					InputStream is = context.getAssets().open(fileName);
 					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
 					restore(dje, restoreAutoload);
-					//	FIXME		fix frequencies
-					//	fix governors
 					fixGovernors();
+					fixFrequencies();
+					InstallHelper.updateProfilesFromVirtGovs(context);
 				}
 				PowerProfiles.getInstance().reapplyProfile(true);
 				cb.hasFinished(true);
@@ -156,8 +156,26 @@ public class BackupRestoreHelper {
 		}
 	}
 
+	private void fixFrequencies() {
+		SettingsStorage settings = SettingsStorage.getInstance();
+		ContentValues values = new ContentValues(2);
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, settings.getMaxFrequencyDefault());
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, settings.getMinFrequencyDefault());
+		Cursor c = null;
+		try {
+			c = contentResolver.query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, null);
+			while (c.moveToNext()) {
+				contentResolver.update(DB.CpuProfile.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) });
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
+			}
+		}
+	}
+
 	private void fixGovernors() {
-		// FIXME
 		Cursor c = null;
 		String[] availCpuGov = CpuHandler.getInstance().getAvailCpuGov();
 		TreeMap<String, Boolean> availGovs = new TreeMap<String, Boolean>();

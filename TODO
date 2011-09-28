@@ -1,40 +1,34 @@
 - create a different default configs and load on init
-* make backup/restore helper non static
-* save default frequencies on first boot (in settings or sd card)
-* handle governors
-* handle frequencies 
 * make autoload restoreable (test if it works)
 
 - triggers cannot have to same battery level
 
 - fix notification entry on enable/disable
 
-- add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
-
-
-
+- handle two configuration have the same name
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
-- add sampling intervall (coupled parameter?)
+- enable/disable services in settings
+- Imperial units (°C -> F)
+
+- action bar for editors
+
+- animate pulsed service in list
+- icons for services
+- widget for profile switch
 - add long text for settings
+- do not change bt while paired -> setting
+
+
+- add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
+
+- add sampling intervall (coupled parameter?)
 
 - remove strings: prefEnableProfilesOn and prefEnableProfilesOff
-
-- handle two configuration have the same name
 
 - fragments: fix orientation change 
 
 - move logging to file or logcat
-- enable/disable services in settings
-- do not change bt while paired -> setting
-
-- widget for profile switch
-- Imperial units (°C -> F)
-- animate pulsed service in list
-- icons for services
 
 - set brightness
-- set a black wall paper (and honor live wallpapers)
-- figure out how to get avail freqs (if not available)
 - Feature request: CPU temperature monitoring in addition to battery 
-- change profile in mainview even if profiles switching is not active

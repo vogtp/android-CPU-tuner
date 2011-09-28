@@ -332,7 +332,7 @@ public class InstallHelper {
 		return id;
 	}
 
-	private static void updateProfilesFromVirtGovs(Context ctx) {
+	public static void updateProfilesFromVirtGovs(Context ctx) {
 		ContentResolver contentResolver = ctx.getContentResolver();
 		Cursor cursorVirtGov = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, null, null, VirtualGovernor.SORTORDER_DEFAULT);
 		if (cursorVirtGov == null) {
