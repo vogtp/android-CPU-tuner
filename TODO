@@ -1,5 +1,7 @@
 - triggers cannot have to same battery level
 
+- fix notification entry on enable/disable
+
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 
 - label powersave bias
