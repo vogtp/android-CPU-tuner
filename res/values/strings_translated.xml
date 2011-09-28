@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-        <string name="auto">Auto</string>
     <string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
     <string name="prefNetworkModeOnWifiConnected">Netmode on wifi connected</string>
     <string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a wifi network is connected. If the network is disconnected cpu tuner goes back to previous.</string>
@@ -13,8 +12,8 @@
     <string name="labelUseCpus_front">Use </string>
     <string name="labelUseCpus_end">CPUs</string>
     <string name="prefMulticore">Use multicore CPU features</string>
-    <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected.</string>
-    <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected.</string>
+    <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
+    <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
     <string name="labelActiveCpus">Active CPUs:</string>
     <string name="prefEnableCputuner">Enable CPU tuner</string>
     <string-array name="prefMulticoreEntries">

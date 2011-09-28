@@ -55,7 +55,6 @@
 <string name="yes">oui</string>
 <string name="no">non</string>
 <string name="save">enregistrer</string>
-<string name="save">enregistrer</string>
 <string name="cancel">annuler</string>
 <string name="prefMinSensibleFrequencyLong">La fréquence minimum disponible si vous n\'êtes pas en Super utilisateur.</string>
 <string name="prefMinSensibleFrequency">La fréquence minimum affiché</string>

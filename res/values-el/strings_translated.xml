@@ -105,7 +105,6 @@
 		υπάρχει συνδεδεμένο WiFi.</string>
 	<string name="prefPulseMobiledataOnWifiOff">Η σύνδεση δεδομένων ΔΕΝ ΘΑ παραμένει ενεργή όταν
 		υπάρχει σύνδεση WiFi.</string>
-<string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor.</string>
 <string name="prefLanguage">Επιλογή γλώσσας</string>
 <string name="msg_up_threshhold_has_to_be_between_0_and_100">Το μέγιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
 <string name="msg_down_threshhold_has_to_be_between_0_and_100">Το ελάχιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
