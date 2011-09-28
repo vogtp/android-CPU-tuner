@@ -2,12 +2,15 @@ package ch.amana.android.cputuner.helper;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
@@ -15,6 +18,7 @@ import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.constants.JsonConstants;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.model.ModelAccess;
@@ -154,26 +158,34 @@ public class BackupRestoreHelper {
 
 	private void fixGovernors() {
 		// FIXME
-		//		Cursor c = null;
-		//		String[] availCpuGov = CpuHandler.getInstance().getAvailCpuGov();
-		//		try {
-		//			c = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, null);
-		//			while (c.moveToNext()) {
-		//				String govs = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
-		//				String[] govitems = govs.split("|");
-		//				for (String gov : govitems) {
-		//					if (Arrays.binarySearch(availCpuGov, 0, availCpuGov.length, gov) > -1) {
-		//						Logger.i("Using " + gov);
-		//					}
-		//				}
-		//
-		//			}
-		//		} finally {
-		//			if (c != null) {
-		//				c.close();
-		//				c = null;
-		//			}
-		//		}
+		Cursor c = null;
+		String[] availCpuGov = CpuHandler.getInstance().getAvailCpuGov();
+		TreeMap<String, Boolean> availGovs = new TreeMap<String, Boolean>();
+		for (String gov : availCpuGov) {
+			availGovs.put(gov, Boolean.TRUE);
+		}
+		try {
+			c = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, null);
+			while (c.moveToNext()) {
+				String govs = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
+				String[] govitems = govs.split("\\|");
+				for (String gov : govitems) {
+					if (availGovs.get(gov)) {
+						Logger.i("Using " + gov);
+						ContentValues values = new ContentValues(1);
+						values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, gov);
+						if (contentResolver.update(DB.VirtualGovernor.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) }) > 0) {
+							break;
+						}
+					}
+				}
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
+			}
+		}
 
 	}
 
