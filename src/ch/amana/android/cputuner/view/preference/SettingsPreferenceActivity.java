@@ -40,6 +40,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	private EditTextPreference cpuFreqPreference;
 	private EditTextPreference prefMinSensibleFrequency;
 	private String helpPage;
+	private ListPreference maxDefaultFreq;
+	private ListPreference minDefaultFreq;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -210,11 +212,11 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		for (int i = 0; i < availCpuFreq.length; i++) {
 			freqs[i] = Integer.toString(availCpuFreq[i]);
 		}
-		ListPreference maxDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MAX_FREQ);
+		maxDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MAX_FREQ);
 		maxDefaultFreq.setEntries(freqs);
 		maxDefaultFreq.setEntryValues(freqs);
 
-		ListPreference minDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MIN_FREQ);
+		minDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MIN_FREQ);
 		minDefaultFreq.setEntries(freqs);
 		minDefaultFreq.setEntryValues(freqs);
 	}
@@ -244,6 +246,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
 		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
 		findPreference("prefKeyEnableUserspaceGovernor").setEnabled(settings.isPowerUser());
+		maxDefaultFreq.setEnabled(!settings.isBeginnerUser());
+		minDefaultFreq.setEnabled(!settings.isBeginnerUser());
 	}
 
 	@Override
