@@ -256,7 +256,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		SettingsStorage settings = SettingsStorage.getInstance();
+		final SettingsStorage settings = SettingsStorage.getInstance();
 		if (!settings.isUserLevelSet()) {
 			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this);
 			uec.show();
@@ -336,7 +336,6 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -370,6 +369,9 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 			public void onClick(View v) {
 				Context ctx = CurInfo.this;
 				Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
+				if (settings.isEnableBeta()) {
+					intent = new Intent(ctx, ch.amana.android.cputuner.view.activity.ConfigurationManageActivity.class);
+				}
 				intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
 				ctx.startActivity(intent);
 			}

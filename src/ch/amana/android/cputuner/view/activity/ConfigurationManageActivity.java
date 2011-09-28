@@ -1,6 +1,7 @@
-package ch.amana.android.cputuner.view.preference;
+package ch.amana.android.cputuner.view.activity;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -27,37 +28,54 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
+import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
-	private ConfigurationsAdapter configurationsAdapter;
+	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
+	private SysConfigurationsAdapter sysConfigsAdapter;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle(R.string.titleManageConfigurations);
+		setContentView(R.layout.configuration_manage);
+		String title = getString(R.string.titleManageConfigurations);
+		setTitle(title);
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
 
 		ListView lvConfiguration = getListView();
-		configurationsAdapter = new ConfigurationsListAdapter(this);
-		lvConfiguration.setAdapter(configurationsAdapter);
+		configsAdapter = new ConfigurationsListAdapter(this);
+		lvConfiguration.setAdapter(configsAdapter);
 		lvConfiguration.setOnCreateContextMenuListener(this);
 		lvConfiguration.setOnItemClickListener(this);
 
+		ListView lvSysConfigs = (ListView) findViewById(R.id.lvSysConfigs);
+		try {
+			sysConfigsAdapter = new SysConfigurationsAdapter(this, getAssets().list(BackupRestoreHelper.DIRECTORY_CONFIGURATIONS));
+			lvSysConfigs.setAdapter(sysConfigsAdapter);
+			lvSysConfigs.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					String fileName = sysConfigsAdapter.getDirectoryName((int) id);
+					load(fileName, false);
+				}
+			});
+		} catch (IOException e) {
+			Logger.w("Cannot load default confifgs form assets", e);
+		}
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (configurationsAdapter.getCount() < 1) {
+		if (configsAdapter.getCount() < 1) {
 			add();
 		}
 	}
@@ -66,9 +84,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		BackupRestoreHelper.backupConfiguration(this, name);
 	}
 
-	private void loadConfig(String name) {
+	private void loadConfig(String name, boolean isUserConfig) {
 		try {
-			BackupRestoreHelper.restoreConfiguration(this, name, false, true);
+			BackupRestoreHelper.restoreConfiguration(this, name, isUserConfig, true);
+			SettingsStorage.getInstance().setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 			if (closeOnLoad) {
 				finish();
@@ -80,8 +99,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		File file = configurationsAdapter.getDirectory((int) id);
-		load(file);
+		File file = configsAdapter.getDirectory((int) id);
+		load(file.getName(), true);
 	}
 
 	@Override
@@ -111,7 +130,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	public boolean onContextItemSelected(MenuItem item) {
 		// long selectedItemId = getListView().getSelectedItemId();
 		long itemId = ((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).id;
-		File file = configurationsAdapter.getDirectory((int) itemId);
+		File file = configsAdapter.getDirectory((int) itemId);
 		switch (item.getItemId()) {
 		case R.id.itemAdd:
 			add();
@@ -120,7 +139,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			replace(file);
 			return true;
 		case R.id.itemLoad:
-			load(file);
+			load(file.getName(), true);
 			return true;
 		case R.id.itemDelete:
 			delete(file);
@@ -153,12 +172,15 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void rename(final File file) {
-		// FIXME check if configuration is used
+		String name = file.getName();
+		if (name == null) {
+			return;
+		}
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.msg_rename_configuration);
 		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
 		final EditText input = new EditText(this);
-		input.setText(file.getName());
+		input.setText(name);
 		alertBuilder.setView(input);
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
@@ -170,6 +192,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 				File dest = new File(path.substring(0, idx), name);
 				file.renameTo(dest);
 				renameDB(oldName, name);
+				SettingsStorage.getInstance().setCurrentConfiguration(name);
 				updateListView();
 			}
 		});
@@ -201,18 +224,16 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alert.show();
 	}
 
-	private void load(final File configuration) {
+	private void load(final String configName, final boolean isUserConfig) {
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.menuLoad);
-		alertBuilder.setMessage(getString(R.string.msg_load_configuration, configuration.getName()));
+		alertBuilder.setMessage(getString(R.string.msg_load_configuration, configName));
 		alertBuilder.setNegativeButton(R.string.no, null);
 		alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				String configName = configuration.getName();
-				loadConfig(configName);
-				SettingsStorage.getInstance().setCurrentConfiguration(configName);
+				loadConfig(configName, isUserConfig);
 				updateListView();
 			}
 
@@ -222,9 +243,16 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void delete(final File configuration) {
-		// FIXME check if configuration is used
+		String name = configuration.getName();
+		if (name == null) {
+			return;
+		}
+		if (name.equals(SettingsStorage.getInstance().getCurrentConfiguration())) {
+			Toast.makeText(this, R.string.msg_cannot_delete_current_configuration, Toast.LENGTH_LONG).show();
+			return;
+		}
 		Cursor cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, SELECT_CONFIG_BY_NAME,
-				new String[] { configuration.getName() }, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
+				new String[] { name }, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
 
 		// while (cursor.moveToNext()) {
 		// String string =
@@ -238,7 +266,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			alertBuilder.setNegativeButton(android.R.string.ok, null);
 		} else {
 			alertBuilder.setTitle(R.string.menuItemDelete);
-			alertBuilder.setMessage(getString(R.string.msg_delete_configuration, configuration.getName()));
+			alertBuilder.setMessage(getString(R.string.msg_delete_configuration, name));
 			alertBuilder.setNegativeButton(R.string.no, null);
 			alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -259,7 +287,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void updateListView() {
-		configurationsAdapter.notifyDataSetChanged();
+		configsAdapter.notifyDataSetChanged();
 		getListView().refreshDrawableState();
 	}
 

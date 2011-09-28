@@ -385,7 +385,6 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} else {
 			result.writeUpThreshold = CheckResult.FAILURE;
 		}
-		// result.writeUpThreshold = CheckResult.FAILURE;// FIXME
 	}
 
 	private void checkMinCpuFreq(GovernorResult result) {
@@ -418,7 +417,6 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} else {
 			result.writeMinFreq = CheckResult.FAILURE;
 		}
-		// result.writeMinFreq = CheckResult.FAILURE; // FIXME
 
 	}
 
@@ -452,8 +450,6 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} else {
 			result.writeMaxFreq = CheckResult.FAILURE;
 		}
-
-		// result.writeMaxFreq = CheckResult.FAILURE;// FIXME
 	}
 
 	private void checkUserCpuFreq(GovernorResult result) {

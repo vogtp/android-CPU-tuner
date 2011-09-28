@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@android:color/darker_gray" android:orientation="vertical"
+	android:layout_width="match_parent" android:layout_height="fill_parent">
+	<TextView android:layout_width="match_parent"
+		android:layout_margin="3dp" android:textColor="@android:color/white"
+		android:textStyle="bold" android:text="@string/labelYourConfigurations"
+		android:id="@+id/labelYourConfigs" android:layout_height="wrap_content"></TextView>
+
+	<ListView android:id="@+android:id/list" android:background="@android:color/black"
+		android:layout_width="match_parent" android:layout_weight="1"
+		android:layout_height="0dp"></ListView>
+	<TextView android:textStyle="bold" android:layout_margin="3dp"
+		android:textColor="@android:color/white" android:layout_width="match_parent"
+		android:id="@+id/labelSysConfigs" android:text="@string/labelSystemConfigurations"
+		android:layout_height="wrap_content"></TextView>
+
+	<ListView android:id="@+id/lvSysConfigs" android:background="@android:color/black"
+		android:layout_width="match_parent" android:layout_gravity="fill"
+		android:layout_weight="1" android:layout_height="0dp"></ListView>
+</LinearLayout>

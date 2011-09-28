@@ -4,6 +4,66 @@ V
 * bug fixes
 -
 
+V 2.7.7
+* features
+- 
+* bug fixes
+- load default values on first boot
+- German translation finished
+- fix force close
+
+V 2.7.6
+* features
+- 
+* bug fixes
+- fix configuration manage fc
+- evaluate profile trigger on install/start/load
+- Do not enable statusbar notifications by default
+
+V 2.7.5
+* features
+- 
+* bug fixes
+- fix autoloading empty configurations
+- not not save config on battery stats update 
+
+V 2.7.4
+* features
+- 
+* bug fixes
+- fix loss of profiles, tiggers and/or virt. governors
+- fix configuration autoload
+- start notification if profiles are enabled again
+
+
+V 2.7.3
+* features
+- 
+* bug fixes
+- fix forcecloses
+
+V 2.7.2
+* features
+- 
+* bug fixes
+- Fix switches to profile none
+
+V 2.7.1
+* features
+- display if profile is manually changed in notification
+* bug fixes
+- switch to correct profile on manually change 
+- fix capability check send report errors
+
+V 2.7.0
+* features
+- ask before deleting autoload configuration
+- change networkmode (2G/3G) on wifi connected
+- manually change profile
+- multicore features non beta now
+* bug fixes
+- fix manual service changes for networkmode (2G/3G)
+
 V 2.6.4
 * features
 - 
