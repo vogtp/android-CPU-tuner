@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<string name="auto">Auto</string>
+	<string name="msg_manual_profile">manual profile</string>
     <string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
     <string name="prefNetworkModeOnWifiConnected">Netmode on wifi connected</string>
     <string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a wifi network is connected. If the network is disconnected cpu tuner goes back to previous.</string>

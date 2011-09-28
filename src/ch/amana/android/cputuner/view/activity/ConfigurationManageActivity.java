@@ -62,9 +62,23 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			lvSysConfigs.setAdapter(sysConfigsAdapter);
 			lvSysConfigs.setOnItemClickListener(new OnItemClickListener() {
 				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					String fileName = sysConfigsAdapter.getDirectoryName((int) id);
-					load(fileName, false);
+				public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
+					Builder alertBuilder = new AlertDialog.Builder(ConfigurationManageActivity.this);
+					alertBuilder.setTitle("Unsupported!");
+					alertBuilder.setMessage("Loading default configurations is not yet supported and the loaded configuration will probably only work on a Nexus one!");
+					alertBuilder.setNegativeButton("Be save...", null);
+					alertBuilder.setPositiveButton("Lets try!", new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							String fileName = sysConfigsAdapter.getDirectoryName((int) id);
+							load(fileName, false);
+						}
+
+					});
+					AlertDialog alert = alertBuilder.create();
+					alert.show();
+
 				}
 			});
 		} catch (IOException e) {
