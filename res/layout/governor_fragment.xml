@@ -45,12 +45,22 @@
 			android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:text="@string/labelUseCpus_end" android:id="@+id/labelUseCpus_end"></TextView>
 	</LinearLayout>
 	<LinearLayout android:id="@+id/llPowersaveBias"
-		android:layout_height="wrap_content" android:layout_width="match_parent">
+		android:layout_height="wrap_content" android:layout_width="match_parent" android:baselineAligned="true">
 		<TextView android:text="@string/labelPowersaveBias"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_gravity="center_vertical" android:id="@+id/labelPowersaveBias"></TextView>
-		<SeekBar android:max="1000" android:layout_height="wrap_content"
-			android:layout_width="match_parent" android:id="@+id/sbPowersaveBias"></SeekBar>
+			android:id="@+id/labelPowersaveBias" android:layout_marginRight="3dp" android:layout_gravity="top"></TextView>
+	<LinearLayout android:id="@+id/linearLayout1"
+		android:orientation="vertical" android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<SeekBar android:layout_height="wrap_content" android:id="@+id/sbPowersaveBias"
+			android:layout_width="match_parent" android:max="1000"></SeekBar>
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/linearLayout2">
+		<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content" android:id="@+id/labelPerformance" android:text="@string/labelPowesaveBiasPerformance"></TextView>
+		<TextView android:layout_gravity="right" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_width="match_parent" android:gravity="right" android:text="@string/labelPowesaveBiasPowersave"></TextView>
+	</LinearLayout>
+	</LinearLayout>
 	</LinearLayout>
 	<LinearLayout android:paddingTop="20dp" android:id="@+id/llScript"
 		android:layout_height="wrap_content" android:layout_width="match_parent">
