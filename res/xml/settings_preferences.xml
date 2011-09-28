@@ -2,7 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="@string/labelSettingsTab">
 	<CheckBoxPreference android:key="prefKeyEnableProfiles"
-		android:defaultValue="true" android:title="@string/prefEnableCputuner"></CheckBoxPreference><PreferenceScreen android:title="@string/prefConfigurations"
+		android:defaultValue="true" android:title="@string/prefEnableCputuner"></CheckBoxPreference>
+	<PreferenceScreen android:title="@string/prefConfigurations"
 		android:key="prefKeyConfigurations" android:summary="@string/prefConfigurationsLong">
 		<PreferenceCategory android:title="@string/prefConfigurations"
 			android:key="prefKeyConfigurations" android:summary="@string/prefConfigurationsLong">
@@ -50,13 +51,15 @@
 			<CheckBoxPreference android:key="prefKeyStatusbarNotifications"
 				android:title="@string/prefStatusbarNotifications"
 				android:dependency="prefKeyStatusbarAddTo" android:summaryOff="@string/prefStatusbarNotificationsOff"
-				android:summaryOn="@string/prefKeyEnableProfilesOn" android:defaultValue="false"></CheckBoxPreference>
+				android:summaryOn="@string/prefKeyEnableProfilesOn"
+				android:defaultValue="false"></CheckBoxPreference>
 
 		</PreferenceCategory>
 
 	</PreferenceScreen>
 	<PreferenceScreen android:title="@string/prefCatSystem"
-		android:key="prefKeySystemScreen"><PreferenceScreen android:key="prefKeyProfiles"
+		android:key="prefKeySystemScreen">
+		<PreferenceScreen android:key="prefKeyProfiles"
 			android:title="@string/prefKeyProfiles">
 
 			<CheckBoxPreference android:title="@string/prefCallInProgressProfile"
@@ -75,24 +78,30 @@
 		</PreferenceScreen>
 		<PreferenceScreen android:key="prefKeyServiceSwitches"
 			android:title="@string/prefServiceSwitches">
-	<PreferenceCategory android:key="prefKeyServiceSwitches"
-		android:title="@string/prefServiceSwitches">
-		<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges"
-			android:title="@string/prefAllowManualServiceChanges"
-			android:summaryOff="@string/prefAllowManualServiceChangesOff"
-			android:summaryOn="@string/prefAllowManualServiceChangesOn"
-			android:defaultValue="false"></CheckBoxPreference>
-		<ListPreference android:title="@string/prefNetworkModeOnWifiConnected" android:summary="@string/prefNetworkModeOnWifiConnectedLong" android:key="prefKeyNetworkModeOnWifiConnected" android:entryValues="@array/mobiledataOnWifiStatesValues" android:entries="@array/mobiledataOnWifiStatesEnties" android:defaultValue="0"></ListPreference><CheckBoxPreference android:key="prefKeySwitchWifiOnConnectedNetwork"
-			android:summaryOff="@string/prefSwitchWifiOnConnectedNetworkOff"
-			android:summaryOn="@string/prefSwitchWifiOnConnectedNetworkOn"
-			android:title="@string/prefSwitchWifiOnConnectedNetwork"
-			android:defaultValue="false"></CheckBoxPreference>
-		<CheckBoxPreference android:key="prefKeySwitchProfileWhilePhoneNotIdle"
-			android:summaryOff="@string/prefSwitchProfileWhilePhoneNotIdleOff"
-			android:summaryOn="@string/prefSwitchProfileWhilePhoneNotIdleOn"
-			android:title="@string/prefSwitchProfileWhilePhoneNotIdle"
-			android:defaultValue="false"></CheckBoxPreference>
-		
+			<PreferenceCategory android:key="prefKeyServiceSwitches"
+				android:title="@string/prefServiceSwitches">
+				<CheckBoxPreference android:key="prefKeyAllowManualServiceChanges"
+					android:title="@string/prefAllowManualServiceChanges"
+					android:summaryOff="@string/prefAllowManualServiceChangesOff"
+					android:summaryOn="@string/prefAllowManualServiceChangesOn"
+					android:defaultValue="true"></CheckBoxPreference>
+				<ListPreference android:title="@string/prefNetworkModeOnWifiConnected"
+					android:summary="@string/prefNetworkModeOnWifiConnectedLong"
+					android:key="prefKeyNetworkModeOnWifiConnected"
+					android:entryValues="@array/mobiledataOnWifiStatesValues"
+					android:entries="@array/mobiledataOnWifiStatesEnties"
+					android:defaultValue="0"></ListPreference>
+				<CheckBoxPreference android:key="prefKeySwitchWifiOnConnectedNetwork"
+					android:summaryOff="@string/prefSwitchWifiOnConnectedNetworkOff"
+					android:summaryOn="@string/prefSwitchWifiOnConnectedNetworkOn"
+					android:title="@string/prefSwitchWifiOnConnectedNetwork"
+					android:defaultValue="false"></CheckBoxPreference>
+				<CheckBoxPreference android:key="prefKeySwitchProfileWhilePhoneNotIdle"
+					android:summaryOff="@string/prefSwitchProfileWhilePhoneNotIdleOff"
+					android:summaryOn="@string/prefSwitchProfileWhilePhoneNotIdleOn"
+					android:title="@string/prefSwitchProfileWhilePhoneNotIdle"
+					android:defaultValue="false"></CheckBoxPreference>
+
 
 			</PreferenceCategory>
 			<PreferenceCategory android:title="@string/prefCatPulsedServiceSwitches">
@@ -116,8 +125,8 @@
 			android:key="prefKeyCpu">
 			<ListPreference android:entries="@array/prefMulticoreEntries"
 				android:key="prefKeyMulticore" android:entryValues="@array/prefMulticoreValues"
-				android:summary="@string/prefMulticoreLong"
-				android:title="@string/prefMulticore" android:defaultValue="0"></ListPreference>
+				android:summary="@string/prefMulticoreLong" android:title="@string/prefMulticore"
+				android:defaultValue="0"></ListPreference>
 			<CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor"
 				android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor"
 				android:summaryOff="@string/prefEnableUserspaceGovernorOff"
@@ -130,29 +139,32 @@
 				android:dialogMessage="@string/prefCpuFreqMsg"></EditTextPreference>
 			<Preference android:key="prefKeyCapabilities"
 				android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
-		</PreferenceScreen>
 			
-			
-			
-			
-			
-			
-			
-		<EditTextPreference android:key="prefKeyEnableBeta" android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage" android:dialogTitle="@string/prefEnableBeta"></EditTextPreference></PreferenceScreen>
+		<PreferenceCategory android:title="@string/prefKeyFrequencies" android:key="prefKeyDefaultFrequencies"><ListPreference android:title="@string/prefMaxFreq" android:key="prefKeyMaxFreq" android:summary="@string/prefMaxFreqLong" android:defaultValue="-1"></ListPreference><ListPreference android:defaultValue="-1" android:title="@string/prefMinFreq" android:key="prefKeyMinFreq" android:summary="@string/prefMinFreqLong"></ListPreference></PreferenceCategory></PreferenceScreen>
+		<EditTextPreference android:key="prefKeyEnableBeta"
+			android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage"
+			android:dialogTitle="@string/prefEnableBeta"></EditTextPreference>
+	</PreferenceScreen>
 
 
 
 
-	<Preference android:title="@string/prefBuyMeABeer" android:key="prefKeyBuyMeABeer"></Preference>
+	<Preference android:title="@string/prefBuyMeABeer"
+		android:key="prefKeyBuyMeABeer"></Preference>
 	<PreferenceScreen android:title="@string/prefVarious"
 		android:key="prefKeyVarious">
-	<Preference android:key="prefKeyVersion"></Preference><Preference android:key="prefKeyChangelog" android:title="@string/prefChangelog"></Preference><PreferenceScreen android:title="@string/prefScreenLegal"
-		android:key="prefKeyLegal">
-		
-		<Preference android:key="prefKeyLegalGnomeIcons" android:summary="@string/prefLegalGnomeIconsLong" android:title="@string/prefLegalGnomeIcons"></Preference><Preference android:key="prefKeyLegalOxigenIcons"
-			android:title="@string/prefLegalOxigenIcons" android:summary="@string/prefLegalOxigenIconsLong"></Preference>
-		
+		<Preference android:key="prefKeyVersion"></Preference>
+		<Preference android:key="prefKeyChangelog" android:title="@string/prefChangelog"></Preference>
+		<PreferenceScreen android:title="@string/prefScreenLegal"
+			android:key="prefKeyLegal">
+
+			<Preference android:key="prefKeyLegalGnomeIcons"
+				android:summary="@string/prefLegalGnomeIconsLong" android:title="@string/prefLegalGnomeIcons"></Preference>
+			<Preference android:key="prefKeyLegalOxigenIcons"
+				android:title="@string/prefLegalOxigenIcons" android:summary="@string/prefLegalOxigenIconsLong"></Preference>
+
+		</PreferenceScreen>
+
 	</PreferenceScreen>
-		
-	</PreferenceScreen>
+	
 </PreferenceScreen>

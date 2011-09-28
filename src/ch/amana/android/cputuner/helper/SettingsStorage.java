@@ -41,6 +41,9 @@ public class SettingsStorage {
 
 	private static final String PREF_KEY_CONFIGURATION = "prefKeyConfiguration";
 
+	public static final String PREF_KEY_MIN_FREQ = "prefKeyMinFreq";
+	public static final String PREF_KEY_MAX_FREQ = "prefKeyMaxFreq";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -433,8 +436,38 @@ public class SettingsStorage {
 			return Integer.parseInt(getPreferences().getString("prefKeyNetworkModeOnWifiConnected", "0"));
 		} catch (NumberFormatException e) {
 			Logger.w("Cannot parse prefKeyNetworkModeOnWifiConnected as int", e);
-			return 2;
+			return 0;
 		}
+	}
+
+	public int getMinFrequencyDefault() {
+		try {
+			return Integer.parseInt(getPreferences().getString(PREF_KEY_MIN_FREQ, "-1"));
+		} catch (NumberFormatException e) {
+			Logger.w("Cannot parse PREF_KEY_MIN_FREQ as int", e);
+			return -1;
+		}
+	}
+
+	public void setMinFrequencyDefault(int minCpuFreq) {
+		Editor editor = getPreferences().edit();
+		editor.putString(PREF_KEY_MIN_FREQ, Integer.toString(minCpuFreq));
+		editor.commit();
+	}
+
+	public int getMaxFrequencyDefault() {
+		try {
+			return Integer.parseInt(getPreferences().getString(PREF_KEY_MAX_FREQ, "-1"));
+		} catch (NumberFormatException e) {
+			Logger.w("Cannot parse PREF_KEY_MAX_FREQ as int", e);
+			return -1;
+		}
+	}
+
+	public void setMaxFrequencyDefault(int maxCpuFreq) {
+		Editor editor = getPreferences().edit();
+		editor.putString(PREF_KEY_MAX_FREQ, Integer.toString(maxCpuFreq));
+		editor.commit();
 	}
 
 }

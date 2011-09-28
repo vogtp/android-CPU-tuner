@@ -27,7 +27,7 @@ import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class InstallHelper {
 
-	private static final int VERSION = 4;
+	private static final int VERSION = 5;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -44,6 +44,28 @@ public class InstallHelper {
 	private static CpuGovernorSettings cgsNormal;
 	private static CpuGovernorSettings cgsSave;
 	private static CpuGovernorSettings cgsExtremSave;
+
+	public static void initialise(Context ctx) {
+		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
+		switch (defaultProfilesVersion) {
+		case 0:
+			Logger.i("Initalising cpu tuner from scratch");
+			updateDefaultProfiles(ctx);
+
+		case 2:
+			Logger.i("Initalising cpu tuner to level 3");
+			updateProfilesFromVirtGovs(ctx);
+
+		case 4:
+			Logger.i("Initalising cpu tuner to level 5");
+			SettingsStorage settings = SettingsStorage.getInstance();
+			CpuHandler cpuHandler = CpuHandler.getInstance();
+			settings.setMinFrequencyDefault(cpuHandler.getMinCpuFreq());
+			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());
+
+		}
+		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
+	}
 
 	public static void resetToDefault(final Context ctx) {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
@@ -89,15 +111,14 @@ public class InstallHelper {
 					List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
 					long profilePerformance = createCpuProfile(resolver, ctx.getString(R.string.profilename_performance), getPowerGov(ctx, resolver, availGov, gov), freqMax,
-							freqMin, 0, 0, 0, 0, 1);
-					long profileGood = createCpuProfile(resolver, ctx.getString(R.string.profilename_good), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0,
-							0, 1);
+							freqMin);
+					long profileGood = createCpuProfile(resolver, ctx.getString(R.string.profilename_good), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin);
 					long profileNormal = createCpuProfile(resolver, ctx.getString(R.string.profilename_normal), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin);
 					long profileScreenOff = createCpuProfile(resolver, ctx.getString(R.string.profilename_screen_off), getExtremSaveGov(ctx, resolver, availGov, gov), freqMax,
 							freqMin);
-					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
+					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(ctx, resolver, availGov, gov), freqMax, freqMin);
 					long profileExtremPowersave = createCpuProfile(resolver, ctx.getString(R.string.profilename_extreme_powersave), getExtremSaveGov(ctx, resolver, availGov, gov),
-							freqMax, freqMin, 2, 2, 2, 1, 2);
+							freqMax, freqMin);
 
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance, profilePerformance);
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileNormal, profileGood, profilePerformance);
@@ -311,26 +332,6 @@ public class InstallHelper {
 		return id;
 	}
 
-	public static void populateDb(Context ctx) {
-		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
-		switch (defaultProfilesVersion) {
-		case 0:
-			Logger.i("Initalising cpu tuner from scratch");
-			updateDefaultProfiles(ctx);
-			break;
-
-		case 2:
-			Logger.i("Initalising cpu tuner to level 2");
-			updateDefaultProfiles(ctx);
-			updateProfilesFromVirtGovs(ctx);
-
-		case 3:
-			Logger.i("Initalising cpu tuner to level 3");
-
-		}
-		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
-	}
-
 	private static void updateProfilesFromVirtGovs(Context ctx) {
 		ContentResolver contentResolver = ctx.getContentResolver();
 		Cursor cursorVirtGov = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, null, null, VirtualGovernor.SORTORDER_DEFAULT);
@@ -348,19 +349,5 @@ public class InstallHelper {
 			}
 		}
 	}
-
-	// public static void magicallyHeal(Context ctx) {
-	// Logger.w("Magically healing cpu tuner");
-	// File dataDirectory =
-	// ctx.getDatabasePath("cputuner").getParentFile().getParentFile();
-	// if (!dataDirectory.isDirectory()) {
-	// Logger.w("Healing: Creating directory " +
-	// dataDirectory.getAbsolutePath());
-	// RootHandler.execute("mkdir -p " + dataDirectory.getAbsolutePath());
-	// updateDefaultProfiles(ctx);
-	// }
-	// RootHandler.execute("chown -R " + android.os.Process.myUid() + " " +
-	// dataDirectory.getAbsolutePath());
-	// }
 
 }

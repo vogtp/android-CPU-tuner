@@ -11,4 +11,9 @@
         <string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
         <string name="labelPowesaveBiasPerformance">Performance</string>
         <string name="labelPowesaveBiasPowersave">Powersave</string>
+        <string name="prefMaxFreq">Default maximum frequency</string>
+        <string name="prefMaxFreqLong">The maximum frequency to be applied when loading default configurations.</string>
+        <string name="prefMinFreq">Default minimum frequency</string>
+        <string name="prefMinFreqLong">The minimum frequency to be applied when loading default configurations.</string>
+        <string name="prefKeyFrequencies">Frequencies for default configurations</string>
 </resources>

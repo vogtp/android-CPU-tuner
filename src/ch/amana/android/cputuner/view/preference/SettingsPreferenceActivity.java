@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -204,14 +205,18 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 		
-		//		ListPreference maxDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MAX_FREQ);
-		//		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);
-		//		String freqs[] = new String[availCpuFreq.length];
-		//		for (int i = 0; i < availCpuFreq.length; i++) {
-		//			freqs[i] = Integer.toString(availCpuFreq[i]);
-		//		}
-		//		maxDefaultFreq.setEntries(freqs);
-		//		maxDefaultFreq.setEntryValues(freqs);
+		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);
+		String freqs[] = new String[availCpuFreq.length];
+		for (int i = 0; i < availCpuFreq.length; i++) {
+			freqs[i] = Integer.toString(availCpuFreq[i]);
+		}
+		ListPreference maxDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MAX_FREQ);
+		maxDefaultFreq.setEntries(freqs);
+		maxDefaultFreq.setEntryValues(freqs);
+
+		ListPreference minDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MIN_FREQ);
+		minDefaultFreq.setEntries(freqs);
+		minDefaultFreq.setEntryValues(freqs);
 	}
 
 	@Override
