@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.helper;
 import java.util.Arrays;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ContentResolver;
@@ -11,6 +12,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -24,6 +26,7 @@ import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
 public class InstallHelper {
 
@@ -48,14 +51,6 @@ public class InstallHelper {
 	public static void initialise(Context ctx) {
 		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
 		switch (defaultProfilesVersion) {
-		case 0:
-			Logger.i("Initalising cpu tuner from scratch");
-			updateDefaultProfiles(ctx);
-
-		case 2:
-			Logger.i("Initalising cpu tuner to level 3");
-			updateProfilesFromVirtGovs(ctx);
-
 		case 4:
 			Logger.i("Initalising cpu tuner to level 5");
 			SettingsStorage settings = SettingsStorage.getInstance();
@@ -64,7 +59,44 @@ public class InstallHelper {
 			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());
 
 		}
+		// is called from main activity: ensureConfiguration(ctx);
 		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
+	}
+
+	public static void ensureConfiguration(Activity act) {
+		if (!hasConfig(act)) {
+			Intent intent = new Intent(act, ConfigurationManageActivity.class);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_DISABLE_ON_NOLOAD, true);
+			act.startActivityForResult(intent, 1);
+		}
+	}
+
+	private static boolean hasConfig(Context ctx) {
+		boolean ret = true;
+		ContentResolver resolver = ctx.getContentResolver();
+		ret = ret && checkCursor(resolver, DB.CpuProfile.CONTENT_URI);
+		ret = ret && checkCursor(resolver, DB.Trigger.CONTENT_URI);
+		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+			ret = ret && checkCursor(resolver, DB.VirtualGovernor.CONTENT_URI);
+		}
+		return ret;
+	}
+
+	private static boolean checkCursor(ContentResolver resolver, Uri contentUri) {
+		Cursor c = null;
+		try {
+			c = resolver.query(contentUri, DB.PROJECTION_IDE, null, null, null);
+			if (c == null) {
+				return false;
+			}
+			return c.moveToFirst();
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
+			}
+		}
 	}
 
 	public static void resetToDefault(final Context ctx) {
@@ -76,7 +108,7 @@ public class InstallHelper {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				CpuTunerProvider.deleteAllTables(ctx, false);
+				CpuTunerProvider.deleteAllTables(ctx, true);
 				updateDefaultProfiles(ctx);
 
 			}

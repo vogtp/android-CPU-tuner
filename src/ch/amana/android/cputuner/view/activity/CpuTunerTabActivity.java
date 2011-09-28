@@ -9,6 +9,7 @@ import android.widget.TabHost;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
+import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 
@@ -28,6 +29,8 @@ public class CpuTunerTabActivity extends TabActivity {
 		}
 
 		GuiUtils.setLanguage(this);
+
+		InstallHelper.ensureConfiguration(this);
 
 		final TabHost tabHost = getTabHost();
 
