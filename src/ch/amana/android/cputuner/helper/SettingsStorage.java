@@ -129,11 +129,14 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(ENABLE_PROFILES, b);
 		editor.commit();
+		// FIXME start also config and pulse?
 		Intent intent = new Intent(context, BatteryService.class);
 		if (enableProfiles) {
 			context.startService(intent);
+			Notifier.startStatusbarNotifications(context);
 			PowerProfiles.getInstance().reapplyProfile(true);
 		} else {
+			Notifier.stopStatusbarNotifications();
 			context.stopService(intent);
 		}
 	}

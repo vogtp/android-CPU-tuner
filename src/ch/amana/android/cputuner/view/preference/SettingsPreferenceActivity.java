@@ -28,11 +28,9 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.service.BatteryService;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
@@ -42,11 +40,13 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	private String helpPage;
 	private ListPreference maxDefaultFreq;
 	private ListPreference minDefaultFreq;
+	private SettingsStorage settings;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		settings = SettingsStorage.getInstance();
 
 		addPreferencesFromResource(R.xml.settings_preferences);
 
@@ -64,21 +64,22 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 						alertBuilder.setNegativeButton(R.string.no, new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								SettingsStorage.getInstance().setEnableProfiles(true);
+								settings.setEnableProfiles(true);
 								((CheckBoxPreference) preference).setChecked(true);
-								Notifier.startStatusbarNotifications(getApplicationContext());
 							}
 						});
 						alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								SettingsStorage.getInstance().setEnableProfiles(false);
+								settings.setEnableProfiles(false);
 								((CheckBoxPreference) preference).setChecked(false);
 							}
 						});
 						AlertDialog alert = alertBuilder.create();
 						alert.show();
 						return false;
+					} else {
+						settings.setEnableProfiles(true);
 					}
 				}
 				return true;
@@ -103,10 +104,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				if (newValue instanceof Boolean) {
-					if (SettingsStorage.getInstance().isEnableProfiles()) {
-						Intent intent = new Intent(SettingsPreferenceActivity.this, BatteryService.class);
-						startService(intent);
-					}
+					settings.setEnableProfiles((Boolean) newValue);
 				}
 				return true;
 			}
@@ -240,7 +238,6 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		SettingsStorage settings = SettingsStorage.getInstance();
 		// systemAppPreference.setEnabled(settings.isInstallAsSystemAppEnabled());
 		cpuFreqPreference.setEnabled(!settings.isBeginnerUser());
 		prefMinSensibleFrequency.setEnabled(!(settings.isBeginnerUser() || settings.isPowerUser()));
@@ -253,7 +250,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		SettingsStorage.getInstance().forgetValues();
+		settings.forgetValues();
 		CpuHandler.resetInstance();
 	}
 

@@ -6,9 +6,10 @@ V
 
 V 3.0.0
 * features
-- 
+- initalise cputuner from (default) configurations
 - label powersave bias
 * bug fixes
+- start/stop notification entry on enable/disable
 -
 
 V 2.7.7

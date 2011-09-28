@@ -1,9 +1,8 @@
-- create a different default configs and load on init
-* make autoload restoreable (test if it works)
+* make autoload restoreable and decouple it from configs (test if it works)
+
+- show long description of configs
 
 - triggers cannot have to same battery level
-
-- fix notification entry on enable/disable
 
 - handle two configuration have the same name
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
