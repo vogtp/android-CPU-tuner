@@ -109,6 +109,7 @@ public class BackupRestoreHelper {
 		for (int i = 0; i < table.length(); i++) {
 			ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel();
 			cam.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			// FIXME insert or update
 			contentResolver.insert(DB.ConfigurationAutoload.CONTENT_URI, cam.getValues());
 		}
 	}
