@@ -1,8 +1,9 @@
 - create a different default configs and load on init
+* make backup/restore helper non static
 * save default frequencies on first boot (in settings or sd card)
 * handle governors
 * handle frequencies 
-* make autoload restoreable
+* make autoload restoreable (test if it works)
 
 - triggers cannot have to same battery level
 
