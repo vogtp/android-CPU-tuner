@@ -37,10 +37,13 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
+	public static final String EXTRA_DISABLE_ON_NOLOAD = "disableOnNoload";
 	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
 	private SysConfigurationsAdapter sysConfigsAdapter;
 	private BackupRestoreHelper backupRestoreHelper;
+	private boolean disableOnNoload = false;
+	private boolean loadingSuccess = false;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -51,6 +54,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		setTitle(title);
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
+		disableOnNoload = getIntent().getBooleanExtra(EXTRA_DISABLE_ON_NOLOAD, false);
 
 		backupRestoreHelper = new BackupRestoreHelper(this);
 
@@ -84,6 +88,15 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		}
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (disableOnNoload) {
+			Toast.makeText(this, getString(loadingSuccess ? R.string.msgEnableCputuner : R.string.msgDisableCputuner), Toast.LENGTH_LONG).show();
+			SettingsStorage.getInstance().setEnableProfiles(loadingSuccess);
+		}
+	}
+
 	private void saveConfig(String name) {
 		backupRestoreHelper.backupConfiguration(name);
 	}
@@ -93,9 +106,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			backupRestoreHelper.restoreConfiguration(name, isUserConfig, true);
 			SettingsStorage.getInstance().setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
-			if (closeOnLoad) {
-				finish();
-			}
+
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");
 		}
@@ -302,6 +313,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	@Override
 	public void hasFinished(boolean success) {
+		loadingSuccess = success;
+		if (closeOnLoad && success) {
+			finish();
+		}
 		updateListView();
 	}
 }

@@ -6,6 +6,8 @@
         <!-- <item>Battery % per hour</item> -->
         <item>No calculation</item>
     </string-array>
+        <string name="msgEnableCputuner">Enabling CPU tuner</string>
+        <string name="msgDisableCputuner">Disabling CPU tuner</string>
         <string name="labelYourConfigurations">Your configurations</string>
         <string name="labelSystemConfigurations">System configurations</string>
         <string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
