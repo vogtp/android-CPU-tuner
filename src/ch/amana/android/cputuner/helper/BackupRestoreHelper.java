@@ -29,7 +29,19 @@ public class BackupRestoreHelper {
 
 	public static final String DIRECTORY_CONFIGURATIONS = "configurations";
 
-	public static void backup(BackupRestoreCallback cb, File storagePath) {
+	public static final Object MUTEX = new Object();
+
+	private final BackupRestoreCallback cb;
+
+	private final ContentResolver contentResolver;
+
+	public BackupRestoreHelper(BackupRestoreCallback cb) {
+		super();
+		this.cb = cb;
+		this.contentResolver = cb.getContext().getContentResolver();
+	}
+
+	private void backup(File storagePath) {
 		if (!storagePath.isDirectory()) {
 			storagePath.mkdir();
 		}
@@ -43,33 +55,25 @@ public class BackupRestoreHelper {
 		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directory);
 	}
 
-	private static void restore(BackupRestoreCallback cb, DataJsonImporter dje, boolean inclAutoloadConfig) throws Exception {
+	private void restore(DataJsonImporter dje, boolean inclAutoloadConfig) throws JSONException {
 		Context ctx = cb.getContext();
 		CpuTunerProvider.deleteAllTables(ctx, inclAutoloadConfig);
-		ContentResolver contentResolver = ctx.getContentResolver();
-		try {
-			synchronized (ModelAccess.virtgovCacheMutex) {
-				synchronized (ModelAccess.profileCacheMutex) {
-					synchronized (ModelAccess.triggerCacheMutex) {
-						loadVirtualGovernors(contentResolver, dje);
-						loadCpuProfiles(contentResolver, dje);
-						loadTriggers(contentResolver, dje);
-						if (inclAutoloadConfig) {
-							loadAutoloadConfig(contentResolver, dje);
-						}
+		synchronized (ModelAccess.virtgovCacheMutex) {
+			synchronized (ModelAccess.profileCacheMutex) {
+				synchronized (ModelAccess.triggerCacheMutex) {
+					loadVirtualGovernors(dje);
+					loadCpuProfiles(dje);
+					loadTriggers(dje);
+					if (inclAutoloadConfig) {
+						loadAutoloadConfig(dje);
 					}
 				}
 			}
-			cb.hasFinished(true);
-			ModelAccess.getInstace(cb.getContext()).clearCache();
-		} catch (JSONException e) {
-			Logger.e("Cannot restore tables", e);
-			cb.hasFinished(false);
-			throw new Exception("Error restoring", e);
 		}
+		ModelAccess.getInstace(cb.getContext()).clearCache();
 	}
 
-	private static void loadVirtualGovernors(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadVirtualGovernors(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.VirtualGovernor.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			VirtualGovernorModel vgm = new VirtualGovernorModel();
@@ -78,7 +82,7 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	private static void loadCpuProfiles(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadCpuProfiles(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.CpuProfile.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			ProfileModel pm = new ProfileModel();
@@ -87,7 +91,7 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	private static void loadTriggers(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadTriggers(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.Trigger.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			TriggerModel tr = new TriggerModel();
@@ -96,7 +100,7 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	private static void loadAutoloadConfig(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadAutoloadConfig(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.ConfigurationAutoload.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel();
@@ -105,52 +109,72 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	public static void backupConfiguration(BackupRestoreCallback cb, String name) {
-		if (name == null) {
-			return;
+	public void backupConfiguration(String name) {
+		synchronized (MUTEX) {
+			if (name == null) {
+				return;
+			}
+			File storagePath = new File(getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
+			if (!storagePath.isDirectory()) {
+				storagePath.mkdirs();
+			}
+			backup(storagePath);
 		}
-		File storagePath = new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
-		if (!storagePath.isDirectory()) {
-			storagePath.mkdirs();
-		}
-		backup(cb, storagePath);
 	}
 
-	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean isUserConfig, boolean restoreAutoload) throws Exception {
-		if (name == null) {
-			return;
+	public void restoreConfiguration(String name, boolean isUserConfig, boolean restoreAutoload) throws Exception {
+		synchronized (MUTEX) {
+			if (name == null) {
+				return;
+			}
+			try {
+				if (isUserConfig) {
+					File file = new File(getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
+					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
+					restore(dje, restoreAutoload);
+				} else {
+					String fileName = DIRECTORY_CONFIGURATIONS + "/" + name + "/" + DB.DATABASE_NAME + JsonConstants.FILE_NAME;
+					InputStream is = cb.getContext().getAssets().open(fileName);
+					//	getconfig 
+					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
+					restore(dje, restoreAutoload);
+					//	FIXME		fix frequencies
+					//	fix governors
+					fixGovernors();
+				}
+				PowerProfiles.getInstance().reapplyProfile(true);
+				cb.hasFinished(true);
+			} catch (Exception e) {
+				Logger.e("Cannot restore configuration", e);
+				cb.hasFinished(false);
+				throw new Exception("Cannot restore configuration", e);
+			}
 		}
-		if (isUserConfig) {
-			File file = new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
-			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
-			restore(cb, dje, restoreAutoload);
-		} else {
-			String fileName = DIRECTORY_CONFIGURATIONS + "/" + name + "/" + DB.DATABASE_NAME + JsonConstants.FILE_NAME;
-			InputStream is = cb.getContext().getAssets().open(fileName);
-			//			getconfig 
-			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
-			restore(cb, dje, restoreAutoload);
-			//	FIXME		fix frequencies
-			//	FIXME		fix governors
-		}
-		PowerProfiles.getInstance().reapplyProfile(true);
 	}
 
-	public static void saveConfiguration(final Context ctx) {
-		SettingsStorage settings = SettingsStorage.getInstance();
-		if (settings.isSaveConfiguration()) {
-			BackupRestoreCallback callback = new BackupRestoreCallback() {
-				@Override
-				public void hasFinished(boolean success) {
-				}
+	private void fixGovernors() {
+		// FIXME
+		//		Cursor c = null;
+		//		String[] availCpuGov = CpuHandler.getInstance().getAvailCpuGov();
+		//		try {
+		//			c = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, null);
+		//			while (c.moveToNext()) {
+		//				String govs = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
+		//				String[] govitems = govs.split("|");
+		//				for (String gov : govitems) {
+		//					if (Arrays.binarySearch(availCpuGov, 0, availCpuGov.length, gov) > -1) {
+		//						Logger.i("Using " + gov);
+		//					}
+		//				}
+		//
+		//			}
+		//		} finally {
+		//			if (c != null) {
+		//				c.close();
+		//				c = null;
+		//			}
+		//		}
 
-				@Override
-				public Context getContext() {
-					return ctx;
-				}
-			};
-			BackupRestoreHelper.backupConfiguration(callback, settings.getCurrentConfiguration());
-		}
 	}
 
 }

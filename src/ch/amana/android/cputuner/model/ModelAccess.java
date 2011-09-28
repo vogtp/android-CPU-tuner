@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -19,7 +20,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
-public class ModelAccess {
+public class ModelAccess implements BackupRestoreCallback {
 
 	private static final String SELECTION_BY_ID = DB.NAME_ID + "=?";
 	// private static final String SELECTION_TRIGGER_BY_BATTERYLEVEL =
@@ -42,6 +43,8 @@ public class ModelAccess {
 	public static final Object profileCacheMutex = new Object();
 	public static final Object virtgovCacheMutex = new Object();
 	private static final Object triggerByBatteryLevelCacheMutex = new Object();
+	private SettingsStorage settings;
+	private BackupRestoreHelper backupRestoreHelper;
 
 	public static ModelAccess getInstace(Context ctx) {
 		if (instace == null) {
@@ -53,6 +56,9 @@ public class ModelAccess {
 	private ModelAccess(Context ctx) {
 		super();
 		this.ctx = ctx;
+
+		settings = SettingsStorage.getInstance();
+		backupRestoreHelper = new BackupRestoreHelper(this);
 		contentResolver = ctx.getContentResolver();
 		// handler = new Handler();
 		batteryLevelComparator = new Comparator<Integer>() {
@@ -82,7 +88,9 @@ public class ModelAccess {
 	}
 
 	public void configChanged() {
-		BackupRestoreHelper.saveConfiguration(ctx);
+		if (settings.isSaveConfiguration()) {
+			backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
+		}
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs) {
@@ -353,6 +361,16 @@ public class ModelAccess {
 				cursor.close();
 			}
 		}
+	}
+
+	@Override
+	public Context getContext() {
+		return ctx;
+	}
+
+	@Override
+	public void hasFinished(boolean success) {
+		// do nothing
 	}
 
 }

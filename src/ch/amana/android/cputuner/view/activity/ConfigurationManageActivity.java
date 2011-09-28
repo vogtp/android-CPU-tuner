@@ -39,6 +39,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
 	private SysConfigurationsAdapter sysConfigsAdapter;
+	private BackupRestoreHelper backupRestoreHelper;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,6 +50,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		setTitle(title);
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
+
+		backupRestoreHelper = new BackupRestoreHelper(this);
 
 		ListView lvConfiguration = getListView();
 		configsAdapter = new ConfigurationsListAdapter(this);
@@ -81,12 +84,12 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void saveConfig(String name) {
-		BackupRestoreHelper.backupConfiguration(this, name);
+		backupRestoreHelper.backupConfiguration(name);
 	}
 
 	private void loadConfig(String name, boolean isUserConfig) {
 		try {
-			BackupRestoreHelper.restoreConfiguration(this, name, isUserConfig, true);
+			backupRestoreHelper.restoreConfiguration(name, isUserConfig, true);
 			SettingsStorage.getInstance().setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 			if (closeOnLoad) {
