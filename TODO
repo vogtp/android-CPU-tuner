@@ -1,4 +1,8 @@
-* make autoload restoreable and decouple it from configs (test if it works)
+- fix boot sequence: e.g. ask for user level
+
+- check en-disable for other services (do we need to start more?)
+
+* make autoload restoreable and decouple it from configs 
 
 - show long description of configs
 
