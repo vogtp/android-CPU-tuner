@@ -164,9 +164,6 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationManageActivity.class);
-				if (SettingsStorage.getInstance().isEnableBeta()) {
-					i = new Intent(SettingsPreferenceActivity.this, ch.amana.android.cputuner.view.activity.ConfigurationManageActivity.class);
-				}
 				startActivity(i);
 				return true;
 			}
@@ -206,6 +203,15 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+		
+		//		ListPreference maxDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MAX_FREQ);
+		//		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);
+		//		String freqs[] = new String[availCpuFreq.length];
+		//		for (int i = 0; i < availCpuFreq.length; i++) {
+		//			freqs[i] = Integer.toString(availCpuFreq[i]);
+		//		}
+		//		maxDefaultFreq.setEntries(freqs);
+		//		maxDefaultFreq.setEntryValues(freqs);
 	}
 
 	@Override

@@ -150,7 +150,6 @@
 				<category android:name="android.intent.category.DEFAULT"></category>
 			</intent-filter>
 		</activity>
-		<activity android:name=".view.activity.ConfigurationManageActivity"></activity>
 	</application>
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
 
