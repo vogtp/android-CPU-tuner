@@ -160,8 +160,11 @@ public class BackupRestoreHelper {
 	private void fixFrequencies() {
 		SettingsStorage settings = SettingsStorage.getInstance();
 		ContentValues values = new ContentValues(2);
-		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, settings.getMaxFrequencyDefault());
-		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, settings.getMinFrequencyDefault());
+		int maxFreq = settings.getMaxFrequencyDefault();
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, maxFreq);
+		int minFreq = settings.getMinFrequencyDefault();
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, minFreq);
+		Logger.i("Changing frequencies of default profile to min " + minFreq + " and max " + maxFreq);
 		Cursor c = null;
 		try {
 			c = contentResolver.query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, null);

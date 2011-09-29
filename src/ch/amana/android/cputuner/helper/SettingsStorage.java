@@ -44,6 +44,9 @@ public class SettingsStorage {
 	public static final String PREF_KEY_MIN_FREQ = "prefKeyMinFreq";
 	public static final String PREF_KEY_MAX_FREQ = "prefKeyMaxFreq";
 
+	private static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
+	private static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -176,11 +179,11 @@ public class SettingsStorage {
 		editor.putBoolean(PREF_KEY_USER_LEVEL_SET, true);
 		editor.commit();
 	}
-	
+
 	public boolean isUserLevelSet() {
 		return getPreferences().getBoolean(PREF_KEY_USER_LEVEL_SET, false);
 	}
-	
+
 	public int getUserLevel() {
 		if (!checkUserLevel) {
 			checkUserLevel = true;
@@ -364,11 +367,11 @@ public class SettingsStorage {
 	public String getLanguage() {
 		return getPreferences().getString("prefKeyLanguage", "");
 	}
-	
+
 	public boolean isPulseMobiledataOnWifi() {
 		return getPreferences().getBoolean("prefKeyPulseMobiledataOnWifi", true);
 	}
-		
+
 	public boolean isUseVirtualGovernors() {
 		return getPreferences().getBoolean(PREF_KEY_USE_VIRTUAL_GOVS, true);
 	}
@@ -407,7 +410,6 @@ public class SettingsStorage {
 		edit.commit();
 	}
 
-
 	public String getCurrentConfiguration() {
 		return getPreferences().getString(PREF_KEY_CONFIGURATION, context.getString(R.string.config_default));
 	}
@@ -444,32 +446,48 @@ public class SettingsStorage {
 	}
 
 	public int getMinFrequencyDefault() {
-		try {
-			return Integer.parseInt(getPreferences().getString(PREF_KEY_MIN_FREQ, "-1"));
-		} catch (NumberFormatException e) {
-			Logger.w("Cannot parse PREF_KEY_MIN_FREQ as int", e);
-			return -1;
+		if (!isBeginnerUser()) {
+			try {
+				int ret = Integer.parseInt(getPreferences().getString(PREF_KEY_MIN_FREQ, "-1"));
+				if (ret > 0) {
+					return ret;
+				}
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse PREF_KEY_MIN_FREQ as int", e);
+			}
 		}
+		return getPreferences().getInt(PREF_KEY_MIN_FREQ_DEFAULT, -1);
 	}
 
 	public void setMinFrequencyDefault(int minCpuFreq) {
 		Editor editor = getPreferences().edit();
-		editor.putString(PREF_KEY_MIN_FREQ, Integer.toString(minCpuFreq));
+		if ("".equals(getPreferences().getString(PREF_KEY_MIN_FREQ, ""))) {
+			editor.putString(PREF_KEY_MIN_FREQ, Integer.toString(minCpuFreq));
+		}
+		editor.putInt(PREF_KEY_MIN_FREQ_DEFAULT, minCpuFreq);
 		editor.commit();
 	}
 
 	public int getMaxFrequencyDefault() {
-		try {
-			return Integer.parseInt(getPreferences().getString(PREF_KEY_MAX_FREQ, "-1"));
-		} catch (NumberFormatException e) {
-			Logger.w("Cannot parse PREF_KEY_MAX_FREQ as int", e);
-			return -1;
+		if (!isBeginnerUser()) {
+			try {
+				int ret = Integer.parseInt(getPreferences().getString(PREF_KEY_MAX_FREQ, "-1"));
+				if (ret > 0) {
+					return ret;
+				}
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse PREF_KEY_MAX_FREQ as int", e);
+			}
 		}
+		return getPreferences().getInt(PREF_KEY_MAX_FREQ_DEFAULT, -1);
 	}
 
 	public void setMaxFrequencyDefault(int maxCpuFreq) {
 		Editor editor = getPreferences().edit();
-		editor.putString(PREF_KEY_MAX_FREQ, Integer.toString(maxCpuFreq));
+		if ("".equals(getPreferences().getString(PREF_KEY_MAX_FREQ, ""))) {
+			editor.putString(PREF_KEY_MAX_FREQ, Integer.toString(maxCpuFreq));
+		}
+		editor.putInt(PREF_KEY_MAX_FREQ_DEFAULT, maxCpuFreq);
 		editor.commit();
 	}
 

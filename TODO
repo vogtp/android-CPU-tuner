@@ -1,4 +1,8 @@
-- fix boot sequence: e.g. ask for user level
+
+- fix current max frequency in current view
+
+- check root on first boot
+- if no gov get current gov
 
 - check en-disable for other services (do we need to start more?)
 
