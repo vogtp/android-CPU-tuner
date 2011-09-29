@@ -51,6 +51,10 @@ public class InstallHelper {
 	public static void initialise(Context ctx) {
 		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
 		switch (defaultProfilesVersion) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
 		case 4:
 			Logger.i("Initalising cpu tuner to level 5");
 			SettingsStorage settings = SettingsStorage.getInstance();
