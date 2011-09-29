@@ -34,9 +34,11 @@
 			<ListPreference android:title="@string/prefLanguage"
 				android:key="prefKeyLanguage" android:entryValues="@array/prefLanguageValues"
 				android:entries="@array/prefLanguageEntries"></ListPreference>
-			<ListPreference android:title="@string/prefUserLevel"
+			<Preference android:title="@string/prefUserLevel"
+				android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong"></Preference>
+		<!-- 	<ListPreference android:title="@string/prefUserLevel"
 				android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong"
-				android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference>
+				android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference>-->
 			<ListPreference android:title="@string/prefKeyCalcPowerUsage"
 				android:summary="@string/prefKeyCalcPowerUsageLong"
 				android:defaultValue="1" android:entries="@array/prefCalcPowerUsageEntries"

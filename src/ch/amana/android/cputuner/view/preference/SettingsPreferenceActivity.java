@@ -32,6 +32,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 
 public class SettingsPreferenceActivity extends PreferenceActivity {
 
@@ -194,13 +195,21 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		});
 
 		findPreference("prefKeyVersion").setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent i = new Intent(Intent.ACTION_VIEW);
 				Uri fromParts = Uri.parse("market://search?q=pname:" + getPackageName());
 				i.setData(fromParts);
 				startActivity(i);
+				return true;
+			}
+		});
+
+		findPreference("prefKeyUserLevel").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				UserExperianceLevelChooser uec = new UserExperianceLevelChooser(SettingsPreferenceActivity.this, true);
+				uec.show();
 				return true;
 			}
 		});
