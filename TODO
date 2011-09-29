@@ -3,8 +3,6 @@
 
 - check root on first boot -> write message
 - if no gov get current gov
-- update statistics on click
-
 
 * make autoload restoreable and decouple it from configs 
 

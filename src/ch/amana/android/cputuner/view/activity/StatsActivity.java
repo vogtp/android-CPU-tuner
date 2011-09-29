@@ -2,6 +2,8 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
@@ -17,17 +19,27 @@ public class StatsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stats);
 		tvStats = (TextView) findViewById(R.id.tvStats);
+		tvStats.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				updateView();
+			}
+		});
 	}
 
 	@Override
 	protected void onResume() {
+		updateView();
+		super.onResume();
+	}
+
+	private void updateView() {
 		StringBuilder sb = new StringBuilder();
 		getTotalTransitions(sb);
 		getTimeInState(sb);
 		getProfileSwitches(sb);
 
 		tvStats.setText(sb.toString());
-		super.onResume();
 	}
 
 	private void getProfileSwitches(StringBuilder sb) {
