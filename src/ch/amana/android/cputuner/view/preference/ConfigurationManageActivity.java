@@ -29,6 +29,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;
@@ -44,6 +45,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	private BackupRestoreHelper backupRestoreHelper;
 	private boolean disableOnNoload = false;
 	private boolean loadingSuccess = false;
+	private SettingsStorage settings;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -55,6 +57,12 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
 		disableOnNoload = getIntent().getBooleanExtra(EXTRA_DISABLE_ON_NOLOAD, false);
+
+		settings = SettingsStorage.getInstance();
+		if (!settings.isUserLevelSet()) {
+			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this);
+			uec.show();
+		}
 
 		backupRestoreHelper = new BackupRestoreHelper(this);
 
@@ -93,7 +101,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		super.onPause();
 		if (disableOnNoload) {
 			Toast.makeText(this, getString(loadingSuccess ? R.string.msgEnableCputuner : R.string.msgDisableCputuner), Toast.LENGTH_LONG).show();
-			SettingsStorage.getInstance().setEnableProfiles(loadingSuccess);
+			settings.setEnableProfiles(loadingSuccess);
 		}
 	}
 
@@ -104,7 +112,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	private void loadConfig(String name, boolean isUserConfig) {
 		try {
 			backupRestoreHelper.restoreConfiguration(name, isUserConfig, true);
-			SettingsStorage.getInstance().setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
+			settings.setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 
 		} catch (Exception e) {
@@ -207,7 +215,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 				File dest = new File(path.substring(0, idx), name);
 				file.renameTo(dest);
 				renameDB(oldName, name);
-				SettingsStorage.getInstance().setCurrentConfiguration(name);
+				settings.setCurrentConfiguration(name);
 				updateListView();
 			}
 		});
@@ -262,7 +270,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		if (name == null) {
 			return;
 		}
-		if (name.equals(SettingsStorage.getInstance().getCurrentConfiguration())) {
+		if (name.equals(settings.getCurrentConfiguration())) {
 			Toast.makeText(this, R.string.msg_cannot_delete_current_configuration, Toast.LENGTH_LONG).show();
 			return;
 		}
