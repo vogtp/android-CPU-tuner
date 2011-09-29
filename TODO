@@ -1,10 +1,10 @@
 
-- fix current max frequency in current view
+. fix dead screen on first load
 
-- check root on first boot
+- check root on first boot -> write message
 - if no gov get current gov
+- update statistics on click
 
-- check en-disable for other services (do we need to start more?)
 
 * make autoload restoreable and decouple it from configs 
 

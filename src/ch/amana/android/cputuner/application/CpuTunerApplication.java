@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -34,14 +35,25 @@ public class CpuTunerApplication extends Application {
 		try {
 			InstallHelper.initialise(ctx);
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
-				startService(new Intent(ctx, BatteryService.class));
-				PowerProfiles.getInstance().reapplyProfile(true);
-				ConfigurationAutoloadService.scheduleNextEvent(ctx);
+				startCpuTuner(ctx);
 			}
 		} catch (Throwable e) {
 			 Logger.e("Cannot update DB", e);
-			// InstallHelper.magicallyHeal(ctx);
-			// throw new RuntimeException("Cannot start cpu tuner", e);
 		}
+	}
+
+	public static void startCpuTuner(Context context) {
+		Context ctx = context.getApplicationContext();
+		ctx.startService(new Intent(ctx, BatteryService.class));
+		PowerProfiles.getInstance().reapplyProfile(true);
+		ConfigurationAutoloadService.scheduleNextEvent(ctx);
+		Notifier.startStatusbarNotifications(ctx);
+	}
+
+	public static void stopCpuTuner(Context context) {
+		Context ctx = context.getApplicationContext();
+		ctx.stopService(new Intent(ctx, BatteryService.class));
+		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
+		Notifier.stopStatusbarNotifications();
 	}
 }

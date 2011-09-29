@@ -9,8 +9,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
-import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.service.BatteryService;
 
@@ -135,12 +135,14 @@ public class SettingsStorage {
 		// FIXME start also config and pulse?
 		Intent intent = new Intent(context, BatteryService.class);
 		if (enableProfiles) {
-			context.startService(intent);
-			Notifier.startStatusbarNotifications(context);
-			PowerProfiles.getInstance().reapplyProfile(true);
+			//			context.startService(intent);
+			//			Notifier.startStatusbarNotifications(context);
+			//			PowerProfiles.getInstance().reapplyProfile(true);
+			CpuTunerApplication.startCpuTuner(context);
 		} else {
-			Notifier.stopStatusbarNotifications();
-			context.stopService(intent);
+			CpuTunerApplication.stopCpuTuner(context);
+			//			Notifier.stopStatusbarNotifications();
+			//			context.stopService(intent);
 		}
 	}
 
