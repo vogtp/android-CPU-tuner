@@ -27,8 +27,8 @@
 					android:text="@string/labelNormalExplain"
 					android:layout_marginLeft="@dimen/paddingUserLevelChooser"></TextView>
 				<RadioButton android:layout_width="wrap_content"
-					android:text="@string/labelPowerUserExplain" android:id="@+id/rbPowerUser"
-					android:layout_height="wrap_content"></RadioButton>
+					android:id="@+id/rbPowerUser"
+					android:layout_height="wrap_content" android:text="@string/labelPowerUser"></RadioButton>
 				<TextView android:layout_width="wrap_content" android:id="@+id/textView4"
 					android:layout_height="wrap_content" android:text="@string/labelPowerUserExplain"
 					android:layout_marginLeft="@dimen/paddingUserLevelChooser"></TextView>
