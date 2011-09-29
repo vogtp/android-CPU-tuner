@@ -59,7 +59,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		disableOnNoload = getIntent().getBooleanExtra(EXTRA_DISABLE_ON_NOLOAD, false);
 
 		settings = SettingsStorage.getInstance();
-		if (!settings.isUserLevelSet()) {
+
+		if (!SettingsStorage.getInstance().isUserLevelSet()) {
 			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this);
 			uec.show();
 		}

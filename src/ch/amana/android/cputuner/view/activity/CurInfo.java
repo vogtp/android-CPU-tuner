@@ -255,12 +255,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		final SettingsStorage settings = SettingsStorage.getInstance();
-		if (!settings.isUserLevelSet()) {
-			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this);
-			uec.show();
-		}
 
 		setContentView(R.layout.cur_info);
 

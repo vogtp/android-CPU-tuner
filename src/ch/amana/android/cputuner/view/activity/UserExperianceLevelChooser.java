@@ -11,8 +11,8 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class UserExperianceLevelChooser extends Dialog {
 
-	private RadioGroup rgUserLevel;
-	private SettingsStorage settingsStorage;
+	private final RadioGroup rgUserLevel;
+	private final SettingsStorage settingsStorage;
 
 	public UserExperianceLevelChooser(Context context) {
 	    super(context);
@@ -45,7 +45,6 @@ public class UserExperianceLevelChooser extends Dialog {
 			    }
 				settingsStorage.setUserLevel(userLevel);
 				UserExperianceLevelChooser.this.dismiss();
-				
 			}
 		});
 
