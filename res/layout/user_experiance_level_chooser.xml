@@ -34,7 +34,7 @@
 					android:layout_marginLeft="@dimen/paddingUserLevelChooser"></TextView>
 				<LinearLayout android:layout_height="wrap_content"
 					android:layout_width="match_parent" android:layout_marginTop="10dp"
-					android:baselineAligned="false" android:id="@+id/linearLayout1">
+					android:baselineAligned="false" android:id="@+id/llButtons">
 					<Button android:layout_gravity="fill_horizontal" android:id="@+id/buOk"
 						android:layout_height="wrap_content" android:layout_width="wrap_content"
 						android:text="@string/save" android:layout_weight="1"></Button>

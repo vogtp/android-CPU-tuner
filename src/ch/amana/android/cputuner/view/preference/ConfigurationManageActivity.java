@@ -61,7 +61,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		settings = SettingsStorage.getInstance();
 
 		if (!SettingsStorage.getInstance().isUserLevelSet()) {
-			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this);
+			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this, false);
 			uec.show();
 		}
 

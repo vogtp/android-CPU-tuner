@@ -5,8 +5,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class UserExperianceLevelChooser extends Dialog {
@@ -14,7 +16,7 @@ public class UserExperianceLevelChooser extends Dialog {
 	private final RadioGroup rgUserLevel;
 	private final SettingsStorage settingsStorage;
 
-	public UserExperianceLevelChooser(Context context) {
+	public UserExperianceLevelChooser(Context context, boolean allowCancel) {
 	    super(context);
 	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
 	             WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -49,12 +51,17 @@ public class UserExperianceLevelChooser extends Dialog {
 		});
 
 		
-		((Button)findViewById(R.id.buCancel)).setOnClickListener(new View.OnClickListener() {
+		Button buCancel = (Button) findViewById(R.id.buCancel);
+		buCancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				UserExperianceLevelChooser.this.cancel();
 			}
 		});
+
+		if (!allowCancel) {
+			GuiUtils.hideViews((LinearLayout) findViewById(R.id.llButtons), new View[] { buCancel });
+		}
 	}
 
 }

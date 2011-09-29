@@ -1,6 +1,4 @@
 
-- hide cancel button on first userlevel choose
-
 - check root on first boot -> write message
 - if no gov get current gov or try to set governors
 
