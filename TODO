@@ -1,8 +1,11 @@
+- move install level from default preferences to other non backuped preferences
 
 - check root on first boot -> write message
 - if no gov get current gov or try to set governors
 
 * make autoload restoreable and decouple it from configs 
+
+- hide frequencies for beginners (and state clearly in market)
 
 - show long description of configs
 
