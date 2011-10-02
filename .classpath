@@ -6,5 +6,6 @@
 	<classpathentry exported="true" kind="lib" path="/home/vogtp/android/android-sdk-linux_x86/extras/android/compatibility/v4/android-support-v4.jar" sourcepath="/home/vogtp/android/android-sdk-linux_x86/extras/android/compatibility/v4/src"/>
 	<classpathentry kind="src" path="/importExportDB"/>
 	<classpathentry kind="src" path="importExportDB_src"/>
+	<classpathentry kind="src" path="com_markupartist_android_widget_actionbar_src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,8 +1,8 @@
-package ch.amana.android.cputuner.view.activity;
+package ch.amana.android.cputuner.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.DialogInterface;
@@ -12,9 +12,11 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,8 +31,9 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class TriggersListActivity extends ListActivity {
+public class TriggersListFragment extends ListFragment {
 
 	protected static final String NO_PROFILE = "no profile";
 	private Cursor displayCursor;
@@ -40,24 +43,30 @@ public class TriggersListActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle(R.string.title_triggers);
+	}
 
-		displayCursor = managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 
-		checkCursor = managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_MINIMAL_HOT_PROFILE, DB.Trigger.NAME_HOT_PROFILE_ID + " > -1", null,
+		final Activity act = getActivity();
+		displayCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+
+		checkCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_MINIMAL_HOT_PROFILE, DB.Trigger.NAME_HOT_PROFILE_ID + " > -1", null,
 				DB.Trigger.SORTORDER_MINIMAL_HOT_PROFILE);
 
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		SimpleCursorAdapter adapter;
 		checkCursor.requery();
+		final Activity act = getActivity();
 		boolean hotState = checkCursor.getCount() > 0;
 		boolean callState = SettingsStorage.getInstance().isEnableCallInProgressProfile();
 		if (hotState && callState) {
-			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_hot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
+			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_hot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
 					DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
 					DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_HOT,
 					DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery,
@@ -65,14 +74,14 @@ public class TriggersListActivity extends ListActivity {
 					R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
 
 		} else if (callState) {
-			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_nohot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
+			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_nohot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
 					DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
 					DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID,
 					DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery, R.id.tvProfileOnPower,
 					R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
 
 		} else if (hotState) {
-			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_hot_nocall, displayCursor,
+			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_hot_nocall, displayCursor,
 					new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
 							DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
 							DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID,
@@ -81,7 +90,7 @@ public class TriggersListActivity extends ListActivity {
 							R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot, R.id.tvPowerCurrentHot });
 
 		} else {
-			adapter = new SimpleCursorAdapter(this, R.layout.trigger_item_nohot_nocall,
+			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_nohot_nocall,
 					displayCursor,
 					new String[] { DB.Trigger.NAME_TRIGGER_NAME,
 							DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
@@ -118,7 +127,7 @@ public class TriggersListActivity extends ListActivity {
 						|| columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
 					long profileId = cursor.getLong(columnIndex);
 					String profileName = NO_PROFILE;
-					Cursor cpuCursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME,
+					Cursor cpuCursor = getActivity().managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME,
 								DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
 					if (cpuCursor.moveToFirst()) {
 						profileName = cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
@@ -172,12 +181,12 @@ public class TriggersListActivity extends ListActivity {
 
 		});
 
-		getListView().setAdapter(adapter);
+		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Uri uri = ContentUris.withAppendedId(DB.Trigger.CONTENT_URI, id);
 
@@ -188,8 +197,9 @@ public class TriggersListActivity extends ListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		getMenuInflater().inflate(R.menu.db_list_context, menu);
-		getMenuInflater().inflate(R.menu.triggerlist_context, menu);
+		final Activity act = getActivity();
+		act.getMenuInflater().inflate(R.menu.db_list_context, menu);
+		act.getMenuInflater().inflate(R.menu.triggerlist_context, menu);
 	}
 
 	@Override
@@ -225,11 +235,12 @@ public class TriggersListActivity extends ListActivity {
 	}
 
 	private void clearPowerConsumtion(final Uri uri) {
-		final ContentResolver resolver = getContentResolver();
+		final Activity act = getActivity();
+		final ContentResolver resolver = act.getContentResolver();
 		Cursor c = resolver.query(uri, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 		if (c.moveToFirst()) {
 			final TriggerModel triggerModel = new TriggerModel(c);
-			Builder alertBuilder = new AlertDialog.Builder(this);
+			Builder alertBuilder = new AlertDialog.Builder(act);
 			alertBuilder.setTitle(R.string.menuItemClearPowerCurrent);
 			alertBuilder.setMessage(getResources().getString(R.string.msg_clear_power_consumption_of_named_trigger, triggerModel.getName()));
 			alertBuilder.setNegativeButton(android.R.string.no, null);
@@ -258,14 +269,15 @@ public class TriggersListActivity extends ListActivity {
 	}
 
 	private void deleteTrigger(final Uri uri) {
-		Builder alertBuilder = new AlertDialog.Builder(this);
+		final Activity act = getActivity();
+		Builder alertBuilder = new AlertDialog.Builder(act);
 		alertBuilder.setTitle(R.string.menuItemDelete);
 		alertBuilder.setMessage(R.string.msg_delete_selected_item);
 		alertBuilder.setNegativeButton(R.string.no, null);
 		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				getContentResolver().delete(uri, null, null);
+				act.getContentResolver().delete(uri, null, null);
 			}
 		});
 		AlertDialog alert = alertBuilder.create();
@@ -273,10 +285,9 @@ public class TriggersListActivity extends ListActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.list_option, menu);
-		return true;
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.list_option, menu);
 	}
 
 	@Override
@@ -284,7 +295,7 @@ public class TriggersListActivity extends ListActivity {
 		if (handleCommonMenu(item)) {
 			return true;
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_TRIGGER)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(getActivity(), item, HelpActivity.PAGE_TRIGGER)) {
 			return true;
 		}
 		return false;
@@ -300,13 +311,12 @@ public class TriggersListActivity extends ListActivity {
 	}
 
 	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
+	public void onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 
 		MenuItem menuItemClearPowerCurrent = menu.findItem(R.id.menuItemClearPowerCurrent);
 		if (menuItemClearPowerCurrent != null) {
 			menuItemClearPowerCurrent.setVisible(SettingsStorage.getInstance().getTrackCurrentType() != SettingsStorage.TRACK_CURRENT_HIDE);
 		}
-		return true;
 	}
 }

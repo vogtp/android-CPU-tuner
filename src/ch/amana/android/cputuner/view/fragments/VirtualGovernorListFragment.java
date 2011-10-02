@@ -1,8 +1,8 @@
-package ch.amana.android.cputuner.view.activity;
+package ch.amana.android.cputuner.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.app.ListActivity;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -11,9 +11,11 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,8 +31,9 @@ import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class VirtualGovernorListActivity extends ListActivity {
+public class VirtualGovernorListFragment extends ListFragment {
 
 	private Cursor displayCursor;
 
@@ -38,16 +41,21 @@ public class VirtualGovernorListActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		displayCursor = managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		displayCursor = getActivity().managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
 
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.virtual_governor_item, displayCursor,
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), R.layout.virtual_governor_item, displayCursor,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, DB.VirtualGovernor.NAME_REAL_GOVERNOR,
 						DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP },
 				new int[] { R.id.tvVirtualGovernor, R.id.tvGorvernor, R.id.tvThresholdDown, R.id.tvThresholdUp });
@@ -86,13 +94,13 @@ public class VirtualGovernorListActivity extends ListActivity {
 			}
 		});
 		
-		getListView().setAdapter(adapter);
+		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
 		getListView().setEnabled(SettingsStorage.getInstance().isUseVirtualGovernors());
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Uri uri = ContentUris.withAppendedId(DB.VirtualGovernor.CONTENT_URI, id);
 
@@ -101,10 +109,9 @@ public class VirtualGovernorListActivity extends ListActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.list_option, menu);
-		return true;
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.list_option, menu);
 	}
 
 	@Override
@@ -112,7 +119,7 @@ public class VirtualGovernorListActivity extends ListActivity {
 		if (handleCommonMenu(item)) {
 			return true;
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(getActivity(), item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
 			return true;
 		}
 		return false;
@@ -121,7 +128,7 @@ public class VirtualGovernorListActivity extends ListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		getMenuInflater().inflate(R.menu.db_list_context, menu);
+		getActivity().getMenuInflater().inflate(R.menu.db_list_context, menu);
 	}
 
 	@Override
@@ -163,8 +170,9 @@ public class VirtualGovernorListActivity extends ListActivity {
 	}
 
 	private void deleteVirtualGovernor(final Uri uri) {
-		Builder alertBuilder = new AlertDialog.Builder(this);
-		if (ModelAccess.getInstace(this).isVirtualGovernorUsed(ContentUris.parseId(uri))) {
+		final Activity act = getActivity();
+		Builder alertBuilder = new AlertDialog.Builder(act);
+		if (ModelAccess.getInstace(act).isVirtualGovernorUsed(ContentUris.parseId(uri))) {
 			// no not delete
 			alertBuilder.setTitle(R.string.menuItemDelete);
 			alertBuilder.setMessage(R.string.msgDeleteVirtGovNotPossible);
@@ -177,7 +185,7 @@ public class VirtualGovernorListActivity extends ListActivity {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					getContentResolver().delete(uri, null, null);
+					act.getContentResolver().delete(uri, null, null);
 				}
 			});
 		}

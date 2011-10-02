@@ -1,5 +1,6 @@
-package ch.amana.android.cputuner.view.activity;
+package ch.amana.android.cputuner.view.fragments;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +8,13 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar;
@@ -39,13 +42,9 @@ import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
-import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
-import ch.amana.android.cputuner.view.fragments.GovernorFragment;
-import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
-import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
 import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
-public class CurInfo extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback {
+public class CurInfoFragment extends Fragment implements GovernorFragmentCallback, FrequencyChangeCallback {
 
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
@@ -76,6 +75,8 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	private TextView labelConfig;
 	private TextView tvConfig;
 	private CpuFrequencyChooser cpuFrequencyChooser;
+	private TableRow trBattery;
+	private TableRow trPower;
 
 	protected class CpuTunerReceiver extends BroadcastReceiver {
 
@@ -93,13 +94,14 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 	public void registerReceiver() {
 		synchronized (lock) {
+			final Activity act = getActivity();
 			IntentFilter deviceStatusFilter = new IntentFilter(Notifier.BROADCAST_DEVICESTATUS_CHANGED);
 			IntentFilter triggerFilter = new IntentFilter(Notifier.BROADCAST_TRIGGER_CHANGED);
 			IntentFilter profileFilter = new IntentFilter(Notifier.BROADCAST_PROFILE_CHANGED);
 			receiver = new CpuTunerReceiver();
-			registerReceiver(receiver, deviceStatusFilter);
-			registerReceiver(receiver, triggerFilter);
-			registerReceiver(receiver, profileFilter);
+			act.registerReceiver(receiver, deviceStatusFilter);
+			act.registerReceiver(receiver, triggerFilter);
+			act.registerReceiver(receiver, profileFilter);
 			Logger.i("Registered CpuTunerReceiver");
 		}
 	}
@@ -108,7 +110,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		synchronized (lock) {
 			if (receiver != null) {
 				try {
-					unregisterReceiver(receiver);
+					getActivity().unregisterReceiver(receiver);
 					receiver = null;
 				} catch (Throwable e) {
 					Logger.w("Could not unregister BatteryReceiver", e);
@@ -181,7 +183,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 		@Override
 		public void setVirtualGovernor(long id) {
-			Cursor c = managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
+			Cursor c = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
 					VirtualGovernor.SORTORDER_DEFAULT);
 			if (c.moveToFirst()) {
 				VirtualGovernorModel vgm = new VirtualGovernorModel(c);
@@ -256,35 +258,49 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		View v = inflater.inflate(R.layout.cur_info, container, false);
+
+		tvCurrentTrigger = (TextView) v.findViewById(R.id.tvCurrentTrigger);
+		spProfiles = (Spinner) v.findViewById(R.id.spProfiles);
+		tvBatteryLevel = (TextView) v.findViewById(R.id.tvBatteryLevel);
+		tvAcPower = (TextView) v.findViewById(R.id.tvAcPower);
+		tvBatteryCurrent = (TextView) v.findViewById(R.id.tvBatteryCurrent);
+		tvBatteryLevel = (TextView) v.findViewById(R.id.tvBatteryLevel);
+		spCpuFreqMax = (Spinner) v.findViewById(R.id.spCpuFreqMax);
+		spCpuFreqMin = (Spinner) v.findViewById(R.id.spCpuFreqMin);
+		labelCpuFreqMin = (TextView) v.findViewById(R.id.labelCpuFreqMin);
+		labelCpuFreqMax = (TextView) v.findViewById(R.id.labelCpuFreqMax);
+		sbCpuFreqMax = (SeekBar) v.findViewById(R.id.SeekBarCpuFreqMax);
+		sbCpuFreqMin = (SeekBar) v.findViewById(R.id.SeekBarCpuFreqMin);
+		labelBatteryCurrent = (TextView) v.findViewById(R.id.labelBatteryCurrent);
+		trPulse = (TableRow) v.findViewById(R.id.TableRowPulse);
+		tvPulse = (TextView) v.findViewById(R.id.tvPulse);
+		spacerPulse = (TextView) v.findViewById(R.id.spacerPulse);
+		trMaxFreq = (TableRow) v.findViewById(R.id.TableRowMaxFreq);
+		trMinFreq = (TableRow) v.findViewById(R.id.TableRowMinFreq);
+		trBatteryCurrent = (TableRow) v.findViewById(R.id.TableRowBatteryCurrent);
+		trConfig = (TableRow) v.findViewById(R.id.TableRowConfig);
+		labelConfig = (TextView) v.findViewById(R.id.labelConfig);
+		tvConfig = (TextView) v.findViewById(R.id.tvConfig);
+		trBattery = (TableRow) v.findViewById(R.id.TableRowBattery);
+		trPower = (TableRow) v.findViewById(R.id.TableRowPower);
+		return v;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
 		final SettingsStorage settings = SettingsStorage.getInstance();
-
-		setContentView(R.layout.cur_info);
-
+		final Activity act = getActivity();
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();
 
-		tvCurrentTrigger = (TextView) findViewById(R.id.tvCurrentTrigger);
-		spProfiles = (Spinner) findViewById(R.id.spProfiles);
-		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
-		tvAcPower = (TextView) findViewById(R.id.tvAcPower);
-		tvBatteryCurrent = (TextView) findViewById(R.id.tvBatteryCurrent);
-		tvBatteryLevel = (TextView) findViewById(R.id.tvBatteryLevel);
-		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
-		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
-		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
-		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
-		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
-		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
-		labelBatteryCurrent = (TextView) findViewById(R.id.labelBatteryCurrent);
-		trPulse = (TableRow) findViewById(R.id.TableRowPulse);
-		tvPulse = (TextView) findViewById(R.id.tvPulse);
-		spacerPulse = (TextView) findViewById(R.id.spacerPulse);
-		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
-		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
-		trBatteryCurrent = (TableRow) findViewById(R.id.TableRowBatteryCurrent);
-		trConfig = (TableRow) findViewById(R.id.TableRowConfig);
-		labelConfig = (TextView) findViewById(R.id.labelConfig);
-		tvConfig = (TextView) findViewById(R.id.tvConfig);
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
@@ -294,12 +310,12 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		} else {
 			governorFragment = new GovernorFragment(this, governorHelper, true);
 		}
-		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
 		fragmentTransaction.commit();
 
-		Cursor cursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		Cursor cursor = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
 		// SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
 		// android.R.layout.simple_spinner_item, cursor, new String[] {
@@ -307,7 +323,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 		// new int[] { android.R.id.text1 });
 		// adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		ProfileAdaper adapter = new ProfileAdaper(this, cursor);
+		ProfileAdaper adapter = new ProfileAdaper(act, cursor);
 		spProfiles.setAdapter(adapter);
 
 		spProfiles.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -355,15 +371,15 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 			}
 		};
-		((TableRow) findViewById(R.id.TableRowBattery)).setOnClickListener(startBattery);
-		((TableRow) findViewById(R.id.TableRowBatteryCurrent)).setOnClickListener(startBattery);
-		((TableRow) findViewById(R.id.TableRowPower)).setOnClickListener(startBattery);
+		trBattery.setOnClickListener(startBattery);
+		trBatteryCurrent.setOnClickListener(startBattery);
+		trPower.setOnClickListener(startBattery);
 
 		trConfig.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Context ctx = CurInfo.this;
+				Context ctx = getActivity();
 				Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
 				intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
 				ctx.startActivity(intent);
@@ -372,15 +388,15 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		registerReceiver();
-		updateView();
+		//		updateView();
 		governorFragment.updateVirtGov(true);
 	}
 
 	@Override
-	protected void onPause() {
+	public void onPause() {
 		super.onPause();
 		governorFragment.updateVirtGov(false);
 		unregisterReceiver();
@@ -423,10 +439,11 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	}
 
 	private void profileChanged() {
+		final Activity act = getActivity();
 		SettingsStorage settings = SettingsStorage.getInstance();
-		if (PulseHelper.getInstance(this).isPulsing()) {
+		if (PulseHelper.getInstance(act).isPulsing()) {
 			GuiUtils.showViews(trPulse, new View[] { spacerPulse, tvPulse });
-			int res = PulseHelper.getInstance(this).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+			int res = PulseHelper.getInstance(act).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
 			tvPulse.setText(res);
 		} else {
 			GuiUtils.hideViews(trPulse, new View[] { spacerPulse, tvPulse });
@@ -461,7 +478,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(cpuHandler.getCurCpuGov());
 		if (governorConfig.hasNewLabelCpuFreqMax()) {
-			labelCpuFreqMax.setText(governorConfig.getNewLabelCpuFreqMax(this));
+			labelCpuFreqMax.setText(governorConfig.getNewLabelCpuFreqMax(act));
 		} else {
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
@@ -492,7 +509,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	public void setMaxCpuFreq(int val) {
 		if (val != cpuHandler.getMaxCpuFreq()) {
 			if (cpuHandler.setMaxCpuFreq(val)) {
-				Toast.makeText(this, getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
+				Toast.makeText(getContext(), getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
 			}
 			updateView();
 		}
@@ -502,7 +519,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 	public void setMinCpuFreq(int val) {
 		if (val != cpuHandler.getMinCpuFreq()) {
 			if (cpuHandler.setMinCpuFreq(val)) {
-				Toast.makeText(this, getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
+				Toast.makeText(getContext(), getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
 			}
 			updateView();
 		}
@@ -510,7 +527,7 @@ public class CurInfo extends FragmentActivity implements GovernorFragmentCallbac
 
 	@Override
 	public Context getContext() {
-		return this;
+		return getActivity();
 	};
 
 	@Override

@@ -4,10 +4,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.view.activity.CpuTunerTabActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
 public class Notifier {
 
@@ -68,12 +67,7 @@ public class Notifier {
 		if (SettingsStorage.getInstance().isStatusbarNotifications() || notification == null) {
 
 			notification = new Notification(R.drawable.icon, contentText, System.currentTimeMillis());
-			// notification.icon = icon;
-			// notification.when = System.currentTimeMillis();
-			// notification.contentView = new
-			// RemoteViews(context.getPackageName(), R.layout.statusbar_item);
-			Intent notificationIntent = new Intent(context, CpuTunerTabActivity.class);
-			contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+			contentIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
 
 			notification.flags |= Notification.FLAG_NO_CLEAR;
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;

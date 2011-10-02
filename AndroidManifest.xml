@@ -34,7 +34,7 @@
 			</intent-filter>
 		</service>
 
-		<activity android:name=".view.activity.ProfileEditor">
+		<activity android:name=".view.activity.ProfileEditor" android:theme="@android:style/Theme.Black.NoTitleBar">
 			<intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile"></data>
@@ -70,6 +70,12 @@
 				<action android:name="android.net.wifi.STATE_CHANGE"></action>
 			</intent-filter>
 		</receiver>
+		<activity android:name=".view.activity.CpuTunerViewpagerActivity" android:theme="@android:style/Theme.Black.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
 		<activity android:name=".view.activity.CpuTunerTabActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -77,7 +83,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".view.preference.SettingsPreferenceActivity"></activity>
-		<activity android:name=".view.activity.TriggerEditor">
+		<activity android:name=".view.activity.TriggerEditor" android:theme="@android:style/Theme.Black.NoTitleBar">
 			<intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.trigger"></data>
@@ -107,7 +113,7 @@
 			</intent-filter>
 		</service>
 		<activity android:name=".view.activity.StatsActivity"></activity>
-		<activity android:name=".view.activity.VirtualGovernorEditorActivity">
+		<activity android:name=".view.activity.VirtualGovernorEditorActivity" android:theme="@android:style/Theme.Black.NoTitleBar">
 			<intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data

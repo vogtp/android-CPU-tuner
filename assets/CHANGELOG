@@ -6,6 +6,7 @@ V
 
 V 3.0.0
 * features
+- new swipe friendly layout
 - initalise cputuner from (default) configurations
 - label powersave bias
 - update statics tab on click

@@ -18,4 +18,5 @@
         <string name="prefMinFreq">Default minimum frequency</string>
         <string name="prefMinFreqLong">The minimum frequency to be applied when loading default configurations.</string>
         <string name="prefKeyFrequencies">Frequencies for default configurations</string>
+        <string name="title_triggers">Triggers</string>
 </resources>

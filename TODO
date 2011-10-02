@@ -1,3 +1,12 @@
+- create and use cpu tuner green
+- handle virtual govs in view pager
+- move log to page
+- colorise current profile
+- handle save/cancel, discard empty 
+
+- move home intent to a more general place
+- wrap actionbar in class setup and overwrite home action
+
 - move install level from default preferences to other non backuped preferences
 
 - check root on first boot -> write message
