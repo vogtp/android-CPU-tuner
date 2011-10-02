@@ -1,14 +1,13 @@
 - move settings to new layout
-- fix configuration autoload
+
+- list actionbar
+- editor actionbar
+- handle save/cancel, discard empty 
 - configurations actionbar
-- configurations autoload actionbar
+
 - handle virtual govs in view pager
 - move log to page
-- colorise current profile
-- handle save/cancel, discard empty 
-
-- move home intent to a more general place
-- wrap actionbar in class setup and overwrite home action
+- configurations autoload actionbar
 
 - move install level from default preferences to other non backuped preferences
 
