@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="@string/labelSettingsTab">
+	android:title="@string/labelSettingsTab" android:layout="@layout/preferences">
 	<CheckBoxPreference android:key="prefKeyEnableProfiles"
 		android:defaultValue="true" android:title="@string/prefEnableCputuner"></CheckBoxPreference>
 	<PreferenceScreen android:title="@string/prefConfigurations"
@@ -30,7 +30,7 @@
 
 
 		<PreferenceCategory android:title="@string/prefCatDisplay"
-			android:key="prefkeyCatDisplay">
+			android:key="prefkeyCatDisplay" android:layout="@layout/preferences">
 			<ListPreference android:title="@string/prefLanguage"
 				android:key="prefKeyLanguage" android:entryValues="@array/prefLanguageValues"
 				android:entries="@array/prefLanguageEntries"></ListPreference>

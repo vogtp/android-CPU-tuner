@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent" android:layout_height="match_parent"
 	android:layout_gravity="bottom" android:orientation="vertical">
+	<!-- <ch.amana.android.cputuner.view.widget.CputunerActionBar
+		style="@style/ActionBar" android:id="@+id/abCpuTuner" android:paddingBottom="3dp"/> -->
 	<TextView android:layout_height="wrap_content"
 		android:text="@string/label_load_configuration_1"
 		android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>

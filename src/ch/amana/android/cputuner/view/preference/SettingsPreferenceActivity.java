@@ -48,6 +48,8 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		settings = SettingsStorage.getInstance();
+		//		setContentView(R.layout.preferences);
+		//		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(R.string.labelSettingsTab);
 
 		addPreferencesFromResource(R.xml.settings_preferences);
 

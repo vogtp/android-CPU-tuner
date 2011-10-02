@@ -117,7 +117,7 @@ public class TriggersListFragment extends ListFragment {
 					TriggerModel currentTrigger = PowerProfiles.getInstance().getCurrentTrigger();
 					int color = Color.LTGRAY;
 					if (currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)) {
-						color = Color.GREEN;
+						color = getResources().getColor(R.color.cputuner_green);
 					}
 					((TextView) view).setTextColor(color);
 				} else if (columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID

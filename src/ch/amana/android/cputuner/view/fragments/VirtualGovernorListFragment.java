@@ -68,7 +68,7 @@ public class VirtualGovernorListFragment extends ListFragment {
 					long virtGovId = PowerProfiles.getInstance().getCurrentProfile().getVirtualGovernor();
 					int color = Color.LTGRAY;
 					if (virtGovId == cursor.getLong(DB.INDEX_ID)) {
-						color = Color.GREEN;
+						color = getResources().getColor(R.color.cputuner_green);
 					}
 
 					if (!SettingsStorage.getInstance().isUseVirtualGovernors()) {

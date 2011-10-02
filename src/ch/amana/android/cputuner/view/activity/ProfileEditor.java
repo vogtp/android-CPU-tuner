@@ -37,6 +37,7 @@ import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback {
 
@@ -89,7 +90,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile = new ProfileModel();
 		}
 
-		setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
+		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
 
 		cpuHandler = CpuHandler.getInstance();
 		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);

@@ -382,6 +382,7 @@ public class CurInfoFragment extends Fragment implements GovernorFragmentCallbac
 				Context ctx = getActivity();
 				Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
 				intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
+				intent.putExtra(ConfigurationManageActivity.EXTRA_NEW_LAYOUT, true);
 				ctx.startActivity(intent);
 			}
 		});

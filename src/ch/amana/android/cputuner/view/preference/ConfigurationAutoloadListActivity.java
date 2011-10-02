@@ -40,7 +40,9 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-		setTitle(R.string.prefConfigurationsAutoLoad);
+		//		setContentView(R.layout.configuration_autoload_list);
+		//
+		//		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(R.string.prefConfigurationsAutoLoad);
 
 		cursor = managedQuery(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
 

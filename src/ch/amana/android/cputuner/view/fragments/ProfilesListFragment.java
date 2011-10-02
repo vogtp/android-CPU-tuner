@@ -71,7 +71,7 @@ public class ProfilesListFragment extends ListFragment {
 					ProfileModel currentProfile = PowerProfiles.getInstance().getCurrentProfile();
 					int color = Color.LTGRAY;
 					if (currentProfile != null && currentProfile.getDbId() == cursor.getLong(DB.INDEX_ID)) {
-						color = Color.GREEN;
+						color = getResources().getColor(R.color.cputuner_green);
 					}
 					((TextView) view).setTextColor(color);
 				} else if (columnIndex == DB.CpuProfile.INDEX_GOVERNOR) {

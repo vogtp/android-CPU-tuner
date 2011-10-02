@@ -16,6 +16,7 @@ import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 public class VirtualGovernorEditorActivity extends FragmentActivity implements GovernorFragmentCallback {
 
@@ -44,7 +45,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 			virtualGovModel.setVirtualGovernorName("");
 		}
 
-		setTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
+		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
 
 		etVirtualGovernorName = (EditText) findViewById(R.id.etVirtualGovernorName);
 		governorFragment = new GovernorFragment(this, virtualGovModel);

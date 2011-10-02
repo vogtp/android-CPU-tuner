@@ -16,6 +16,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -33,12 +34,14 @@ import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
 	public static final String EXTRA_DISABLE_ON_NOLOAD = "disableOnNoload";
+	public static final String EXTRA_NEW_LAYOUT = "newLayout";
 	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
 	private SysConfigurationsAdapter sysConfigsAdapter;
@@ -51,9 +54,15 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.configuration_manage);
-		String title = getString(R.string.titleManageConfigurations);
-		setTitle(title);
+		if (getIntent().getBooleanExtra(EXTRA_NEW_LAYOUT, false)) {
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setContentView(R.layout.configuration_manage);
+			((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(R.string.titleManageConfigurations);
+		} else {
+			setContentView(R.layout.configuration_manage);
+			((CputunerActionBar) findViewById(R.id.abCpuTuner)).setVisibility(View.GONE);
+			setTitle(R.string.titleManageConfigurations);
+		}
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
 		disableOnNoload = getIntent().getBooleanExtra(EXTRA_DISABLE_ON_NOLOAD, false);

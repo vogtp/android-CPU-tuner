@@ -25,6 +25,8 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
+
 
 public class TriggerEditor extends Activity {
 
@@ -58,7 +60,7 @@ public class TriggerEditor extends Activity {
 			triggerModel = new TriggerModel();
 			triggerModel.setName("");
 		}
-		setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
+		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
 
 		etName = (EditText) findViewById(R.id.etName);
 		etBatteryLevel = (EditText) findViewById(R.id.etBatteryLevel);

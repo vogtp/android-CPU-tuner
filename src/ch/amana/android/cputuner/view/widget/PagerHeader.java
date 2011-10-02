@@ -34,7 +34,6 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 
 public class PagerHeader extends ViewGroup {
-	private static final String TAG = "Su.PagerHeader";
 
 	private final Context mContext;
 	private int mDisplayedPage = 0;
@@ -91,8 +90,9 @@ public class PagerHeader extends ViewGroup {
 
 		// Get attributes from the layout xml
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PagerHeader, 0, 0);
-		mActiveTextColor = new ColorSet(
-				a.getColor(R.styleable.PagerHeader_activeTextColor, Color.GREEN));
+		//		mActiveTextColor = new ColorSet(
+		//				a.getColor(R.styleable.PagerHeader_activeTextColor, Color.GREEN));
+		mActiveTextColor = new ColorSet(resources.getColor(R.color.cputuner_green));
 		mInactiveTextColor = new ColorSet(
 				a.getColor(R.styleable.PagerHeader_inactiveTextColor, Color.LTGRAY));
 		mTabColor = new ColorSet(

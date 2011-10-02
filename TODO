@@ -1,4 +1,7 @@
-- create and use cpu tuner green
+- move settings to new layout
+- fix configuration autoload
+- configurations actionbar
+- configurations autoload actionbar
 - handle virtual govs in view pager
 - move log to page
 - colorise current profile
