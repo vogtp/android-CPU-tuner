@@ -1,13 +1,14 @@
-- move settings to new layout
 
 - list actionbar
-- editor actionbar
-- handle save/cancel, discard empty 
+
+- handle save/cancel, discard empty manage home and back button(tr, pr, vg)
 - configurations actionbar
 
 - handle virtual govs in view pager
 - move log to page
 - configurations autoload actionbar
+
+- long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
 - move install level from default preferences to other non backuped preferences
 
@@ -16,6 +17,10 @@
 
 * make autoload restoreable and decouple it from configs 
 
+- move settings to new layout
+
+- branch actionbar
+
 - hide frequencies for beginners (and state clearly in market)
 
 - show long description of configs
@@ -23,7 +28,6 @@
 - triggers cannot have to same battery level
 
 - handle two configuration have the same name
-- long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
 - enable/disable services in settings
 - Imperial units (°C -> F)

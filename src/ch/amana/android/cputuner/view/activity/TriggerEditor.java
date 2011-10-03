@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,6 +19,9 @@ import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
@@ -27,8 +31,7 @@ import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
-
-public class TriggerEditor extends Activity {
+public class TriggerEditor extends Activity implements EditorCallback {
 
 	private Spinner spBattery;
 	private Spinner spPower;
@@ -40,7 +43,7 @@ public class TriggerEditor extends Activity {
 	private SeekBar sbBatteryLevel;
 	private CheckBox cbHot;
 	private Spinner spCall;
-	private boolean save;
+	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
 
 	/** Called when the activity is first created. */
@@ -60,7 +63,9 @@ public class TriggerEditor extends Activity {
 			triggerModel = new TriggerModel();
 			triggerModel.setName("");
 		}
-		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setSubTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
+		EditorActionbarHelper.addActions(this, actionBar);
 
 		etName = (EditText) findViewById(R.id.etName);
 		etBatteryLevel = (EditText) findViewById(R.id.etBatteryLevel);
@@ -106,7 +111,6 @@ public class TriggerEditor extends Activity {
 
 	@Override
 	protected void onResume() {
-		save = true;
 		updateView();
 		super.onResume();
 	}
@@ -176,18 +180,15 @@ public class TriggerEditor extends Activity {
 		updateModel();
 		try {
 			String action = getIntent().getAction();
-			if (Intent.ACTION_INSERT.equals(action)) {
-				if (save) {
+			if (exitStatus == ExitStatus.save) {
+				if (Intent.ACTION_INSERT.equals(action)) {
 					modelAccess.insertTrigger(triggerModel);
-				}
-			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (save) {
+				} else if (Intent.ACTION_EDIT.equals(action)) {
 					modelAccess.updateTrigger(triggerModel);
 				}
 			}
 		} catch (Exception e) {
 			Logger.w("Cannot insert or update", e);
-
 		}
 	}
 
@@ -203,11 +204,10 @@ public class TriggerEditor extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			save = false;
-			finish();
+			discard();
 			break;
 		case R.id.menuItemSave:
-			finish();
+			save();
 			break;
 		default:
 			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_TRIGGER)) {
@@ -215,5 +215,27 @@ public class TriggerEditor extends Activity {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void discard() {
+		exitStatus = ExitStatus.discard;
+		finish();
+	}
+
+	@Override
+	public void save() {
+		exitStatus = ExitStatus.save;
+		finish();
+	}
+
+	@Override
+	public void onBackPressed() {
+		EditorActionbarHelper.onBackPressed(this, exitStatus);
+	}
+
+	@Override
+	public Context getActivity() {
+		return this;
 	}
 }

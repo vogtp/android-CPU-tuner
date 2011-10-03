@@ -24,6 +24,9 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
@@ -39,7 +42,7 @@ import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
-public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback {
+public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback, EditorCallback {
 
 	private ProfileModel profile;
 	private CpuHandler cpuHandler;
@@ -65,7 +68,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private TableRow trMaxFreq;
 	private Spinner spAirplaneMode;
 	private CpuFrequencyChooser cpuFrequencyChooser;
-	private boolean save;
+	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
 
 	/** Called when the activity is first created. */
@@ -90,7 +93,9 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile = new ProfileModel();
 		}
 
-		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setSubTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
+		EditorActionbarHelper.addActions(this, actionBar);
 
 		cpuHandler = CpuHandler.getInstance();
 		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
@@ -146,7 +151,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spSync = (Spinner) findViewById(R.id.spSync);
 		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
-
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
@@ -324,7 +328,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	protected void onResume() {
 		super.onResume();
-		save = true;
 		updateView();
 	}
 
@@ -334,13 +337,10 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		updateModel();
 		try {
 			String action = getIntent().getAction();
-			if (Intent.ACTION_INSERT.equals(action)) {
-				if (save) {
+			if (exitStatus == ExitStatus.save) {
+				if (Intent.ACTION_INSERT.equals(action)) {
 					modelAccess.insertProfile(profile);
-				}
-
-			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (save) {
+				} else if (Intent.ACTION_EDIT.equals(action)) {
 					modelAccess.updateProfile(profile);
 				}
 			}
@@ -397,12 +397,11 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			save = false;
-			finish();
+			discard();
 			return true;
 
 		case R.id.menuItemSave:
-			finish();
+			save();
 			return true;
 
 		default:
@@ -426,5 +425,27 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	public void setMinCpuFreq(int val) {
 		profile.setMinFreq(val);
+	}
+
+	@Override
+	public void discard() {
+		exitStatus = ExitStatus.discard;
+		finish();
+	}
+
+	@Override
+	public void save() {
+		exitStatus = ExitStatus.save;
+		finish();
+	}
+
+	@Override
+	public void onBackPressed() {
+		EditorActionbarHelper.onBackPressed(this, exitStatus);
+	}
+
+	@Override
+	public Context getActivity() {
+		return this;
 	}
 }
