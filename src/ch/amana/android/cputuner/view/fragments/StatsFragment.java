@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 
@@ -45,25 +44,13 @@ public class StatsFragment extends Fragment {
 		StringBuilder sb = new StringBuilder();
 		getTotalTransitions(sb);
 		getTimeInState(sb);
-		getProfileSwitches(sb);
-
 		tvStats.setText(sb.toString());
-	}
-
-	private void getProfileSwitches(StringBuilder sb) {
-		sb.append(getString(R.string.label_profile_switches)).append("\n");
-		sb.append(Logger.getLog(getActivity()));
-
 	}
 
 	private void getTotalTransitions(StringBuilder sb) {
 		String totaltransitions = CpuHandler.getInstance().getCpuTotalTransitions();
 		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
-			// if (sb.length() > 0) {
-			// sb.append("--------------------------------------\n\n");
-			// }
 			sb.append(getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
-
 			sb.append("\n");
 		}
 	}
@@ -71,7 +58,6 @@ public class StatsFragment extends Fragment {
 	private void getTimeInState(StringBuilder sb) {
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
 		if (!RootHandler.NOT_AVAILABLE.equals(timeinstate)) {
-
 			String curCpuFreq = Integer.toString(CpuHandler.getInstance().getCurCpuFreq());
 			sb.append(getString(R.string.label_time_in_state)).append("\n");
 			String[] states = timeinstate.split("\n");

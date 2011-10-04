@@ -25,5 +25,7 @@ Do you want to save the content?</string>
         <string name="msg_title_grant_root">Grant root access.</string>  
         <string name="msg_grant_root">You will be asked to grant cpu tuner superuser access. Please grant it and check the remember checkbox.
 Without this access cpu tuner will not work.
-</string>
+</string>  
+        <string name="labelLogTab">Profileswitch log</string>  
+        <string name="msg_no_profile_switch_log">No profile switch log found</string>
 </resources>

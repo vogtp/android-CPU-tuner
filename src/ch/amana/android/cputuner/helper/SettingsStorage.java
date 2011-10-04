@@ -484,4 +484,8 @@ public class SettingsStorage {
 		editor.commit();
 	}
 
+	public boolean isEnableLogProfileSwitches() {
+		return getProfileSwitchLogSize() > 0;
+	}
+
 }

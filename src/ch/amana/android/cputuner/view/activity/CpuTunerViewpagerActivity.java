@@ -16,6 +16,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.fragments.CurInfoFragment;
+import ch.amana.android.cputuner.view.fragments.LogFragment;
 import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
 import ch.amana.android.cputuner.view.fragments.StatsFragment;
 import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
@@ -26,6 +27,10 @@ import ch.amana.android.cputuner.view.widget.PagerHeader;
 import com.markupartist.android.widget.ActionBar;
 
 public class CpuTunerViewpagerActivity extends FragmentActivity {
+
+	boolean isDisplayedLog = true;
+	boolean isDisplayedVirtGov = true;
+	private PagerAdapter pagerAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +58,18 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		InstallHelper.ensureConfiguration(this);
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		PagerAdapter pagerAdapter = new PagerAdapter(this,
-				pager,
-				(PagerHeader) findViewById(R.id.pager_header));
+		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header));
 
 		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
 		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
 		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
-		pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
+		if (isDisplayedVirtGov) {
+			pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
+		}
 		pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
-
-		// FIXME handle virtual govs
+		if (isDisplayedLog) {
+			pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
+		}
 	}
 
 	public static Intent getStartIntent(Context ctx) {
