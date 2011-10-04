@@ -22,7 +22,6 @@
         <item>Kapat</item>
     </string-array>
     <string name="prefMulticoreLong">Ayarların tüm çekirdeklere uygulanabilirliğini seç</string>
-    <string name="config_default">Varsayılan</string>
     <string name="prefConfigurationsLong">Yedekle ve geri yükle</string>
     <string name="prefCpu">CPU Ayarları</string>
     <string name="prefChangelog">Değişiklikleri göster</string>

@@ -12,7 +12,6 @@
         <item>Deaktivieren</item>
     </string-array>
     <string name="prefMulticoreLong">Soll CPU tuner auf allen CPU Kernen arbeiten.</string>
-    <string name="config_default">Standard</string>
     <string name="prefConfigurationsLong">Backup und restore</string>
     <string name="prefCpu">CPU Einstellungen</string>
     <string name="prefChangelog">Zeige das Changelog</string>

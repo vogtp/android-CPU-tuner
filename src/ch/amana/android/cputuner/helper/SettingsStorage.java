@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -404,7 +403,7 @@ public class SettingsStorage {
 	}
 
 	public String getCurrentConfiguration() {
-		return getPreferences().getString(PREF_KEY_CONFIGURATION, context.getString(R.string.config_default));
+		return getPreferences().getString(PREF_KEY_CONFIGURATION, "");
 	}
 
 	public SimpleDateFormat getSimpledateformat() {
@@ -486,6 +485,11 @@ public class SettingsStorage {
 
 	public boolean isEnableLogProfileSwitches() {
 		return getProfileSwitchLogSize() > 0;
+	}
+
+	public boolean isFirstRun() {
+		// FIXME handle
+		return true;
 	}
 
 }

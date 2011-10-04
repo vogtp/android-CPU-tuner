@@ -3,7 +3,6 @@ package ch.amana.android.cputuner.helper;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ContentResolver;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
@@ -48,7 +48,7 @@ public class InstallHelper {
 	private static CpuGovernorSettings cgsSave;
 	private static CpuGovernorSettings cgsExtremSave;
 
-	public static void initialise(Context ctx) {
+	public static void initialise(final Context ctx) {
 		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
 		switch (defaultProfilesVersion) {
 		case 0:
@@ -67,12 +67,65 @@ public class InstallHelper {
 		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
 	}
 
-	public static void ensureConfiguration(Activity act) {
-		if (!hasConfig(act)) {
-			Intent intent = new Intent(act, ConfigurationManageActivity.class);
+	public static void ensureSetup(final Context ctx) {
+		if (!RootHandler.isRoot() && SettingsStorage.getInstance().isFirstRun()) {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ctx);
+			alertBuilder.setTitle(R.string.msg_title_grant_root);
+			alertBuilder.setMessage(R.string.msg_grant_root);
+			alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ensureRoot(ctx);
+				}
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+		} else {
+			ensureRoot(ctx);
+		}
+	}
+
+	private static void ensureRoot(final Context ctx) {
+		if (!RootHandler.isRoot()) {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ctx);
+			alertBuilder.setTitle("Root access failed");
+			alertBuilder.setMessage("Cpu tuner will not work unless it has root access.");
+			alertBuilder.setPositiveButton("Try again!", new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ensureRoot(ctx);
+				}
+			});
+			if (hasConfig(ctx)) {
+				alertBuilder.setNeutralButton("Configure superuser", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = ctx.getPackageManager().getLaunchIntentForPackage("com.noshufou.android.su");
+						ctx.startActivity(intent);
+					}
+				});
+			}
+			alertBuilder.setNegativeButton("continue", new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ensureConfiguration(ctx);
+				}
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+		} else {
+			ensureConfiguration(ctx);
+		}
+	}
+
+	private static void ensureConfiguration(Context ctx) {
+		if (!hasConfig(ctx)) {
+			Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_DISABLE_ON_NOLOAD, true);
-			act.startActivityForResult(intent, 1);
+			ctx.startActivity(intent);
 		}
 	}
 

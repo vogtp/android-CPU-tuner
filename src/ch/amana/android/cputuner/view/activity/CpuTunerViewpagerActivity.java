@@ -55,7 +55,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 		GuiUtils.setLanguage(this);
 
-		InstallHelper.ensureConfiguration(this);
+		InstallHelper.ensureSetup(this);
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header));

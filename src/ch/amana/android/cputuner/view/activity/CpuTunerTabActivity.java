@@ -30,7 +30,7 @@ public class CpuTunerTabActivity extends TabActivity {
 
 		GuiUtils.setLanguage(this);
 
-		InstallHelper.ensureConfiguration(this);
+		InstallHelper.ensureSetup(this);
 
 		final TabHost tabHost = getTabHost();
 

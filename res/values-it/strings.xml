@@ -13,7 +13,6 @@
         <item>Disable</item>
     </string-array>
     <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
-    <string name="config_default">Default</string>
     <string name="prefConfigurationsLong">Backup and restore</string>
     <string name="prefCpu">CPU Settings</string>
     <string name="prefChangelog">Show Changelog</string>
