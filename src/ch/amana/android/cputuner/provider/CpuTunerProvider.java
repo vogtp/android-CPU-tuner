@@ -1,11 +1,5 @@
 package ch.amana.android.cputuner.provider;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Date;
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -43,7 +37,7 @@ public class CpuTunerProvider extends ContentProvider {
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		logDelete("Deleting entry " + uri);
+		Logger.logStacktrace("Deleting entry " + uri);
 		int count = 0;
 		switch (sUriMatcher.match(uri)) {
 		case TRIGGER:
@@ -175,7 +169,7 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	public static void deleteAllTables(Context ctx, boolean deleteAutoloadConfig) {
-		logDelete("delete all tables");
+		Logger.logStacktrace("delete all tables");
 		ContentResolver resolver = ctx.getContentResolver();
 		resolver.delete(DB.Trigger.CONTENT_URI, null, null);
 		resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
@@ -184,26 +178,5 @@ public class CpuTunerProvider extends ContentProvider {
 			resolver.delete(DB.ConfigurationAutoload.CONTENT_URI, null, null);
 		}
 	}
-
-	private static void logDelete(String msg) {
-		if (!Logger.DEBUG) {
-			return;
-		}
-		Exception e = new Exception();
-		Logger.w(msg, e);
-		try {
-			Writer w = new FileWriter("/mnt/sdcard/cputunerdelete.log", true);
-			w.write((new Date()).toString());
-			w.write("\n");
-			w.write(msg);
-			w.write("\n");
-			e.printStackTrace(new PrintWriter(w));
-			w.write("**************************************************\n");
-			w.flush();
-			w.close();
-		} catch (IOException e1) {
-			Logger.w("Cannot write delete log", e1);
-		}
-	}
-
 }
+	
