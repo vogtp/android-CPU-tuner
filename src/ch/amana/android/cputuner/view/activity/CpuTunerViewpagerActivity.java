@@ -20,6 +20,7 @@ import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
 import ch.amana.android.cputuner.view.fragments.StatsFragment;
 import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorListFragment;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 import ch.amana.android.cputuner.view.widget.PagerHeader;
 
 import com.markupartist.android.widget.ActionBar;
@@ -33,7 +34,10 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 		setContentView(R.layout.viewpager);
 
-		ActionBar actionBar = (ActionBar) findViewById(R.id.abCpuTuner);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setTitle(R.string.app_name);
+		actionBar.setHomeLogo(R.drawable.icon);
+		actionBar.setHomeTitleAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.icon));
 
 		if (Logger.DEBUG) {
 			actionBar.setTitle(getString(R.string.app_name) + " - DEBUG MODE" + " (" + getString(R.string.version) + ")");

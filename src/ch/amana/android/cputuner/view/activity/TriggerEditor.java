@@ -31,6 +31,8 @@ import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
+import com.markupartist.android.widget.ActionBar;
+
 public class TriggerEditor extends Activity implements EditorCallback {
 
 	private Spinner spBattery;
@@ -43,8 +45,9 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	private SeekBar sbBatteryLevel;
 	private CheckBox cbHot;
 	private Spinner spCall;
-	private ExitStatus exitStatus = ExitStatus.undefined;
+	private ExitStatus exitStatus = ExitStatus.save;
 	private ModelAccess modelAccess;
+	private TriggerModel origTriggerModel;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -63,8 +66,23 @@ public class TriggerEditor extends Activity implements EditorCallback {
 			triggerModel = new TriggerModel();
 			triggerModel.setName("");
 		}
+
+		Bundle bundle = new Bundle();
+		triggerModel.saveToBundle(bundle);
+		origTriggerModel = new TriggerModel(bundle);
+
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setSubTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
+		actionBar.setHomeAction(new ActionBar.Action() {
+			@Override
+			public void performAction(View view) {
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.icon;
+			}
+		});
+		actionBar.setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
 		EditorActionbarHelper.addActions(this, actionBar);
 
 		etName = (EditText) findViewById(R.id.etName);
@@ -150,8 +168,12 @@ public class TriggerEditor extends Activity implements EditorCallback {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		updateModel();
-		triggerModel.saveToBundle(outState);
+		if (exitStatus != ExitStatus.discard) {
+			updateModel();
+			triggerModel.saveToBundle(outState);
+		} else {
+			origTriggerModel.saveToBundle(outState);
+		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -180,7 +202,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		updateModel();
 		try {
 			String action = getIntent().getAction();
-			if (exitStatus == ExitStatus.save) {
+			if (exitStatus == ExitStatus.save && hasChange()) {
 				if (Intent.ACTION_INSERT.equals(action)) {
 					modelAccess.insertTrigger(triggerModel);
 				} else if (Intent.ACTION_EDIT.equals(action)) {
@@ -220,6 +242,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	@Override
 	public void discard() {
 		exitStatus = ExitStatus.discard;
+		triggerModel = origTriggerModel;
+		//		updateView();
 		finish();
 	}
 
@@ -229,13 +253,18 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		finish();
 	}
 
-	@Override
-	public void onBackPressed() {
-		EditorActionbarHelper.onBackPressed(this, exitStatus);
+	//	@Override
+	//	public void onBackPressed() {
+	//		updateModel();
+	//		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
+	//	}
+
+	private boolean hasChange() {
+		return !origTriggerModel.equals(triggerModel);
 	}
 
 	@Override
-	public Context getActivity() {
+	public Context getContext() {
 		return this;
 	}
 }

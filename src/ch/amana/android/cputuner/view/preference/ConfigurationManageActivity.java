@@ -29,12 +29,15 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
+
+import com.markupartist.android.widget.ActionBar;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
@@ -57,7 +60,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		if (getIntent().getBooleanExtra(EXTRA_NEW_LAYOUT, false)) {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.configuration_manage);
-			((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(R.string.titleManageConfigurations);
+			CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+			actionBar.setHomeAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.cputuner_back));
+			actionBar.setTitle(R.string.titleManageConfigurations);
 		} else {
 			setContentView(R.layout.configuration_manage);
 			((CputunerActionBar) findViewById(R.id.abCpuTuner)).setVisibility(View.GONE);

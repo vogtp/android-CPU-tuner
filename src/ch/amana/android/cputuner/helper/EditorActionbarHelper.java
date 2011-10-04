@@ -22,7 +22,9 @@ public class EditorActionbarHelper {
 
 		void save();
 
-		Context getActivity();
+		Context getContext();
+
+		void finish();
 
 	}
 
@@ -51,12 +53,11 @@ public class EditorActionbarHelper {
 		});
 	}
 
-	public static void onBackPressed(final EditorCallback ecb, ExitStatus exitStatus) {
-		if (exitStatus == ExitStatus.undefined) {
-			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ecb.getActivity());
-			//FIXME make translatable
-			alertBuilder.setTitle("Save");
-			alertBuilder.setMessage("Do you want to save the content?");
+	public static void onBackPressed(final EditorCallback ecb, ExitStatus exitStatus, boolean changed) {
+		if (changed && exitStatus == ExitStatus.undefined) {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ecb.getContext());
+			alertBuilder.setTitle(R.string.msg_title_unsaved_changes);
+			alertBuilder.setMessage(R.string.msg_unsaved_changes);
 			alertBuilder.setNegativeButton(R.string.no, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -71,6 +72,8 @@ public class EditorActionbarHelper {
 			});
 			AlertDialog alert = alertBuilder.create();
 			alert.show();
+		} else {
+			ecb.finish();
 		}
 	}
 

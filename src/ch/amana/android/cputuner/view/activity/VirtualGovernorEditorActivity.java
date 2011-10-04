@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper;
@@ -22,13 +23,16 @@ import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
+import com.markupartist.android.widget.ActionBar;
+
 public class VirtualGovernorEditorActivity extends FragmentActivity implements GovernorFragmentCallback, EditorCallback {
 
 	private GovernorBaseFragment governorFragment;
 	private VirtualGovernorModel virtualGovModel;
 	private EditText etVirtualGovernorName;
-	private ExitStatus exitStatus = ExitStatus.undefined;
+	private ExitStatus exitStatus = ExitStatus.save;
 	private ModelAccess modelAccess;
+	private VirtualGovernorModel origVirtualGovModel;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -48,9 +52,22 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 			virtualGovModel = new VirtualGovernorModel();
 			virtualGovModel.setVirtualGovernorName("");
 		}
+		Bundle bundle = new Bundle();
+		virtualGovModel.saveToBundle(bundle);
+		origVirtualGovModel = new VirtualGovernorModel(bundle);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setSubTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
+		actionBar.setHomeAction(new ActionBar.Action() {
+			@Override
+			public void performAction(View view) {
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.icon;
+			}
+		});
+		actionBar.setTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
 		EditorActionbarHelper.addActions(this, actionBar);
 
 		etVirtualGovernorName = (EditText) findViewById(R.id.etVirtualGovernorName);
@@ -75,8 +92,12 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		updateModel();
-		virtualGovModel.saveToBundle(outState);
+		if (exitStatus != ExitStatus.discard) {
+			updateModel();
+			virtualGovModel.saveToBundle(outState);
+		} else {
+			origVirtualGovModel.saveToBundle(outState);
+		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -145,6 +166,8 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	@Override
 	public void discard() {
 		exitStatus = ExitStatus.discard;
+		virtualGovModel = origVirtualGovModel;
+		//		updateView();
 		finish();
 	}
 
@@ -154,14 +177,14 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		finish();
 	}
 
-	@Override
-	public void onBackPressed() {
-		EditorActionbarHelper.onBackPressed(this, exitStatus);
-	}
+	//	@Override
+	//	public void onBackPressed() {
+	//		updateModel();
+	//		EditorActionbarHelper.onBackPressed(this, exitStatus, !origVirtualGovModel.equals(virtualGovModel));
+	//	}
 
 	@Override
-	public Context getActivity() {
+	public Context getContext() {
 		return this;
 	}
-
 }

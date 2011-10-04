@@ -1,7 +1,10 @@
 
-- list actionbar
+- check root on first boot -> write message
+- review msg when closing editor
 
-- handle save/cancel, discard empty manage home and back button(tr, pr, vg)
+- list actionbar
+- fix saved editor content when asking 
+
 - configurations actionbar
 
 - handle virtual govs in view pager
@@ -12,7 +15,6 @@
 
 - move install level from default preferences to other non backuped preferences
 
-- check root on first boot -> write message
 - if no gov get current gov or try to set governors
 
 * make autoload restoreable and decouple it from configs 

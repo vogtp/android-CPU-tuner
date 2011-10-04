@@ -42,6 +42,8 @@ import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
+import com.markupartist.android.widget.ActionBar;
+
 public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback, EditorCallback {
 
 	private ProfileModel profile;
@@ -68,8 +70,9 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private TableRow trMaxFreq;
 	private Spinner spAirplaneMode;
 	private CpuFrequencyChooser cpuFrequencyChooser;
-	private ExitStatus exitStatus = ExitStatus.undefined;
+	private ExitStatus exitStatus = ExitStatus.save;
 	private ModelAccess modelAccess;
+	private ProfileModel origProfile;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -83,18 +86,27 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		if (Intent.ACTION_EDIT.equals(action)) {
 			profile = modelAccess.getProfile(getIntent().getData());
 		}
-		// TODO remove -- we should never get there
-		// else if (Intent.ACTION_EDIT.equals(action)) {
-		// profile = CpuHandler.getInstance().getCurrentCpuSettings();
-		// origProfile = CpuHandler.getInstance().getCurrentCpuSettings();
-		// }
 
 		if (profile == null) {
 			profile = new ProfileModel();
 		}
 
+		Bundle bundle = new Bundle();
+		profile.saveToBundle(bundle);
+		origProfile = new ProfileModel(bundle);
+
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setSubTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
+		actionBar.setHomeAction(new ActionBar.Action() {
+			@Override
+			public void performAction(View view) {
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.icon;
+			}
+		});
+		actionBar.setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
 		EditorActionbarHelper.addActions(this, actionBar);
 
 		cpuHandler = CpuHandler.getInstance();
@@ -304,8 +316,12 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		updateModel();
-		profile.saveToBundle(outState);
+		if (exitStatus != ExitStatus.discard) {
+			updateModel();
+			profile.saveToBundle(outState);
+		} else {
+			origProfile.saveToBundle(outState);
+		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -430,6 +446,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	public void discard() {
 		exitStatus = ExitStatus.discard;
+		profile = origProfile;
+		//		updateView();
 		finish();
 	}
 
@@ -439,13 +457,9 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		finish();
 	}
 
-	@Override
-	public void onBackPressed() {
-		EditorActionbarHelper.onBackPressed(this, exitStatus);
-	}
-
-	@Override
-	public Context getActivity() {
-		return this;
-	}
+	//	@Override
+	//	public void onBackPressed() {
+	//		updateModel();
+	//		EditorActionbarHelper.onBackPressed(this, exitStatus, !origProfile.equals(profile));
+	//	}
 }
