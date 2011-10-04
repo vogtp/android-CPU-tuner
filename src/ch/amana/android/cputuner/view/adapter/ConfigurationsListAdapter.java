@@ -23,6 +23,8 @@ public class ConfigurationsListAdapter extends ConfigurationsAdapter {
 		view.getText1().setText(name);
 		if (name != null && name.equals(SettingsStorage.getInstance().getCurrentConfiguration())) {
 			view.getText1().setTextColor(view.getResources().getColor(R.color.cputuner_green));
+		} else {
+			view.getText1().setTextColor(view.getResources().getColor(android.R.color.white));
 		}
 		StringBuilder savedAtStr = new StringBuilder();
 		savedAtStr.append(parent.getResources().getText(R.string.saved_at)).append(" ");
