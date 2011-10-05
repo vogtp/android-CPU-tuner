@@ -20,7 +20,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	private final ViewPager mPager;
 	private final PagerHeader mHeader;
 	private final ArrayList<PageInfo> mPages = new ArrayList<PageInfo>();
-	private Fragment currentPage;
+	private static Fragment currentPage;
 	private boolean first = true;
 
 	public interface PagerItem {
@@ -88,6 +88,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 		Fragment f = Fragment.instantiate(mContext, info.clss.getName(), info.args);
 		if (first && position == 0) {
 			first = false;
+			currentPage = f;
 			((PagerItem) f).setCurrentPage(f);
 		}
 		return f;
@@ -127,12 +128,8 @@ public class PagerAdapter extends FragmentPagerAdapter
 		return currentPage.onOptionsItemSelected(item);
 	}
 
-	public Fragment getCurrentItem() {
-		Fragment f = currentPage;
-		if (f == null) {
-			f = getItem(0);
-		}
-		return f;
+	public static Fragment getCurrentItem() {
+		return currentPage;
 	}
 
 }

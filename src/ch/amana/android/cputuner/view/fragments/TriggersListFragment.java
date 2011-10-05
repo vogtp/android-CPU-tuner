@@ -32,6 +32,7 @@ import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
 public class TriggersListFragment extends PagerListFragment {
 
@@ -204,11 +205,7 @@ public class TriggersListFragment extends PagerListFragment {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		Fragment currentPage = getCurrentPage();
-		if (this.equals(currentPage)) {
-			if (currentPage != null) {
-				return currentPage.onContextItemSelected(item);
-			}
+		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
 			return false;
 		}
 		super.onContextItemSelected(item);
@@ -325,5 +322,16 @@ public class TriggersListFragment extends PagerListFragment {
 		if (menuItemClearPowerCurrent != null) {
 			menuItemClearPowerCurrent.setVisible(SettingsStorage.getInstance().getTrackCurrentType() != SettingsStorage.TRACK_CURRENT_HIDE);
 		}
+	}
+
+	private Fragment currentPage;
+
+	public Fragment getCurrentPage() {
+		return currentPage;
+	}
+
+	@Override
+	public void setCurrentPage(Fragment f) {
+		currentPage = f;
 	}
 }

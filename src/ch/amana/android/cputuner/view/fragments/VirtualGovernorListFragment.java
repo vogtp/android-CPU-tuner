@@ -32,6 +32,7 @@ import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
 public class VirtualGovernorListFragment extends PagerListFragment {
 
@@ -133,11 +134,7 @@ public class VirtualGovernorListFragment extends PagerListFragment {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		Fragment currentPage = getCurrentPage();
-		if (this.equals(currentPage)) {
-			if (currentPage != null) {
-				return currentPage.onContextItemSelected(item);
-			}
+		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
 			return false;
 		}
 		super.onContextItemSelected(item);
@@ -198,5 +195,16 @@ public class VirtualGovernorListFragment extends PagerListFragment {
 		}
 		AlertDialog alert = alertBuilder.create();
 		alert.show();
+	}
+
+	private Fragment currentPage;
+
+	public Fragment getCurrentPage() {
+		return currentPage;
+	}
+
+	@Override
+	public void setCurrentPage(Fragment f) {
+		currentPage = f;
 	}
 }

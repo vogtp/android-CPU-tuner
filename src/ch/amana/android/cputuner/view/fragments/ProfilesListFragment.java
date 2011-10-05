@@ -36,6 +36,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
 public class ProfilesListFragment extends PagerListFragment {
 
@@ -54,11 +55,11 @@ public class ProfilesListFragment extends PagerListFragment {
 
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(act, R.layout.profile_item, c,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
-				DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
-				DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
-				DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE, DB.CpuProfile.NAME_AIRPLANEMODE_STATE },
+						DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
+						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
+						DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE, DB.CpuProfile.NAME_AIRPLANEMODE_STATE },
 				new int[] { R.id.tvName, R.id.tvGov, R.id.tvFreqMin, R.id.tvFreqMax, R.id.tvWifi, R.id.tvGPS, R.id.tvBluetooth,
- R.id.tvMobiledata3G, R.id.tvSync, R.id.tvMobiledataConnection, R.id.tvAirplaneMode });
+						R.id.tvMobiledata3G, R.id.tvSync, R.id.tvMobiledataConnection, R.id.tvAirplaneMode });
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -303,11 +304,7 @@ public class ProfilesListFragment extends PagerListFragment {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		Fragment currentPage = getCurrentPage();
-		if (this.equals(currentPage)) {
-			if (currentPage != null) {
-				return currentPage.onContextItemSelected(item);
-			}
+		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
 			return false;
 		}
 		super.onContextItemSelected(item);
@@ -386,4 +383,14 @@ public class ProfilesListFragment extends PagerListFragment {
 		return false;
 	}
 
+	private Fragment currentPage;
+
+	public Fragment getCurrentPage() {
+		return currentPage;
+	}
+
+	@Override
+	public void setCurrentPage(Fragment f) {
+		currentPage = f;
+	}
 }
