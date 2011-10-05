@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -21,6 +22,7 @@ public class Logger {
 
 	private static Date now;
 
+	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 	public static void addToLog(String msg) {
 		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
 		if (log == null) {
@@ -29,7 +31,7 @@ public class Logger {
 		}
 		now.setTime(System.currentTimeMillis());
 		StringBuilder sb = new StringBuilder();
-		sb.append(SettingsStorage.getInstance().getSimpledateformat().format(now)).append(": ").append(msg);
+		sb.append(logDateFormat.format(now)).append(": ").append(msg);
 		log.add(0, sb.toString());
 		if (log.size() > logSize) {
 			log.remove(logSize);
