@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.adapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import ch.amana.android.cputuner.view.widget.PagerHeader;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
+
 public class PagerAdapter extends FragmentPagerAdapter
 		implements ViewPager.OnPageChangeListener, PagerHeader.OnHeaderClickListener {
 
@@ -22,6 +26,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	private final ArrayList<PageInfo> mPages = new ArrayList<PageInfo>();
 	private static Fragment currentPage;
 	private boolean first = true;
+	private final ActionBar mActionBar;
 
 	public interface PagerItem {
 
@@ -29,7 +34,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 
 		void onPrepareOptionsMenu(Menu menu);
 
-		void setCurrentPage(Fragment f);
+		List<Action> getActions();
 
 	}
 
@@ -48,7 +53,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	}
 
 	public PagerAdapter(FragmentActivity activity, ViewPager pager,
-			PagerHeader header) {
+			PagerHeader header, ActionBar actionBar) {
 		super(activity.getSupportFragmentManager());
 		mContext = activity;
 		mPager = pager;
@@ -56,6 +61,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 		mHeader.setOnHeaderClickListener(this);
 		mPager.setAdapter(this);
 		mPager.setOnPageChangeListener(this);
+		mActionBar = actionBar;
 	}
 
 	public void addPage(Class<? extends PagerItem> clss, int res) {
@@ -89,7 +95,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 		if (first && position == 0) {
 			first = false;
 			currentPage = f;
-			((PagerItem) f).setCurrentPage(f);
+			addActions((PagerItem) f);
 		}
 		return f;
 	}
@@ -117,7 +123,18 @@ public class PagerAdapter extends FragmentPagerAdapter
 	public void onPageSelected(int position) {
 		mHeader.setDisplayedPage(position);
 		currentPage = getItem(position);
-		((PagerItem) currentPage).setCurrentPage(currentPage);
+		addActions((PagerItem) currentPage);
+	}
+
+	private void addActions(PagerItem page) {
+		mActionBar.removeAllActions();
+		List<ActionBar.Action> actions = page.getActions();
+		if (actions == null) {
+			return;
+		}
+		for (Action action : actions) {
+			mActionBar.addAction(action);
+		}
 	}
 
 	public void onPrepareOptionsMenu(Menu menu) {

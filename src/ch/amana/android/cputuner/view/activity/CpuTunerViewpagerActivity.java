@@ -59,7 +59,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		InstallHelper.ensureSetup(this);
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header));
+		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header), actionBar);
 		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
 		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
 		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
@@ -90,7 +90,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		//		return pagerAdapter.onPrepareOptionsMenu(menu);
 		menu.clear();
-		pagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, getMenuInflater());
+		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, getMenuInflater());
 		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
 		return true;
@@ -102,7 +102,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
 			return true;
 		}
-		if (((PagerItem) pagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
+		if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
 			return true;
 		}
 		return false;

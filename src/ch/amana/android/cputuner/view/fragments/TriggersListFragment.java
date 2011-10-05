@@ -1,5 +1,8 @@
 package ch.amana.android.cputuner.view.fragments;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,7 +15,6 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -33,6 +35,9 @@ import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class TriggersListFragment extends PagerListFragment {
 
@@ -324,14 +329,21 @@ public class TriggersListFragment extends PagerListFragment {
 		}
 	}
 
-	private Fragment currentPage;
-
-	public Fragment getCurrentPage() {
-		return currentPage;
-	}
-
 	@Override
-	public void setCurrentPage(Fragment f) {
-		currentPage = f;
+	public List<Action> getActions() {
+		List<Action> actions = new ArrayList<ActionBar.Action>(1);
+		actions.add(new Action() {
+			@Override
+			public void performAction(View view) {
+				Intent intent = new Intent(Intent.ACTION_INSERT, DB.Trigger.CONTENT_URI);
+				view.getContext().startActivity(intent);
+			}
+			@Override
+			public int getDrawable() {
+				return android.R.drawable.ic_menu_add;
+			}
+		});
+		return actions;
 	}
+
 }

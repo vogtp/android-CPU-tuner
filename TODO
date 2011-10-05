@@ -1,11 +1,7 @@
 
-- fix list context menu
-- list actionbar
 - why do we get 2 profile switches each time?
-- is "" possible as configuration/trigger/profile/virtgov name?
+- ask for name when closing editor or do not save (avoid identical names as well) configuration/trigger/profile/virtgov
 - configurations autoload actionbar
-
-- ask for name when closing editor
 
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
