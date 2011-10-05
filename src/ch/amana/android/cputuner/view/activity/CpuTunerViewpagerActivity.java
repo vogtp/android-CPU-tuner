@@ -15,6 +15,7 @@ import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
+import ch.amana.android.cputuner.view.adapter.PagerAdapter.PagerItem;
 import ch.amana.android.cputuner.view.fragments.CurInfoFragment;
 import ch.amana.android.cputuner.view.fragments.LogFragment;
 import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
@@ -59,7 +60,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header));
-
 		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
 		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
 		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
@@ -80,7 +80,17 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
+		//		return pagerAdapter.onCreateOptionsMenu(menu);
+		//		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
+		//		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		//		return pagerAdapter.onPrepareOptionsMenu(menu);
+		menu.clear();
+		pagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, getMenuInflater());
 		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
 		return true;
@@ -88,7 +98,11 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		//		return pagerAdapter.onOptionsItemSelected(item);
 		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
+			return true;
+		}
+		if (((PagerItem) pagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
 			return true;
 		}
 		return false;

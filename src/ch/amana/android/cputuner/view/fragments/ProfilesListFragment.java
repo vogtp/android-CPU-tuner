@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -37,7 +37,7 @@ import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class ProfilesListFragment extends ListFragment {
+public class ProfilesListFragment extends PagerListFragment {
 
 	/** Called when the activity is first created. */
 	@Override
@@ -303,6 +303,13 @@ public class ProfilesListFragment extends ListFragment {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		Fragment currentPage = getCurrentPage();
+		if (this.equals(currentPage)) {
+			if (currentPage != null) {
+				return currentPage.onContextItemSelected(item);
+			}
+			return false;
+		}
 		super.onContextItemSelected(item);
 
 		AdapterView.AdapterContextMenuInfo info;
@@ -324,7 +331,7 @@ public class ProfilesListFragment extends ListFragment {
 			return true;
 
 		default:
-			return handleCommonMenu(item);
+			return handleCommonMenu(getActivity(), item);
 		}
 
 	}
@@ -360,20 +367,20 @@ public class ProfilesListFragment extends ListFragment {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (handleCommonMenu(item)) {
+	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+		if (handleCommonMenu(act, item)) {
 			return true;
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(getActivity(), item, HelpActivity.PAGE_PROFILE)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
 			return true;
 		}
 		return false;
 	}
 
-	private boolean handleCommonMenu(MenuItem item) {
+	private boolean handleCommonMenu(Activity act, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemInsert:
-			startActivity(new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI));
+			act.startActivity(new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI));
 			return true;
 		}
 		return false;

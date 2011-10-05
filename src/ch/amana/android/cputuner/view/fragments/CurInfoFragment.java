@@ -5,10 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -44,7 +42,7 @@ import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
-public class CurInfoFragment extends Fragment implements GovernorFragmentCallback, FrequencyChangeCallback {
+public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback {
 
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
@@ -531,9 +529,4 @@ public class CurInfoFragment extends Fragment implements GovernorFragmentCallbac
 		return getActivity();
 	};
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
-		super.onConfigurationChanged(newConfig);
-	}
 }

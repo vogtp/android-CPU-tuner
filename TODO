@@ -5,6 +5,8 @@
 - is "" possible as configuration/trigger/profile/virtgov name?
 - configurations autoload actionbar
 
+- ask for name when closing editor
+
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
 - move install level from default preferences to other non backuped preferences

@@ -1,8 +1,9 @@
 package ch.amana.android.cputuner.view.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 
-public class StatsFragment extends Fragment {
+public class StatsFragment extends PagerFragment {
 
 	private TextView tvStats;
 
@@ -74,4 +75,5 @@ public class StatsFragment extends Fragment {
 			sb.append("\n");
 		}
 	}
+
 }

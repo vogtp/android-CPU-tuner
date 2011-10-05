@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -33,7 +33,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class VirtualGovernorListFragment extends ListFragment {
+public class VirtualGovernorListFragment extends PagerListFragment {
 
 	private Cursor displayCursor;
 
@@ -115,8 +115,8 @@ public class VirtualGovernorListFragment extends ListFragment {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (handleCommonMenu(item)) {
+	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+		if (handleCommonMenu(act, item)) {
 			return true;
 		}
 		if (GeneralMenuHelper.onOptionsItemSelected(getActivity(), item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
@@ -133,6 +133,13 @@ public class VirtualGovernorListFragment extends ListFragment {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		Fragment currentPage = getCurrentPage();
+		if (this.equals(currentPage)) {
+			if (currentPage != null) {
+				return currentPage.onContextItemSelected(item);
+			}
+			return false;
+		}
 		super.onContextItemSelected(item);
 
 		AdapterView.AdapterContextMenuInfo info;
@@ -154,16 +161,16 @@ public class VirtualGovernorListFragment extends ListFragment {
 			return true;
 		}
 
-		if (handleCommonMenu(item)) {
+		if (handleCommonMenu(getActivity(), item)) {
 			return true;
 		}
 		return super.onContextItemSelected(item);
 	}
 
-	private boolean handleCommonMenu(MenuItem item) {
+	private boolean handleCommonMenu(Activity act, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemInsert:
-			startActivity(new Intent(Intent.ACTION_INSERT, DB.VirtualGovernor.CONTENT_URI));
+			act.startActivity(new Intent(Intent.ACTION_INSERT, DB.VirtualGovernor.CONTENT_URI));
 			return true;
 		}
 		return false;

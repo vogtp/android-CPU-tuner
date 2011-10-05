@@ -1,7 +1,6 @@
 package ch.amana.android.cputuner.view.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 
-public class LogFragment extends Fragment {
+public class LogFragment extends PagerFragment {
 
 	private TextView tvStats;
 
@@ -42,6 +41,7 @@ public class LogFragment extends Fragment {
 	private void updateView() {
 		tvStats.setText(Logger.getLog(getActivity()));
 	}
+
 
 
 }
