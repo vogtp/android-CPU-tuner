@@ -143,15 +143,15 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
-		findPreference("prefKeyLegalOxigenIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(Intent.ACTION_DEFAULT, Uri.parse("http://www.oxygen-icons.org/?page_id=4"));
-				startActivity(i);
-				return true;
-			}
-		});
+		//		findPreference("prefKeyLegalOxigenIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		//
+		//			@Override
+		//			public boolean onPreferenceClick(Preference preference) {
+		//				Intent i = new Intent(Intent.ACTION_DEFAULT, Uri.parse("http://www.oxygen-icons.org/?page_id=4"));
+		//				startActivity(i);
+		//				return true;
+		//			}
+		//		});
 		findPreference("prefKeyLegalGnomeIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override

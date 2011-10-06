@@ -127,8 +127,7 @@
 			android:key="prefKeyCpu">
 			<ListPreference android:entries="@array/prefMulticoreEntries"
 				android:key="prefKeyMulticore" android:entryValues="@array/prefMulticoreValues"
-				android:summary="@string/prefMulticoreLong" android:title="@string/prefMulticore"
-				android:defaultValue="0"></ListPreference>
+				android:summary="@string/prefMulticoreLong" android:title="@string/prefMulticore" android:defaultValue="2"></ListPreference>
 			<CheckBoxPreference android:title="@string/prefEnableUserspaceGovernor"
 				android:defaultValue="false" android:key="prefKeyEnableUserspaceGovernor"
 				android:summaryOff="@string/prefEnableUserspaceGovernorOff"
@@ -162,9 +161,9 @@
 
 			<Preference android:key="prefKeyLegalGnomeIcons"
 				android:summary="@string/prefLegalGnomeIconsLong" android:title="@string/prefLegalGnomeIcons"></Preference>
-			<Preference android:key="prefKeyLegalOxigenIcons"
+	<!--  		<Preference android:key="prefKeyLegalOxigenIcons"
 				android:title="@string/prefLegalOxigenIcons" android:summary="@string/prefLegalOxigenIconsLong"></Preference>
-
+-->
 		</PreferenceScreen>
 
 	</PreferenceScreen>
