@@ -41,6 +41,7 @@ import com.markupartist.android.widget.ActionBar;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
+	public static final String EXTRA_ASK_LOAD_CONFIRMATION = "askLoadConfirmation";
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
 	public static final String EXTRA_DISABLE_ON_NOLOAD = "disableOnNoload";
@@ -51,6 +52,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	private BackupRestoreHelper backupRestoreHelper;
 	private boolean disableOnNoload = false;
 	private boolean loadingSuccess = false;
+	private boolean askLoadConfirmation = true;
 	private SettingsStorage settings;
 
 	/** Called when the activity is first created. */
@@ -68,6 +70,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			((CputunerActionBar) findViewById(R.id.abCpuTuner)).setVisibility(View.GONE);
 			setTitle(R.string.titleManageConfigurations);
 		}
+
+		askLoadConfirmation = getIntent().getBooleanExtra(EXTRA_ASK_LOAD_CONFIRMATION, true);
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
 		disableOnNoload = getIntent().getBooleanExtra(EXTRA_DISABLE_ON_NOLOAD, false);
@@ -263,21 +267,29 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void load(final String configName, final boolean isUserConfig) {
-		Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setTitle(R.string.menuLoad);
-		alertBuilder.setMessage(getString(R.string.msg_load_configuration, configName));
-		alertBuilder.setNegativeButton(R.string.no, null);
-		alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+		if (askLoadConfirmation) {
+			Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle(R.string.menuLoad);
+			alertBuilder.setMessage(getString(R.string.msg_load_configuration, configName));
+			alertBuilder.setNegativeButton(R.string.no, null);
+			alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				loadConfig(configName, isUserConfig);
-				updateListView();
-			}
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					doLoad(configName, isUserConfig);
+				}
 
-		});
-		AlertDialog alert = alertBuilder.create();
-		alert.show();
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+		} else {
+			doLoad(configName, isUserConfig);
+		}
+	}
+
+	private void doLoad(final String configName, final boolean isUserConfig) {
+		loadConfig(configName, isUserConfig);
+		updateListView();
 	}
 
 	private void delete(final File configuration) {

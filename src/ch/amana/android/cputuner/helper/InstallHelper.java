@@ -125,6 +125,7 @@ public class InstallHelper {
 			Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_DISABLE_ON_NOLOAD, true);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_ASK_LOAD_CONFIRMATION, false);
 			ctx.startActivity(intent);
 		}
 	}

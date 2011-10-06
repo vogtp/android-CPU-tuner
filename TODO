@@ -1,4 +1,3 @@
-- load config do not ask for confirmation on first boot
 - fragments: fix orientation change 
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
