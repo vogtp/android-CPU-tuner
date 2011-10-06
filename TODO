@@ -1,11 +1,11 @@
 
+- fragments: fix orientation change 
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
 - Imperial units (°C -> F) 
 
 - move install level from default preferences to other non backuped preferences
 
-- if no gov get current gov or try to set governors
 
 * make autoload restoreable and decouple it from configs 
 
@@ -18,9 +18,8 @@
 - icons for services
 - widget for profile switch
 - do not change bt while paired -> setting
-- remove strings: prefEnableProfilesOn and prefEnableProfilesOff
 
-- fragments: fix orientation change 
+- if no gov get current gov or try to set governors
 
 - move settings to new layout
 - configurations autoload actionbar

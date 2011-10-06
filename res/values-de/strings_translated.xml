@@ -231,8 +231,6 @@
 	<string name="prefCatNotifications">Benachrichtigungen</string>
 	<string name="prefCatSystem">System</string>
 	<string name="prefEnableProfiles">Profile aktivieren</string>
-	<string name="prefEnableProfilesOn">CPU-Tuner startet zum verwalten der CPU-Profile einen Prozess im Hintergrund.  Dieser wird beim Booten gestartet.</string>
-	<string name="prefEnableProfilesOff">Keine CPU-Profile werden verwaltet. Es läuft kein Dienst im Hintergrund.</string>
 	<string name="prefSetCpuSetting">CPU-Einstellungen</string>
 	<string name="profileBatteryGood">Guter Akkuzustand</string>
 	<string name="profileBatteryCrtitical">Kritischer Akkuzustand</string>

@@ -76,12 +76,6 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".view.activity.CpuTunerTabActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
 		<activity android:name=".view.preference.SettingsPreferenceActivity"></activity>
 		<activity android:name=".view.activity.TriggerEditor" android:theme="@android:style/Theme.Black.NoTitleBar">
 			<intent-filter>

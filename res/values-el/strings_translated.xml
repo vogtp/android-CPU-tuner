@@ -229,8 +229,6 @@
 	<string name="prefCatNotifications">Ειδοποιήσεις</string>
 	<string name="prefCatSystem">Σύστημα</string>
 	<string name="prefEnableProfiles">Ενεργοποίηση των προφίλ</string>
-	<string name="prefEnableProfilesOn">Το CPU tuner θα εκκινεί ως εφαρμογή στο background για να ελέγχει τα προφίλ του CPU. Θα εκκινεί κατά το boot.</string>
-	<string name="prefEnableProfilesOff">Δε θα ελέγχονται προφίλ CPU.</string>
 	<string name="prefSetCpuSetting">Ρυθμήσεις CPU</string>
 	<string name="profileBatteryGood">Καλή μπαταρία</string>
 	<string name="profileBatteryCrtitical">Οριακή μπαταρία</string>

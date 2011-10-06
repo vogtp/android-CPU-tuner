@@ -95,8 +95,6 @@
 <string name="prefCatNotifications">Notifications</string>
 <string name="prefCatSystem">Système</string>
 <string name="prefEnableProfiles">Activer profils</string>
-<string name="prefEnableProfilesOn">CPU tuner va commencer en processus d\'arrière-plan pour gérer les profils de CPU. Il sera lancé au démarrage.</string>
-<string name="prefEnableProfilesOff">Aucun profil CPU sera géré.</string>
 <string name="prefSetCpuSetting">Paramètres CPU</string>
 <string name="profileBatteryGood">Batterie bonne</string>
 <string name="profileBatteryCrtitical">Batterie critique</string>
