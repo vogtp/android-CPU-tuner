@@ -30,11 +30,11 @@ public class PagerAdapter extends FragmentPagerAdapter
 
 	public interface PagerItem {
 
-		boolean onOptionsItemSelected(Activity act, MenuItem item);
+		public boolean onOptionsItemSelected(Activity act, MenuItem item);
 
-		void onPrepareOptionsMenu(Menu menu);
+		public void onPrepareOptionsMenu(Menu menu);
 
-		List<Action> getActions();
+		public List<Action> getActions();
 
 	}
 

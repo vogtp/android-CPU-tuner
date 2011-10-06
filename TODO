@@ -1,9 +1,7 @@
 
-- why do we get 2 profile switches each time?
-- ask for name when closing editor or do not save (avoid identical names as well) configuration/trigger/profile/virtgov
-- configurations autoload actionbar
-
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
+
+- Imperial units (°C -> F) 
 
 - move install level from default preferences to other non backuped preferences
 
@@ -11,39 +9,29 @@
 
 * make autoload restoreable and decouple it from configs 
 
-- move settings to new layout
-
-- branch actionbar
-
-- hide frequencies for beginners (and state clearly in market)
-
-- show long description of configs
-
 - triggers cannot have to same battery level
-
 - handle two configuration have the same name
+- ask for name when closing editor or do not save (avoid identical names as well) configuration/trigger/profile/virtgov
 
-- enable/disable services in settings
-- Imperial units (°C -> F)
-
-- action bar for editors
 
 - animate pulsed service in list
 - icons for services
 - widget for profile switch
-- add long text for settings
 - do not change bt while paired -> setting
-
-
-- add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
-
-- add sampling intervall (coupled parameter?)
-
 - remove strings: prefEnableProfilesOn and prefEnableProfilesOff
 
 - fragments: fix orientation change 
 
-- move logging to file or logcat
+- move settings to new layout
+- configurations autoload actionbar
 
+- branch actionbar
+- show long description of configs
+
+- enable/disable services in settings
+- move logging to file or logcat or DB?
+
+- add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
+- add sampling intervall (coupled parameter?)
 - set brightness
 - Feature request: CPU temperature monitoring in addition to battery 
