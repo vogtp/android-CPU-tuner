@@ -1,19 +1,12 @@
 
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
-- Imperial units (°C -> F) 
-
-- move install level from default preferences to other non backuped preferences
-
-
 * make autoload restoreable and decouple it from configs 
 
 - triggers cannot have to same battery level
 - handle two configuration have the same name
 - ask for name when closing editor or do not save (avoid identical names as well) configuration/trigger/profile/virtgov
 
-
-- animate pulsed service in list
 - icons for services
 - widget for profile switch
 - do not change bt while paired -> setting

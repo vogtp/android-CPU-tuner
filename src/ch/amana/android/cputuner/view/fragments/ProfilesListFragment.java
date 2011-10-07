@@ -20,6 +20,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -134,7 +138,9 @@ public class ProfilesListFragment extends PagerListFragment {
 						textRes = R.string.labelGpsPrev;
 						color = Color.LTGRAY;
 					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-						color = Color.YELLOW;
+
+						setPulseAnimation(textView);
+						color = Color.WHITE;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -157,7 +163,8 @@ public class ProfilesListFragment extends PagerListFragment {
 						textRes = R.string.labelWifiPrev;
 						color = Color.LTGRAY;
 					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-						color = Color.YELLOW;
+						setPulseAnimation(textView);
+						color = Color.WHITE;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -180,7 +187,9 @@ public class ProfilesListFragment extends PagerListFragment {
 						textRes = R.string.labelBluetoothPrev;
 						color = Color.LTGRAY;
 					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-						color = Color.YELLOW;
+
+						setPulseAnimation(textView);
+						color = Color.WHITE;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -203,7 +212,9 @@ public class ProfilesListFragment extends PagerListFragment {
 						textRes = R.string.labelSyncPrev;
 						color = Color.LTGRAY;
 					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-						color = Color.YELLOW;
+
+						setPulseAnimation(textView);
+						color = Color.WHITE;
 					}
 					textView.setText(textRes);
 					textView.setTextColor(color);
@@ -253,7 +264,9 @@ public class ProfilesListFragment extends PagerListFragment {
 						color = Color.LTGRAY;
 					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
 						textRes = R.string.labelMobiledataOn;
-						color = Color.YELLOW;
+
+						setPulseAnimation(textView);
+						color = Color.WHITE;
 					}
 					textView.setTextColor(color);
 					textView.setText(textRes);
@@ -278,7 +291,9 @@ public class ProfilesListFragment extends PagerListFragment {
 						color = Color.LTGRAY;
 					} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
 						textRes = R.string.labelAirplaneModeOn;
-						color = Color.YELLOW;
+
+						setPulseAnimation(textView);
+						color = Color.WHITE;
 					}
 					textView.setTextColor(color);
 					textView.setText(textRes);
@@ -286,10 +301,35 @@ public class ProfilesListFragment extends PagerListFragment {
 				}
 				return false;
 			}
+
 		});
 
 		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
+	}
+
+	private void setPulseAnimation(final TextView tv) {
+		final AnimationSet c = (AnimationSet) AnimationUtils.loadAnimation(getActivity(), R.anim.pluse);
+		c.setRepeatMode(Animation.RESTART);
+		c.setRepeatCount(Animation.INFINITE);
+		c.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				tv.clearAnimation();
+				tv.startAnimation(c);
+			}
+		});
+
+		tv.clearAnimation();
+		tv.startAnimation(c);
 	}
 
 	@Override
