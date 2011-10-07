@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -530,16 +529,5 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		return getActivity();
 	};
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.detach(governorFragment);
-		fragmentTransaction.commit();
-		super.onConfigurationChanged(newConfig);
-		fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.attach(governorFragment);
-		fragmentTransaction.commit();
-	}
 	
 }

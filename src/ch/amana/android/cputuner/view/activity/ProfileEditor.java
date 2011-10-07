@@ -2,7 +2,6 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -461,18 +460,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	public void save() {
 		exitStatus = ExitStatus.save;
 		finish();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.detach(governorFragment);
-		fragmentTransaction.commit();
-		super.onConfigurationChanged(newConfig);
-		fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.attach(governorFragment);
-		fragmentTransaction.commit();
 	}
 
 	//	@Override
