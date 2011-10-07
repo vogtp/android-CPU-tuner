@@ -75,7 +75,6 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/spMobileData3G"
 						android:layout_width="fill_parent"
-						android:layout_gravity="fill_horizontal"
 						android:layout_weight=".1"
 					></Spinner>
 				</TableRow>
@@ -96,7 +95,6 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/spMobileDataConnection"
 						android:layout_width="fill_parent"
-						android:layout_gravity="fill_horizontal"
 						android:layout_weight=".1"
 					></Spinner>
 				</TableRow>
@@ -117,7 +115,7 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/spSync"
 						android:layout_width="fill_parent"
-						android:layout_gravity="fill_horizontal"
+
 						android:layout_weight=".1"
 					></Spinner>
 				</TableRow>
@@ -138,7 +136,7 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/spGps"
 						android:layout_width="fill_parent"
-						android:layout_gravity="fill_horizontal"
+
 						android:layout_weight=".1"
 					></Spinner>
 				</TableRow>
@@ -159,7 +157,7 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/spWifi"
 						android:layout_width="fill_parent"
-						android:layout_gravity="fill_horizontal"
+
 						android:layout_weight=".1"
 					></Spinner>
 				</TableRow>
@@ -180,7 +178,7 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/spBluetooth"
 						android:layout_width="fill_parent"
-						android:layout_gravity="fill_horizontal"
+
 						android:layout_weight=".1"
 					></Spinner>
 				</TableRow>
@@ -201,7 +199,7 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/spAirplaneMode"
 						android:layout_width="fill_parent"
-						android:layout_gravity="fill_horizontal"
+
 						android:layout_weight=".1"
 					></Spinner>
 				</TableRow>
