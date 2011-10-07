@@ -1,4 +1,5 @@
 
+
 - long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
 
 * make autoload restoreable and decouple it from configs 
@@ -9,7 +10,6 @@
 
 - icons for services
 - widget for profile switch
-- do not change bt while paired -> setting
 
 - if no gov get current gov or try to set governors
 

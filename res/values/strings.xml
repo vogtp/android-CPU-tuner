@@ -27,5 +27,7 @@ Do you want to save the content?</string>
 Without this access cpu tuner will not work.
 </string>  
         <string name="labelLogTab">Profileswitch log</string>  
-        <string name="msg_no_profile_switch_log">No profile switch log found</string>
+        <string name="msg_no_profile_switch_log">No profile switch log found</string>  
+        <string name="prefSwitchPairedBluetooth">Switch paired bluetooth</string>  
+        <string name="prefSwitchPairedBluetoothLong">Switch bluetooth even if it is paired to a device.</string>
 </resources>
