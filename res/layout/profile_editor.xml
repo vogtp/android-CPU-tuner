@@ -1,134 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent" android:layout_height="match_parent"
-	android:orientation="vertical">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+>
 	<ch.amana.android.cputuner.view.widget.CputunerActionBar
-		style="@style/ActionBar" android:id="@+id/abCpuTuner" android:paddingBottom="3dp"/>
-	<ScrollView android:id="@+id/ScrollView01"
-		android:layout_width="match_parent" android:layout_height="match_parent">
-		<LinearLayout android:layout_width="match_parent"
-			android:layout_height="match_parent" android:id="@+id/llTop"
-			android:orientation="vertical" android:padding="5dp">
+		style="@style/ActionBar"
+		android:id="@+id/abCpuTuner"
+		android:paddingBottom="3dp" />
+	<ScrollView
+		android:id="@+id/ScrollView01"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+	>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/llTop"
+			android:orientation="vertical"
+			android:padding="5dp"
+		>
 
-			<LinearLayout android:layout_height="wrap_content"
-				android:id="@+id/LinearLayoutProfile" android:layout_width="fill_parent"
-				android:layout_margin="7dp">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:id="@+id/labelPowerProfile"
-					android:text="@string/labelPowerProfile" android:paddingRight="5dp"
-					android:textSize="22sp"></TextView>
-				<EditText android:layout_height="wrap_content" android:id="@+id/etName"
-					android:layout_width="fill_parent" android:hint="@string/hint_profile_name"></EditText>
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:id="@+id/LinearLayoutProfile"
+				android:layout_width="fill_parent"
+				android:layout_margin="7dp"
+			>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/labelPowerProfile"
+					android:text="@string/labelPowerProfile"
+					android:paddingRight="5dp"
+					android:textSize="22sp"
+				></TextView>
+				<EditText
+					android:layout_height="wrap_content"
+					android:id="@+id/etName"
+					android:layout_width="fill_parent"
+					android:hint="@string/hint_profile_name"
+				></EditText>
 
 			</LinearLayout>
-			<TextView android:paddingRight="5dp" android:id="@+id/textView2"
-				android:text="@string/labelServices" android:paddingTop="10dp"
-				android:layout_height="wrap_content" android:layout_width="fill_parent"
-				android:textSize="20sp"></TextView>
-			<TableLayout android:id="@+id/TableLayoutServices"
-				android:layout_height="wrap_content" android:layout_width="match_parent">
-				<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMobileData3G" android:layout_width="match_parent">
-					<TextView android:paddingRight="5dp"
-						android:layout_gravity="center_vertical" android:text="@string/labelMobileData32G"
-						android:layout_width="wrap_content" android:id="@+id/TextView01"
-						android:layout_height="wrap_content"></TextView>
-					<Spinner android:layout_height="wrap_content"
-						android:id="@+id/spMobileData3G" android:layout_width="match_parent"></Spinner>
+			<TextView
+				android:paddingRight="5dp"
+				android:id="@+id/textView2"
+				android:text="@string/labelServices"
+				android:paddingTop="10dp"
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+				android:textSize="20sp"
+			></TextView>
+			<TableLayout
+				android:id="@+id/TableLayoutServices"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+			>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:id="@+id/TableRowMobileData3G"
+					android:layout_width="match_parent"
+				>
+					<TextView
+						android:paddingRight="5dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelMobileData32G"
+						android:layout_width="wrap_content"
+						android:id="@+id/TextView01"
+						android:layout_height="wrap_content"
+					></TextView>
+					<Spinner
+						android:layout_height="wrap_content"
+						android:id="@+id/spMobileData3G"
+						android:layout_width="fill_parent"
+						android:layout_gravity="fill_horizontal"
+						android:layout_weight=".1"
+					></Spinner>
 				</TableRow>
-				<TableRow android:layout_height="wrap_content"
+				<TableRow
+					android:layout_height="wrap_content"
 					android:id="@+id/TableRowMobiledataConnection"
-					android:layout_width="wrap_content">
-					<TextView android:paddingRight="5dp"
-						android:layout_gravity="center_vertical" android:text="@string/labelMobileDataConn"
-						android:layout_width="wrap_content" android:id="@+id/TextView02"
-						android:layout_height="wrap_content"></TextView>
-					<Spinner android:layout_height="wrap_content"
-						android:layout_width="wrap_content" android:id="@+id/spMobileDataConnection"></Spinner>
+					android:layout_width="match_parent"
+				>
+					<TextView
+						android:paddingRight="5dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelMobileDataConn"
+						android:layout_width="wrap_content"
+						android:id="@+id/TextView02"
+						android:layout_height="wrap_content"
+					></TextView>
+					<Spinner
+						android:layout_height="wrap_content"
+						android:id="@+id/spMobileDataConnection"
+						android:layout_width="fill_parent"
+						android:layout_gravity="fill_horizontal"
+						android:layout_weight=".1"
+					></Spinner>
 				</TableRow>
-				<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowSync"
-					android:layout_width="wrap_content">
-					<TextView android:paddingRight="5dp"
-						android:layout_gravity="center_vertical" android:text="@string/labelBackgroundSync"
-						android:layout_width="wrap_content" android:id="@+id/TextView01"
-						android:layout_height="wrap_content"></TextView>
-					<Spinner android:layout_height="wrap_content"
-						android:layout_width="wrap_content" android:id="@+id/spSync"></Spinner>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:id="@+id/TableRowSync"
+					android:layout_width="match_parent"
+				>
+					<TextView
+						android:paddingRight="5dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelBackgroundSync"
+						android:layout_width="wrap_content"
+						android:id="@+id/TextView01"
+						android:layout_height="wrap_content"
+					></TextView>
+					<Spinner
+						android:layout_height="wrap_content"
+						android:id="@+id/spSync"
+						android:layout_width="fill_parent"
+						android:layout_gravity="fill_horizontal"
+						android:layout_weight=".1"
+					></Spinner>
 				</TableRow>
-				<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowGps"
-					android:layout_width="wrap_content">
-					<TextView android:paddingRight="5dp"
-						android:layout_gravity="center_vertical" android:text="@string/labelGPS"
-						android:layout_width="wrap_content" android:id="@+id/TextView01"
-						android:layout_height="wrap_content"></TextView>
-					<Spinner android:layout_height="wrap_content"
-						android:layout_width="wrap_content" android:id="@+id/spGps"></Spinner>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:id="@+id/TableRowGps"
+					android:layout_width="match_parent"
+				>
+					<TextView
+						android:paddingRight="5dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelGPS"
+						android:layout_width="wrap_content"
+						android:id="@+id/TextView01"
+						android:layout_height="wrap_content"
+					></TextView>
+					<Spinner
+						android:layout_height="wrap_content"
+						android:id="@+id/spGps"
+						android:layout_width="fill_parent"
+						android:layout_gravity="fill_horizontal"
+						android:layout_weight=".1"
+					></Spinner>
 				</TableRow>
-				<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowWifi"
-					android:layout_width="wrap_content">
-					<TextView android:paddingRight="5dp"
-						android:layout_gravity="center_vertical" android:text="@string/labelWifi"
-						android:layout_width="wrap_content" android:id="@+id/TextView01"
-						android:layout_height="wrap_content"></TextView>
-					<Spinner android:layout_height="wrap_content"
-						android:layout_width="wrap_content" android:id="@+id/spWifi"></Spinner>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:id="@+id/TableRowWifi"
+					android:layout_width="match_parent"
+				>
+					<TextView
+						android:paddingRight="5dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelWifi"
+						android:layout_width="wrap_content"
+						android:id="@+id/TextView01"
+						android:layout_height="wrap_content"
+					></TextView>
+					<Spinner
+						android:layout_height="wrap_content"
+						android:id="@+id/spWifi"
+						android:layout_width="fill_parent"
+						android:layout_gravity="fill_horizontal"
+						android:layout_weight=".1"
+					></Spinner>
 				</TableRow>
-				<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBluetooth"
-					android:layout_width="wrap_content">
-					<TextView android:paddingRight="5dp"
-						android:layout_gravity="center_vertical" android:text="@string/labelBluetooth"
-						android:layout_width="wrap_content" android:id="@+id/TextView01"
-						android:layout_height="wrap_content"></TextView>
-					<Spinner android:layout_height="wrap_content"
-						android:layout_width="wrap_content" android:id="@+id/spBluetooth"></Spinner>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:id="@+id/TableRowBluetooth"
+					android:layout_width="match_parent"
+				>
+					<TextView
+						android:paddingRight="5dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelBluetooth"
+						android:layout_width="wrap_content"
+						android:id="@+id/TextView01"
+						android:layout_height="wrap_content"
+					></TextView>
+					<Spinner
+						android:layout_height="wrap_content"
+						android:id="@+id/spBluetooth"
+						android:layout_width="fill_parent"
+						android:layout_gravity="fill_horizontal"
+						android:layout_weight=".1"
+					></Spinner>
 				</TableRow>
-				<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowAirplaneMode"
-					android:layout_width="wrap_content">
-					<TextView android:paddingRight="5dp"
-						android:layout_gravity="center_vertical" android:id="@+id/TextView03"
-						android:text="@string/labelAirplaneMode" android:layout_height="wrap_content"
-						android:layout_width="wrap_content"></TextView>
-					<Spinner android:layout_height="wrap_content" android:id="@+id/spAirplaneMode"
-						android:layout_width="wrap_content"></Spinner>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:id="@+id/TableRowAirplaneMode"
+					android:layout_width="match_parent"
+				>
+					<TextView
+						android:paddingRight="5dp"
+						android:layout_gravity="center_vertical"
+						android:id="@+id/TextView03"
+						android:text="@string/labelAirplaneMode"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+					></TextView>
+					<Spinner
+						android:layout_height="wrap_content"
+						android:id="@+id/spAirplaneMode"
+						android:layout_width="fill_parent"
+						android:layout_gravity="fill_horizontal"
+						android:layout_weight=".1"
+					></Spinner>
 				</TableRow>
 			</TableLayout>
-			<LinearLayout android:orientation="vertical"
-				android:layout_height="wrap_content" android:layout_width="match_parent"
-				android:id="@+id/llGovernorFragmentAncor"></LinearLayout>
-			<TableLayout android:layout_height="wrap_content"
-				android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
-				<TextView android:textSize="20sp" android:layout_width="fill_parent"
-					android:id="@+id/textView1" android:layout_height="wrap_content"
-					android:paddingTop="10dp" android:text="@string/labelCpuFreq"
-					android:paddingRight="5dp"></TextView>
-				<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
-					android:layout_width="fill_parent">
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/llGovernorFragmentAncor"
+			></LinearLayout>
+			<TableLayout
+				android:layout_height="wrap_content"
+				android:id="@+id/TableLayoutFreq"
+				android:layout_width="fill_parent"
+			>
+				<TextView
+					android:textSize="20sp"
+					android:layout_width="fill_parent"
+					android:id="@+id/textView1"
+					android:layout_height="wrap_content"
+					android:paddingTop="10dp"
+					android:text="@string/labelCpuFreq"
+					android:paddingRight="5dp"
+				></TextView>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:id="@+id/TableRowMaxFreq"
+					android:layout_width="fill_parent"
+				>
 
 
-					<TextView android:layout_width="wrap_content"
-						android:layout_height="wrap_content" android:paddingRight="5dp"
-						android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"
-						android:layout_gravity="center_vertical"></TextView>
-					<Spinner android:layout_width="wrap_content"
-						android:layout_height="wrap_content" android:id="@+id/spCpuFreqMax"></Spinner>
-					<SeekBar android:layout_height="wrap_content"
-						android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
-						android:layout_weight=".3" android:paddingRight="5dp"
-						android:paddingBottom="3dp" android:paddingTop="3dp"
-						android:layout_marginRight="5dp"></SeekBar>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="5dp"
+						android:text="@+string/labelMax"
+						android:id="@+id/labelCpuFreqMax"
+						android:layout_gravity="center_vertical"
+					></TextView>
+					<Spinner
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/spCpuFreqMax"
+					></Spinner>
+					<SeekBar
+						android:layout_height="wrap_content"
+						android:layout_width="fill_parent"
+						android:id="@+id/SeekBarCpuFreqMax"
+						android:layout_weight=".3"
+						android:paddingRight="5dp"
+						android:paddingBottom="3dp"
+						android:paddingTop="3dp"
+						android:layout_marginRight="5dp"
+					></SeekBar>
 
 				</TableRow>
-				<TableRow android:id="@+id/TableRowMinFreq"
-					android:layout_height="wrap_content" android:layout_width="fill_parent">
-					<TextView android:layout_height="wrap_content"
-						android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin"
-						android:layout_gravity="center_vertical" android:text="@+string/labelMin"
-						android:paddingRight="5dp"></TextView>
-					<Spinner android:layout_width="wrap_content"
-						android:layout_height="wrap_content" android:id="@+id/spCpuFreqMin"></Spinner>
-					<SeekBar android:paddingBottom="3dp" android:id="@+id/SeekBarCpuFreqMin"
-						android:paddingRight="5dp" android:paddingTop="3dp"
-						android:layout_height="wrap_content" android:layout_width="fill_parent"
-						android:layout_weight=".3" android:layout_marginRight="5dp"></SeekBar>
+				<TableRow
+					android:id="@+id/TableRowMinFreq"
+					android:layout_height="wrap_content"
+					android:layout_width="fill_parent"
+				>
+					<TextView
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:id="@+id/labelCpuFreqMin"
+						android:layout_gravity="center_vertical"
+						android:text="@+string/labelMin"
+						android:paddingRight="5dp"
+					></TextView>
+					<Spinner
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/spCpuFreqMin"
+					></Spinner>
+					<SeekBar
+						android:paddingBottom="3dp"
+						android:id="@+id/SeekBarCpuFreqMin"
+						android:paddingRight="5dp"
+						android:paddingTop="3dp"
+						android:layout_height="wrap_content"
+						android:layout_width="fill_parent"
+						android:layout_weight=".3"
+						android:layout_marginRight="5dp"
+					></SeekBar>
 				</TableRow>
 			</TableLayout>
 		</LinearLayout>
