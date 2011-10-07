@@ -17,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -75,7 +74,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private ExitStatus exitStatus = ExitStatus.save;
 	private ModelAccess modelAccess;
 	private ProfileModel origProfile;
-	private LinearLayout llGovernorFragmentAncor;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -136,7 +134,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
-		// TODO remove?
+		// TODO make generic
 		hasDeviceStatesBeta = 3 == Math.max(profile.getWifiState(),
 				Math.max(profile.getGpsState(),
 						Math.max(profile.getMobiledata3GState(),
@@ -161,7 +159,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spSync = (Spinner) findViewById(R.id.spSync);
 		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
-		llGovernorFragmentAncor = (LinearLayout) findViewById(R.id.llGovernorFragmentAncor);
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
@@ -476,21 +473,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.attach(governorFragment);
 		fragmentTransaction.commit();
-
-		//		governorFragment.updateModel();
-		//		FragmentManager fragmentManager = getSupportFragmentManager();
-		//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		//		fragmentTransaction.remove(governorFragment);
-		//		fragmentTransaction.commit();
-		//		View view = governorFragment.getView();
-		//		llGovernorFragmentAncor.removeAllViews();
-		//		super.onConfigurationChanged(newConfig);
-		//		fragmentTransaction = fragmentManager.beginTransaction();
-		//		governorFragment = getFragment();
-		//		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
-		//		fragmentTransaction.commit();
-		//		governorFragment.onConfigurationChanged(newConfig);
-		//		governorFragment.updateView();
 	}
 
 	//	@Override
