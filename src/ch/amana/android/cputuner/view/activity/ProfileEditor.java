@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -73,6 +75,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private ExitStatus exitStatus = ExitStatus.save;
 	private ModelAccess modelAccess;
 	private ProfileModel origProfile;
+	private LinearLayout llGovernorFragmentAncor;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -112,14 +115,9 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		cpuHandler = CpuHandler.getInstance();
 		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
 		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
-
 		SettingsStorage settings = SettingsStorage.getInstance();
 
-		if (settings.isUseVirtualGovernors()) {
-			governorFragment = new VirtualGovernorFragment(this, profile);
-		} else {
-			governorFragment = new GovernorFragment(this, profile);
-		}
+		governorFragment = getFragment();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
@@ -163,6 +161,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spSync = (Spinner) findViewById(R.id.spSync);
 		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
+		llGovernorFragmentAncor = (LinearLayout) findViewById(R.id.llGovernorFragmentAncor);
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
@@ -302,6 +301,16 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		});
 
 		// updateView();
+	}
+
+	private GovernorBaseFragment getFragment() {
+		GovernorBaseFragment gf;
+		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+			gf = new VirtualGovernorFragment(this, profile);
+		} else {
+			gf = new GovernorFragment(this, profile);
+		}
+		return gf;
 	}
 
 	private ArrayAdapter<CharSequence> getSystemsAdapter() {
@@ -455,6 +464,33 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	public void save() {
 		exitStatus = ExitStatus.save;
 		finish();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.detach(governorFragment);
+		fragmentTransaction.commit();
+		super.onConfigurationChanged(newConfig);
+		fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.attach(governorFragment);
+		fragmentTransaction.commit();
+
+		//		governorFragment.updateModel();
+		//		FragmentManager fragmentManager = getSupportFragmentManager();
+		//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		//		fragmentTransaction.remove(governorFragment);
+		//		fragmentTransaction.commit();
+		//		View view = governorFragment.getView();
+		//		llGovernorFragmentAncor.removeAllViews();
+		//		super.onConfigurationChanged(newConfig);
+		//		fragmentTransaction = fragmentManager.beginTransaction();
+		//		governorFragment = getFragment();
+		//		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
+		//		fragmentTransaction.commit();
+		//		governorFragment.onConfigurationChanged(newConfig);
+		//		governorFragment.updateView();
 	}
 
 	//	@Override

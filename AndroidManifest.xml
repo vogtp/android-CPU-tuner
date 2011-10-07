@@ -14,11 +14,6 @@
 		<meta-data android:name="com.google.android.backup.api_key"
 			android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
 
-		<activity android:label="@string/app_name" android:name=".view.activity.CurInfo"
-			android:configChanges="orientation">
-
-		</activity>
-
 		<receiver android:name=".receiver.BootReceiver">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED"></action>
@@ -34,7 +29,7 @@
 			</intent-filter>
 		</service>
 
-		<activity android:name=".view.activity.ProfileEditor" android:theme="@android:style/Theme.Black.NoTitleBar">
+		<activity android:name=".view.activity.ProfileEditor" android:theme="@android:style/Theme.Black.NoTitleBar" android:configChanges="orientation">
 			<intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>
 				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile"></data>
@@ -70,7 +65,7 @@
 				<action android:name="android.net.wifi.STATE_CHANGE"></action>
 			</intent-filter>
 		</receiver>
-		<activity android:name=".view.activity.CpuTunerViewpagerActivity" android:theme="@android:style/Theme.Black.NoTitleBar">
+		<activity android:name=".view.activity.CpuTunerViewpagerActivity" android:theme="@android:style/Theme.Black.NoTitleBar" android:configChanges="orientation">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -91,22 +86,17 @@
 		</activity>
 		<provider android:name=".provider.CpuTunerProvider"
 			android:authorities="ch.amana.android.cputuner"></provider>
-		<activity android:name=".view.activity.TriggersListActivity"></activity>
-		<activity android:name=".view.activity.ProfilesListActivity"></activity>
 		<activity android:configChanges="orientation"
 			android:name=".view.preference.CapabilityCheckerActivity"></activity>
 		<activity android:name=".view.activity.HelpActivity"></activity>
 		<activity android:name=".view.preference.SendReportActivity"></activity>
 		<activity android:name=".view.preference.FindFrequenciesActivity"></activity>
-		<activity android:name=".view.activity.VirtualGovernorListActivity"
-			android:label="@string/virtualGovernorsList"></activity>
 		<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>
 		<service android:name=".service.PulseService">
 			<intent-filter>
 				<action android:name="ch.amana.android.cputuner.ACTION_PULSE"></action>
 			</intent-filter>
 		</service>
-		<activity android:name=".view.activity.StatsActivity"></activity>
 		<activity android:name=".view.activity.VirtualGovernorEditorActivity" android:theme="@android:style/Theme.Black.NoTitleBar">
 			<intent-filter>
 				<action android:name="android.intent.action.EDIT"></action>

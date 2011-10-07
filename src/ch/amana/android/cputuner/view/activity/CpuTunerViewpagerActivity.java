@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -106,6 +107,12 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		PagerAdapter.getCurrentItem().onConfigurationChanged(newConfig);
+		super.onConfigurationChanged(newConfig);
 	}
 
 }
