@@ -44,6 +44,8 @@ public class SettingsStorage {
 	private static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
 	private static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
 
+	private static final String PREF_NAME_VERSION = "version";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -299,11 +301,11 @@ public class SettingsStorage {
 	}
 
 	public int getDefaultProfilesVersion() {
-		return getPreferences().getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
+		return context.getSharedPreferences(PREF_NAME_VERSION, 0).getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
 	}
 
 	public void setDefaultProfilesVersion(int version) {
-		Editor editor = getPreferences().edit();
+		Editor editor = context.getSharedPreferences(PREF_NAME_VERSION, 0).edit();
 		editor.putInt(PREF_DEFAULT_PROFILES_VERSION, version);
 		editor.commit();
 	}
