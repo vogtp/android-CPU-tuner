@@ -93,7 +93,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 		ListView lvSysConfigs = (ListView) findViewById(R.id.lvSysConfigs);
 		try {
-			sysConfigsAdapter = new SysConfigurationsAdapter(this, getAssets().list(BackupRestoreHelper.DIRECTORY_CONFIGURATIONS));
+			sysConfigsAdapter = new SysConfigurationsAdapter(this);
 			lvSysConfigs.setAdapter(sysConfigsAdapter);
 			lvSysConfigs.setOnItemClickListener(new OnItemClickListener() {
 				@Override
