@@ -326,6 +326,10 @@ public interface DB {
 		public static final String SORTORDER_DEFAULT = NAME_GOVERNOR_THRESHOLD_UP + " ASC";
 		public static final String SORTORDER_REVERSE = NAME_GOVERNOR_THRESHOLD_UP + " DESC";
 
+		public static final String[] PROJECTION_ID_NAME = new String[] { NAME_ID, NAME_VIRTUAL_GOVERNOR_NAME };
+
+		public static final String SELECTION_NAME = NAME_VIRTUAL_GOVERNOR_NAME + "=?";
+
 	}
 
 	public interface ConfigurationAutoload {

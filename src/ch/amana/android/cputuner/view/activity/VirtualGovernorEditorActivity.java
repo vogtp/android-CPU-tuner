@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
@@ -19,6 +21,8 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
+import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
@@ -126,18 +130,24 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	protected void onPause() {
 		super.onPause();
 		updateModel();
-		try {
-			String action = getIntent().getAction();
-			if (exitStatus == ExitStatus.save) {
-				if (Intent.ACTION_INSERT.equals(action)) {
-					modelAccess.insertVirtualGovernor(virtualGovModel);
-				} else if (Intent.ACTION_EDIT.equals(action)) {
-					modelAccess.updateVirtualGovernor(virtualGovModel);
+		if (hasChange() && hasName() && isNameUnique()) {
+			try {
+				String action = getIntent().getAction();
+				if (exitStatus == ExitStatus.save) {
+					if (Intent.ACTION_INSERT.equals(action)) {
+						modelAccess.insertVirtualGovernor(virtualGovModel);
+					} else if (Intent.ACTION_EDIT.equals(action)) {
+						modelAccess.updateVirtualGovernor(virtualGovModel);
+					}
 				}
+			} catch (Exception e) {
+				Logger.w("Cannot insert or update", e);
 			}
-		} catch (Exception e) {
-			Logger.w("Cannot insert or update", e);
 		}
+	}
+
+	private boolean hasChange() {
+		return !origVirtualGovModel.equals(virtualGovModel);
 	}
 
 	@Override
@@ -176,10 +186,44 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		finish();
 	}
 
+	private boolean hasName() {
+		String name = virtualGovModel.getVirtualGovernorName();
+		return name != null && !"".equals(name.trim());
+	}
+
+	private boolean isNameUnique() {
+		Cursor cursor = null;
+		try {
+			cursor = managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_ID_NAME, VirtualGovernor.SELECTION_NAME, new String[] { virtualGovModel
+					.getVirtualGovernorName() }, null);
+			if (cursor.moveToFirst()) {
+				return cursor.getLong(DB.INDEX_ID) == virtualGovModel.getDbId();
+			} else {
+				return true;
+			}
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
 	@Override
 	public void save() {
-		exitStatus = ExitStatus.save;
-		finish();
+		updateModel();
+		boolean ok = true;
+		if (!hasName()) {
+			Toast.makeText(this, R.string.msg_no_virtgov_name, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok && !isNameUnique()) {
+			Toast.makeText(this, R.string.msg_virtgovname_exists, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok) {
+			exitStatus = ExitStatus.save;
+			finish();
+		}
 	}
 
 	//	@Override
