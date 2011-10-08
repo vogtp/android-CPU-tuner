@@ -11,14 +11,16 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Button;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class HelpActivity extends Activity {
 
@@ -34,12 +36,7 @@ public class HelpActivity extends Activity {
 	public static final String PAGE_SETTINGS = "settings/index.html";
 	public static final String PAGE_SETTINGS_GUI = "settings/gui.html";
 
-
-
 	private WebView wvHelp;
-	private Button buHome;
-	private Button buBack;
-	private Button buForward;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -59,33 +56,43 @@ public class HelpActivity extends Activity {
 		}
 
 		wvHelp = (WebView) findViewById(R.id.wvHelp);
-		buHome = (Button) findViewById(R.id.buHome);
-		buBack = (Button) findViewById(R.id.buBack);
-		buForward = (Button) findViewById(R.id.buForward);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 
 		WebSettings webSettings = wvHelp.getSettings();
 		webSettings.setBuiltInZoomControls(false);
 		webSettings.setDefaultFontSize(16);
 
-		buHome.setOnClickListener(new OnClickListener() {
+		actionBar.setTitle(R.string.title_help_pages);
+		actionBar.setHomeAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.cputuner_back));
 
+		actionBar.addAction(new Action() {
 			@Override
-			public void onClick(View v) {
-				go(PAGE_INDEX);
-			}
-		});
-		buBack.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
+			public void performAction(View view) {
 				wvHelp.goBack();
 			}
-		});
-		buForward.setOnClickListener(new OnClickListener() {
-
 			@Override
-			public void onClick(View v) {
+			public int getDrawable() {
+				return R.drawable.back;
+			}
+		});
+		actionBar.addAction(new Action() {
+			@Override
+			public void performAction(View view) {
 				wvHelp.goForward();
+			}
+			@Override
+			public int getDrawable() {
+				return R.drawable.forward;
+			}
+		});
+		actionBar.addAction(new Action() {
+			@Override
+			public void performAction(View view) {
+				go(PAGE_INDEX);
+			}
+			@Override
+			public int getDrawable() {
+				return R.drawable.home;
 			}
 		});
 

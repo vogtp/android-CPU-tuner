@@ -42,5 +42,6 @@ Without this access CPU tuner will not work.
         <string name="prefEnableCputunerOff">CPU tuner is not running.</string>  
         <string name="prefKeyProfilesLong">Change the way profiles, triggers and governors behave.</string>  
         <string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile date, wifi or bluetooth) behave.</string>  
-        <string name="prefCpuLong">Settings concerning the CPU.</string>
+        <string name="prefCpuLong">Settings concerning the CPU.</string>  
+        <string name="title_help_pages">Help pages</string>
 </resources>

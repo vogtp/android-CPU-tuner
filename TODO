@@ -1,3 +1,7 @@
+- new layout for help
+
+- stop pulse service
+
 - make autoload restoreable and decouple it from configs 
 
 - triggers cannot have to same battery level

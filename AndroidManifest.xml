@@ -116,7 +116,7 @@
 			android:configChanges="orientation"
 			android:name=".view.preference.CapabilityCheckerActivity"
 		></activity>
-		<activity android:name=".view.activity.HelpActivity"></activity>
+		<activity android:name=".view.activity.HelpActivity" android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
 		<activity android:name=".view.preference.SendReportActivity"></activity>
 		<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>
 		<service android:name=".service.PulseService">
