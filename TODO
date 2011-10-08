@@ -1,17 +1,16 @@
-- make autoload restoreable and decouple it from configs 
+- autoload: save to all configs
 
 - icons for services
 
-- widget for profile switch
-
-- move settings to new layout
-- configurations autoload actionbar
-
 - branch actionbar
 
+- widget for profile switch
+
 - enable/disable services in settings
+
 - move logging to file or logcat or DB?
 
+- move settings to new layout
 - if no gov get current gov or try to set governors
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 - add sampling interval (coupled parameter?)
