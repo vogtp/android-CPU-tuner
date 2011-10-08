@@ -26,6 +26,7 @@ import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -38,6 +39,7 @@ import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
@@ -46,6 +48,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
 	public static final String EXTRA_DISABLE_ON_NOLOAD = "disableOnNoload";
 	public static final String EXTRA_NEW_LAYOUT = "newLayout";
+	public static final String EXTRA_TITLE = "title";
 	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
 	private SysConfigurationsAdapter sysConfigsAdapter;
@@ -64,7 +67,26 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			setContentView(R.layout.configuration_manage);
 			CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 			actionBar.setHomeAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.cputuner_back));
-			actionBar.setTitle(R.string.titleManageConfigurations);
+			String title = getIntent().getStringExtra(EXTRA_TITLE);
+			if (title == null) {
+				actionBar.setTitle(R.string.titleManageConfigurations);
+			} else {
+				actionBar.setTitle(title);
+			}
+
+			if (InstallHelper.hasConfig(this)) {
+				actionBar.addAction(new Action() {
+					@Override
+					public void performAction(View view) {
+						add();
+					}
+
+					@Override
+					public int getDrawable() {
+						return android.R.drawable.ic_menu_add;
+					}
+				});
+			}
 		} else {
 			setContentView(R.layout.configuration_manage);
 			((CputunerActionBar) findViewById(R.id.abCpuTuner)).setVisibility(View.GONE);

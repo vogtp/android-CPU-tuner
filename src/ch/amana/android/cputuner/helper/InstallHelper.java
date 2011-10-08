@@ -126,11 +126,13 @@ public class InstallHelper {
 			intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_DISABLE_ON_NOLOAD, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_ASK_LOAD_CONFIRMATION, false);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_NEW_LAYOUT, true);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_TITLE, ctx.getString(R.string.title_load_configuration));
 			ctx.startActivity(intent);
 		}
 	}
 
-	private static boolean hasConfig(Context ctx) {
+	public static boolean hasConfig(Context ctx) {
 		boolean ret = true;
 		ContentResolver resolver = ctx.getContentResolver();
 		ret = ret && checkCursor(resolver, DB.CpuProfile.CONTENT_URI);
