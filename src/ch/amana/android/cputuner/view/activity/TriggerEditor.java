@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
@@ -30,6 +31,7 @@ import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.Trigger;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
@@ -205,17 +207,19 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	protected void onPause() {
 		super.onPause();
 		updateModel();
-		try {
-			String action = getIntent().getAction();
-			if (exitStatus == ExitStatus.save && hasChange()) {
-				if (Intent.ACTION_INSERT.equals(action)) {
-					modelAccess.insertTrigger(triggerModel);
-				} else if (Intent.ACTION_EDIT.equals(action)) {
-					modelAccess.updateTrigger(triggerModel);
+		if (hasChange() && hasName() && isNameUnique() && isBatterylevelUnique()) {
+			try {
+				String action = getIntent().getAction();
+				if (exitStatus == ExitStatus.save && hasChange()) {
+					if (Intent.ACTION_INSERT.equals(action)) {
+						modelAccess.insertTrigger(triggerModel);
+					} else if (Intent.ACTION_EDIT.equals(action)) {
+						modelAccess.updateTrigger(triggerModel);
+					}
 				}
+			} catch (Exception e) {
+				Logger.w("Cannot insert or update", e);
 			}
-		} catch (Exception e) {
-			Logger.w("Cannot insert or update", e);
 		}
 	}
 
@@ -252,10 +256,64 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		finish();
 	}
 
+	private boolean hasName() {
+		String name = triggerModel.getName();
+		return name != null && !"".equals(name.trim());
+	}
+
+	private boolean isNameUnique() {
+		Cursor cursor = null;
+		try {
+			cursor = managedQuery(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_ID_NAME, Trigger.SELECTION_NAME, new String[] { triggerModel.getName() }, null);
+			if (cursor.moveToFirst()) {
+				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
+			} else {
+				return true;
+			}
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
+	private boolean isBatterylevelUnique() {
+		Cursor cursor = null;
+		try {
+			cursor = managedQuery(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_BATTERY_LEVEL, Trigger.SELECTION_BATTERYLEVEL, new String[] { Integer.toString(triggerModel
+					.getBatteryLevel()) }, null);
+			if (cursor.moveToFirst()) {
+				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
+			} else {
+				return true;
+			}
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
 	@Override
 	public void save() {
-		exitStatus = ExitStatus.save;
-		finish();
+		updateModel();
+		boolean ok = true;
+		if (!hasName()) {
+			Toast.makeText(this, R.string.msg_no_trigger_name, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok && !isNameUnique()) {
+			Toast.makeText(this, R.string.msg_triggername_exists, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok && !isBatterylevelUnique()) {
+			Toast.makeText(this, R.string.msg_triggerbatterylevel_exists, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok) {
+			exitStatus = ExitStatus.save;
+			finish();
+		}
 	}
 
 	//	@Override

@@ -209,7 +209,9 @@ public interface DB {
 
 		public static final String[] PROJECTION_BATTERY_LEVEL = new String[] { NAME_ID, NAME_BATTERY_LEVEL };
 
-		static final String[] PROJECTION_MINIMAL_HOT_PROFILE = new String[] { NAME_HOT_PROFILE_ID };
+		public static final String[] PROJECTION_ID_NAME = new String[] { NAME_ID, NAME_TRIGGER_NAME };
+
+		public static final String[] PROJECTION_MINIMAL_HOT_PROFILE = new String[] { NAME_HOT_PROFILE_ID };
 
 		public static final String SORTORDER_DEFAULT = NAME_BATTERY_LEVEL + " DESC";
 
@@ -217,6 +219,9 @@ public interface DB {
 
 		static final String SORTORDER_MINIMAL_HOT_PROFILE = NAME_HOT_PROFILE_ID + " ASC";
 
+		public static final String SELECTION_NAME = NAME_TRIGGER_NAME + "=?";
+
+		public static final String SELECTION_BATTERYLEVEL = NAME_BATTERY_LEVEL + "=?";
 
 	}
 
