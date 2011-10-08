@@ -28,6 +28,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
@@ -60,6 +61,10 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			triggerModel = modelAccess.getTrigger(getIntent().getData());
+		} else if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+			triggerModel = modelAccess.getTrigger(getIntent().getData());
+			triggerModel.setName(null);
+			triggerModel.setDbId(-1);
 		}
 
 		if (triggerModel == null) {

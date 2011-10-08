@@ -10,6 +10,7 @@ V 3.0.0
 - initalise cputuner from (default) configurations
 - label powersave bias
 - update statics and log on click
+- insert as new: copy and insert an entry 
 - animate pulsed service in list
 - do not switch bluetooth while paired (has to be enabled in settings)
 - minor things

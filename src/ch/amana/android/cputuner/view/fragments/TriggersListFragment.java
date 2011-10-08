@@ -32,6 +32,7 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.TriggerModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
@@ -231,6 +232,10 @@ public class TriggersListFragment extends PagerListFragment {
 
 		case R.id.menuItemEdit:
 			startActivity(new Intent(Intent.ACTION_EDIT, uri));
+			return true;
+
+		case R.id.menuItemInsertAsNew:
+			startActivity(new Intent(CpuTunerProvider.ACTION_INSERT_AS_NEW, uri));
 			return true;
 
 		case R.id.menuItemClearPowerCurrent:

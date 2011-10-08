@@ -18,6 +18,8 @@ import ch.amana.android.cputuner.provider.db.DBBackendVirtualGovernor;
 
 public class CpuTunerProvider extends ContentProvider {
 
+	public static final String ACTION_INSERT_AS_NEW = "ch.amana.android.cputuner.ACTION_INSERT_AS_NEW";
+
 	public static final String AUTHORITY = "ch.amana.android.cputuner";
 
 	private static final int TRIGGER = 1;

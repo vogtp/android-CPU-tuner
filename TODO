@@ -1,27 +1,26 @@
+- powersave bias: check supporting govs and label 
 
-
-- long-pressing a profile and choosing "insert" would insert a new profile cloned with the settings of the long-pressed one
-
-* make autoload restoreable and decouple it from configs 
+- make autoload restoreable and decouple it from configs 
 
 - triggers cannot have to same battery level
 - handle two configuration have the same name
 - ask for name when closing editor or do not save (avoid identical names as well) configuration/trigger/profile/virtgov
 
-- icons for services
-- widget for profile switch
+- show long description of configs
 
-- if no gov get current gov or try to set governors
+- icons for services
+
+- widget for profile switch
 
 - move settings to new layout
 - configurations autoload actionbar
 
 - branch actionbar
-- show long description of configs
 
 - enable/disable services in settings
 - move logging to file or logcat or DB?
 
+- if no gov get current gov or try to set governors
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 - add sampling intervall (coupled parameter?)
 - set brightness

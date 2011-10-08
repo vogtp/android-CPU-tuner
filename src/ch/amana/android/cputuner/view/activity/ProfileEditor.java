@@ -36,6 +36,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
@@ -85,6 +86,10 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			profile = modelAccess.getProfile(getIntent().getData());
+		} else if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+			profile = modelAccess.getProfile(getIntent().getData());
+			profile.setProfileName(null);
+			profile.setDbId(-1);
 		}
 
 		if (profile == null) {

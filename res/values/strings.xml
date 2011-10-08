@@ -23,11 +23,12 @@
         <string name="msg_unsaved_changes">This editor has unsaved changes, if you close without saving all changes will be lost.
 Do you want to save the content?</string>  
         <string name="msg_title_grant_root">Grant root access.</string>  
-        <string name="msg_grant_root">You will be asked to grant cpu tuner superuser access. Please grant it and check the remember checkbox.
-Without this access cpu tuner will not work.
+        <string name="msg_grant_root">You will be asked to grant CPU tuner superuser access. Please grant it and check the remember checkbox.
+Without this access CPU tuner will not work.
 </string>  
-        <string name="labelLogTab">Profileswitch log</string>  
+        <string name="labelLogTab">Profile switch log</string>  
         <string name="msg_no_profile_switch_log">No profile switch log found</string>  
         <string name="prefSwitchPairedBluetooth">Switch paired bluetooth</string>  
-        <string name="prefSwitchPairedBluetoothLong">Switch bluetooth even if it is paired to a device.</string>
+        <string name="prefSwitchPairedBluetoothLong">Switch bluetooth even if it is paired to a device.</string>  
+        <string name="menuItemInsertAsNew">Insert as new</string>
 </resources>
