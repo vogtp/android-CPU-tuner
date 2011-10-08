@@ -44,6 +44,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private LinearLayout llGovernorThresholds;
 	private Spinner spUseCpus;
 	private int numberOfCpus;
+	private LinearLayout llPowersaveBiasSlider;
 
 	public GovernorFragment() {
 		super();
@@ -63,36 +64,35 @@ public class GovernorFragment extends GovernorBaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.governor_fragment, container, false);
+		View v = inflater.inflate(R.layout.governor_fragment, container, false);
+		llFragmentTop = (LinearLayout) v.findViewById(R.id.llGovernorFragment);
+		tvExplainGov = (TextView) v.findViewById(R.id.tvExplainGov);
+		llGovernorThresholds = (LinearLayout) v.findViewById(R.id.llGovernorThresholds);
+		labelGovThreshUp = (TextView) v.findViewById(R.id.labelGovThreshUp);
+		labelGovThreshDown = (TextView) v.findViewById(R.id.labelGovThreshDown);
+		etGovTreshUp = (EditText) v.findViewById(R.id.etGovTreshUp);
+		etGovTreshDown = (EditText) v.findViewById(R.id.etGovTreshDown);
+		spinnerSetGov = (Spinner) v.findViewById(R.id.SpinnerCpuGov);
+		etScript = (EditText) v.findViewById(R.id.etScript);
+		llPowersaveBias = (LinearLayout) v.findViewById(R.id.llPowersaveBias);
+		sbPowersaveBias = (SeekBar) v.findViewById(R.id.sbPowersaveBias);
+		llPowersaveBiasSlider = (LinearLayout) v.findViewById(R.id.llPowersaveBiasSlider);
+		labelPowersaveBias = (TextView) v.findViewById(R.id.labelPowersaveBias);
+		spUseCpus = (Spinner) v.findViewById(R.id.spUseCpus);
+		if (disableScript || !SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
+			llFragmentTop.removeView(v.findViewById(R.id.llScript));
+		}
+		return v;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		SettingsStorage settings = SettingsStorage.getInstance();
 		FragmentActivity act = getActivity();
 
 		CpuHandler cpuHandler = CpuHandler.getInstance();
 		availCpuGovs = cpuHandler.getAvailCpuGov();
-
-		llFragmentTop = (LinearLayout) act.findViewById(R.id.llGovernorFragment);
-		tvExplainGov = (TextView) act.findViewById(R.id.tvExplainGov);
-		llGovernorThresholds = (LinearLayout) act.findViewById(R.id.llGovernorThresholds);
-		labelGovThreshUp = (TextView) act.findViewById(R.id.labelGovThreshUp);
-		labelGovThreshDown = (TextView) act.findViewById(R.id.labelGovThreshDown);
-		etGovTreshUp = (EditText) act.findViewById(R.id.etGovTreshUp);
-		etGovTreshDown = (EditText) act.findViewById(R.id.etGovTreshDown);
-		spinnerSetGov = (Spinner) act.findViewById(R.id.SpinnerCpuGov);
-		etScript = (EditText) act.findViewById(R.id.etScript);
-		llPowersaveBias = (LinearLayout) act.findViewById(R.id.llPowersaveBias);
-		sbPowersaveBias = (SeekBar) act.findViewById(R.id.sbPowersaveBias);
-		labelPowersaveBias = (TextView) act.findViewById(R.id.labelPowersaveBias);
-		spUseCpus = (Spinner) act.findViewById(R.id.spUseCpus);
-
-		if (disableScript || !settings.isEnableScriptOnProfileChange()) {
-			llFragmentTop.removeView(act.findViewById(R.id.llScript));
-		}
 
 		numberOfCpus = cpuHandler.getNumberOfCpus();
 		if (cpuHandler instanceof CpuHandlerMulticore) {
@@ -267,9 +267,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 
 		if (governorConfig.hasPowersaveBias()) {
-			GuiUtils.showViews(llPowersaveBias, new View[] { labelPowersaveBias, sbPowersaveBias });
+			GuiUtils.showViews(llPowersaveBias, new View[] { labelPowersaveBias, llPowersaveBiasSlider });
 		}else {
-			GuiUtils.hideViews(llPowersaveBias, new View[] { labelPowersaveBias, sbPowersaveBias });
+			GuiUtils.hideViews(llPowersaveBias, new View[] { labelPowersaveBias, llPowersaveBiasSlider });
 		}
 		
 	}
