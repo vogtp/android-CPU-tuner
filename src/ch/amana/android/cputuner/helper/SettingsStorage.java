@@ -495,7 +495,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isSwitchPairedBluetooth() {
-		return getPreferences().getBoolean("prefKeySwitchPairedBluetooth", true);
+		return getPreferences().getBoolean("prefKeySwitchPairedBluetooth", false);
 	}
 
 }
