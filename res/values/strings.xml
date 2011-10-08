@@ -51,5 +51,9 @@ Without this access CPU tuner will not work.
         <string name="msg_profilename_exists">A profile with the same name already exists!  Choose a new name.</string>
         <string name="msg_no_virtgov_name">Please enter a virtual governor name</string>  
         <string name="msg_virtgovname_exists">A virtual governor with the same name already exists!  Choose a new name.</string>  
-        <string name="title_load_configuration">Load configuration</string>
+        <string name="title_load_configuration">Load configuration</string>  
+        <string name="title_config_name_exists">Name exists</string>  
+        <string name="msg_config_name_exists">A configuration with this name already exists.</string>  
+        <string name="overwrite">Overwrite</string>  
+        <string name="msg_empty_configuration_name">The configuration name must not be empty.</string>
 </resources>

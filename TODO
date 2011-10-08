@@ -1,8 +1,5 @@
 - make autoload restoreable and decouple it from configs 
 
-- handle two configuration have the same name
-- ask for name when closing editor or do not save (avoid identical names as well) configuration
-
 - icons for services
 
 - widget for profile switch

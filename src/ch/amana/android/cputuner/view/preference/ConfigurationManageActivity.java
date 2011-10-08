@@ -225,8 +225,26 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
-				String name = input.getText().toString();
-				saveConfig(name);
+				final String name = input.getText().toString();
+				if (name == null || "".equals(name.trim())) {
+					Toast.makeText(ConfigurationManageActivity.this, R.string.msg_empty_configuration_name, Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (configsAdapter.hasConfig(name)) {
+					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ConfigurationManageActivity.this);
+					alertBuilder.setTitle(R.string.title_config_name_exists);
+					alertBuilder.setMessage(R.string.msg_config_name_exists);
+					alertBuilder.setPositiveButton(R.string.overwrite, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							saveConfig(name);
+						}
+					});
+					alertBuilder.setNegativeButton(R.string.cancel, null);
+					alertBuilder.show();
+				} else {
+					saveConfig(name);
+				}
 			}
 
 		});
