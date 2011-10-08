@@ -43,5 +43,10 @@ Without this access CPU tuner will not work.
         <string name="prefKeyProfilesLong">Change the way profiles, triggers and governors behave.</string>  
         <string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile date, wifi or bluetooth) behave.</string>  
         <string name="prefCpuLong">Settings concerning the CPU.</string>  
-        <string name="title_help_pages">Help pages</string>
+        <string name="title_help_pages">Help pages</string>  
+        <string name="msg_no_trigger_name">Please enter a trigger name</string>  
+        <string name="msg_triggername_exists">A trigger with the same name already exists!  Choose a new name.</string>
+        <string name="msg_triggerbatterylevel_exists">A trigger with the same battery level already exists!  Change the battery level.</string>
+        <string name="msg_no_profile_name">Please enter a profile name</string>  
+        <string name="msg_profilename_exists">A profile with the same name already exists!  Choose a new name.</string>
 </resources>

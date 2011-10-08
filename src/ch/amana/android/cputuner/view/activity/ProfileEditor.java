@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
@@ -37,6 +39,8 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
+import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
@@ -361,21 +365,26 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	protected void onPause() {
 		super.onPause();
 		updateModel();
-		try {
-			String action = getIntent().getAction();
-			if (exitStatus == ExitStatus.save) {
-				if (Intent.ACTION_INSERT.equals(action)) {
-					modelAccess.insertProfile(profile);
-				} else if (Intent.ACTION_EDIT.equals(action)) {
-					modelAccess.updateProfile(profile);
+		if (hasChange() && hasName() && isNameUnique()) {
+			try {
+				String action = getIntent().getAction();
+				if (exitStatus == ExitStatus.save) {
+					if (Intent.ACTION_INSERT.equals(action)) {
+						modelAccess.insertProfile(profile);
+					} else if (Intent.ACTION_EDIT.equals(action)) {
+						modelAccess.updateProfile(profile);
+					}
 				}
-			}
-		} catch (Exception e) {
-			Logger.w("Cannot insert or update", e);
+			} catch (Exception e) {
+				Logger.w("Cannot insert or update", e);
 
+			}
 		}
 	}
 
+	private boolean hasChange() {
+		return !origProfile.equals(profile);
+	}
 	@Override
 	public void updateView() {
 		String profileName = profile.getProfileName();
@@ -461,10 +470,43 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		finish();
 	}
 
+	private boolean hasName() {
+		String name = profile.getProfileName();
+		return name != null && !"".equals(name.trim());
+	}
+
+	private boolean isNameUnique() {
+		Cursor cursor = null;
+		try {
+			cursor = managedQuery(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_ID_NAME, CpuProfile.SELECTION_NAME, new String[] { profile.getProfileName() }, null);
+			if (cursor.moveToFirst()) {
+				return cursor.getLong(DB.INDEX_ID) == profile.getDbId();
+			} else {
+				return true;
+			}
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
 	@Override
 	public void save() {
-		exitStatus = ExitStatus.save;
-		finish();
+		updateModel();
+		boolean ok = true;
+		if (!hasName()) {
+			Toast.makeText(this, R.string.msg_no_profile_name, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok && !isNameUnique()) {
+			Toast.makeText(this, R.string.msg_profilename_exists, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok) {
+			exitStatus = ExitStatus.save;
+			finish();
+		}
 	}
 
 	//	@Override

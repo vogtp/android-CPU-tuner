@@ -284,6 +284,10 @@ public interface DB {
 
 		static final String SORTORDER_REVERSE = NAME_PROFILE_NAME + " ASC";
 
+		public static final String[] PROJECTION_ID_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
+
+		public static final String SELECTION_NAME = NAME_PROFILE_NAME + "=?";
+
 	}
 
 	public interface VirtualGovernor {
