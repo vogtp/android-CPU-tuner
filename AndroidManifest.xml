@@ -118,7 +118,6 @@
 		></activity>
 		<activity android:name=".view.activity.HelpActivity"></activity>
 		<activity android:name=".view.preference.SendReportActivity"></activity>
-		<activity android:name=".view.preference.FindFrequenciesActivity"></activity>
 		<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>
 		<service android:name=".service.PulseService">
 			<intent-filter>

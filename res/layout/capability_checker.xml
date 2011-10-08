@@ -45,9 +45,7 @@
 			android:paddingBottom="20dp"></TextView>
 		<Button android:layout_height="wrap_content" android:id="@+id/buSendBugreport"
 			android:layout_width="fill_parent" android:text="@string/msgDeviceInfo"></Button>
-		<Button android:layout_height="wrap_content"
-			android:layout_width="match_parent" android:id="@+id/buFindFrequencies"
-			android:text="@string/labelBuFindFeq"></Button>
+		
 	</LinearLayout>
 
 

@@ -41,7 +41,6 @@ public class CapabilityCheckerActivity extends Activity {
 	private Button buSendBugreport;
 	private TextView tvMailMessage;
 	private File path;
-	private Button buFindFrequencies;
 
 	private class GovernorResultRow extends TableRow {
 
@@ -112,22 +111,12 @@ public class CapabilityCheckerActivity extends Activity {
 		tvDeviceInfo = (TextView) findViewById(R.id.tvDeviceInfo);
 		tlCapabilities = (TableLayout) findViewById(R.id.tlCapabilities);
 		buSendBugreport = (Button) findViewById(R.id.buSendBugreport);
-		buFindFrequencies = (Button) findViewById(R.id.buFindFrequencies);
 
 		tvDeviceInfo.setText("(Tap result for more information.)");
 
 		buSendBugreport.setVisibility(View.INVISIBLE);
 		
 		final SettingsStorage settings = SettingsStorage.getInstance();
-		buFindFrequencies.setEnabled(settings.isEnableBeta());
-		buFindFrequencies.setVisibility(View.INVISIBLE);
-		buFindFrequencies.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(CapabilityCheckerActivity.this, FindFrequenciesActivity.class));
-			}
-		});
 
 		buSendBugreport.setOnClickListener(new OnClickListener() {
 
