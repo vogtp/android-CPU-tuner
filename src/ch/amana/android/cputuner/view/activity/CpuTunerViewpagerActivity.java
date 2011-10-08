@@ -99,11 +99,10 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		//		return pagerAdapter.onOptionsItemSelected(item);
-		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
+		if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
 			return true;
 		}
-		if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
 			return true;
 		}
 		return false;

@@ -126,7 +126,7 @@ public class VirtualGovernorListFragment extends PagerListFragment {
 		if (handleCommonMenu(act, item)) {
 			return true;
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(getActivity(), item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
 			return true;
 		}
 		return false;
