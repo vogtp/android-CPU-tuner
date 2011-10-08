@@ -250,9 +250,6 @@
 	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in power user
 		mode.</string>
 	<string name="prefMinSensibleFrequency">Min displayed frequency</string>
-	<string name="prefResetToDefaultLong">Delete all current profiles and triggers and reload
-		the default set.</string>
-	<string name="prefResetToDefault">Reset Profiles and Triggers</string>
 	<string name="prefKeyProfiles">Profiles and triggers</string>
 	<string name="prefBuyMeABeer">Buy me a beer</string>
 	<string name="prefAllowManualServiceChangesOn">Do not change the state of a service if it was

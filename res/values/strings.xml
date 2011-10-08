@@ -30,5 +30,17 @@ Without this access CPU tuner will not work.
         <string name="msg_no_profile_switch_log">No profile switch log found</string>  
         <string name="prefSwitchPairedBluetooth">Switch paired bluetooth</string>  
         <string name="prefSwitchPairedBluetoothLong">Switch bluetooth even if it is paired to a device.</string>  
-        <string name="menuItemInsertAsNew">Insert as new</string>
+        <string name="menuItemInsertAsNew">Insert as new</string>  
+        <string name="prefCatGUILong">Change the way it is displayed.</string>  
+        <string name="prefCatSystemLong">Change the way it works.</string>  
+        <string name="prefBuyMeABeerLong">Make me happier nothing more.</string>  
+        <string name="prefVariousLong">Informations about CPU tuner.</string>  
+        <string name="prefConfigurationsManageLong">Backup and restore configurations (i.e. a set of triggers, profiles and governors).</string>  
+        <string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>  
+        <string name="prefLanguageLong">Choose a different language.  You will have to reopen CPU tuner.</string>  
+        <string name="prefEnableCputunerOn">CPU tuner is running.</string>  
+        <string name="prefEnableCputunerOff">CPU tuner is not running.</string>  
+        <string name="prefKeyProfilesLong">Change the way profiles, triggers and governors behave.</string>  
+        <string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile date, wifi or bluetooth) behave.</string>  
+        <string name="prefCpuLong">Settings concerning the CPU.</string>
 </resources>

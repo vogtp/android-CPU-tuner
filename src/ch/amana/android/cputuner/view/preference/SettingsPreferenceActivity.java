@@ -26,7 +26,6 @@ import android.widget.AdapterView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
-import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -120,14 +119,6 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pname:ch.almana.android.buymeabeer")));
-				return true;
-			}
-		});
-		findPreference("prefKeyResetToDefault").setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				InstallHelper.resetToDefault(SettingsPreferenceActivity.this);
 				return true;
 			}
 		});

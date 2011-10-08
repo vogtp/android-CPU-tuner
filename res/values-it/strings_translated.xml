@@ -173,9 +173,6 @@
 	<string name="cancel">annulla</string>
 	<string name="prefMinSensibleFrequencyLong">Frequenza minima mostrata se non sei in modalià esperto.</string>
 	<string name="prefMinSensibleFrequency">Frequenza minima</string>
-	<string name="prefResetToDefaultLong">Elimina tutti i profili e i trigger in uso per ricaricare
-		le impostazioni di default.</string>
-	<string name="prefResetToDefault">Ripristino Profili e Trigger</string>
 	<string name="prefKeyProfiles">Profili e Trigger</string>
 	<string name="prefBuyMeABeer">Offrimi una birra!</string>
 	<string name="prefAllowManualServiceChangesOn">Non cambiare lo stato di un servizio se è stato modificato manualmente

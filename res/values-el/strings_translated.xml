@@ -191,8 +191,6 @@
 	<string name="cancel">Άκυρο</string>
 	<string name="prefMinSensibleFrequencyLong">Μικρότερη συχνότητα που θα φαίνεται αν δεν είστε σε επίπεδο προχωριμένου χρήστη.</string>
 	<string name="prefMinSensibleFrequency">Μικρότερη  τιμή συχνότητας που θα προβάλλεται</string>
-	<string name="prefResetToDefaultLong">Διαγραφή όλων των προφίλ  και των εναυσμάτων και φόρτωση των αρχικών.</string>
-	<string name="prefResetToDefault">Επαναφορά των προφίλ και των εναυσμάτων </string>
 	<string name="prefKeyProfiles">Προφίλ και εναύσματα</string>
 
 	<string name="prefBuyMeABeer">Κέρασε με μια μπύρα.</string>

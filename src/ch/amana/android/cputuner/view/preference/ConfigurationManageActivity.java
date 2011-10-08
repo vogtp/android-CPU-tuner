@@ -133,7 +133,6 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			backupRestoreHelper.restoreConfiguration(name, isUserConfig, true);
 			settings.setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
-
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");
 		}

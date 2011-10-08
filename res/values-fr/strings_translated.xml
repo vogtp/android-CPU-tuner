@@ -58,8 +58,6 @@
 <string name="cancel">annuler</string>
 <string name="prefMinSensibleFrequencyLong">La fréquence minimum disponible si vous n\'êtes pas en Super utilisateur.</string>
 <string name="prefMinSensibleFrequency">La fréquence minimum affiché</string>
-<string name="prefResetToDefaultLong">Supprimer tous les profils et restaurer la configuration par défaut.</string>
-<string name="prefResetToDefault">Réinitialiser les profils et les déclencheurs</string>
 <string name="prefKeyProfiles">Profils et déclencheurs</string>
 <string name="prefBuyMeABeer">Achetez-moi une bière</string>
 <string name="prefAllowManualServiceChangesOn">Ne pas changer l\'état d\'un service s\'il a été modifié à la main et qu\'il n\'y a eu aucun changement d\'événements depuis.</string>

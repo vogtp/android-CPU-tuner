@@ -191,8 +191,6 @@
 	<string name="cancel">Abbrechen</string>
 	<string name="prefMinSensibleFrequencyLong">Minimale Frequenz anzeigen, wenn nicht im Profi-Modus.</string>
 	<string name="prefMinSensibleFrequency">Min. angezeigte Frequenz</string>
-	<string name="prefResetToDefaultLong">Löschen aller aktuellen Profile und Auslöser sowie laden der Standardwerte.</string>
-	<string name="prefResetToDefault">Rückstellen der Profile, Auslöser und Regler</string>
 	<string name="prefKeyProfiles">Profile und Auslöser</string>
 	<string name="prefBuyMeABeer">Kauf mir ein Bier</string>
 	<string name="prefAllowManualServiceChangesOn">Falls Dienste manuell umgeschalten wurden, werden diese bis zum nächsten Auslöser nicht mehr geschalten.</string>
