@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="@string/labelSettingsTab" android:layout="@layout/preferences">
+	android:title="@string/labelSettingsTab">
 	<CheckBoxPreference android:key="prefKeyEnableProfiles"
 		android:defaultValue="true" android:title="@string/prefEnableCputuner" android:summaryOff="@string/prefEnableCputunerOff" android:summaryOn="@string/prefEnableCputunerOn"></CheckBoxPreference>
-	<PreferenceScreen android:title="@string/prefConfigurations"
-		android:key="prefKeyConfigurations" android:summary="@string/prefConfigurationsLong">
-		<PreferenceCategory android:title="@string/prefConfigurations"
-			android:key="prefKeyConfigurations" android:summary="@string/prefConfigurationsLong">
-			<PreferenceScreen android:key="prefKeyConfigurationsManage"
-				android:title="@string/prefConfigurationsManage" android:summary="@string/prefConfigurationsManageLong"></PreferenceScreen>
-			<PreferenceScreen android:key="prefKeyConfigurationsAutoLoad"
-				android:title="@string/prefConfigurationsAutoLoad" android:summary="@string/prefConfigurationsAutoLoadLong"></PreferenceScreen>
-		</PreferenceCategory>
-		<PreferenceCategory android:key="prefkeyConfigurationsSettings"
-			android:title="@string/prefConfigurationsSettings">
-			<CheckBoxPreference android:title="@string/prefSaveConfigOnSwitch"
-				android:key="prefKeySaveConfigOnSwitch" android:summary="@string/prefSaveConfigOnSwitchFull"
-				android:defaultValue="true"></CheckBoxPreference>
-		</PreferenceCategory>
+	<PreferenceScreen
+		android:title="@string/prefConfigurations"
+		android:key="prefKeyConfigurations"
+		android:summary="@string/prefConfigurationsLong">
+		
+		
+		<PreferenceScreen android:title="@string/prefConfigurations"><PreferenceCategory android:title="@string/prefConfigurations" android:key="prefKeyConfigurations" android:summary="@string/prefConfigurationsLong">
+			<PreferenceScreen android:key="prefKeyConfigurationsManage" android:title="@string/prefConfigurationsManage" android:summary="@string/prefConfigurationsManageLong"></PreferenceScreen>
+			<PreferenceScreen android:key="prefKeyConfigurationsAutoLoad" android:title="@string/prefConfigurationsAutoLoad" android:summary="@string/prefConfigurationsAutoLoadLong"></PreferenceScreen>
+		</PreferenceCategory><PreferenceCategory android:key="prefkeyConfigurationsSettings" android:title="@string/prefConfigurationsSettings">
+			<CheckBoxPreference android:title="@string/prefSaveConfigOnSwitch" android:key="prefKeySaveConfigOnSwitch" android:summary="@string/prefSaveConfigOnSwitchFull" android:defaultValue="true"></CheckBoxPreference>
+		</PreferenceCategory></PreferenceScreen>
 	</PreferenceScreen>
 	<PreferenceScreen android:key="prefKeyGuiScreen"
 		android:title="@string/prefCatGUI" android:summary="@string/prefCatGUILong">

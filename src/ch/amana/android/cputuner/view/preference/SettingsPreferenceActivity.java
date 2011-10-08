@@ -42,13 +42,14 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 	private ListPreference minDefaultFreq;
 	private SettingsStorage settings;
 
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		settings = SettingsStorage.getInstance();
 		//		setContentView(R.layout.preferences);
-		//		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setSubTitle(R.string.labelSettingsTab);
+		//		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setTitle(R.string.labelSettingsTab);
 
 		addPreferencesFromResource(R.xml.settings_preferences);
 
@@ -206,7 +207,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-		
+
 		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);
 		String freqs[] = new String[availCpuFreq.length];
 		for (int i = 0; i < availCpuFreq.length; i++) {
