@@ -399,6 +399,7 @@ public class SettingsStorage {
 	}
 
 	public void setCurrentConfiguration(String configuration) {
+
 		Editor edit = getPreferences().edit();
 		edit.putString(PREF_KEY_CONFIGURATION, configuration);
 		edit.commit();

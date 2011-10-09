@@ -1,4 +1,4 @@
-- autoload: save to all configs
+- debug autosave configurations
 
 - icons for services
 
@@ -10,7 +10,7 @@
 
 - move logging to file or logcat or DB?
 
-- move settings to new layout
+- move settings to new layout (use cat or screen)
 - if no gov get current gov or try to set governors
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 - add sampling interval (coupled parameter?)

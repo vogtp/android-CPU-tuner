@@ -120,8 +120,8 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			lvSysConfigs.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					String fileName = sysConfigsAdapter.getDirectoryName((int) id);
-					load(fileName, false);
+					String name = sysConfigsAdapter.getConfigName((int) id) + " (modified)";
+					load(sysConfigsAdapter.getDirectoryName((int) id), name, false);
 				}
 			});
 		} catch (IOException e) {
@@ -150,10 +150,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		backupRestoreHelper.backupConfiguration(name);
 	}
 
-	private void loadConfig(String name, boolean isUserConfig) {
+	private void loadConfig(String file, String name, boolean isUserConfig) {
 		try {
-			backupRestoreHelper.restoreConfiguration(name, isUserConfig, true);
-			settings.setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
+			backupRestoreHelper.restoreConfiguration(file, isUserConfig, true);
+			settings.setCurrentConfiguration(name);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");
@@ -163,7 +163,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		File file = configsAdapter.getDirectory((int) id);
-		load(file.getName(), true);
+		load(file.getName(), file.getName(), true);
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			replace(file);
 			return true;
 		case R.id.itemLoad:
-			load(file.getName(), true);
+			load(file.getName(), file.getName(), true);
 			return true;
 		case R.id.itemDelete:
 			delete(file);
@@ -305,7 +305,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alert.show();
 	}
 
-	private void load(final String configName, final boolean isUserConfig) {
+	private void load(final String configFile, final String configName, final boolean isUserConfig) {
 		if (askLoadConfirmation) {
 			Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle(R.string.menuLoad);
@@ -315,19 +315,27 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					doLoad(configName, isUserConfig);
+					doLoad(configFile, configName, isUserConfig);
 				}
 
 			});
 			AlertDialog alert = alertBuilder.create();
 			alert.show();
 		} else {
-			doLoad(configName, isUserConfig);
+			doLoad(configFile, configName, isUserConfig);
 		}
 	}
 
-	private void doLoad(final String configName, final boolean isUserConfig) {
-		loadConfig(configName, isUserConfig);
+	private void doLoad(final String configFile, String configName, final boolean isUserConfig) {
+		boolean isClose = closeOnLoad;
+		if (!isUserConfig) {
+			closeOnLoad = false;
+		}
+		loadConfig(configFile, configName, isUserConfig);
+		if (!isUserConfig) {
+			closeOnLoad = isClose;
+			saveConfig(configName);
+		}
 		updateListView();
 	}
 

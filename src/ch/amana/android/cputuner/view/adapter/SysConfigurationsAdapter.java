@@ -112,4 +112,13 @@ public class SysConfigurationsAdapter extends BaseAdapter {
 		}
 		return new JSONObject(sb.toString());
 	}
+
+	public String getConfigName(int position) {
+		try {
+			return getInfo(position).getString(INFOTAG_NAME);
+		} catch (Throwable e) {
+			Logger.w("Error getting name from sysconfig", e);
+			return null;
+		}
+	}
 }
