@@ -132,6 +132,7 @@ public class BackupRestoreHelper {
 			if (name == null) {
 				return;
 			}
+			Logger.i("Loading configuration " + name);
 			try {
 				Context context = cb.getContext();
 				if (isUserConfig) {
