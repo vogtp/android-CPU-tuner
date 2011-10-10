@@ -105,9 +105,10 @@ public class Logger {
 			return;
 		}
 		Exception e = new Exception();
-		Logger.w(msg, e);
+		Log.w(TAG, "Stacktrace logger: " + msg, e);
 		try {
 			Writer w = new FileWriter("/mnt/sdcard/cputuner.log", true);
+			w.write("**************  Stacktrace ***********************\n");
 			w.write((new Date()).toString());
 			w.write("\n");
 			w.write(msg);
