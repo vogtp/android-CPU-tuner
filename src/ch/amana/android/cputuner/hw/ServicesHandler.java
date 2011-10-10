@@ -75,27 +75,6 @@ public class ServicesHandler {
 
 	public static void enableBluetooth(boolean enable) {
 		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (!enable) {
-			if (!SettingsStorage.getInstance().isSwitchPairedBluetooth()) {
-//				Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
-//				if (bondedDevices != null && bondedDevices.size() > 0) {
-//					for (Iterator<BluetoothDevice> iterator = bondedDevices.iterator(); iterator.hasNext();) {
-//						BluetoothDevice bluetoothDevice = iterator.next();
-//						try {
-//							BluetoothSocket bs = bluetoothDevice.createRfcommSocketToServiceRecord(DUMMY_UUID);
-//							bs.connect();
-//						} catch (Exception e) {
-//							// TODO: handle exception
-//						}
-//						BluetoothClass cls = bluetoothDevice.getBluetoothClass();
-//						if (bondState != BluetoothDevice.BOND_NONE) {
-//							Logger.w("Not switching bluetooth since it is paired to a device");
-//							return;
-//						}
-//					}
-				//				}
-			}
-		}
 		if (bluetoothAdapter == null) {
 			Logger.i("Not switching bluetooth since its not present");
 			return;

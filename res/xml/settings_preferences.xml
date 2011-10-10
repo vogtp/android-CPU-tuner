@@ -103,7 +103,6 @@
 			android:title="@string/prefSwitchWifiOnConnectedNetwork"
 			android:defaultValue="false"
 		></CheckBoxPreference>
-		<CheckBoxPreference android:key="prefKeySwitchPairedBluetooth" android:summary="@string/prefSwitchPairedBluetoothLong" android:title="@string/prefSwitchPairedBluetooth" android:defaultValue="false"></CheckBoxPreference>
 		
 
 

@@ -233,7 +233,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableSwitchWifi() {
-		// TODO check if wifi is present
+		// FIXME check if wifi is present
 		return true;
 	}
 
@@ -493,10 +493,6 @@ public class SettingsStorage {
 	public boolean isFirstRun() {
 		// FIXME handle
 		return true;
-	}
-
-	public boolean isSwitchPairedBluetooth() {
-		return getPreferences().getBoolean("prefKeySwitchPairedBluetooth", false);
 	}
 
 }

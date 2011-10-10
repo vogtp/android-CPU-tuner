@@ -1,17 +1,16 @@
-- debug autosave configurations
+- fix paired and connected bluetooth
+- fix discard editor
 
-- icons for services
+- state cm icon license (which?)
 
-- branch actionbar
-
-- widget for profile switch
+- check if wifi is present before enabling
 
 - enable/disable services in settings
 
-- move logging to file or logcat or DB?
-
-- move settings to new layout (use cat or screen)
+- move logging to file or DB?
+- do not switch bluetooth while paired (possible?)
 - if no gov get current gov or try to set governors
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 - add sampling interval (coupled parameter?)
 - set brightness
+- move settings to new layout (use cat or screen)

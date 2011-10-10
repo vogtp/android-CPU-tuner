@@ -6,17 +6,17 @@ V
 
 V 3.0.0
 * features
-- new swipe friendly layout
-- initalise cputuner from (default) configurations
-- label powersave bias
-- update statics and log on click
+- new swipe friendly user interface
+- initalise cpu tuner from (default) configurations 
 - insert as new: copy and insert an entry 
-- animate pulsed service in list
-- do not switch bluetooth while paired (has to be enabled in settings)
-- minor things
+- editor close does sanity checks and asks the user or does not save
+- separate statics and profile switch log and update on click
+- lots of other things
 * bug fixes
 - start/stop notification entry on enable/disable
 - fix layout error on orientation change
+- label powersave bias
+- save but do not apply on editor close when cpu tuner is disabled
 - more fixes
 
 V 2.7.7
