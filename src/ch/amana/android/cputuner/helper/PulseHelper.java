@@ -12,7 +12,7 @@ public class PulseHelper {
 
 	private boolean pulseOn = false;
 
-	private Context ctx;
+	private final Context ctx;
 
 	private boolean pulseBackgroundSyncState = false;
 
@@ -39,6 +39,10 @@ public class PulseHelper {
 	static int p = 0;
 
 	public void doPulse(boolean isOn) {
+		if (!SettingsStorage.getInstance().isEnableProfiles()) {
+			Logger.i("Not pulsing since profiles are not eabled.");
+			return;
+		}
 		if (pulsing) {
 			this.pulseOn = isOn;
 			Notifier.notifyProfile(PowerProfiles.getInstance().getCurrentProfileName());

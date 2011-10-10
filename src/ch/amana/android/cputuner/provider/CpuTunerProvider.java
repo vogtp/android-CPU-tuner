@@ -8,6 +8,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
@@ -153,9 +154,11 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	private void notifyChange(Uri uri) {
-		PowerProfiles.getInstance().reapplyProfile(true);
+		if (SettingsStorage.getInstance().isEnableProfiles()) {
+			PowerProfiles.getInstance().reapplyProfile(true);
+		}
 		getContext().getContentResolver().notifyChange(uri, null);
-		// BackupRestoreHelper.backup(getContext());
+		// BackupRestoreHelper.backup(getContext()); 
 	}
 
 	static {

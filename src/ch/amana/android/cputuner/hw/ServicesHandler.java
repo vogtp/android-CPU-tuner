@@ -1,9 +1,8 @@
 package ch.amana.android.cputuner.hw;
 
-import java.util.Set;
+import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +27,8 @@ public class ServicesHandler {
 
 	private static final String MODIFY_NETWORK_MODE = "com.android.internal.telephony.MODIFY_NETWORK_MODE";
 	private static final String NETWORK_MODE = "networkMode";
+	private static final UUID DUMMY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
 	private static WifiManager wifi;
 
 	private static WifiManager getWifiManager(Context ctx) {
@@ -76,11 +77,23 @@ public class ServicesHandler {
 		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (!enable) {
 			if (!SettingsStorage.getInstance().isSwitchPairedBluetooth()) {
-				Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
-				if (bondedDevices != null && bondedDevices.size() > 0) {
-					Logger.w("Not switching bluetooth since it is paired to a device");
-					return;
-				}
+//				Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
+//				if (bondedDevices != null && bondedDevices.size() > 0) {
+//					for (Iterator<BluetoothDevice> iterator = bondedDevices.iterator(); iterator.hasNext();) {
+//						BluetoothDevice bluetoothDevice = iterator.next();
+//						try {
+//							BluetoothSocket bs = bluetoothDevice.createRfcommSocketToServiceRecord(DUMMY_UUID);
+//							bs.connect();
+//						} catch (Exception e) {
+//							// TODO: handle exception
+//						}
+//						BluetoothClass cls = bluetoothDevice.getBluetoothClass();
+//						if (bondState != BluetoothDevice.BOND_NONE) {
+//							Logger.w("Not switching bluetooth since it is paired to a device");
+//							return;
+//						}
+//					}
+				//				}
 			}
 		}
 		if (bluetoothAdapter == null) {
