@@ -98,15 +98,7 @@ public class ModelAccess implements BackupRestoreCallback {
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs, boolean saveConfig) {
-//		handler.post(new Runnable() {
-//			@Override
-//			public void run() {
 		contentResolver.update(uri, values, where, selectionArgs);
-		if (saveConfig) {
-			configChanged();
-		}
-		// }
-//		});
 	}
 
 	private long getIdFromUri(Uri uri) {
@@ -150,8 +142,8 @@ public class ModelAccess implements BackupRestoreCallback {
 				profile.setDbId(id);
 				profileCache.put(id, profile);
 			}
+			configChanged();
 		}
-		configChanged();
 	}
 
 	public void updateProfile(ProfileModel profile) {
@@ -164,8 +156,8 @@ public class ModelAccess implements BackupRestoreCallback {
 			}
 			update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			profileCache.put(id, profile);
+			configChanged();
 		}
-		// configChanged() in update
 	}
 
 	public VirtualGovernorModel getVirtualGovernor(Uri uri) {
@@ -205,8 +197,8 @@ public class ModelAccess implements BackupRestoreCallback {
 				virtualGovModel.setDbId(id);
 				virtgovCache.put(id, virtualGovModel);
 			}
+			configChanged();
 		}
-		configChanged();
 	}
 
 	public void updateVirtualGovernor(VirtualGovernorModel virtualGovModel) {
@@ -215,8 +207,8 @@ public class ModelAccess implements BackupRestoreCallback {
 			update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			virtgovCache.put(id, virtualGovModel);
 			updateAllProfilesFromVirtualGovernor(virtualGovModel);
+			configChanged();
 		}
-		// configChanged() in update
 	}
 
 	private void updateAllProfilesFromVirtualGovernor(VirtualGovernorModel virtualGovModel) {
@@ -275,8 +267,8 @@ public class ModelAccess implements BackupRestoreCallback {
 				triggerCache.put(id, triggerModel);
 				initTriggerByBatteryLevelCache();
 			}
+			configChanged();
 		}
-		configChanged();
 	}
 
 	public void updateTrigger(TriggerModel triggerModel) {
@@ -285,11 +277,13 @@ public class ModelAccess implements BackupRestoreCallback {
 
 	public void updateTrigger(TriggerModel triggerModel, boolean saveConfig) {
 		synchronized (triggerCacheMutex) {
-			update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" }, saveConfig);
 			triggerCache.put(triggerModel.getId(), triggerModel);
 			initTriggerByBatteryLevelCache();
+			update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" }, saveConfig);
+			if (saveConfig) {
+				configChanged();
+			}
 		}
-		// configChanged() in update
 	}
 
 	private void initTriggerByBatteryLevelCache() {
@@ -372,5 +366,6 @@ public class ModelAccess implements BackupRestoreCallback {
 	public void hasFinished(boolean success) {
 		// do nothing
 	}
+
 
 }

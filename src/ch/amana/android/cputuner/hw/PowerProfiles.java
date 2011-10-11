@@ -145,7 +145,7 @@ public class PowerProfiles {
 			profileId = currentTrigger.getPowerProfileId();
 		}
 
-		if (force || currentProfile == null || currentProfile.getDbId() != profileId) {
+		if (currentProfile != null && (force || currentProfile.getDbId() != profileId)) {
 			if (!callInProgress && !SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
 				Logger.i("Not switching profile since phone not idle");
 				return;
@@ -428,7 +428,7 @@ public class PowerProfiles {
 
 	private boolean changeTrigger(boolean force) {
 		TriggerModel trigger = modelAccess.getTriggerByBatteryLevel(batteryLevel);
-		if (!force && trigger == currentTrigger) {
+		if (!force && trigger.getDbId() == currentTrigger.getDbId()) {
 			return false;
 		}
 		currentTrigger = trigger;

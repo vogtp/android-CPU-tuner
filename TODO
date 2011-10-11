@@ -1,6 +1,8 @@
-- check current trigger editor profile change
+- fix auto profile name
 - check for different android versions
 - state cm icon license (which?)
+
+- add option to start with pulse on or off or even better keep the cycle
 
 - enable/disable services in settings
 
