@@ -82,6 +82,12 @@ public class ProfileModel implements IGovernorModel {
 		readFromBundle(bundle);
 	}
 
+	public ProfileModel(ProfileModel profile) {
+		Bundle bundle = new Bundle();
+		profile.saveToBundle(bundle);
+		readFromBundle(bundle);
+	}
+
 	public void saveToBundle(Bundle bundle) {
 		if (id > -1) {
 			bundle.putLong(DB.NAME_ID, id);

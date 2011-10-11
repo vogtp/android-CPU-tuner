@@ -79,6 +79,12 @@ public class TriggerModel {
 		readFromBundle(bundle);
 	}
 
+	public TriggerModel(TriggerModel trigger) {
+		Bundle bundle = new Bundle();
+		trigger.saveToBundle(bundle);
+		readFromBundle(bundle);
+	}
+
 	public void saveToBundle(Bundle bundle) {
 		if (id > -1) {
 			bundle.putLong(DB.NAME_ID, id);

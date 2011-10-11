@@ -138,7 +138,7 @@ public class ModelAccess implements BackupRestoreCallback {
 					profileCache.put(id, profile);
 				}
 			}
-			return profile;
+			return new ProfileModel(profile);
 		}
 	}
 
@@ -193,7 +193,7 @@ public class ModelAccess implements BackupRestoreCallback {
 					virtgovCache.put(id, virtGov);
 				}
 			}
-			return virtGov;
+			return new VirtualGovernorModel(virtGov);
 		}
 	}
 
@@ -262,7 +262,7 @@ public class ModelAccess implements BackupRestoreCallback {
 					initTriggerByBatteryLevelCache();
 				}
 			}
-			return trigger;
+			return new TriggerModel(trigger);
 		}
 	}
 
