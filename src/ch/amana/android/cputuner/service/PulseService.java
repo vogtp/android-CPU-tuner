@@ -13,11 +13,14 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class PulseService extends Service {
 
+	private static boolean isPulsing = false;
+
 	private static final long MIN_TO_MILLIES = 1000 * 60;
 
 	public static final String ACTION_PULSE = "ch.amana.android.cputuner.ACTION_PULSE";
 	public static final String EXTRA_ON_OFF = "EXTRA_ON_OFF";
 	
+	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (ACTION_PULSE.equals(intent.getAction())) {
 			boolean on = intent.getExtras().getBoolean(EXTRA_ON_OFF);
@@ -46,6 +49,12 @@ public class PulseService extends Service {
 	}
 
 	public static void startService(Context ctx) {
+		synchronized (ACTION_PULSE) {
+			if (isPulsing) {
+				return;
+			}
+			isPulsing = true;
+		}
 		Logger.i("Start pulsing");
 		Intent i = new Intent(ACTION_PULSE);
 		i.putExtra(EXTRA_ON_OFF, true);
@@ -53,6 +62,9 @@ public class PulseService extends Service {
 	}
 
 	public static void stopService(Context ctx) {
+		synchronized (ACTION_PULSE) {
+			isPulsing = false;
+		}
 		Logger.i("Stop pulsing");
 		Intent intent = new Intent(ACTION_PULSE);
 		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
