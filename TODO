@@ -1,13 +1,10 @@
 - check current trigger editor profile change
-
 - check for different android versions
-
 - state cm icon license (which?)
-
-- check if wifi is present before enabling
 
 - enable/disable services in settings
 
+- check if wifi is present before enabling
 - move logging to file or DB?
 - do not switch bluetooth while connected (not paired/bonded) (possible?)
 - if no gov get current gov or try to set governors
