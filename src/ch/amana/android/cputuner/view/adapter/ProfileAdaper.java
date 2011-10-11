@@ -68,11 +68,16 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 			}
 		} else {
 			if (parent instanceof Spinner) {
-				text = AUTO + ": " + PowerProfiles.getInstance().getCurrentProfileName();
+				CharSequence profileName = PowerProfiles.getInstance().getCurrentProfileName();
+				text = AUTO;
+				if (!PowerProfiles.UNKNOWN.equals(profileName)) {
+					text = text + ": " + profileName;
+				}
 			} else {
 				text = AUTO;
 			}
 		}
+		Logger.i("Setting profileadapter text to: " + text);
 		view.setText(text);
 		return view;
 	}
