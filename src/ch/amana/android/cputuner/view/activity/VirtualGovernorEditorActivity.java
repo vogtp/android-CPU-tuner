@@ -35,7 +35,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	private GovernorBaseFragment governorFragment;
 	private VirtualGovernorModel virtualGovModel;
 	private EditText etVirtualGovernorName;
-	private ExitStatus exitStatus = ExitStatus.save;
+	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
 	private VirtualGovernorModel origVirtualGovModel;
 
@@ -61,9 +61,8 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 			virtualGovModel = new VirtualGovernorModel();
 			virtualGovModel.setVirtualGovernorName("");
 		}
-		Bundle bundle = new Bundle();
-		virtualGovModel.saveToBundle(bundle);
-		origVirtualGovModel = new VirtualGovernorModel(bundle);
+
+		origVirtualGovModel = new VirtualGovernorModel(virtualGovModel);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 		actionBar.setHomeAction(new ActionBar.Action() {
@@ -181,8 +180,6 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	@Override
 	public void discard() {
 		exitStatus = ExitStatus.discard;
-		virtualGovModel = origVirtualGovModel;
-		//		updateView();
 		finish();
 	}
 
@@ -226,11 +223,11 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		}
 	}
 
-	//	@Override
-	//	public void onBackPressed() {
-	//		updateModel();
-	//		EditorActionbarHelper.onBackPressed(this, exitStatus, !origVirtualGovModel.equals(virtualGovModel));
-	//	}
+	@Override
+	public void onBackPressed() {
+		updateModel();
+		EditorActionbarHelper.onBackPressed(this, exitStatus, !origVirtualGovModel.equals(virtualGovModel));
+	}
 
 	@Override
 	public Context getContext() {

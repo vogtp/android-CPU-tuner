@@ -48,7 +48,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	private SeekBar sbBatteryLevel;
 	private CheckBox cbHot;
 	private Spinner spCall;
-	private ExitStatus exitStatus = ExitStatus.save;
+	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
 	private TriggerModel origTriggerModel;
 
@@ -74,9 +74,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 			triggerModel.setName("");
 		}
 
-		Bundle bundle = new Bundle();
-		triggerModel.saveToBundle(bundle);
-		origTriggerModel = new TriggerModel(bundle);
+		origTriggerModel = new TriggerModel(triggerModel);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 		actionBar.setHomeAction(new ActionBar.Action() {
@@ -251,8 +249,6 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	@Override
 	public void discard() {
 		exitStatus = ExitStatus.discard;
-		triggerModel = origTriggerModel;
-		//		updateView();
 		finish();
 	}
 
@@ -316,13 +312,14 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		}
 	}
 
-	//	@Override
-	//	public void onBackPressed() {
-	//		updateModel();
-	//		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
-	//	}
+	@Override
+	public void onBackPressed() {
+		updateModel();
+		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
+	}
 
 	private boolean hasChange() {
+		updateModel();
 		return !origTriggerModel.equals(triggerModel);
 	}
 

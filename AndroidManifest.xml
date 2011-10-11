@@ -95,7 +95,7 @@
 		<activity
 			android:name=".view.activity.TriggerEditor"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
-		>
+		android:configChanges="orientation"> 
 			<intent-filter>
 				<action android:name="android.intent.action.INSERT"></action>
 				<data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.trigger"></data>

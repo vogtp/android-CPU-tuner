@@ -1,5 +1,6 @@
-- fix paired and connected bluetooth
-- fix discard editor
+- check current trigger editor profile change
+
+- check for different android versions
 
 - state cm icon license (which?)
 
@@ -8,7 +9,7 @@
 - enable/disable services in settings
 
 - move logging to file or DB?
-- do not switch bluetooth while paired (possible?)
+- do not switch bluetooth while connected (not paired/bonded) (possible?)
 - if no gov get current gov or try to set governors
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 - add sampling interval (coupled parameter?)

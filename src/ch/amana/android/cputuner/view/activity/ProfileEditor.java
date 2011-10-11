@@ -75,7 +75,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private TableRow trMaxFreq;
 	private Spinner spAirplaneMode;
 	private CpuFrequencyChooser cpuFrequencyChooser;
-	private ExitStatus exitStatus = ExitStatus.save;
+	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
 	private ProfileModel origProfile;
 
@@ -100,9 +100,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile = new ProfileModel();
 		}
 
-		Bundle bundle = new Bundle();
-		profile.saveToBundle(bundle);
-		origProfile = new ProfileModel(bundle);
+		origProfile = new ProfileModel(profile);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 		actionBar.setHomeAction(new ActionBar.Action() {
@@ -383,6 +381,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	}
 
 	private boolean hasChange() {
+		updateModel();
 		return !origProfile.equals(profile);
 	}
 	@Override
@@ -465,8 +464,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	public void discard() {
 		exitStatus = ExitStatus.discard;
-		profile = origProfile;
-		//		updateView();
 		finish();
 	}
 
@@ -509,9 +506,9 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		}
 	}
 
-	//	@Override
-	//	public void onBackPressed() {
-	//		updateModel();
-	//		EditorActionbarHelper.onBackPressed(this, exitStatus, !origProfile.equals(profile));
-	//	}
+	@Override
+	public void onBackPressed() {
+		updateModel();
+		EditorActionbarHelper.onBackPressed(this, exitStatus, !origProfile.equals(profile));
+	}
 }
