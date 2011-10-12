@@ -118,7 +118,6 @@
 	<string name="virtual_governor">virtual governor</string>
 	<string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
 	<string name="labelStatisticsTab">Statistics</string>
-	<string name="label_time_in_state">Time in state:</string>
 	<string name="titleVirtualGovernorEditor">Virtual Governor Editor:</string>
 	<string name="msgDeleteVirtGovNotPossible">Cannot delete this virtual governor since it is
 		used in one or more profiles!</string>

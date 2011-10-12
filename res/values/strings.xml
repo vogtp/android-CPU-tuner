@@ -54,4 +54,6 @@ Without this access CPU tuner will not work.
         <string name="msg_config_name_exists">A configuration with this name already exists.</string>  
         <string name="overwrite">Overwrite</string>  
         <string name="msg_empty_configuration_name">The configuration name must not be empty.</string>
+        <string name="label_frequency">Frequency</string>
+        <string name="label_time">Time</string>
 </resources>

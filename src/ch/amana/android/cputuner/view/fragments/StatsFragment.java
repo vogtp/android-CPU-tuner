@@ -81,13 +81,13 @@ public class StatsFragment extends PagerFragment {
 			String curCpuFreq = Integer.toString(CpuHandler.getInstance().getCurCpuFreq());
 			graphs.clear();
 			int max = 0;
-			addTextToRow(0, "Frequency", context.getString(R.string.label_time_in_state), false);
+			addTextToRow(0, context.getString(R.string.label_frequency), context.getString(R.string.label_time), false);
 			String[] states = timeinstate.split("\n");
 			for (int i = 0; i < states.length; i++) {
 				String[] vals = states[i].split(" +");
 				int f = Integer.parseInt(vals[1]);
 				max = Math.max(f, max);
-				addTextToRow(f, String.format("%5d", Integer.parseInt(vals[0]) / 1000) + " Mhz", String.format("%13s", vals[1]), curCpuFreq.equals(vals[0]));
+				addTextToRow(f, String.format("%d MHz", Integer.parseInt(vals[0]) / 1000), vals[1] + " s", curCpuFreq.equals(vals[0]));
 			}
 			int width = context.getResources().getDisplayMetrics().widthPixels;
 			for (Iterator<Integer> iterator = graphs.keySet().iterator(); iterator.hasNext();) {

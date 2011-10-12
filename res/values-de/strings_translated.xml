@@ -104,7 +104,6 @@
 	<string name="menuAddCurrent">Aktuelle hinzufügen</string>
 <string name="msg_cannot_load_virtual_governor">Der virtuelle Regler kann nicht geladen werden...</string>
 <string name="labelStatisticsTab">Statistik</string>
-<string name="label_time_in_state">Zeit pro Frequenz:</string>
 <string name="titleVirtualGovernorEditor">Virtueller Regler Editor:</string>
 <string name="msgDeleteVirtGovNotPossible">Dieser Regler kann nicht gelöscht werden, da er in einem oder mehreren Profil verwendet wird.</string>
 <string name="labelName">Name:</string>
