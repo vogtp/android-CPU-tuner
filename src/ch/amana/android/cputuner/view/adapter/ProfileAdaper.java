@@ -13,6 +13,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
@@ -67,17 +68,12 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 				Logger.i("Cannot get profilename from cursor", e);
 			}
 		} else {
-			if (parent instanceof Spinner) {
-				CharSequence profileName = PowerProfiles.getInstance().getCurrentProfileName();
-				text = AUTO;
-				if (!PowerProfiles.UNKNOWN.equals(profileName)) {
-					text = text + ": " + profileName;
-				}
-			} else {
-				text = AUTO;
+			CharSequence profileName = ModelAccess.getInstace(parent.getContext()).getProfileName(PowerProfiles.getInstance().getCurrentAutoProfileId());
+			text = AUTO;
+			if (!PowerProfiles.UNKNOWN.equals(profileName)) {
+				text = text + ": " + profileName;
 			}
 		}
-		Logger.i("Setting profileadapter text to: " + text);
 		view.setText(text);
 		return view;
 	}
@@ -94,4 +90,5 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 		item.setEllipsize(TextUtils.TruncateAt.END);
 		return item;
 	}
+
 }
