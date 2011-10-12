@@ -6,4 +6,9 @@
         <item name="android:layout_height">26dp</item>
         <item name="android:layout_width">26dp</item>
     </style>
+    <style name="logText" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/statsFontSize</item>
+        <item name="android:typeface">monospace</item>
+    </style>
 </resources>
+ 
