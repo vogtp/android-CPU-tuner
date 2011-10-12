@@ -19,6 +19,7 @@ public class Notifier {
 	private final Context context;
 	private String contentTitle;
 	private PendingIntent contentIntent;
+	private CharSequence lastProfile;
 
 	private static Notifier instance;
 	private Notification notification;
@@ -39,6 +40,10 @@ public class Notifier {
 
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
+			if (profileName == null || profileName.equals(lastProfile)) {
+				return;
+			}
+			lastProfile = profileName;
 			contentTitle = context.getString(R.string.app_name);
 			StringBuffer sb = new StringBuffer(25); 
 			// sb.append(contentTitle).append(" ");
