@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.hw;
 
-import java.util.UUID;
-
 import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -27,7 +25,6 @@ public class ServicesHandler {
 
 	private static final String MODIFY_NETWORK_MODE = "com.android.internal.telephony.MODIFY_NETWORK_MODE";
 	private static final String NETWORK_MODE = "networkMode";
-	private static final UUID DUMMY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
 	private static WifiManager wifi;
 
