@@ -38,10 +38,6 @@ public class PagerAdapter extends FragmentPagerAdapter
 
 	}
 
-
-
-	
-
 	static final class PageInfo {
 		private final Class<? extends PagerItem> clss;
 		private final Bundle args;
