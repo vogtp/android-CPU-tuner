@@ -26,6 +26,7 @@ import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
 public class InstallHelper {
@@ -68,22 +69,18 @@ public class InstallHelper {
 	}
 
 	public static void ensureSetup(final Context ctx) {
-		if (!RootHandler.isRoot() && SettingsStorage.getInstance().isFirstRun()) {
-			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ctx);
-			alertBuilder.setTitle(R.string.msg_title_grant_root);
-			alertBuilder.setMessage(R.string.msg_grant_root);
-			alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ctx);
+		alertBuilder.setTitle(R.string.msg_title_grant_root);
+		alertBuilder.setMessage(R.string.msg_grant_root);
+		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					ensureRoot(ctx);
-				}
-			});
-			AlertDialog alert = alertBuilder.create();
-			alert.show();
-		} else {
-			ensureRoot(ctx);
-		}
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ensureRoot(ctx);
+			}
+		});
+		AlertDialog alert = alertBuilder.create();
+		alert.show();
 	}
 
 	private static void ensureRoot(final Context ctx) {
@@ -110,25 +107,30 @@ public class InstallHelper {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					ensureConfiguration(ctx);
+					ensureConfiguration(ctx, true);
 				}
 			});
 			AlertDialog alert = alertBuilder.create();
 			alert.show();
 		} else {
-			ensureConfiguration(ctx);
+			ensureConfiguration(ctx, true);
 		}
 	}
 
-	private static void ensureConfiguration(Context ctx) {
+	public static void ensureConfiguration(Context ctx, boolean startMain) {
 		if (!hasConfig(ctx)) {
 			Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
-			intent.putExtra(ConfigurationManageActivity.EXTRA_DISABLE_ON_NOLOAD, true);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_FIRST_RUN, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_ASK_LOAD_CONFIRMATION, false);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_NEW_LAYOUT, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_TITLE, ctx.getString(R.string.title_load_configuration));
 			ctx.startActivity(intent);
+		} else {
+			SettingsStorage.getInstance().firstRunDone();
+			if (startMain) {
+				ctx.startActivity(CpuTunerViewpagerActivity.getStartIntent(ctx));
+			}
 		}
 	}
 

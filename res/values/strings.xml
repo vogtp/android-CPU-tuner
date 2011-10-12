@@ -23,7 +23,7 @@
         <string name="msg_unsaved_changes">This editor has unsaved changes, if you close without saving all changes will be lost.
 Do you want to save the content?</string>  
         <string name="msg_title_grant_root">Grant root access.</string>  
-        <string name="msg_grant_root">You will be asked to grant CPU tuner superuser access. Please grant it and check the remember checkbox.
+        <string name="msg_grant_root">You will be asked to grant CPUtuner superuser access. Please grant it and check the remember checkbox.
 Without this access CPU tuner will not work.
 </string>  
         <string name="labelLogTab">Profile switch log</string>  

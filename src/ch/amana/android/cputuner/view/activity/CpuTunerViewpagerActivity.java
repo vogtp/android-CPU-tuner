@@ -96,6 +96,20 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+		SettingsStorage settings = SettingsStorage.getInstance();
+		String lang = settings.getLanguage();
+		if (!"".equals(lang)) {
+			GuiUtils.setLanguage(this, lang);
+		}
+		GuiUtils.setLanguage(this);
+
+		if (settings.isFirstRun() && !InstallHelper.hasConfig(this)) {
+			startActivity(new Intent(getApplicationContext(), FirstRunActivity.class));
+			finish();
+		} else {
+			InstallHelper.ensureConfiguration(this, false);
+		}
+		
 		setContentView(R.layout.viewpager);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
@@ -106,16 +120,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		if (Logger.DEBUG) {
 			actionBar.setTitle(getString(R.string.app_name) + " - DEBUG MODE" + " (" + getString(R.string.version) + ")");
 		}
-
-		SettingsStorage settings = SettingsStorage.getInstance();
-		String lang = settings.getLanguage();
-		if (!"".equals(lang)) {
-			GuiUtils.setLanguage(this, lang);
-		}
-
-		GuiUtils.setLanguage(this);
-
-		InstallHelper.ensureSetup(this);
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header), actionBar);

@@ -46,14 +46,14 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	public static final String EXTRA_ASK_LOAD_CONFIRMATION = "askLoadConfirmation";
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
-	public static final String EXTRA_DISABLE_ON_NOLOAD = "disableOnNoload";
+	public static final String EXTRA_FIRST_RUN = "firstRun";
 	public static final String EXTRA_NEW_LAYOUT = "newLayout";
 	public static final String EXTRA_TITLE = "title";
 	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
 	private SysConfigurationsAdapter sysConfigsAdapter;
 	private BackupRestoreHelper backupRestoreHelper;
-	private boolean disableOnNoload = false;
+	private boolean firstRun = false;
 	private boolean loadingSuccess = false;
 	private boolean askLoadConfirmation = true;
 	private SettingsStorage settings;
@@ -96,7 +96,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		askLoadConfirmation = getIntent().getBooleanExtra(EXTRA_ASK_LOAD_CONFIRMATION, true);
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
-		disableOnNoload = getIntent().getBooleanExtra(EXTRA_DISABLE_ON_NOLOAD, false);
+		firstRun = getIntent().getBooleanExtra(EXTRA_FIRST_RUN, false);
 
 		settings = SettingsStorage.getInstance();
 
@@ -140,9 +140,11 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (disableOnNoload) {
+		if (firstRun) {
 			Toast.makeText(this, getString(loadingSuccess ? R.string.msgEnableCputuner : R.string.msgDisableCputuner), Toast.LENGTH_LONG).show();
 			settings.setEnableProfiles(loadingSuccess);
+			SettingsStorage.getInstance().firstRunDone();
+			startActivity(CpuTunerViewpagerActivity.getStartIntent(this));
 		}
 	}
 

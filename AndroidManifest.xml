@@ -93,7 +93,8 @@
 		<activity
 			android:name=".view.activity.TriggerEditor"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
-		android:configChanges="orientation"> 
+			android:configChanges="orientation"
+		>
 			<intent-filter>
 				<action android:name="android.intent.action.INSERT"></action>
 				<data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.trigger"></data>
@@ -114,7 +115,10 @@
 			android:configChanges="orientation"
 			android:name=".view.preference.CapabilityCheckerActivity"
 		></activity>
-		<activity android:name=".view.activity.HelpActivity" android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+		<activity
+			android:name=".view.activity.HelpActivity"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
 		<activity android:name=".view.preference.SendReportActivity"></activity>
 		<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>
 		<service android:name=".service.PulseService">
@@ -175,6 +179,7 @@
 				<category android:name="android.intent.category.DEFAULT"></category>
 			</intent-filter>
 		</activity>
+		<activity android:name=".view.activity.FirstRunActivity"></activity>
 	</application>
 	<uses-sdk
 		android:minSdkVersion="7"

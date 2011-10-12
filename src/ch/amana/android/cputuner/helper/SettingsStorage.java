@@ -44,7 +44,9 @@ public class SettingsStorage {
 	private static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
 	private static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
 
-	private static final String PREF_NAME_VERSION = "version";
+	private static final String PREF_STORE_NAME_VERSION = "version";
+
+	private static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -124,6 +126,10 @@ public class SettingsStorage {
 
 	protected SharedPreferences getPreferences() {
 		return PreferenceManager.getDefaultSharedPreferences(context);
+	}
+
+	private SharedPreferences getLocalPreferences() {
+		return context.getSharedPreferences(PREF_STORE_NAME_VERSION, 0);
 	}
 
 	public void setEnableProfiles(boolean b) {
@@ -301,11 +307,11 @@ public class SettingsStorage {
 	}
 
 	public int getDefaultProfilesVersion() {
-		return context.getSharedPreferences(PREF_NAME_VERSION, 0).getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
+		return getLocalPreferences().getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
 	}
 
 	public void setDefaultProfilesVersion(int version) {
-		Editor editor = context.getSharedPreferences(PREF_NAME_VERSION, 0).edit();
+		Editor editor = getLocalPreferences().edit();
 		editor.putInt(PREF_DEFAULT_PROFILES_VERSION, version);
 		editor.commit();
 	}
@@ -381,7 +387,7 @@ public class SettingsStorage {
 	}
 
 	public boolean is24Hour() {
-		// TODO Auto-generated method stub
+		// FIXME add to UI
 		return true;
 	}
 
@@ -491,8 +497,13 @@ public class SettingsStorage {
 	}
 
 	public boolean isFirstRun() {
-		// FIXME handle
-		return true;
+		return getLocalPreferences().getBoolean(PREF_KEY_FIRST_RUN, true);
+	}
+
+	public void firstRunDone() {
+		Editor editor = getLocalPreferences().edit();
+		editor.putBoolean(PREF_KEY_FIRST_RUN, false);
+		editor.commit();
 	}
 
 }
