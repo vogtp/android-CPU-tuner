@@ -1,10 +1,14 @@
-- fix auto profile name
+- handle first run
+
 - check for different android versions
 - state cm icon license (which?)
 
+- graphical statistics tab
 - add option to start with pulse on or off or even better keep the cycle
 
 - enable/disable services in settings
+
+- switch when the phone isunlocked instead of just screen on
 
 - check if wifi is present before enabling
 - move logging to file or DB?

@@ -1,10 +1,8 @@
 package ch.amana.android.cputuner.view.fragments;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -27,7 +25,6 @@ import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
@@ -39,13 +36,12 @@ import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
-public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback {
-
-	private static final int[] lock = new int[1];
-	private CpuTunerReceiver receiver;
+public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback, StateChangeListener {
 
 	private CpuHandler cpuHandler;
 	private SeekBar sbCpuFreqMax;
@@ -75,47 +71,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private CpuFrequencyChooser cpuFrequencyChooser;
 	private TableRow trBattery;
 	private TableRow trPower;
-
-	protected class CpuTunerReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			acPowerChanged();
-			batteryLevelChanged();
-			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action) || Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
-				profileChanged();
-			}
-
-		}
-	}
-
-	public void registerReceiver() {
-		synchronized (lock) {
-			final Activity act = getActivity();
-			IntentFilter deviceStatusFilter = new IntentFilter(Notifier.BROADCAST_DEVICESTATUS_CHANGED);
-			IntentFilter triggerFilter = new IntentFilter(Notifier.BROADCAST_TRIGGER_CHANGED);
-			IntentFilter profileFilter = new IntentFilter(Notifier.BROADCAST_PROFILE_CHANGED);
-			receiver = new CpuTunerReceiver();
-			act.registerReceiver(receiver, deviceStatusFilter);
-			act.registerReceiver(receiver, triggerFilter);
-			act.registerReceiver(receiver, profileFilter);
-			Logger.i("Registered CpuTunerReceiver");
-		}
-	}
-
-	public void unregisterReceiver() {
-		synchronized (lock) {
-			if (receiver != null) {
-				try {
-					getActivity().unregisterReceiver(receiver);
-					receiver = null;
-				} catch (Throwable e) {
-					Logger.w("Could not unregister BatteryReceiver", e);
-				}
-			}
-		}
-	}
+	private ProfileAdaper profileAdapter;
 
 	private class GovernorHelperCurInfo implements IGovernorModel {
 
@@ -299,7 +255,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance();
 
-
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
 		governorHelper = new GovernorHelperCurInfo();
@@ -321,8 +276,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		// new int[] { android.R.id.text1 });
 		// adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		ProfileAdaper adapter = new ProfileAdaper(act, cursor);
-		spProfiles.setAdapter(adapter);
+		profileAdapter = new ProfileAdaper(act, cursor);
+		spProfiles.setAdapter(profileAdapter);
 
 		spProfiles.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -330,16 +285,13 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				if (pos > 0) {
 					// let us change the profile
-					//					String profile = parent.getItemAtPosition(pos).toString();
-					//					if (profile != null) {
-						powerProfiles.setManualProfile(id);
-						powerProfiles.applyProfile(id);
-						governorFragment.updateView();
-					//					}
+					powerProfiles.setManualProfile(id);
+					powerProfiles.applyProfile(id);
 				} else {
-					powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
-					powerProfiles.reapplyProfile(true);
-					governorFragment.updateView();
+					if (powerProfiles.isManualProfile()) {
+						powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
+						powerProfiles.reapplyProfile(true);
+					}
 				}
 			}
 
@@ -383,13 +335,26 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 				ctx.startActivity(intent);
 			}
 		});
+
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		Activity act = getActivity();
+		if (act instanceof CpuTunerViewpagerActivity) {
+			if (act != null) {
+				((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+			}
+		}
+		super.onDestroy();
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		registerReceiver();
-		//		updateView();
 		governorFragment.updateVirtGov(true);
 	}
 
@@ -397,7 +362,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	public void onPause() {
 		super.onPause();
 		governorFragment.updateVirtGov(false);
-		unregisterReceiver();
 	}
 
 	@Override
@@ -407,7 +371,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		acPowerChanged();
 	}
 
-	private void batteryLevelChanged() {
+	@Override
+	public void batteryLevelChanged() {
 		StringBuilder bat = new StringBuilder();
 		bat.append(powerProfiles.getBatteryLevel()).append("%");
 		bat.append(" (");
@@ -436,7 +401,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		}
 	}
 
-	private void profileChanged() {
+	@Override
+	public void profileChanged() {
 		final Activity act = getActivity();
 		SettingsStorage settings = SettingsStorage.getInstance();
 		if (PulseHelper.getInstance(act).isPulsing()) {
@@ -454,20 +420,16 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		}
 		if (settings.isEnableProfiles()) {
 			ProfileModel currentProfile = powerProfiles.getCurrentProfile();
-			if (currentProfile != null) {
+			if (currentProfile != PowerProfiles.DUMMY_PROFILE) {
 				if (powerProfiles.isManualProfile()) {
 					GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
 				} else {
+					spProfiles.setAdapter(profileAdapter);
 					spProfiles.setSelection(0);
 				}
-				spProfiles.setEnabled(true);
-			} else {
-				spProfiles.setEnabled(false);
 			}
 			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
 		} else {
-			// Does this work now?
-			// spProfiles.setEnabled(false);
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
 
@@ -494,7 +456,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		governorFragment.updateView();
 	}
 
-	private void acPowerChanged() {
+	@Override
+	public void acPowerChanged() {
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
 	}
 
@@ -528,5 +491,4 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		return getActivity();
 	};
 
-	
 }
