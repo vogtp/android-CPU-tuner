@@ -154,6 +154,15 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			}
 		});
 
+		findPreference("prefKeyLegalServiceIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent i = new Intent(Intent.ACTION_DEFAULT, Uri.parse("http://www.apache.org/licenses/LICENSE-2.0.html"));
+				startActivity(i);
+				return true;
+			}
+		});
 		PreferenceScreen configurationsManageScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsManage");
 		configurationsManageScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 

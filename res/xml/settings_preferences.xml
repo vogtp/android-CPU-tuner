@@ -300,6 +300,10 @@
 				android:summary="@string/prefLegalGnomeIconsLong"
 				android:title="@string/prefLegalGnomeIcons"
 			></Preference>
+			<Preference
+				android:summary="@string/prefLegalServiceIconsLong"
+				android:title="@string/prefLegalServiceIcons"
+			android:key="prefKeyLegalServiceIcons"></Preference>
 			<!-- <Preference android:key="prefKeyLegalOxigenIcons"
 				android:title="@string/prefLegalOxigenIcons" android:summary="@string/prefLegalOxigenIconsLong"></Preference>
 			-->

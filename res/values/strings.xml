@@ -56,4 +56,8 @@ Without this access CPU tuner will not work.
         <string name="msg_empty_configuration_name">The configuration name must not be empty.</string>
         <string name="label_frequency">Frequency</string>
         <string name="label_time">Time</string>
+        
+    <string name="prefLegalServiceIcons">Service icons License</string>
+    <string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod. Thanks for the
+		nice icons.</string>
 </resources>
