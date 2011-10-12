@@ -146,6 +146,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	}
 
 	private boolean hasChange() {
+		updateModel();
 		return !origVirtualGovModel.equals(virtualGovModel);
 	}
 
@@ -225,8 +226,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 
 	@Override
 	public void onBackPressed() {
-		updateModel();
-		EditorActionbarHelper.onBackPressed(this, exitStatus, !origVirtualGovModel.equals(virtualGovModel));
+		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
 	}
 
 	@Override

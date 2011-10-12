@@ -109,6 +109,14 @@ public class ModelAccess implements BackupRestoreCallback {
 		return getProfile(getIdFromUri(uri));
 	}
 
+	public String getProfileName(long id) {
+		ProfileModel profile = profileCache.get(id);
+		if (profile == null) {
+			profile = getProfile(id);
+		}
+		return profile.getProfileName();
+	}
+
 	public ProfileModel getProfile(long id) {
 		synchronized (profileCacheMutex) {
 			ProfileModel profile = profileCache.get(id);
