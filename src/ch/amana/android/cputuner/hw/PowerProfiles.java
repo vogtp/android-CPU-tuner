@@ -13,6 +13,10 @@ import ch.amana.android.cputuner.model.TriggerModel;
 public class PowerProfiles {
 
 
+	public static final TriggerModel DUMMY_TRIGGER = new TriggerModel();
+
+	public static final ProfileModel DUMMY_PROFILE = new ProfileModel();
+
 	public static final String UNKNOWN = "Unknown";
 
 	public static final int SERVICE_STATE_LEAVE = 0;
@@ -133,6 +137,18 @@ public class PowerProfiles {
 			return;
 		}
 
+		long profileId = getCurrentAutoProfileId();
+
+		if (currentProfile != null && (force || currentProfile.getDbId() != profileId)) {
+			if (!callInProgress && !SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
+				Logger.i("Not switching profile since phone not idle");
+				return;
+			}
+			applyProfile(profileId, force);
+		}
+	}
+
+	public long getCurrentAutoProfileId() {
 		long profileId = currentTrigger.getBatteryProfileId();
 
 		if (callInProgress) {
@@ -144,14 +160,7 @@ public class PowerProfiles {
 		} else if (acPower) {
 			profileId = currentTrigger.getPowerProfileId();
 		}
-
-		if (currentProfile != null && (force || currentProfile.getDbId() != profileId)) {
-			if (!callInProgress && !SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
-				Logger.i("Not switching profile since phone not idle");
-				return;
-			}
-			applyProfile(profileId, force);
-		}
+		return profileId;
 	}
 
 	public void applyProfile(long profileId) {
@@ -601,14 +610,14 @@ public class PowerProfiles {
 
 	public TriggerModel getCurrentTrigger() {
 		if (currentTrigger == null) {
-			currentTrigger = new TriggerModel();
+			currentTrigger = DUMMY_TRIGGER;
 		}
 		return currentTrigger;
 	}
 
 	public ProfileModel getCurrentProfile() {
 		if (currentProfile == null) {
-			currentProfile = new ProfileModel();
+			currentProfile = DUMMY_PROFILE;
 		}
 		return currentProfile;
 	}
