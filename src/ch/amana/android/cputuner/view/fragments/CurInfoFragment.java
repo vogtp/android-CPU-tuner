@@ -328,18 +328,17 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				ProfileModel currentProfile = powerProfiles.getCurrentProfile();
 				if (pos > 0) {
 					// let us change the profile
-					String profile = parent.getItemAtPosition(pos).toString();
-					if (profile != null) {
+					//					String profile = parent.getItemAtPosition(pos).toString();
+					//					if (profile != null) {
 						powerProfiles.setManualProfile(id);
 						powerProfiles.applyProfile(id);
 						governorFragment.updateView();
-					}
+					//					}
 				} else {
 					powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
-					powerProfiles.applyProfile(currentProfile.getDbId());
+					powerProfiles.reapplyProfile(true);
 					governorFragment.updateView();
 				}
 			}
