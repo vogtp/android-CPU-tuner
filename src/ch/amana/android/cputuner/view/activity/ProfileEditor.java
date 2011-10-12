@@ -509,6 +509,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	public void onBackPressed() {
 		updateModel();
-		EditorActionbarHelper.onBackPressed(this, exitStatus, !origProfile.equals(profile));
+		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
 	}
 }
