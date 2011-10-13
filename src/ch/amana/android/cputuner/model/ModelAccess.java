@@ -47,6 +47,7 @@ public class ModelAccess implements BackupRestoreCallback {
 	private SettingsStorage settings;
 	private BackupRestoreHelper backupRestoreHelper;
 
+	// TODO use init instance and get rid of context
 	public static ModelAccess getInstace(Context ctx) {
 		if (instace == null) {
 			instace = new ModelAccess(ctx.getApplicationContext());
@@ -376,5 +377,9 @@ public class ModelAccess implements BackupRestoreCallback {
 		// do nothing
 	}
 
+	public void delete(Uri uri) {
+		contentResolver.delete(uri, null, null);
+		clearCache();
+	}
 
 }

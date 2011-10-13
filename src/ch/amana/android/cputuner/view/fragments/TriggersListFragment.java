@@ -31,6 +31,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -291,7 +292,7 @@ public class TriggersListFragment extends PagerListFragment {
 		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				act.getContentResolver().delete(uri, null, null);
+				ModelAccess.getInstace(getActivity()).delete(uri);
 			}
 		});
 		AlertDialog alert = alertBuilder.create();

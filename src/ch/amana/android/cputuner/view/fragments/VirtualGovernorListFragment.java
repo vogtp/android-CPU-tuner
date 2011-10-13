@@ -199,7 +199,7 @@ public class VirtualGovernorListFragment extends PagerListFragment {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					act.getContentResolver().delete(uri, null, null);
+					ModelAccess.getInstace(getActivity()).delete(uri);
 				}
 			});
 		}
