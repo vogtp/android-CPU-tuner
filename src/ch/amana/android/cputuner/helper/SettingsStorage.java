@@ -279,7 +279,7 @@ public class SettingsStorage {
 	public boolean isSwitchWifiOnConnectedNetwork() {
 		if (!checkedSwitchWifiOnConnectedNetwork) {
 			checkedSwitchWifiOnConnectedNetwork = true;
-			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", false);
+			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", true);
 		}
 		return switchWifiOnConnectedNetwork;
 	}
