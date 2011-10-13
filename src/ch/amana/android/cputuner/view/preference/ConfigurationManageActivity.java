@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -74,6 +75,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			}
 
 			if (InstallHelper.hasConfig(this)) {
+				actionBar.addAction(new ActionBar.IntentAction(getContext(), new Intent(getContext(), ConfigurationAutoloadListActivity.class),
+						android.R.drawable.ic_menu_today));
+				// android.R.drawable.ic_menu_my_calendar
 				actionBar.addAction(new Action() {
 					@Override
 					public void performAction(View view) {
