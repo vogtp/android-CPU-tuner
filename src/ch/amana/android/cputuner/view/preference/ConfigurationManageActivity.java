@@ -143,6 +143,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void saveConfig(String name) {
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_unusable_comfig_save, Toast.LENGTH_LONG).show();
+			return;
+		}
 		backupRestoreHelper.backupConfiguration(name);
 	}
 
@@ -213,6 +217,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void add() {
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_unusable_comfig_save, Toast.LENGTH_LONG).show();
+			return;
+		}
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.msg_add_current_configuration);
 		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
@@ -284,6 +292,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void replace(final File configuration) {
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_unusable_comfig_save, Toast.LENGTH_LONG).show();
+			return;
+		}
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.menuReplaceWithCurrent);
 		alertBuilder.setMessage(getString(R.string.msg_replace_with_current, configuration.getName()));
@@ -392,6 +404,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void hasFinished(boolean success) {
 		loadingSuccess = success;
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_error_loadconfig, Toast.LENGTH_LONG).show();
+			success = false;
+		}
 		if (closeOnLoad && success) {
 			finish();
 		}

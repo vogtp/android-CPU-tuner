@@ -15,6 +15,7 @@ import android.net.Uri;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
+import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
@@ -88,7 +89,7 @@ public class ModelAccess implements BackupRestoreCallback {
 	}
 
 	public void configChanged() {
-		if (settings.isSaveConfiguration()) {
+		if (settings.isSaveConfiguration() && InstallHelper.hasConfig(ctx)) {
 			backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
 		}
 	}
