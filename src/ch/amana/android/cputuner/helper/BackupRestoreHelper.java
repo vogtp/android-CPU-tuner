@@ -20,6 +20,7 @@ import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -192,15 +193,24 @@ public class BackupRestoreHelper {
 			while (c.moveToNext()) {
 				String govs = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
 				String[] govitems = govs.split("\\|");
+				boolean found = false;
 				for (String gov : govitems) {
-					if (availGovs.get(gov)) {
+					Boolean avail = availGovs.get(gov);
+					if (avail != null && avail) {
 						Logger.i("Using " + gov);
 						ContentValues values = new ContentValues(1);
 						values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, gov);
 						if (contentResolver.update(DB.VirtualGovernor.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) }) > 0) {
+							found = true;
 							break;
 						}
 					}
+				}
+				if (!found) {
+					// we did not find a compatible gov so use none
+					ContentValues values = new ContentValues(1);
+					values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, RootHandler.NOT_AVAILABLE);
+					contentResolver.update(DB.VirtualGovernor.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) });
 				}
 			}
 		} finally {
