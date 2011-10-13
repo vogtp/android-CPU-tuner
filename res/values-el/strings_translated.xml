@@ -7,7 +7,7 @@
 	<string name="day_mon">Δευ</string>
 	<string name="day_tue">Τρι</string>
 	<string name="day_wed">Τετ</string>
-	<string name="day_thu">Πεμ</string>
+	<string name="day_thu">Πεμ</string> 
 	<string name="day_fri">Παρ</string>
 	<string name="day_sat">Σαβ</string>
 	<string name="day_sun">Κυρ</string>
@@ -87,6 +87,7 @@
 	<string name="virtual_governor">Εικονικός governor</string>
 	<string name="msg_cannot_load_virtual_governor">Δε μπορεί να γίνει φόρτωση του εικονικού governor...</string>
 	<string name="labelStatisticsTab">Στατιστικά</string>
+	<string name="label_time_in_state">Χρόνος σε κατάσταση:</string>
 	<string name="titleVirtualGovernorEditor">Επεξεργαστής εικονικού Governor:</string>
 	<string name="msgDeleteVirtGovNotPossible">Δε μπορεί διαγραφεί ο εικονικός Governor επειδή
 		είναι σε χρήση από κάποιο(α) προφίλ!</string>

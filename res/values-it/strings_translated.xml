@@ -7,7 +7,7 @@
 	<string name="saved_at">Salvato a </string>
 	<string name="day_mon">Lun</string>
 	<string name="day_tue">Mar</string>
-	<string name="day_wed">Mer</string>
+	<string name="day_wed">Mer</string> 
 	<string name="day_thu">Gio</string>
 	<string name="day_fri">Ven</string>
 	<string name="day_sat">Sab</string>
@@ -80,6 +80,7 @@
 	<string name="virtual_governor">governor virtuale</string>
 	<string name="msg_cannot_load_virtual_governor">Impossibile caricare il governor virtuale...</string>
 	<string name="labelStatisticsTab">Statistiche</string>
+	<string name="label_time_in_state">Time in state:</string>
 	<string name="titleVirtualGovernorEditor">Editor Governor Virtuale:</string>
 	<string name="msgDeleteVirtGovNotPossible">Impossibile eliminare questo governor virtuale dal momento che
 		è utilizzato in uno o più profili!</string>
