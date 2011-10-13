@@ -4,8 +4,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -37,6 +40,7 @@ import com.markupartist.android.widget.ActionBar;
 
 public class CpuTunerViewpagerActivity extends FragmentActivity {
 
+	private boolean doCheckConfig = true;
 	private PagerAdapter pagerAdapter;
 
 	private static final int[] lock = new int[1];
@@ -91,6 +95,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			}
 		}
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -103,17 +108,8 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		}
 		GuiUtils.setLanguage(this);
 
-		if (settings.isFirstRun() && !InstallHelper.hasConfig(this)) {
-			startActivity(new Intent(getApplicationContext(), FirstRunActivity.class));
-			finish();
-		} else {
-			InstallHelper.ensureConfiguration(this, false);
-		}
-		if (!SettingsStorage.getInstance().isUserLevelSet()) {
-			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this, false);
-			uec.show();
-		}
-		
+		sanityChecks(settings);
+
 		setContentView(R.layout.viewpager);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
@@ -139,6 +135,38 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		}
 	}
 
+	private void sanityChecks(SettingsStorage settings) {
+		if (settings.isFirstRun() && !InstallHelper.hasConfig(this)) {
+			startActivity(new Intent(getApplicationContext(), FirstRunActivity.class));
+			finish();
+		} else {
+			if (doCheckConfig && !InstallHelper.hasConfig(this)) {
+				AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+				alertBuilder.setTitle(R.string.title_no_configuration);
+				alertBuilder.setMessage(R.string.label_no_configuration);
+				alertBuilder.setPositiveButton(R.string.load, new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						InstallHelper.ensureConfiguration(CpuTunerViewpagerActivity.this, false);
+					}
+				});
+				alertBuilder.setNegativeButton(R.string.cont, new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						doCheckConfig = false;
+					}
+				});
+				AlertDialog alert = alertBuilder.create();
+				alert.show();
+			}
+		}
+		if (!SettingsStorage.getInstance().isUserLevelSet()) {
+			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this, false);
+			uec.show();
+		}
+	}
 
 	public static Intent getStartIntent(Context ctx) {
 		Intent intent = new Intent(ctx, CpuTunerViewpagerActivity.class);

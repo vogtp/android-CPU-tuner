@@ -60,4 +60,8 @@ Without this access CPU tuner will not work.
     <string name="prefLegalServiceIcons">Service icons License</string>
     <string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod. Thanks for the
 		nice icons.</string>
+    <string name="title_no_configuration">No usable configuration</string>
+    <string name="label_no_configuration">CPU tuner detected a unusable configuration and is unable to run properly. Do you want to load a configuration?</string>
+    <string name="load">Load</string>
+    <string name="cont">Continue</string>
 </resources>
