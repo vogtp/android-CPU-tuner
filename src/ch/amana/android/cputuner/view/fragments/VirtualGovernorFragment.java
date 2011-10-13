@@ -11,7 +11,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
@@ -100,13 +99,6 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			governorModel.setPowersaveBias(virtGov.getPowersaveBias());
 		} else {
 			Logger.e("Cannot load virtual governor");
-			try {
-				FragmentActivity activity = getActivity();
-				if (activity != null) {
-					Toast.makeText(activity, R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();
-				}
-			} catch (Exception e) {
-			}
 		}
 	}
 
