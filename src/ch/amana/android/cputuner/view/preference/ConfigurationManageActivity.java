@@ -32,7 +32,6 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
-import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;
@@ -100,11 +99,6 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 		settings = SettingsStorage.getInstance();
 
-		if (!SettingsStorage.getInstance().isUserLevelSet()) {
-			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this, false);
-			uec.show();
-		}
-
 		backupRestoreHelper = new BackupRestoreHelper(this);
 
 		ListView lvConfiguration = getListView();
@@ -132,9 +126,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (configsAdapter.getCount() < 1) {
-			add();
-		}
+		//		if (configsAdapter.getCount() < 1) {
+		//			add(); 
+		//		}
 	}
 
 	@Override

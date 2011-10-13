@@ -109,6 +109,10 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		} else {
 			InstallHelper.ensureConfiguration(this, false);
 		}
+		if (!SettingsStorage.getInstance().isUserLevelSet()) {
+			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this, false);
+			uec.show();
+		}
 		
 		setContentView(R.layout.viewpager);
 
