@@ -27,7 +27,7 @@ public class StatsFragment extends PagerFragment {
 	private TextView tvStats;
 	private TableLayout tlSwitches;
 	private LayoutInflater inflater;
-	private final Map<Integer, TextView> graphs = new HashMap<Integer, TextView>();
+	private final Map<Long, TextView> graphs = new HashMap<Long, TextView>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class StatsFragment extends PagerFragment {
 	private void updateView(Context context) {
 		StringBuilder sb = new StringBuilder();
 		getTotalTransitions(context, sb);
+		sb.append(context.getString(R.string.label_time_in_state));
 		tvStats.setText(sb.toString());
 		getTimeInState(context);
 	}
@@ -80,21 +81,25 @@ public class StatsFragment extends PagerFragment {
 		if (!RootHandler.NOT_AVAILABLE.equals(timeinstate)) {
 			String curCpuFreq = Integer.toString(CpuHandler.getInstance().getCurCpuFreq());
 			graphs.clear();
-			int max = 0;
+			long max = 0;
 			addTextToRow(0, context.getString(R.string.label_frequency), context.getString(R.string.label_time), false);
 			String[] states = timeinstate.split("\n");
 			for (int i = 0; i < states.length; i++) {
 				String[] vals = states[i].split(" +");
-				int f = Integer.parseInt(vals[1]);
+				long f = Long.parseLong(vals[1]);
 				max = Math.max(f, max);
 				addTextToRow(f, String.format("%d MHz", Integer.parseInt(vals[0]) / 1000), vals[1] + " s", curCpuFreq.equals(vals[0]));
 			}
 			int width = context.getResources().getDisplayMetrics().widthPixels;
-			for (Iterator<Integer> iterator = graphs.keySet().iterator(); iterator.hasNext();) {
-				Integer curVal = iterator.next();
+			for (Iterator<Long> iterator = graphs.keySet().iterator(); iterator.hasNext();) {
+				Long curVal = iterator.next();
 				TextView graph = graphs.get(curVal);
 
-				int pixels = curVal * width / max;
+				long pixelsl = curVal * width / max;
+				int pixels = width;
+				if (pixelsl <= Integer.MAX_VALUE) {
+					pixels = (int) pixelsl;
+				}
 				graph.setMaxWidth(pixels);
 				graph.setWidth(pixels);
 				graph.setMinimumWidth(pixels);
@@ -103,7 +108,7 @@ public class StatsFragment extends PagerFragment {
 		}
 	}
 
-	private void addTextToRow(int f, String frq, String time, boolean current) {
+	private void addTextToRow(long f, String frq, String time, boolean current) {
 		if (inflater == null) {
 			inflater = (LayoutInflater) tlSwitches.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
