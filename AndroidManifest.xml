@@ -3,7 +3,7 @@
 	package="ch.amana.android.cputuner"
 	android:versionName="@string/version"
 	android:installLocation="internalOnly"
-	xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="201110110">
+	xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="201110130">
 	<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 	<uses-permission android:name="com.android.vending.BILLING"></uses-permission>
 	<permission
