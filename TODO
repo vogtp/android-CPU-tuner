@@ -1,16 +1,14 @@
-
 - extreme config
-- back icon 
 
 - check for different android versions
 
 - rc2 (test update with old package)
 
+- add base for time in state (i.e. reset)
 - message in config manage if sd card is not accessible
 - refresh config list if sdcard gets mounted
 - enable/disable services in settings
 - switch when the phone is unlocked instead of just screen on
-- add base for time in state (i.e. reset)
 
 - check if wifi is present before enabling
 - move logging to file or DB?
