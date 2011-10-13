@@ -2,8 +2,9 @@
  "cputuner": {
   "configurationAutoload": [],
   "virtualGovernor": [
-     {
-    "governor": "ondemand|interactive|conservative|smartass|performance",
+   {
+    "useNumberOfCpus": "0",
+    "governor": "ondemand",
     "virtualGovernor": "Full speed",
     "_id": "1",
     "powersaveBias": "0",
@@ -11,7 +12,8 @@
     "governorThresholdDown": "55"
    },
    {
-    "governor": "ondemand|interactive|conservative|smartass|performance",
+    "useNumberOfCpus": "0",
+    "governor": "ondemand",
     "virtualGovernor": "Normal",
     "_id": "2",
     "powersaveBias": "0",
@@ -19,7 +21,8 @@
     "governorThresholdDown": "60"
    },
    {
-    "governor": "conservative|interactive|smartass|ondemand|powersave",
+    "useNumberOfCpus": "0",
+    "governor": "conservative",
     "virtualGovernor": "Extreme Save Battery",
     "_id": "3",
     "powersaveBias": "1000",
@@ -27,11 +30,13 @@
     "governorThresholdDown": "95"
    },
    {
-    "governor": "conservative|interactive|smartass|ondemand|powersave",
+    "useNumberOfCpus": "0",
     "virtualGovernor": "Save Battery",
     "_id": "4",
     "powersaveBias": "300",
-    "governorThresholdUp": "95",
+    "governor": "conservative",
+    "script": "",
+    "governorThresholdUp": "90",
     "governorThresholdDown": "80"
    }
   ],
@@ -57,7 +62,7 @@
    },
    {
     "useNumberOfCpus": "0",
-    "frequencyMax": "998400",
+    "frequencyMax": "1113600",
     "AIRPLANEMODE": "0",
     "powersaveBias": "0",
     "governor": "ondemand",
@@ -77,32 +82,34 @@
    },
    {
     "useNumberOfCpus": "0",
-    "frequencyMax": "960000",
+    "frequencyMax": "1113600",
     "AIRPLANEMODE": "0",
-    "powersaveBias": "0",
+    "powersaveBias": "300",
     "governor": "conservative",
+    "script": "",
     "frequencyMin": "245000",
     "backgroundSyncState": "0",
-    "governorThresholdUp": "98",
+    "governorThresholdUp": "90",
     "mobiledataState": "0",
-    "governorThresholdDown": "95",
+    "governorThresholdDown": "80",
     "wifiState": "0",
     "mobiledataConnectionState": "0",
     "gpsState": "0",
-    "virtualGovernor": "3",
+    "virtualGovernor": "4",
     "_id": "4",
     "bluetoothState": "0",
     "profileName": "Screen off"
    },
    {
     "useNumberOfCpus": "0",
-    "frequencyMax": "960000",
+    "frequencyMax": "1113600",
     "AIRPLANEMODE": "0",
-    "powersaveBias": "0",
+    "powersaveBias": "300",
     "governor": "conservative",
+    "script": "",
     "frequencyMin": "245000",
     "backgroundSyncState": "0",
-    "governorThresholdUp": "95",
+    "governorThresholdUp": "90",
     "mobiledataState": "0",
     "governorThresholdDown": "80",
     "wifiState": "0",
@@ -120,12 +127,12 @@
     "powerCurrentSumLocked": "343",
     "powerCurrentCntHot": "0",
     "hotProfileId": "-1",
-    "powerCurrentCntPower": "0",
+    "powerCurrentCntPower": "1",
     "powerCurrentSumHot": "0",
     "powerCurrentCntBattery": "5",
     "powerCurrentCntCall": "3",
     "callInProgressProfileId": "1",
-    "powerCurrentSumPower": "0",
+    "powerCurrentSumPower": "215",
     "screenOffProfileId": "4",
     "triggerName": "All",
     "_id": "1",
