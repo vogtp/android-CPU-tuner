@@ -36,6 +36,10 @@ public class VirtualGovernorModel implements IGovernorModel {
 		this.script = c.getString(DB.VirtualGovernor.INDEX_SCRIPT);
 		this.powersaveBias = c.getInt(DB.VirtualGovernor.INDEX_POWERSEAVE_BIAS);
 		this.useNumberOfCpus = c.getInt(DB.VirtualGovernor.INDEX_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public VirtualGovernorModel(Bundle bundle) {
@@ -74,6 +78,10 @@ public class VirtualGovernorModel implements IGovernorModel {
 		script = bundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 		powersaveBias = bundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
 		useNumberOfCpus = bundle.getInt(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -85,6 +93,10 @@ public class VirtualGovernorModel implements IGovernorModel {
 		script = jsonBundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 		powersaveBias = jsonBundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
 		useNumberOfCpus = jsonBundle.getInt(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public ContentValues getValues() {

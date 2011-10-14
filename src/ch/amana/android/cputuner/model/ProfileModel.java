@@ -75,6 +75,10 @@ public class ProfileModel implements IGovernorModel {
 		this.powersaveBias = c.getInt(DB.CpuProfile.INDEX_POWERSEAVE_BIAS);
 		this.airplainemodeState = c.getInt(DB.CpuProfile.INDEX_AIRPLANEMODE_STATE);
 		this.useNumberOfCpus = c.getInt(DB.CpuProfile.INDEX_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public ProfileModel(Bundle bundle) {
@@ -132,6 +136,10 @@ public class ProfileModel implements IGovernorModel {
 		powersaveBias = bundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
 		airplainemodeState = bundle.getInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE);
 		useNumberOfCpus = bundle.getInt(DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -153,6 +161,10 @@ public class ProfileModel implements IGovernorModel {
 		powersaveBias = jsonBundle.getInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS);
 		airplainemodeState = jsonBundle.getInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE);
 		useNumberOfCpus = jsonBundle.getInt(DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public ContentValues getValues() {

@@ -2,7 +2,6 @@ package ch.amana.android.cputuner.model;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -384,12 +383,19 @@ public class ModelAccess implements BackupRestoreCallback {
 	}
 
 	public void updateProfileFromVirtualGovernor() {
-		synchronized (profileCacheMutex) {
-			for (Iterator<Long> iterator = profileCache.keySet().iterator(); iterator.hasNext();) {
-				ProfileModel profile = profileCache.get(iterator.next());
+		Cursor c = null;
+		try {
+			c = contentResolver.query(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, null, null, null);
+			while (c.moveToNext()) {
+				ProfileModel profile = new ProfileModel(c);
 				VirtualGovernorModel virtualGovernor = getVirtualGovernor(profile.getVirtualGovernor());
 				virtualGovernor.applyToProfile(profile);
 				updateProfile(profile);
+			}
+		}finally {
+			if (c != null) {
+				c.close();
+				c = null;
 			}
 		}
 	}
