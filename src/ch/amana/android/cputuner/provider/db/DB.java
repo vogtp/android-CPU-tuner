@@ -373,5 +373,7 @@ public interface DB {
 		public static final String SORTORDER_DEFAULT = NAME_NEXT_EXEC + " ASC";
 		public static final String SORTORDER_REVERSE = NAME_NEXT_EXEC + " DESC";
 
+		public static final String SELECTION_TIME_WEEKDAY = NAME_HOUR + "=? && " + NAME_MINUTE + "=? && " + NAME_WEEKDAY + "=? ";
+
 	}
 }
