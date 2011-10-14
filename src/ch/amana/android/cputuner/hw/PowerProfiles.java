@@ -236,7 +236,7 @@ public class PowerProfiles {
 			boolean stateBefore = lastAciveStateWifi;
 			lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching wifi to last state which was " + stateBefore);
+				Logger.v("Switching wifi to last state which was " + stateBefore);
 				ServicesHandler.enableWifi(context, stateBefore);
 				lastSetStateWifi = -1;
 				return;
@@ -244,7 +244,7 @@ public class PowerProfiles {
 				if (lastSetStateWifi > -1 && lastSetStateWifi < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateWifi == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
-						Logger.v("Not sitching wifi since it changed since last time");
+						Logger.v("Not switching wifi since it changed since last time");
 						return;
 					}
 				}
@@ -266,7 +266,7 @@ public class PowerProfiles {
 			boolean stateBefore = lastActiveStateGps;
 			lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching GPS to last state which was " + stateBefore);
+				Logger.v("switching GPS to last state which was " + stateBefore);
 				ServicesHandler.enableGps(context, stateBefore);
 				lastSetStateGps = -1;
 				return;
@@ -274,7 +274,7 @@ public class PowerProfiles {
 				if (lastSetStateGps > -1 && lastSetStateGps < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateGps == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
-						Logger.v("Not sitching GPS since it changed since last time");
+						Logger.v("Not switching GPS since it changed since last time");
 						return;
 					}
 				}
@@ -296,7 +296,7 @@ public class PowerProfiles {
 			boolean stateBefore = lastActiceStateBluetooth;
 			lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching bluetooth to last state which was " + stateBefore);
+				Logger.v("switching bluetooth to last state which was " + stateBefore);
 				ServicesHandler.enableBluetooth(stateBefore);
 				lastSetStateBluetooth = -1;
 				return;
@@ -304,7 +304,7 @@ public class PowerProfiles {
 				if (lastSetStateBluetooth > -1 && lastSetStateBluetooth < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateBluetooth == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
-						Logger.v("Not sitching bluetooth it changed state since last time");
+						Logger.v("Not switching bluetooth it changed state since last time");
 						return;
 					}
 				}
@@ -329,13 +329,13 @@ public class PowerProfiles {
 			if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
 				if (lastSetStateMobiledata3G > -1) {
 					if (stateNow != lastActiveStateMobileData3G) {
-						Logger.v("Not sitching mobiledata it changed state since last time");
+						Logger.v("Not switching mobiledata it changed state since last time");
 						return;
 					}
 				}
 			}
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching mobiledata 3G to last state which was " + lastActiveStateMobileData3G);
+				Logger.v("switching mobiledata 3G to last state which was " + lastActiveStateMobileData3G);
 				ServicesHandler.enable2gOnly(context, lastActiveStateMobileData3G);
 				lastSetStateMobiledata3G = -1;
 				return;
@@ -357,7 +357,7 @@ public class PowerProfiles {
 			boolean stateBefore = lastActiveStateMobileDataConnection;
 			lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching mobiledata connection to last state which was " + stateBefore);
+				Logger.v("switching mobiledata connection to last state which was " + stateBefore);
 				ServicesHandler.enableMobileData(context, stateBefore);
 				lastSetStateMobiledataConnection = -1;
 				return;
@@ -365,7 +365,7 @@ public class PowerProfiles {
 				if (lastSetStateMobiledataConnection > -1 && lastSetStateMobiledataConnection < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateMobiledataConnection == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
-						Logger.v("Not sitching mobiledata connection it changed state since last time");
+						Logger.v("Not switching mobiledata connection it changed state since last time");
 						return;
 					}
 				}
@@ -387,7 +387,7 @@ public class PowerProfiles {
 			boolean stateBefore = lastActiveStateBackgroundSync;
 			lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching background sync to last state which was " + stateBefore);
+				Logger.v("switching background sync to last state which was " + stateBefore);
 				ServicesHandler.enableBackgroundSync(context, stateBefore);
 				lastSetStateBackgroundSync = -1;
 				return;
@@ -395,7 +395,7 @@ public class PowerProfiles {
 				if (lastSetStateBackgroundSync > -1 && lastSetStateBackgroundSync < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateBackgroundSync == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
-						Logger.v("Not sitching background sync it changed since state since last time");
+						Logger.v("Not switching background sync it changed since state since last time");
 						return;
 					}
 				}
@@ -417,7 +417,7 @@ public class PowerProfiles {
 			boolean stateBefore = lastActiveStateAirplanemode;
 			lastActiveStateAirplanemode = ServicesHandler.isAirplaineModeEnabled(context);
 			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Sitching airplanemode to last state which was " + stateBefore);
+				Logger.v("switching airplanemode to last state which was " + stateBefore);
 				ServicesHandler.enableAirplaneMode(context, stateBefore);
 				lastSetStateAirplaneMode = -1;
 				return;
@@ -425,7 +425,7 @@ public class PowerProfiles {
 				if (lastSetStateAirplaneMode > -1 && lastSetStateAirplaneMode < SERVICE_STATE_PREV) {
 					boolean b = lastSetStateAirplaneMode == SERVICE_STATE_ON ? true : false;
 					if (b != stateBefore) {
-						Logger.v("Not sitching airplanemode it changed since state since last time");
+						Logger.v("Not switching airplanemode it changed since state since last time");
 						return;
 					}
 				}
