@@ -66,13 +66,15 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 		actionBar.setHomeAction(new ActionBar.Action() {
+
 			@Override
 			public void performAction(View view) {
+				onBackPressed();
 			}
 
 			@Override
 			public int getDrawable() {
-				return R.drawable.icon;
+				return R.drawable.cputuner_back;
 			}
 		});
 		actionBar.setTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
@@ -128,7 +130,6 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	@Override
 	protected void onPause() {
 		super.onPause();
-		updateModel();
 		if (hasChange() && hasName() && isNameUnique()) {
 			try {
 				String action = getIntent().getAction();

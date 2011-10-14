@@ -78,13 +78,15 @@ public class TriggerEditor extends Activity implements EditorCallback {
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 		actionBar.setHomeAction(new ActionBar.Action() {
+
 			@Override
 			public void performAction(View view) {
+				onBackPressed();
 			}
 
 			@Override
 			public int getDrawable() {
-				return R.drawable.icon;
+				return R.drawable.cputuner_back;
 			}
 		});
 		actionBar.setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
@@ -204,7 +206,6 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		updateModel();
 		if (hasChange() && hasName() && isNameUnique() && isBatterylevelUnique()) {
 			try {
 				String action = getIntent().getAction();
@@ -314,7 +315,6 @@ public class TriggerEditor extends Activity implements EditorCallback {
 
 	@Override
 	public void onBackPressed() {
-		updateModel();
 		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
 	}
 

@@ -104,13 +104,15 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 		actionBar.setHomeAction(new ActionBar.Action() {
+
 			@Override
 			public void performAction(View view) {
+				onBackPressed();
 			}
 
 			@Override
 			public int getDrawable() {
-				return R.drawable.icon;
+				return R.drawable.cputuner_back;
 			}
 		});
 		actionBar.setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
@@ -362,7 +364,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	protected void onPause() {
 		super.onPause();
-		updateModel();
 		if (hasChange() && hasName() && isNameUnique()) {
 			try {
 				String action = getIntent().getAction();
@@ -508,7 +509,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 	@Override
 	public void onBackPressed() {
-		updateModel();
 		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
 	}
 }
