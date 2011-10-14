@@ -30,6 +30,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -66,7 +67,19 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.configuration_manage);
 			CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-			actionBar.setHomeAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.cputuner_back));
+			actionBar.setHomeAction(new ActionBar.Action() {
+				
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
+				
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+			
 			String title = getIntent().getStringExtra(EXTRA_TITLE);
 			if (title == null) {
 				actionBar.setTitle(R.string.titleManageConfigurations);
@@ -75,8 +88,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			}
 
 			if (InstallHelper.hasConfig(this)) {
-				actionBar.addAction(new ActionBar.IntentAction(getContext(), new Intent(getContext(), ConfigurationAutoloadListActivity.class),
-						android.R.drawable.ic_menu_today));
+				Intent intent = new Intent(getContext(), ConfigurationAutoloadListActivity.class);
+				intent.putExtra(ConfigurationAutoloadListActivity.EXTRA_NEW_LAYOUT, true);
+				actionBar.addAction(new ActionBar.IntentAction(getContext(), intent, android.R.drawable.ic_menu_today));
 				// android.R.drawable.ic_menu_my_calendar
 				actionBar.addAction(new Action() {
 					@Override
@@ -118,7 +132,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			lvSysConfigs.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					String name = sysConfigsAdapter.getConfigName((int) id) + " (modified)";
+					String name = sysConfigsAdapter.getConfigName((int) id);
 					load(sysConfigsAdapter.getDirectoryName((int) id), name, false);
 				}
 			});
@@ -346,6 +360,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		loadConfig(configFile, configName, isUserConfig);
 		if (!isUserConfig) {
 			closeOnLoad = isClose;
+			ModelAccess.getInstace(getContext()).updateProfileFromVirtualGovernor();
 			saveConfig(configName);
 		}
 		updateListView();
