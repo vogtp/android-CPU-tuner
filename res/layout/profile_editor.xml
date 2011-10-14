@@ -53,6 +53,12 @@
 				android:layout_width="fill_parent"
 				android:textSize="20sp"
 			></TextView>
+			<TextView
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvWarningManualServiceChanges"
+			></TextView>
 			<TableLayout
 				android:id="@+id/TableLayoutServices"
 				android:layout_height="wrap_content"
@@ -153,13 +159,27 @@
 						android:id="@+id/TextView01"
 						android:layout_height="wrap_content"
 					></TextView>
-					<Spinner
+					<LinearLayout
+						android:orientation="vertical"
 						android:layout_height="wrap_content"
-						android:id="@+id/spWifi"
-						android:layout_width="fill_parent"
-
+						android:id="@+id/llWifi"
+						android:layout_width="match_parent"
 						android:layout_weight=".1"
-					></Spinner>
+					>
+						<Spinner
+							android:id="@+id/spWifi"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight=".1"
+						></Spinner>
+						<TextView
+							android:layout_weight=".1"
+							android:layout_width="wrap_content"
+							android:textAppearance="?android:attr/textAppearanceSmall"
+							android:layout_height="wrap_content"
+							android:id="@+id/tvWarningWifiConnected"
+						></TextView>
+					</LinearLayout>
 				</TableRow>
 				<TableRow
 					android:layout_height="wrap_content"

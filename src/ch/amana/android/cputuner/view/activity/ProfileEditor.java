@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -69,7 +70,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private Spinner spSync;
 	private boolean hasDeviceStatesBeta;
 	private Spinner spMobileDataConnection;
-	// private LinearLayout llTop;
+	//	private LinearLayout llTop;
 	private GovernorBaseFragment governorFragment;
 	private TableRow trMinFreq;
 	private TableRow trMaxFreq;
@@ -78,6 +79,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
 	private ProfileModel origProfile;
+	private TextView tvWarningManualServiceChanges;
+	private TextView tvWarningWifiConnected;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -150,12 +153,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 										Math.max(profile.getBackgroundSyncState(),
 												profile.getWifiState())))));
 
-		// llTop = (LinearLayout) findViewById(R.id.llTop);
+		//		llTop = (LinearLayout) findViewById(R.id.llTop);
 		etName = (EditText) findViewById(R.id.etName);
 		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
 		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
 		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
+		tvWarningManualServiceChanges = (TextView) findViewById(R.id.tvWarningManualServiceChanges);
+		tvWarningWifiConnected = (TextView) findViewById(R.id.tvWarningWifiConnected);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 		spWifi = (Spinner) findViewById(R.id.spWifi);
@@ -416,6 +421,21 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
 		} else {
 			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
+		}
+
+		if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+			tvWarningManualServiceChanges.setVisibility(View.VISIBLE);
+			tvWarningManualServiceChanges.setText(R.string.msg_warning_manual_service_switches);
+			tvWarningManualServiceChanges.setTextColor(Color.YELLOW);
+		} else {
+			tvWarningManualServiceChanges.setVisibility(View.GONE);
+		}
+		if (!SettingsStorage.getInstance().isSwitchWifiOnConnectedNetwork()) {
+			tvWarningWifiConnected.setVisibility(View.VISIBLE);
+			tvWarningWifiConnected.setText(R.string.msg_warning_not_switch_wifi_connected);
+			tvWarningWifiConnected.setTextColor(Color.YELLOW);
+		} else {
+			tvWarningWifiConnected.setVisibility(View.GONE);
 		}
 		governorFragment.updateView();
 	}

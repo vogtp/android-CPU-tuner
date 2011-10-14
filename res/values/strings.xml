@@ -64,7 +64,9 @@ Without this access CPU tuner will not work.
     <string name="label_no_configuration">CPU tuner detected a unusable configuration and is unable to run properly. Do you want to load a configuration?</string>
     <string name="load">Load</string>
     <string name="cont">Continue</string>
-    <string name="msg_error_loadconfig">Loading this config did not produce a valid configuration!  Either the config is broken or something went wrong while loading. Please try again (with an other config).</string>
+    <string name="msg_error_loadconfig">Loading this config did not produce a valid configuration!  Either the configuration is broken or something went wrong while loading. Please try again (with an other config).</string>
     <string name="msg_unusable_comfig_save">This configuration cannot be saved since it is not usable. There are either no trigger, profiles or virtual governors</string>
     <string name="tvSequenceInfo">The profile are listed in the reverse sequence.  CPU tuner starts at the bottom and chooses the first profile that matches the current state</string>
+    <string name="msg_warning_manual_service_switches">You enabled \"manual service changes\" in settings.<br /> This means that services will not get switched when changed outside CPU tuner</string>
+    <string name="msg_warning_not_switch_wifi_connected">Wifi will not switch if connected to a network.  Change this in settings.</string>
 </resources>
