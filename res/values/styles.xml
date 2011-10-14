@@ -10,5 +10,9 @@
         <item name="android:textSize">@dimen/statsFontSize</item>
         <item name="android:typeface">monospace</item>
     </style>
+    <style name="psydoPrefSeparator" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/secondary_text_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
- 
+  
