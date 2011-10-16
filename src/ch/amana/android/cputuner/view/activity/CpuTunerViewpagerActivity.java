@@ -18,7 +18,9 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import ch.almana.android.billing.BillingManager;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
@@ -30,6 +32,7 @@ import ch.amana.android.cputuner.view.adapter.PagerAdapter.PagerItem;
 import ch.amana.android.cputuner.view.fragments.CurInfoFragment;
 import ch.amana.android.cputuner.view.fragments.LogFragment;
 import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
+import ch.amana.android.cputuner.view.fragments.StatsAdvancedFragment;
 import ch.amana.android.cputuner.view.fragments.StatsFragment;
 import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorListFragment;
@@ -46,6 +49,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
 	private final Set<StateChangeListener> stateChangeListeners = new HashSet<StateChangeListener>();
+	private BillingManager billingManager;
 
 	public interface StateChangeListener {
 
@@ -101,6 +105,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+
 		SettingsStorage settings = SettingsStorage.getInstance();
 		String lang = settings.getLanguage();
 		if (!"".equals(lang)) {
@@ -108,8 +113,11 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		}
 		GuiUtils.setLanguage(this);
 
-		sanityChecks(settings);
+		if (!sanityChecks(settings)) {
+			return;
+		}
 
+		billingManager = BillingManager.getInstance(this);
 		setContentView(R.layout.viewpager);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
@@ -129,16 +137,21 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		if (settings.isUseVirtualGovernors()) {
 			pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
 		}
-		pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
+		if (billingManager.hasProduct(BillingProducts.statistics)) {
+			pagerAdapter.addPage(StatsAdvancedFragment.class, R.string.labelStatisticsTab);
+		} else {
+			pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
+		}
 		if (settings.getProfileSwitchLogSize() > 0) {
 			pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
 		}
 	}
 
-	private void sanityChecks(SettingsStorage settings) {
+	private boolean sanityChecks(SettingsStorage settings) {
 		if (settings.isFirstRun() && !InstallHelper.hasConfig(this)) {
 			startActivity(new Intent(getApplicationContext(), FirstRunActivity.class));
 			finish();
+			return false;
 		} else {
 			if (doCheckConfig && !InstallHelper.hasConfig(this)) {
 				AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -166,6 +179,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this, false);
 			uec.show();
 		}
+		return true;
 	}
 
 	public static Intent getStartIntent(Context ctx) {
@@ -217,6 +231,9 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	protected void onPause() {
+		if (billingManager != null) {
+			billingManager.release();
+		}
 		unregisterReceiver();
 		super.onPause();
 	}

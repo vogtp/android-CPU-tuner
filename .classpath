@@ -7,5 +7,6 @@
 	<classpathentry kind="src" path="/importExportDB"/>
 	<classpathentry kind="src" path="importExportDB_src"/>
 	<classpathentry kind="src" path="com_markupartist_android_widget_actionbar_src"/>
+	<classpathentry kind="src" path="billingLib_src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

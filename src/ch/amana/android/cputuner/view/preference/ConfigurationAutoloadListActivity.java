@@ -47,7 +47,7 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		if (getIntent().getBooleanExtra(EXTRA_NEW_LAYOUT, false)) {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
-			setContentView(R.layout.configuration_autoload_list);
+			setContentView(R.layout.list);
 			CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 			actionBar.setTitle(R.string.prefConfigurationsAutoLoad);
 			actionBar.setHomeAction(new ActionBar.Action() {

@@ -180,6 +180,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".view.activity.FirstRunActivity"></activity>
+		<activity android:name=".view.activity.BillingProductListActiviy"></activity>
 	</application>
 	<uses-sdk
 		android:minSdkVersion="7"

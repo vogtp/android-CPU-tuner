@@ -1,17 +1,17 @@
-- backup/restore autoload
-
-> Also for logging: for evey battery percentage change (without trigger
-> change) i'm getting 5 "BatteryReceiver got intent...", 5 "Battery level
-> remaining: 31%", then 5 "Millies to change profile: ...". (As far as i
-> saw, there were no profile change) I dont know why got the
-> BATTERY_CHANGED intent fired 5 times, it could be independent of tuner.
-> But it still says "...to change profile", while it didnt changed.
-
-- help for autoload
+- fix manual service changes (make evaluation more general and include pulsing)
 
 - use billing
 - move new stats to billing
+
 - extreme config
+
+- backup/restore autoload
+
+- help for autoload
+
+- updated for sys configs as well
+
+- make onpower screen locked sequence configurable
 
 - check for different android versions
 
@@ -19,7 +19,9 @@
 
 - add base for time in state (i.e. reset)
 - rework graph to use screen size
-- create chooser for homescreen link of configurations
+- create chooser for homescreen link of configurations (buy?)
+
+- buy configs
 
 - message in config manage if sd card is not accessible
 - refresh config list if sdcard gets mounted
@@ -29,6 +31,13 @@
 
 - pulse timing for triggers
 - add ignore nice load
+
+> Also for logging: for evey battery percentage change (without trigger
+> change) i'm getting 5 "BatteryReceiver got intent...", 5 "Battery level
+> remaining: 31%", then 5 "Millies to change profile: ...". (As far as i
+> saw, there were no profile change) I dont know why got the
+> BATTERY_CHANGED intent fired 5 times, it could be independent of tuner.
+> But it still says "...to change profile", while it didnt changed.
 
 - check if wifi is present before enabling
 - move logging to file or DB?

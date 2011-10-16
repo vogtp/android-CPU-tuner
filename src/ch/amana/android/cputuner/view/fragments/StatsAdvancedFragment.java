@@ -1,41 +1,38 @@
 package ch.amana.android.cputuner.view.fragments;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import ch.almana.android.billing.BillingManager;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BillingProducts;
-import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
-import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
-import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class StatsFragment extends PagerFragment {
+public class StatsAdvancedFragment extends PagerFragment {
 
 	private TextView tvStats;
 	private TableLayout tlSwitches;
+	private LayoutInflater inflater;
+	private final Map<Long, TextView> graphs = new HashMap<Long, TextView>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
+		this.inflater = inflater;
 		View v = inflater.inflate(R.layout.stats, container, false);
 		tvStats = (TextView) v.findViewById(R.id.tvStats);
 		tlSwitches = (TableLayout) v.findViewById(R.id.tlSwitches);
@@ -65,8 +62,9 @@ public class StatsFragment extends PagerFragment {
 	private void updateView(Context context) {
 		StringBuilder sb = new StringBuilder();
 		getTotalTransitions(context, sb);
-		getTimeInState(sb);
+		sb.append(context.getString(R.string.label_time_in_state));
 		tvStats.setText(sb.toString());
+		getTimeInState(context);
 	}
 
 	private void getTotalTransitions(Context context, StringBuilder sb) {
@@ -77,25 +75,64 @@ public class StatsFragment extends PagerFragment {
 		}
 	}
 
-	private void getTimeInState(StringBuilder sb) {
+	private void getTimeInState(Context context) {
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
+		tlSwitches.removeAllViews();
 		if (!RootHandler.NOT_AVAILABLE.equals(timeinstate)) {
-
 			String curCpuFreq = Integer.toString(CpuHandler.getInstance().getCurCpuFreq());
-			sb.append(getString(R.string.label_time_in_state)).append("\n");
+			graphs.clear();
+			long max = 0;
+			addTextToRow(0, context.getString(R.string.label_frequency), context.getString(R.string.label_time), false);
 			String[] states = timeinstate.split("\n");
 			for (int i = 0; i < states.length; i++) {
 				String[] vals = states[i].split(" +");
-				sb.append(String.format("%5d", Integer.parseInt(vals[0]) / 1000));
-				sb.append(" Mhz");
-				sb.append(String.format("%13s", vals[1]));
-				if (curCpuFreq.equals(vals[0])) {
-					sb.append("\t\t(").append(getString(R.string.labelCurrentFrequency)).append(")");
-				}
-				sb.append("\n");
+				long f = Long.parseLong(vals[1]);
+				max = Math.max(f, max);
+				addTextToRow(f, String.format("%d MHz", Integer.parseInt(vals[0]) / 1000), vals[1] + " s", curCpuFreq.equals(vals[0]));
 			}
-			sb.append("\n");
+			int width = context.getResources().getDisplayMetrics().widthPixels;
+			for (Iterator<Long> iterator = graphs.keySet().iterator(); iterator.hasNext();) {
+				Long curVal = iterator.next();
+				TextView graph = graphs.get(curVal);
+
+				long pixelsl = curVal * width / max;
+				int pixels = width;
+				if (pixelsl <= Integer.MAX_VALUE) {
+					pixels = (int) pixelsl;
+				}
+				graph.setMaxWidth(pixels);
+				graph.setWidth(pixels);
+				graph.setMinimumWidth(pixels);
+				graph.setMinWidth(pixels);
+			}
 		}
+	}
+
+	private void addTextToRow(long f, String frq, String time, boolean current) {
+		if (inflater == null) {
+			inflater = (LayoutInflater) tlSwitches.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		}
+		View v = inflater.inflate(R.layout.stats_table_row, tlSwitches, false);
+		Resources resources = v.getContext().getResources();
+		int color = resources.getColor(android.R.color.secondary_text_dark);
+		if (current) {
+			color = resources.getColor(R.color.cputuner_green);
+		}
+		TextView tvFreq = (TextView) v.findViewById(R.id.tvFreq);
+		TextView tvTime = (TextView) v.findViewById(R.id.tvTime);
+		TextView tvGraph = (TextView) v.findViewById(R.id.tvGraph);
+		tvFreq.setText(frq);
+		tvTime.setText(time);
+		tvGraph.setText("");
+		if (f > 0) {
+			tvGraph.setBackgroundColor(color);
+			graphs.put(f, tvGraph);
+		}
+		tvFreq.setTextColor(color);
+		tvTime.setTextColor(color);
+
+		tlSwitches.addView(v);
+
 	}
 
 	@Override
@@ -115,35 +152,6 @@ public class StatsFragment extends PagerFragment {
 			}
 		});
 		return actions;
-	}
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.upgrade_option, menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.itemUpgrade:
-			Intent i = new Intent(act, BillingProductListActiviy.class);
-			i.putExtra(BillingProductListActiviy.EXTRA_TITLE, R.string.title_extentions);
-			i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);
-			act.startActivity(i);
-			return true;
-
-		}
-		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public void onPause() {
-		BillingManager.getInstance(getActivity()).release();
-		super.onPause();
 	}
 
 }

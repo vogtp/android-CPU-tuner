@@ -32,6 +32,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>billingLib_src</name>
+			<type>2</type>
+			<locationURI>_android_billingLib_31b9b20a/src</locationURI>
+		</link>
+		<link>
 			<name>com_markupartist_android_widget_actionbar_src</name>
 			<type>2</type>
 			<locationURI>_android_com_markupartist_android_widget_actionbar_3506d044/src</locationURI>
