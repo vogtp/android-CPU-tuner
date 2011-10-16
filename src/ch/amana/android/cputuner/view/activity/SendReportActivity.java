@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.view.preference;
+package ch.amana.android.cputuner.view.activity;
 
 import java.io.File;
 import java.io.FileInputStream;

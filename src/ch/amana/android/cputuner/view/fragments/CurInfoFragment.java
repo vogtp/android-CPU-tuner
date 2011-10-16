@@ -36,10 +36,10 @@ import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
-import ch.amana.android.cputuner.view.preference.ConfigurationManageActivity;
 
 public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback, StateChangeListener {
 

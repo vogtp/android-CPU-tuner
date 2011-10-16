@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.view.preference;
+package ch.amana.android.cputuner.view.activity;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +32,6 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
-import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;

@@ -30,6 +30,10 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
+import ch.amana.android.cputuner.view.activity.ChangelogActivity;
+import ch.amana.android.cputuner.view.activity.ConfigurationAutoloadListActivity;
+import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 

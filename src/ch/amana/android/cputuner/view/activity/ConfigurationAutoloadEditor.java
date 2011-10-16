@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.view.preference;
+package ch.amana.android.cputuner.view.activity;
 
 import java.util.Calendar;
 
@@ -26,7 +26,6 @@ import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsSpinnerAdapter;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
