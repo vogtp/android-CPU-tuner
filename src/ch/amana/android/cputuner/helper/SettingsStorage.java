@@ -44,7 +44,7 @@ public class SettingsStorage {
 	private static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
 	private static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
 
-	private static final String PREF_STORE_NAME_VERSION = "version";
+	private static final String PREF_STORE_LOCAL = "local";
 
 	private static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
 
@@ -129,7 +129,7 @@ public class SettingsStorage {
 	}
 
 	private SharedPreferences getLocalPreferences() {
-		return context.getSharedPreferences(PREF_STORE_NAME_VERSION, 0);
+		return context.getSharedPreferences(PREF_STORE_LOCAL, 0);
 	}
 
 	public void setEnableProfiles(boolean b) {
