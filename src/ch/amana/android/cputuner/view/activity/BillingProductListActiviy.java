@@ -1,6 +1,8 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -70,6 +72,10 @@ public class BillingProductListActiviy extends ListActivity {
 		Product product = (Product) billingProductAdaper.getItem(position);
 		bm.requestPurchase(this, product.getProductId());
 		super.onListItemClick(l, v, position, id);
+	}
+
+	private void loadOldMarketBuyMeABeer() {
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pname:ch.almana.android.buymeabeer")));
 	}
 
 }

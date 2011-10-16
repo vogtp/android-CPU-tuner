@@ -46,6 +46,8 @@ public class BillingProductAdaper extends BaseAdapter {
 			sb.append(ctx.getString(p.getCount() > 0 ? R.string.installed :R.string.not_installed));
 		}else {
 			sb.append(ctx.getString(R.string.purchased));
+			sb.append(" ");
+			sb.append(p.getCount());
 		}
 		sb.append("\n");
 		sb.append(p.getDesc());

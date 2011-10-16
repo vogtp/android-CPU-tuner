@@ -46,7 +46,6 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
 	public static final String EXTRA_FIRST_RUN = "firstRun";
-	public static final String EXTRA_NEW_LAYOUT = "newLayout";
 	public static final String EXTRA_TITLE = "title";
 	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
@@ -61,51 +60,44 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getIntent().getBooleanExtra(EXTRA_NEW_LAYOUT, false)) {
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
-			setContentView(R.layout.configuration_manage);
-			CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-			actionBar.setHomeAction(new ActionBar.Action() {
-				
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.configuration_manage);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
+
+		String title = getIntent().getStringExtra(EXTRA_TITLE);
+		if (title == null) {
+			actionBar.setTitle(R.string.titleManageConfigurations);
+		} else {
+			actionBar.setTitle(title);
+		}
+
+		if (InstallHelper.hasConfig(this)) {
+			Intent intent = new Intent(getContext(), ConfigurationAutoloadListActivity.class);
+			actionBar.addAction(new ActionBar.IntentAction(getContext(), intent, android.R.drawable.ic_menu_today));
+			// android.R.drawable.ic_menu_my_calendar
+			actionBar.addAction(new Action() {
 				@Override
 				public void performAction(View view) {
-					onBackPressed();
+					add();
 				}
-				
+
 				@Override
 				public int getDrawable() {
-					return R.drawable.cputuner_back;
+					return android.R.drawable.ic_menu_add;
 				}
 			});
-			
-			String title = getIntent().getStringExtra(EXTRA_TITLE);
-			if (title == null) {
-				actionBar.setTitle(R.string.titleManageConfigurations);
-			} else {
-				actionBar.setTitle(title);
-			}
-
-			if (InstallHelper.hasConfig(this)) {
-				Intent intent = new Intent(getContext(), ConfigurationAutoloadListActivity.class);
-				intent.putExtra(ConfigurationAutoloadListActivity.EXTRA_NEW_LAYOUT, true);
-				actionBar.addAction(new ActionBar.IntentAction(getContext(), intent, android.R.drawable.ic_menu_today));
-				// android.R.drawable.ic_menu_my_calendar
-				actionBar.addAction(new Action() {
-					@Override
-					public void performAction(View view) {
-						add();
-					}
-
-					@Override
-					public int getDrawable() {
-						return android.R.drawable.ic_menu_add;
-					}
-				});
-			}
-		} else {
-			setContentView(R.layout.configuration_manage);
-			((CputunerActionBar) findViewById(R.id.abCpuTuner)).setVisibility(View.GONE);
-			setTitle(R.string.titleManageConfigurations);
 		}
 
 		askLoadConfirmation = getIntent().getBooleanExtra(EXTRA_ASK_LOAD_CONFIRMATION, true);

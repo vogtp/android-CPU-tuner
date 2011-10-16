@@ -57,6 +57,18 @@ public class HelpActivity extends Activity {
 
 		wvHelp = (WebView) findViewById(R.id.wvHelp);
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
 
 		WebSettings webSettings = wvHelp.getSettings();
 		webSettings.setBuiltInZoomControls(false);

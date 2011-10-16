@@ -89,7 +89,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".view.preference.SettingsPreferenceActivity"></activity>
+		<activity android:name=".view.preference.SettingsMainActivity"></activity>
 		<activity
 			android:name=".view.activity.TriggerEditor"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -181,6 +181,7 @@
 		</activity>
 		<activity android:name=".view.activity.FirstRunActivity"></activity>
 		<activity android:name=".view.activity.BillingProductListActiviy"></activity>
+		<activity android:name=".view.preference.SettingsConfigurationsActivity"></activity>
 	</application>
 	<uses-sdk
 		android:minSdkVersion="7"

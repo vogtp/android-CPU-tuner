@@ -14,50 +14,69 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 import ch.amana.android.cputuner.view.activity.ChangelogActivity;
-import ch.amana.android.cputuner.view.activity.ConfigurationAutoloadListActivity;
-import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 
-public class SettingsPreferenceActivity extends PreferenceActivity {
+public class SettingsMainActivity extends BaseSettings {
 
 	private EditTextPreference cpuFreqPreference;
 	private EditTextPreference prefMinSensibleFrequency;
-	private String helpPage;
 	private ListPreference maxDefaultFreq;
 	private ListPreference minDefaultFreq;
-	private SettingsStorage settings;
 
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		settings = SettingsStorage.getInstance();
-		//		setContentView(R.layout.preferences);
-		//		((CputunerActionBar) findViewById(R.id.abCpuTuner)).setTitle(R.string.labelSettingsTab);
+		actionBar.setTitle(R.string.labelSettingsTab);
+		addPreferencesFromResource(R.xml.settings_main);
 
-		addPreferencesFromResource(R.xml.settings_preferences);
+		findPreference("prefKeyConfigurations").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-		helpPage = HelpActivity.PAGE_SETTINGS;
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				startActivity(new Intent(SettingsMainActivity.this, SettingsConfigurationsActivity.class));
+				return true;
+			}
+		});
+		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent i = new Intent(SettingsMainActivity.this, BillingProductListActiviy.class);
+				i.putExtra(BillingProductListActiviy.EXTRA_TITLE, getString(R.string.prefBuyMeABeer));
+				i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_BUY_ME_BEER);
+				startActivity(i);
+				return true;
+			}
+		});
+		findPreference("prefKeyExtentions").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent i = new Intent(SettingsMainActivity.this, BillingProductListActiviy.class);
+				i.putExtra(BillingProductListActiviy.EXTRA_TITLE, getString(R.string.prefBuyMeABeer));
+				i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);
+				startActivity(i);
+				return true;
+			}
+		});
 
 		findPreference(SettingsStorage.ENABLE_PROFILES).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			@Override
@@ -65,7 +84,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				if (newValue instanceof Boolean) {
 					Boolean b = (Boolean) newValue;
 					if (!b) {
-						Builder alertBuilder = new AlertDialog.Builder(SettingsPreferenceActivity.this);
+						Builder alertBuilder = new AlertDialog.Builder(SettingsMainActivity.this);
 						alertBuilder.setTitle(R.string.msg_disable_cpu_tuner);
 						alertBuilder.setMessage(R.string.msg_disable_cputuner_question);
 						alertBuilder.setNegativeButton(R.string.no, new OnClickListener() {
@@ -98,7 +117,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(SettingsPreferenceActivity.this, CapabilityCheckerActivity.class);
+				Intent intent = new Intent(SettingsMainActivity.this, CapabilityCheckerActivity.class);
 				intent.putExtra(CapabilityCheckerActivity.EXTRA_RECHEK, true);
 				startActivity(intent);
 				return true;
@@ -119,21 +138,14 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 
 		prefMinSensibleFrequency = (EditTextPreference) findPreference("prefKeyMinSensibleFrequency");
 		cpuFreqPreference = (EditTextPreference) findPreference("prefKeyCpuFreq");
-		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pname:ch.almana.android.buymeabeer")));
-				return true;
-			}
-		});
 
 		findPreference("prefKeyLanguage").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				if (newValue instanceof String) {
-					GuiUtils.setLanguage(SettingsPreferenceActivity.this, (String) newValue);
+					GuiUtils.setLanguage(SettingsMainActivity.this, (String) newValue);
 				}
 				return true;
 			}
@@ -167,26 +179,6 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-		PreferenceScreen configurationsManageScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsManage");
-		configurationsManageScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationManageActivity.class);
-				startActivity(i);
-				return true;
-			}
-		});
-		PreferenceScreen configurationsAutoloadScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsAutoLoad");
-		configurationsAutoloadScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsPreferenceActivity.this, ConfigurationAutoloadListActivity.class);
-				startActivity(i);
-				return true;
-			}
-		});
 
 		StringBuffer versionSB = new StringBuffer();
 		versionSB.append(getString(R.string.label_version)).append(" ").append(getString(R.string.version));
@@ -195,7 +187,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsPreferenceActivity.this, ChangelogActivity.class);
+				Intent i = new Intent(SettingsMainActivity.this, ChangelogActivity.class);
 				startActivity(i);
 				return true;
 			}
@@ -215,7 +207,7 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		findPreference("prefKeyUserLevel").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				UserExperianceLevelChooser uec = new UserExperianceLevelChooser(SettingsPreferenceActivity.this, true);
+				UserExperianceLevelChooser uec = new UserExperianceLevelChooser(SettingsMainActivity.this, true);
 				uec.show();
 				return true;
 			}
@@ -235,21 +227,21 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		minDefaultFreq.setEntryValues(freqs);
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (event.getKeyCode()) {
-		case KeyEvent.KEYCODE_BACK:
-			helpPage = HelpActivity.PAGE_SETTINGS;
-			break;
-		case KeyEvent.KEYCODE_MENU:
-			openOptionsMenu();
-			break;
-
-		default:
-			break;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+	//	@Override
+	//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	//		switch (event.getKeyCode()) {
+	//		case KeyEvent.KEYCODE_BACK:
+	//			helpPage = HelpActivity.PAGE_SETTINGS;
+	//			break;
+	//		case KeyEvent.KEYCODE_MENU:
+	//			openOptionsMenu();
+	//			break;
+	//
+	//		default:
+	//			break;
+	//		}
+	//		return super.onKeyDown(keyCode, event);
+	//	}
 
 	@Override
 	protected void onResume() {
@@ -261,32 +253,6 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 		findPreference("prefKeyEnableUserspaceGovernor").setEnabled(settings.isPowerUser());
 		maxDefaultFreq.setEnabled(!settings.isBeginnerUser());
 		minDefaultFreq.setEnabled(!settings.isBeginnerUser());
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		settings.forgetValues();
-		CpuHandler.resetInstance();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		default:
-			if (GeneralMenuHelper.onOptionsItemSelected(this, item, helpPage)) {
-				return true;
-			}
-
-		}
-		return false;
 	}
 
 	@Override
@@ -330,6 +296,11 @@ public class SettingsPreferenceActivity extends PreferenceActivity {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	protected String getHelpPage() {
+		return HelpActivity.PAGE_SETTINGS;
 	}
 
 }

@@ -36,7 +36,6 @@ import com.markupartist.android.widget.ActionBar;
 
 public class ConfigurationAutoloadListActivity extends ListActivity {
 
-	public static final String EXTRA_NEW_LAYOUT = "newLayout";
 	private SimpleCursorAdapter adapter;
 	private Cursor cursor;
 
@@ -44,30 +43,29 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getIntent().getBooleanExtra(EXTRA_NEW_LAYOUT, false)) {
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
-			setContentView(R.layout.list);
-			CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-			actionBar.setTitle(R.string.prefConfigurationsAutoLoad);
-			actionBar.setHomeAction(new ActionBar.Action() {
 
-				@Override
-				public void performAction(View view) {
-					onBackPressed();
-				}
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.list);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setTitle(R.string.prefConfigurationsAutoLoad);
+		actionBar.setHomeAction(new ActionBar.Action() {
 
-				@Override
-				public int getDrawable() {
-					return R.drawable.cputuner_back;
-				}
-			});
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
 
-			Intent intent = new Intent(this, ConfigurationManageActivity.class);
-			intent.putExtra(ConfigurationManageActivity.EXTRA_NEW_LAYOUT, true);
-			actionBar.addAction(new ActionBar.IntentAction(this, intent,
-					android.R.drawable.ic_menu_manage));
-			actionBar.addAction(new ActionBar.IntentAction(this, new Intent(Intent.ACTION_INSERT, DB.ConfigurationAutoload.CONTENT_URI), android.R.drawable.ic_menu_add));
-		}
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
+
+		Intent intent = new Intent(this, ConfigurationManageActivity.class);
+		actionBar.addAction(new ActionBar.IntentAction(this, intent,
+				android.R.drawable.ic_menu_manage));
+		actionBar.addAction(new ActionBar.IntentAction(this, new Intent(Intent.ACTION_INSERT, DB.ConfigurationAutoload.CONTENT_URI), android.R.drawable.ic_menu_add));
+
 		cursor = managedQuery(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
 
 		adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[] { DB.ConfigurationAutoload.NAME_HOUR,

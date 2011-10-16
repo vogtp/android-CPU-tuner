@@ -123,7 +123,6 @@ public class InstallHelper {
 			intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_FIRST_RUN, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_ASK_LOAD_CONFIRMATION, false);
-			intent.putExtra(ConfigurationManageActivity.EXTRA_NEW_LAYOUT, true);
 			intent.putExtra(ConfigurationManageActivity.EXTRA_TITLE, ctx.getString(R.string.title_load_configuration));
 			ctx.startActivity(intent);
 		} else {
