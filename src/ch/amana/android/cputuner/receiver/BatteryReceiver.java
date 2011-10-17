@@ -106,21 +106,15 @@ public class BatteryReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		try {
 			if (Logger.DEBUG) {
-				String action = intent == null ? "null intent":intent.getAction();
-				Logger.i("Battery receiver got inten with action " + action);
+				String action = intent == null ? "null intent" : intent.getAction();
+				Logger.i("Battery receiver got intent with action " + action);
 			}
 			SetProfileTask spt = new SetProfileTask(context.getApplicationContext());
 			spt.execute(intent);
-		}catch (Exception e) {
-			String action = intent == null ? "null intent":intent.getAction();
-			Logger.e("Error executing action "+action +" in background in battery receiver",e);
+		} catch (Exception e) {
+			String action = intent == null ? "null intent" : intent.getAction();
+			Logger.e("Error executing action " + action + " in background in battery receiver", e);
 		}
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		//receiver = null;
-		super.finalize();
 	}
 
 	private static void handleIntent(Context context, Intent intent) {
