@@ -16,7 +16,7 @@ import ch.amana.android.cputuner.R;
 public class Logger {
 	private static final String TAG = "CPUTuner";
 
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
 
 	private static ArrayList<String> log;
 

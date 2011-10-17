@@ -1,15 +1,14 @@
+- move settings
+
 - fix manual service changes (make evaluation more general and include pulsing)
-
-- use billing
-- move new stats to billing
-
+- debug memory leak?
 - extreme config
 
 - backup/restore autoload
 
 - help for autoload
 
-- updated for sys configs as well
+- updated timestamp for sys configs as well
 
 - make onpower screen locked sequence configurable
 
