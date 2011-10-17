@@ -1,7 +1,9 @@
 package ch.amana.android.cputuner.view.adapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +29,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	private static Fragment currentPage;
 	private boolean first = true;
 	private final ActionBar mActionBar;
+	private final Map<Integer, Fragment> fragments = new HashMap<Integer, Fragment>();
 
 	public interface PagerItem {
 
@@ -86,8 +89,12 @@ public class PagerAdapter extends FragmentPagerAdapter
 
 	@Override
 	public Fragment getItem(int position) {
-		PageInfo info = mPages.get(position);
-		Fragment f = Fragment.instantiate(mContext, info.clss.getName(), info.args);
+		Fragment f = fragments.get(position);
+		if (f == null) {
+			PageInfo info = mPages.get(position);
+			f = Fragment.instantiate(mContext, info.clss.getName(), info.args);
+			fragments.put(position, f);
+		}
 		if (first && position == 0) {
 			first = false;
 			currentPage = f;
