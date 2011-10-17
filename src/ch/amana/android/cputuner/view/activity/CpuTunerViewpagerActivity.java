@@ -18,9 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import ch.almana.android.billing.BillingManager;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.InstallHelper;
@@ -49,7 +47,8 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
 	private final Set<StateChangeListener> stateChangeListeners = new HashSet<StateChangeListener>();
-	private BillingManager billingManager;
+
+	//	private BillingManager billingManager;
 
 	public interface StateChangeListener {
 
@@ -117,7 +116,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			return;
 		}
 
-		billingManager = BillingManager.getInstance(this);
 		setContentView(R.layout.viewpager);
 
 		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
@@ -137,7 +135,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		if (settings.isUseVirtualGovernors()) {
 			pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
 		}
-		if (billingManager.hasProduct(BillingProducts.statistics)) {
+		if (settings.isAdvancesStatistics()) {
 			pagerAdapter.addPage(StatsAdvancedFragment.class, R.string.labelStatisticsTab);
 		} else {
 			pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
@@ -231,9 +229,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	protected void onPause() {
-		if (billingManager != null) {
-			billingManager.release();
-		}
 		unregisterReceiver();
 		super.onPause();
 	}

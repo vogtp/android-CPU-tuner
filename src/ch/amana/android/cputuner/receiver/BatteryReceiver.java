@@ -119,7 +119,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 
 	@Override
 	protected void finalize() throws Throwable {
-		receiver = null;
+		//receiver = null;
 		super.finalize();
 	}
 

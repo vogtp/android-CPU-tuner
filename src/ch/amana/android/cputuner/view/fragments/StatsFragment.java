@@ -16,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import ch.almana.android.billing.BillingManager;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -128,7 +127,7 @@ public class StatsFragment extends PagerFragment {
 		switch (item.getItemId()) {
 		case R.id.itemUpgrade:
 			Intent i = new Intent(act, BillingProductListActiviy.class);
-			i.putExtra(BillingProductListActiviy.EXTRA_TITLE, R.string.title_extentions);
+			i.putExtra(BillingProductListActiviy.EXTRA_TITLE, act.getString(R.string.title_extentions));
 			i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);
 			act.startActivity(i);
 			return true;
@@ -142,7 +141,6 @@ public class StatsFragment extends PagerFragment {
 
 	@Override
 	public void onPause() {
-		BillingManager.getInstance(getActivity()).release();
 		super.onPause();
 	}
 

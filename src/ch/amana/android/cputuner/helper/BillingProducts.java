@@ -2,8 +2,8 @@ package ch.amana.android.cputuner.helper;
 
 import android.content.Context;
 import ch.almana.android.billing.BillingManager;
+import ch.almana.android.billing.BillingManager.Managed;
 import ch.almana.android.billing.Product;
-import ch.almana.android.billing.backend.BillingFacade.Managed;
 import ch.amana.android.cputuner.R;
 
 

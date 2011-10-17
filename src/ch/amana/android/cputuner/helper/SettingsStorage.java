@@ -48,6 +48,8 @@ public class SettingsStorage {
 
 	private static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
 
+	private static final String PREF_KEY_ADV_STATS = "prefKeyAdvStats";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -504,6 +506,16 @@ public class SettingsStorage {
 		Editor editor = getLocalPreferences().edit();
 		editor.putBoolean(PREF_KEY_FIRST_RUN, false);
 		editor.commit();
+	}
+
+	public void setAdvancesStatistics(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_ADV_STATS, b);
+		editor.commit();
+	}
+
+	public boolean isAdvancesStatistics() {
+		return getPreferences().getBoolean(PREF_KEY_ADV_STATS, false);
 	}
 
 }
