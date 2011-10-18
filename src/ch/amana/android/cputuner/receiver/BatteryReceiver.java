@@ -56,7 +56,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 		}
 	}
 
-
 	public static void registerBatteryReceiver(Context context) {
 		synchronized (lock) {
 			if (receiver == null) {
@@ -81,7 +80,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 			}
 		}
 	}
-
 
 	public static void unregisterBatteryReceiver(Context context) {
 		synchronized (lock) {
