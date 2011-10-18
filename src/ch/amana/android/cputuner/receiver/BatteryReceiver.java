@@ -56,16 +56,17 @@ public class BatteryReceiver extends BroadcastReceiver {
 		}
 	}
 
+
 	public static void registerBatteryReceiver(Context context) {
 		synchronized (lock) {
 			if (receiver == null) {
-				IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-				IntentFilter screenOnFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
-				IntentFilter screenOffFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
 				receiver = new BatteryReceiver();
-				context.registerReceiver(receiver, batteryLevelFilter);
-				context.registerReceiver(receiver, screenOnFilter);
-				context.registerReceiver(receiver, screenOffFilter);
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_POWER_CONNECTED));
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_POWER_DISCONNECTED));
+				context.registerReceiver(receiver, new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION));
 				Notifier.notifyProfile("Initalising");
 				Logger.w("Registered BatteryReceiver");
 				if (SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
@@ -80,6 +81,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			}
 		}
 	}
+
 
 	public static void unregisterBatteryReceiver(Context context) {
 		synchronized (lock) {
@@ -155,6 +157,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 		} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
 			powerProfiles.setScreenOff(false);
 		} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
+			// manage network state on wifi
 			int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
 			if (state != PowerProfiles.SERVICE_STATE_LEAVE) {
 				NetworkInfo ni = (NetworkInfo) intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
