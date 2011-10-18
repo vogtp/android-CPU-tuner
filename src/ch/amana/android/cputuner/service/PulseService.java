@@ -13,6 +13,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class PulseService extends Service {
 
+	private static int[] lock = new int[0];
 	private static boolean isPulsing = false;
 
 	private static final long MIN_TO_MILLIES = 1000 * 60;
@@ -23,10 +24,17 @@ public class PulseService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (ACTION_PULSE.equals(intent.getAction())) {
-			boolean on = intent.getExtras().getBoolean(EXTRA_ON_OFF);
+			final boolean on = intent.getExtras().getBoolean(EXTRA_ON_OFF);
 			Logger.i("Do pulse (value: " + on + ")");
-			PulseHelper.getInstance(getApplicationContext()).doPulse(on);
-			reschedule(!on);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					synchronized (lock) {
+						PulseHelper.getInstance(getApplicationContext()).doPulse(on);
+						reschedule(!on);
+					}
+				}
+			}).run();
 		}
 		return START_NOT_STICKY;
 	}
