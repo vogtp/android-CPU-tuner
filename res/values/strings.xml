@@ -85,4 +85,5 @@ Without this access CPU tuner will not work.
     <string name="desc_buy_toy">This will keep my kid occupied for some time and probable lets me implement a feature (no promises made).</string>
     <string name="name_buy_toy">Buy my kid a new toy</string>
     <string name="prefextentionsLong">Add new features to CPU tuner</string>
-</resources>
+    <string name="title_changelog">Changelog</string>
+</resources> 
