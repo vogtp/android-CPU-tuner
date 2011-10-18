@@ -35,6 +35,9 @@ public class HelpActivity extends Activity {
 
 	public static final String PAGE_SETTINGS = "settings/index.html";
 	public static final String PAGE_SETTINGS_GUI = "settings/gui.html";
+	public static final String PAGE_SETTINGS_PROFILE = "settings/profiles_triggers.html";
+	public static final String PAGE_SETTINGS_CPU = "settings/index.html";
+	public static final String PAGE_SETTINGS_SERVICE_SWITCHES = "settings/service_switches.html";
 
 	private WebView wvHelp;
 

@@ -16,7 +16,7 @@ public class SystemServiceSwitchesSettings extends BaseSettings {
 
 	@Override
 	protected String getHelpPage() {
-		return HelpActivity.PAGE_SETTINGS;
+		return HelpActivity.PAGE_SETTINGS_SERVICE_SWITCHES;
 	}
 
 }
