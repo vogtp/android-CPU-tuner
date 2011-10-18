@@ -3,14 +3,15 @@
 	package="ch.amana.android.cputuner"
 	android:versionName="@string/version"
 	android:installLocation="internalOnly"
-	xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="201110170">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:versionCode="201110170"
+>
 	<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 	<uses-permission android:name="com.android.vending.BILLING"></uses-permission>
 	<permission
 		android:name="ch.amana.android.cputuner.LOAD_CONFIGURATION"
 		android:protectionLevel="dangerous"
 	></permission>
-
 	<application
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
@@ -22,12 +23,10 @@
 		<meta-data
 			android:name="com.google.android.backup.api_key"
 			android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
-
 		<receiver android:name=".receiver.BootReceiver">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED"></action>
 			</intent-filter>
-
 		</receiver>
 		<service android:name=".service.BatteryService">
 			<intent-filter>
@@ -37,7 +36,6 @@
 				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
 			</intent-filter>
 		</service>
-
 		<activity
 			android:name=".view.activity.ProfileEditor"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -55,8 +53,8 @@
 				<category android:name="android.intent.category.DEFAULT"></category>
 			</intent-filter>
 		</activity>
-
 		<receiver android:name=".receiver.BatteryReceiver">
+		<!-- 
 			<intent-filter>
 				<action android:name="android.intent.action.SCREEN_OFF"></action>
 			</intent-filter>
@@ -78,6 +76,7 @@
 			<intent-filter>
 				<action android:name="android.net.wifi.STATE_CHANGE"></action>
 			</intent-filter>
+			 -->
 		</receiver>
 		<activity
 			android:name=".view.activity.CpuTunerViewpagerActivity"
@@ -89,7 +88,10 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".view.preference.SettingsMainActivity"></activity>
+		<activity
+			android:name=".view.preference.SettingsMainActivity"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
 		<activity
 			android:name=".view.activity.TriggerEditor"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -114,6 +116,7 @@
 		<activity
 			android:configChanges="orientation"
 			android:name=".view.activity.CapabilityCheckerActivity"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
 		></activity>
 		<activity
 			android:name=".view.activity.HelpActivity"
@@ -169,7 +172,7 @@
 				<action android:name="ch.amana.android.cputuner.INTENT_SCEDULE_AUTOLOAD"></action>
 			</intent-filter>
 		</service>
-		<activity android:name=".view.activity.ChangelogActivity"></activity>
+		<activity android:name=".view.activity.ChangelogActivity" android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
 		<activity
 			android:name=".service.ConfigurationLoadServiceActivity"
 			android:permission="ch.amana.android.cputuner.LOAD_CONFIGURATION"
@@ -181,12 +184,38 @@
 		</activity>
 		<activity android:name=".view.activity.FirstRunActivity"></activity>
 		<activity android:name=".view.activity.BillingProductListActiviy"></activity>
-		<activity android:name=".view.preference.SettingsConfigurationsActivity"></activity>
+		<activity
+			android:name=".view.preference.SettingsConfigurationsActivity"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
+		<activity
+			android:name=".view.preference.GuiSettings"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
+		<activity
+			android:name=".view.preference.SystemSettings"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
+		<activity
+			android:name=".view.preference.SystemCpuSettings"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
+		<activity
+			android:name=".view.preference.SystemProfilesSettings"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
+		<activity
+			android:name=".view.preference.SystemServiceSwitchesSettings"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
+		<activity
+			android:name=".view.preference.VariousSettings"
+			android:theme="@android:style/Theme.Black.NoTitleBar"
+		></activity>
 	</application>
 	<uses-sdk
 		android:minSdkVersion="7"
 		android:targetSdkVersion="8" />
-
 	<supports-screens
 		android:largeScreens="true"
 		android:normalScreens="true"
@@ -218,7 +247,6 @@
 	<uses-feature
 		android:name="android.hardware.location.gps"
 		android:required="false" />
-
 	<uses-permission
 		android:name="android.permission.ACCESS_WIFI_STATE"
 		android:required="false"
@@ -245,6 +273,4 @@
 		android:name="android.permission.ACCESS_NETWORK_STATE"
 		android:required="false"
 	></uses-permission>
-
-
-</manifest> 
+</manifest>

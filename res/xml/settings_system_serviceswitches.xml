@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:key="prefKeyServiceSwitches"
+	android:title="@string/prefServiceSwitches"
+	android:summary="@string/prefServiceSwitchesLong"
+>
+	<PreferenceCategory
+		android:key="prefKeyServiceSwitches"
+		android:title="@string/prefServiceSwitches"
+	>
+		<CheckBoxPreference
+			android:key="prefKeyAllowManualServiceChanges"
+			android:title="@string/prefAllowManualServiceChanges"
+			android:summaryOff="@string/prefAllowManualServiceChangesOff"
+			android:summaryOn="@string/prefAllowManualServiceChangesOn"
+			android:defaultValue="false"
+		></CheckBoxPreference> 
+		<ListPreference
+			android:title="@string/prefNetworkModeOnWifiConnected"
+			android:summary="@string/prefNetworkModeOnWifiConnectedLong"
+			android:key="prefKeyNetworkModeOnWifiConnected"
+			android:entryValues="@array/mobiledataOnWifiStatesValues"
+			android:entries="@array/mobiledataOnWifiStatesEnties"
+			android:defaultValue="0"
+		></ListPreference>
+		<CheckBoxPreference
+			android:key="prefKeySwitchWifiOnConnectedNetwork"
+			android:summaryOff="@string/prefSwitchWifiOnConnectedNetworkOff"
+			android:summaryOn="@string/prefSwitchWifiOnConnectedNetworkOn"
+			android:title="@string/prefSwitchWifiOnConnectedNetwork"
+			android:defaultValue="true"
+		></CheckBoxPreference>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/prefCatPulsedServiceSwitches">
+		<EditTextPreference
+			android:summary="@string/prefPulseDelayOnLong"
+			android:key="prefKeyPulseDelayOn"
+			android:title="@string/prefPulseDelayOn"
+			android:defaultValue="5"
+		></EditTextPreference>
+		<EditTextPreference
+			android:summary="@string/prefPulseDelayOffLong"
+			android:defaultValue="30"
+			android:key="prefKeyPulseDelayOff"
+			android:title="@string/prefPulseDelayOff"
+		></EditTextPreference>
+		<CheckBoxPreference
+			android:title="@string/prefPulseMobiledataOnWifi"
+			android:key="prefKeyPulseMobiledataOnWifi"
+			android:summaryOn="@string/prefPulseMobiledataOnWifiOn"
+			android:summaryOff="@string/prefPulseMobiledataOnWifiOff"
+			android:defaultValue="true"
+		></CheckBoxPreference>
+	</PreferenceCategory>
+</PreferenceScreen>

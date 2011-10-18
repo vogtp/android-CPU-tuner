@@ -1,6 +1,9 @@
 package ch.amana.android.cputuner.view.preference;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,5 +69,17 @@ public abstract class BaseSettings extends PreferenceActivity {
 		return false;
 	}
 
+
+	protected void startIntentForPref(final String prefKey, final Class<?> settingsClass) {
+		findPreference(prefKey).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				startActivity(new Intent(BaseSettings.this, settingsClass));
+				return true;
+			}
+		});
+	}
+	
 	protected abstract String getHelpPage();
 }

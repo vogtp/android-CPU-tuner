@@ -1,10 +1,6 @@
 package ch.amana.android.cputuner.view.preference;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceScreen;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.view.activity.ConfigurationAutoloadListActivity;
 import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
@@ -20,26 +16,8 @@ public class SettingsConfigurationsActivity extends BaseSettings {
 
 		addPreferencesFromResource(R.xml.settings_configurations);
 
-		PreferenceScreen configurationsManageScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsManage");
-		configurationsManageScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsConfigurationsActivity.this, ConfigurationManageActivity.class);
-				startActivity(i);
-				return true;
-			}
-		});
-		PreferenceScreen configurationsAutoloadScreen = (PreferenceScreen) findPreference("prefKeyConfigurationsAutoLoad");
-		configurationsAutoloadScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsConfigurationsActivity.this, ConfigurationAutoloadListActivity.class);
-				startActivity(i);
-				return true;
-			}
-		});
+		startIntentForPref("prefKeyConfigurationsManage", ConfigurationManageActivity.class);
+		startIntentForPref("prefKeyConfigurationsAutoLoad", ConfigurationAutoloadListActivity.class);
 	}
 
 	@Override
