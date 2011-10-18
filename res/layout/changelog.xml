@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="match_parent"
-	android:layout_height="match_parent">
-    <ScrollView android:id="@+id/scrollView1" android:layout_height="match_parent" android:layout_width="match_parent">
-        <LinearLayout android:id="@+id/linearLayout1" android:layout_width="match_parent" android:layout_height="match_parent">
-	<TextView android:layout_height="match_parent" android:layout_width="match_parent" android:id="@+id/tvChangelog" android:text="@string/notAvailable"></TextView>
- </LinearLayout>
-    </ScrollView>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+>
+	<ch.amana.android.cputuner.view.widget.CputunerActionBar
+		style="@style/ActionBar"
+		android:id="@+id/abCpuTuner"
+		android:paddingBottom="3dp" />
+	<ScrollView
+		android:id="@+id/scrollView1"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+	>
+		<LinearLayout
+			android:id="@+id/linearLayout1"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+		>
+			<TextView
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"
+				android:id="@+id/tvChangelog"
+				android:text="@string/notAvailable"
+			></TextView>
+		</LinearLayout>
+	</ScrollView>
 </LinearLayout>

@@ -26,6 +26,10 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class CapabilityCheckerActivity extends Activity {
 	//
@@ -99,11 +103,35 @@ public class CapabilityCheckerActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setContentView(R.layout.capability_checker);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
+		actionBar.setTitle(getString(R.string.prefCapabilities));
+		actionBar.addAction(new Action() {
+			@Override
+			public void performAction(View view) {
+				sendMail();
+			}
+			@Override
+			public int getDrawable() {
+				return android.R.drawable.ic_dialog_email;
+			}
+		});
+
 		openLogFile(FILE_CAPABILITIESCHECK);
 		checker = CapabilityChecker.getInstance(this, getIntent().getBooleanExtra(EXTRA_RECHEK, false));
 
 		closeLogFile();
-		setContentView(R.layout.capability_checker);
 
 		tvSummary = (TextView) findViewById(R.id.tvSummary);
 		tvMailMessage = (TextView) findViewById(R.id.tvMailMessage);
@@ -219,10 +247,7 @@ public class CapabilityCheckerActivity extends Activity {
 		switch (item.getItemId()) {
 
 		case R.id.menuItemSendMail:
-			Intent intent = new Intent(this, SendReportActivity.class);
-			intent.putExtra(SendReportActivity.EXTRAS_SEND_DIRECTLY, true);
-			startActivity(intent);
-			finish();
+			sendMail();
 			return true;
 
 		default:
@@ -231,5 +256,12 @@ public class CapabilityCheckerActivity extends Activity {
 			}
 		}
 		return false;
+	}
+
+	private void sendMail() {
+		Intent intent = new Intent(this, SendReportActivity.class);
+		intent.putExtra(SendReportActivity.EXTRAS_SEND_DIRECTLY, true);
+		startActivity(intent);
+		finish();
 	}
 }

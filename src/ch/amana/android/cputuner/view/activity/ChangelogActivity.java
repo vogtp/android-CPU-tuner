@@ -7,19 +7,36 @@ import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
+
+import com.markupartist.android.widget.ActionBar;
 
 public class ChangelogActivity extends Activity {
 
 	private static final String CHANGELOG = "CHANGELOG";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.changelog);
-		setTitle(R.string.prefChangelog);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
+		actionBar.setTitle(R.string.title_changelog);
 		TextView tvChangelog = (TextView) findViewById(R.id.tvChangelog);
 
 		try {
