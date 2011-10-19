@@ -34,7 +34,7 @@ public class PulseService extends Service {
 						reschedule(!on);
 					}
 				}
-			}).run();
+			}).start();
 		}
 		return START_NOT_STICKY;
 	}
