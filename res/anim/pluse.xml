@@ -6,11 +6,11 @@
 > 
 	<alpha
 		android:fromAlpha="0.2"
-		android:toAlpha="0.8"
-		android:duration="1500" />
+		android:toAlpha="1.0"
+		android:duration="800" />
 	<alpha
 		android:fromAlpha="0.9" 
 		android:toAlpha="0.3"
 		android:duration="1500"
-		android:startOffset="1500" />
+		android:startOffset="800" />
 </set>
