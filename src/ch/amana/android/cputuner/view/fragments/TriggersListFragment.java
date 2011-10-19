@@ -265,7 +265,9 @@ public class TriggersListFragment extends PagerListFragment {
 					triggerModel.clearPowerCurrent();
 					try {
 						PowerProfiles.setUpdateTrigger(false);
-						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
+						//						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
+						triggerModel.clearPowerCurrent();
+						ModelAccess.getInstace(getActivity()).updateTrigger(triggerModel, false);
 					} catch (Exception e) {
 						Logger.w("Cannot reset trigger power consumption", e);
 					} finally {
