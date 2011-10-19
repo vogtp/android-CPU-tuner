@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.helper;
 import android.content.Context;
 import android.content.Intent;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.service.PulseService;
 
@@ -101,6 +102,34 @@ public class PulseHelper {
 
 	public boolean isPulsing() {
 		return pulsing;
+	}
+
+	public void pulse(ServiceType type, boolean b) {
+		switch (type) {
+		case wifi:
+			pulseWifiState(b);
+			break;
+		case bluetooth:
+			pulseBluetoothState(b);
+			break;
+		case mobiledataConnection:
+			pulseMobiledataConnectionState(b);
+			break;
+		case backgroundsync:
+			pulseBackgroundSyncState(b);
+			break;
+		case airplainMode:
+			pulseAirplanemodeState(b);
+			break;
+		case gps:
+			pulseGpsState(b);
+			break;
+		case mobiledata3g:
+			Logger.w("Cannot pulse mobiledata 3G");
+			break;
+		default:
+			Logger.e("Did not find service type " + type.toString() + " for pulsing.");
+		}
 	}
 
 	public void pulseBackgroundSyncState(boolean b) {
