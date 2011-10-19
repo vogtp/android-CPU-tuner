@@ -13,12 +13,17 @@ import ch.amana.android.cputuner.service.PulseService;
 
 public class PowerProfiles {
 
+	public enum ServiceType {
+		wifi, mobiledata3g, gps, bluetooth, mobiledataConnection, backgroundsync, airplainMode
+	}
 
 	public static final TriggerModel DUMMY_TRIGGER = new TriggerModel();
 
 	public static final ProfileModel DUMMY_PROFILE = new ProfileModel();
 
 	public static final String UNKNOWN = "Unknown";
+
+	private static final int NO_STATE = -1;
 
 	public static final int SERVICE_STATE_LEAVE = 0;
 	public static final int SERVICE_STATE_ON = 1;
@@ -47,29 +52,15 @@ public class PowerProfiles {
 
 	private static boolean updateTrigger = true;
 
-	private int lastSetStateWifi = -1;
-	private boolean lastAciveStateWifi;
-
-	private int lastSetStateGps = -1;
-	private boolean lastActiveStateGps;
-
-	private int lastSetStateMobiledata3G = -1;
-	private int lastActiveStateMobileData3G;
-
-	private int lastSetStateMobiledataConnection = -1;
-	private boolean lastActiveStateMobileDataConnection;
-
-	private int lastSetStateBluetooth = -1;
-	private boolean lastActiceStateBluetooth;
-
-	private int lastSetStateBackgroundSync = -1;
-	private boolean lastActiveStateBackgroundSync;
+	private int lastStateWifi = NO_STATE;
+	private int lastStateGps = NO_STATE;
+	private int lastStateMobiledataConnection = NO_STATE;
+	private int lastStateBluetooth = NO_STATE;
+	private int lastStateBackgroundSync = NO_STATE;
+	private int lastStateAirplaneMode = NO_STATE;
+	private int lastStateMobiledata3G = NO_STATE;
 
 	private boolean callInProgress = false;
-
-	private boolean lastActiveStateAirplanemode;
-
-	private int lastSetStateAirplaneMode = -1;
 
 	private int lastBatteryLevel = -1;
 
@@ -106,13 +97,13 @@ public class PowerProfiles {
 
 	public void initActiveStates() {
 		manualProfileID = AUTOMATIC_PROFILE;
-		lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
-		lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
-		lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
-		lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
-		lastActiveStateMobileData3G = ServicesHandler.whichMobiledata3G(context);
-		lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
-		lastActiveStateAirplanemode = ServicesHandler.isAirplaineModeEnabled(context);
+		lastStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+		lastStateBluetooth = ServicesHandler.isBlutoothEnabled() ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+		lastStateGps = ServicesHandler.isGpsEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+		lastStateMobiledataConnection = ServicesHandler.isMobiledataConnectionEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+		lastStateMobiledata3G = ServicesHandler.whichMobiledata3G(context);
+		lastStateWifi = ServicesHandler.isWifiEnabaled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
+		lastStateAirplaneMode = ServicesHandler.isAirplaineModeEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF;
 	}
 
 	public void reapplyProfile(boolean force) {
@@ -140,7 +131,7 @@ public class PowerProfiles {
 
 		long profileId = getCurrentAutoProfileId();
 
-		if (currentProfile != null && (force || currentProfile.getDbId() != profileId)) {
+		if (force || (currentProfile != null && currentProfile.getDbId() != profileId)) {
 			if (!callInProgress && !SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
 				Logger.i("Not switching profile since phone not idle");
 				return;
@@ -225,93 +216,84 @@ public class PowerProfiles {
 		Logger.addToLog(sb.toString());
 	}
 
-	private void applyWifiState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchWifi()) {
-			if (state == SERVICE_STATE_PULSE) {
-				PulseHelper.getInstance(context).pulseWifiState(true);
-				lastSetStateWifi = state;
-				return;
+	private String getServiceTypeName(ServiceType type) {
+		return type.toString();
+		//		switch (type) {wifi, mobiledata3g, gps, bluetooth, mobiledataConnection, backgroundsync, airplainMode
+		//		case wifi:
+		//			return "wifi";
+		//		case mobiledata3g:
+		//			return "mobiledata 2/3G";
+		//		case bluetooth:
+		//			return "bluetooth";
+		//		case mobiledataConnection:
+		//			return "mobiledataConnection";
+		//		case backgroundsync:
+		//			return "backgroundsync";
+		//		case airplainMode:
+		//			return "airplainMode";
+		//		case gps:
+		//			return "gps";
+		//		default:
+		//			return "service type "+type.t;
+		//		}
+	}
+
+	private int evaluateState(ServiceType type, int state, int lastState, int stateNow) {
+		int ret = state;
+		if (type != ServiceType.mobiledata3g) {
+			// FIXME handle manual service changes in pluse
+			if (state == SERVICE_STATE_PULSE || lastState == SERVICE_STATE_PULSE) {
+				PulseHelper.getInstance(context).pulse(type, true);
+				return NO_STATE;
 			} else {
-				PulseHelper.getInstance(context).pulseWifiState(false);
+				PulseHelper.getInstance(context).pulse(type, false);
 			}
-			boolean stateBefore = lastAciveStateWifi;
-			lastAciveStateWifi = ServicesHandler.isWifiEnabaled(context);
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("Switching wifi to last state which was " + stateBefore);
-				ServicesHandler.enableWifi(context, stateBefore);
-				lastSetStateWifi = -1;
-				return;
-			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateWifi > -1 && lastSetStateWifi < SERVICE_STATE_PREV) {
-					boolean b = lastSetStateWifi == SERVICE_STATE_ON ? true : false;
-					if (b != stateBefore) {
-						Logger.v("Not switching wifi since it changed since last time");
-						return;
-					}
-				}
-				lastSetStateWifi = state;
+		} else {
+			if (ServicesHandler.isWifiConnected(context)) {
+				ret = SettingsStorage.getInstance().getNetworkStateOnWifi();
 			}
-			ServicesHandler.enableWifi(context, state == SERVICE_STATE_ON ? true : false);
+		}
+		if (state == SERVICE_STATE_LEAVE) {
+			return NO_STATE;
+		}
+		if (state == SERVICE_STATE_PREV) {
+			Logger.v("Switching " + getServiceTypeName(type) + "  to last state which was " + lastState);
+			ret = lastState;
+		} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+			if (stateNow != lastState) {
+				Logger.v("Not switching " + getServiceTypeName(type) + " since it changed since last time");
+				return NO_STATE;
+			}
+		}
+		lastState = ret;
+		return ret;
+	}
+
+	private void applyWifiState(int state) {
+		if (SettingsStorage.getInstance().isEnableSwitchWifi()) {
+			int newState = evaluateState(ServiceType.wifi, state, lastStateWifi, ServicesHandler.isWifiEnabaled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
+			if (newState != NO_STATE) {
+				ServicesHandler.enableWifi(context, newState == SERVICE_STATE_ON ? true : false);
+			}
 		}
 	}
 
 	private void applyGpsState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchGps()) {
-			if (state == SERVICE_STATE_PULSE) {
-				PulseHelper.getInstance(context).pulseGpsState(true);
-				lastSetStateGps = state;
-				return;
-			} else {
-				PulseHelper.getInstance(context).pulseGpsState(false);
+		if (SettingsStorage.getInstance().isEnableSwitchGps()) {
+			int newState = evaluateState(ServiceType.gps, state, lastStateGps, ServicesHandler.isGpsEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
+			if (newState != NO_STATE) {
+				ServicesHandler.enableGps(context, newState == SERVICE_STATE_ON ? true : false);
 			}
-			boolean stateBefore = lastActiveStateGps;
-			lastActiveStateGps = ServicesHandler.isGpsEnabled(context);
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("switching GPS to last state which was " + stateBefore);
-				ServicesHandler.enableGps(context, stateBefore);
-				lastSetStateGps = -1;
-				return;
-			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateGps > -1 && lastSetStateGps < SERVICE_STATE_PREV) {
-					boolean b = lastSetStateGps == SERVICE_STATE_ON ? true : false;
-					if (b != stateBefore) {
-						Logger.v("Not switching GPS since it changed since last time");
-						return;
-					}
-				}
-				lastSetStateGps = state;
-			}
-			ServicesHandler.enableGps(context, state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 
 	private void applyBluetoothState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
-			if (state == SERVICE_STATE_PULSE) {
-				PulseHelper.getInstance(context).pulseBluetoothState(true);
-				lastSetStateBluetooth = state;
-				return;
-			} else {
-				PulseHelper.getInstance(context).pulseBluetoothState(false);
+		if (SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+			int newState = evaluateState(ServiceType.bluetooth, state, lastStateBluetooth, ServicesHandler.isBlutoothEnabled() ? SERVICE_STATE_ON
+					: SERVICE_STATE_OFF);
+			if (newState != NO_STATE) {
+				ServicesHandler.enableBluetooth(newState == SERVICE_STATE_ON ? true : false);
 			}
-			boolean stateBefore = lastActiceStateBluetooth;
-			lastActiceStateBluetooth = ServicesHandler.isBlutoothEnabled();
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("switching bluetooth to last state which was " + stateBefore);
-				ServicesHandler.enableBluetooth(stateBefore);
-				lastSetStateBluetooth = -1;
-				return;
-			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateBluetooth > -1 && lastSetStateBluetooth < SERVICE_STATE_PREV) {
-					boolean b = lastSetStateBluetooth == SERVICE_STATE_ON ? true : false;
-					if (b != stateBefore) {
-						Logger.v("Not switching bluetooth it changed state since last time");
-						return;
-					}
-				}
-				lastSetStateBluetooth = state;
-			}
-			ServicesHandler.enableBluetooth(state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 
@@ -319,120 +301,43 @@ public class PowerProfiles {
 		if (wifiManaged3gState) {
 			return;
 		}
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
-			int stateNow = ServicesHandler.whichMobiledata3G(context);
-			// handle wifi connected
-			if (SettingsStorage.getInstance().getNetworkStateOnWifi() != SERVICE_STATE_LEAVE) {
-				if (ServicesHandler.isWifiConnected(context)) {
-					state = SettingsStorage.getInstance().getNetworkStateOnWifi();
-				}
+		if (SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
+			int newState = evaluateState(ServiceType.mobiledata3g, state, lastStateMobiledata3G, ServicesHandler.whichMobiledata3G(context));
+			if (newState != NO_STATE) {
+				ServicesHandler.enable2gOnly(context, newState);
 			}
-			if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateMobiledata3G > -1) {
-					if (stateNow != lastActiveStateMobileData3G) {
-						Logger.v("Not switching mobiledata it changed state since last time");
-						return;
-					}
-				}
-			}
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("switching mobiledata 3G to last state which was " + lastActiveStateMobileData3G);
-				ServicesHandler.enable2gOnly(context, lastActiveStateMobileData3G);
-				lastSetStateMobiledata3G = -1;
-				return;
-			}
-			lastSetStateMobiledata3G = state;
-			ServicesHandler.enable2gOnly(context, state);
 		}
 	}
 
 	private void applyMobiledataConnectionState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
-			if (state == SERVICE_STATE_PULSE) {
-				PulseHelper.getInstance(context).pulseMobiledataConnectionState(true);
-				lastSetStateMobiledataConnection = state;
-				return;
-			} else {
-				PulseHelper.getInstance(context).pulseMobiledataConnectionState(false);
+		if (SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+			int newState = evaluateState(ServiceType.mobiledataConnection, state, lastStateMobiledataConnection,
+					ServicesHandler.isMobiledataConnectionEnabled(context) ? SERVICE_STATE_ON
+							: SERVICE_STATE_OFF);
+			if (newState != NO_STATE) {
+				ServicesHandler.enableMobileData(context, newState == SERVICE_STATE_ON ? true : false);
 			}
-			boolean stateBefore = lastActiveStateMobileDataConnection;
-			lastActiveStateMobileDataConnection = ServicesHandler.isMobiledataConnectionEnabled(context);
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("switching mobiledata connection to last state which was " + stateBefore);
-				ServicesHandler.enableMobileData(context, stateBefore);
-				lastSetStateMobiledataConnection = -1;
-				return;
-			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateMobiledataConnection > -1 && lastSetStateMobiledataConnection < SERVICE_STATE_PREV) {
-					boolean b = lastSetStateMobiledataConnection == SERVICE_STATE_ON ? true : false;
-					if (b != stateBefore) {
-						Logger.v("Not switching mobiledata connection it changed state since last time");
-						return;
-					}
-				}
-				lastSetStateMobiledataConnection = state;
-			}
-			ServicesHandler.enableMobileData(context, state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 
 	private void applyBackgroundSyncState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
-			if (state == SERVICE_STATE_PULSE) {
-				PulseHelper.getInstance(context).pulseBackgroundSyncState(true);
-				lastSetStateBackgroundSync = state;
-				return;
-			} else {
-				PulseHelper.getInstance(context).pulseBackgroundSyncState(false);
+		if (SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+			int newState = evaluateState(ServiceType.backgroundsync, state, lastStateBackgroundSync,
+					ServicesHandler.isBackgroundSyncEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
+			if (newState != NO_STATE) {
+				ServicesHandler.enableBackgroundSync(context, newState == SERVICE_STATE_ON ? true : false);
 			}
-			boolean stateBefore = lastActiveStateBackgroundSync;
-			lastActiveStateBackgroundSync = ServicesHandler.isBackgroundSyncEnabled(context);
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("switching background sync to last state which was " + stateBefore);
-				ServicesHandler.enableBackgroundSync(context, stateBefore);
-				lastSetStateBackgroundSync = -1;
-				return;
-			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateBackgroundSync > -1 && lastSetStateBackgroundSync < SERVICE_STATE_PREV) {
-					boolean b = lastSetStateBackgroundSync == SERVICE_STATE_ON ? true : false;
-					if (b != stateBefore) {
-						Logger.v("Not switching background sync it changed since state since last time");
-						return;
-					}
-				}
-				lastSetStateBackgroundSync = state;
-			}
-			ServicesHandler.enableBackgroundSync(context, state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 
 	private void applyAirplanemodeState(int state) {
-		if (state > SERVICE_STATE_LEAVE && SettingsStorage.getInstance().isEnableAirplaneMode()) {
-			if (state == SERVICE_STATE_PULSE) {
-				PulseHelper.getInstance(context).pulseAirplanemodeState(true);
-				lastSetStateAirplaneMode = state;
-				return;
-			} else {
-				PulseHelper.getInstance(context).pulseAirplanemodeState(false);
+		if (SettingsStorage.getInstance().isEnableAirplaneMode()) {
+			int newState = evaluateState(ServiceType.airplainMode, state, lastStateAirplaneMode,
+					ServicesHandler.isAirplaineModeEnabled(context) ? SERVICE_STATE_ON
+							: SERVICE_STATE_OFF);
+			if (newState != NO_STATE) {
+				ServicesHandler.enableAirplaneMode(context, newState == SERVICE_STATE_ON ? true : false);
 			}
-			boolean stateBefore = lastActiveStateAirplanemode;
-			lastActiveStateAirplanemode = ServicesHandler.isAirplaineModeEnabled(context);
-			if (state == SERVICE_STATE_PREV) {
-				Logger.v("switching airplanemode to last state which was " + stateBefore);
-				ServicesHandler.enableAirplaneMode(context, stateBefore);
-				lastSetStateAirplaneMode = -1;
-				return;
-			} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-				if (lastSetStateAirplaneMode > -1 && lastSetStateAirplaneMode < SERVICE_STATE_PREV) {
-					boolean b = lastSetStateAirplaneMode == SERVICE_STATE_ON ? true : false;
-					if (b != stateBefore) {
-						Logger.v("Not switching airplanemode it changed since state since last time");
-						return;
-					}
-				}
-				lastSetStateAirplaneMode = state;
-			}
-			ServicesHandler.enableAirplaneMode(context, state == SERVICE_STATE_ON ? true : false);
 		}
 	}
 
@@ -654,7 +559,6 @@ public class PowerProfiles {
 			wifiManaged3gState = false;
 			return;
 		}
-		lastSetStateMobiledata3G = -1;
 		if (wifiConnected) {
 			wifiManaged3gState = false;
 			applyMobiledata3GState(state);
