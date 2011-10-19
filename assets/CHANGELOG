@@ -11,7 +11,8 @@ V 3.0.0
 - insert as new: copy and insert an entry 
 - editor close does sanity checks and asks the user or does not save
 - separate statics and profile switch log and update on click
-- graphical statistics 
+- new extention framework (in app billing)
+- graphical statistics (as extension)
 - pulsed services do not restart sequence on profile switch
 - lots of other things
 * bug fixes
