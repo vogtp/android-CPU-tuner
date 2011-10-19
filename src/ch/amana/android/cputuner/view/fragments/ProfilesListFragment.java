@@ -43,17 +43,20 @@ import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class ProfilesListFragment extends PagerListFragment {
+public class ProfilesListFragment extends PagerListFragment implements StateChangeListener {
 
 	private static final int ALPHA_ON = 200;
 	private static final int ALPHA_OFF = 40;
 	private static final int ALPHA_LEAVE = 100;
+	private SimpleCursorAdapter adapter;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -68,7 +71,7 @@ public class ProfilesListFragment extends PagerListFragment {
 		Activity act = getActivity();
 		Cursor c = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(act, R.layout.profile_item, c,
+		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, c,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
 						DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
 						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
@@ -223,6 +226,20 @@ public class ProfilesListFragment extends PagerListFragment {
 
 		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		Activity act = getActivity();
+		if (act instanceof CpuTunerViewpagerActivity) {
+			if (act != null) {
+				((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+			}
+		}
+		super.onDestroy();
 	}
 
 	private void setAnimation(final View v, int resID) {
@@ -365,6 +382,19 @@ public class ProfilesListFragment extends PagerListFragment {
 			}
 		});
 		return actions;
+	}
+
+	@Override
+	public void profileChanged() {
+		getListView().setAdapter(adapter);
+	}
+
+	@Override
+	public void deviceStatusChanged() {
+	}
+
+	@Override
+	public void triggerChanged() {
 	}
 
 }

@@ -365,13 +365,14 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void updateView() {
-		batteryLevelChanged();
+		deviceStatusChanged();
 		profileChanged();
-		acPowerChanged();
+		triggerChanged();
 	}
 
 	@Override
-	public void batteryLevelChanged() {
+	public void deviceStatusChanged() {
+		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
 		StringBuilder bat = new StringBuilder();
 		bat.append(powerProfiles.getBatteryLevel()).append("%");
 		bat.append(" (");
@@ -399,6 +400,12 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			GuiUtils.hideViews(trBatteryCurrent, new View[] { labelBatteryCurrent, tvBatteryCurrent });
 		}
 	}
+
+
+	@Override
+	public void triggerChanged() {
+		profileChanged();
+	};
 
 	@Override
 	public void profileChanged() {
@@ -455,10 +462,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		governorFragment.updateView();
 	}
 
-	@Override
-	public void acPowerChanged() {
-		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
-	}
 
 	@Override
 	public void updateModel() {
@@ -488,6 +491,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public Context getContext() {
 		return getActivity();
-	};
+	}
 
 }

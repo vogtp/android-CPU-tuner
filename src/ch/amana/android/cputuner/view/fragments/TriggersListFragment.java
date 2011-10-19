@@ -35,17 +35,20 @@ import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class TriggersListFragment extends PagerListFragment {
+public class TriggersListFragment extends PagerListFragment implements StateChangeListener {
 
 	protected static final String NO_PROFILE = "no profile";
 	private Cursor displayCursor;
 	private Cursor checkCursor;
+	private SimpleCursorAdapter adapter;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -63,12 +66,26 @@ public class TriggersListFragment extends PagerListFragment {
 		checkCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_MINIMAL_HOT_PROFILE, DB.Trigger.NAME_HOT_PROFILE_ID + " > -1", null,
 				DB.Trigger.SORTORDER_MINIMAL_HOT_PROFILE);
 
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
+	}
+
+
+	@Override
+	public void onDestroy() {
+		Activity act = getActivity();
+		if (act instanceof CpuTunerViewpagerActivity) {
+			if (act != null) {
+				((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+			}
+		}
+		super.onDestroy();
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		SimpleCursorAdapter adapter;
 		checkCursor.requery();
 		final Activity act = getActivity();
 		boolean hotState = checkCursor.getCount() > 0;
@@ -188,9 +205,9 @@ public class TriggersListFragment extends PagerListFragment {
 			}
 
 		});
+		getListView().setOnCreateContextMenuListener(this);
 
 		setListAdapter(adapter);
-		getListView().setOnCreateContextMenuListener(this);
 	}
 
 	@Override
@@ -352,6 +369,19 @@ public class TriggersListFragment extends PagerListFragment {
 			}
 		});
 		return actions;
+	}
+
+	@Override
+	public void profileChanged() {
+	}
+
+	@Override
+	public void deviceStatusChanged() {
+	}
+
+	@Override
+	public void triggerChanged() {
+		getListView().setAdapter(adapter);
 	}
 
 }

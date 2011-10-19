@@ -54,9 +54,9 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 		void profileChanged();
 
-		void batteryLevelChanged();
+		void deviceStatusChanged();
 
-		void acPowerChanged();
+		void triggerChanged();
 
 	}
 
@@ -64,9 +64,11 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			acPowerChanged();
-			batteryLevelChanged();
-			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action) || Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
+			deviceStatusChanged();
+			if (Notifier.BROADCAST_TRIGGER_CHANGED.equals(action)) {
+				triggerChanged();
+			}
+			if (Notifier.BROADCAST_PROFILE_CHANGED.equals(action)) {
 				profileChanged();
 			}
 
@@ -250,19 +252,19 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		}
 	}
 
-	private void batteryLevelChanged() {
+	private void triggerChanged() {
 		for (Iterator<StateChangeListener> iterator = stateChangeListeners.iterator(); iterator.hasNext();) {
 			try {
-				iterator.next().batteryLevelChanged();
+				iterator.next().triggerChanged();
 			} catch (Exception e) {
 			}
 		}
 	}
 
-	private void acPowerChanged() {
+	private void deviceStatusChanged() {
 		for (Iterator<StateChangeListener> iterator = stateChangeListeners.iterator(); iterator.hasNext();) {
 			try {
-				iterator.next().acPowerChanged();
+				iterator.next().deviceStatusChanged();
 			} catch (Exception e) {
 			}
 		}
