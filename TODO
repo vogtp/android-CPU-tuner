@@ -1,25 +1,32 @@
-- move settings
+- apply current profile
+- move cellphone listener to background thread
 
-- fix manual service changes (make evaluation more general and include pulsing)
-- debug memory leak?
-- extreme config
+- move manual service changes to array var
+- fix manual service changes (include pulsing)
+- let the user reset manual service changes
+
+- refresh billing status (menu/action) and set settings for display of bought stuff
+- icon for get install extension
+
+- add base for time in state (i.e. reset)
+- rework graph to use screen size
 
 - backup/restore autoload
 
 - help for autoload
+- help for settings
 
 - updated timestamp for sys configs as well
 
-- make onpower screen locked sequence configurable
+- make on power, screen locked sequence configurable
+- ensure display of current entity in list
 
 - check for different android versions
 
 - rc3 (test update with old package)
 
-- add base for time in state (i.e. reset)
-- rework graph to use screen size
 - create chooser for homescreen link of configurations (buy?)
-
+- nummeric keyboard for pulse lengthes 
 - buy configs
 
 - message in config manage if sd card is not accessible
@@ -31,18 +38,9 @@
 - pulse timing for triggers
 - add ignore nice load
 
-> Also for logging: for evey battery percentage change (without trigger
-> change) i'm getting 5 "BatteryReceiver got intent...", 5 "Battery level
-> remaining: 31%", then 5 "Millies to change profile: ...". (As far as i
-> saw, there were no profile change) I dont know why got the
-> BATTERY_CHANGED intent fired 5 times, it could be independent of tuner.
-> But it still says "...to change profile", while it didnt changed.
-
 - check if wifi is present before enabling
 - move logging to file or DB?
 - do not switch bluetooth while connected (not paired/bonded) (possible?)
-- if no gov get current gov or try to set governors
 - add controls for 4G(wimax, HSDPA and HSUPA) how to figure out if it works/is supported
 - add sampling interval (coupled parameter?)
 - set brightness
-- move settings to new layout (use cat or screen)
