@@ -1,12 +1,13 @@
 package ch.amana.android.cputuner.receiver;
 
-import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.hw.PowerProfiles;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 
 public class CallPhoneStateListener extends PhoneStateListener {
 
+	// FIXME move to background thread
 	@Override
 	public void onCallStateChanged(int state, String incomingNumber) {
 		super.onCallStateChanged(state, incomingNumber);

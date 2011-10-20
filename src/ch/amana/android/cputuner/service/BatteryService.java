@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.receiver.BatteryReceiver;
 
 public class BatteryService extends Service {
@@ -16,18 +15,13 @@ public class BatteryService extends Service {
 		if (Logger.DEBUG) {
 			Logger.i("Starting BatteryService");
 		}
-		if (SettingsStorage.getInstance().isStatusbarAddto()) {
-			Notifier.startStatusbarNotifications(this);
-		} else {
-			Notifier.stopStatusbarNotifications();
-		}
 		BatteryReceiver.registerBatteryReceiver(this);
 		return START_STICKY;
 	}
 
 	@Override
 	public void onDestroy() {
-		Notifier.stopStatusbarNotifications();
+		Notifier.stopStatusbarNotifications(this);
 		BatteryReceiver.unregisterBatteryReceiver(this);
 		super.onDestroy();
 	}

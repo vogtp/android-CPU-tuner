@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import ch.amana.android.cputuner.background.BackgroundThread;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -19,15 +20,15 @@ public class CpuTunerApplication extends Application {
 		SettingsStorage.initInstance(ctx);
 		PowerProfiles.initInstance(ctx);
 
-		// if (Logger.DEBUG) {
-		// Builder threadPolicy = new StrictMode.ThreadPolicy.Builder();
-		// // threadPolicy.detectDiskReads();
-		// threadPolicy.detectDiskWrites();
-		// threadPolicy.detectNetwork();
-		// threadPolicy.penaltyLog();
-		// // threadPolicy.penaltyDropBox();
-		// StrictMode.setThreadPolicy(threadPolicy.build());
-		// }
+		//		if (Logger.DEBUG) {
+		//			Builder threadPolicy = new StrictMode.ThreadPolicy.Builder();
+		//			// threadPolicy.detectDiskReads();
+		//			threadPolicy.detectDiskWrites();
+		//			threadPolicy.detectNetwork();
+		//			threadPolicy.penaltyLog();
+		//			// threadPolicy.penaltyDropBox();
+		//			StrictMode.setThreadPolicy(threadPolicy.build());
+		//		}
 
 		try {
 			InstallHelper.initialise(ctx);
@@ -35,7 +36,7 @@ public class CpuTunerApplication extends Application {
 				startCpuTuner(ctx);
 			}
 		} catch (Throwable e) {
-			 Logger.e("Cannot update DB", e);
+			Logger.e("Cannot update DB", e);
 		}
 	}
 
@@ -45,7 +46,9 @@ public class CpuTunerApplication extends Application {
 		ctx.startService(new Intent(ctx, BatteryService.class));
 		PowerProfiles.getInstance().reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
-		Notifier.startStatusbarNotifications(ctx);
+		if (SettingsStorage.getInstance().isStatusbarAddto()) {
+			Notifier.startStatusbarNotifications(ctx);
+		}
 	}
 
 	public static void stopCpuTuner(Context context) {
@@ -54,6 +57,7 @@ public class CpuTunerApplication extends Application {
 		Context ctx = context.getApplicationContext();
 		ctx.stopService(new Intent(ctx, BatteryService.class));
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
-		Notifier.stopStatusbarNotifications();
+		BackgroundThread.getInstance().requestStop();
+		Notifier.stopStatusbarNotifications(ctx);
 	}
 }

@@ -6,49 +6,38 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.os.SystemClock;
+import ch.amana.android.cputuner.background.BackgroundThread;
+import ch.amana.android.cputuner.background.PulseJob;
 import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.PulseHelper;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class PulseService extends Service {
 
-	private static int[] lock = new int[0];
 	private static boolean isPulsing = false;
 
-	private static final long MIN_TO_MILLIES = 1000 * 60;
 
 	public static final String ACTION_PULSE = "ch.amana.android.cputuner.ACTION_PULSE";
 	public static final String EXTRA_ON_OFF = "EXTRA_ON_OFF";
 	
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (ACTION_PULSE.equals(intent.getAction())) {
-			final boolean on = intent.getExtras().getBoolean(EXTRA_ON_OFF);
-			Logger.i("Do pulse (value: " + on + ")");
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					synchronized (lock) {
-						PulseHelper.getInstance(getApplicationContext()).doPulse(on);
-						reschedule(!on);
-					}
-				}
-			}).start();
+			BackgroundThread.getInstance().queue(PulseJob.getJob(getApplicationContext(), intent));
+//			final boolean on = intent.getExtras().getBoolean(EXTRA_ON_OFF);
+//			Logger.i("Do pulse (value: " + on + ")");
+//			BackgroundThread.getInstance().queue(new Runnable() {
+//				@Override
+//				public void run() {
+//					synchronized (lock) {
+//						PulseHelper.getInstance(getApplicationContext()).doPulse(on);
+//						reschedule(!on);
+//					}
+//				}
+//			});
 		}
 		return START_NOT_STICKY;
 	}
 	
-	private void reschedule(boolean b) {
-		long delay = b ? SettingsStorage.getInstance().getPulseDelayOff() : SettingsStorage.getInstance().getPulseDelayOn();
-		Logger.i("Next pulse in " + delay + " min (value: " + b + ")");
-		long triggerAtTime = SystemClock.elapsedRealtime() + delay * MIN_TO_MILLIES;
-		Intent intent = new Intent(ACTION_PULSE);
-		intent.putExtra(EXTRA_ON_OFF, b);
-		PendingIntent operation = PendingIntent.getService(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-		am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, 0, operation);
-	}
 
 	@Override
 	public IBinder onBind(Intent arg0) {
