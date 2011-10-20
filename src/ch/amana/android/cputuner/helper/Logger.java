@@ -104,7 +104,13 @@ public class Logger {
 		if (!Logger.DEBUG) {
 			return;
 		}
-		Exception e = new Exception();
+		logStacktrace(msg, new Exception());
+	}
+
+	public static void logStacktrace(String msg, Throwable e) {
+		if (!Logger.DEBUG) {
+			return;
+		}
 		Log.w(TAG, "Stacktrace logger: " + msg, e);
 		try {
 			Writer w = new FileWriter("/mnt/sdcard/cputuner.log", true);
