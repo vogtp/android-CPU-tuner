@@ -148,7 +148,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 				} else if (columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID
- || columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID
+						|| columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
 					long profileId = cursor.getLong(columnIndex);
 					String profileName = NO_PROFILE;
@@ -161,9 +161,9 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 					((TextView) view).setText(profileName);
 					return true;
 				} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_POW
-							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
-							|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT
- || columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT
+						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK
+						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_BAT
+						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL) {
 
 					if (SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
