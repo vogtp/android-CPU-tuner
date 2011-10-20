@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -219,7 +220,10 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		PagerAdapter.getCurrentItem().onConfigurationChanged(newConfig);
+		Fragment currentPage = PagerAdapter.getCurrentItem();
+		if (currentPage != null) {
+			currentPage.onConfigurationChanged(newConfig);
+		}
 		super.onConfigurationChanged(newConfig);
 	}
 
