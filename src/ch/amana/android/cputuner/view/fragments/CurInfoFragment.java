@@ -19,6 +19,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.background.BackgroundThread;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
@@ -72,6 +73,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TableRow trBattery;
 	private TableRow trPower;
 	private ProfileAdaper profileAdapter;
+	private boolean isInUpdateView = true;
 
 	private class GovernorHelperCurInfo implements IGovernorModel {
 
@@ -208,12 +210,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	}
 
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
@@ -249,7 +245,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
 		final SettingsStorage settings = SettingsStorage.getInstance();
 		final Activity act = getActivity();
 		cpuHandler = CpuHandler.getInstance();
@@ -282,17 +277,25 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		spProfiles.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				if (pos > 0) {
-					// let us change the profile
-					powerProfiles.setManualProfile(id);
-					powerProfiles.applyProfile(id);
-				} else {
-					if (powerProfiles.isManualProfile()) {
-						powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
-						powerProfiles.reapplyProfile(true);
-					}
+			public void onItemSelected(AdapterView<?> parent, View view, final int pos, final long id) {
+				if (isInUpdateView) {
+					return;
 				}
+				BackgroundThread.getInstance().queue(new Runnable() {
+					@Override
+					public void run() {
+						if (pos > 0) {
+							// let us change the profile
+							powerProfiles.setManualProfile(id);
+							powerProfiles.applyProfile(id);
+						} else {
+							if (powerProfiles.isManualProfile()) {
+								powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
+								powerProfiles.reapplyProfile(true);
+							}
+						}
+					}
+				});
 			}
 
 			@Override
@@ -300,7 +303,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 			}
 		});
-
+		updateProfileSpinner();
 		OnClickListener startBattery = new OnClickListener() {
 
 			@Override
@@ -344,9 +347,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	public void onDestroy() {
 		Activity act = getActivity();
 		if (act instanceof CpuTunerViewpagerActivity) {
-			if (act != null) {
-				((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-			}
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
 		super.onDestroy();
 	}
@@ -365,9 +366,14 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void updateView() {
-		deviceStatusChanged();
-		profileChanged();
-		triggerChanged();
+		try {
+			isInUpdateView = true;
+			deviceStatusChanged();
+			profileChanged();
+			triggerChanged();
+		} finally {
+			isInUpdateView = false;
+		}
 	}
 
 	@Override
@@ -401,7 +407,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		}
 	}
 
-
 	@Override
 	public void triggerChanged() {
 		profileChanged();
@@ -425,15 +430,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			GuiUtils.hideViews(trConfig, new View[] { labelConfig, tvConfig });
 		}
 		if (settings.isEnableProfiles()) {
-			ProfileModel currentProfile = powerProfiles.getCurrentProfile();
-			if (currentProfile != PowerProfiles.DUMMY_PROFILE) {
-				if (powerProfiles.isManualProfile()) {
-					GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
-				} else {
-					spProfiles.setAdapter(profileAdapter);
-					spProfiles.setSelection(0);
-				}
-			}
+			updateProfileSpinner();
 			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
 		} else {
 			tvCurrentTrigger.setText(R.string.notEnabled);
@@ -462,6 +459,19 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		governorFragment.updateView();
 	}
 
+	private void updateProfileSpinner() {
+		isInUpdateView = true;
+		ProfileModel currentProfile = powerProfiles.getCurrentProfile();
+		if (currentProfile != PowerProfiles.DUMMY_PROFILE) {
+			if (powerProfiles.isManualProfile()) {
+				GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
+			} else {
+				spProfiles.setAdapter(profileAdapter);
+				spProfiles.setSelection(0);
+			}
+		}
+		isInUpdateView = false;
+	}
 
 	@Override
 	public void updateModel() {
