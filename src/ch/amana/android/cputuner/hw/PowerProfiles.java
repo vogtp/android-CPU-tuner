@@ -202,7 +202,6 @@ public class PowerProfiles {
 			StringBuilder sb = new StringBuilder(50);
 			sb.append("Setting power profile to ");
 			sb.append(currentProfile.getProfileName());
-			Notifier.notifyProfile(currentProfile.getProfileName());
 			context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);

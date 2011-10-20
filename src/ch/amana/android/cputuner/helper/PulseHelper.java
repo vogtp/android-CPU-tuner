@@ -2,7 +2,6 @@ package ch.amana.android.cputuner.helper;
 
 import android.content.Context;
 import android.content.Intent;
-import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.service.PulseService;
@@ -46,8 +45,6 @@ public class PulseHelper {
 		}
 		if (pulsing) {
 			this.pulseOn = isOn;
-			Notifier.notifyProfile(PowerProfiles.getInstance().getCurrentProfileName());
-			ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 			if ( pulseBackgroundSyncState ) {
 				ServicesHandler.enableBackgroundSync(ctx, isOn);
 			}
@@ -74,6 +71,7 @@ public class PulseHelper {
 					}
 				}
 			}
+			ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 		}
 	}
 
@@ -83,14 +81,13 @@ public class PulseHelper {
 		}
 		if (b) {
 			pulsing = true;
-			Notifier.notifyProfile(PowerProfiles.getInstance().getCurrentProfileName());
 			PulseService.startService(ctx);
 		} else {
 			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
 			if (!someService) {
 				pulsing = false;
-				Notifier.notifyProfile(PowerProfiles.getInstance().getCurrentProfileName());
 				PulseService.stopService(ctx);
+				ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 			}
 		}
 	}

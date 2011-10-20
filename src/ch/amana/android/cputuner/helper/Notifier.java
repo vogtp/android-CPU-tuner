@@ -3,12 +3,15 @@ package ch.amana.android.cputuner.helper;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
-public class Notifier {
+public class Notifier extends BroadcastReceiver {
 
 	public static final String BROADCAST_TRIGGER_CHANGED = "ch.amana.android.cputuner.triggerChanged";
 	public static final String BROADCAST_PROFILE_CHANGED = "ch.amana.android.cputuner.profileChanged";
@@ -28,12 +31,13 @@ public class Notifier {
 		if (instance == null) {
 			instance = new Notifier(ctx);
 		}
+		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_PROFILE_CHANGED));
 		instance.notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
 	}
 
 	public Notifier(final Context ctx) {
 		super();
-		this.context = ctx;
+		this.context = ctx.getApplicationContext();
 		String ns = Context.NOTIFICATION_SERVICE;
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
@@ -69,8 +73,11 @@ public class Notifier {
 	}
 
 	private Notification getNotification(String contentText) {
-		if (SettingsStorage.getInstance().isStatusbarNotifications() || notification == null) {
-
+		boolean isDisplayNotification = SettingsStorage.getInstance().isStatusbarNotifications();
+		if (isDisplayNotification || notification == null) {
+			if (!isDisplayNotification) {
+				contentText = "";
+			}
 			notification = new Notification(R.drawable.icon, contentText, System.currentTimeMillis());
 			contentIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
 
@@ -80,19 +87,20 @@ public class Notifier {
 		return notification;
 	}
 
-	public static void notifyProfile(CharSequence profileName) {
-		if (instance == null) {
-			return;
-		}
-		instance.notifyStatus(profileName);
-	}
-
-	public static void stopStatusbarNotifications() {
+	public static void stopStatusbarNotifications(Context ctx) {
 		try {
+			ctx.unregisterReceiver(instance);
 			instance.notificationManager.cancel(NOTIFICATION_PROFILE);
 		} catch (Throwable e) {
 		}
 		instance = null;
+	}
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
+			notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
+		}
 	}
 
 }
