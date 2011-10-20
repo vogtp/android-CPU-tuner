@@ -22,7 +22,7 @@ public class Notifier extends BroadcastReceiver {
 	private final Context context;
 	private String contentTitle;
 	private PendingIntent contentIntent;
-	private CharSequence lastProfile;
+	private CharSequence lastContentText;
 
 	private static Notifier instance;
 	private Notification notification;
@@ -42,25 +42,13 @@ public class Notifier extends BroadcastReceiver {
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
 
-	private void notifyStatus(CharSequence profileName) {
-		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
-			if (profileName == null || profileName.equals(lastProfile)) {
+	private void notifyStatus(CharSequence contentText) {
+		if (!PowerProfiles.UNKNOWN.equals(contentText)) {
+			if (contentText == null || contentText.equals(lastContentText)) {
 				return;
 			}
-			lastProfile = profileName;
+			lastContentText = contentText;
 			contentTitle = context.getString(R.string.app_name);
-			StringBuffer sb = new StringBuffer(25); 
-			// sb.append(contentTitle).append(" ");
-			sb.append(context.getString(R.string.labelCurrentProfile));
-			sb.append(" ").append(profileName);
-			if (PowerProfiles.getInstance().isManualProfile()) {
-				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
-			}
-			if (PulseHelper.getInstance(context).isPulsing()) {
-				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-				sb.append(" ").append(context.getString(res));
-			}
-			String contentText = sb.toString();
 			Notification notification = getNotification(contentText);
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
@@ -72,7 +60,7 @@ public class Notifier extends BroadcastReceiver {
 		}
 	}
 
-	private Notification getNotification(String contentText) {
+	private Notification getNotification(CharSequence contentText) {
 		boolean isDisplayNotification = SettingsStorage.getInstance().isStatusbarNotifications();
 		if (isDisplayNotification || notification == null) {
 			if (!isDisplayNotification) {
@@ -99,7 +87,17 @@ public class Notifier extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
-			notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
+			StringBuffer sb = new StringBuffer(25);
+			sb.append(context.getString(R.string.labelCurrentProfile));
+			sb.append(" ").append(PowerProfiles.getInstance().getCurrentProfileName());
+			if (PowerProfiles.getInstance().isManualProfile()) {
+				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+			}
+			if (PulseHelper.getInstance(context).isPulsing()) {
+				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+				sb.append(" ").append(context.getString(res));
+			}
+			notifyStatus(sb.toString());
 		}
 	}
 
