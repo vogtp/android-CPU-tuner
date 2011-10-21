@@ -50,6 +50,10 @@ public class SettingsStorage {
 
 	private static final String PREF_KEY_ADV_STATS = "prefKeyAdvStats";
 
+	private static final String PREF_KEY_TIMEINSTATE_BASELINE = "prefKeyTimeinstateBaseline";
+
+	private static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -518,4 +522,23 @@ public class SettingsStorage {
 		return getPreferences().getBoolean(PREF_KEY_ADV_STATS, false);
 	}
 
+	public void setTimeinstateBaseline(String timeInState) {
+		Editor editor = getPreferences().edit();
+		editor.putString(PREF_KEY_TIMEINSTATE_BASELINE, timeInState);
+		editor.commit();
+	}
+
+	public String getTimeinstateBaseline() {
+		return getPreferences().getString(PREF_KEY_TIMEINSTATE_BASELINE, "");
+	}
+
+	public void setTotaltransitionsBaseline(long tt) {
+		Editor editor = getPreferences().edit();
+		editor.putLong(PREF_KEY_TOTALTRANSITIONS_BASELINE, tt);
+		editor.commit();
+	}
+
+	public long getTotaltransitionsBaseline() {
+		return getPreferences().getLong(PREF_KEY_TOTALTRANSITIONS_BASELINE, 0);
+	}
 }

@@ -1,20 +1,18 @@
 - apply current profile
-- move cellphone listener to background thread
 
-- move manual service changes to array var
-- fix manual service changes (include pulsing)
 - let the user reset manual service changes
 
 - refresh billing status (menu/action) and set settings for display of bought stuff
-- icon for get install extension
 
-- add base for time in state (i.e. reset)
+- add base for time in state (i.e. reset) -> ask set baseling
 - rework graph to use screen size
 
+- start autoload on boot
 - backup/restore autoload
 
 - help for autoload
-- help for settings
+- help for settings 
+- rework help
 
 - updated timestamp for sys configs as well
 
@@ -22,6 +20,9 @@
 - ensure display of current entity in list
 
 - check for different android versions
+
+- new market description
+- notify translators
 
 - rc3 (test update with old package)
 

@@ -7,11 +7,12 @@ V
 V 3.0.0
 * features
 - new swipe friendly user interface
+- rework backend and use background process to do the work
 - initalise cpu tuner from (default) configurations 
 - insert as new: copy and insert an entry 
 - editor close does sanity checks and asks the user or does not save
 - separate statics and profile switch log and update on click
-- new extention framework (in app billing)
+- new extension framework (in app billing)
 - graphical statistics (as extension)
 - pulsed services do not restart sequence on profile switch
 - lots of other things

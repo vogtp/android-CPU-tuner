@@ -2,22 +2,30 @@ package ch.amana.android.cputuner.view.fragments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
@@ -27,7 +35,6 @@ public class StatsAdvancedFragment extends PagerFragment {
 	private TextView tvStats;
 	private TableLayout tlSwitches;
 	private LayoutInflater inflater;
-	private final Map<Long, TextView> graphs = new HashMap<Long, TextView>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,47 +75,104 @@ public class StatsAdvancedFragment extends PagerFragment {
 	}
 
 	private void getTotalTransitions(Context context, StringBuilder sb) {
-		String totaltransitions = CpuHandler.getInstance().getCpuTotalTransitions();
+		long totaltransitions = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions()) - SettingsStorage.getInstance().getTotaltransitionsBaseline();
 		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
 			sb.append(context.getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
 			sb.append("\n");
 		}
 	}
 
+	class TimeInStateParser {
+
+		private long maxTime = Long.MIN_VALUE;
+		private final Map<Integer, Long> states = new HashMap<Integer, Long>();
+		private TimeInStateParser baseline = null;
+		private boolean parseOk = false;
+
+		public TimeInStateParser(String timeinstate) {
+			try {
+				String[] lines = timeinstate.split("\n");
+				for (int i = 0; i < lines.length; i++) {
+					String[] vals = lines[i].split(" +");
+					int freq = Integer.parseInt(vals[0]);
+					long time = Long.parseLong(vals[1]);
+					states.put(freq, time);
+					maxTime = Math.max(time, maxTime);
+				}
+				parseOk = lines.length == states.size();
+			} catch (Exception e) {
+				Logger.w("cannot parse timeinstate");
+			}
+		}
+
+		public Set<Integer> getStates() {
+			return states.keySet();
+		}
+
+		public String getFreqFromated(int f) {
+			return String.format("%d MHz", f / 1000);
+		}
+
+		public long getTime(int f) {
+			Long time = states.get(f);
+			if (baseline != null) {
+				time = time - baseline.states.get(f);
+			}
+			return time;
+		}
+
+		public String getTimeFromated(int f) {
+
+			return Long.toString(getTime(f)) + "s";
+		}
+
+		public void setBaseline(TimeInStateParser bl) {
+			if (parseOk && states.size() == bl.states.size()) {
+				this.baseline = bl;
+			}
+		}
+
+		public long getMaxTime() {
+			if (baseline != null) {
+				return maxTime - baseline.maxTime;
+			}
+			return maxTime;
+		}
+
+	}
+
 	private void getTimeInState(Context context) {
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
 		tlSwitches.removeAllViews();
 		if (!RootHandler.NOT_AVAILABLE.equals(timeinstate)) {
-			String curCpuFreq = Integer.toString(CpuHandler.getInstance().getCurCpuFreq());
-			graphs.clear();
-			long max = 0;
+			int curCpuFreq = CpuHandler.getInstance().getCurCpuFreq();
 			addTextToRow(0, context.getString(R.string.label_frequency), context.getString(R.string.label_time), false);
-			String[] states = timeinstate.split("\n");
-			for (int i = 0; i < states.length; i++) {
-				String[] vals = states[i].split(" +");
-				long f = Long.parseLong(vals[1]);
-				max = Math.max(f, max);
-				addTextToRow(f, String.format("%d MHz", Integer.parseInt(vals[0]) / 1000), vals[1] + " s", curCpuFreq.equals(vals[0]));
-			}
-			int width = context.getResources().getDisplayMetrics().widthPixels;
-			for (Iterator<Long> iterator = graphs.keySet().iterator(); iterator.hasNext();) {
-				Long curVal = iterator.next();
-				TextView graph = graphs.get(curVal);
 
-				long pixelsl = curVal * width / max;
-				int pixels = width;
-				if (pixelsl <= Integer.MAX_VALUE) {
-					pixels = (int) pixelsl;
+			TimeInStateParser tisParser = new TimeInStateParser(timeinstate);
+			tisParser.setBaseline(new TimeInStateParser(SettingsStorage.getInstance().getTimeinstateBaseline()));
+			int width = context.getResources().getDisplayMetrics().widthPixels;
+			long max = tisParser.getMaxTime();
+			for (Integer freq : tisParser.getStates()) {
+				TextView graph = addTextToRow(freq, tisParser.getFreqFromated(freq), tisParser.getTimeFromated(freq), curCpuFreq == freq);
+				if (graph != null) {
+					long pixelsl = 0;
+					if (max != 0) {
+						pixelsl = tisParser.getTime(freq) * width / max;
+					}
+					int pixels = width;
+					if (pixelsl <= Integer.MAX_VALUE) {
+						pixels = (int) pixelsl;
+					}
+					graph.setMaxWidth(pixels);
+					graph.setWidth(pixels);
+					graph.setMinimumWidth(pixels);
+					graph.setMinWidth(pixels);
 				}
-				graph.setMaxWidth(pixels);
-				graph.setWidth(pixels);
-				graph.setMinimumWidth(pixels);
-				graph.setMinWidth(pixels);
 			}
 		}
 	}
 
-	private void addTextToRow(long f, String frq, String time, boolean current) {
+	private TextView addTextToRow(long f, String frq, String time, boolean current) {
 		if (inflater == null) {
 			inflater = (LayoutInflater) tlSwitches.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
@@ -124,20 +188,32 @@ public class StatsAdvancedFragment extends PagerFragment {
 		tvFreq.setText(frq);
 		tvTime.setText(time);
 		tvGraph.setText("");
-		if (f > 0) {
-			tvGraph.setBackgroundColor(color);
-			graphs.put(f, tvGraph);
-		}
 		tvFreq.setTextColor(color);
 		tvTime.setTextColor(color);
 
 		tlSwitches.addView(v);
 
+		if (f > 0) {
+			tvGraph.setBackgroundColor(color);
+			return tvGraph;
+		}
+		return null;
 	}
 
 	@Override
 	public List<Action> getActions() {
 		List<Action> actions = new ArrayList<ActionBar.Action>(1);
+		actions.add(new Action() {
+			@Override
+			public void performAction(View view) {
+				createBaseline(view.getContext());
+			}
+
+			@Override
+			public int getDrawable() {
+				return android.R.drawable.ic_input_get;
+			}
+		});
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
@@ -148,10 +224,41 @@ public class StatsAdvancedFragment extends PagerFragment {
 
 			@Override
 			public int getDrawable() {
-				return android.R.drawable.ic_menu_revert;
+				return R.drawable.ic_menu_refresh;
 			}
 		});
 		return actions;
 	}
 
+	private void createBaseline(Context ctx) {
+		// FIXME ask set baseline
+		SettingsStorage.getInstance().setTimeinstateBaseline(CpuHandler.getInstance().getCpuTimeinstate());
+		SettingsStorage.getInstance().setTotaltransitionsBaseline(Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions()));
+		updateView(ctx);
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.advstats_option, menu);
+		inflater.inflate(R.menu.refresh_option, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.itemBaseline:
+			createBaseline(act);
+			return true;
+
+		case R.id.itemRefresh:
+			updateView(act);
+			return true;
+
+		}
+		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
+			return true;
+		}
+		return false;
+	}
 }
