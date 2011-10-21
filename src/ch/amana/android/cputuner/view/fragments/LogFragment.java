@@ -10,13 +10,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
@@ -84,7 +89,7 @@ public class LogFragment extends PagerFragment {
 
 			@Override
 			public int getDrawable() {
-				return android.R.drawable.ic_menu_revert;
+				return R.drawable.ic_menu_refresh;
 			}
 		});
 		return actions;
@@ -115,5 +120,25 @@ public class LogFragment extends PagerFragment {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.refresh_option, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.itemRefresh:
+			updateView();
+			return true;
+
+		}
+		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
+			return true;
+		}
+		return false;
 	}
 }

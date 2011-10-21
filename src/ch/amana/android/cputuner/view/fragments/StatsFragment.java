@@ -34,7 +34,7 @@ public class StatsFragment extends PagerFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
+		// Inflate the layout for this fragment 
 		View v = inflater.inflate(R.layout.stats, container, false);
 		tvStats = (TextView) v.findViewById(R.id.tvStats);
 		tlSwitches = (TableLayout) v.findViewById(R.id.tlSwitches);
@@ -99,7 +99,7 @@ public class StatsFragment extends PagerFragment {
 
 	@Override
 	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<ActionBar.Action>(1);
+		List<Action> actions = new ArrayList<ActionBar.Action>(2);
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
@@ -110,7 +110,7 @@ public class StatsFragment extends PagerFragment {
 
 			@Override
 			public int getDrawable() {
-				return android.R.drawable.ic_menu_revert;
+				return R.drawable.ic_menu_refresh;
 			}
 		});
 		return actions;
