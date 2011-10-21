@@ -4,7 +4,7 @@
         <item>Average value</item>
         <item>Current value</item>
         <!-- <item>Battery % per hour</item> -->
-        <item>No calculation</item>
+        <item>No calculation</item>  
     </string-array>
     <string name="msgEnableCputuner">Enabling CPU tuner</string>
     <string name="msgDisableCputuner">Disabling CPU tuner</string>
@@ -66,7 +66,7 @@ Without this access CPU tuner will not work.
     <string name="msg_error_loadconfig">Loading this configuration did not produce a valid configuration!  Either the configuration is broken or something went wrong while loading. Please try again (with an other config).</string>
     <string name="msg_unusable_comfig_save">This configuration cannot be saved since it is not usable. There are either no trigger, profiles or virtual governors</string>
     <string name="tvSequenceInfo">The profile are listed in the reverse sequence.  CPU tuner starts at the bottom and chooses the first profile that matches the current state</string>
-    <string name="msg_warning_manual_service_switches">You enabled \"manual service changes\" in settings.<br></br> This means that services will not get switched when changed outside CPU tuner</string>
+    <string name="msg_warning_manual_service_switches">You enabled \"manual service changes\" in settings.<br></br> This means that services will not get switched when changed outside CPU tuner.<br></br>Pulsed services and back to previous will get applied as normal.</string>
     <string name="msg_warning_not_switch_wifi_connected">Wifi will not switch if connected to a network.  Change this in settings.</string>
     <string name="menuUpgrade">Get extensions</string>
     <string name="desc_extention_stats">The statistic extension generates nicer and more detailed statistics.  <br></br>It helps you to fine tune you settings by giving you additional information.<br></br>Work in progress...</string>
@@ -86,4 +86,6 @@ Without this access CPU tuner will not work.
     <string name="name_buy_toy">Buy my kid a new toy</string>
     <string name="prefextentionsLong">Add new features to CPU tuner</string>
     <string name="title_changelog">Changelog</string>
+    <string name="refresh">Refresh</string>
+    <string name="reset">Reset</string>
 </resources> 
