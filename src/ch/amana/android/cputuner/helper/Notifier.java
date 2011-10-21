@@ -22,7 +22,7 @@ public class Notifier extends BroadcastReceiver {
 	private final Context context;
 	private String contentTitle;
 	private PendingIntent contentIntent;
-	private CharSequence lastContentText;
+	private CharSequence lastContentText; 
 
 	private static Notifier instance;
 	private Notification notification;
@@ -32,7 +32,7 @@ public class Notifier extends BroadcastReceiver {
 			instance = new Notifier(ctx);
 		}
 		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_PROFILE_CHANGED));
-		instance.notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
+		instance.notifyStatus("");
 	}
 
 	public Notifier(final Context ctx) {
@@ -42,8 +42,19 @@ public class Notifier extends BroadcastReceiver {
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
 
-	private void notifyStatus(CharSequence contentText) {
-		if (!PowerProfiles.UNKNOWN.equals(contentText)) {
+	private void notifyStatus(CharSequence profileName) {
+		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
+			StringBuffer sb = new StringBuffer(25);
+			sb.append(context.getString(R.string.labelCurrentProfile));
+			sb.append(" ").append(PowerProfiles.getInstance().getCurrentProfileName());
+			if (PowerProfiles.getInstance().isManualProfile()) {
+				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+			}
+			if (PulseHelper.getInstance(context).isPulsing()) {
+				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+				sb.append(" ").append(context.getString(res));
+			}
+			String contentText = sb.toString();
 			if (contentText == null || contentText.equals(lastContentText)) {
 				return;
 			}
@@ -87,17 +98,7 @@ public class Notifier extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
-			StringBuffer sb = new StringBuffer(25);
-			sb.append(context.getString(R.string.labelCurrentProfile));
-			sb.append(" ").append(PowerProfiles.getInstance().getCurrentProfileName());
-			if (PowerProfiles.getInstance().isManualProfile()) {
-				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
-			}
-			if (PulseHelper.getInstance(context).isPulsing()) {
-				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-				sb.append(" ").append(context.getString(res));
-			}
-			notifyStatus(sb.toString());
+			notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
 		}
 	}
 
