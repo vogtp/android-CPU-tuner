@@ -19,7 +19,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.background.BackgroundThread;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
@@ -37,6 +36,7 @@ import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.service.TunerService;
 import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
@@ -281,21 +281,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 				if (isInUpdateView) {
 					return;
 				}
-				BackgroundThread.getInstance().queue(new Runnable() {
-					@Override
-					public void run() {
-						if (pos > 0) {
-							// let us change the profile
-							powerProfiles.setManualProfile(id);
-							powerProfiles.applyProfile(id);
-						} else {
-							if (powerProfiles.isManualProfile()) {
-								powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
-								powerProfiles.reapplyProfile(true);
-							}
-						}
-					}
-				});
+				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
+				i.putExtra(TunerService.EXTRA_IS_MANUAL_PROFILE, pos > 0);
+				i.putExtra(TunerService.EXTRA_PROFILE_ID,id);
+				act.startService(i);
 			}
 
 			@Override

@@ -9,7 +9,6 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
-import ch.amana.android.cputuner.service.PulseService;
 
 public class PowerProfiles {
 
@@ -349,7 +348,7 @@ public class PowerProfiles {
 		Logger.i("Changed to trigger " + currentTrigger.getName() + " since batterylevel is " + batteryLevel);
 		context.sendBroadcast(new Intent(Notifier.BROADCAST_TRIGGER_CHANGED));
 		initActiveStates();
-		PulseService.stopService(context);
+		PulseHelper.stopPulseService(context);
 		return true;
 	}
 

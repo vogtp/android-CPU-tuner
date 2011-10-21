@@ -18,7 +18,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 
 public class ConfigurationAutoloadService extends IntentService implements BackupRestoreCallback {
 
-	public static final String ACTION_SCEDULE_AUTOLOAD = "ch.amana.android.cputuner.INTENT_SCEDULE_AUTOLOAD";
+	public static final String ACTION_SCEDULE_AUTOLOAD = "ch.amana.android.cputuner.ACTION_SCEDULE_AUTOLOAD";
 
 	private static final String EXTRA_VALUES = "camValuesBundle";
 

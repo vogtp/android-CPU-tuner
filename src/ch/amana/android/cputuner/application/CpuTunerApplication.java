@@ -3,14 +3,15 @@ package ch.amana.android.cputuner.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import ch.amana.android.cputuner.background.BackgroundThread;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.service.BatteryService;
+import ch.amana.android.cputuner.receiver.BatteryReceiver;
+import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
+import ch.amana.android.cputuner.service.TunerService;
 
 public class CpuTunerApplication extends Application {
 	@Override
@@ -43,7 +44,8 @@ public class CpuTunerApplication extends Application {
 	public static void startCpuTuner(Context context) {
 		Logger.i("Starting cpu tuner services");
 		Context ctx = context.getApplicationContext();
-		ctx.startService(new Intent(ctx, BatteryService.class));
+		BatteryReceiver.registerBatteryReceiver(ctx);
+		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance().reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
 		if (SettingsStorage.getInstance().isStatusbarAddto()) {
@@ -55,9 +57,10 @@ public class CpuTunerApplication extends Application {
 		Logger.i("Stopping cpu tuner services");
 		Logger.logStacktrace("Stopping cputuner services");
 		Context ctx = context.getApplicationContext();
-		ctx.stopService(new Intent(ctx, BatteryService.class));
+		CallPhoneStateListener.unregister(ctx);
+		BatteryReceiver.unregisterBatteryReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
-		BackgroundThread.getInstance().requestStop();
 		Notifier.stopStatusbarNotifications(ctx);
+		context.stopService(new Intent(ctx, TunerService.class));
 	}
 }

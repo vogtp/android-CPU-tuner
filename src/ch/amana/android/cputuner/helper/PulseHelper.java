@@ -1,10 +1,12 @@
 package ch.amana.android.cputuner.helper;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
-import ch.amana.android.cputuner.service.PulseService;
+import ch.amana.android.cputuner.service.TunerService;
 
 public class PulseHelper {
 
@@ -81,12 +83,12 @@ public class PulseHelper {
 		}
 		if (b) {
 			pulsing = true;
-			PulseService.startService(ctx);
+			PulseHelper.startPulseService(ctx);
 		} else {
 			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
 			if (!someService) {
 				pulsing = false;
-				PulseService.stopService(ctx);
+				PulseHelper.stopPulseService(ctx);
 				ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 			}
 		}
@@ -161,6 +163,22 @@ public class PulseHelper {
 	public void pulseAirplanemodeState(boolean b) {
 		pulseAirplanemodeState = b;
 		doPulsing(b);
+	}
+
+	public static void startPulseService(Context ctx) {
+		Logger.i("Start pulsing");
+		Intent i = new Intent(TunerService.ACTION_PULSE);
+		i.putExtra(TunerService.EXTRA_ON_OFF, true);
+		ctx.startService(i);
+	}
+
+	public static void stopPulseService(Context ctx) {
+		Logger.i("Stop pulsing");
+		Intent intent = new Intent(TunerService.ACTION_PULSE);
+		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+		am.cancel(operation);
+		ctx.stopService(new Intent(TunerService.ACTION_PULSE));
 	}
 
 }

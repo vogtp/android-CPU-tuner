@@ -4,7 +4,7 @@
 	android:versionName="@string/version"
 	android:installLocation="internalOnly"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:versionCode="201110170"
+	android:versionCode="201110190"
 >
 	<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 	<uses-permission android:name="com.android.vending.BILLING"></uses-permission>
@@ -12,7 +12,7 @@
 		android:name="ch.amana.android.cputuner.LOAD_CONFIGURATION"
 		android:protectionLevel="dangerous"
 	></permission>
-	<application
+	<application 
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
 		android:name=".application.CpuTunerApplication"
@@ -28,14 +28,6 @@
 				<action android:name="android.intent.action.BOOT_COMPLETED"></action>
 			</intent-filter>
 		</receiver>
-		<service android:name=".service.BatteryService">
-			<intent-filter>
-				<action android:name="android.intent.action.ACTION_POWER_CONNECTED"></action>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"></action>
-			</intent-filter>
-		</service>
 		<activity
 			android:name=".view.activity.ProfileEditor"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -124,11 +116,6 @@
 		></activity>
 		<activity android:name=".view.activity.SendReportActivity"></activity>
 		<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>
-		<service android:name=".service.PulseService">
-			<intent-filter>
-				<action android:name="ch.amana.android.cputuner.ACTION_PULSE"></action>
-			</intent-filter>
-		</service>
 		<activity
 			android:name=".view.activity.VirtualGovernorEditorActivity"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -212,6 +199,13 @@
 			android:name=".view.preference.VariousSettings"
 			android:theme="@android:style/Theme.Black.NoTitleBar"
 		></activity>
+		<service android:name=".service.TunerService">
+			<intent-filter>
+				<action android:name="ch.amana.android.cputuner.ACTION_PULSE"></action><action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY"/>
+				<action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_PHONESTATE"/>
+				<action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_MANUAL_PROFILE"/>
+			</intent-filter>
+		</service>
 	</application>
 	<uses-sdk
 		android:minSdkVersion="7"
