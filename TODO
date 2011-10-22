@@ -1,10 +1,9 @@
 - apply current profile
-
+- boot sequence...  su comes first
 - let the user reset manual service changes
 
 - refresh billing status (menu/action) and set settings for display of bought stuff
 
-- add base for time in state (i.e. reset) -> ask set baseling
 - rework graph to use screen size
 
 - start autoload on boot

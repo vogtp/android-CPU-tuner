@@ -1,13 +1,16 @@
 package ch.amana.android.cputuner.view.fragments;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,6 +38,8 @@ public class StatsAdvancedFragment extends PagerFragment {
 	private TextView tvStats;
 	private TableLayout tlSwitches;
 	private LayoutInflater inflater;
+	private long totaltransitionsBaseline;
+	private String timeinstateBaseline;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +63,13 @@ public class StatsAdvancedFragment extends PagerFragment {
 		};
 		tvStats.setOnClickListener(clickListener);
 		tlSwitches.setOnClickListener(clickListener);
+		totaltransitionsBaseline = SettingsStorage.getInstance().getTotaltransitionsBaseline();
+		if (totaltransitionsBaseline == 0) {
+			// create firsttime baseline
+			createBaseline(getActivity());
+			totaltransitionsBaseline = SettingsStorage.getInstance().getTotaltransitionsBaseline();
+		}
+		timeinstateBaseline = SettingsStorage.getInstance().getTimeinstateBaseline();
 	}
 
 	@Override
@@ -75,7 +87,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 	}
 
 	private void getTotalTransitions(Context context, StringBuilder sb) {
-		long totaltransitions = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions()) - SettingsStorage.getInstance().getTotaltransitionsBaseline();
+		long totaltransitions = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions()) - totaltransitionsBaseline;
 		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
 			sb.append(context.getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
 			sb.append("\n");
@@ -85,7 +97,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 	class TimeInStateParser {
 
 		private long maxTime = Long.MIN_VALUE;
-		private final Map<Integer, Long> states = new HashMap<Integer, Long>();
+		private final Map<Integer, Long> states = new TreeMap<Integer, Long>();
 		private TimeInStateParser baseline = null;
 		private boolean parseOk = false;
 
@@ -149,7 +161,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 			addTextToRow(0, context.getString(R.string.label_frequency), context.getString(R.string.label_time), false);
 
 			TimeInStateParser tisParser = new TimeInStateParser(timeinstate);
-			tisParser.setBaseline(new TimeInStateParser(SettingsStorage.getInstance().getTimeinstateBaseline()));
+			tisParser.setBaseline(new TimeInStateParser(timeinstateBaseline));
 			int width = context.getResources().getDisplayMetrics().widthPixels;
 			long max = tisParser.getMaxTime();
 			for (Integer freq : tisParser.getStates()) {
@@ -206,7 +218,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				createBaseline(view.getContext());
+				resetStatistics(view.getContext());
 			}
 
 			@Override
@@ -230,11 +242,27 @@ public class StatsAdvancedFragment extends PagerFragment {
 		return actions;
 	}
 
+	private void resetStatistics(final Context ctx) {
+		final Activity act = getActivity();
+		Builder alertBuilder = new AlertDialog.Builder(act);
+		alertBuilder.setTitle(R.string.title_reset_statistics);
+		alertBuilder.setMessage(R.string.msg_reset_statistics);
+		alertBuilder.setNegativeButton(R.string.no, null);
+		alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				createBaseline(ctx);
+				updateView(ctx);
+			}
+		});
+		AlertDialog alert = alertBuilder.create();
+		alert.show();
+	}
+
 	private void createBaseline(Context ctx) {
-		// FIXME ask set baseline
 		SettingsStorage.getInstance().setTimeinstateBaseline(CpuHandler.getInstance().getCpuTimeinstate());
 		SettingsStorage.getInstance().setTotaltransitionsBaseline(Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions()));
-		updateView(ctx);
 	}
 
 	@Override
@@ -248,7 +276,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.itemBaseline:
-			createBaseline(act);
+			resetStatistics(act);
 			return true;
 
 		case R.id.itemRefresh:
