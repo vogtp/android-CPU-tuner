@@ -107,7 +107,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-
 		SettingsStorage settings = SettingsStorage.getInstance();
 		String lang = settings.getLanguage();
 		if (!"".equals(lang)) {

@@ -58,7 +58,7 @@ public class InstallHelper {
 		case 3:
 		case 4:
 			Logger.i("Initalising cpu tuner to level 5");
-			SettingsStorage settings = SettingsStorage.getInstance();
+			SettingsStorage settings = SettingsStorage.getInstance(ctx);
 			CpuHandler cpuHandler = CpuHandler.getInstance();
 			settings.setMinFrequencyDefault(cpuHandler.getMinCpuFreq());
 			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());

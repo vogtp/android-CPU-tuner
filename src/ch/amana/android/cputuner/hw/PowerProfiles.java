@@ -73,10 +73,11 @@ public class PowerProfiles {
 
 	private boolean wifiManaged3gState = false;
 
-	public static void initInstance(Context ctx) {
+	public static PowerProfiles getInstance(Context ctx) {
 		if (instance == null) {
-			instance = new PowerProfiles(ctx);
+			instance = new PowerProfiles(ctx.getApplicationContext());
 		}
+		return instance;
 	}
 
 	public static PowerProfiles getInstance() {

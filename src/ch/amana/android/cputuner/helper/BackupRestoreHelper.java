@@ -149,7 +149,7 @@ public class BackupRestoreHelper {
 					fixFrequencies();
 					InstallHelper.updateProfilesFromVirtGovs(context);
 				}
-				PowerProfiles.getInstance().reapplyProfile(true);
+				PowerProfiles.getInstance(context).reapplyProfile(true);
 				cb.hasFinished(true);
 			} catch (Exception e) {
 				Logger.e("Cannot restore configuration", e);

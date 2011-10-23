@@ -98,7 +98,7 @@ public class Notifier extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
-			notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
+			notifyStatus(PowerProfiles.getInstance(context).getCurrentProfileName());
 		}
 	}
 

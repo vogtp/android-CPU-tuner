@@ -155,7 +155,7 @@ public class CpuTunerProvider extends ContentProvider {
 
 	private void notifyChange(Uri uri) {
 		if (SettingsStorage.getInstance().isEnableProfiles()) {
-			PowerProfiles.getInstance().reapplyProfile(true);
+			PowerProfiles.getInstance(getContext()).reapplyProfile(true);
 		}
 		getContext().getContentResolver().notifyChange(uri, null);
 		// BackupRestoreHelper.backup(getContext()); 

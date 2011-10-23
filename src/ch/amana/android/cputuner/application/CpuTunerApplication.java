@@ -12,14 +12,14 @@ import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
 import ch.amana.android.cputuner.service.TunerService;
+import ch.amana.android.cputuner.view.activity.FirstRunActivity;
 
 public class CpuTunerApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		Context ctx = getApplicationContext();
-		SettingsStorage.initInstance(ctx);
-		PowerProfiles.initInstance(ctx);
+		SettingsStorage settings = SettingsStorage.getInstance(ctx);
 
 		//		if (Logger.DEBUG) {
 		//			Builder threadPolicy = new StrictMode.ThreadPolicy.Builder();
@@ -33,7 +33,11 @@ public class CpuTunerApplication extends Application {
 
 		try {
 			InstallHelper.initialise(ctx);
-			if (SettingsStorage.getInstance().isEnableProfiles()) {
+
+			if (settings.isFirstRun()) {
+				startActivity(new Intent(getApplicationContext(), FirstRunActivity.class));
+			}
+			if (settings.isEnableProfiles()) {
 				startCpuTuner(ctx);
 			}
 		} catch (Throwable e) {
@@ -46,9 +50,9 @@ public class CpuTunerApplication extends Application {
 		Context ctx = context.getApplicationContext();
 		BatteryReceiver.registerBatteryReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
-		PowerProfiles.getInstance().reapplyProfile(true);
+		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
-		if (SettingsStorage.getInstance().isStatusbarAddto()) {
+		if (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
 			Notifier.startStatusbarNotifications(ctx);
 		}
 	}

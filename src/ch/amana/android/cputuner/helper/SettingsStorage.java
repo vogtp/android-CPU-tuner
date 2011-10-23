@@ -105,10 +105,11 @@ public class SettingsStorage {
 		checkedProfileSwitchLogSize = false;
 	}
 
-	public static void initInstance(Context ctx) {
+	public static SettingsStorage getInstance(Context ctx) {
 		if (instance == null) {
-			instance = new SettingsStorage(ctx);
+			instance = new SettingsStorage(ctx.getApplicationContext());
 		}
+		return instance;
 	}
 
 	public static SettingsStorage getInstance() {
