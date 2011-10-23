@@ -239,14 +239,13 @@ public class PowerProfiles {
 
 	private int evaluateState(ServiceType type, int state, int lastState, int stateNow) {
 		int ret = state;
+		boolean wasPulsing = PulseHelper.getInstance(context).isPulsing();
 		if (type != ServiceType.mobiledata3g) {
-			// FIXME handle manual service changes in pluse
 			if (state == SERVICE_STATE_PULSE || lastState == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulse(type, true);
 				return NO_STATE;
-			} else {
-				PulseHelper.getInstance(context).pulse(type, false);
 			}
+			PulseHelper.getInstance(context).pulse(type, false);
 		} else {
 			if (ServicesHandler.isWifiConnected(context)) {
 				ret = SettingsStorage.getInstance().getNetworkStateOnWifi();
@@ -259,7 +258,8 @@ public class PowerProfiles {
 			Logger.v("Switching " + getServiceTypeName(type) + "  to last state which was " + lastState);
 			ret = lastState;
 		} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
-			if (stateNow != lastState) {
+
+			if (stateNow != lastState && !wasPulsing) {
 				Logger.v("Not switching " + getServiceTypeName(type) + " since it changed since last time");
 				return NO_STATE;
 			}

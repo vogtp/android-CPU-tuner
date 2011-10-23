@@ -1,5 +1,5 @@
 - apply current profile
-- boot sequence...  su comes first
+- different icon color for notification and add to status bar setting for disabled cputuner
 - let the user reset manual service changes
 - do not colorise lists if cputuner not enabled
 

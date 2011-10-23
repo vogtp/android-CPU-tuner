@@ -103,6 +103,31 @@ public class PulseHelper {
 		return pulsing;
 	}
 
+	public boolean isPulsing(ServiceType type) {
+		if (!pulsing) {
+			return false;
+		}
+		switch (type) {
+		case wifi:
+			return pulseWifiState;
+		case bluetooth:
+			return pulseBluetoothState;
+		case mobiledataConnection:
+			return pulseMobiledataConnectionState;
+		case backgroundsync:
+			return pulseBackgroundSyncState;
+		case airplainMode:
+			return pulseAirplanemodeState;
+		case gps:
+			return pulseGpsState;
+		case mobiledata3g:
+			return false;
+		default:
+			Logger.e("Did not find service type " + type.toString() + " for pulsing.");
+		}
+		return false;
+	}
+
 	public void pulse(ServiceType type, boolean b) {
 		switch (type) {
 		case wifi:
