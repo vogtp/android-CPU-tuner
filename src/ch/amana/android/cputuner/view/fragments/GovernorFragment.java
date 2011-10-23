@@ -39,12 +39,10 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private String origThreshDown;
 	private SeekBar sbPowersaveBias;
 	private boolean disableScript;
-	private TextView labelPowersaveBias;
 	private LinearLayout llPowersaveBias;
 	private LinearLayout llGovernorThresholds;
 	private Spinner spUseCpus;
 	private int numberOfCpus;
-	private LinearLayout llPowersaveBiasSlider;
 
 	public GovernorFragment() {
 		super();
@@ -76,8 +74,6 @@ public class GovernorFragment extends GovernorBaseFragment {
 		etScript = (EditText) v.findViewById(R.id.etScript);
 		llPowersaveBias = (LinearLayout) v.findViewById(R.id.llPowersaveBias);
 		sbPowersaveBias = (SeekBar) v.findViewById(R.id.sbPowersaveBias);
-		llPowersaveBiasSlider = (LinearLayout) v.findViewById(R.id.llPowersaveBiasSlider);
-		labelPowersaveBias = (TextView) v.findViewById(R.id.labelPowersaveBias);
 		spUseCpus = (Spinner) v.findViewById(R.id.spUseCpus);
 		if (disableScript || !SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
 			llFragmentTop.removeView(v.findViewById(R.id.llScript));
@@ -223,9 +219,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 		boolean hasThreshholdDown = governorConfig.hasThreshholdDownFeature();
 
 		if (hasThreshholdUp) {
-			GuiUtils.showViews(llGovernorThresholds, new View[] { labelGovThreshUp, etGovTreshUp, labelGovThreshDown, etGovTreshDown });
+			llGovernorThresholds.setVisibility(View.VISIBLE);
 		} else {
-			GuiUtils.hideViews(llGovernorThresholds, new View[] { labelGovThreshUp, etGovTreshUp, labelGovThreshDown, etGovTreshDown });
+			llGovernorThresholds.setVisibility(View.GONE);
 		}
 
 		if (hasThreshholdUp) {
@@ -267,9 +263,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 
 		if (governorConfig.hasPowersaveBias()) {
-			GuiUtils.showViews(llPowersaveBias, new View[] { labelPowersaveBias, llPowersaveBiasSlider });
+			llPowersaveBias.setVisibility(View.VISIBLE);
 		}else {
-			GuiUtils.hideViews(llPowersaveBias, new View[] { labelPowersaveBias, llPowersaveBiasSlider });
+			llPowersaveBias.setVisibility(View.GONE);
 		}
 		
 	}

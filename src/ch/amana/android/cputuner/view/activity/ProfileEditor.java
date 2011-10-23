@@ -33,7 +33,6 @@ import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
-import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -63,7 +62,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private Spinner spWifi;
 	private Spinner spGps;
 	private Spinner spBluetooth;
-	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private EditText etName;
 	private Spinner spMobileData3G;
@@ -157,7 +155,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		etName = (EditText) findViewById(R.id.etName);
 		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
 		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
-		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
 		tvWarningManualServiceChanges = (TextView) findViewById(R.id.tvWarningManualServiceChanges);
 		tvWarningWifiConnected = (TextView) findViewById(R.id.tvWarningWifiConnected);
@@ -413,14 +410,14 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
+			trMinFreq.setVisibility(View.VISIBLE);
 		} else {
-			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
+			trMinFreq.setVisibility(View.GONE);
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
+			trMaxFreq.setVisibility(View.VISIBLE);
 		} else {
-			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
+			trMaxFreq.setVisibility(View.GONE);
 		}
 
 		if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
@@ -499,9 +496,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			cursor = managedQuery(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_ID_NAME, CpuProfile.SELECTION_NAME, new String[] { profile.getProfileName() }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == profile.getDbId();
-			} else {
-				return true;
 			}
+			return true;
 		} finally {
 			if (cursor != null) {
 				cursor.close();

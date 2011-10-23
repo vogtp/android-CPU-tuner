@@ -5,10 +5,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class UserExperianceLevelChooser extends Dialog {
@@ -23,7 +21,6 @@ public class UserExperianceLevelChooser extends Dialog {
 
 	    setTitle("Choose your experiance level");
 	    setContentView(R.layout.user_experiance_level_chooser);
-	    // TODO Auto-generated method stub
 	    rgUserLevel =  (RadioGroup)findViewById(R.id.rgUserlevel);
 	    int userLevel = R.id.rbNormal;
 	    settingsStorage = SettingsStorage.getInstance();
@@ -60,7 +57,7 @@ public class UserExperianceLevelChooser extends Dialog {
 		});
 
 		if (!allowCancel) {
-			GuiUtils.hideViews((LinearLayout) findViewById(R.id.llButtons), new View[] { buCancel });
+			findViewById(R.id.llButtons).setVisibility(View.GONE);
 		}
 	}
 
