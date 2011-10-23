@@ -285,23 +285,23 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 					return;
 				}
 				if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableProfiles()) {
-					Builder alertBuilder = new AlertDialog.Builder(act);
-					alertBuilder.setTitle(R.string.title_enable_cpu_tuner);
-					alertBuilder.setMessage(R.string.msg_enable_cpu_tuner);
-					alertBuilder.setNegativeButton(android.R.string.no, null);
-					alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							SettingsStorage.getInstance().setEnableProfiles(true);
-							Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
-							i.putExtra(TunerService.EXTRA_IS_MANUAL_PROFILE, pos > 0);
-							i.putExtra(TunerService.EXTRA_PROFILE_ID, id);
-							getActivity().startService(i);
-						}
-					});
-					AlertDialog alert = alertBuilder.create();
-					alert.show();
+//					Builder alertBuilder = new AlertDialog.Builder(act);
+//					alertBuilder.setTitle(R.string.title_enable_cpu_tuner);
+//					alertBuilder.setMessage(R.string.msg_enable_cpu_tuner);
+//					alertBuilder.setNegativeButton(android.R.string.no, null);
+//					alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//
+//						@Override
+//						public void onClick(DialogInterface dialog, int which) {
+//							SettingsStorage.getInstance().setEnableProfiles(true);
+//							Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
+//							i.putExtra(TunerService.EXTRA_IS_MANUAL_PROFILE, pos > 0);
+//							i.putExtra(TunerService.EXTRA_PROFILE_ID, id);
+//							getActivity().startService(i);
+//						}
+//					});
+//					AlertDialog alert = alertBuilder.create();
+//					alert.show();
 					return;
 				}
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
@@ -478,14 +478,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		if (currentProfile != PowerProfiles.DUMMY_PROFILE) {
 			if (powerProfiles.isManualProfile()) {
 				GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
-			} else if (SettingsStorage.getInstance().isEnableProfiles()) {
+			} else {
 				spProfiles.setAdapter(profileAdapter);
 				spProfiles.setSelection(0);
-			} else {
-				spProfiles.setSelection(Integer.MAX_VALUE);
 			}
-		} else {
-			spProfiles.setSelection(Integer.MAX_VALUE);
 		}
 		isInUpdateView = false;
 	}
