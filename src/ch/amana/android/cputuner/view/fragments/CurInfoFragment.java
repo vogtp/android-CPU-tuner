@@ -77,6 +77,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TableRow trPower;
 	private ProfileAdaper profileAdapter;
 	private boolean isInUpdateView = true;
+	private TableRow trManualService;
+	private TableRow tvManualService;
+	private TextView tvManualServiceChanges;
 
 	private class GovernorHelperCurInfo implements IGovernorModel {
 
@@ -242,6 +245,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		tvConfig = (TextView) v.findViewById(R.id.tvConfig);
 		trBattery = (TableRow) v.findViewById(R.id.TableRowBattery);
 		trPower = (TableRow) v.findViewById(R.id.TableRowPower);
+		trManualService = (TableRow) v.findViewById(R.id.TableRowManualServiceChanges);
+		tvManualServiceChanges = (TextView) v.findViewById(R.id.tvManualServiceChanges);
 		return v;
 	}
 
@@ -285,23 +290,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 					return;
 				}
 				if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableProfiles()) {
-//					Builder alertBuilder = new AlertDialog.Builder(act);
-//					alertBuilder.setTitle(R.string.title_enable_cpu_tuner);
-//					alertBuilder.setMessage(R.string.msg_enable_cpu_tuner);
-//					alertBuilder.setNegativeButton(android.R.string.no, null);
-//					alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//
-//						@Override
-//						public void onClick(DialogInterface dialog, int which) {
-//							SettingsStorage.getInstance().setEnableProfiles(true);
-//							Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
-//							i.putExtra(TunerService.EXTRA_IS_MANUAL_PROFILE, pos > 0);
-//							i.putExtra(TunerService.EXTRA_PROFILE_ID, id);
-//							getActivity().startService(i);
-//						}
-//					});
-//					AlertDialog alert = alertBuilder.create();
-//					alert.show();
 					return;
 				}
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
@@ -347,6 +335,27 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 				Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
 				intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
 				ctx.startActivity(intent);
+			}
+		});
+
+		tvManualServiceChanges.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Builder alertBuilder = new AlertDialog.Builder(act);
+				alertBuilder.setTitle(R.string.title_reset_manual_service_switches);
+				alertBuilder.setMessage(R.string.msg_reset_manual_service_switches);
+				alertBuilder.setNegativeButton(android.R.string.no, null);
+				alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						powerProfiles.initActiveStates();
+						updateView();
+					}
+				});
+				AlertDialog alert = alertBuilder.create();
+				alert.show();
 			}
 		});
 
@@ -413,10 +422,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			}
 		}
 		if (currentText.length() > 0) {
-			GuiUtils.showViews(trBatteryCurrent, new View[] { labelBatteryCurrent, tvBatteryCurrent });
+			trBatteryCurrent.setVisibility(View.VISIBLE);
 			tvBatteryCurrent.setText(currentText.toString());
 		} else {
-			GuiUtils.hideViews(trBatteryCurrent, new View[] { labelBatteryCurrent, tvBatteryCurrent });
+			trBatteryCurrent.setVisibility(View.GONE);
 		}
 	}
 
@@ -430,17 +439,17 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		final Activity act = getActivity();
 		SettingsStorage settings = SettingsStorage.getInstance();
 		if (PulseHelper.getInstance(act).isPulsing()) {
-			GuiUtils.showViews(trPulse, new View[] { spacerPulse, tvPulse });
+			trPulse.setVisibility(View.VISIBLE);
 			int res = PulseHelper.getInstance(act).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
 			tvPulse.setText(res);
 		} else {
-			GuiUtils.hideViews(trPulse, new View[] { spacerPulse, tvPulse });
+			trPulse.setVisibility(View.GONE);
 		}
 		if (settings.hasCurrentConfiguration()) {
-			GuiUtils.showViews(trConfig, new View[] { labelConfig, tvConfig });
+			trConfig.setVisibility(View.VISIBLE);
 			tvConfig.setText(settings.getCurrentConfiguration());
 		} else {
-			GuiUtils.hideViews(trConfig, new View[] { labelConfig, tvConfig });
+			trConfig.setVisibility(View.GONE);
 		}
 		if (settings.isEnableProfiles()) {
 			updateProfileSpinner();
@@ -448,7 +457,12 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		} else {
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
-
+		if (powerProfiles.hasManualServicesChanges()) {
+			trManualService.setVisibility(View.VISIBLE);
+		}else {
+			trManualService.setVisibility(View.GONE);
+		}
+		
 		cpuFrequencyChooser.setMinCpuFreq(cpuHandler.getMinCpuFreq());
 		cpuFrequencyChooser.setMaxCpuFreq(cpuHandler.getMaxCpuFreq());
 
@@ -459,14 +473,14 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
+			trMinFreq.setVisibility(View.VISIBLE);
 		} else {
-			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
+			trMinFreq.setVisibility(View.GONE);
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
+			trMaxFreq.setVisibility(View.VISIBLE);
 		} else {
-			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
+			trMaxFreq.setVisibility(View.GONE);
 		}
 
 		governorFragment.updateView();

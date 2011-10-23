@@ -10,6 +10,7 @@ import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 
 public class ServicesHandler {
 
@@ -48,7 +49,6 @@ public class ServicesHandler {
 	public static boolean isWifiConnected(Context ctx) {
 		return getWifiManager(ctx).getConnectionInfo().getNetworkId() > -1;
 	}
-
 
 	public static boolean isWifiEnabaled(Context ctx) {
 		return getWifiManager(ctx).isWifiEnabled();
@@ -99,7 +99,7 @@ public class ServicesHandler {
 		default:
 			return Integer.MAX_VALUE;
 		}
-	
+
 	}
 
 	public static boolean isPhoneIdle(Context context) {
@@ -143,9 +143,9 @@ public class ServicesHandler {
 		default:
 			Logger.w("Not setting mobiledata state since " + profileState + " is unknown");
 			return;
-		
+
 		}
-		
+
 		if (state == networkMode) {
 			Logger.i("Not switching 2G/3G since it's already in correct state.");
 			return;
@@ -187,7 +187,7 @@ public class ServicesHandler {
 		return MobiledataWrapper.getInstance(context).getMobileDataEnabled();
 	}
 
-	 public static void enableMobileData(Context context, boolean enable) {
+	public static void enableMobileData(Context context, boolean enable) {
 		try {
 
 			if (!isPhoneIdle(context)) {
@@ -207,7 +207,7 @@ public class ServicesHandler {
 			Logger.e("Cannot switch mobiledata ", e);
 		}
 		Logger.i("Switched mobiledata to " + enable);
-	 }
+	}
 
 	public static void enableAirplaneMode(Context context, boolean enabled) {
 		if (isAirplaineModeEnabled(context) == enabled) {
@@ -227,5 +227,27 @@ public class ServicesHandler {
 			Logger.e("Cannot read airplaine mode, assuming no", e);
 			return false;
 		}
+	}
+
+	public static int getServiceState(Context context, ServiceType type) {
+		switch (type) {
+		case wifi:
+			return isWifiEnabaled(context) ? PowerProfiles.SERVICE_STATE_ON : PowerProfiles.SERVICE_STATE_OFF;
+		case bluetooth:
+			return isBlutoothEnabled() ? PowerProfiles.SERVICE_STATE_ON : PowerProfiles.SERVICE_STATE_OFF;
+		case mobiledataConnection:
+			return isMobiledataConnectionEnabled(context) ? PowerProfiles.SERVICE_STATE_ON : PowerProfiles.SERVICE_STATE_OFF;
+		case backgroundsync:
+			return isBackgroundSyncEnabled(context) ? PowerProfiles.SERVICE_STATE_ON : PowerProfiles.SERVICE_STATE_OFF;
+		case airplainMode:
+			return isAirplaineModeEnabled(context) ? PowerProfiles.SERVICE_STATE_ON : PowerProfiles.SERVICE_STATE_OFF;
+		case gps:
+			return isGpsEnabled(context) ? PowerProfiles.SERVICE_STATE_ON : PowerProfiles.SERVICE_STATE_OFF;
+		case mobiledata3g:
+			return getMobiledataState(context);
+		default:
+			Logger.e("Did not find service type " + type.toString() + " for getting service state.");
+		}
+		return PowerProfiles.NO_STATE;
 	}
 }

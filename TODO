@@ -1,7 +1,12 @@
+- manual service switches!
+
 - apply current profile
 - different icon color for notification and add to status bar setting for disabled cputuner
 - let the user reset manual service changes
 - do not colorise lists if cputuner not enabled
+- use getInstance(ctx) where possible
+- add information about superuser toast messages in firstboot 
+- save initial cpu values (and set on disable)
 
 - refresh billing status (menu/action) and set settings for display of bought stuff
 
@@ -29,6 +34,7 @@
 
 - rc3 (test update with old package)
 
+- fix hasManualServicesChanges to refelct current trigger and get better answers
 - move powerprofile read to service
 
 - create chooser for homescreen link of configurations (buy?)
