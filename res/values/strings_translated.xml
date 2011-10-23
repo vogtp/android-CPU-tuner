@@ -17,7 +17,7 @@
     <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
     <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
     <string name="labelActiveCpus">Active CPUs:</string>
-    <string name="prefEnableCputuner">Enable CPU tuner</string>
+    <string name="prefEnableCputuner">Enable cpu tuner</string>
     <string-array name="prefMulticoreEntries">
         <item>Auto</item>
         <item>Enable</item>
@@ -31,8 +31,8 @@
     <string name="prefLegalGnomeIcons">Main icon License</string>
     <string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
 		nice icons.</string>
-    <string name="msg_disable_cpu_tuner">Disable CPU tuner</string>
-    <string name="msg_disable_cputuner_question">Do you want to stop CPU tuner?</string>
+    <string name="msg_disable_cpu_tuner">Disable cpu tuner</string>
+    <string name="msg_disable_cputuner_question">Do you want to stop cpu tuner?</string>
 
 		<string name="prefConfigurationsSettings">Configurations Settings</string>
 		<string name="prefSaveConfigOnSwitch">Save configuration</string>
@@ -103,9 +103,9 @@
 	</string>
 	<string name="menuAddCurrent">Add Current</string>
 	<string name="msg_fully_working">Fully working</string>
-	<string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU
+	<string name="msg_capcheck_not_rooted">Cpu tuner does not have root access!\nAll CPU
 		tuning related features will not work.\nDid root your device?\nDid you
-		grant CPU tuner root access?</string>
+		grant cpu tuner root access?</string>
 	<string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
 	<string name="msg_capcheck_no_issues">No issues found...</string>
 	<string name="and">and</string>
@@ -214,7 +214,7 @@
 	<string name="msgNoEmail">Please do not write empty e-mails...</string>
 	<string name="labelResult">Result</string>
 	<string name="labelCheck">Check</string>
-	<string name="labelAppVersion">CPU tuner version:</string>
+	<string name="labelAppVersion">Cpu tuner version:</string>
 	<string name="msgNoIssuesFound">No issues found.</string>
 	<string name="prefVritualGovernorsListLong">Virtual governors are preconfigured cpu governors.</string>
 	<string name="virtualGovernorsList">Virtual Governors</string>
@@ -412,7 +412,7 @@
 		</item>
 	</string-array>
 	<string name="cbEnableVirtualGovernors">Enable virtual governors</string>
-	<string name="userExperianceLevelExplain">CPU tuner can operate on different experience
+	<string name="userExperianceLevelExplain">Cpu tuner can operate on different experience
 		levels. Depending on the level it gives you more choices and lets you
 		do more things.</string>
 	<string name="prefCallInProgressProfile">Call in Progress Profile</string>
@@ -465,7 +465,7 @@
 	<string name="msg_premail_no_issues">No issues have been found...\nIf you are pleased
 		and want to give feedback:\nComments and good ratings on the market
 		are highly appreciated...</string>
-	<string name="msg_premail_no_root">CPU tuner does not have root access!\nCpu tuner
+	<string name="msg_premail_no_root">Cpu tuner does not have root access!\nCpu tuner
 		cannot do anything!</string>
 	<string name="msg_premail_issues">You configuration has issues...\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
