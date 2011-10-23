@@ -90,4 +90,6 @@ Without this access CPU tuner will not work.
     <string name="reset">Reset</string>
     <string name="title_reset_statistics">Reset statistics</string>
     <string name="msg_reset_statistics">Reset the statistics and use the current state as baseline for the future</string>
+    <string name="title_enable_cpu_tuner">Enable cpu tuner?</string>
+    <string name="msg_enable_cpu_tuner">For automatic profiles CPU tuner has to be enabled. Do you want to enable it now?</string>
 </resources> 

@@ -14,7 +14,13 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 public class GuiUtils {
 
 	public static void setSpinner(Spinner spinner, long dbId) {
+		if (spinner == null) {
+			return;
+		}
 		SpinnerAdapter adapter = spinner.getAdapter();
+		if (adapter == null) {
+			return;
+		}
 		for (int i = 0; i < adapter.getCount(); i++) {
 			if (adapter.getItemId(i) == dbId) {
 				spinner.setSelection(i);

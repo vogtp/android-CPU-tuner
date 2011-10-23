@@ -18,12 +18,14 @@ import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
-	private final String AUTO;
+	public final String AUTO;
 	private final Cursor cursor;
 	private final LayoutInflater layoutInflator;
+	private final Context ctx;
 
 	public ProfileAdaper(Context context, Cursor c) {
 		super();
+		this.ctx = context;
 		this.cursor = c;
 		this.layoutInflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.AUTO = context.getString(R.string.auto);
@@ -39,10 +41,12 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		if (position > 0) {
+		if (position == 0) {
+			return AUTO;
+		} else if (position > 0) {
 			return cursor.move(position - 1);
 		} else {
-			return AUTO;
+			return ctx.getString(R.string.not_enabled);
 		}
 	}
 
@@ -50,6 +54,8 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 	public long getItemId(int position) {
 		if (position == 0) {
 			return PowerProfiles.AUTOMATIC_PROFILE;
+		} else if (position == Integer.MAX_VALUE) {
+			return position;
 		}
 		cursor.moveToPosition(position - 1);
 		return cursor.getLong(DB.INDEX_ID);

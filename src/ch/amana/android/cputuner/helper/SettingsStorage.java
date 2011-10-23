@@ -153,7 +153,7 @@ public class SettingsStorage {
 	public boolean isEnableProfiles() {
 		if (!checkedProfiles) {
 			checkedProfiles = true;
-			enableProfiles = getPreferences().getBoolean(ENABLE_PROFILES, true);
+			enableProfiles = getPreferences().getBoolean(ENABLE_PROFILES, false);
 		}
 		return enableProfiles;
 	}
