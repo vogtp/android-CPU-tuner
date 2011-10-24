@@ -22,10 +22,11 @@ public class Notifier extends BroadcastReceiver {
 	private final Context context;
 	private String contentTitle;
 	private PendingIntent contentIntent;
-	private CharSequence lastContentText; 
+	private CharSequence lastContentText;
 
 	private static Notifier instance;
 	private Notification notification;
+	private int icon;
 
 	public static void startStatusbarNotifications(Context ctx) {
 		if (instance == null) {
@@ -45,16 +46,21 @@ public class Notifier extends BroadcastReceiver {
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			StringBuffer sb = new StringBuffer(25);
-			sb.append(context.getString(R.string.labelCurrentProfile));
-			sb.append(" ").append(PowerProfiles.getInstance().getCurrentProfileName());
-			if (PowerProfiles.getInstance().isManualProfile()) {
-				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+			String contentText = null;
+			if (SettingsStorage.getInstance().isEnableProfiles()) {
+				sb.append(context.getString(R.string.labelCurrentProfile));
+				sb.append(" ").append(PowerProfiles.getInstance().getCurrentProfileName());
+				if (PowerProfiles.getInstance().isManualProfile()) {
+					sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+				}
+				if (PulseHelper.getInstance(context).isPulsing()) {
+					int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+					sb.append(" ").append(context.getString(res));
+				}
+				contentText = sb.toString();
+			} else {
+				contentText = context.getString(R.string.msg_cpu_tuner_not_running);
 			}
-			if (PulseHelper.getInstance(context).isPulsing()) {
-				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-				sb.append(" ").append(context.getString(res));
-			}
-			String contentText = sb.toString();
 			if (contentText == null || contentText.equals(lastContentText)) {
 				return;
 			}
@@ -73,11 +79,18 @@ public class Notifier extends BroadcastReceiver {
 
 	private Notification getNotification(CharSequence contentText) {
 		boolean isDisplayNotification = SettingsStorage.getInstance().isStatusbarNotifications();
-		if (isDisplayNotification || notification == null) {
+		int iconNew = R.drawable.icon;
+		if (!SettingsStorage.getInstance().isEnableProfiles()) {
+			iconNew = R.drawable.icon_red;
+		} else if (PowerProfiles.getInstance().isManualProfile()) {
+			iconNew = R.drawable.icon_yellow;
+		}
+		if (isDisplayNotification || notification == null || icon != iconNew) {
 			if (!isDisplayNotification) {
 				contentText = "";
 			}
-			notification = new Notification(R.drawable.icon, contentText, System.currentTimeMillis());
+			icon = iconNew;
+			notification = new Notification(icon, contentText, System.currentTimeMillis());
 			contentIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
 
 			notification.flags |= Notification.FLAG_NO_CLEAR;

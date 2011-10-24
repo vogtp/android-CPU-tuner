@@ -133,5 +133,6 @@
 	</string>
 	<string name="title_reset_manual_service_switches">Reset?</string>
 	<string name="msg_reset_manual_service_switches">Do you want to reset all manually changes service
-		and let cpu tuner handle all further switches?</string>
+		and let cpu tuner handle all further switches?</string> 
+	<string name="msg_cpu_tuner_not_running">cpu tuner is not running</string>
 </resources>
