@@ -139,7 +139,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 					return false;
 				}
 				if (columnIndex == DB.Trigger.INDEX_TRIGGER_NAME) {
-					TriggerModel currentTrigger = PowerProfiles.getInstance().getCurrentTrigger();
+					TriggerModel currentTrigger = PowerProfiles.getInstance(getActivity()).getCurrentTrigger();
 					int color = Color.LTGRAY;
 					if (currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)) {
 						color = getResources().getColor(R.color.cputuner_green);
