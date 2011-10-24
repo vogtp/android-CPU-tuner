@@ -32,7 +32,7 @@
 			android:defaultValue="true"
 		></CheckBoxPreference>
 	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/prefCatPulsedServiceSwitches">
+	<PreferenceCategory android:title="@string/prefCatPulsedServiceSwitches" android:key="prefCatPulse">
 		<EditTextPreference
 			android:summary="@string/prefPulseDelayOnLong"
 			android:key="prefKeyPulseDelayOn"
@@ -45,12 +45,13 @@
 			android:key="prefKeyPulseDelayOff"
 			android:title="@string/prefPulseDelayOff"
 		></EditTextPreference>
-		<CheckBoxPreference
+		<EditTextPreference android:summary="@string/prefInitialPulseDelayLong" android:dialogMessage="@string/prefInitialPulseDelayMsg" android:key="prefKeyInitialPulseDelay" android:title="@string/prefInitialPulseDelay" android:defaultValue="0"/><CheckBoxPreference
 			android:title="@string/prefPulseMobiledataOnWifi"
 			android:key="prefKeyPulseMobiledataOnWifi"
 			android:summaryOn="@string/prefPulseMobiledataOnWifiOn"
 			android:summaryOff="@string/prefPulseMobiledataOnWifiOff"
 			android:defaultValue="true"
 		></CheckBoxPreference>
+		
 	</PreferenceCategory>
 </PreferenceScreen>

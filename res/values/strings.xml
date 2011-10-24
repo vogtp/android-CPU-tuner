@@ -141,4 +141,7 @@
 		<item>Never</item>
 	</string-array>
 		<string name="prefStatusbarAddToLong">Add to statusbar and notification area.</string>
+		<string name="prefInitialPulseDelay">Initial pulse delay</string>
+		<string name="prefInitialPulseDelayLong">Wait for some time (in s) bevore starting the first pulse.</string>
+		<string name="prefInitialPulseDelayMsg">Delay time in seconds</string>
 </resources>

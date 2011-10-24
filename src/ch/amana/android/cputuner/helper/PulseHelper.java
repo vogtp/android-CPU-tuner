@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.service.TunerService;
@@ -39,6 +40,8 @@ public class PulseHelper {
 	}
 
 	static int p = 0;
+
+	private static Handler handler;
 
 	public void doPulse(boolean isOn) {
 		if (!SettingsStorage.getInstance().isEnableProfiles()) {
@@ -97,6 +100,7 @@ public class PulseHelper {
 	protected PulseHelper(Context context) {
 		super();
 		this.ctx = context;
+		this.handler = new Handler();
 	}
 
 	public boolean isPulsing() {
@@ -208,11 +212,19 @@ public class PulseHelper {
 		return pulseOn;
 	}
 
-	public static void startPulseService(Context ctx) {
+	public static void startPulseService(final Context ctx) {
 		Logger.i("Start pulsing");
-		Intent i = new Intent(TunerService.ACTION_PULSE);
-		i.putExtra(TunerService.EXTRA_ON_OFF, true);
-		ctx.startService(i);
+		long delayMillis = SettingsStorage.getInstance(ctx).getPulseInitalDelay() * 1000;
+		handler.postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				Intent i = new Intent(TunerService.ACTION_PULSE);
+				i.putExtra(TunerService.EXTRA_ON_OFF, true);
+				ctx.startService(i);
+			}
+		}, delayMillis);
+
 	}
 
 	public static void stopPulseService(Context ctx) {

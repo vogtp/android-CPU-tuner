@@ -566,4 +566,13 @@ public class SettingsStorage {
 			edit.commit();
 		}
 	}
+
+	public int getPulseInitalDelay() {
+		try {
+			return Integer.parseInt(getPreferences().getString("prefKeyInitialPulseDelay", "0"));
+		} catch (NumberFormatException e) {
+			Logger.w("Cannot parse prefKeyInitialPulseDelay as int", e);
+			return 0;
+		}
+	}
 }

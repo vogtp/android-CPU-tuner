@@ -12,9 +12,10 @@ V 3.0.0
 - insert as new: copy and insert an entry 
 - editor close does sanity checks and asks the user or does not save
 - separate statics and profile switch log and update on click
+- pulsed services do not restart sequence on profile switch and allow initial delay
+- cpu tuner can be added to the statusbar while not running
 - new extension framework (in app billing)
 - graphical statistics (as extension)
-- pulsed services do not restart sequence on profile switch
 - lots of other things
 * bug fixes
 - start/stop notification entry on enable/disable
