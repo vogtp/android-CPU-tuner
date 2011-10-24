@@ -138,10 +138,12 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 				if (cursor == null) {
 					return false;
 				}
+				int color = Color.LTGRAY;
+				PowerProfiles powerProfiles = PowerProfiles.getInstance(getActivity());
+				TriggerModel currentTrigger = powerProfiles.getCurrentTrigger();
+				boolean isCurrentTrigger = currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID) && SettingsStorage.getInstance().isEnableProfiles();
 				if (columnIndex == DB.Trigger.INDEX_TRIGGER_NAME) {
-					TriggerModel currentTrigger = PowerProfiles.getInstance(getActivity()).getCurrentTrigger();
-					int color = Color.LTGRAY;
-					if (currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)) {
+					if (isCurrentTrigger) {
 						color = getResources().getColor(R.color.cputuner_green);
 					}
 					((TextView) view).setTextColor(color);
@@ -157,8 +159,13 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 					if (cpuCursor.moveToFirst()) {
 						profileName = cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
 					}
-
-					((TextView) view).setText(profileName);
+					//					if (isCurrentTrigger && cursor.getLong(columnIndex) == powerProfiles.getCurrentProfile().getDbId()) {
+					//						powerProfiles.get
+					//						color = getResources().getColor(R.color.cputuner_green);
+					//					}
+					TextView tv = ((TextView) view);
+					tv.setText(profileName);
+					tv.setTextColor(color);
 					return true;
 				} else if (columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_POW
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK

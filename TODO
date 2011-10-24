@@ -1,9 +1,4 @@
-
-
-- new add to notication and migrate old settings
-
 - apply current profile
-- do not colorise lists if cputuner not enabled
 - use getInstance(ctx) where possible
 - add information about superuser toast messages in firstboot 
 - save initial cpu values (and set on disable)

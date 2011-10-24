@@ -71,7 +71,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 				if (columnIndex == VirtualGovernor.INDEX_VIRTUAL_GOVERNOR_NAME) {
 					long virtGovId = PowerProfiles.getInstance().getCurrentProfile().getVirtualGovernor();
 					int color = Color.LTGRAY;
-					if (virtGovId == cursor.getLong(DB.INDEX_ID)) {
+					if (virtGovId == cursor.getLong(DB.INDEX_ID) && SettingsStorage.getInstance().isEnableProfiles()) {
 						color = getResources().getColor(R.color.cputuner_green);
 					}
 
