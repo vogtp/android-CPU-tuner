@@ -98,13 +98,7 @@ public class PowerProfiles {
 	}
 
 	public void initActiveStates() {
-		//		lastServiceState.put(ServiceType.backgroundsync, ServicesHandler.isBackgroundSyncEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
-		//		lastServiceState.put(ServiceType.bluetooth, ServicesHandler.isBlutoothEnabled() ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
-		//		lastServiceState.put(ServiceType.gps, ServicesHandler.isGpsEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
-		//		lastServiceState.put(ServiceType.mobiledataConnection, ServicesHandler.isMobiledataConnectionEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
-		//		lastServiceState.put(ServiceType.mobiledata3g, ServicesHandler.whichMobiledata3G(context));
-		//		lastServiceState.put(ServiceType.wifi, ServicesHandler.isWifiEnabaled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
-		//		lastServiceState.put(ServiceType.airplainMode, ServicesHandler.isAirplaineModeEnabled(context) ? SERVICE_STATE_ON : SERVICE_STATE_OFF);
+		Logger.logStacktrace("Resetting manual service changes.");
 		for (ServiceType st : ServiceType.values()) {
 			lastServiceState.put(st, ServicesHandler.getServiceState(context, st));
 			manualServiceChanges.put(st, false);
@@ -251,9 +245,9 @@ public class PowerProfiles {
 				manualServiceChanges.put(type, true);
 				return NO_STATE;
 			}
-		}
+		} 
 		manualServiceChanges.put(type, false);
-		lastState = ret;
+		lastServiceState.put(type, ret);
 		return ret;
 	}
 
