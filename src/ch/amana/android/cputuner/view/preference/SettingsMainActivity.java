@@ -78,11 +78,11 @@ public class SettingsMainActivity extends BaseSettings {
 						AlertDialog alert = alertBuilder.create();
 						alert.show();
 						return false;
-					} else {
-						settings.setEnableProfiles(true);
 					}
+					settings.setEnableProfiles(true);
+					return true;
 				}
-				return true;
+				return false;
 			}
 		});
 

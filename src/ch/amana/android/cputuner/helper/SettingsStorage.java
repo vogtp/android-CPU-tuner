@@ -19,7 +19,6 @@ public class SettingsStorage {
 	private static final String PREF_KEY_USER_LEVEL_SET = "prefKeyUserLevelSet";
 	public static final String NO_VALUE = "noValue";
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
-	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
 
 	public static final int NO_BATTERY_HOT_TEMP = 5000;
@@ -54,6 +53,10 @@ public class SettingsStorage {
 
 	private static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
 
+	public static final int STATUSBAR_NEVER = 0;
+	public static final int STATUSBAR_RUNNING = 1;
+	public static final int STATUSBAR_ALWAYS = 2;
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;
@@ -87,6 +90,8 @@ public class SettingsStorage {
 	private boolean enableUserspaceGovernor;
 	private boolean checkedProfileSwitchLogSize = false;
 	private int profileSwitchLogSize;
+	private boolean checkedStatusbarAddTo = false;
+	private int statusbarAddTo;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -103,6 +108,7 @@ public class SettingsStorage {
 		checkedPulseDelayOff = false;
 		checkedEnableUserspaceGovernor = false;
 		checkedProfileSwitchLogSize = false;
+		checkedStatusbarAddTo = false;
 	}
 
 	public static SettingsStorage getInstance(Context ctx) {
@@ -159,8 +165,16 @@ public class SettingsStorage {
 		return enableProfiles;
 	}
 
-	public boolean isStatusbarAddto() {
-		return getPreferences().getBoolean(ENABLE_STATUSBAR_ADDTO, true);
+	public int isStatusbarAddto() {
+		if (!checkedStatusbarAddTo) {
+			checkedStatusbarAddTo = true;
+			try {
+				statusbarAddTo = Integer.parseInt(getPreferences().getString("prefKeyStatusbarAddToChoice", "1"));
+			} catch (Exception e) {
+				statusbarAddTo = 1;
+			}
+		}
+		return statusbarAddTo;
 	}
 
 	public boolean isStatusbarNotifications() {
@@ -541,5 +555,15 @@ public class SettingsStorage {
 
 	public long getTotaltransitionsBaseline() {
 		return getPreferences().getLong(PREF_KEY_TOTALTRANSITIONS_BASELINE, 0);
+	}
+
+	public void migrateSettings() {
+		if (getPreferences().contains("prefKeyStatusbarAddTo")) {
+			Editor edit = getPreferences().edit();
+			boolean add = getPreferences().getBoolean("prefKeyStatusbarAddTo", true);
+			edit.putString("prefKeyStatusbarAddToChoice", Integer.toString(add ? STATUSBAR_RUNNING : STATUSBAR_NEVER));
+			edit.remove("prefKeyStatusbarAddTo");
+			edit.commit();
+		}
 	}
 }

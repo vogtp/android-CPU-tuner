@@ -6,6 +6,8 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
+import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
@@ -37,13 +39,33 @@ public class GuiSettings extends BaseSettings {
 				return true;
 			}
 		});
-		findPreference(SettingsStorage.ENABLE_STATUSBAR_ADDTO).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+		findPreference("prefKeyStatusbarAddToChoice").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				if (newValue instanceof Boolean) {
-					settings.setEnableProfiles((Boolean) newValue);
+				int newValueInt = -1;
+				try {
+					newValueInt = Integer.parseInt((String) newValue);
+				} catch (Exception e) {
+					Logger.w("Cannot parse prefKeyStatusbarAddToChoice as int", e);
+					return false;
 				}
+				switch (newValueInt) {
+					case SettingsStorage.STATUSBAR_NEVER:
+						Notifier.stopStatusbarNotifications(getApplicationContext());
+						break;
+				case SettingsStorage.STATUSBAR_ALWAYS:
+						Notifier.startStatusbarNotifications(getApplicationContext());
+						break;
+					case SettingsStorage.STATUSBAR_RUNNING:
+						if (settings.isEnableProfiles()) {
+							Notifier.startStatusbarNotifications(getApplicationContext());
+						} else {
+							Notifier.stopStatusbarNotifications(getApplicationContext());
+						}
+						break;
+
+					}
 				return true;
 			}
 		});

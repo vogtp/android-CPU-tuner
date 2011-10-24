@@ -214,8 +214,6 @@
 	<string name="prefEnableBeta">Ενεργοποίηστε δοκιμαστικά χαρακτηριστικά</string>
 	<string name="prefCapabilitiesLong">Ο έλεγχος για το εάν οι συσκευή υποστηρίζει API απαιτείται αν υπάρχουν προβλήματα.</string>
 	<string name="prefCapabilities">Έλεγχος Δυνατοτήτων</string>
-	<string name="prefStatusbarAddToOff">Η γραμμή κατάστασης δεν παρουσιάζει καμία πληροφορία σχετικά με το cpu tuner.</string>
-	<string name="prefStatusbarAddToOn">Η γραμμή κατάστασης δείχνει μια καταχώρηση που εμφανίζει το τρέχον το προφίλ.</string>
 	<string name="prefStatusbarAddTo">Προσθήκη στην γραμμή κατάστασης</string>
 	<string name="prefStatusbarNotificationsOff">Να μην εμφανίζονται μηνύματα στη γραμμή κατάστασης για την αλλαγή στο προφίλ.</string>
 	<string name="prefKeyEnableProfilesOn">Παρουσίαση ενός μηνύματος στη γραμμή κατάστασης για την κάθε αλλαγή προφίλ.</string>

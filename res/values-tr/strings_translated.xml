@@ -274,10 +274,6 @@
 	<string name="prefCapabilitiesLong">Check if the devices supports API needed or if
 		there are any issues.</string>
 	<string name="prefCapabilities">Check Capabilities</string>
-	<string name="prefStatusbarAddToOff">The status bar does not show any information about
-		cpu tuner.</string>
-	<string name="prefStatusbarAddToOn">The status bar shows a entry displaying the current
-		profile.</string>
 	<string name="prefStatusbarAddTo">Add to status bar</string>
 	<string name="prefStatusbarNotificationsOff">Not showing messages in the status bar for profile
 		changes.</string>

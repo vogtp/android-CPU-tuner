@@ -216,8 +216,6 @@
 	<string name="prefCapabilitiesLong">Prüfe, ob das Geräte die erforderliche API unterstützt oder ob
  es Probleme gibt.</string>
 	<string name="prefCapabilities">Prüfen der Unterstützung</string>
-	<string name="prefStatusbarAddToOff">Die Statusleiste zeigt keine Informationen von CPU-Tuner.</string>
-	<string name="prefStatusbarAddToOn">Die Statusleiste zeigt ein Eintrag mit dem aktuellen Profil.</string>
 	<string name="prefStatusbarAddTo">Zur Statusleiste hinzufügen</string>
 	<string name="prefStatusbarNotificationsOff">Keine Anzeige in der Statusleiste für Profil-Änderungen.</string>
 	<string name="prefKeyEnableProfilesOn">Anzeigen einer Nachricht in der Statusleiste für jede Profil-Änderung.</string>

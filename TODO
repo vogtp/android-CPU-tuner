@@ -1,8 +1,8 @@
-- manual service switches!
+- stop pulse when stopping
+
+- new add to notication and migrate old settings
 
 - apply current profile
-- different icon color for notification and add to status bar setting for disabled cputuner
-- let the user reset manual service changes
 - do not colorise lists if cputuner not enabled
 - use getInstance(ctx) where possible
 - add information about superuser toast messages in firstboot 

@@ -135,4 +135,10 @@
 	<string name="msg_reset_manual_service_switches">Do you want to reset all manually changes service
 		and let cpu tuner handle all further switches?</string> 
 	<string name="msg_cpu_tuner_not_running">cpu tuner is not running</string>
+	<string-array name="prefAddToNotificationEntries">
+		<item>When running</item>
+		<item>Always</item>
+		<item>Never</item>
+	</string-array>
+		<string name="prefStatusbarAddToLong">Add to statusbar and notification area.</string>
 </resources>

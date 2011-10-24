@@ -80,8 +80,6 @@
 <string name="prefEnableBeta">Activer les fonctionnalités bêta</string>
 <string name="prefCapabilitiesLong">Vérifier si les dispositifs supporte l\'API nécessaire ou s\'il y a des problèmes.</string>
 <string name="prefCapabilities">Vérifiez les capacités</string>
-<string name="prefStatusbarAddToOff">La barre d\'état ne montre pas d\'informations sur Cpu tuner.</string>
-<string name="prefStatusbarAddToOn">La barre d\'état affiche le profil actuel.</string>
 <string name="prefStatusbarAddTo">Ajouter à la barre d\'état</string>
 <string name="prefStatusbarNotificationsOff">Ne pas afficher les messages dans la barre d\'état pour les modifications de profil.</string>
 <string name="prefKeyEnableProfilesOn">Afficher les messages dans la barre d\'état pour toutes les modifications de profil.</string>

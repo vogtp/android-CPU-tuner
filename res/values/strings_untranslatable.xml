@@ -43,4 +43,9 @@
         <item>2</item>
         <item>4</item>
     </string-array>
+	<string-array name="prefAddToNotificationValues">
+		<item>1</item>
+		<item>2</item>
+		<item>0</item>
+	</string-array>
 </resources>

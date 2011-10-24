@@ -1,62 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:key="prefKeyGuiScreen"
-	android:title="@string/prefCatGUI"
-	android:summary="@string/prefCatGUILong"
->
-	<PreferenceCategory
-		android:title="@string/prefCatDisplay"
-		android:key="prefkeyCatDisplay"
-	>
-		<ListPreference 
-			android:title="@string/prefLanguage" 
-			android:key="prefKeyLanguage"
-			android:entryValues="@array/prefLanguageValues"
-			android:entries="@array/prefLanguageEntries"
-			android:summary="@string/prefLanguageLong"
-		></ListPreference>
-		<Preference
-			android:title="@string/prefUserLevel"
-			android:key="prefKeyUserLevel"
-			android:summary="@string/prefUserLevelLong"
-		></Preference>
-		<!-- <ListPreference android:title="@string/prefUserLevel"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefKeyGuiScreen"
+    android:summary="@string/prefCatGUILong"
+    android:title="@string/prefCatGUI" >
+
+    <PreferenceCategory
+        android:key="prefkeyCatDisplay"
+        android:title="@string/prefCatDisplay" >
+
+        <ListPreference
+            android:entries="@array/prefLanguageEntries"
+            android:entryValues="@array/prefLanguageValues"
+            android:key="prefKeyLanguage"
+            android:summary="@string/prefLanguageLong"
+            android:title="@string/prefLanguage" >
+        </ListPreference>
+
+        <Preference
+            android:key="prefKeyUserLevel"
+            android:summary="@string/prefUserLevelLong"
+            android:title="@string/prefUserLevel" >
+        </Preference>
+        <!--
+             <ListPreference android:title="@string/prefUserLevel"
 			android:key="prefKeyUserLevel" android:summary="@string/prefUserLevelLong"
-			android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference> -->
-		<ListPreference
-			android:title="@string/prefKeyCalcPowerUsage"
-			android:summary="@string/prefKeyCalcPowerUsageLong"
-			android:defaultValue="1"
-			android:entries="@array/prefCalcPowerUsageEntries"
-			android:key="prefKeyCalcPowerUsageType"
-			android:entryValues="@array/prefCalcPowerUsageValues"
-		></ListPreference>
-		<EditTextPreference
-			android:summary="@string/prefProfileSwitchLogSizeLong"
-			android:title="@string/prefProfileSwitchLogSize"
-			android:defaultValue="10"
-			android:key="prefKeyProfileSwitchLogSize"
-		></EditTextPreference>
-	</PreferenceCategory>
-	<PreferenceCategory
-		android:title="@string/prefCatNotifications"
-		android:key="prefKeyCatNotifications"
-	>
-		<CheckBoxPreference
-			android:key="prefKeyStatusbarAddTo"
-			android:defaultValue="true"
-			android:title="@string/prefStatusbarAddTo"
-			android:summaryOff="@string/prefStatusbarAddToOff"
-			android:summaryOn="@string/prefStatusbarAddToOn"
-		></CheckBoxPreference>
-		<CheckBoxPreference
-			android:key="prefKeyStatusbarNotifications"
-			android:title="@string/prefStatusbarNotifications"
-			android:dependency="prefKeyStatusbarAddTo"
-			android:summaryOff="@string/prefStatusbarNotificationsOff"
-			android:summaryOn="@string/prefKeyEnableProfilesOn"
-			android:defaultValue="false"
-		></CheckBoxPreference>
-	</PreferenceCategory>
+			android:entryValues="@array/prefUserLevelValues" android:entries="@array/prefUserLevelEntries"></ListPreference>
+        -->
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/prefCalcPowerUsageEntries"
+            android:entryValues="@array/prefCalcPowerUsageValues"
+            android:key="prefKeyCalcPowerUsageType"
+            android:summary="@string/prefKeyCalcPowerUsageLong"
+            android:title="@string/prefKeyCalcPowerUsage" >
+        </ListPreference>
+
+        <EditTextPreference
+            android:defaultValue="10"
+            android:key="prefKeyProfileSwitchLogSize"
+            android:summary="@string/prefProfileSwitchLogSizeLong"
+            android:title="@string/prefProfileSwitchLogSize" >
+        </EditTextPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="prefKeyCatNotifications"
+        android:title="@string/prefCatNotifications" >
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/prefAddToNotificationEntries"
+            android:entryValues="@array/prefAddToNotificationValues"
+            android:key="prefKeyStatusbarAddToChoice"
+            android:summary="@string/prefStatusbarAddToLong"
+            android:title="@string/prefStatusbarAddTo" >
+        </ListPreference>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefKeyStatusbarNotifications"
+            android:summaryOff="@string/prefStatusbarNotificationsOff"
+            android:summaryOn="@string/prefKeyEnableProfilesOn"
+            android:title="@string/prefStatusbarNotifications" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+
 </PreferenceScreen>

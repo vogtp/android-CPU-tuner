@@ -27,8 +27,7 @@ public class SystemProfilesSettings extends BaseSettings {
 						CallPhoneStateListener.unregister(getApplicationContext());
 					}
 				}
-				// we just start and stop let the system handle the settings...
-				return false;
+				return true;
 			}
 		});
 	}

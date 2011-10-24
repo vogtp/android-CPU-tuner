@@ -39,6 +39,10 @@ public class CpuTunerApplication extends Application {
 			}
 			if (settings.isEnableProfiles()) {
 				startCpuTuner(ctx);
+			} else {
+				if (SettingsStorage.getInstance(ctx).isStatusbarAddto() == SettingsStorage.STATUSBAR_ALWAYS) {
+					Notifier.startStatusbarNotifications(ctx);
+				}
 			}
 		} catch (Throwable e) {
 			Logger.e("Cannot update DB", e);
@@ -52,7 +56,7 @@ public class CpuTunerApplication extends Application {
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
-		if (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
+		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
 			Notifier.startStatusbarNotifications(ctx);
 		}
 	}
@@ -64,7 +68,17 @@ public class CpuTunerApplication extends Application {
 		CallPhoneStateListener.unregister(ctx);
 		BatteryReceiver.unregisterBatteryReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
-		Notifier.stopStatusbarNotifications(ctx);
+		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
+		case SettingsStorage.STATUSBAR_RUNNING:
+			Notifier.stopStatusbarNotifications(ctx);
+			break;
+		case SettingsStorage.STATUSBAR_ALWAYS:
+			Notifier.startStatusbarNotifications(ctx);
+			break;
+
+		default:
+			break;
+		}
 		context.stopService(new Intent(ctx, TunerService.class));
 	}
 }

@@ -198,10 +198,6 @@
 	<string name="prefCapabilitiesLong">Controlla se il dispositivo supporta le API necessarie
 		o se c\'è qualche problema.</string>
 	<string name="prefCapabilities">Verifica funzionalità</string>
-	<string name="prefStatusbarAddToOff">Non ci sono informazioni su cpu tuner
-		nella status bar.</string>
-	<string name="prefStatusbarAddToOn">Il profilo corrente è mostrato
-		nella status bar.</string>
 	<string name="prefStatusbarAddTo">Aggiungi alla status bar</string>
 	<string name="prefStatusbarNotificationsOff">Non mostrare messaggi per cambiamenti del profilo
 		nella status bar.</string>

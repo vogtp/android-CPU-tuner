@@ -64,6 +64,7 @@ public class InstallHelper {
 			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());
 
 		}
+		SettingsStorage.getInstance(ctx).migrateSettings();
 		// is called from main activity: ensureConfiguration(ctx);
 		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
 	}
