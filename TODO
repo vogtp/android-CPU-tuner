@@ -8,7 +8,6 @@
 - rework graph to use screen size
 
 - honour profile switch log size (move logging to  DB?)
-- change font color if trigger name if not enabled
 
 - start autoload on boot
 - backup/restore autoload

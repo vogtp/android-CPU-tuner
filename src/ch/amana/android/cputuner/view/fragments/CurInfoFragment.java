@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -360,6 +361,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	public void onResume() {
 		super.onResume();
 		governorFragment.updateVirtGov(true);
+		spProfiles.requestFocus();
 		//		updateView();
 	}
 
@@ -437,8 +439,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		if (settings.isEnableProfiles()) {
 			updateProfileSpinner();
 			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
+			tvCurrentTrigger.setTextColor(Color.LTGRAY);
 		} else {
 			tvCurrentTrigger.setText(R.string.notEnabled);
+			tvCurrentTrigger.setTextColor(Color.RED);
 		}
 		if (powerProfiles.hasManualServicesChanges()) {
 			tvManualServiceChanges.setVisibility(View.VISIBLE);
