@@ -157,37 +157,55 @@ public class PulseHelper {
 	}
 
 	public void pulseBackgroundSyncState(boolean b) {
+		if (!b && pulseBackgroundSyncState && pulseOn) {
+			ServicesHandler.enableBackgroundSync(ctx, b);
+		}
 		pulseBackgroundSyncState = b;
 		doPulsing(b);
 	}
 
 	public void pulseBluetoothState(boolean b) {
+		if (!b && pulseBluetoothState && pulseOn) {
+			ServicesHandler.enableBluetooth(b);
+		}
 		pulseBluetoothState = b;
 		doPulsing(b);
 	}
 
 	public void pulseGpsState(boolean b) {
+		if (!b && pulseGpsState && pulseOn) {
+			ServicesHandler.enableGps(ctx, b);
+		}
 		pulseGpsState = b;
 		doPulsing(b);
 	}
 
 	public void pulseWifiState(boolean b) {
+		if (!b && pulseWifiState && pulseOn) {
+			ServicesHandler.enableWifi(ctx, b);
+		}
 		pulseWifiState = b;
 		doPulsing(b);
 	}
 
 	public void pulseMobiledataConnectionState(boolean b) {
+		if (!b && pulseMobiledataConnectionState && pulseOn) {
+			ServicesHandler.enableMobileData(ctx, b);
+		}
 		pulseMobiledataConnectionState = b;
+		doPulsing(b);
+	}
+
+	public void pulseAirplanemodeState(boolean b) {
+		if (!b && pulseAirplanemodeState && pulseOn) {
+			ServicesHandler.enableAirplaneMode(ctx, false);
+		}
+		pulseAirplanemodeState = b;
 		doPulsing(b);
 	}
 
 	public boolean isOn() {
 		return pulseOn;
-	}
-
-	public void pulseAirplanemodeState(boolean b) {
-		pulseAirplanemodeState = b;
-		doPulsing(b);
 	}
 
 	public static void startPulseService(Context ctx) {
