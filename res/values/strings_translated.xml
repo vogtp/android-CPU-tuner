@@ -292,7 +292,7 @@
 	<string name="prefToastNotifications">Toast notifications</string>
 	<string name="prefStatusbarNotifications">Statusbar notifications</string>
 	<string name="prefCatNotifications">Notifications</string>
-	<string name="prefCatSystem">System</string>
+	<string name="prefCatSystem">Backend</string>
 	<string name="prefEnableProfiles">Enable profiles</string>
 	<string name="prefSetCpuSetting">CPU Settings</string>
 	<string name="profileBatteryGood">Good Battery</string>
