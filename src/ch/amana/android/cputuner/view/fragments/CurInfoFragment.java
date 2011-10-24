@@ -55,30 +55,24 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TextView tvBatteryLevel;
 	private TextView tvAcPower;
 	private TextView tvCurrentTrigger;
-	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private TextView tvBatteryCurrent;
 	private PowerProfiles powerProfiles;
 	private Spinner spProfiles;
-	private TextView labelBatteryCurrent;
 	private GovernorBaseFragment governorFragment;
 	private GovernorHelperCurInfo governorHelper;
 	private TextView tvPulse;
 	private TableRow trPulse;
-	private TextView spacerPulse;
 	private TableRow trMaxFreq;
 	private TableRow trMinFreq;
 	private TableRow trBatteryCurrent;
 	private TableRow trConfig;
-	private TextView labelConfig;
 	private TextView tvConfig;
 	private CpuFrequencyChooser cpuFrequencyChooser;
 	private TableRow trBattery;
 	private TableRow trPower;
 	private ProfileAdaper profileAdapter;
 	private boolean isInUpdateView = true;
-	private TableRow trManualService;
-	private TableRow tvManualService;
 	private TextView tvManualServiceChanges;
 
 	private class GovernorHelperCurInfo implements IGovernorModel {
@@ -229,23 +223,18 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		tvBatteryLevel = (TextView) v.findViewById(R.id.tvBatteryLevel);
 		spCpuFreqMax = (Spinner) v.findViewById(R.id.spCpuFreqMax);
 		spCpuFreqMin = (Spinner) v.findViewById(R.id.spCpuFreqMin);
-		labelCpuFreqMin = (TextView) v.findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) v.findViewById(R.id.labelCpuFreqMax);
 		sbCpuFreqMax = (SeekBar) v.findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) v.findViewById(R.id.SeekBarCpuFreqMin);
-		labelBatteryCurrent = (TextView) v.findViewById(R.id.labelBatteryCurrent);
 		trPulse = (TableRow) v.findViewById(R.id.TableRowPulse);
 		tvPulse = (TextView) v.findViewById(R.id.tvPulse);
-		spacerPulse = (TextView) v.findViewById(R.id.spacerPulse);
 		trMaxFreq = (TableRow) v.findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) v.findViewById(R.id.TableRowMinFreq);
 		trBatteryCurrent = (TableRow) v.findViewById(R.id.TableRowBatteryCurrent);
 		trConfig = (TableRow) v.findViewById(R.id.TableRowConfig);
-		labelConfig = (TextView) v.findViewById(R.id.labelConfig);
 		tvConfig = (TextView) v.findViewById(R.id.tvConfig);
 		trBattery = (TableRow) v.findViewById(R.id.TableRowBattery);
 		trPower = (TableRow) v.findViewById(R.id.TableRowPower);
-		trManualService = (TableRow) v.findViewById(R.id.TableRowManualServiceChanges);
 		tvManualServiceChanges = (TextView) v.findViewById(R.id.tvManualServiceChanges);
 		return v;
 	}
@@ -256,15 +245,15 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		final SettingsStorage settings = SettingsStorage.getInstance();
 		final Activity act = getActivity();
 		cpuHandler = CpuHandler.getInstance();
-		powerProfiles = PowerProfiles.getInstance();
+		powerProfiles = PowerProfiles.getInstance(getActivity());
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
 		governorHelper = new GovernorHelperCurInfo();
-		if (settings.isUseVirtualGovernors()) {
-			governorFragment = new VirtualGovernorFragment(this, governorHelper);
-		} else {
+		if (!settings.isUseVirtualGovernors() || !settings.isEnableProfiles()) {
 			governorFragment = new GovernorFragment(this, governorHelper, true);
+		} else {
+			governorFragment = new VirtualGovernorFragment(this, governorHelper);
 		}
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -272,12 +261,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		fragmentTransaction.commit();
 
 		Cursor cursor = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
-
-		// SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-		// android.R.layout.simple_spinner_item, cursor, new String[] {
-		// DB.CpuProfile.NAME_PROFILE_NAME },
-		// new int[] { android.R.id.text1 });
-		// adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		profileAdapter = new ProfileAdaper(act, cursor);
 		spProfiles.setAdapter(profileAdapter);
@@ -294,7 +277,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 				}
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
 				i.putExtra(TunerService.EXTRA_IS_MANUAL_PROFILE, pos > 0);
-				i.putExtra(TunerService.EXTRA_PROFILE_ID,id);
+				i.putExtra(TunerService.EXTRA_PROFILE_ID, id);
 				act.startService(i);
 			}
 
@@ -303,7 +286,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 			}
 		});
-		updateProfileSpinner();
+		//		updateProfileSpinner();
 		OnClickListener startBattery = new OnClickListener() {
 
 			@Override
@@ -377,7 +360,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	public void onResume() {
 		super.onResume();
 		governorFragment.updateVirtGov(true);
-		updateView();
+		//		updateView();
 	}
 
 	@Override
@@ -458,11 +441,11 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			tvCurrentTrigger.setText(R.string.notEnabled);
 		}
 		if (powerProfiles.hasManualServicesChanges()) {
-			trManualService.setVisibility(View.VISIBLE);
-		}else {
-			trManualService.setVisibility(View.GONE);
+			tvManualServiceChanges.setVisibility(View.VISIBLE);
+		} else {
+			tvManualServiceChanges.setVisibility(View.GONE);
 		}
-		
+
 		cpuFrequencyChooser.setMinCpuFreq(cpuHandler.getMinCpuFreq());
 		cpuFrequencyChooser.setMaxCpuFreq(cpuHandler.getMaxCpuFreq());
 
