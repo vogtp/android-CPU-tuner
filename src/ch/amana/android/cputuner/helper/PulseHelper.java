@@ -11,6 +11,8 @@ import ch.amana.android.cputuner.service.TunerService;
 
 public class PulseHelper {
 
+	private static final int[] lock = new int[0];
+
 	private boolean pulsing = false;
 
 	private boolean pulseOn = false;
@@ -31,6 +33,9 @@ public class PulseHelper {
 
 	private static PulseHelper instance;
 
+	private static final Handler handler = new Handler();
+
+	private static Runnable startPulseRunnable;
 
 	public static PulseHelper getInstance(Context ctx) {
 		if (instance == null) {
@@ -39,10 +44,6 @@ public class PulseHelper {
 		return instance;
 	}
 
-	static int p = 0;
-
-	private static Handler handler;
-
 	public void doPulse(boolean isOn) {
 		if (!SettingsStorage.getInstance().isEnableProfiles()) {
 			Logger.i("Not pulsing since profiles are not eabled.");
@@ -50,7 +51,7 @@ public class PulseHelper {
 		}
 		if (pulsing) {
 			this.pulseOn = isOn;
-			if ( pulseBackgroundSyncState ) {
+			if (pulseBackgroundSyncState) {
 				ServicesHandler.enableBackgroundSync(ctx, isOn);
 			}
 			if (pulseBluetoothState) {
@@ -68,10 +69,10 @@ public class PulseHelper {
 			if (pulseMobiledataConnectionState) {
 				if (SettingsStorage.getInstance().isPulseMobiledataOnWifi()) {
 					ServicesHandler.enableMobileData(ctx, isOn);
-				}else {
+				} else {
 					if (isOn && ServicesHandler.isWifiConnected(ctx)) {
 						Logger.i("Not pulsing mobiledata since wifi is connected");
-					}else {
+					} else {
 						ServicesHandler.enableMobileData(ctx, isOn);
 					}
 				}
@@ -100,7 +101,6 @@ public class PulseHelper {
 	protected PulseHelper(Context context) {
 		super();
 		this.ctx = context;
-		this.handler = new Handler();
 	}
 
 	public boolean isPulsing() {
@@ -213,22 +213,33 @@ public class PulseHelper {
 	}
 
 	public static void startPulseService(final Context ctx) {
-		Logger.i("Start pulsing");
 		long delayMillis = SettingsStorage.getInstance(ctx).getPulseInitalDelay() * 1000;
-		handler.postDelayed(new Runnable() {
+		Logger.i("Start pulse service in " + delayMillis + " ms");
+		startPulseRunnable = new Runnable() {
 
 			@Override
 			public void run() {
-				Intent i = new Intent(TunerService.ACTION_PULSE);
-				i.putExtra(TunerService.EXTRA_ON_OFF, true);
-				ctx.startService(i);
+				synchronized (lock) {
+					Logger.i("Start pulse service now");
+					Intent i = new Intent(TunerService.ACTION_PULSE);
+					i.putExtra(TunerService.EXTRA_ON_OFF, true);
+					ctx.startService(i);
+					startPulseRunnable = null;
+				}
 			}
-		}, delayMillis);
+		};
+		handler.postDelayed(startPulseRunnable, delayMillis);
 
 	}
 
 	public static void stopPulseService(Context ctx) {
-		Logger.i("Stop pulsing");
+		Logger.i("Stop pulse service");
+		synchronized (lock) {
+			if (startPulseRunnable != null) {
+				Logger.i("Cancel start pulse service runnable");
+				handler.removeCallbacks(startPulseRunnable);
+			}
+		}
 		Intent intent = new Intent(TunerService.ACTION_PULSE);
 		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
