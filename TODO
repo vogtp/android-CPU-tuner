@@ -1,23 +1,15 @@
-
 - apply current profile
 - save initial cpu values (and set on disable)
 
-- refresh billing status (menu/action) and set settings for display of bought stuff
-
 - rework graph to use screen size
 
-
-- start autoload on boot
 - backup/restore autoload
 
 - help for autoload
 - help for settings 
 - rework help
 
-- updated timestamp for sys configs as well
-
 - make on power, screen locked sequence configurable
-- ensure display of current entity in list
 
 - check for different android versions
 
@@ -25,6 +17,10 @@
 - notify translators
 
 - rc3 (test update with old package)
+
+
+- refresh billing status (menu/action) and set settings for display of bought stuff
+- ensure display of current entity in list
 
 - fix hasManualServicesChanges to refelct current trigger and get better answers
 - move powerprofile read to service

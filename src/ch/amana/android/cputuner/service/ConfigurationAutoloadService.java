@@ -81,6 +81,7 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 		} else {
 			PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 			am.cancel(operation);
+			context.stopService(new Intent(context, ConfigurationAutoloadService.class));
 		}
 	}
 
