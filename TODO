@@ -1,6 +1,5 @@
+
 - apply current profile
-- use getInstance(ctx) where possible
-- add information about superuser toast messages in firstboot 
 - save initial cpu values (and set on disable)
 
 - refresh billing status (menu/action) and set settings for display of bought stuff
