@@ -50,6 +50,7 @@ public class InstallHelper {
 	private static CpuGovernorSettings cgsExtremSave;
 
 	public static void initialise(final Context ctx) {
+		SettingsStorage settings = SettingsStorage.getInstance(ctx);
 		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
 		switch (defaultProfilesVersion) {
 		case 0:
@@ -58,15 +59,13 @@ public class InstallHelper {
 		case 3:
 		case 4:
 			Logger.i("Initalising cpu tuner to level 5");
-			SettingsStorage settings = SettingsStorage.getInstance(ctx);
 			CpuHandler cpuHandler = CpuHandler.getInstance();
 			settings.setMinFrequencyDefault(cpuHandler.getMinCpuFreq());
 			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());
 
 		}
-		SettingsStorage.getInstance(ctx).migrateSettings();
-		// is called from main activity: ensureConfiguration(ctx);
-		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
+		settings.migrateSettings();
+		settings.setDefaultProfilesVersion(VERSION);
 	}
 
 	public static void ensureSetup(final Context ctx) {
