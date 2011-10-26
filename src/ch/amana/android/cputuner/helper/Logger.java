@@ -24,6 +24,9 @@ public class Logger {
 
 	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 	public static void addToLog(String msg) {
+		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
+			return;
+		}
 		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
 		if (log == null) {
 			log = new ArrayList<String>(logSize);
@@ -33,8 +36,8 @@ public class Logger {
 		StringBuilder sb = new StringBuilder();
 		sb.append(logDateFormat.format(now)).append(": ").append(msg);
 		log.add(0, sb.toString());
-		if (log.size() > logSize) {
-			log.remove(logSize);
+		for (int i = logSize - 1; i < log.size(); i++) {
+			log.remove(i);
 		}
 	}
 

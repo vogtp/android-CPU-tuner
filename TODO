@@ -6,7 +6,6 @@
 
 - rework graph to use screen size
 
-- honour profile switch log size (move logging to  DB?)
 
 - start autoload on boot
 - backup/restore autoload
@@ -29,6 +28,7 @@
 
 - fix hasManualServicesChanges to refelct current trigger and get better answers
 - move powerprofile read to service
+- move profile switch logging to  DB
 
 - create chooser for homescreen link of configurations (buy?)
 - nummeric keyboard for pulse lengthes 
