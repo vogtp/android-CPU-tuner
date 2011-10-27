@@ -51,8 +51,15 @@ public class TunerService extends IntentService {
 			Logger.w("TunerService got null intent");
 			return;
 		}
+
+		long startTs = -1;
+		String serviceAction = "noIntentFound";
 		try {
-			String serviceAction = intent.getAction();
+			serviceAction = intent.getAction();
+			if (Logger.DEBUG) {
+				Logger.d("TunerService got action " + serviceAction);
+				startTs = System.currentTimeMillis();
+			}
 			if (ACTION_TUNERSERVICE_BATTERY.equals(serviceAction)) {
 				handleBattery(intent);
 			} else if (ACTION_TUNERSERVICE_PHONESTATE.equals(serviceAction)) {
@@ -63,6 +70,10 @@ public class TunerService extends IntentService {
 				handleManualProfile(intent);
 			}
 		} finally {
+			if (Logger.DEBUG) {
+				long delta = System.currentTimeMillis() - startTs;
+				Logger.i("TunerService completed handling of action " + serviceAction + " in " + delta + " ms.");
+			}
 			releaseWakelock();
 		}
 	}
@@ -128,11 +139,6 @@ public class TunerService extends IntentService {
 			Logger.w("BatteryJob got null intent returning");
 			return;
 		}
-		long startTs = -1;
-		if (Logger.DEBUG) {
-			Logger.d("BatteryJob got intent: " + action);
-			startTs = System.currentTimeMillis();
-		}
 		try {
 			acquireWakelock();
 			PowerProfiles powerProfiles = PowerProfiles.getInstance();
@@ -174,10 +180,6 @@ public class TunerService extends IntentService {
 				}
 			}
 		} finally {
-			if (Logger.DEBUG) {
-				long delta = System.currentTimeMillis() - startTs;
-				Logger.i("Millies to switch profile: " + delta);
-			}
 			releaseWakelock();
 		}
 	}
