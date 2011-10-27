@@ -17,6 +17,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
@@ -90,8 +91,13 @@ public class ModelAccess implements BackupRestoreCallback {
 	}
 
 	public void configChanged() {
-		if (settings.isSaveConfiguration() && InstallHelper.hasConfig(ctx)) {
-			backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
+		if (InstallHelper.hasConfig(ctx)) {
+			if (settings.isEnableProfiles()) {
+				PowerProfiles.getInstance().reapplyProfile(false);
+			}
+			if (settings.isSaveConfiguration() && InstallHelper.hasConfig(ctx)) {
+				backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
+			}
 		}
 	}
 
@@ -164,8 +170,8 @@ public class ModelAccess implements BackupRestoreCallback {
 				VirtualGovernorModel vg = getVirtualGovernor(virtualGovernor);
 				vg.applyToProfile(profile);
 			}
-			update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			profileCache.put(id, profile);
+			update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			configChanged();
 		}
 	}
@@ -214,8 +220,8 @@ public class ModelAccess implements BackupRestoreCallback {
 	public void updateVirtualGovernor(VirtualGovernorModel virtualGovModel) {
 		synchronized (virtgovCacheMutex) {
 			long id = virtualGovModel.getDbId();
-			update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			virtgovCache.put(id, virtualGovModel);
+			update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			updateAllProfilesFromVirtualGovernor(virtualGovModel);
 			configChanged();
 		}
@@ -392,7 +398,7 @@ public class ModelAccess implements BackupRestoreCallback {
 				virtualGovernor.applyToProfile(profile);
 				updateProfile(profile);
 			}
-		}finally {
+		} finally {
 			if (c != null) {
 				c.close();
 				c = null;
