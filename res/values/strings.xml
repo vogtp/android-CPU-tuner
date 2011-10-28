@@ -127,13 +127,13 @@
 	<string name="msg_reset_statistics">Reset the statistics and use the current state as
 		baseline for the future</string>
 	<string name="msgManualServiceChanges">
-		Some services have been manualy changed and will not be managed be cpu tuner until the next trigger.
+		Some services have been manualy changed and will not be managed by cpu tuner until the next trigger.
 		<br></br>
 		Click text to reset.
 	</string>
-	<string name="title_reset_manual_service_switches">Reset?</string>
-	<string name="msg_reset_manual_service_switches">Do you want to reset all manually changes service
-		and let cpu tuner handle all further switches?</string> 
+	<string name="title_reset_manual_service_switches">Reset services?</string>
+	<string name="msg_reset_manual_service_switches">Do you want to reset all manually changed services
+		and let cpu tuner handle further switches again?</string> 
 	<string name="msg_cpu_tuner_not_running">cpu tuner is not running</string>
 	<string-array name="prefAddToNotificationEntries">
 		<item>When running</item>
