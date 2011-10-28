@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -131,26 +130,28 @@ public class HelpActivity extends Activity {
 		super.onResume();
 	}
 	
-	private String getIndexFilePath() {
+	private String getFilePath(String page) {
 		String language = SettingsStorage.getInstance().getLanguage();
 		if ("".equals(language)) {
 			language = Locale.getDefault().getLanguage().toLowerCase();
 		}
-		Logger.i("Found language code " + language);
 		String langHelpDir = "help-" + language;
 		try {
-			AssetManager assets = getAssets();
-			if (assets.list(langHelpDir).length > 0) {
-				return "file:///android_asset/" + langHelpDir + "/";
+			String[] list = getAssets().list(langHelpDir);
+			for (int i = 0; i < list.length; i++) {
+				if (list[i].equals(page)) {
+					return "file:///android_asset/" + langHelpDir + "/" + page;
+				}
 			}
+
 		} catch (IOException e) {
 			Logger.e("Cannot open language asset for language " + language);
 		}
-		return "file:///android_asset/help/";
+		return "file:///android_asset/help/" + page;
 	}
 
 	private void go(String file) {
-		wvHelp.loadUrl(getIndexFilePath() + file);
+		wvHelp.loadUrl(getFilePath(file));
 	}
 
 	@Override
