@@ -22,7 +22,7 @@ public class SettingsConfigurationsActivity extends BaseSettings {
 
 	@Override
 	protected String getHelpPage() {
-		return HelpActivity.PAGE_CONFIGURATION;
+		return HelpActivity.PAGE_SETTINGS_CONFIGURATION;
 	}
 
 }

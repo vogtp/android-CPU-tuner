@@ -188,7 +188,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			add();
 			return true;
 		}
-		return GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_CONFIGURATION);
+		return GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_SETTINGS_CONFIGURATION);
 	}
 
 	@Override

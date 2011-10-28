@@ -210,7 +210,7 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 			return true;
 
 		default:
-			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_CONFIGURATION)) {
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_SETTINGS_CONFIGURATION)) {
 				return true;
 			}
 		}

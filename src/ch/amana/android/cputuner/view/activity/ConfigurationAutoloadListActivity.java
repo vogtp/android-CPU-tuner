@@ -174,7 +174,7 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 		if (handleCommonMenu(item)) {
 			return true;
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_CONFIGURATION)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_SETTINGS_CONFIGURATION)) {
 			return true;
 		}
 		return false;

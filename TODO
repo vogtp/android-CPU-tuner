@@ -1,10 +1,4 @@
-- rework graph to use screen size
-
-- backup/restore autoload
-
-- help for autoload
-- help for settings 
-- rework help
+- rework help for configurations and autoload
 
 - make on power, screen locked sequence configurable
 
@@ -15,11 +9,15 @@
 
 - rc3 (test update with old package)
 
+- graph for trigger and or profile
+- rework graph to use screen size
+
+****************** POST 3.0.0:
 
 - refresh billing status (menu/action) and set settings for display of bought stuff
 - ensure display of current entity in list
 
-- fix hasManualServicesChanges to refelct current trigger and get better answers
+- fix hasManualServicesChanges to reflect current trigger and get better answers
 - move powerprofile read to service
 - move profile switch logging to  DB
 

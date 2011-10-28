@@ -10,10 +10,6 @@
 	<br/><br/>
 	<span class="text">
 		<ul>
-			<li><span class="bold">Enable profiles</span><br/>
-			Check this to let cpu tuner automatically manage you profiles.<br/>
-			Unchecking it mean to disable cpu tuner.
-			</li>
 			<li><span class="bold">Call in Progress Profiles</span><br/>
 			Adds a profile which is applied while the phone is ringing or during a phone call. 
 			</li>
@@ -22,6 +18,14 @@
 			</li>
 			<li><span class="bold">Reset Profiles and Triggers</span><br/>
 			Resets all profiles, triggers and virtual governors to their default values.
+			</li>
+			<li><span class="bold">Switch profile during call</span><br/>
+			If checked cpu tuner will switch profiles even during a phone call.<br/>
+			Mobiledata type and connecting will never be switch during a call, since this would end your call.
+			</li>
+			<li><span class="bold">Battery hot temperature</span><br/>
+			Set a custom temperature (in °C) when the batter hot profile gets triggered. <br/>
+			If not set battery hot gets triggered by a system event.
 			</li>
 		</ul>
 	</span>
