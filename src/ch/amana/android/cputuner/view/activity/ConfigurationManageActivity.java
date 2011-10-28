@@ -160,7 +160,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	private void loadConfig(String file, String name, boolean isUserConfig) {
 		try {
-			backupRestoreHelper.restoreConfiguration(file, isUserConfig, true);
+			backupRestoreHelper.restoreConfiguration(file, isUserConfig, false);
 			settings.setCurrentConfiguration(name);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
