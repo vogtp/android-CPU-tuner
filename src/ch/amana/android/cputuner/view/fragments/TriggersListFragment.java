@@ -47,7 +47,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 	protected static final String NO_PROFILE = "no profile";
 	private Cursor displayCursor;
-	private Cursor checkCursor;
+	//	private Cursor checkCursor;
 	private SimpleCursorAdapter adapter;
 
 	/** Called when the activity is first created. */
@@ -63,14 +63,13 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 		final Activity act = getActivity();
 		displayCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 
-		checkCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_MINIMAL_HOT_PROFILE, DB.Trigger.NAME_HOT_PROFILE_ID + " > -1", null,
-				DB.Trigger.SORTORDER_MINIMAL_HOT_PROFILE);
+		//		checkCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_MINIMAL_HOT_PROFILE, DB.Trigger.NAME_HOT_PROFILE_ID + " > -1", null,
+		//				DB.Trigger.SORTORDER_MINIMAL_HOT_PROFILE);
 
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
 	}
-
 
 	@Override
 	public void onDestroy() {
@@ -86,51 +85,12 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	@Override
 	public void onResume() {
 		super.onResume();
-		checkCursor.requery();
-		final Activity act = getActivity();
-		boolean hotState = checkCursor.getCount() > 0;
-		boolean callState = SettingsStorage.getInstance().isEnableCallInProgressProfile();
-		if (hotState && callState) {
-			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_hot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
-					DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
-					DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_HOT,
-					DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery,
-					R.id.tvProfileOnPower, R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot,
-					R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
-
-		} else if (callState) {
-			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_nohot_call, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
-					DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
-					DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID,
-					DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery, R.id.tvProfileOnPower,
-					R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
-
-		} else if (hotState) {
-			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_hot_nocall, displayCursor,
-					new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
-							DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
-							DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID,
-							DB.Trigger.NAME_POWER_CURRENT_CNT_HOT },
-					new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery, R.id.tvProfileOnPower, R.id.tvProfileScreenLocked,
-							R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot, R.id.tvPowerCurrentHot });
-
-		} else {
-			adapter = new SimpleCursorAdapter(act, R.layout.trigger_item_nohot_nocall,
-					displayCursor,
-					new String[] { DB.Trigger.NAME_TRIGGER_NAME,
-							DB.Trigger.NAME_BATTERY_LEVEL, DB.Trigger.NAME_BATTERY_PROFILE_ID,
-							DB.Trigger.NAME_POWER_PROFILE_ID,
-							DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID,
-							DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
-							DB.Trigger.NAME_POWER_CURRENT_CNT_BAT,
-							DB.Trigger.NAME_POWER_CURRENT_CNT_LCK },
-					new int[] { R.id.tvName, R.id.tvBatteryLevel,
-							R.id.tvProfileOnBattery, R.id.tvProfileOnPower,
-							R.id.tvProfileScreenLocked,
-							R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery,
-							R.id.tvPowerCurrentLocked });
-
-		}
+		adapter = new SimpleCursorAdapter(getActivity(), R.layout.trigger_item, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
+				DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
+				DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_HOT,
+				DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery,
+				R.id.tvProfileOnPower, R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot,
+				R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -158,11 +118,22 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 								DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
 					if (cpuCursor.moveToFirst()) {
 						profileName = cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
+						((View) view.getParent()).setVisibility(View.VISIBLE);
+					} else {
+						((View) view.getParent()).setVisibility(View.GONE);
 					}
-					//					if (isCurrentTrigger && cursor.getLong(columnIndex) == powerProfiles.getCurrentProfile().getDbId()) {
-					//						powerProfiles.get
-					//						color = getResources().getColor(R.color.cputuner_green);
-					//					}
+					if (columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID && !SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
+						((View) view.getParent()).setVisibility(View.GONE);
+					}
+					//										if (isCurrentTrigger && cursor.getLong(columnIndex) == powerProfiles.getCurrentProfile().getDbId()) {
+					//											if ((columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID && powerProfiles.isOnBatteryProfile())
+					//													|| (columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID && powerProfiles.isAcPower())
+					//													|| (columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID && powerProfiles.isScreenOff())
+					//													|| (columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID && powerProfiles.isBatteryHot())
+					//													|| (columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID && powerProfiles.isCallInProgress())) {
+					//												color = getResources().getColor(R.color.cputuner_green);
+					//											}
+					//										}
 					TextView tv = ((TextView) view);
 					tv.setText(profileName);
 					tv.setTextColor(color);
@@ -370,6 +341,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 				Intent intent = new Intent(Intent.ACTION_INSERT, DB.Trigger.CONTENT_URI);
 				view.getContext().startActivity(intent);
 			}
+
 			@Override
 			public int getDrawable() {
 				return android.R.drawable.ic_menu_add;

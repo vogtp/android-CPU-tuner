@@ -214,7 +214,7 @@
 		android:largeScreens="true"
 		android:normalScreens="true"
 		android:smallScreens="true"
-		android:anyDensity="true" />
+		android:anyDensity="true" android:resizeable="true"/>
 	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
 	<uses-permission

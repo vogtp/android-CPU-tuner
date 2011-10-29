@@ -27,6 +27,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
@@ -169,7 +170,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		if (cbHot.isChecked()) {
 			triggerModel.setHotProfileId(spHot.getSelectedItemId());
 		} else {
-			triggerModel.setHotProfileId(-1);
+			triggerModel.setHotProfileId(PowerProfiles.NO_PROFILE);
 		}
 	}
 

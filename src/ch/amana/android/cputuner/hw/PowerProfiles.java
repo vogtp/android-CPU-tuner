@@ -531,6 +531,10 @@ public class PowerProfiles {
 		return batteryTemperature;
 	}
 
+	public boolean isCallInProgress() {
+		return callInProgress;
+	}
+
 	public void setCallInProgress(boolean b) {
 		if (!settings.isEnableCallInProgressProfile()) {
 			b = false;
@@ -580,6 +584,10 @@ public class PowerProfiles {
 		//		}
 		//		return false;
 		return manualServiceChanges.containsValue(true);
+	}
+
+	public boolean isOnBatteryProfile() {
+		return !(acPower || batteryHot || callInProgress || screenOff);
 	}
 
 }
