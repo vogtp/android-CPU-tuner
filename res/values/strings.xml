@@ -144,4 +144,7 @@
 		<string name="prefInitialPulseDelay">Initial pulse delay</string>
 		<string name="prefInitialPulseDelayLong">Wait for some time (in s) bevore starting the first pulse.</string>
 		<string name="prefInitialPulseDelayMsg">Delay time in seconds</string>
+		<string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
+		<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the on power profile will be chosen.</string>
+		<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the screen off profile will be chosen.</string>
 </resources>

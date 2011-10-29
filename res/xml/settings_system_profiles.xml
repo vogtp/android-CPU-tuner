@@ -5,7 +5,7 @@
 	android:title="@string/prefKeyProfiles"
 	android:summary="@string/prefKeyProfilesLong"
 >
-	<CheckBoxPreference
+	<CheckBoxPreference android:key="prefKeyPowerStrongerThanScreenoff" android:defaultValue="true" android:summaryOn="@string/prefPowerStrongerThanScreenoffOn" android:summaryOff="@string/prefPowerStrongerThanScreenoffOff" android:title="@string/prefPowerStrongerThanScreenoff"/><CheckBoxPreference
 		android:title="@string/prefCallInProgressProfile"
 		android:key="prefKeyCallInProgressProfile"
 		android:summary="@string/prefCallInProgressProfileLong"
@@ -32,4 +32,5 @@
 		android:dialogTitle="@string/prefBatteryHotTemp"
 		android:summary="@string/prefBatteryHotTempLong"
 	></EditTextPreference>
+	
 </PreferenceScreen>

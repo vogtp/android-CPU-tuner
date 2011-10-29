@@ -1,18 +1,15 @@
-- rework help for configurations and autoload
-
-- make on power, screen locked sequence configurable
-
-- check for different android versions
-
-- new market description
-- notify translators
+- fix battery hot not enabled?
 
 - rc3 (test update with old package)
 
-- graph for trigger and or profile
-- rework graph to use screen size
+- check for different android versions
+- new market description
+- notify translators
 
 ****************** POST 3.0.0:
+
+- graph for trigger and or profile
+- rework graph to use screen size
 
 - refresh billing status (menu/action) and set settings for display of bought stuff
 - ensure display of current entity in list
@@ -27,11 +24,11 @@
 
 - message in config manage if sd card is not accessible
 - refresh config list if sdcard gets mounted
-
+- rework help for configurations and autoload
 - enable/disable services in settings
 - switch when the phone is unlocked instead of just screen on
 
-- pulse timing for triggers
+- pulse timing for each triggers
 - add ignore nice load
 
 - check if wifi is present before enabling

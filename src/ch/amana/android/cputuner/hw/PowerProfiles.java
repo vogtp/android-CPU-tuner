@@ -151,17 +151,25 @@ public class PowerProfiles {
 			if (profileId != NO_PROFILE && settings.isEnableCallInProgressProfile()) {
 				return profileId;
 			}
-		} 
+		}
 		if (isBatteryHot()) {
 			long profileId = currentTrigger.getHotProfileId();
 			if (profileId != NO_PROFILE) {
 				return profileId;
 			}
-		} 
-		if (screenOff) {
-			return currentTrigger.getScreenOffProfileId();
-		} else if (acPower) {
-			return currentTrigger.getPowerProfileId();
+		}
+		if (settings.isPowerStrongerThanScreenoff()) {
+			if (acPower) {
+				return currentTrigger.getPowerProfileId();
+			} else if (screenOff) {
+				return currentTrigger.getScreenOffProfileId();
+			}
+		} else {
+			if (screenOff) {
+				return currentTrigger.getScreenOffProfileId();
+			} else if (acPower) {
+				return currentTrigger.getPowerProfileId();
+			}
 		}
 		return currentTrigger.getBatteryProfileId();
 	}
@@ -255,7 +263,7 @@ public class PowerProfiles {
 				manualServiceChanges.put(type, true);
 				return NO_STATE;
 			}
-		} 
+		}
 		manualServiceChanges.put(type, false);
 		lastServiceState.put(type, ret);
 		return ret;

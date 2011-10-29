@@ -92,6 +92,9 @@ public class SettingsStorage {
 	private int profileSwitchLogSize;
 	private boolean checkedStatusbarAddTo = false;
 	private int statusbarAddTo;
+	private boolean checkedPowerStrongerThanScreenoff = false;
+
+	private boolean powerStrongerThanScreenoff;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -109,6 +112,7 @@ public class SettingsStorage {
 		checkedEnableUserspaceGovernor = false;
 		checkedProfileSwitchLogSize = false;
 		checkedStatusbarAddTo = false;
+		checkedPowerStrongerThanScreenoff = false;
 	}
 
 	public static SettingsStorage getInstance(Context ctx) {
@@ -574,5 +578,18 @@ public class SettingsStorage {
 			Logger.w("Cannot parse prefKeyInitialPulseDelay as int", e);
 			return 0;
 		}
+	}
+
+	public boolean isPowerStrongerThanScreenoff() {
+
+		if (!checkedPowerStrongerThanScreenoff) {
+			checkedPowerStrongerThanScreenoff = true;
+			try {
+				powerStrongerThanScreenoff = getPreferences().getBoolean("prefKeyPowerStrongerThanScreenoff", true);
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyProfileSwitchLogSize as int", e);
+			}
+		}
+		return powerStrongerThanScreenoff;
 	}
 }
