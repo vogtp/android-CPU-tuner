@@ -40,6 +40,8 @@ public class PowerProfiles {
 
 	private static final long MILLIES_TO_HOURS = 1000 * 60 * 60;
 
+	public static final long NO_PROFILE = -1;
+
 	private final Context context;
 
 	private int batteryLevel;
@@ -70,6 +72,8 @@ public class PowerProfiles {
 	EnumMap<ServiceType, Boolean> manualServiceChanges = new EnumMap<ServiceType, Boolean>(ServiceType.class);
 	EnumMap<ServiceType, Integer> lastServiceState = new EnumMap<ServiceType, Integer>(ServiceType.class);
 
+	private final SettingsStorage settings;
+
 	public static PowerProfiles getInstance(Context ctx) {
 		if (instance == null) {
 			instance = new PowerProfiles(ctx.getApplicationContext());
@@ -83,6 +87,7 @@ public class PowerProfiles {
 
 	public PowerProfiles(Context ctx) {
 		context = ctx;
+		settings = SettingsStorage.getInstance(ctx);
 		modelAccess = ModelAccess.getInstace(ctx);
 		BatteryHandler batteryHandler = BatteryHandler.getInstance();
 		batteryLevel = batteryHandler.getBatteryLevel();
@@ -131,7 +136,7 @@ public class PowerProfiles {
 		long profileId = getCurrentAutoProfileId();
 
 		if (force || (currentProfile != null && currentProfile.getDbId() != profileId)) {
-			if (!callInProgress && !SettingsStorage.getInstance().isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
+			if (!callInProgress && !settings.isSwitchProfileWhilePhoneNotIdle() && !ServicesHandler.isPhoneIdle(context)) {
 				Logger.i("Not switching profile since phone not idle");
 				return;
 			}
@@ -140,18 +145,25 @@ public class PowerProfiles {
 	}
 
 	public long getCurrentAutoProfileId() {
-		long profileId = currentTrigger.getBatteryProfileId();
 
 		if (callInProgress) {
-			profileId = currentTrigger.getCallInProgessProfileId();
-		} else if (isBatteryHot()) {
-			profileId = currentTrigger.getHotProfileId();
-		} else if (screenOff) {
-			profileId = currentTrigger.getScreenOffProfileId();
+			long profileId = currentTrigger.getCallInProgessProfileId();
+			if (profileId != NO_PROFILE && settings.isEnableCallInProgressProfile()) {
+				return profileId;
+			}
+		} 
+		if (isBatteryHot()) {
+			long profileId = currentTrigger.getHotProfileId();
+			if (profileId != NO_PROFILE) {
+				return profileId;
+			}
+		} 
+		if (screenOff) {
+			return currentTrigger.getScreenOffProfileId();
 		} else if (acPower) {
-			profileId = currentTrigger.getPowerProfileId();
+			return currentTrigger.getPowerProfileId();
 		}
-		return profileId;
+		return currentTrigger.getBatteryProfileId();
 	}
 
 	public void applyProfile(long profileId) {
@@ -177,8 +189,6 @@ public class PowerProfiles {
 				Logger.i("no profile found");
 				return;
 			}
-
-			SettingsStorage settings = SettingsStorage.getInstance();
 
 			if (settings.getProfileSwitchLogSize() > 0) {
 				updateProfileSwitchLog();
@@ -230,7 +240,7 @@ public class PowerProfiles {
 			PulseHelper.getInstance(context).pulse(type, false);
 		} else {
 			if (ServicesHandler.isWifiConnected(context)) {
-				ret = SettingsStorage.getInstance().getNetworkStateOnWifi();
+				ret = settings.getNetworkStateOnWifi();
 			}
 		}
 		if (state == SERVICE_STATE_LEAVE) {
@@ -239,7 +249,7 @@ public class PowerProfiles {
 		if (state == SERVICE_STATE_PREV) {
 			Logger.v("Switching " + getServiceTypeName(type) + "  to last state which was " + lastState);
 			ret = lastState;
-		} else if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+		} else if (settings.isAllowManualServiceChanges()) {
 			if (ServicesHandler.getServiceState(context, type) != lastState && !wasPulsing) {
 				Logger.v("Not switching " + getServiceTypeName(type) + " since it changed since last time");
 				manualServiceChanges.put(type, true);
@@ -252,7 +262,7 @@ public class PowerProfiles {
 	}
 
 	private void applyWifiState(int state) {
-		if (SettingsStorage.getInstance().isEnableSwitchWifi()) {
+		if (settings.isEnableSwitchWifi()) {
 			int newState = evaluateState(ServiceType.wifi, state);
 			if (newState != NO_STATE) {
 				ServicesHandler.enableWifi(context, newState == SERVICE_STATE_ON ? true : false);
@@ -261,7 +271,7 @@ public class PowerProfiles {
 	}
 
 	private void applyGpsState(int state) {
-		if (SettingsStorage.getInstance().isEnableSwitchGps()) {
+		if (settings.isEnableSwitchGps()) {
 			int newState = evaluateState(ServiceType.gps, state);
 			if (newState != NO_STATE) {
 				ServicesHandler.enableGps(context, newState == SERVICE_STATE_ON ? true : false);
@@ -270,7 +280,7 @@ public class PowerProfiles {
 	}
 
 	private void applyBluetoothState(int state) {
-		if (SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
+		if (settings.isEnableSwitchBluetooth()) {
 			int newState = evaluateState(ServiceType.bluetooth, state);
 			if (newState != NO_STATE) {
 				ServicesHandler.enableBluetooth(newState == SERVICE_STATE_ON ? true : false);
@@ -282,7 +292,7 @@ public class PowerProfiles {
 		if (wifiManaged3gState) {
 			return;
 		}
-		if (SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
+		if (settings.isEnableSwitchMobiledata3G()) {
 			int newState = evaluateState(ServiceType.mobiledata3g, state);
 			if (newState != NO_STATE) {
 				ServicesHandler.enable2gOnly(context, newState);
@@ -291,7 +301,7 @@ public class PowerProfiles {
 	}
 
 	private void applyMobiledataConnectionState(int state) {
-		if (SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
+		if (settings.isEnableSwitchMobiledataConnection()) {
 			int newState = evaluateState(ServiceType.mobiledataConnection, state);
 			if (newState != NO_STATE) {
 				ServicesHandler.enableMobileData(context, newState == SERVICE_STATE_ON ? true : false);
@@ -300,7 +310,7 @@ public class PowerProfiles {
 	}
 
 	private void applyBackgroundSyncState(int state) {
-		if (SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
+		if (settings.isEnableSwitchBackgroundSync()) {
 			int newState = evaluateState(ServiceType.backgroundsync, state);
 			if (newState != NO_STATE) {
 				ServicesHandler.enableBackgroundSync(context, newState == SERVICE_STATE_ON ? true : false);
@@ -309,7 +319,7 @@ public class PowerProfiles {
 	}
 
 	private void applyAirplanemodeState(int state) {
-		if (SettingsStorage.getInstance().isEnableAirplaneMode()) {
+		if (settings.isEnableAirplaneMode()) {
 			int newState = evaluateState(ServiceType.airplainMode, state);
 			if (newState != NO_STATE) {
 				ServicesHandler.enableAirplaneMode(context, newState == SERVICE_STATE_ON ? true : false);
@@ -334,8 +344,8 @@ public class PowerProfiles {
 		if (batteryLevel != level) {
 			batteryLevel = level;
 			trackCurrent();
-			boolean chagned = changeTrigger(false);
-			if (chagned) {
+			boolean changed = changeTrigger(false);
+			if (changed) {
 				applyPowerProfile(false);
 			} else {
 				sendDeviceStatusChangedBroadcast();
@@ -348,7 +358,7 @@ public class PowerProfiles {
 	}
 
 	private void trackCurrent() {
-		if (currentTrigger == null || SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
+		if (currentTrigger == null || settings.getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 			return;
 		}
 		long powerCurrentSum = 0;
@@ -376,7 +386,7 @@ public class PowerProfiles {
 		}
 
 		// powerCurrentSum *= powerCurrentCnt;
-		switch (SettingsStorage.getInstance().getTrackCurrentType()) {
+		switch (settings.getTrackCurrentType()) {
 		case SettingsStorage.TRACK_CURRENT_AVG:
 			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentAverage();
 			break;
@@ -466,7 +476,7 @@ public class PowerProfiles {
 	}
 
 	public boolean isBatteryHot() {
-		return batteryHot || batteryTemperature > SettingsStorage.getInstance().getBatteryHotTemp();
+		return batteryHot || batteryTemperature > settings.getBatteryHotTemp();
 	}
 
 	public boolean isAcPower() {
@@ -522,6 +532,9 @@ public class PowerProfiles {
 	}
 
 	public void setCallInProgress(boolean b) {
+		if (!settings.isEnableCallInProgressProfile()) {
+			b = false;
+		}
 		if (callInProgress != b) {
 			callInProgress = b;
 			sendDeviceStatusChangedBroadcast();
@@ -530,7 +543,7 @@ public class PowerProfiles {
 	}
 
 	public void setWifiConnected(boolean wifiConnected) {
-		int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
+		int state = settings.getNetworkStateOnWifi();
 		if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
 			wifiManaged3gState = false;
 			return;
@@ -557,7 +570,7 @@ public class PowerProfiles {
 	}
 
 	public boolean hasManualServicesChanges() {
-		//		if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+		//		if (settings.isAllowManualServiceChanges()) {
 		//			for (ServiceType st : ServiceType.values()) {
 		//				if (lastServiceState.get(st) != ServicesHandler.getServiceState(context, st) && !PulseHelper.getInstance(context).isPulsing(st)) {
 		//					// TODO find out if we would switch or not
