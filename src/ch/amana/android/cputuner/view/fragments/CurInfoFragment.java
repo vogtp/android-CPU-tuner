@@ -390,7 +390,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		bat.append(powerProfiles.getBatteryLevel()).append("%");
 		bat.append(" (");
 		if (powerProfiles.isBatteryHot()) {
-			bat.append(R.string.label_hot).append(" ");
+			bat.append(getString(R.string.label_hot)).append(" ");
 		}
 		bat.append(powerProfiles.getBatteryTemperature()).append(" °C)");
 		tvBatteryLevel.setText(bat.toString());
