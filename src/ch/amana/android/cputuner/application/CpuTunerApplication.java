@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.Notifier;
@@ -50,7 +51,7 @@ public class CpuTunerApplication extends Application {
 	}
 
 	public static void startCpuTuner(Context context) {
-		Logger.i("Starting cpu tuner services");
+		Logger.i("Starting cpu tuner services (" + context.getString(R.string.version) + ")");
 		Context ctx = context.getApplicationContext();
 		BatteryReceiver.registerBatteryReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
@@ -62,7 +63,7 @@ public class CpuTunerApplication extends Application {
 	}
 
 	public static void stopCpuTuner(Context context) {
-		Logger.i("Stopping cpu tuner services");
+		Logger.i("Stopping cpu tuner services (" + context.getString(R.string.version) + ")");
 		Logger.logStacktrace("Stopping cputuner services");
 		Context ctx = context.getApplicationContext();
 		CallPhoneStateListener.unregister(ctx);
