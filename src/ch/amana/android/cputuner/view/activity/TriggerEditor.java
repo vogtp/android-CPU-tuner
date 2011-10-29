@@ -284,9 +284,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 			cursor = managedQuery(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_ID_NAME, Trigger.SELECTION_NAME, new String[] { triggerModel.getName() }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
-			} else {
-				return true;
 			}
+			return true;
 		} finally {
 			if (cursor != null) {
 				cursor.close();
@@ -301,9 +300,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 					.getBatteryLevel()) }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
-			} else {
-				return true;
 			}
+			return true;
 		} finally {
 			if (cursor != null) {
 				cursor.close();

@@ -130,11 +130,11 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 						((View) view.getParent()).setVisibility(View.GONE);
 					}
 					if (isCurrentTrigger && cursor.getLong(columnIndex) == powerProfiles.getCurrentProfile().getDbId()) {
-						if (powerProfiles.isCallInProgress()) {
+						if (powerProfiles.isCallInProgress() && SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
 							if (columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
 								color = getResources().getColor(R.color.cputuner_green);
 							}
-						} else if (powerProfiles.isBatteryHot()) {
+						} else if (powerProfiles.isBatteryHot() && cursor.getInt(DB.Trigger.INDEX_HOT_PROFILE_ID) != PowerProfiles.NO_PROFILE) {
 							if (columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID) {
 								color = getResources().getColor(R.color.cputuner_green);
 							}
