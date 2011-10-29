@@ -100,7 +100,11 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		sbBatteryLevel.setVisibility(View.INVISIBLE);
 		spBattery = (Spinner) findViewById(R.id.spBattery);
 		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
-		spPower = (Spinner) findViewById(R.id.spPower);
+		if (SettingsStorage.getInstance(this).isPowerStrongerThanScreenoff()) {
+			spPower = (Spinner) findViewById(R.id.spPowerStrong);
+		} else {
+			spPower = (Spinner) findViewById(R.id.spPowerWeak);
+		}
 		spCall = (Spinner) findViewById(R.id.spCall);
 		spHot = (Spinner) findViewById(R.id.spHot);
 		cbHot = (CheckBox) findViewById(R.id.cbHot);
@@ -137,6 +141,21 @@ public class TriggerEditor extends Activity implements EditorCallback {
 
 	@Override
 	protected void onResume() {
+		SettingsStorage settings = SettingsStorage.getInstance(this);
+		if (settings.isPowerStrongerThanScreenoff()) {
+			findViewById(R.id.trPowStrong).setVisibility(View.VISIBLE);
+			findViewById(R.id.trPowWeak).setVisibility(View.GONE);
+			spPower = (Spinner) findViewById(R.id.spPowerStrong);
+		} else {
+			findViewById(R.id.trPowStrong).setVisibility(View.GONE);
+			findViewById(R.id.trPowWeak).setVisibility(View.VISIBLE);
+			spPower = (Spinner) findViewById(R.id.spPowerWeak);
+		}
+		if (settings.isEnableCallInProgressProfile()) {
+			findViewById(R.id.trCall).setVisibility(View.VISIBLE);
+		} else {
+			findViewById(R.id.trCall).setVisibility(View.GONE);
+		}
 		updateView();
 		super.onResume();
 	}
@@ -145,7 +164,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		boolean hasHotProfile = triggerModel.getHotProfileId() > -1;
 		cbHot.setChecked(hasHotProfile);
 		spHot.setEnabled(hasHotProfile);
-		spCall.setEnabled(SettingsStorage.getInstance().isEnableCallInProgressProfile());
+		//		spCall.setEnabled(SettingsStorage.getInstance().isEnableCallInProgressProfile());
 		etName.setText(triggerModel.getName());
 		etBatteryLevel.setText(triggerModel.getBatteryLevel() + "");
 		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());

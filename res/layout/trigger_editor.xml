@@ -108,16 +108,18 @@
 						android:text="@string/labelOnBattery"
 						android:width="@dimen/triggerEditor1Col"
 					></TextView>
+
 					<Spinner
-						android:layout_height="wrap_content"
-						android:id="@+id/spBattery"
-						android:layout_width="fill_parent"
-					></Spinner>
+					    android:id="@+id/spBattery"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" >
+					</Spinner>
 
 				</TableRow>
 				<TableRow
 					android:layout_width="wrap_content"
-					android:id="@+id/trPow"
+					android:id="@+id/trPowWeak"
 					android:layout_height="wrap_content"
 				>
 					<TextView
@@ -130,9 +132,10 @@
 						android:layout_gravity="center_vertical"
 					></TextView>
 					<Spinner
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
-						android:id="@+id/spPower"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+						android:id="@+id/spPowerWeak"
 					></Spinner>
 				</TableRow>
 				<TableRow
@@ -150,12 +153,32 @@
 						android:width="@dimen/triggerEditor1Col"
 					></TextView>
 					<Spinner
-						android:layout_height="wrap_content"
-						android:id="@+id/spScreenLocked"
-						android:layout_width="fill_parent"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+                        android:id="@+id/spScreenLocked"
 					></Spinner>
-
-
+				</TableRow>
+				<TableRow
+					android:layout_width="wrap_content"
+					android:id="@+id/trPowStrong"
+					android:layout_height="wrap_content"
+				>
+					<TextView
+						android:id="@+id/TextView01"
+						android:layout_width="wrap_content"
+						android:paddingRight="10dp"
+						android:width="@dimen/triggerEditor1Col"
+						android:layout_height="wrap_content"
+						android:text="@string/labelOnPower"
+						android:layout_gravity="center_vertical"
+					></TextView>
+					<Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+						android:id="@+id/spPowerStrong"
+					></Spinner>
 				</TableRow>
 				<TableRow
 					android:layout_width="wrap_content"
@@ -170,8 +193,9 @@
 						android:text="@string/labelBatteryHot"
 					></CheckBox>
 					<Spinner
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
 						android:id="@+id/spHot"
 					></Spinner>
 				</TableRow>
@@ -190,9 +214,10 @@
 						android:id="@+id/tvCall"
 					></TextView>
 					<Spinner
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
-						android:id="@+id/spCall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+						android:id="@+id/spCall">
 					></Spinner>
 				</TableRow>
 			</TableLayout>

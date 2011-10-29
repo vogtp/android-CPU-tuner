@@ -85,12 +85,16 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	@Override
 	public void onResume() {
 		super.onResume();
-		adapter = new SimpleCursorAdapter(getActivity(), R.layout.trigger_item, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
+
+		int layout = SettingsStorage.getInstance().isPowerStrongerThanScreenoff() ? R.layout.trigger_item_pwrstrong : R.layout.trigger_item_pwrweak;
+		adapter = new SimpleCursorAdapter(getActivity(), layout, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
 				DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
 				DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_HOT,
 				DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery,
 				R.id.tvProfileOnPower, R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot,
 				R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
+
+		setListAdapter(adapter);
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -184,9 +188,8 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 		});
 		getListView().setOnCreateContextMenuListener(this);
-
-		setListAdapter(adapter);
 	}
+
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
