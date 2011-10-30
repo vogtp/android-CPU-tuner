@@ -126,6 +126,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	public void onPageSelected(int position) {
 		mHeader.setDisplayedPage(position);
 		currentPage = getItem(position);
+		currentPage.onResume();
 		addActions((PagerItem) currentPage);
 	}
 
