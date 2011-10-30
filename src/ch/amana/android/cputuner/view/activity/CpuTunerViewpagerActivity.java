@@ -152,28 +152,27 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			startActivity(new Intent(getApplicationContext(), FirstRunActivity.class));
 			finish();
 			return false;
-		} else {
-			if (doCheckConfig && !InstallHelper.hasConfig(this)) {
-				AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-				alertBuilder.setTitle(R.string.title_no_configuration);
-				alertBuilder.setMessage(R.string.label_no_configuration);
-				alertBuilder.setPositiveButton(R.string.load, new OnClickListener() {
+		}
+		if (doCheckConfig && !InstallHelper.hasConfig(this)) {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle(R.string.title_no_configuration);
+			alertBuilder.setMessage(R.string.label_no_configuration);
+			alertBuilder.setPositiveButton(R.string.load, new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						InstallHelper.ensureConfiguration(CpuTunerViewpagerActivity.this, false);
-					}
-				});
-				alertBuilder.setNegativeButton(R.string.cont, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					InstallHelper.ensureConfiguration(CpuTunerViewpagerActivity.this, false);
+				}
+			});
+			alertBuilder.setNegativeButton(R.string.cont, new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						doCheckConfig = false;
-					}
-				});
-				AlertDialog alert = alertBuilder.create();
-				alert.show();
-			}
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					doCheckConfig = false;
+				}
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
 		}
 		if (!SettingsStorage.getInstance().isUserLevelSet()) {
 			UserExperianceLevelChooser uec = new UserExperianceLevelChooser(this, false);
