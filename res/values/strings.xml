@@ -147,4 +147,5 @@
 		<string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
 		<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the on power profile will be chosen.</string>
 		<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the screen off profile will be chosen.</string>
+		<string name="title_choose_experiance_level">Choose your experiance level</string>
 </resources>
