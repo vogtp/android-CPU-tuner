@@ -13,7 +13,6 @@ import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
 import ch.amana.android.cputuner.service.TunerService;
-import ch.amana.android.cputuner.view.activity.FirstRunActivity;
 
 public class CpuTunerApplication extends Application {
 	@Override
@@ -35,9 +34,6 @@ public class CpuTunerApplication extends Application {
 		try {
 			InstallHelper.initialise(ctx);
 
-			if (settings.isFirstRun()) {
-				startActivity(new Intent(getApplicationContext(), FirstRunActivity.class));
-			}
 			if (settings.isEnableProfiles()) {
 				startCpuTuner(ctx);
 			} else {
