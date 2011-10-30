@@ -43,6 +43,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private LinearLayout llGovernorThresholds;
 	private Spinner spUseCpus;
 	private int numberOfCpus;
+	private CpuHandler cpuHandler;
 
 	public GovernorFragment() {
 		super();
@@ -57,6 +58,8 @@ public class GovernorFragment extends GovernorBaseFragment {
 		this.origThreshUp = governor.getGovernorThresholdUp() + "";
 		this.origThreshDown = governor.getGovernorThresholdDown() + "";
 		this.disableScript = disableScript;
+		this.cpuHandler = CpuHandler.getInstance();
+		this.availCpuGovs = cpuHandler.getAvailCpuGov();
 	}
 
 	@Override
@@ -87,8 +90,6 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 		FragmentActivity act = getActivity();
 
-		CpuHandler cpuHandler = CpuHandler.getInstance();
-		availCpuGovs = cpuHandler.getAvailCpuGov();
 
 		numberOfCpus = cpuHandler.getNumberOfCpus();
 		if (cpuHandler instanceof CpuHandlerMulticore) {
@@ -191,6 +192,10 @@ public class GovernorFragment extends GovernorBaseFragment {
 	public void updateView() {
 		IGovernorModel governorModel = getGovernorModel();
 		String curGov = governorModel.getGov();
+		if (spinnerSetGov == null) {
+			// we have no been created yet
+			return;
+		}
 		for (int i = 0; i < availCpuGovs.length; i++) {
 			if (curGov.equals(availCpuGovs[i])) {
 				spinnerSetGov.setSelection(i);
