@@ -103,7 +103,7 @@ public class PowerProfiles {
 	}
 
 	public void initActiveStates() {
-		Logger.logStacktrace("Resetting manual service changes.");
+		Logger.w("Resetting manual service changes.");
 		for (ServiceType st : ServiceType.values()) {
 			lastServiceState.put(st, ServicesHandler.getServiceState(context, st));
 			manualServiceChanges.put(st, false);
