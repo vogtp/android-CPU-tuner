@@ -63,13 +63,14 @@ public class StatsAdvancedFragment extends PagerFragment {
 		};
 		tvStats.setOnClickListener(clickListener);
 		tlSwitches.setOnClickListener(clickListener);
-		totaltransitionsBaseline = SettingsStorage.getInstance().getTotaltransitionsBaseline();
+		SettingsStorage settings = SettingsStorage.getInstance();
+		totaltransitionsBaseline = settings.getTotaltransitionsBaseline();
 		if (totaltransitionsBaseline == 0) {
 			// create firsttime baseline
 			createBaseline(getActivity());
-			totaltransitionsBaseline = SettingsStorage.getInstance().getTotaltransitionsBaseline();
+			totaltransitionsBaseline = settings.getTotaltransitionsBaseline();
 		}
-		timeinstateBaseline = SettingsStorage.getInstance().getTimeinstateBaseline();
+		timeinstateBaseline = settings.getTimeinstateBaseline();
 	}
 
 	@Override
@@ -261,8 +262,10 @@ public class StatsAdvancedFragment extends PagerFragment {
 	}
 
 	private void createBaseline(Context ctx) {
-		SettingsStorage.getInstance().setTimeinstateBaseline(CpuHandler.getInstance().getCpuTimeinstate());
-		SettingsStorage.getInstance().setTotaltransitionsBaseline(Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions()));
+		totaltransitionsBaseline = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions());
+		timeinstateBaseline = CpuHandler.getInstance().getCpuTimeinstate();
+		SettingsStorage.getInstance().setTimeinstateBaseline(timeinstateBaseline);
+		SettingsStorage.getInstance().setTotaltransitionsBaseline(totaltransitionsBaseline);
 	}
 
 	@Override
