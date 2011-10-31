@@ -35,6 +35,7 @@ import com.markupartist.android.widget.ActionBar.Action;
 
 public class StatsAdvancedFragment extends PagerFragment {
 
+	private static final long NO_TRANSITIONS = Long.MAX_VALUE;
 	private TextView tvStats;
 	private TableLayout tlSwitches;
 	private LayoutInflater inflater;
@@ -65,7 +66,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 		tlSwitches.setOnClickListener(clickListener);
 		SettingsStorage settings = SettingsStorage.getInstance();
 		totaltransitionsBaseline = settings.getTotaltransitionsBaseline();
-		if (totaltransitionsBaseline == 0) {
+		if (totaltransitionsBaseline == 0 || getTotalTransitions() < 0) {
 			// create firsttime baseline
 			createBaseline(getActivity());
 			totaltransitionsBaseline = settings.getTotaltransitionsBaseline();
@@ -87,9 +88,23 @@ public class StatsAdvancedFragment extends PagerFragment {
 		getTimeInState(context);
 	}
 
+	private long getTotalTransitions() {
+		String totaltransitionsStr = CpuHandler.getInstance().getCpuTotalTransitions();
+		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitionsStr)) {
+			try {
+				long totaltransitions = Long.parseLong(totaltransitionsStr) - totaltransitionsBaseline;
+				return totaltransitions;
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse cpu total transitions", e);
+			}
+
+		}
+		return NO_TRANSITIONS;
+	}
+
 	private void getTotalTransitions(Context context, StringBuilder sb) {
-		long totaltransitions = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions()) - totaltransitionsBaseline;
-		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
+		long totaltransitions = getTotalTransitions();
+		if (totaltransitions != NO_TRANSITIONS) {
 			sb.append(context.getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
 			sb.append("\n");
 		}
@@ -131,11 +146,14 @@ public class StatsAdvancedFragment extends PagerFragment {
 			if (baseline != null) {
 				time = time - baseline.states.get(f);
 			}
+			if (time < 0) {
+				time = 0l;
+
+			}
 			return time;
 		}
 
 		public String getTimeFromated(int f) {
-
 			return Long.toString(getTime(f)) + "s";
 		}
 
