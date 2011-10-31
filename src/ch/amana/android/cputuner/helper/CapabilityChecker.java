@@ -191,6 +191,8 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 				return "does not apply";
 			case CANNOT_CHECK:
 				return "cannot check";
+			case WORKING:
+				return "working";
 			}
 			return "unknown";
 		}
