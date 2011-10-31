@@ -1,12 +1,10 @@
-- rc3 (test update with old package)
-
-- notify translators
 - translate German
 - check with small screen sizes
 - refresh stats on install
 
 - check for different android versions
 - new market description
+- disable logging
 
 ****************** POST 3.0.0:
 
