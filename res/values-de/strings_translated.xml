@@ -9,10 +9,9 @@
     <string-array name="prefMulticoreEntries">
         <item>Auto</item>
         <item>Aktivieren</item>
-        <item>Deaktivieren</item>
+        <item>Deaktivieren</item> 
     </string-array>
     <string name="prefMulticoreLong">Soll CPU tuner auf allen CPU Kernen arbeiten.</string>
-    <string name="config_default">Standard</string>
     <string name="prefConfigurationsLong">Backup und restore</string>
     <string name="prefCpu">CPU Einstellungen</string>
     <string name="prefChangelog">Zeige das Changelog</string>
@@ -192,8 +191,6 @@
 	<string name="cancel">Abbrechen</string>
 	<string name="prefMinSensibleFrequencyLong">Minimale Frequenz anzeigen, wenn nicht im Profi-Modus.</string>
 	<string name="prefMinSensibleFrequency">Min. angezeigte Frequenz</string>
-	<string name="prefResetToDefaultLong">Löschen aller aktuellen Profile und Auslöser sowie laden der Standardwerte.</string>
-	<string name="prefResetToDefault">Rückstellen der Profile, Auslöser und Regler</string>
 	<string name="prefKeyProfiles">Profile und Auslöser</string>
 	<string name="prefBuyMeABeer">Kauf mir ein Bier</string>
 	<string name="prefAllowManualServiceChangesOn">Falls Dienste manuell umgeschalten wurden, werden diese bis zum nächsten Auslöser nicht mehr geschalten.</string>
@@ -219,8 +216,6 @@
 	<string name="prefCapabilitiesLong">Prüfe, ob das Geräte die erforderliche API unterstützt oder ob
  es Probleme gibt.</string>
 	<string name="prefCapabilities">Prüfen der Unterstützung</string>
-	<string name="prefStatusbarAddToOff">Die Statusleiste zeigt keine Informationen von CPU-Tuner.</string>
-	<string name="prefStatusbarAddToOn">Die Statusleiste zeigt ein Eintrag mit dem aktuellen Profil.</string>
 	<string name="prefStatusbarAddTo">Zur Statusleiste hinzufügen</string>
 	<string name="prefStatusbarNotificationsOff">Keine Anzeige in der Statusleiste für Profil-Änderungen.</string>
 	<string name="prefKeyEnableProfilesOn">Anzeigen einer Nachricht in der Statusleiste für jede Profil-Änderung.</string>
@@ -232,8 +227,6 @@
 	<string name="prefCatNotifications">Benachrichtigungen</string>
 	<string name="prefCatSystem">System</string>
 	<string name="prefEnableProfiles">Profile aktivieren</string>
-	<string name="prefEnableProfilesOn">CPU-Tuner startet zum verwalten der CPU-Profile einen Prozess im Hintergrund.  Dieser wird beim Booten gestartet.</string>
-	<string name="prefEnableProfilesOff">Keine CPU-Profile werden verwaltet. Es läuft kein Dienst im Hintergrund.</string>
 	<string name="prefSetCpuSetting">CPU-Einstellungen</string>
 	<string name="profileBatteryGood">Guter Akkuzustand</string>
 	<string name="profileBatteryCrtitical">Kritischer Akkuzustand</string>

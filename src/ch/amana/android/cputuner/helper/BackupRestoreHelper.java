@@ -2,12 +2,15 @@ package ch.amana.android.cputuner.helper;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
@@ -15,7 +18,9 @@ import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.constants.JsonConstants;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -29,7 +34,19 @@ public class BackupRestoreHelper {
 
 	public static final String DIRECTORY_CONFIGURATIONS = "configurations";
 
-	public static void backup(BackupRestoreCallback cb, File storagePath) {
+	public static final Object MUTEX = new Object();
+
+	private final BackupRestoreCallback cb;
+
+	private final ContentResolver contentResolver;
+
+	public BackupRestoreHelper(BackupRestoreCallback cb) {
+		super();
+		this.cb = cb;
+		this.contentResolver = cb.getContext().getContentResolver();
+	}
+
+	private void backup(File storagePath) {
 		if (!storagePath.isDirectory()) {
 			storagePath.mkdir();
 		}
@@ -43,33 +60,25 @@ public class BackupRestoreHelper {
 		return new File(Environment.getExternalStorageDirectory(), ctx.getPackageName() + "/" + directory);
 	}
 
-	private static void restore(BackupRestoreCallback cb, DataJsonImporter dje, boolean inclAutoloadConfig) throws Exception {
+	private void restore(DataJsonImporter dje, boolean inclAutoloadConfig) throws JSONException {
 		Context ctx = cb.getContext();
 		CpuTunerProvider.deleteAllTables(ctx, inclAutoloadConfig);
-		ContentResolver contentResolver = ctx.getContentResolver();
-		try {
-			synchronized (ModelAccess.virtgovCacheMutex) {
-				synchronized (ModelAccess.profileCacheMutex) {
-					synchronized (ModelAccess.triggerCacheMutex) {
-						loadVirtualGovernors(contentResolver, dje);
-						loadCpuProfiles(contentResolver, dje);
-						loadTriggers(contentResolver, dje);
-						if (inclAutoloadConfig) {
-							loadAutoloadConfig(contentResolver, dje);
-						}
+		synchronized (ModelAccess.virtgovCacheMutex) {
+			synchronized (ModelAccess.profileCacheMutex) {
+				synchronized (ModelAccess.triggerCacheMutex) {
+					loadVirtualGovernors(dje);
+					loadCpuProfiles(dje);
+					loadTriggers(dje);
+					if (inclAutoloadConfig) {
+						loadAutoloadConfig(dje);
 					}
 				}
 			}
-			cb.hasFinished(true);
-			ModelAccess.getInstace(cb.getContext()).clearCache();
-		} catch (JSONException e) {
-			Logger.e("Cannot restore tables", e);
-			cb.hasFinished(false);
-			throw new Exception("Error restoring", e);
 		}
+		ModelAccess.getInstace(cb.getContext()).clearCache();
 	}
 
-	private static void loadVirtualGovernors(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadVirtualGovernors(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.VirtualGovernor.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			VirtualGovernorModel vgm = new VirtualGovernorModel();
@@ -78,7 +87,7 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	private static void loadCpuProfiles(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadCpuProfiles(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.CpuProfile.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			ProfileModel pm = new ProfileModel();
@@ -87,7 +96,7 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	private static void loadTriggers(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadTriggers(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.Trigger.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			TriggerModel tr = new TriggerModel();
@@ -96,61 +105,121 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	private static void loadAutoloadConfig(ContentResolver contentResolver, DataJsonImporter dje) throws JSONException {
+	private void loadAutoloadConfig(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.ConfigurationAutoload.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			ConfigurationAutoloadModel cam = new ConfigurationAutoloadModel();
 			cam.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			// FIXME insert or update
 			contentResolver.insert(DB.ConfigurationAutoload.CONTENT_URI, cam.getValues());
 		}
 	}
 
-	public static void backupConfiguration(BackupRestoreCallback cb, String name) {
-		if (name == null) {
-			return;
+	public void backupConfiguration(String name) {
+		synchronized (MUTEX) {
+			if (name == null) {
+				return;
+			}
+			File storagePath = new File(getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
+			if (!storagePath.isDirectory()) {
+				storagePath.mkdirs();
+			}
+			backup(storagePath);
 		}
-		File storagePath = new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
-		if (!storagePath.isDirectory()) {
-			storagePath.mkdirs();
-		}
-		backup(cb, storagePath);
 	}
 
-	public static void restoreConfiguration(BackupRestoreCallback cb, String name, boolean isUserConfig, boolean restoreAutoload) throws Exception {
-		if (name == null) {
-			return;
+	public void restoreConfiguration(String name, boolean isUserConfig, boolean restoreAutoload) throws Exception {
+		synchronized (MUTEX) {
+			if (name == null) {
+				return;
+			}
+			Logger.i("Loading configuration " + name);
+			try {
+				Context context = cb.getContext();
+				if (isUserConfig) {
+					File file = new File(getStoragePath(context, DIRECTORY_CONFIGURATIONS), name);
+					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
+					restore(dje, restoreAutoload);
+				} else {
+					String fileName = DIRECTORY_CONFIGURATIONS + "/" + name + "/" + DB.DATABASE_NAME + JsonConstants.FILE_NAME;
+					InputStream is = context.getAssets().open(fileName);
+					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
+					restore(dje, restoreAutoload);
+					fixGovernors();
+					fixFrequencies();
+					InstallHelper.updateProfilesFromVirtGovs(context);
+				}
+				PowerProfiles.getInstance(context).reapplyProfile(true);
+				cb.hasFinished(true);
+			} catch (Exception e) {
+				Logger.e("Cannot restore configuration", e);
+				cb.hasFinished(false);
+				throw new Exception("Cannot restore configuration", e);
+			}
 		}
-		if (isUserConfig) {
-			File file = new File(BackupRestoreHelper.getStoragePath(cb.getContext(), DIRECTORY_CONFIGURATIONS), name);
-			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
-			restore(cb, dje, restoreAutoload);
-		} else {
-			String fileName = DIRECTORY_CONFIGURATIONS + "/" + name + "/" + DB.DATABASE_NAME + JsonConstants.FILE_NAME;
-			InputStream is = cb.getContext().getAssets().open(fileName);
-			//			getconfig 
-			DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
-			restore(cb, dje, restoreAutoload);
-			//	FIXME		fix frequencies
-			//	FIXME		fix governors
-		}
-		PowerProfiles.getInstance().reapplyProfile(true);
 	}
 
-	public static void saveConfiguration(final Context ctx) {
+	private void fixFrequencies() {
 		SettingsStorage settings = SettingsStorage.getInstance();
-		if (settings.isSaveConfiguration()) {
-			BackupRestoreCallback callback = new BackupRestoreCallback() {
-				@Override
-				public void hasFinished(boolean success) {
-				}
-
-				@Override
-				public Context getContext() {
-					return ctx;
-				}
-			};
-			BackupRestoreHelper.backupConfiguration(callback, settings.getCurrentConfiguration());
+		ContentValues values = new ContentValues(2);
+		int maxFreq = settings.getMaxFrequencyDefault();
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MAX, maxFreq);
+		int minFreq = settings.getMinFrequencyDefault();
+		values.put(DB.CpuProfile.NAME_FREQUENCY_MIN, minFreq);
+		Logger.i("Changing frequencies of default profile to min " + minFreq + " and max " + maxFreq);
+		Cursor c = null;
+		try {
+			c = contentResolver.query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, null);
+			while (c.moveToNext()) {
+				contentResolver.update(DB.CpuProfile.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) });
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
+			}
 		}
+	}
+
+	private void fixGovernors() {
+		Cursor c = null;
+		String[] availCpuGov = CpuHandler.getInstance().getAvailCpuGov();
+		TreeMap<String, Boolean> availGovs = new TreeMap<String, Boolean>();
+		for (String gov : availCpuGov) {
+			availGovs.put(gov, Boolean.TRUE);
+		}
+		try {
+			c = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, null);
+			while (c.moveToNext()) {
+				String govs = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
+				String[] govitems = govs.split("\\|");
+				boolean found = false;
+				for (String gov : govitems) {
+					Boolean avail = availGovs.get(gov);
+					if (avail != null && avail) {
+						Logger.i("Using " + gov);
+						ContentValues values = new ContentValues(1);
+						values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, gov);
+						if (contentResolver.update(DB.VirtualGovernor.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) }) > 0) {
+							found = true;
+							break;
+						}
+					}
+				}
+				if (!found) {
+					// we did not find a compatible gov so use none
+					ContentValues values = new ContentValues(1);
+					values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, RootHandler.NOT_AVAILABLE);
+					contentResolver.update(DB.VirtualGovernor.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) });
+				}
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
+			}
+		}
+
 	}
 
 }

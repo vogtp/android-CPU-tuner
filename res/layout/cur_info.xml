@@ -1,117 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/ScrollView01"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="fill_parent" android:layout_width="fill_parent"
-	android:paddingRight="5dp">
-	<LinearLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:padding="5dp" android:scrollbars="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingRight="5dp" >
 
-		<TableLayout android:layout_height="wrap_content"
-			android:id="@+id/TableLayoutDeviceInfo" android:layout_width="match_parent">
-			<TableRow android:id="@+id/TableRowTrigger"
-				android:layout_height="wrap_content" android:layout_width="match_parent">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:textSize="18sp" android:id="@+id/labelCurrentTrigger"
-					android:text="@+string/labelCurrentTrigger"></TextView>
-				<TextView android:text="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvCurrentTrigger"></TextView>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowProfile"
-				android:layout_width="match_parent" android:baselineAligned="true">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:textSize="18sp" android:id="@+id/labelCurrentProfile"
-					android:text="@+string/labelCurrentProfile"></TextView>
-				<Spinner android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:id="@+id/spProfiles"
-					android:layout_weight=".1"></Spinner>
-			</TableRow>
-			<TableRow android:layout_width="match_parent"
-				android:layout_height="wrap_content" android:id="@+id/TableRowConfig">
-				<TextView android:textSize="18sp" android:paddingRight="5dp"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:id="@+id/labelConfig" android:text="@string/labelConfig"></TextView>
-				<TextView android:textSize="18sp" android:paddingRight="5dp"
-					android:text="@+id/TextView01" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:id="@+id/tvConfig"></TextView>
-			</TableRow>
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/TableRowPulse">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:id="@+id/spacerPulse"></TextView>
-				<TextView android:layout_height="wrap_content"
-					android:id="@+id/tvPulse" android:layout_width="wrap_content" android:text="No pulse"></TextView>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowBattery"
-				android:layout_width="match_parent">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:id="@+id/labelCurrentBattery" android:text="@+string/labelCurrentBattery"
-					android:textSize="18sp" android:paddingTop="10dp"></TextView>
-				<TextView android:text="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryLevel"></TextView>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowPower"
-				android:layout_width="match_parent">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:textSize="18sp" android:id="@+id/labelAcPower"
-					android:text="@+string/labelAcPower"></TextView>
-				<TextView android:text="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvAcPower"></TextView>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content"
-				android:id="@+id/TableRowBatteryCurrent" android:layout_width="match_parent">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:textSize="18sp" android:id="@+id/labelBatteryCurrent"
-					android:text="@string/labelUsage"></TextView>
-				<TextView android:text="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="5dp" android:textSize="18sp" android:id="@+id/tvBatteryCurrent"></TextView>
-			</TableRow>
-		</TableLayout>
-		<LinearLayout android:layout_height="wrap_content"
-			android:layout_width="match_parent" android:id="@+id/llGovernorFragmentAncor"></LinearLayout>
-		<TableLayout android:layout_height="wrap_content"
-			android:id="@+id/TableLayoutFreq" android:layout_width="fill_parent">
-			<TextView android:textSize="20sp" android:layout_width="fill_parent"
-				android:id="@+id/textView1" android:layout_height="wrap_content"
-				android:paddingTop="10dp" android:text="@string/labelCpuFreq"
-				android:paddingRight="5dp"></TextView>
-			<TableRow android:layout_height="wrap_content" android:id="@+id/TableRowMaxFreq"
-				android:layout_width="fill_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:scrollbars="vertical" >
+ 
+            <TableLayout
+                android:id="@+id/TableLayoutDeviceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
+                <TextView
+                    android:id="@+id/tvManualServiceChanges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/msgManualServiceChanges"
+                    android:textColor="@color/yellow" />
 
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:paddingRight="5dp"
-					android:text="@+string/labelMax" android:id="@+id/labelCpuFreqMax"
-					android:layout_gravity="center_vertical"></TextView>
-				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spCpuFreqMax"></Spinner>
-				<SeekBar android:layout_height="wrap_content"
-					android:layout_width="fill_parent" android:id="@+id/SeekBarCpuFreqMax"
-					android:layout_weight=".3" android:paddingRight="5dp"
-					android:paddingBottom="3dp" android:paddingTop="3dp"
-					android:layout_marginRight="5dp"></SeekBar>
+                <TableRow
+                    android:id="@+id/TableRowTrigger"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-			</TableRow>
-			<TableRow android:id="@+id/TableRowMinFreq"
-				android:layout_height="wrap_content" android:layout_width="fill_parent">
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:id="@+id/labelCpuFreqMin"
-					android:layout_gravity="center_vertical" android:text="@+string/labelMin"
-					android:paddingRight="5dp"></TextView>
-				<Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/spCpuFreqMin"></Spinner>
-				<SeekBar android:paddingBottom="3dp" android:id="@+id/SeekBarCpuFreqMin"
-					android:paddingRight="5dp" android:paddingTop="3dp"
-					android:layout_height="wrap_content" android:layout_width="fill_parent"
-					android:layout_weight=".3" android:layout_marginRight="5dp"></SeekBar>
-			</TableRow>
-		</TableLayout>
-	</LinearLayout>
+                    <TextView
+                        android:id="@+id/labelCurrentTrigger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+string/labelCurrentTrigger"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvCurrentTrigger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+id/TextView01"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TableRowProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="true" >
+
+                    <TextView
+                        android:id="@+id/labelCurrentProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+string/labelCurrentProfile"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spProfiles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TableRowPulse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/spacerPulse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvPulse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No pulse" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TableRowConfig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/labelConfig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@string/labelConfig"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvConfig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+id/TextView01"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TableRowBattery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/labelCurrentBattery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:paddingTop="10dp"
+                        android:text="@+string/labelCurrentBattery"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvBatteryLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+id/TextView01"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TableRowPower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/labelAcPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+string/labelAcPower"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvAcPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+id/TextView01"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TableRowBatteryCurrent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/labelBatteryCurrent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@string/labelUsage"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvBatteryCurrent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@+id/TextView01"
+                        android:textSize="18sp" />
+                </TableRow>
+            </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/llGovernorFragmentAncor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/TableLayoutFreq"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/labelCpuFreq"
+                android:textSize="20sp" >
+            </TextView>
+
+            <TableRow
+                android:id="@+id/TableRowMaxFreq"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/labelCpuFreqMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="5dp"
+                    android:text="@+string/labelMax" >
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/spCpuFreqMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </Spinner>
+
+                <SeekBar
+                    android:id="@+id/SeekBarCpuFreqMax"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight=".3"
+                    android:paddingBottom="3dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp" >
+                </SeekBar>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/TableRowMinFreq"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/labelCpuFreqMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="5dp"
+                    android:text="@+string/labelMin" >
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/spCpuFreqMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </Spinner>
+
+                <SeekBar
+                    android:id="@+id/SeekBarCpuFreqMin"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight=".3"
+                    android:paddingBottom="3dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp" >
+                </SeekBar>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
 </ScrollView>

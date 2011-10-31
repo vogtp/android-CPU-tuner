@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -16,6 +17,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -25,30 +27,87 @@ import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
+	public static final String EXTRA_ASK_LOAD_CONFIRMATION = "askLoadConfirmation";
 	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
+	public static final String EXTRA_FIRST_RUN = "firstRun";
+	public static final String EXTRA_TITLE = "title";
 	private ConfigurationsAdapter configsAdapter;
 	private boolean closeOnLoad = false;
 	private SysConfigurationsAdapter sysConfigsAdapter;
+	private BackupRestoreHelper backupRestoreHelper;
+	private boolean firstRun = false;
+	private boolean loadingSuccess = false;
+	private boolean askLoadConfirmation = true;
+	private SettingsStorage settings;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.configuration_manage);
-		String title = getString(R.string.titleManageConfigurations);
-		setTitle(title);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
+
+		String title = getIntent().getStringExtra(EXTRA_TITLE);
+		if (title == null) {
+			actionBar.setTitle(R.string.titleManageConfigurations);
+		} else {
+			actionBar.setTitle(title);
+		}
+
+		if (InstallHelper.hasConfig(this)) {
+			Intent intent = new Intent(getContext(), ConfigurationAutoloadListActivity.class);
+			actionBar.addAction(new ActionBar.IntentAction(getContext(), intent, android.R.drawable.ic_menu_today));
+			// android.R.drawable.ic_menu_my_calendar
+			actionBar.addAction(new Action() {
+				@Override
+				public void performAction(View view) {
+					add();
+				}
+
+				@Override
+				public int getDrawable() {
+					return android.R.drawable.ic_menu_add;
+				}
+			});
+		}
+
+		askLoadConfirmation = getIntent().getBooleanExtra(EXTRA_ASK_LOAD_CONFIRMATION, true);
 
 		closeOnLoad = getIntent().getBooleanExtra(EXTRA_CLOSE_ON_LOAD, false);
+		firstRun = getIntent().getBooleanExtra(EXTRA_FIRST_RUN, false);
+
+		settings = SettingsStorage.getInstance();
+
+		backupRestoreHelper = new BackupRestoreHelper(this);
 
 		ListView lvConfiguration = getListView();
 		configsAdapter = new ConfigurationsListAdapter(this);
@@ -58,27 +117,13 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 		ListView lvSysConfigs = (ListView) findViewById(R.id.lvSysConfigs);
 		try {
-			sysConfigsAdapter = new SysConfigurationsAdapter(this, getAssets().list(BackupRestoreHelper.DIRECTORY_CONFIGURATIONS));
+			sysConfigsAdapter = new SysConfigurationsAdapter(this);
 			lvSysConfigs.setAdapter(sysConfigsAdapter);
 			lvSysConfigs.setOnItemClickListener(new OnItemClickListener() {
 				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
-					Builder alertBuilder = new AlertDialog.Builder(ConfigurationManageActivity.this);
-					alertBuilder.setTitle("Unsupported!");
-					alertBuilder.setMessage("Loading default configurations is not yet supported and the loaded configuration will probably only work on a Nexus one!");
-					alertBuilder.setNegativeButton("Be save...", null);
-					alertBuilder.setPositiveButton("Lets try!", new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							String fileName = sysConfigsAdapter.getDirectoryName((int) id);
-							load(fileName, false);
-						}
-
-					});
-					AlertDialog alert = alertBuilder.create();
-					alert.show();
-
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					String name = sysConfigsAdapter.getConfigName((int) id);
+					load(sysConfigsAdapter.getDirectoryName((int) id), name, false);
 				}
 			});
 		} catch (IOException e) {
@@ -89,23 +134,35 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (configsAdapter.getCount() < 1) {
-			add();
+		//		if (configsAdapter.getCount() < 1) {
+		//			add(); 
+		//		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (firstRun) {
+			Toast.makeText(this, getString(loadingSuccess ? R.string.msgEnableCputuner : R.string.msgDisableCputuner), Toast.LENGTH_LONG).show();
+			settings.setEnableProfiles(loadingSuccess);
+			SettingsStorage.getInstance().firstRunDone();
+			startActivity(CpuTunerViewpagerActivity.getStartIntent(this));
 		}
 	}
 
 	private void saveConfig(String name) {
-		BackupRestoreHelper.backupConfiguration(this, name);
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_unusable_comfig_save, Toast.LENGTH_LONG).show();
+			return;
+		}
+		backupRestoreHelper.backupConfiguration(name);
 	}
 
-	private void loadConfig(String name, boolean isUserConfig) {
+	private void loadConfig(String file, String name, boolean isUserConfig) {
 		try {
-			BackupRestoreHelper.restoreConfiguration(this, name, isUserConfig, true);
-			SettingsStorage.getInstance().setCurrentConfiguration(isUserConfig ? name : name + " (modified)");
+			backupRestoreHelper.restoreConfiguration(file, isUserConfig, false);
+			settings.setCurrentConfiguration(name);
 			Toast.makeText(this, getString(R.string.msg_loaded, name), Toast.LENGTH_LONG).show();
-			if (closeOnLoad) {
-				finish();
-			}
 		} catch (Exception e) {
 			Logger.e("Cannot load configuration");
 		}
@@ -114,7 +171,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		File file = configsAdapter.getDirectory((int) id);
-		load(file.getName(), true);
+		load(file.getName(), file.getName(), true);
 	}
 
 	@Override
@@ -131,7 +188,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			add();
 			return true;
 		}
-		return GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_CONFIGURATION);
+		return GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_SETTINGS_CONFIGURATION);
 	}
 
 	@Override
@@ -153,7 +210,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			replace(file);
 			return true;
 		case R.id.itemLoad:
-			load(file.getName(), true);
+			load(file.getName(), file.getName(), true);
 			return true;
 		case R.id.itemDelete:
 			delete(file);
@@ -168,6 +225,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void add() {
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_unusable_comfig_save, Toast.LENGTH_LONG).show();
+			return;
+		}
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.msg_add_current_configuration);
 		alertBuilder.setMessage(R.string.msg_choose_name_for_config);
@@ -176,8 +237,26 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
-				String name = input.getText().toString();
-				saveConfig(name);
+				final String name = input.getText().toString();
+				if (name == null || "".equals(name.trim())) {
+					Toast.makeText(ConfigurationManageActivity.this, R.string.msg_empty_configuration_name, Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (configsAdapter.hasConfig(name)) {
+					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ConfigurationManageActivity.this);
+					alertBuilder.setTitle(R.string.title_config_name_exists);
+					alertBuilder.setMessage(R.string.msg_config_name_exists);
+					alertBuilder.setPositiveButton(R.string.overwrite, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							saveConfig(name);
+						}
+					});
+					alertBuilder.setNegativeButton(R.string.cancel, null);
+					alertBuilder.show();
+				} else {
+					saveConfig(name);
+				}
 			}
 
 		});
@@ -206,7 +285,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 				File dest = new File(path.substring(0, idx), name);
 				file.renameTo(dest);
 				renameDB(oldName, name);
-				SettingsStorage.getInstance().setCurrentConfiguration(name);
+				settings.setCurrentConfiguration(name);
 				updateListView();
 			}
 		});
@@ -221,6 +300,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	}
 
 	private void replace(final File configuration) {
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_unusable_comfig_save, Toast.LENGTH_LONG).show();
+			return;
+		}
 		Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setTitle(R.string.menuReplaceWithCurrent);
 		alertBuilder.setMessage(getString(R.string.msg_replace_with_current, configuration.getName()));
@@ -238,22 +321,39 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alert.show();
 	}
 
-	private void load(final String configName, final boolean isUserConfig) {
-		Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setTitle(R.string.menuLoad);
-		alertBuilder.setMessage(getString(R.string.msg_load_configuration, configName));
-		alertBuilder.setNegativeButton(R.string.no, null);
-		alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+	private void load(final String configFile, final String configName, final boolean isUserConfig) {
+		if (askLoadConfirmation) {
+			Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle(R.string.menuLoad);
+			alertBuilder.setMessage(getString(R.string.msg_load_configuration, configName));
+			alertBuilder.setNegativeButton(R.string.no, null);
+			alertBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				loadConfig(configName, isUserConfig);
-				updateListView();
-			}
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					doLoad(configFile, configName, isUserConfig);
+				}
 
-		});
-		AlertDialog alert = alertBuilder.create();
-		alert.show();
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+		} else {
+			doLoad(configFile, configName, isUserConfig);
+		}
+	}
+
+	private void doLoad(final String configFile, String configName, final boolean isUserConfig) {
+		boolean isClose = closeOnLoad;
+		if (!isUserConfig) {
+			closeOnLoad = false;
+		}
+		loadConfig(configFile, configName, isUserConfig);
+		if (!isUserConfig) {
+			closeOnLoad = isClose;
+			ModelAccess.getInstace(getContext()).updateProfileFromVirtualGovernor();
+			saveConfig(configName);
+		}
+		updateListView();
 	}
 
 	private void delete(final File configuration) {
@@ -261,7 +361,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		if (name == null) {
 			return;
 		}
-		if (name.equals(SettingsStorage.getInstance().getCurrentConfiguration())) {
+		if (name.equals(settings.getCurrentConfiguration())) {
 			Toast.makeText(this, R.string.msg_cannot_delete_current_configuration, Toast.LENGTH_LONG).show();
 			return;
 		}
@@ -312,6 +412,14 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	@Override
 	public void hasFinished(boolean success) {
+		loadingSuccess = success;
+		if (!InstallHelper.hasConfig(this)) {
+			Toast.makeText(this, R.string.msg_error_loadconfig, Toast.LENGTH_LONG).show();
+			success = false;
+		}
+		if (closeOnLoad && success) {
+			finish();
+		}
 		updateListView();
 	}
 }

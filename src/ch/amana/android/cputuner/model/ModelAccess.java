@@ -12,14 +12,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
+import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
-public class ModelAccess {
+public class ModelAccess implements BackupRestoreCallback {
 
 	private static final String SELECTION_BY_ID = DB.NAME_ID + "=?";
 	// private static final String SELECTION_TRIGGER_BY_BATTERYLEVEL =
@@ -42,7 +45,10 @@ public class ModelAccess {
 	public static final Object profileCacheMutex = new Object();
 	public static final Object virtgovCacheMutex = new Object();
 	private static final Object triggerByBatteryLevelCacheMutex = new Object();
+	private SettingsStorage settings;
+	private BackupRestoreHelper backupRestoreHelper;
 
+	// TODO use init instance and get rid of context
 	public static ModelAccess getInstace(Context ctx) {
 		if (instace == null) {
 			instace = new ModelAccess(ctx.getApplicationContext());
@@ -53,6 +59,9 @@ public class ModelAccess {
 	private ModelAccess(Context ctx) {
 		super();
 		this.ctx = ctx;
+
+		settings = SettingsStorage.getInstance();
+		backupRestoreHelper = new BackupRestoreHelper(this);
 		contentResolver = ctx.getContentResolver();
 		// handler = new Handler();
 		batteryLevelComparator = new Comparator<Integer>() {
@@ -82,7 +91,14 @@ public class ModelAccess {
 	}
 
 	public void configChanged() {
-		BackupRestoreHelper.saveConfiguration(ctx);
+		if (InstallHelper.hasConfig(ctx)) {
+			if (settings.isEnableProfiles()) {
+				PowerProfiles.getInstance().reapplyProfile(false);
+			}
+			if (settings.isSaveConfiguration() && InstallHelper.hasConfig(ctx)) {
+				backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
+			}
+		}
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs) {
@@ -90,15 +106,7 @@ public class ModelAccess {
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs, boolean saveConfig) {
-//		handler.post(new Runnable() {
-//			@Override
-//			public void run() {
 		contentResolver.update(uri, values, where, selectionArgs);
-		if (saveConfig) {
-			configChanged();
-		}
-		// }
-//		});
 	}
 
 	private long getIdFromUri(Uri uri) {
@@ -107,6 +115,14 @@ public class ModelAccess {
 
 	public ProfileModel getProfile(Uri uri) {
 		return getProfile(getIdFromUri(uri));
+	}
+
+	public String getProfileName(long id) {
+		ProfileModel profile = profileCache.get(id);
+		if (profile == null) {
+			profile = getProfile(id);
+		}
+		return profile.getProfileName();
 	}
 
 	public ProfileModel getProfile(long id) {
@@ -130,7 +146,7 @@ public class ModelAccess {
 					profileCache.put(id, profile);
 				}
 			}
-			return profile;
+			return new ProfileModel(profile);
 		}
 	}
 
@@ -142,8 +158,8 @@ public class ModelAccess {
 				profile.setDbId(id);
 				profileCache.put(id, profile);
 			}
+			configChanged();
 		}
-		configChanged();
 	}
 
 	public void updateProfile(ProfileModel profile) {
@@ -154,10 +170,10 @@ public class ModelAccess {
 				VirtualGovernorModel vg = getVirtualGovernor(virtualGovernor);
 				vg.applyToProfile(profile);
 			}
-			update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			profileCache.put(id, profile);
+			update(DB.CpuProfile.CONTENT_URI, profile.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
+			configChanged();
 		}
-		// configChanged() in update
 	}
 
 	public VirtualGovernorModel getVirtualGovernor(Uri uri) {
@@ -185,7 +201,7 @@ public class ModelAccess {
 					virtgovCache.put(id, virtGov);
 				}
 			}
-			return virtGov;
+			return new VirtualGovernorModel(virtGov);
 		}
 	}
 
@@ -197,18 +213,18 @@ public class ModelAccess {
 				virtualGovModel.setDbId(id);
 				virtgovCache.put(id, virtualGovModel);
 			}
+			configChanged();
 		}
-		configChanged();
 	}
 
 	public void updateVirtualGovernor(VirtualGovernorModel virtualGovModel) {
 		synchronized (virtgovCacheMutex) {
 			long id = virtualGovModel.getDbId();
-			update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			virtgovCache.put(id, virtualGovModel);
+			update(DB.VirtualGovernor.CONTENT_URI, virtualGovModel.getValues(), SELECTION_BY_ID, new String[] { Long.toString(id) });
 			updateAllProfilesFromVirtualGovernor(virtualGovModel);
+			configChanged();
 		}
-		// configChanged() in update
 	}
 
 	private void updateAllProfilesFromVirtualGovernor(VirtualGovernorModel virtualGovModel) {
@@ -254,7 +270,7 @@ public class ModelAccess {
 					initTriggerByBatteryLevelCache();
 				}
 			}
-			return trigger;
+			return new TriggerModel(trigger);
 		}
 	}
 
@@ -267,8 +283,8 @@ public class ModelAccess {
 				triggerCache.put(id, triggerModel);
 				initTriggerByBatteryLevelCache();
 			}
+			configChanged();
 		}
-		configChanged();
 	}
 
 	public void updateTrigger(TriggerModel triggerModel) {
@@ -277,11 +293,13 @@ public class ModelAccess {
 
 	public void updateTrigger(TriggerModel triggerModel, boolean saveConfig) {
 		synchronized (triggerCacheMutex) {
-			update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" }, saveConfig);
 			triggerCache.put(triggerModel.getId(), triggerModel);
 			initTriggerByBatteryLevelCache();
+			update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" }, saveConfig);
+			if (saveConfig) {
+				configChanged();
+			}
 		}
-		// configChanged() in update
 	}
 
 	private void initTriggerByBatteryLevelCache() {
@@ -351,6 +369,39 @@ public class ModelAccess {
 		} finally {
 			if (cursor != null && !cursor.isClosed()) {
 				cursor.close();
+			}
+		}
+	}
+
+	@Override
+	public Context getContext() {
+		return ctx;
+	}
+
+	@Override
+	public void hasFinished(boolean success) {
+		// do nothing
+	}
+
+	public void delete(Uri uri) {
+		contentResolver.delete(uri, null, null);
+		clearCache();
+	}
+
+	public void updateProfileFromVirtualGovernor() {
+		Cursor c = null;
+		try {
+			c = contentResolver.query(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, null, null, null);
+			while (c.moveToNext()) {
+				ProfileModel profile = new ProfileModel(c);
+				VirtualGovernorModel virtualGovernor = getVirtualGovernor(profile.getVirtualGovernor());
+				virtualGovernor.applyToProfile(profile);
+				updateProfile(profile);
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
 			}
 		}
 	}

@@ -19,7 +19,13 @@ public class ConfigurationsListAdapter extends ConfigurationsAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		TwoLineListItem view = (convertView != null) ? (TwoLineListItem) convertView : createView(parent);
-		view.getText1().setText(getDirectory(position).getName());
+		String name = getDirectory(position).getName();
+		view.getText1().setText(name);
+		if (name != null && name.equals(SettingsStorage.getInstance().getCurrentConfiguration())) {
+			view.getText1().setTextColor(view.getResources().getColor(R.color.cputuner_green));
+		} else {
+			view.getText1().setTextColor(view.getResources().getColor(android.R.color.white));
+		}
 		StringBuilder savedAtStr = new StringBuilder();
 		savedAtStr.append(parent.getResources().getText(R.string.saved_at)).append(" ");
 		savedAtStr.append(SettingsStorage.getInstance().getSimpledateformat().format(new Date(getNewestFile(position))));

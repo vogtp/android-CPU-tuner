@@ -36,11 +36,22 @@ public class VirtualGovernorModel implements IGovernorModel {
 		this.script = c.getString(DB.VirtualGovernor.INDEX_SCRIPT);
 		this.powersaveBias = c.getInt(DB.VirtualGovernor.INDEX_POWERSEAVE_BIAS);
 		this.useNumberOfCpus = c.getInt(DB.VirtualGovernor.INDEX_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public VirtualGovernorModel(Bundle bundle) {
 		this();
 		readFromBundle(bundle);
+	}
+
+	public VirtualGovernorModel(VirtualGovernorModel virtGov) {
+		this();
+		Bundle b = new Bundle();
+		virtGov.saveToBundle(b);
+		readFromBundle(b);
 	}
 
 	public void saveToBundle(Bundle bundle) {
@@ -67,6 +78,10 @@ public class VirtualGovernorModel implements IGovernorModel {
 		script = bundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 		powersaveBias = bundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
 		useNumberOfCpus = bundle.getInt(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public void readFromJson(JSONBundle jsonBundle) {
@@ -78,6 +93,10 @@ public class VirtualGovernorModel implements IGovernorModel {
 		script = jsonBundle.getString(DB.VirtualGovernor.NAME_SCRIPT);
 		powersaveBias = jsonBundle.getInt(DB.VirtualGovernor.NAME_POWERSEAVE_BIAS);
 		useNumberOfCpus = jsonBundle.getInt(DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS);
+		if (script == null) {
+			// fix equals
+			script = "";
+		}
 	}
 
 	public ContentValues getValues() {
@@ -105,6 +124,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		profile.setUseNumberOfCpus(useNumberOfCpus);
 	}
 
+	@Override
 	public String getGov() {
 		if (realGov == null) {
 			return ProfileModel.NO_VALUE_STR;
@@ -187,26 +207,31 @@ public class VirtualGovernorModel implements IGovernorModel {
 		return true;
 	}
 
+	@Override
 	public int getGovernorThresholdUp() {
 		return governorThresholdUp;
 	}
 
+	@Override
 	public void setGovernorThresholdUp(int i) {
 		if (i > -1 && i < 101) {
 			this.governorThresholdUp = i;
 		}
 	}
 
+	@Override
 	public int getGovernorThresholdDown() {
 		return governorThresholdDown;
 	}
 
+	@Override
 	public void setGovernorThresholdDown(int i) {
 		if (i > -1 && i < 101) {
 			this.governorThresholdDown = i;
 		}
 	}
 
+	@Override
 	public void setGovernorThresholdUp(String string) {
 		try {
 			setGovernorThresholdUp(Integer.parseInt(string));
@@ -215,6 +240,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 		}
 	}
 
+	@Override
 	public void setGovernorThresholdDown(String string) {
 		try {
 			setGovernorThresholdDown(Integer.parseInt(string));
@@ -223,14 +249,17 @@ public class VirtualGovernorModel implements IGovernorModel {
 		}
 	}
 
+	@Override
 	public boolean hasScript() {
 		return script != null && !TextUtils.isEmpty(script.trim());
 	}
 
+	@Override
 	public void setScript(String script) {
 		this.script = script;
 	}
 
+	@Override
 	public String getScript() {
 		return script;
 	}
@@ -261,10 +290,12 @@ public class VirtualGovernorModel implements IGovernorModel {
 		throw new RuntimeException("VirtualGovernorModel does not support getVirtualGovernor");
 	}
 
+	@Override
 	public void setPowersaveBias(int powersaveBias) {
 		this.powersaveBias = powersaveBias;
 	}
 
+	@Override
 	public int getPowersaveBias() {
 		return powersaveBias;
 	}

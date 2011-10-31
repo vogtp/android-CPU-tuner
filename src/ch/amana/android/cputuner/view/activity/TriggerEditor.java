@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -17,16 +18,26 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.Trigger;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
-public class TriggerEditor extends Activity {
+import com.markupartist.android.widget.ActionBar;
+
+public class TriggerEditor extends Activity implements EditorCallback {
 
 	private Spinner spBattery;
 	private Spinner spPower;
@@ -38,8 +49,9 @@ public class TriggerEditor extends Activity {
 	private SeekBar sbBatteryLevel;
 	private CheckBox cbHot;
 	private Spinner spCall;
-	private boolean save;
+	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
+	private TriggerModel origTriggerModel;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -52,13 +64,34 @@ public class TriggerEditor extends Activity {
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			triggerModel = modelAccess.getTrigger(getIntent().getData());
+		} else if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+			triggerModel = modelAccess.getTrigger(getIntent().getData());
+			triggerModel.setName(null);
+			triggerModel.setDbId(-1);
 		}
 
 		if (triggerModel == null) {
 			triggerModel = new TriggerModel();
 			triggerModel.setName("");
 		}
-		setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
+
+		origTriggerModel = new TriggerModel(triggerModel);
+
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
+		actionBar.setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
+		EditorActionbarHelper.addActions(this, actionBar);
 
 		etName = (EditText) findViewById(R.id.etName);
 		etBatteryLevel = (EditText) findViewById(R.id.etBatteryLevel);
@@ -67,7 +100,11 @@ public class TriggerEditor extends Activity {
 		sbBatteryLevel.setVisibility(View.INVISIBLE);
 		spBattery = (Spinner) findViewById(R.id.spBattery);
 		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
-		spPower = (Spinner) findViewById(R.id.spPower);
+		if (SettingsStorage.getInstance(this).isPowerStrongerThanScreenoff()) {
+			spPower = (Spinner) findViewById(R.id.spPowerStrong);
+		} else {
+			spPower = (Spinner) findViewById(R.id.spPowerWeak);
+		}
 		spCall = (Spinner) findViewById(R.id.spCall);
 		spHot = (Spinner) findViewById(R.id.spHot);
 		cbHot = (CheckBox) findViewById(R.id.cbHot);
@@ -104,7 +141,21 @@ public class TriggerEditor extends Activity {
 
 	@Override
 	protected void onResume() {
-		save = true;
+		SettingsStorage settings = SettingsStorage.getInstance(this);
+		if (settings.isPowerStrongerThanScreenoff()) {
+			findViewById(R.id.trPowStrong).setVisibility(View.VISIBLE);
+			findViewById(R.id.trPowWeak).setVisibility(View.GONE);
+			spPower = (Spinner) findViewById(R.id.spPowerStrong);
+		} else {
+			findViewById(R.id.trPowStrong).setVisibility(View.GONE);
+			findViewById(R.id.trPowWeak).setVisibility(View.VISIBLE);
+			spPower = (Spinner) findViewById(R.id.spPowerWeak);
+		}
+		if (settings.isEnableCallInProgressProfile()) {
+			findViewById(R.id.trCall).setVisibility(View.VISIBLE);
+		} else {
+			findViewById(R.id.trCall).setVisibility(View.GONE);
+		}
 		updateView();
 		super.onResume();
 	}
@@ -113,7 +164,7 @@ public class TriggerEditor extends Activity {
 		boolean hasHotProfile = triggerModel.getHotProfileId() > -1;
 		cbHot.setChecked(hasHotProfile);
 		spHot.setEnabled(hasHotProfile);
-		spCall.setEnabled(SettingsStorage.getInstance().isEnableCallInProgressProfile());
+		//		spCall.setEnabled(SettingsStorage.getInstance().isEnableCallInProgressProfile());
 		etName.setText(triggerModel.getName());
 		etBatteryLevel.setText(triggerModel.getBatteryLevel() + "");
 		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());
@@ -138,14 +189,18 @@ public class TriggerEditor extends Activity {
 		if (cbHot.isChecked()) {
 			triggerModel.setHotProfileId(spHot.getSelectedItemId());
 		} else {
-			triggerModel.setHotProfileId(-1);
+			triggerModel.setHotProfileId(PowerProfiles.NO_PROFILE);
 		}
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		updateModel();
-		triggerModel.saveToBundle(outState);
+		if (exitStatus != ExitStatus.discard) {
+			updateModel();
+			triggerModel.saveToBundle(outState);
+		} else {
+			origTriggerModel.saveToBundle(outState);
+		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -171,21 +226,19 @@ public class TriggerEditor extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		updateModel();
-		try {
-			String action = getIntent().getAction();
-			if (Intent.ACTION_INSERT.equals(action)) {
-				if (save) {
-					modelAccess.insertTrigger(triggerModel);
+		if (hasChange() && hasName() && isNameUnique() && isBatterylevelUnique()) {
+			try {
+				String action = getIntent().getAction();
+				if (exitStatus == ExitStatus.save && hasChange()) {
+					if (Intent.ACTION_INSERT.equals(action)) {
+						modelAccess.insertTrigger(triggerModel);
+					} else if (Intent.ACTION_EDIT.equals(action)) {
+						modelAccess.updateTrigger(triggerModel);
+					}
 				}
-			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (save) {
-					modelAccess.updateTrigger(triggerModel);
-				}
+			} catch (Exception e) {
+				Logger.w("Cannot insert or update", e);
 			}
-		} catch (Exception e) {
-			Logger.w("Cannot insert or update", e);
-
 		}
 	}
 
@@ -201,11 +254,10 @@ public class TriggerEditor extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			save = false;
-			finish();
+			discard();
 			break;
 		case R.id.menuItemSave:
-			finish();
+			save();
 			break;
 		default:
 			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_TRIGGER)) {
@@ -213,5 +265,84 @@ public class TriggerEditor extends Activity {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void discard() {
+		exitStatus = ExitStatus.discard;
+		finish();
+	}
+
+	private boolean hasName() {
+		String name = triggerModel.getName();
+		return name != null && !"".equals(name.trim());
+	}
+
+	private boolean isNameUnique() {
+		Cursor cursor = null;
+		try {
+			cursor = managedQuery(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_ID_NAME, Trigger.SELECTION_NAME, new String[] { triggerModel.getName() }, null);
+			if (cursor.moveToFirst()) {
+				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
+			}
+			return true;
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
+	private boolean isBatterylevelUnique() {
+		Cursor cursor = null;
+		try {
+			cursor = managedQuery(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_BATTERY_LEVEL, Trigger.SELECTION_BATTERYLEVEL, new String[] { Integer.toString(triggerModel
+					.getBatteryLevel()) }, null);
+			if (cursor.moveToFirst()) {
+				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
+			}
+			return true;
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
+	@Override
+	public void save() {
+		updateModel();
+		boolean ok = true;
+		if (!hasName()) {
+			Toast.makeText(this, R.string.msg_no_trigger_name, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok && !isNameUnique()) {
+			Toast.makeText(this, R.string.msg_triggername_exists, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok && !isBatterylevelUnique()) {
+			Toast.makeText(this, R.string.msg_triggerbatterylevel_exists, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok) {
+			exitStatus = ExitStatus.save;
+			finish();
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
+	}
+
+	private boolean hasChange() {
+		updateModel();
+		return !origTriggerModel.equals(triggerModel);
+	}
+
+	@Override
+	public Context getContext() {
+		return this;
 	}
 }

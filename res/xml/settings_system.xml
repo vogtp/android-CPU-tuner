@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="@string/prefCatSystem"
+	android:key="prefKeySystemScreen"
+	android:summary="@string/prefCatSystemLong"
+>
+	<Preference
+		android:key="prefKeyProfiles"
+		android:title="@string/prefKeyProfiles"
+		android:summary="@string/prefKeyProfilesLong"
+	></Preference>
+	<Preference
+		android:key="prefKeyServiceSwitches"
+		android:title="@string/prefServiceSwitches"
+		android:summary="@string/prefServiceSwitchesLong"
+	></Preference>
+	<Preference
+		android:key="prefKeyCpu"
+		android:title="@string/prefCpu"
+		android:summary="@string/prefCpuLong"
+	></Preference>
+	<EditTextPreference
+		android:key="prefKeyEnableBeta"
+		android:title="@string/prefEnableBeta"
+		android:dialogMessage="@string/prefEnableBetaMessage"
+		android:dialogTitle="@string/prefEnableBeta"
+		android:summary="@string/prefEnableBetaMessage"
+	></EditTextPreference>
+</PreferenceScreen>

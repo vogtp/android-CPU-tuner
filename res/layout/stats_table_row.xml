@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+>
+	<TextView
+		style="@style/logText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="3dp"
+		android:text="TextView"
+		android:id="@+id/tvFreq"
+		android:layout_gravity="right"
+	></TextView>
+	<TextView
+		style="@style/logText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="7dp"
+		android:paddingRight="7dp"
+		android:text="TextView"
+		android:id="@+id/tvTime"
+		android:layout_gravity="right"
+	></TextView>
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+	>
+		<TextView
+			style="@style/logText"
+			android:text="TextView"
+			android:id="@+id/tvGraph"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+		></TextView>
+	</LinearLayout>
+</TableRow>

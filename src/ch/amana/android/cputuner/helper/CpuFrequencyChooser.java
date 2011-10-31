@@ -215,13 +215,16 @@ public class CpuFrequencyChooser {
 	}
 
 	private void setSpinner(int freq, Spinner spinner) {
-		SpinnerAdapter adapter = spinner.getAdapter();
-		for (int i = 0; i < adapter.getCount(); i++) {
-			if (freq == (Integer) adapter.getItem(i)) {
-				spinner.setSelection(i);
+		try {
+			SpinnerAdapter adapter = spinner.getAdapter();
+			for (int i = 0; i < adapter.getCount(); i++) {
+				if (freq == (Integer) adapter.getItem(i)) {
+					spinner.setSelection(i);
+				}
 			}
+		} catch (Exception e) {
+			Logger.w("Cannot set current item of spinne", e);
 		}
-
 	}
 
 	public void setMaxCpuFreq(int freq) {

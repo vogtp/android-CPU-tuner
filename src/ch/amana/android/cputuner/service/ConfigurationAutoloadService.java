@@ -18,7 +18,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 
 public class ConfigurationAutoloadService extends IntentService implements BackupRestoreCallback {
 
-	public static final String ACTION_SCEDULE_AUTOLOAD = "ch.amana.android.cputuner.INTENT_SCEDULE_AUTOLOAD";
+	public static final String ACTION_SCEDULE_AUTOLOAD = "ch.amana.android.cputuner.ACTION_SCEDULE_AUTOLOAD";
 
 	private static final String EXTRA_VALUES = "camValuesBundle";
 
@@ -81,6 +81,7 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 		} else {
 			PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 			am.cancel(operation);
+			context.stopService(new Intent(context, ConfigurationAutoloadService.class));
 		}
 	}
 
@@ -94,8 +95,10 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 					String configuration = cam.getConfiguration();
 					if (!TextUtils.isEmpty(configuration)) {
 						try {
+							Logger.i("Autoloaded configuration " + configuration);
 							SettingsStorage settings = SettingsStorage.getInstance();
-							BackupRestoreHelper.restoreConfiguration(this, configuration, false, false);
+							BackupRestoreHelper brh = new BackupRestoreHelper(this);
+							brh.restoreConfiguration(configuration, true, false);
 							Logger.addToLog("Loaded configuration " + configuration);
 							settings.setCurrentConfiguration(configuration);
 						} catch (Exception e) {

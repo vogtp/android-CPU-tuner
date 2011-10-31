@@ -10,12 +10,14 @@ public class BatteryHandler extends HardwareHandler {
 
 	public static final String BATTERY_DIR = "/sys/class/power_supply/battery/";
 	public static final String BATTERY_CPCAP_DIR = "/sys/devices/platform/cpcap_battery/power_supply/battery/";
+	private static final File ONPOWER_USB = new File("/sys/class/power_supply/usb/online");
+	private static final File ONPOWER_AC = new File("/sys/class/power_supply/ac/online");
 
 	private boolean hasAvgCurrent = true;
 
-	private File CURRENT_NOW_FILE;
+	private final File CURRENT_NOW_FILE;
 	private File CURRENT_AVG_FILE;
-	private File CAPACITY_FILE = new File(BATTERY_DIR, CAPACITY);
+	private final File CAPACITY_FILE = new File(BATTERY_DIR, CAPACITY);
 	private File BATT_CURRENT_FILE;
 
 	private static BatteryHandler instance = null;
@@ -99,7 +101,12 @@ public class BatteryHandler extends HardwareHandler {
 	}
 
 	public boolean isOnAcPower() {
-		// FIXME get it somehow
+		if (getIntFromStr(RootHandler.readFile(ONPOWER_USB)) == 1) {
+			return true;
+		}
+		if (getIntFromStr(RootHandler.readFile(ONPOWER_AC)) == 1) {
+			return true;
+		}
 		return false;
 	}
 

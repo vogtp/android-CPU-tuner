@@ -4,21 +4,22 @@ import java.io.IOException;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Button;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class HelpActivity extends Activity {
 
@@ -29,17 +30,16 @@ public class HelpActivity extends Activity {
 	public static final String PAGE_TRIGGER = "trigger.html";
 	public static final String PAGE_VIRTUAL_GOVERNOR = "virtual_governor.html";
 	public static final String PAGE_CAPABILITY_CHECK = "capability_check.html";
-	public static final String PAGE_CONFIGURATION = "configuration.html";
 
 	public static final String PAGE_SETTINGS = "settings/index.html";
 	public static final String PAGE_SETTINGS_GUI = "settings/gui.html";
-
-
+	public static final String PAGE_SETTINGS_BACKEND = "settings/backend.html";
+	public static final String PAGE_SETTINGS_PROFILE = "settings/profiles_triggers.html";
+	public static final String PAGE_SETTINGS_CPU = "settings/cpu.html";
+	public static final String PAGE_SETTINGS_SERVICE_SWITCHES = "settings/service_switches.html";
+	public static final String PAGE_SETTINGS_CONFIGURATION = "settings/configuration.html";
 
 	private WebView wvHelp;
-	private Button buHome;
-	private Button buBack;
-	private Button buForward;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -59,33 +59,55 @@ public class HelpActivity extends Activity {
 		}
 
 		wvHelp = (WebView) findViewById(R.id.wvHelp);
-		buHome = (Button) findViewById(R.id.buHome);
-		buBack = (Button) findViewById(R.id.buBack);
-		buForward = (Button) findViewById(R.id.buForward);
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
 
 		WebSettings webSettings = wvHelp.getSettings();
 		webSettings.setBuiltInZoomControls(false);
 		webSettings.setDefaultFontSize(16);
 
-		buHome.setOnClickListener(new OnClickListener() {
+		actionBar.setTitle(R.string.title_help_pages);
+		actionBar.setHomeAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.cputuner_back));
 
+		actionBar.addAction(new Action() {
 			@Override
-			public void onClick(View v) {
-				go(PAGE_INDEX);
-			}
-		});
-		buBack.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
+			public void performAction(View view) {
 				wvHelp.goBack();
 			}
-		});
-		buForward.setOnClickListener(new OnClickListener() {
-
 			@Override
-			public void onClick(View v) {
+			public int getDrawable() {
+				return R.drawable.back;
+			}
+		});
+		actionBar.addAction(new Action() {
+			@Override
+			public void performAction(View view) {
 				wvHelp.goForward();
+			}
+			@Override
+			public int getDrawable() {
+				return R.drawable.forward;
+			}
+		});
+		actionBar.addAction(new Action() {
+			@Override
+			public void performAction(View view) {
+				go(PAGE_INDEX);
+			}
+			@Override
+			public int getDrawable() {
+				return R.drawable.home;
 			}
 		});
 
@@ -108,26 +130,28 @@ public class HelpActivity extends Activity {
 		super.onResume();
 	}
 	
-	private String getIndexFilePath() {
+	private String getFilePath(String page) {
 		String language = SettingsStorage.getInstance().getLanguage();
 		if ("".equals(language)) {
 			language = Locale.getDefault().getLanguage().toLowerCase();
 		}
-		Logger.i("Found language code " + language);
 		String langHelpDir = "help-" + language;
 		try {
-			AssetManager assets = getAssets();
-			if (assets.list(langHelpDir).length > 0) {
-				return "file:///android_asset/" + langHelpDir + "/";
+			String[] list = getAssets().list(langHelpDir);
+			for (int i = 0; i < list.length; i++) {
+				if (list[i].equals(page)) {
+					return "file:///android_asset/" + langHelpDir + "/" + page;
+				}
 			}
+
 		} catch (IOException e) {
 			Logger.e("Cannot open language asset for language " + language);
 		}
-		return "file:///android_asset/help/";
+		return "file:///android_asset/help/" + page;
 	}
 
 	private void go(String file) {
-		wvHelp.loadUrl(getIndexFilePath() + file);
+		wvHelp.loadUrl(getFilePath(file));
 	}
 
 	@Override

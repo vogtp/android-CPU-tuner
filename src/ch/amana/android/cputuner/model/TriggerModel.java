@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggerModel {
@@ -76,6 +77,12 @@ public class TriggerModel {
 	}
 
 	public TriggerModel(Bundle bundle) {
+		readFromBundle(bundle);
+	}
+
+	public TriggerModel(TriggerModel trigger) {
+		Bundle bundle = new Bundle();
+		trigger.saveToBundle(bundle);
 		readFromBundle(bundle);
 	}
 
@@ -297,6 +304,10 @@ public class TriggerModel {
 		powerCurrentCntHot = 0;
 		powerCurrentSumCall = 0;
 		powerCurrentCntCall = 0;
+		TriggerModel ppCurrentTrigger = PowerProfiles.getInstance().getCurrentTrigger();
+		if (ppCurrentTrigger != null && ppCurrentTrigger != this && ppCurrentTrigger.getName().equals(name)) {
+			ppCurrentTrigger.clearPowerCurrent();
+		}
 	}
 
 	@Override
@@ -307,17 +318,8 @@ public class TriggerModel {
 		result = prime * result + (int) (batteryProfileId ^ (batteryProfileId >>> 32));
 		result = prime * result + (int) (callInProgessProfileId ^ (callInProgessProfileId >>> 32));
 		result = prime * result + (int) (hotProfileId ^ (hotProfileId >>> 32));
+		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + (int) (powerCurrentCntBattery ^ (powerCurrentCntBattery >>> 32));
-		result = prime * result + (int) (powerCurrentCntCall ^ (powerCurrentCntCall >>> 32));
-		result = prime * result + (int) (powerCurrentCntHot ^ (powerCurrentCntHot >>> 32));
-		result = prime * result + (int) (powerCurrentCntPower ^ (powerCurrentCntPower >>> 32));
-		result = prime * result + (int) (powerCurrentCntScreenLocked ^ (powerCurrentCntScreenLocked >>> 32));
-		result = prime * result + (int) (powerCurrentSumBattery ^ (powerCurrentSumBattery >>> 32));
-		result = prime * result + (int) (powerCurrentSumCall ^ (powerCurrentSumCall >>> 32));
-		result = prime * result + (int) (powerCurrentSumHot ^ (powerCurrentSumHot >>> 32));
-		result = prime * result + (int) (powerCurrentSumPower ^ (powerCurrentSumPower >>> 32));
-		result = prime * result + (int) (powerCurrentSumScreenLocked ^ (powerCurrentSumScreenLocked >>> 32));
 		result = prime * result + (int) (powerProfileId ^ (powerProfileId >>> 32));
 		result = prime * result + (int) (screenOffProfileId ^ (screenOffProfileId >>> 32));
 		return result;
@@ -340,30 +342,12 @@ public class TriggerModel {
 			return false;
 		if (hotProfileId != other.hotProfileId)
 			return false;
+		if (id != other.id)
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (powerCurrentCntBattery != other.powerCurrentCntBattery)
-			return false;
-		if (powerCurrentCntCall != other.powerCurrentCntCall)
-			return false;
-		if (powerCurrentCntHot != other.powerCurrentCntHot)
-			return false;
-		if (powerCurrentCntPower != other.powerCurrentCntPower)
-			return false;
-		if (powerCurrentCntScreenLocked != other.powerCurrentCntScreenLocked)
-			return false;
-		if (powerCurrentSumBattery != other.powerCurrentSumBattery)
-			return false;
-		if (powerCurrentSumCall != other.powerCurrentSumCall)
-			return false;
-		if (powerCurrentSumHot != other.powerCurrentSumHot)
-			return false;
-		if (powerCurrentSumPower != other.powerCurrentSumPower)
-			return false;
-		if (powerCurrentSumScreenLocked != other.powerCurrentSumScreenLocked)
 			return false;
 		if (powerProfileId != other.powerProfileId)
 			return false;

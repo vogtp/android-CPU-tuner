@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="@string/labelSettingsTab"
+	android:layout="@layout/preferences"
+>
+	<CheckBoxPreference
+		android:key="prefKeyEnableProfiles"
+		android:defaultValue="true"
+		android:title="@string/prefEnableCputuner"
+		android:summaryOff="@string/prefEnableCputunerOff"
+		android:summaryOn="@string/prefEnableCputunerOn"
+	></CheckBoxPreference>
+	<Preference
+		android:key="prefKeyConfigurations"
+		android:summary="@string/prefConfigurationsLong" 
+		android:title="@string/prefConfigurations"
+	></Preference>
+	<Preference
+		android:key="prefKeyGuiScreen"
+		android:title="@string/prefCatGUI"
+		android:summary="@string/prefCatGUILong"
+	></Preference>
+	<Preference
+		android:key="prefKeySystemScreen"
+		android:title="@string/prefCatSystem"
+		android:summary="@string/prefCatSystemLong"
+	></Preference>
+	<Preference
+		android:key="prefKeyExtentions"
+		android:summary="@string/prefextentionsLong"
+		android:title="@string/title_extentions"
+	></Preference>
+	<Preference
+		android:title="@string/prefBuyMeABeer"
+		android:key="prefKeyBuyMeABeer"
+		android:summary="@string/prefBuyMeABeerLong"
+	></Preference>
+	<Preference
+		android:key="prefKeyVarious"
+		android:title="@string/prefVarious"
+		android:summary="@string/prefVariousLong"
+	></Preference>
+</PreferenceScreen>

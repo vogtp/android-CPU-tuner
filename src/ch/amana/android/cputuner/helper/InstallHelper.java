@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -18,16 +19,19 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
 public class InstallHelper {
 
-	private static final int VERSION = 4;
+	private static final int VERSION = 5;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -45,6 +49,117 @@ public class InstallHelper {
 	private static CpuGovernorSettings cgsSave;
 	private static CpuGovernorSettings cgsExtremSave;
 
+	public static void initialise(final Context ctx) {
+		SettingsStorage settings = SettingsStorage.getInstance(ctx);
+		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
+		switch (defaultProfilesVersion) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			Logger.i("Initalising cpu tuner to level 5");
+			CpuHandler cpuHandler = CpuHandler.getInstance();
+			settings.setMinFrequencyDefault(cpuHandler.getMinCpuFreq());
+			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());
+
+		}
+		settings.migrateSettings();
+		settings.setDefaultProfilesVersion(VERSION);
+	}
+
+	public static void ensureSetup(final Context ctx) {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ctx);
+		alertBuilder.setTitle(R.string.msg_title_grant_root);
+		alertBuilder.setMessage(R.string.msg_grant_root);
+		alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ensureRoot(ctx);
+			}
+		});
+		AlertDialog alert = alertBuilder.create();
+		alert.show();
+	}
+
+	private static void ensureRoot(final Context ctx) {
+		if (!RootHandler.isRoot()) {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ctx);
+			alertBuilder.setTitle("Root access failed");
+			alertBuilder.setMessage("Cpu tuner will not work unless it has root access.");
+			alertBuilder.setPositiveButton("Try again!", new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ensureRoot(ctx);
+				}
+			});
+			if (hasConfig(ctx)) {
+				alertBuilder.setNeutralButton("Configure superuser", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = ctx.getPackageManager().getLaunchIntentForPackage("com.noshufou.android.su");
+						ctx.startActivity(intent);
+					}
+				});
+			}
+			alertBuilder.setNegativeButton("continue", new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ensureConfiguration(ctx, true);
+				}
+			});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+		} else {
+			ensureConfiguration(ctx, true);
+		}
+	}
+
+	public static void ensureConfiguration(Context ctx, boolean startMain) {
+		if (!hasConfig(ctx)) {
+			Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_FIRST_RUN, true);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_ASK_LOAD_CONFIRMATION, false);
+			intent.putExtra(ConfigurationManageActivity.EXTRA_TITLE, ctx.getString(R.string.title_load_configuration));
+			ctx.startActivity(intent);
+		} else {
+			SettingsStorage.getInstance().firstRunDone();
+			if (startMain) {
+				ctx.startActivity(CpuTunerViewpagerActivity.getStartIntent(ctx));
+			}
+		}
+	}
+
+	public static boolean hasConfig(Context ctx) {
+		boolean ret = true;
+		ContentResolver resolver = ctx.getContentResolver();
+		ret = ret && checkCursor(resolver, DB.CpuProfile.CONTENT_URI);
+		ret = ret && checkCursor(resolver, DB.Trigger.CONTENT_URI);
+		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+			ret = ret && checkCursor(resolver, DB.VirtualGovernor.CONTENT_URI);
+		}
+		return ret;
+	}
+
+	private static boolean checkCursor(ContentResolver resolver, Uri contentUri) {
+		Cursor c = null;
+		try {
+			c = resolver.query(contentUri, DB.PROJECTION_IDE, null, null, null);
+			if (c == null) {
+				return false;
+			}
+			return c.moveToFirst();
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
+			}
+		}
+	}
+
 	public static void resetToDefault(final Context ctx) {
 		Builder alertBuilder = new AlertDialog.Builder(ctx);
 		alertBuilder.setTitle(R.string.title_reset_to_default);
@@ -54,7 +169,7 @@ public class InstallHelper {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				CpuTunerProvider.deleteAllTables(ctx, false);
+				CpuTunerProvider.deleteAllTables(ctx, true);
 				updateDefaultProfiles(ctx);
 
 			}
@@ -89,15 +204,14 @@ public class InstallHelper {
 					List<String> availGov = Arrays.asList(cpuHandler.getAvailCpuGov());
 
 					long profilePerformance = createCpuProfile(resolver, ctx.getString(R.string.profilename_performance), getPowerGov(ctx, resolver, availGov, gov), freqMax,
-							freqMin, 0, 0, 0, 0, 1);
-					long profileGood = createCpuProfile(resolver, ctx.getString(R.string.profilename_good), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0,
-							0, 1);
+							freqMin);
+					long profileGood = createCpuProfile(resolver, ctx.getString(R.string.profilename_good), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin);
 					long profileNormal = createCpuProfile(resolver, ctx.getString(R.string.profilename_normal), getNormalGov(ctx, resolver, availGov, gov), freqMax, freqMin);
 					long profileScreenOff = createCpuProfile(resolver, ctx.getString(R.string.profilename_screen_off), getExtremSaveGov(ctx, resolver, availGov, gov), freqMax,
 							freqMin);
-					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(ctx, resolver, availGov, gov), freqMax, freqMin, 0, 0, 0, 1, 0);
+					long profilePowersave = createCpuProfile(resolver, "Powersave", getSaveGov(ctx, resolver, availGov, gov), freqMax, freqMin);
 					long profileExtremPowersave = createCpuProfile(resolver, ctx.getString(R.string.profilename_extreme_powersave), getExtremSaveGov(ctx, resolver, availGov, gov),
-							freqMax, freqMin, 2, 2, 2, 1, 2);
+							freqMax, freqMin);
 
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_full), 100, profileScreenOff, profileGood, profilePerformance, profilePerformance);
 					createTrigger(resolver, ctx.getString(R.string.triggername_battery_used), 85, profileScreenOff, profileNormal, profileGood, profilePerformance);
@@ -311,27 +425,7 @@ public class InstallHelper {
 		return id;
 	}
 
-	public static void populateDb(Context ctx) {
-		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
-		switch (defaultProfilesVersion) {
-		case 0:
-			Logger.i("Initalising cpu tuner from scratch");
-			updateDefaultProfiles(ctx);
-			break;
-
-		case 2:
-			Logger.i("Initalising cpu tuner to level 2");
-			updateDefaultProfiles(ctx);
-			updateProfilesFromVirtGovs(ctx);
-
-		case 3:
-			Logger.i("Initalising cpu tuner to level 3");
-
-		}
-		SettingsStorage.getInstance().setDefaultProfilesVersion(VERSION);
-	}
-
-	private static void updateProfilesFromVirtGovs(Context ctx) {
+	public static void updateProfilesFromVirtGovs(Context ctx) {
 		ContentResolver contentResolver = ctx.getContentResolver();
 		Cursor cursorVirtGov = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, null, null, VirtualGovernor.SORTORDER_DEFAULT);
 		if (cursorVirtGov == null) {
@@ -348,19 +442,5 @@ public class InstallHelper {
 			}
 		}
 	}
-
-	// public static void magicallyHeal(Context ctx) {
-	// Logger.w("Magically healing cpu tuner");
-	// File dataDirectory =
-	// ctx.getDatabasePath("cputuner").getParentFile().getParentFile();
-	// if (!dataDirectory.isDirectory()) {
-	// Logger.w("Healing: Creating directory " +
-	// dataDirectory.getAbsolutePath());
-	// RootHandler.execute("mkdir -p " + dataDirectory.getAbsolutePath());
-	// updateDefaultProfiles(ctx);
-	// }
-	// RootHandler.execute("chown -R " + android.os.Process.myUid() + " " +
-	// dataDirectory.getAbsolutePath());
-	// }
 
 }

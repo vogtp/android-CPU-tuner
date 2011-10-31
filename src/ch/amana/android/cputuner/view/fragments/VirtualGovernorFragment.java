@@ -11,7 +11,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
@@ -38,7 +37,10 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.virtual_governor_fragment, container, false);
+		View v = inflater.inflate(R.layout.virtual_governor_fragment, container, false);
+		tvExplainGov = (TextView) v.findViewById(R.id.tvExplainGov);
+		spinnerSetGov = (Spinner) v.findViewById(R.id.SpinnerCpuGov);
+		return v;
 	}
 
 	@Override
@@ -46,8 +48,6 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		FragmentActivity act = getActivity();
 
-		tvExplainGov = (TextView) act.findViewById(R.id.tvExplainGov);
-		spinnerSetGov = (Spinner) act.findViewById(R.id.SpinnerCpuGov);
 
 		cursor = act.managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
 		SimpleCursorAdapter arrayAdapter = new SimpleCursorAdapter(act, android.R.layout.simple_spinner_item, cursor,
@@ -99,13 +99,6 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			governorModel.setPowersaveBias(virtGov.getPowersaveBias());
 		} else {
 			Logger.e("Cannot load virtual governor");
-			try {
-				FragmentActivity activity = getActivity();
-				if (activity != null) {
-					Toast.makeText(activity, R.string.msg_cannot_load_virtual_governor, Toast.LENGTH_LONG).show();
-				}
-			} catch (Exception e) {
-			}
 		}
 	}
 
@@ -115,7 +108,9 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		updateVirtGov = false;
 		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
 		updateVirtGov = true;
-		tvExplainGov.setText(getGovernorModel().getDescription(getActivity()));
+		if (tvExplainGov != null) {
+			tvExplainGov.setText(getGovernorModel().getDescription(getActivity()));
+		}
 	}
 
 }

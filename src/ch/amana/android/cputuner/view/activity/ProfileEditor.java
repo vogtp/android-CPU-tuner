@@ -2,6 +2,8 @@ package ch.amana.android.cputuner.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -21,24 +23,33 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
+import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
-import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
+import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorFragment;
+import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
-public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback {
+import com.markupartist.android.widget.ActionBar;
+
+public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback, EditorCallback {
 
 	private ProfileModel profile;
 	private CpuHandler cpuHandler;
@@ -51,21 +62,23 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private Spinner spWifi;
 	private Spinner spGps;
 	private Spinner spBluetooth;
-	private TextView labelCpuFreqMin;
 	private TextView labelCpuFreqMax;
 	private EditText etName;
 	private Spinner spMobileData3G;
 	private Spinner spSync;
 	private boolean hasDeviceStatesBeta;
 	private Spinner spMobileDataConnection;
-	// private LinearLayout llTop;
+	//	private LinearLayout llTop;
 	private GovernorBaseFragment governorFragment;
 	private TableRow trMinFreq;
 	private TableRow trMaxFreq;
 	private Spinner spAirplaneMode;
 	private CpuFrequencyChooser cpuFrequencyChooser;
-	private boolean save;
+	private ExitStatus exitStatus = ExitStatus.undefined;
 	private ModelAccess modelAccess;
+	private ProfileModel origProfile;
+	private TextView tvWarningManualServiceChanges;
+	private TextView tvWarningWifiConnected;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -78,30 +91,40 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			profile = modelAccess.getProfile(getIntent().getData());
+		} else if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+			profile = modelAccess.getProfile(getIntent().getData());
+			profile.setProfileName(null);
+			profile.setDbId(-1);
 		}
-		// TODO remove -- we should never get there
-		// else if (Intent.ACTION_EDIT.equals(action)) {
-		// profile = CpuHandler.getInstance().getCurrentCpuSettings();
-		// origProfile = CpuHandler.getInstance().getCurrentCpuSettings();
-		// }
 
 		if (profile == null) {
 			profile = new ProfileModel();
 		}
 
-		setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
+		origProfile = new ProfileModel(profile);
+
+		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		actionBar.setHomeAction(new ActionBar.Action() {
+
+			@Override
+			public void performAction(View view) {
+				onBackPressed();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.cputuner_back;
+			}
+		});
+		actionBar.setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
+		EditorActionbarHelper.addActions(this, actionBar);
 
 		cpuHandler = CpuHandler.getInstance();
 		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
 		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
-
 		SettingsStorage settings = SettingsStorage.getInstance();
 
-		if (settings.isUseVirtualGovernors()) {
-			governorFragment = new VirtualGovernorFragment(this, profile);
-		} else {
-			governorFragment = new GovernorFragment(this, profile);
-		}
+		governorFragment = getFragment();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
@@ -120,7 +143,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile.setMaxFreq(cpuHandler.getMaxCpuFreq());
 		}
 
-		// TODO remove?
+		// TODO make generic
 		hasDeviceStatesBeta = 3 == Math.max(profile.getWifiState(),
 				Math.max(profile.getGpsState(),
 						Math.max(profile.getMobiledata3GState(),
@@ -128,12 +151,13 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 										Math.max(profile.getBackgroundSyncState(),
 												profile.getWifiState())))));
 
-		// llTop = (LinearLayout) findViewById(R.id.llTop);
+		//		llTop = (LinearLayout) findViewById(R.id.llTop);
 		etName = (EditText) findViewById(R.id.etName);
 		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
 		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
-		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
+		tvWarningManualServiceChanges = (TextView) findViewById(R.id.tvWarningManualServiceChanges);
+		tvWarningWifiConnected = (TextView) findViewById(R.id.tvWarningWifiConnected);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) findViewById(R.id.SeekBarCpuFreqMin);
 		spWifi = (Spinner) findViewById(R.id.spWifi);
@@ -145,7 +169,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spSync = (Spinner) findViewById(R.id.spSync);
 		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
-
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
@@ -287,6 +310,16 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		// updateView();
 	}
 
+	private GovernorBaseFragment getFragment() {
+		GovernorBaseFragment gf;
+		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+			gf = new VirtualGovernorFragment(this, profile);
+		} else {
+			gf = new GovernorFragment(this, profile);
+		}
+		return gf;
+	}
+
 	private ArrayAdapter<CharSequence> getSystemsAdapter() {
 		int devicestates = R.array.deviceStates;
 		if (SettingsStorage.getInstance().isEnableBeta() || hasDeviceStatesBeta) {
@@ -299,8 +332,12 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		updateModel();
-		profile.saveToBundle(outState);
+		if (exitStatus != ExitStatus.discard) {
+			updateModel();
+			profile.saveToBundle(outState);
+		} else {
+			origProfile.saveToBundle(outState);
+		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -323,32 +360,33 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	protected void onResume() {
 		super.onResume();
-		save = true;
 		updateView();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		updateModel();
-		try {
-			String action = getIntent().getAction();
-			if (Intent.ACTION_INSERT.equals(action)) {
-				if (save) {
-					modelAccess.insertProfile(profile);
+		if (hasChange() && hasName() && isNameUnique()) {
+			try {
+				String action = getIntent().getAction();
+				if (exitStatus == ExitStatus.save) {
+					if (Intent.ACTION_INSERT.equals(action)) {
+						modelAccess.insertProfile(profile);
+					} else if (Intent.ACTION_EDIT.equals(action)) {
+						modelAccess.updateProfile(profile);
+					}
 				}
+			} catch (Exception e) {
+				Logger.w("Cannot insert or update", e);
 
-			} else if (Intent.ACTION_EDIT.equals(action)) {
-				if (save) {
-					modelAccess.updateProfile(profile);
-				}
 			}
-		} catch (Exception e) {
-			Logger.w("Cannot insert or update", e);
-
 		}
 	}
 
+	private boolean hasChange() {
+		updateModel();
+		return !origProfile.equals(profile);
+	}
 	@Override
 	public void updateView() {
 		String profileName = profile.getProfileName();
@@ -372,14 +410,29 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			labelCpuFreqMax.setText(R.string.labelMax);
 		}
 		if (governorConfig.hasMinFrequency()) {
-			GuiUtils.showViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
+			trMinFreq.setVisibility(View.VISIBLE);
 		} else {
-			GuiUtils.hideViews(trMinFreq, new View[] { labelCpuFreqMin, spCpuFreqMin, sbCpuFreqMin });
+			trMinFreq.setVisibility(View.GONE);
 		}
 		if (governorConfig.hasMaxFrequency()) {
-			GuiUtils.showViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
+			trMaxFreq.setVisibility(View.VISIBLE);
 		} else {
-			GuiUtils.hideViews(trMaxFreq, new View[] { labelCpuFreqMax, spCpuFreqMax, sbCpuFreqMax });
+			trMaxFreq.setVisibility(View.GONE);
+		}
+
+		if (SettingsStorage.getInstance().isAllowManualServiceChanges()) {
+			tvWarningManualServiceChanges.setVisibility(View.VISIBLE);
+			tvWarningManualServiceChanges.setText(R.string.msg_warning_manual_service_switches);
+			tvWarningManualServiceChanges.setTextColor(Color.YELLOW);
+		} else {
+			tvWarningManualServiceChanges.setVisibility(View.GONE);
+		}
+		if (!SettingsStorage.getInstance().isSwitchWifiOnConnectedNetwork()) {
+			tvWarningWifiConnected.setVisibility(View.VISIBLE);
+			tvWarningWifiConnected.setText(R.string.msg_warning_not_switch_wifi_connected);
+			tvWarningWifiConnected.setTextColor(Color.YELLOW);
+		} else {
+			tvWarningWifiConnected.setVisibility(View.GONE);
 		}
 		governorFragment.updateView();
 	}
@@ -396,12 +449,11 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemCancel:
-			save = false;
-			finish();
+			discard();
 			return true;
 
 		case R.id.menuItemSave:
-			finish();
+			save();
 			return true;
 
 		default:
@@ -425,5 +477,54 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	public void setMinCpuFreq(int val) {
 		profile.setMinFreq(val);
+	}
+
+	@Override
+	public void discard() {
+		exitStatus = ExitStatus.discard;
+		finish();
+	}
+
+	private boolean hasName() {
+		String name = profile.getProfileName();
+		return name != null && !"".equals(name.trim());
+	}
+
+	private boolean isNameUnique() {
+		Cursor cursor = null;
+		try {
+			cursor = managedQuery(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_ID_NAME, CpuProfile.SELECTION_NAME, new String[] { profile.getProfileName() }, null);
+			if (cursor.moveToFirst()) {
+				return cursor.getLong(DB.INDEX_ID) == profile.getDbId();
+			}
+			return true;
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
+	@Override
+	public void save() {
+		updateModel();
+		boolean ok = true;
+		if (!hasName()) {
+			Toast.makeText(this, R.string.msg_no_profile_name, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok && !isNameUnique()) {
+			Toast.makeText(this, R.string.msg_profilename_exists, Toast.LENGTH_LONG).show();
+			ok = false;
+		}
+		if (ok) {
+			exitStatus = ExitStatus.save;
+			finish();
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		EditorActionbarHelper.onBackPressed(this, exitStatus, hasChange());
 	}
 }

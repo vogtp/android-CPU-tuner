@@ -1,5 +1,10 @@
 package ch.amana.android.cputuner.helper;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -11,14 +16,17 @@ import ch.amana.android.cputuner.R;
 public class Logger {
 	private static final String TAG = "CPUTuner";
 
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
 
 	private static ArrayList<String> log;
 
 	private static Date now;
 
-
+	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 	public static void addToLog(String msg) {
+		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
+			return;
+		}
 		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
 		if (log == null) {
 			log = new ArrayList<String>(logSize);
@@ -26,23 +34,28 @@ public class Logger {
 		}
 		now.setTime(System.currentTimeMillis());
 		StringBuilder sb = new StringBuilder();
-		sb.append(SettingsStorage.getInstance().getSimpledateformat().format(now)).append(": ").append(msg);
+		sb.append(logDateFormat.format(now)).append(": ").append(msg);
 		log.add(0, sb.toString());
-		if (log.size() > logSize) {
-			log.remove(logSize);
+		for (int i = logSize - 1; i < log.size(); i++) {
+			log.remove(i);
 		}
 	}
 
 	public static String getLog(Context context) {
-		if (log == null || SettingsStorage.getInstance().getProfileSwitchLogSize() < 1) {
+		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
 			return context.getString(R.string.not_enabled);
 		}
 		StringBuilder sb = new StringBuilder();
-		for (Iterator<String> profileLogItr = log.iterator(); profileLogItr.hasNext();) {
-			String log = profileLogItr.next();
-			if (log != null) {
-				sb.append(log).append("\n");
+		if (log != null) {
+			for (Iterator<String> profileLogItr = log.iterator(); profileLogItr.hasNext();) {
+				String log = profileLogItr.next();
+				if (log != null) {
+					sb.append(log).append("\n");
+				}
 			}
+		}
+		if (sb.length() < 2) {
+			sb.append(context.getString(R.string.msg_no_profile_switch_log));
 		}
 		return sb.toString();
 	}
@@ -50,7 +63,7 @@ public class Logger {
 	public static void e(String msg, Throwable t) {
 		try {
 			Log.e(TAG, msg, t);
-		}catch(Throwable t1) {
+		} catch (Throwable t1) {
 		}
 	}
 
@@ -89,4 +102,33 @@ public class Logger {
 	public static void i(String msg) {
 		Log.i(TAG, msg);
 	}
+
+	public static void logStacktrace(String msg) {
+		if (!Logger.DEBUG) {
+			return;
+		}
+		logStacktrace(msg, new Exception());
+	}
+
+	public static void logStacktrace(String msg, Throwable e) {
+		if (!Logger.DEBUG) {
+			return;
+		}
+		Log.w(TAG, "Stacktrace logger: " + msg, e);
+		try {
+			Writer w = new FileWriter("/mnt/sdcard/cputuner.log", true);
+			w.write("**************  Stacktrace ***********************\n");
+			w.write((new Date()).toString());
+			w.write("\n");
+			w.write(msg);
+			w.write("\n");
+			e.printStackTrace(new PrintWriter(w));
+			w.write("**************************************************\n");
+			w.flush();
+			w.close();
+		} catch (IOException e1) {
+			Logger.w("Cannot write delete log", e1);
+		}
+	}
+
 }

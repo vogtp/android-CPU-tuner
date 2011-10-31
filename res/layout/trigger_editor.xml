@@ -1,100 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/ScrollView01"
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="wrap_content">
-	<LinearLayout android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:orientation="vertical">
-		<LinearLayout android:id="@+id/LinearLayout02"
-			android:layout_height="wrap_content" android:layout_width="fill_parent">
-			<TextView android:id="@+id/TextView02" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:layout_gravity="center_vertical"
-				android:width="@dimen/triggerEditor1Col" android:text="@string/labelCurrentTrigger"
-				android:textSize="24sp" android:textStyle="bold"></TextView>
-			<EditText android:layout_height="wrap_content" android:id="@+id/etName"
-				android:layout_width="fill_parent"></EditText>
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+>
+	<ch.amana.android.cputuner.view.widget.CputunerActionBar
+		style="@style/ActionBar"
+		android:id="@+id/abCpuTuner"
+		android:paddingBottom="3dp" />
+	<ScrollView
+		android:id="@+id/ScrollView01"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	> 
+		<LinearLayout
+			android:layout_height="fill_parent"
+			android:padding="5dp"
+			android:layout_width="fill_parent"
+			android:orientation="vertical"
+		>
+			<LinearLayout
+				android:id="@+id/LinearLayout02"
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+			>
+				<TextView
+					android:id="@+id/TextView02"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:width="@dimen/triggerEditor1Col"
+					android:text="@string/labelCurrentTrigger"
+					android:textSize="24sp"
+					android:textStyle="bold"
+				></TextView>
+				<EditText
+					android:layout_height="wrap_content"
+					android:id="@+id/etName"
+					android:layout_width="fill_parent"
+				></EditText>
 
+			</LinearLayout>
+			<TextView
+				android:id="@+id/TextView03"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="7dp"
+				android:text="@string/labelExplainTrigger"
+				android:textSize="@dimen/trigger_editor_explain_text_size"
+			></TextView>
+			<LinearLayout
+				android:id="@+id/LinearLayout01"
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
+			>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:paddingRight="20dp"
+					android:text="@string/labelBatteryLevel"
+					android:layout_gravity="center_vertical"
+					android:width="@dimen/triggerEditor1Col"
+				></TextView>
+				<EditText
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:inputType="number"
+					android:id="@+id/etBatteryLevel"
+					android:width="50dp"
+					android:paddingRight="5dp"
+				></EditText>
+				<SeekBar
+					android:layout_height="wrap_content"
+					android:layout_width="fill_parent"
+					android:layout_gravity="center_vertical"
+					android:id="@+id/sbBatteryLevel"
+				></SeekBar>
+
+
+			</LinearLayout>
+			<TextView
+				android:id="@+id/TextView04"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="7dp"
+				android:text="@string/labelExplainTriggerProfiles"
+				android:textSize="@dimen/trigger_editor_explain_text_size"
+			></TextView>
+			<TableLayout
+				android:layout_height="wrap_content"
+				android:id="@+id/tlProfiles"
+				android:layout_width="fill_parent"
+			>
+
+				<TableRow
+					android:layout_height="wrap_content"
+					android:layout_width="fill_parent"
+					android:id="@+id/trBat"
+				>
+					<TextView
+						android:id="@+id/TextView01"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="10dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelOnBattery"
+						android:width="@dimen/triggerEditor1Col"
+					></TextView>
+
+					<Spinner
+					    android:id="@+id/spBattery"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" >
+					</Spinner>
+
+				</TableRow>
+				<TableRow
+					android:layout_width="wrap_content"
+					android:id="@+id/trPowWeak"
+					android:layout_height="wrap_content"
+				>
+					<TextView
+						android:id="@+id/TextView01"
+						android:layout_width="wrap_content"
+						android:paddingRight="10dp"
+						android:width="@dimen/triggerEditor1Col"
+						android:layout_height="wrap_content"
+						android:text="@string/labelOnPower"
+						android:layout_gravity="center_vertical"
+					></TextView>
+					<Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+						android:id="@+id/spPowerWeak"
+					></Spinner>
+				</TableRow>
+				<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/trLck"
+				>
+					<TextView
+						android:id="@+id/TextView01"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="10dp"
+						android:layout_gravity="center_vertical"
+						android:text="@string/labelScreenLocked"
+						android:width="@dimen/triggerEditor1Col"
+					></TextView>
+					<Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+                        android:id="@+id/spScreenLocked"
+					></Spinner>
+				</TableRow>
+				<TableRow
+					android:layout_width="wrap_content"
+					android:id="@+id/trPowStrong"
+					android:layout_height="wrap_content"
+				>
+					<TextView
+						android:id="@+id/TextView01"
+						android:layout_width="wrap_content"
+						android:paddingRight="10dp"
+						android:width="@dimen/triggerEditor1Col"
+						android:layout_height="wrap_content"
+						android:text="@string/labelOnPower"
+						android:layout_gravity="center_vertical"
+					></TextView>
+					<Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+						android:id="@+id/spPowerStrong"
+					></Spinner>
+				</TableRow>
+				<TableRow
+					android:layout_width="wrap_content"
+					android:id="@+id/trHot"
+					android:layout_height="wrap_content"
+				>
+					<CheckBox
+						android:layout_width="wrap_content"
+						android:paddingRight="10dp"
+						android:layout_height="wrap_content"
+						android:id="@+id/cbHot"
+						android:text="@string/labelBatteryHot"
+					></CheckBox>
+					<Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+						android:id="@+id/spHot"
+					></Spinner>
+				</TableRow>
+				<TableRow
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/trCall"
+				>
+					<TextView
+						android:width="@dimen/triggerEditor1Col"
+						android:layout_gravity="center_vertical"
+						android:layout_width="wrap_content"
+						android:paddingRight="10dp"
+						android:layout_height="wrap_content"
+						android:text="@string/labelCallInProgress"
+						android:id="@+id/tvCall"
+					></TextView>
+					<Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" 
+						android:id="@+id/spCall">
+					></Spinner>
+				</TableRow>
+			</TableLayout>
+			<TextView
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvSequenceInfo" android:text="@string/tvSequenceInfo" android:layout_width="match_parent"></TextView>
 		</LinearLayout>
-		<TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:padding="7dp"
-			android:text="@string/labelExplainTrigger"
-			android:textSize="@dimen/trigger_editor_explain_text_size"></TextView>
-		<LinearLayout android:id="@+id/LinearLayout01"
-			android:layout_height="wrap_content" android:layout_width="fill_parent">
-			<TextView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:paddingRight="20dp"
-				android:text="@string/labelBatteryLevel" android:layout_gravity="center_vertical"
-				android:width="@dimen/triggerEditor1Col"></TextView>
-			<EditText android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:inputType="number"
-				android:id="@+id/etBatteryLevel" android:width="50dp"
-				android:paddingRight="5dp"></EditText>
-			<SeekBar android:layout_height="wrap_content"
-				android:layout_width="fill_parent" android:layout_gravity="center_vertical"
-				android:id="@+id/sbBatteryLevel"></SeekBar>
-
-
-		</LinearLayout>
-		<TextView android:id="@+id/TextView04" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:padding="7dp"
-			android:text="@string/labelExplainTriggerProfiles"
-			android:textSize="@dimen/trigger_editor_explain_text_size"></TextView>
-		<TableLayout android:layout_height="wrap_content"
-			android:id="@+id/tlProfiles" android:layout_width="fill_parent">
-
-			<TableRow android:layout_height="wrap_content"
-				android:layout_width="fill_parent" android:id="@+id/trBat">
-				<TextView android:id="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="10dp" android:layout_gravity="center_vertical"
-					android:text="@string/labelOnBattery" android:width="@dimen/triggerEditor1Col"></TextView>
-				<Spinner android:layout_height="wrap_content" android:id="@+id/spBattery"
-					android:layout_width="fill_parent"></Spinner>
-
-			</TableRow>
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/trLck">
-				<TextView android:id="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="10dp" android:layout_gravity="center_vertical"
-					android:text="@string/labelScreenLocked" android:width="@dimen/triggerEditor1Col"></TextView>
-				<Spinner android:layout_height="wrap_content" android:id="@+id/spScreenLocked"
-					android:layout_width="fill_parent"></Spinner>
-
-
-			</TableRow>
-
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/trPow">
-				<TextView android:id="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="10dp" android:layout_gravity="center_vertical"
-					android:text="@string/labelOnPower" android:width="@dimen/triggerEditor1Col"></TextView>
-				<Spinner android:layout_height="wrap_content" android:id="@+id/spPower"
-					android:layout_width="fill_parent"></Spinner>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content"
-				android:layout_width="wrap_content" android:id="@+id/trCall">
-				<TextView android:width="@dimen/triggerEditor1Col"
-					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
-					android:paddingRight="10dp" android:layout_height="wrap_content"
-					android:text="@string/labelCallInProgress" android:id="@+id/tvCall"></TextView>
-				<Spinner android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:id="@+id/spCall"></Spinner>
-			</TableRow>
-
-			<TableRow android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/trHot">
-				<CheckBox android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:id="@+id/cbHot"
-					android:text="@string/labelBatteryHot" android:paddingRight="10dp"></CheckBox>
-				<Spinner android:layout_height="wrap_content" android:id="@+id/spHot"
-					android:layout_width="fill_parent"></Spinner>
-
-			</TableRow>
-		</TableLayout>
-
-
-
-
-	</LinearLayout>
-</ScrollView>
+	</ScrollView>
+</LinearLayout>

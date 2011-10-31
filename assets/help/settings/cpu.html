@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="../styles.css"/>
+<title>Settings: System</title>
+</head>
+<body>	
+	<span class="headline">Settings: CPU Serttings</span>
+	<br/><br/>
+	<span class="text">
+		<ul>
+			<li><span class="bold">Use multicore features</span><br/>
+			Cpu tuner uses a different cpu backend if a multicore cpu is detected. 
+			This options allows you to enforce, disable or automatically chose this backend. 
+			</li>
+			<li><span class="bold">Show Userspace Governor</span><br/>
+			Not recommended since to userspace governor does not do any battery saving.
+			</li>
+			<li><span class="bold">Min displayed frequency</span><br/>
+			The minimum displayed cpu frequency for the maximum cpu frequency.  Default is 400 MHz. 
+			</li>
+			<li><span class="bold">Allowed CPU frequencies</span><br/>
+			A list of frequencies (in Hz not MHz) separated by spaces, which are used a cpu frequencies if
+			the system does not report any.
+			</li>
+			<li><span class="bold">Check Capabilities</span><br/>
+			<a href="../capability_check.html">Check</a> if your devices (that is you kernel)
+			support cpu tuner.
+			</li>
+			<li><span class="bold">Default maximum frequency</span><br/>
+			This frequency will be used when a <span class="bold">system configuration</span> is applied.
+			</li>
+			<li><span class="bold">Default minimum frequency</span><br/>
+			This frequency will be used when a <span class="bold">system configuration</span> is applied.
+			</li>
+		</ul>
+	</span>
+</body>
+</html>
+<!-- created by Michael "unrest" Lenz, Dec 16th 2010 -->

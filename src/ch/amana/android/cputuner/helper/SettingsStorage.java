@@ -4,15 +4,12 @@ import java.text.SimpleDateFormat;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
-import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
-import ch.amana.android.cputuner.service.BatteryService;
 
 public class SettingsStorage {
 
@@ -22,7 +19,6 @@ public class SettingsStorage {
 	private static final String PREF_KEY_USER_LEVEL_SET = "prefKeyUserLevelSet";
 	public static final String NO_VALUE = "noValue";
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
-	public static final String ENABLE_STATUSBAR_ADDTO = "prefKeyStatusbarAddTo";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
 
 	public static final int NO_BATTERY_HOT_TEMP = 5000;
@@ -40,6 +36,26 @@ public class SettingsStorage {
 	private static final String PREF_KEY_USE_VIRTUAL_GOVS = "prefKeyUseVirtualGovernors";
 
 	private static final String PREF_KEY_CONFIGURATION = "prefKeyConfiguration";
+
+	public static final String PREF_KEY_MIN_FREQ = "prefKeyMinFreq";
+	public static final String PREF_KEY_MAX_FREQ = "prefKeyMaxFreq";
+
+	private static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
+	private static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
+
+	private static final String PREF_STORE_LOCAL = "local";
+
+	private static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
+
+	private static final String PREF_KEY_ADV_STATS = "prefKeyAdvStats";
+
+	private static final String PREF_KEY_TIMEINSTATE_BASELINE = "prefKeyTimeinstateBaseline";
+
+	private static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
+
+	public static final int STATUSBAR_NEVER = 0;
+	public static final int STATUSBAR_RUNNING = 1;
+	public static final int STATUSBAR_ALWAYS = 2;
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -74,6 +90,11 @@ public class SettingsStorage {
 	private boolean enableUserspaceGovernor;
 	private boolean checkedProfileSwitchLogSize = false;
 	private int profileSwitchLogSize;
+	private boolean checkedStatusbarAddTo = false;
+	private int statusbarAddTo;
+	private boolean checkedPowerStrongerThanScreenoff = false;
+
+	private boolean powerStrongerThanScreenoff;
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -90,12 +111,15 @@ public class SettingsStorage {
 		checkedPulseDelayOff = false;
 		checkedEnableUserspaceGovernor = false;
 		checkedProfileSwitchLogSize = false;
+		checkedStatusbarAddTo = false;
+		checkedPowerStrongerThanScreenoff = false;
 	}
 
-	public static void initInstance(Context ctx) {
+	public static SettingsStorage getInstance(Context ctx) {
 		if (instance == null) {
-			instance = new SettingsStorage(ctx);
+			instance = new SettingsStorage(ctx.getApplicationContext());
 		}
+		return instance;
 	}
 
 	public static SettingsStorage getInstance() {
@@ -121,30 +145,40 @@ public class SettingsStorage {
 		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
+	private SharedPreferences getLocalPreferences() {
+		return context.getSharedPreferences(PREF_STORE_LOCAL, 0);
+	}
+
 	public void setEnableProfiles(boolean b) {
 		enableProfiles = b;
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(ENABLE_PROFILES, b);
 		editor.commit();
-		Intent intent = new Intent(context, BatteryService.class);
 		if (enableProfiles) {
-			context.startService(intent);
-			PowerProfiles.getInstance().reapplyProfile(true);
+			CpuTunerApplication.startCpuTuner(context);
 		} else {
-			context.stopService(intent);
+			CpuTunerApplication.stopCpuTuner(context);
 		}
 	}
 
 	public boolean isEnableProfiles() {
 		if (!checkedProfiles) {
 			checkedProfiles = true;
-			enableProfiles = getPreferences().getBoolean(ENABLE_PROFILES, true);
+			enableProfiles = getPreferences().getBoolean(ENABLE_PROFILES, false);
 		}
 		return enableProfiles;
 	}
 
-	public boolean isStatusbarAddto() {
-		return getPreferences().getBoolean(ENABLE_STATUSBAR_ADDTO, true);
+	public int isStatusbarAddto() {
+		if (!checkedStatusbarAddTo) {
+			checkedStatusbarAddTo = true;
+			try {
+				statusbarAddTo = Integer.parseInt(getPreferences().getString("prefKeyStatusbarAddToChoice", "1"));
+			} catch (Exception e) {
+				statusbarAddTo = 1;
+			}
+		}
+		return statusbarAddTo;
 	}
 
 	public boolean isStatusbarNotifications() {
@@ -170,11 +204,11 @@ public class SettingsStorage {
 		editor.putBoolean(PREF_KEY_USER_LEVEL_SET, true);
 		editor.commit();
 	}
-	
+
 	public boolean isUserLevelSet() {
 		return getPreferences().getBoolean(PREF_KEY_USER_LEVEL_SET, false);
 	}
-	
+
 	public int getUserLevel() {
 		if (!checkUserLevel) {
 			checkUserLevel = true;
@@ -230,7 +264,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableSwitchWifi() {
-		// TODO check if wifi is present
+		// FIXME check if wifi is present
 		return true;
 	}
 
@@ -270,7 +304,7 @@ public class SettingsStorage {
 	public boolean isSwitchWifiOnConnectedNetwork() {
 		if (!checkedSwitchWifiOnConnectedNetwork) {
 			checkedSwitchWifiOnConnectedNetwork = true;
-			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", false);
+			switchWifiOnConnectedNetwork = getPreferences().getBoolean("prefKeySwitchWifiOnConnectedNetwork", true);
 		}
 		return switchWifiOnConnectedNetwork;
 	}
@@ -298,11 +332,11 @@ public class SettingsStorage {
 	}
 
 	public int getDefaultProfilesVersion() {
-		return getPreferences().getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
+		return getLocalPreferences().getInt(PREF_DEFAULT_PROFILES_VERSION, 0);
 	}
 
 	public void setDefaultProfilesVersion(int version) {
-		Editor editor = getPreferences().edit();
+		Editor editor = getLocalPreferences().edit();
 		editor.putInt(PREF_DEFAULT_PROFILES_VERSION, version);
 		editor.commit();
 	}
@@ -358,11 +392,11 @@ public class SettingsStorage {
 	public String getLanguage() {
 		return getPreferences().getString("prefKeyLanguage", "");
 	}
-	
+
 	public boolean isPulseMobiledataOnWifi() {
 		return getPreferences().getBoolean("prefKeyPulseMobiledataOnWifi", true);
 	}
-		
+
 	public boolean isUseVirtualGovernors() {
 		return getPreferences().getBoolean(PREF_KEY_USE_VIRTUAL_GOVS, true);
 	}
@@ -378,7 +412,7 @@ public class SettingsStorage {
 	}
 
 	public boolean is24Hour() {
-		// TODO Auto-generated method stub
+		// FIXME add to UI
 		return true;
 	}
 
@@ -396,14 +430,14 @@ public class SettingsStorage {
 	}
 
 	public void setCurrentConfiguration(String configuration) {
+
 		Editor edit = getPreferences().edit();
 		edit.putString(PREF_KEY_CONFIGURATION, configuration);
 		edit.commit();
 	}
 
-
 	public String getCurrentConfiguration() {
-		return getPreferences().getString(PREF_KEY_CONFIGURATION, context.getString(R.string.config_default));
+		return getPreferences().getString(PREF_KEY_CONFIGURATION, "");
 	}
 
 	public SimpleDateFormat getSimpledateformat() {
@@ -411,7 +445,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isSaveConfiguration() {
-		return isEnableBeta() && getPreferences().getBoolean("prefKeySaveConfigOnSwitch", true);
+		return getPreferences().getBoolean("prefKeySaveConfigOnSwitch", true);
 	}
 
 	public boolean hasCurrentConfiguration() {
@@ -433,8 +467,129 @@ public class SettingsStorage {
 			return Integer.parseInt(getPreferences().getString("prefKeyNetworkModeOnWifiConnected", "0"));
 		} catch (NumberFormatException e) {
 			Logger.w("Cannot parse prefKeyNetworkModeOnWifiConnected as int", e);
-			return 2;
+			return 0;
 		}
 	}
 
+	public int getMinFrequencyDefault() {
+		if (!isBeginnerUser()) {
+			try {
+				int ret = Integer.parseInt(getPreferences().getString(PREF_KEY_MIN_FREQ, "-1"));
+				if (ret > 0) {
+					return ret;
+				}
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse PREF_KEY_MIN_FREQ as int", e);
+			}
+		}
+		return getPreferences().getInt(PREF_KEY_MIN_FREQ_DEFAULT, -1);
+	}
+
+	public void setMinFrequencyDefault(int minCpuFreq) {
+		Editor editor = getPreferences().edit();
+		if ("".equals(getPreferences().getString(PREF_KEY_MIN_FREQ, ""))) {
+			editor.putString(PREF_KEY_MIN_FREQ, Integer.toString(minCpuFreq));
+		}
+		editor.putInt(PREF_KEY_MIN_FREQ_DEFAULT, minCpuFreq);
+		editor.commit();
+	}
+
+	public int getMaxFrequencyDefault() {
+		if (!isBeginnerUser()) {
+			try {
+				int ret = Integer.parseInt(getPreferences().getString(PREF_KEY_MAX_FREQ, "-1"));
+				if (ret > 0) {
+					return ret;
+				}
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse PREF_KEY_MAX_FREQ as int", e);
+			}
+		}
+		return getPreferences().getInt(PREF_KEY_MAX_FREQ_DEFAULT, -1);
+	}
+
+	public void setMaxFrequencyDefault(int maxCpuFreq) {
+		Editor editor = getPreferences().edit();
+		if ("".equals(getPreferences().getString(PREF_KEY_MAX_FREQ, ""))) {
+			editor.putString(PREF_KEY_MAX_FREQ, Integer.toString(maxCpuFreq));
+		}
+		editor.putInt(PREF_KEY_MAX_FREQ_DEFAULT, maxCpuFreq);
+		editor.commit();
+	}
+
+	public boolean isEnableLogProfileSwitches() {
+		return getProfileSwitchLogSize() > 0;
+	}
+
+	public boolean isFirstRun() {
+		return getLocalPreferences().getBoolean(PREF_KEY_FIRST_RUN, true);
+	}
+
+	public void firstRunDone() {
+		Editor editor = getLocalPreferences().edit();
+		editor.putBoolean(PREF_KEY_FIRST_RUN, false);
+		editor.commit();
+	}
+
+	public void setAdvancesStatistics(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_ADV_STATS, b);
+		editor.commit();
+	}
+
+	public boolean isAdvancesStatistics() {
+		return getPreferences().getBoolean(PREF_KEY_ADV_STATS, false);
+	}
+
+	public void setTimeinstateBaseline(String timeInState) {
+		Editor editor = getPreferences().edit();
+		editor.putString(PREF_KEY_TIMEINSTATE_BASELINE, timeInState);
+		editor.commit();
+	}
+
+	public String getTimeinstateBaseline() {
+		return getPreferences().getString(PREF_KEY_TIMEINSTATE_BASELINE, "");
+	}
+
+	public void setTotaltransitionsBaseline(long tt) {
+		Editor editor = getPreferences().edit();
+		editor.putLong(PREF_KEY_TOTALTRANSITIONS_BASELINE, tt);
+		editor.commit();
+	}
+
+	public long getTotaltransitionsBaseline() {
+		return getPreferences().getLong(PREF_KEY_TOTALTRANSITIONS_BASELINE, 0);
+	}
+
+	public void migrateSettings() {
+		if (getPreferences().contains("prefKeyStatusbarAddTo")) {
+			Editor edit = getPreferences().edit();
+			boolean add = getPreferences().getBoolean("prefKeyStatusbarAddTo", true);
+			edit.putString("prefKeyStatusbarAddToChoice", Integer.toString(add ? STATUSBAR_RUNNING : STATUSBAR_NEVER));
+			edit.remove("prefKeyStatusbarAddTo");
+			edit.commit();
+		}
+	}
+
+	public int getPulseInitalDelay() {
+		try {
+			return Integer.parseInt(getPreferences().getString("prefKeyInitialPulseDelay", "0"));
+		} catch (NumberFormatException e) {
+			Logger.w("Cannot parse prefKeyInitialPulseDelay as int", e);
+			return 0;
+		}
+	}
+
+	public boolean isPowerStrongerThanScreenoff() {
+
+		if (!checkedPowerStrongerThanScreenoff) {
+			checkedPowerStrongerThanScreenoff = true;
+			try {
+				powerStrongerThanScreenoff = getPreferences().getBoolean("prefKeyPowerStrongerThanScreenoff", true);
+			} catch (NumberFormatException e) {
+				Logger.w("Cannot parse prefKeyProfileSwitchLogSize as int", e);
+			}
+		}
+		return powerStrongerThanScreenoff;
+	}
 }

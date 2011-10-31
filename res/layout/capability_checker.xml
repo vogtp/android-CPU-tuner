@@ -1,54 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="fill_parent" android:layout_width="fill_parent">
-	<LinearLayout android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:id="@+id/llTop"
-		android:orientation="vertical">
-		<TextView android:layout_height="wrap_content" android:id="@+id/tvSummary"
-			android:text="@string/msgNoIssuesFound" android:layout_width="fill_parent"
-			android:textSize="16sp"></TextView>
-		<LinearLayout android:id="@+id/LinearLayout01"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:paddingTop="15dp" android:orientation="horizontal">
-			<TextView android:id="@+id/TextView04" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="@string/labelAppVersion"
-				android:paddingRight="5dp"></TextView>
-			<TextView android:id="@+id/TextView05" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="@string/version"></TextView>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+>
+	<ch.amana.android.cputuner.view.widget.CputunerActionBar
+		style="@style/ActionBar"
+		android:id="@+id/abCpuTuner"
+		android:paddingBottom="3dp" />
+	<ScrollView 
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent"
+	>
+		<LinearLayout
+			android:layout_height="fill_parent"
+			android:layout_width="fill_parent"
+			android:id="@+id/llTop"
+			android:orientation="vertical"
+		>
+			<TextView
+				android:layout_height="wrap_content"
+				android:id="@+id/tvSummary"
+				android:text="@string/msgNoIssuesFound"
+				android:layout_width="fill_parent"
+				android:textSize="16sp"
+			></TextView>
+			<LinearLayout
+				android:id="@+id/LinearLayout01"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingTop="15dp"
+				android:orientation="horizontal"
+			>
+				<TextView
+					android:id="@+id/TextView04"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/labelAppVersion"
+					android:paddingRight="5dp"
+				></TextView>
+				<TextView
+					android:id="@+id/TextView05"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/version"
+				></TextView>
+			</LinearLayout>
+			<TableLayout
+				android:id="@+id/tlCapabilities"
+				android:layout_height="fill_parent"
+				android:layout_width="fill_parent"
+			>
+				<TableRow
+					android:id="@+id/TableRow01"
+					android:layout_height="wrap_content"
+					android:layout_width="fill_parent"
+				>
+					<TextView
+						android:id="@+id/TextView01"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="10dp"
+						android:textStyle="bold"
+						android:text="@string/labelCheck"
+					></TextView>
+					<TextView
+						android:id="@+id/TextView02"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="10dp"
+						android:textStyle="bold"
+						android:text="@string/labelResult"
+					></TextView>
+				</TableRow>
+			</TableLayout>
+			<TextView
+				android:id="@+id/tvDeviceInfo"
+				android:layout_height="fill_parent"
+				android:layout_width="fill_parent"
+				android:layout_weight="0.8"
+				android:layout_gravity="center_vertical"
+			></TextView>
+			<TextView
+				android:id="@+id/tvMailMessage"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:layout_weight="0.1"
+				android:autoLink="all"
+				android:textSize="16dp"
+				android:text="@string/msgNoEmail"
+				android:paddingBottom="20dp"
+			></TextView>
+			<Button
+				android:layout_height="wrap_content"
+				android:id="@+id/buSendBugreport"
+				android:layout_width="fill_parent"
+				android:text="@string/msgDeviceInfo"
+			></Button>
 		</LinearLayout>
-		<TableLayout android:id="@+id/tlCapabilities"
-			android:layout_height="fill_parent" android:layout_width="fill_parent">
-			<TableRow android:id="@+id/TableRow01"
-				android:layout_height="wrap_content" android:layout_width="fill_parent">
-				<TextView android:id="@+id/TextView01"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="10dp" android:textStyle="bold" android:text="@string/labelCheck"></TextView>
-				<TextView android:id="@+id/TextView02"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:paddingRight="10dp" android:textStyle="bold" android:text="@string/labelResult"></TextView>
-
-			</TableRow>
-
-
-
-		</TableLayout>
-
-		<TextView android:id="@+id/tvDeviceInfo"
-			android:layout_height="fill_parent" android:layout_width="fill_parent"
-			android:layout_weight="0.8" android:layout_gravity="center_vertical"></TextView>
-
-
-		<TextView android:id="@+id/tvMailMessage"
-			android:layout_width="fill_parent" android:layout_height="fill_parent"
-			android:layout_weight="0.1" android:autoLink="all" android:textSize="16dp"
-			android:text="@string/msgNoEmail"
-			android:paddingBottom="20dp"></TextView>
-		<Button android:layout_height="wrap_content" android:id="@+id/buSendBugreport"
-			android:layout_width="fill_parent" android:text="@string/msgDeviceInfo"></Button>
-		<Button android:layout_height="wrap_content"
-			android:layout_width="match_parent" android:id="@+id/buFindFrequencies"
-			android:text="@string/labelBuFindFeq"></Button>
-	</LinearLayout>
-
-
-</ScrollView>
+	</ScrollView>
+</LinearLayout>

@@ -3,13 +3,15 @@ package ch.amana.android.cputuner.helper;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.view.activity.CpuTunerTabActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
-public class Notifier {
+public class Notifier extends BroadcastReceiver {
 
 	public static final String BROADCAST_TRIGGER_CHANGED = "ch.amana.android.cputuner.triggerChanged";
 	public static final String BROADCAST_PROFILE_CHANGED = "ch.amana.android.cputuner.profileChanged";
@@ -20,39 +22,50 @@ public class Notifier {
 	private final Context context;
 	private String contentTitle;
 	private PendingIntent contentIntent;
+	private CharSequence lastContentText;
 
 	private static Notifier instance;
 	private Notification notification;
+	private int icon;
 
 	public static void startStatusbarNotifications(Context ctx) {
 		if (instance == null) {
 			instance = new Notifier(ctx);
 		}
-		instance.notifyStatus(PowerProfiles.getInstance().getCurrentProfileName());
+		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_PROFILE_CHANGED));
+		instance.notifyStatus("");
 	}
 
 	public Notifier(final Context ctx) {
 		super();
-		this.context = ctx;
+		this.context = ctx.getApplicationContext();
 		String ns = Context.NOTIFICATION_SERVICE;
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
 
 	private void notifyStatus(CharSequence profileName) {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
+			StringBuffer sb = new StringBuffer(25);
+			String contentText = null;
+			if (SettingsStorage.getInstance().isEnableProfiles()) {
+				sb.append(context.getString(R.string.labelCurrentProfile));
+				sb.append(" ").append(PowerProfiles.getInstance().getCurrentProfileName());
+				if (PowerProfiles.getInstance().isManualProfile()) {
+					sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+				}
+				if (PulseHelper.getInstance(context).isPulsing()) {
+					int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+					sb.append(" ").append(context.getString(res));
+				}
+				contentText = sb.toString();
+			} else {
+				contentText = context.getString(R.string.msg_cpu_tuner_not_running);
+			}
+			if (contentText == null || contentText.equals(lastContentText)) {
+				return;
+			}
+			lastContentText = contentText;
 			contentTitle = context.getString(R.string.app_name);
-			StringBuffer sb = new StringBuffer(25); 
-			// sb.append(contentTitle).append(" ");
-			sb.append(context.getString(R.string.labelCurrentProfile));
-			sb.append(" ").append(profileName);
-			if (PowerProfiles.getInstance().isManualProfile()) {
-				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
-			}
-			if (PulseHelper.getInstance(context).isPulsing()) {
-				int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-				sb.append(" ").append(context.getString(res));
-			}
-			String contentText = sb.toString();
 			Notification notification = getNotification(contentText);
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
@@ -64,16 +77,21 @@ public class Notifier {
 		}
 	}
 
-	private Notification getNotification(String contentText) {
-		if (SettingsStorage.getInstance().isStatusbarNotifications() || notification == null) {
-
-			notification = new Notification(R.drawable.icon, contentText, System.currentTimeMillis());
-			// notification.icon = icon;
-			// notification.when = System.currentTimeMillis();
-			// notification.contentView = new
-			// RemoteViews(context.getPackageName(), R.layout.statusbar_item);
-			Intent notificationIntent = new Intent(context, CpuTunerTabActivity.class);
-			contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+	private Notification getNotification(CharSequence contentText) {
+		boolean isDisplayNotification = SettingsStorage.getInstance().isStatusbarNotifications();
+		int iconNew = R.drawable.icon;
+		if (!SettingsStorage.getInstance().isEnableProfiles()) {
+			iconNew = R.drawable.icon_red;
+		} else if (PowerProfiles.getInstance().isManualProfile()) {
+			iconNew = R.drawable.icon_yellow;
+		}
+		if (isDisplayNotification || notification == null || icon != iconNew) {
+			if (!isDisplayNotification) {
+				contentText = "";
+			}
+			icon = iconNew;
+			notification = new Notification(icon, contentText, System.currentTimeMillis());
+			contentIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
 
 			notification.flags |= Notification.FLAG_NO_CLEAR;
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;
@@ -81,19 +99,20 @@ public class Notifier {
 		return notification;
 	}
 
-	public static void notifyProfile(CharSequence profileName) {
-		if (instance == null) {
-			return;
-		}
-		instance.notifyStatus(profileName);
-	}
-
-	public static void stopStatusbarNotifications() {
+	public static void stopStatusbarNotifications(Context ctx) {
 		try {
+			ctx.unregisterReceiver(instance);
 			instance.notificationManager.cancel(NOTIFICATION_PROFILE);
 		} catch (Throwable e) {
 		}
 		instance = null;
+	}
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
+			notifyStatus(PowerProfiles.getInstance(context).getCurrentProfileName());
+		}
 	}
 
 }

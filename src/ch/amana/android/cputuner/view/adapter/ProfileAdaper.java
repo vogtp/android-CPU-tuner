@@ -12,7 +12,9 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
@@ -20,9 +22,11 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 	private final String AUTO;
 	private final Cursor cursor;
 	private final LayoutInflater layoutInflator;
+	private final Context ctx;
 
 	public ProfileAdaper(Context context, Cursor c) {
 		super();
+		this.ctx = context;
 		this.cursor = c;
 		this.layoutInflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.AUTO = context.getString(R.string.auto);
@@ -38,10 +42,16 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		if (position > 0) {
+		if (position == 0) {
+			if (SettingsStorage.getInstance().isEnableProfiles()) {
+				return AUTO;
+			} else {
+				return ctx.getString(R.string.not_enabled);
+			}
+		} else if (position > 0) {
 			return cursor.move(position - 1);
 		} else {
-			return AUTO;
+			return ctx.getString(R.string.not_enabled);
 		}
 	}
 
@@ -49,6 +59,8 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 	public long getItemId(int position) {
 		if (position == 0) {
 			return PowerProfiles.AUTOMATIC_PROFILE;
+		} else if (position == Integer.MAX_VALUE) {
+			return position;
 		}
 		cursor.moveToPosition(position - 1);
 		return cursor.getLong(DB.INDEX_ID);
@@ -67,16 +79,19 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 				Logger.i("Cannot get profilename from cursor", e);
 			}
 		} else {
-			if (parent instanceof Spinner) {
-				text = AUTO + ": " + PowerProfiles.getInstance().getCurrentProfileName();
-			} else {
+			if (SettingsStorage.getInstance().isEnableProfiles()) {
+				CharSequence profileName = ModelAccess.getInstace(parent.getContext()).getProfileName(PowerProfiles.getInstance().getCurrentAutoProfileId());
 				text = AUTO;
+				if (!PowerProfiles.UNKNOWN.equals(profileName)) {
+					text = text + ": " + profileName;
+				}
+			} else {
+				text = ctx.getString(R.string.not_enabled);
 			}
 		}
 		view.setText(text);
 		return view;
 	}
-
 
 	private TextView createView(ViewGroup parent) {
 		TextView item;
@@ -89,4 +104,5 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 		item.setEllipsize(TextUtils.TruncateAt.END);
 		return item;
 	}
+
 }

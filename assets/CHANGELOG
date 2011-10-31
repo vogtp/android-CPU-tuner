@@ -4,6 +4,28 @@ V
 * bug fixes
 -
 
+V 3.0.0
+* features
+- new swipe friendly user interface
+- rework backend and use background process to do the work
+- initalise cpu tuner from (default) configurations 
+- on power is stronger screen locked by default (enable the old sequence in settings) 
+- insert as new: copy and insert an entry 
+- editor close does sanity checks and asks the user or does not save
+- separate statics and profile switch log and update on click
+- pulsed services do not restart sequence on profile switch and allow initial delay
+- cpu tuner can be added to the statusbar while not running
+- new extension framework (in app billing)
+- graphical statistics (as extension)
+- lots of other things
+* bug fixes
+- start/stop notification entry on enable/disable
+- fix layout error on orientation change
+- label powersave bias
+- save but do not apply on editor close when cpu tuner is disabled
+- fix battery hot and call in progress profile if none is set
+- more fixes
+
 V 2.7.8
 * features
 - optimised configuration handling

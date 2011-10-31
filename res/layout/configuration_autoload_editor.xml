@@ -1,49 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent" android:layout_height="match_parent"
-	android:layout_gravity="bottom" android:orientation="vertical">
-	<TextView android:layout_height="wrap_content"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_gravity="bottom"
+	android:orientation="vertical"
+>
+	<ch.amana.android.cputuner.view.widget.CputunerActionBar
+		style="@style/ActionBar"
+		android:id="@+id/abCpuTuner"
+		android:paddingBottom="3dp" />
+	<TextView
+		android:layout_height="wrap_content"
 		android:text="@string/label_load_configuration_1"
-		android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
-	<Spinner android:layout_width="match_parent"
-		android:layout_height="wrap_content" android:id="@+id/spConfiguration"></Spinner>
-	<TextView android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:id="@+id/textView2"
+	></TextView>
+	<Spinner
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/spConfiguration"
+	></Spinner>
+	<TextView
+		android:layout_height="wrap_content"
 		android:text="@string/label_load_configuration_2"
-		android:layout_width="wrap_content" android:id="@+id/textView3"></TextView>
-	<TimePicker android:layout_height="wrap_content" android:id="@+id/tpLoadTime"
-		android:layout_width="wrap_content">
+		android:layout_width="wrap_content"
+		android:id="@+id/textView3"
+	></TextView>
+	<TimePicker
+		android:layout_height="wrap_content"
+		android:id="@+id/tpLoadTime"
+		android:layout_width="wrap_content"
+	>
 	</TimePicker>
-	<TableLayout android:layout_height="wrap_content"
-		android:layout_width="match_parent" android:id="@+id/llWeekdays"
-		android:layout_margin="4dp">
-		<TableRow android:layout_height="match_parent"
-			android:layout_width="wrap_content" android:id="@+id/linearLayout1">
-			<CheckBox android:id="@+id/cbMon" android:text="@string/day_mon"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:checked="true"></CheckBox>
-			<CheckBox android:id="@+id/cbTue" android:text="@string/day_tue" android:checked="true"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
-			<CheckBox android:id="@+id/cbWed" android:text="@string/day_wed" android:checked="true"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
-			<CheckBox android:id="@+id/cbThu" android:text="@string/day_thu" android:checked="true"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+	<TableLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:id="@+id/llWeekdays"
+		android:layout_margin="4dp"
+	>
+		<TableRow
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:id="@+id/linearLayout1"
+		>
+			<CheckBox
+				android:id="@+id/cbMon"
+				android:text="@string/day_mon"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:checked="true"
+			></CheckBox>
+			<CheckBox
+				android:id="@+id/cbTue"
+				android:text="@string/day_tue"
+				android:checked="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			></CheckBox>
+			<CheckBox
+				android:id="@+id/cbWed"
+				android:text="@string/day_wed"
+				android:checked="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			></CheckBox>
+			<CheckBox
+				android:id="@+id/cbThu"
+				android:text="@string/day_thu"
+				android:checked="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			></CheckBox>
 		</TableRow>
-		<TableRow android:layout_height="match_parent"
-			android:layout_width="wrap_content" android:id="@+id/linearLayout1">
-			<CheckBox android:id="@+id/cbFri" android:text="@string/day_fri" android:checked="true"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
-			<CheckBox android:id="@+id/cbSat" android:text="@string/day_sat" android:checked="true"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
-			<CheckBox android:id="@+id/cbSun" android:text="@string/day_sun" android:checked="true"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+		<TableRow
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:id="@+id/linearLayout1"
+		>
+			<CheckBox
+				android:id="@+id/cbFri"
+				android:text="@string/day_fri"
+				android:checked="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			></CheckBox>
+			<CheckBox
+				android:id="@+id/cbSat"
+				android:text="@string/day_sat"
+				android:checked="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			></CheckBox>
+			<CheckBox
+				android:id="@+id/cbSun"
+				android:text="@string/day_sun"
+				android:checked="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			></CheckBox>
 		</TableRow>
 	</TableLayout>
-	<CheckBox android:id="@+id/cbExactScheduling"
-		android:layout_height="wrap_content" android:layout_width="match_parent"
-		android:text="@string/cbExactScheduling"></CheckBox>
-	<TextView android:layout_height="wrap_content" android:id="@+id/textView1"
+	<CheckBox
+		android:id="@+id/cbExactScheduling"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="@string/cbExactScheduling"
+	></CheckBox>
+	<TextView
+		android:layout_height="wrap_content"
+		android:id="@+id/textView1"
 		android:text="@string/labelExactSchedulingExplain"
-		android:layout_marginLeft="2dp" android:layout_marginRight="2dp"
-		android:layout_width="match_parent" android:gravity="bottom"
-		android:layout_gravity="bottom"></TextView>
+		android:layout_marginLeft="2dp"
+		android:layout_marginRight="2dp"
+		android:layout_width="match_parent"
+		android:gravity="bottom"
+		android:layout_gravity="bottom"
+	></TextView>
 </LinearLayout>

@@ -14,6 +14,7 @@ public interface DB {
 	public static final String NAME_ID = "_id";
 	public static final int INDEX_ID = 0;
 
+	public static final String[] PROJECTION_IDE = new String[] { NAME_ID };
 	public static final String SELECTION_BY_ID = NAME_ID + "=?";
 
 	public class OpenHelper extends SQLiteOpenHelper {
@@ -208,7 +209,9 @@ public interface DB {
 
 		public static final String[] PROJECTION_BATTERY_LEVEL = new String[] { NAME_ID, NAME_BATTERY_LEVEL };
 
-		static final String[] PROJECTION_MINIMAL_HOT_PROFILE = new String[] { NAME_HOT_PROFILE_ID };
+		public static final String[] PROJECTION_ID_NAME = new String[] { NAME_ID, NAME_TRIGGER_NAME };
+
+		public static final String[] PROJECTION_MINIMAL_HOT_PROFILE = new String[] { NAME_HOT_PROFILE_ID };
 
 		public static final String SORTORDER_DEFAULT = NAME_BATTERY_LEVEL + " DESC";
 
@@ -216,6 +219,9 @@ public interface DB {
 
 		static final String SORTORDER_MINIMAL_HOT_PROFILE = NAME_HOT_PROFILE_ID + " ASC";
 
+		public static final String SELECTION_NAME = NAME_TRIGGER_NAME + "=?";
+
+		public static final String SELECTION_BATTERYLEVEL = NAME_BATTERY_LEVEL + "=?";
 
 	}
 
@@ -278,6 +284,10 @@ public interface DB {
 
 		static final String SORTORDER_REVERSE = NAME_PROFILE_NAME + " ASC";
 
+		public static final String[] PROJECTION_ID_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
+
+		public static final String SELECTION_NAME = NAME_PROFILE_NAME + "=?";
+
 	}
 
 	public interface VirtualGovernor {
@@ -315,6 +325,10 @@ public interface DB {
 
 		public static final String SORTORDER_DEFAULT = NAME_GOVERNOR_THRESHOLD_UP + " ASC";
 		public static final String SORTORDER_REVERSE = NAME_GOVERNOR_THRESHOLD_UP + " DESC";
+
+		public static final String[] PROJECTION_ID_NAME = new String[] { NAME_ID, NAME_VIRTUAL_GOVERNOR_NAME };
+
+		public static final String SELECTION_NAME = NAME_VIRTUAL_GOVERNOR_NAME + "=?";
 
 	}
 
@@ -358,6 +372,8 @@ public interface DB {
 
 		public static final String SORTORDER_DEFAULT = NAME_NEXT_EXEC + " ASC";
 		public static final String SORTORDER_REVERSE = NAME_NEXT_EXEC + " DESC";
+
+		public static final String SELECTION_TIME_WEEKDAY = NAME_HOUR + "=? and " + NAME_MINUTE + "=? and " + NAME_WEEKDAY + "=? ";
 
 	}
 }

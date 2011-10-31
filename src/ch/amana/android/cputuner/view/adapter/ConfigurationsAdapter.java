@@ -79,4 +79,20 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 		}
 		Arrays.sort(configDirs);
 	}
+
+	public boolean hasConfig(String name) {
+		if (name == null) {
+			return false;
+		}
+		name = name.trim();
+		if (configDirs == null) {
+			return false;
+		}
+		for (int i = 0; i < getCount(); i++) {
+			if (name.equals(getDirectory(i).getName().trim())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

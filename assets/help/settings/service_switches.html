@@ -11,17 +11,18 @@
 	<span class="text">
 		<ul>
 			<li><span class="bold">Manual service switches</span><br/>
-			If check this allows a service being changes manually (or outside cpu tuner)
+			If checked this allows a service being changed manually (i.e. outside cpu tuner)
 			without cpu tuner switching it back on the next profile change.<br>
 			Or more exactly cpu tuner will only switch a service if it is in the same state as it
 			was switched to by cpu tuner. 
+			<span class="bold">Pulsed</span> services and the <span class="bold">back to previous</span> 
+			service switch are not affected.
+			</li>
+			<li><span class="bold">Netmode on wifi connected</span><br/>
+			Switch to a different network mod (e.g. 2G or 3G) if the device is connected to a wifi network.
 			</li>
 			<li><span class="bold">Switch wifi if connected</span><br/>
 			If check cpu tuner will switch wifi (off) even if the device is connected to a wireless network.
-			</li>
-			<li><span class="bold">Switch profile during call</span><br/>
-			If checked cpu tuner will switch profiles even during a phone call.<br/>
-			Mobiledata type and connecting will never be switch during a call, since this would end your call.
 			</li>
 		</ul>
 	</span>

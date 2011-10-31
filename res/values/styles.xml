@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="styleServiceIcons">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_width">26dp</item>
+    </style>
+    <style name="logText" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/statsFontSize</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+    <style name="psydoPrefSeparator" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/secondary_text_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="profileServiceLabel" parent="android:Widget.TextView">
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:gravity">top</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+</resources>
+  
