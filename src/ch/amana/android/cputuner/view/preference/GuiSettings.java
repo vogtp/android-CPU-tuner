@@ -57,7 +57,7 @@ public class GuiSettings extends BaseSettings {
 				case SettingsStorage.STATUSBAR_ALWAYS:
 						Notifier.startStatusbarNotifications(getApplicationContext());
 						break;
-					case SettingsStorage.STATUSBAR_RUNNING:
+				case SettingsStorage.STATUSBAR_RUNNING:
 						if (settings.isEnableProfiles()) {
 							Notifier.startStatusbarNotifications(getApplicationContext());
 						} else {
@@ -65,10 +65,21 @@ public class GuiSettings extends BaseSettings {
 						}
 						break;
 
-					}
+				}
+				updateView();
 				return true;
 			}
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		updateView();
+	}
+
+	private void updateView() {
+		findPreference("prefKeyStatusbarNotifications").setEnabled(settings.isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER);
 	}
 
 	@Override
