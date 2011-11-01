@@ -385,6 +385,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void deviceStatusChanged() {
+		if (tvAcPower == null) {
+			return;
+		}
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
 		StringBuilder bat = new StringBuilder();
 		bat.append(powerProfiles.getBatteryLevel()).append("%");
@@ -421,6 +424,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void profileChanged() {
+		if (tvPulse == null) {
+			return;
+		}
 		final Activity act = getActivity();
 		SettingsStorage settings = SettingsStorage.getInstance();
 		if (PulseHelper.getInstance(act).isPulsing()) {

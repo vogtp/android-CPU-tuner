@@ -73,6 +73,9 @@ public class LogFragment extends PagerFragment {
 	}
 
 	private void updateView() {
+		if (tvStats == null) {
+			return;
+		}
 		tvStats.setText(Logger.getLog(getActivity()));
 	}
 

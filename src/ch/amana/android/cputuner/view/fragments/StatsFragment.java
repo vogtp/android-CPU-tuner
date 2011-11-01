@@ -62,6 +62,9 @@ public class StatsFragment extends PagerFragment {
 	}
 
 	private void updateView(Context context) {
+		if (tvStats == null) {
+			return;
+		}
 		StringBuilder sb = new StringBuilder();
 		getTotalTransitions(context, sb);
 		getTimeInState(sb);
