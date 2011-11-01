@@ -204,6 +204,8 @@
 				<action android:name="ch.amana.android.cputuner.ACTION_PULSE"></action><action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY"/>
 				<action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_PHONESTATE"/>
 				<action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_MANUAL_PROFILE"/>
+				<action android:name="ch.amana.android.cputuner.ACTION_START_CPUTUNER"/>
+				<action android:name="ch.amana.android.cputuner.ACTION_STOP_CPUTUNER"/>
 			</intent-filter>
 		</service>
 	</application>
