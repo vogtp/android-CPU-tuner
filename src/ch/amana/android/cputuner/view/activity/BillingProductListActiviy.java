@@ -12,6 +12,7 @@ import ch.almana.android.billing.Product;
 import ch.almana.android.billing.PurchaseListener;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.adapter.BillingProductAdaper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
@@ -88,7 +89,11 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		Product product = (Product) billingProductAdaper.getItem(position);
 		if (!product.isManaged() || product.getCount() < 1) {
-			bm.requestPurchase(product.getProductId());
+			try {
+				bm.requestPurchase(product.getProductId());
+			} catch (Throwable e) {
+				Logger.w("Error requesting purchase", e);
+			}
 		}
 		super.onListItemClick(l, v, position, id);
 	}
