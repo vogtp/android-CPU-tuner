@@ -1,51 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>Average value</item>
-		<item>Current value</item>
-		<!-- <item>Battery % per hour</item> -->
-		<item>No calculation</item>
-	</string-array>
-	<string name="msgEnableCputuner">Enabling cpu tuner</string>
-	<string name="msgDisableCputuner">Disabling cpu tuner</string>
-	<string name="labelYourConfigurations">Your configurations</string>
-	<string name="labelSystemConfigurations">System configurations</string>
-	<string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
-	<string name="labelPowesaveBiasPerformance">Performance</string>
-	<string name="labelPowesaveBiasPowersave">Powersave</string>
-	<string name="prefMaxFreq">Default maximum frequency</string>
-	<string name="prefMaxFreqLong">The maximum frequency to be applied when loading
-		default configurations.</string>
-	<string name="prefMinFreq">Default minimum frequency</string>
-	<string name="prefMinFreqLong">The minimum frequency to be applied when loading
-		default configurations.</string>
-	<string name="prefKeyFrequencies">Frequencies for default configurations</string>
-	<string name="title_triggers">Triggers</string>
-	<string name="msg_title_unsaved_changes">Unsaved changes</string>
-	<string name="msg_unsaved_changes">This editor has unsaved changes, if you close
-		without saving all changes will be lost. Do you want to save the
-		content?</string>
-	<string name="msg_title_grant_root">Grant root access.</string>
-	<string name="msg_grant_root">You will be asked to grant cpu tuner superuser
-		access. Please grant it and check the remember checkbox. Without this
-		access cpu tuner will not work. 
-	</string>
-	<string name="labelLogTab">Profile switch log</string>
-	<string name="msg_no_profile_switch_log">No profile switch log found</string>
-	<string name="menuItemInsertAsNew">Insert as new</string>
-	<string name="prefCatGUILong">Change the way it is displayed.</string>
-	<string name="prefCatSystemLong">Change the way it works.</string>
-	<string name="prefBuyMeABeerLong">Make me happier nothing more.</string>
-	<string name="prefVariousLong">Informations about cpu tuner.</string>
-	<string name="prefConfigurationsManageLong">Backup and restore configurations (i.e. a set of
-		triggers, profiles and governors).</string>
-	<string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>
-	<string name="prefLanguageLong">Choose a different language. You will have to
-		reopen cpu tuner.</string>
-	<string name="prefEnableCputunerOn">Cpu tuner is running.</string>
-	<string name="prefEnableCputunerOff">Cpu tuner is not running.</string>
-	<string name="prefKeyProfilesLong">Change the way profiles, triggers and governors
-		behave.</string>
 	<string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile date,
 		wifi or bluetooth) behave.</string>
 	<string name="prefCpuLong">Settings concerning the CPU.</string>

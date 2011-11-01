@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Average value</item>
@@ -15,11 +15,11 @@
 	<string name="labelPowesaveBiasPowersave">Powersave</string>
 	<string name="prefMaxFreq">Default maximum frequency</string>
 	<string name="prefMaxFreqLong">The maximum frequency to be applied when loading
-		default configurations.</string>
+		system configurations.</string>
 	<string name="prefMinFreq">Default minimum frequency</string>
 	<string name="prefMinFreqLong">The minimum frequency to be applied when loading
-		default configurations.</string>
-	<string name="prefKeyFrequencies">Frequencies for default configurations</string>
+		system configurations.</string>
+	<string name="prefKeyFrequencies">Frequencies for system configurations</string>
 	<string name="title_triggers">Triggers</string>
 	<string name="msg_title_unsaved_changes">Unsaved changes</string>
 	<string name="msg_unsaved_changes">This editor has unsaved changes, if you close
@@ -172,7 +172,7 @@
         <item>Disable</item>
     </string-array>
     <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
-    <string name="prefConfigurationsLong">Backup and restore</string>
+    <string name="prefConfigurationsLong">Backup and restore (and more)</string>
     <string name="prefCpu">CPU Settings</string>
     <string name="prefChangelog">Show Changelog</string>
     <string name="label_version">Version:</string>

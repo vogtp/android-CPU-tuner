@@ -1,28 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">		<string name="labelUseCpus_front">Benutze </string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<string-array name="prefCalcPowerUsageEntries">
+		<item>Mittelwert</item>
+		<item>Aktueller Wert</item>
+		<!-- <item>Battery % per hour</item> -->
+		<item>Keine Berechnung</item>
+	</string-array>
+	<string name="msgEnableCputuner">Aktiviere cpu tuner</string>
+	<string name="msgDisableCputuner">Deaktiviere cpu tuner</string>
+	<string name="labelYourConfigurations">Meine Konfigurationen</string>
+	<string name="labelSystemConfigurations">System Konfigurationen</string>
+	<string name="msg_cannot_delete_current_configuration">Die aktuelle Konfiguration kann nicht gelöscht werden!</string>
+	<string name="labelPowesaveBiasPerformance">Leistung</string>
+	<string name="labelPowesaveBiasPowersave">Strom sparen</string>
+	<string name="prefMaxFreq">Standard maximale Frequenz</string>
+	<string name="prefMaxFreqLong">Die maximale Frequenz die verwendet wird wenn System Konfigurationen geladen werden.</string>
+	<string name="prefMinFreq">Standard minimale Frequenz</string>
+	<string name="prefMinFreqLong">Die minimale Frequenz die verwendet wird wenn System Konfigurationen geladen werden.</string>
+	<string name="prefKeyFrequencies">Frequenzen der System Konfigurationen</string>
+	<string name="title_triggers">Auslöser</string>
+	<string name="msg_title_unsaved_changes">Nicht gespeicherte Änderungen</string>
+	<string name="msg_unsaved_changes">Der Editor hat nicht gespeicherte Änderungen. Sollen die Änderungen gespeichert werden?</string>
+	<string name="msg_title_grant_root">Erlaube Superuser-Zugriff.</string>
+	<string name="msg_grant_root">Du wirst gefragt werden, ob Du für cpu tuner Superuser-Zugriff erlauben willst.
+	    Bitte diesen Zugriff erlauben und Merken ankreuzen.  Cpu tuner wird ohne Superuser-Zugriff nicht funktionieren.
+	</string>
+	<string name="labelLogTab">Profil Wechsel Log</string>
+	<string name="msg_no_profile_switch_log">Kein Profil Wechsel Log gefunden</string>
+	<string name="menuItemInsertAsNew">Als neu einfügen</string>
+	<string name="prefCatGUILong">Verändert die Art wie cpu tuner Dinge darstellt.</string>
+	<string name="prefCatSystemLong">Verändert die Art wie cpu tuner arbeitet .</string>
+	<string name="prefBuyMeABeerLong">Mach mich glücklicher und nichts mehr.</string>
+	<string name="prefVariousLong">Informationen über cpu tuner.</string>
+	<string name="prefConfigurationsManageLong">Speichern und Wiederherstellen von Konfigurationen (d.h. der Auslöser, Profile und Regler.).</string>
+	<string name="prefConfigurationsAutoLoadLong">Laden Konfigurationen basierend auf der Zeit und dem Wochentag.</string>
+	<string name="prefLanguageLong">Wähle eine andere Sprache. Cpu tuner muss dannach neu geöffnet werden.</string>
+	<string name="prefEnableCputunerOn">Cpu tuner läuft.</string>
+	<string name="prefEnableCputunerOff">Cpu tuner läuft nicht.</string>
+	<string name="prefKeyProfilesLong">Ändere die Art wie sich Auslöser, Profile und Regler verhalten.</string>	
+    <string name="labelUseCpus_front">Benutze </string>
     <string name="labelUseCpus_end">CPUs</string>
     <string name="prefMulticore">Benutze mehrkern CPU Funktionen</string>
     <string name="prefForceMulticoreCodeOn">Benutze mehrkern CPU Funktionen, unabhängig davon welcher Typ CPU gefunden wurde. </string>
     <string name="prefForceMulticoreCodeOff">Benutze mehrkern CPU Funktionen, wenn eine mehrkern CPU gefunden wurde. </string>
     <string name="labelActiveCpus">Aktive CPUs:</string>
-    <string name="prefEnableCputuner">Aktiviere CPU tuner</string>
+    <string name="prefEnableCputuner">Aktiviere cpu tuner</string>
     <string-array name="prefMulticoreEntries">
         <item>Auto</item>
         <item>Aktivieren</item>
         <item>Deaktivieren</item> 
     </string-array>
-    <string name="prefMulticoreLong">Soll CPU tuner auf allen CPU Kernen arbeiten.</string>
-    <string name="prefConfigurationsLong">Backup und restore</string>
+    <string name="prefMulticoreLong">Soll cpu tuner auf allen CPU Kernen arbeiten.</string>
+    <string name="prefConfigurationsLong">Speichern und Wiederherstellen (und mehr)</string>
     <string name="prefCpu">CPU Einstellungen</string>
     <string name="prefChangelog">Zeige das Changelog</string>
     <string name="label_version">Version:</string>
     <string name="prefLegalGnomeIcons">Haupt Icon Lizenz</string>
     <string name="prefLegalGnomeIconsLong">Lizenz des Benutzen Icons aus dem Gnome Projekt. Danke für das schöne Icon.</string>
-    <string name="msg_disable_cpu_tuner">Deaktiviere CPU tuner</string>
-    <string name="msg_disable_cputuner_question">Möchtest Du CPU tuner stoppen?</string>
+    <string name="msg_disable_cpu_tuner">Deaktiviere cpu tuner</string>
+    <string name="msg_disable_cputuner_question">Möchtest Du cpu tuner stoppen?</string>
     <string name="msg_delete_autoload_configuration">Lösche diese Auto-Laden Konfiguration?</string>
     <string name="prefNetworkModeOnWifiConnected">Netzwerkmodus falls Wifi verbunden ist</string>
-    <string name="prefNetworkModeOnWifiConnectedLong">Wähle den Netzwerkmodus der verwendet wird falls Wifi Verbindung besteht. Wenn die Verbindung nicht mehr besteht geht CPU tuner zurück zum vorherigen.</string>
+    <string name="prefNetworkModeOnWifiConnectedLong">Wähle den Netzwerkmodus der verwendet wird falls Wifi Verbindung besteht. Wenn die Verbindung nicht mehr besteht geht cpu tuner zurück zum vorherigen.</string>
     <string-array name="mobiledataOnWifiStatesEnties">
         <item>Unverändert lassen</item>
         <item>Nur 2G</item>
