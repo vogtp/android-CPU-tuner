@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<string name="refresh">Aktualisieren</string>
+	<string name="reset">Zurücksetzten</string>
+	<string name="title_reset_statistics">Statistiken zurücksetzten</string>
+	<string name="msg_reset_statistics">Setzte die Statistik zurück und verwende den aktuellen Zustand als Grundlage für die Zukunft.</string>
+	<string name="msgManualServiceChanges">
+	  Dienste wurden manuell geändert und werden daher nicht mehr von cpu tuner geändert.
+		<br></br>
+		Zum zurücksetzten anklicken.
+	</string>
+	<string name="title_reset_manual_service_switches">Dienste zurücksetzten?</string>
+	<string name="msg_reset_manual_service_switches">Sollen die manuellen Dienst-Änderungen zurückgesetzt werden.
+	  Cpu tuner wird dann Dienste wieder automatisch ändern.</string> 
+	<string name="msg_cpu_tuner_not_running">Cpu tuner läuft nicht.</string>
+	<string-array name="prefAddToNotificationEntries">
+		<item>In Betrieb</item>
+		<item>Immer</item>
+		<item>Nie</item>
+	</string-array>
+		<string name="prefStatusbarAddToLong">Zur Statusleiste und den Benachrichtigen hinzufügen.</string>
+		<string name="prefInitialPulseDelay">Initiale Puls Verzögerung</string>
+		<string name="prefInitialPulseDelayLong">Warte eine gewisse Zeit (in Sekunden) bevor ein Dienst zu pulsieren beginnt.</string>
+		<string name="prefInitialPulseDelayMsg">Verzögerung in Sekunden</string>
+		<string name="prefPowerStrongerThanScreenoff">Am Laden ist stärker als Bidschirm aus.</string>
+	<string name="msg_error_loadconfig">Diese Konfiguration konnte nicht geladen werden. 
+	  Entweder ist die Konfiguration kaputt oder beim Laden ging etwas schief.
+	  Bitte erneut versuchen (mit einer anderen Konfiguration).</string>
+	<string name="msg_unusable_comfig_save">>Diese Konfiguration konnte nicht geladen werden. 
+	   Da sie nicht korrekt ist. Entweder fehlen Auslöser, Profile oder Regler.</string>
+	<string name="tvSequenceInfo">Die Profile sind in umgekehrter Reihenfolge dargestellt.
+	  Cpu tuner beginnt mit der Evaluation von unten nach oben und wählt das erste Profil das dem 
+	  aktuellen Zustand entspricht.</string>
+	<string name="msg_warning_manual_service_switches">
+		\"Manuelle Dienst-Änderungen\" sind in den Einstellungen aktiviert worden.
+		<br></br>
+		Dies heisst, dass ein Dienst nicht von cpu tuner geändert wird, falls er ausserhalb von cpu tuner verändert wurde.
+		
+		<br></br>
+		Pulsierende Dienste und \"zurück zum vorigen\" sind nicht davon betroffen und werde normal geändert.
+	</string>
+	<string name="msg_warning_not_switch_wifi_connected">Wifi wird nicht geändert wenn es mit einen Netzwerk verbunden ist. 
+	  Dies kann in den Einstellungen geändert werden.</string>
+	<string name="menuUpgrade">Erweiterungen</string>
+	<string name="desc_extention_stats">
+	  Die Statistik Erweiterung generiert schöner und detailliertere Statistiken.
+		<br></br>
+		Sie hilft dabei aus cpu tune das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.
+	</string>
+	<string name="title_products">Produkte</string>
+	<string name="title_extentions">Erweiterungen</string>
+	<string name="name_extention_stats">Statistik Erweiterung</string>
+	<string name="installed">Installiert</string>
+	<string name="not_installed">Nicht installiert</string>
+	<string name="purchased">Gekauft: </string>
+	<string name="name_buy_me_a_beer">Kauf mir ein Bier</string>
+	<string name="name_buy_me_a_whiskey">Kauf mir einen Whiskey</string>
+	<string name="name_buy_cookie">Kauf meinem Kind einen Keks</string>
+	<string name="desc_buy_beer">Dies macht mich glücklich.</string>
+	<string name="desc_buy_whiskey">Dies macht mich glücklicher. (Und weniger betrunken!)</string>
+	<string name="desc_buy_cookie">Dies wird mein Kind einige Zeit beschäftigen und hilft mir vielleicht
+	  einen Fehler zu beheben. (Ich kann aber nichts versprechen....)</string>
+	<string name="desc_buy_toy">Dies wird mein Kind eine längere Zeit beschäftigen und hilft mir vielleicht
+	  etwas Neues zu implementieren. (Ich kann aber nichts versprechen....)</string>
+	<string name="name_buy_toy">Kauf meinem Kind ein Spiel.</string>
+	<string name="prefextentionsLong">Erweitere cpu tuner...</string>
+	<string name="title_changelog">Changelog</string>
+	<string name="prefServiceSwitchesLong">Ändere die Art wie Dienst-Änderungen durchgeführt werden.</string>
+	<string name="prefCpuLong">Einstellungen der CPU.</string>
+	<string name="title_help_pages">Hilfe Seiten</string>
+	<string name="msg_no_trigger_name">Bitte einen Namen für diesen Auslöser eingeben.</string>
+	<string name="msg_triggername_exists">Es existiert bereits ein Auslöser mit diesem Namen, wähle bitte einen neuen Namen.</string>
+	<string name="msg_triggerbatterylevel_exists">Es existiert bereits ein Auslöser mit diesem Batterie Ladezustand, bitte ändere den Batterie Ladezustand.</string>
+	<string name="msg_no_profile_name">Bitte einen Namen für dieses Profil eingeben.</string>
+	<string name="msg_profilename_exists">Es existiert bereits ein Profil mit diesem Namen, wähle bitte einen neuen Namen.</string>
+	<string name="msg_no_virtgov_name">Bitte einen Namen für diesen Regker eingeben.</string>
+	<string name="msg_virtgovname_exists">Es existiert bereits ein Regler mit diesem Namen, wähle bitte einen neuen Namen.</string>
+	<string name="title_load_configuration">Lade Konfiguration.</string>
+	<string name="title_config_name_exists">Dieser Name existiert schon.</string>
+	<string name="msg_config_name_exists">Es existiert schon eine Konfiguration mit diesem Namen.</string>
+	<string name="overwrite">Überschreiben</string>
+	<string name="msg_empty_configuration_name">Der Name der Konfiguration darf nicht leer sein.</string>
+	<string name="label_frequency">Frequenz</string>
+	<string name="label_time">Zeit</string>
+	<string name="title_no_configuration">Konfiguration nicht verwendbar.</string>
+	<string name="label_no_configuration">Cpu tuner hat festgestellt, das die aktuelle Konfiguration nicht verwendbar ist. Soll eine neue Konfiguration geladen werden?</string>
+	<string name="load">Laden</string>
+	<string name="cont">Weiter</string>
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Mittelwert</item>
 		<item>Aktueller Wert</item>
