@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+		<string name="prefPowerStrongerThanScreenoffOn">When das Gerät am Ladegerät und der Bildschirm aus ist, dann wird das Profil \"Am Ladegerät\" gewählt.</string>
+		<string name="prefPowerStrongerThanScreenoffOff">When das Gerät am Ladegerät und der Bildschirm aus ist, dann wird das Profil \"Bildschirm aus\" gewählt.</string>
+		<string name="title_choose_experiance_level">Wie erfahren bist Du?</string>
+	<string name="prefLegalServiceIcons">Dienste Iconen Lizenz</string>
+	<string name="prefLegalServiceIconsLong">Lizenz des benutzen Icons aus dem Cyanogenmod Projekt. Danke für das schöne Icon.</string>
 	<string name="refresh">Aktualisieren</string>
 	<string name="reset">Zurücksetzten</string>
 	<string name="title_reset_statistics">Statistiken zurücksetzten</string>
@@ -43,7 +48,7 @@
 	  Dies kann in den Einstellungen geändert werden.</string>
 	<string name="menuUpgrade">Erweiterungen</string>
 	<string name="desc_extention_stats">
-	  Die Statistik Erweiterung generiert schöner und detailliertere Statistiken.
+	  Die Statistik Erweiterung generiert schönere und detailliertere Statistiken.
 		<br></br>
 		Sie hilft dabei aus cpu tune das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.
 	</string>
@@ -142,7 +147,7 @@
     <string name="prefChangelog">Zeige das Changelog</string>
     <string name="label_version">Version:</string>
     <string name="prefLegalGnomeIcons">Haupt Icon Lizenz</string>
-    <string name="prefLegalGnomeIconsLong">Lizenz des Benutzen Icons aus dem Gnome Projekt. Danke für das schöne Icon.</string>
+    <string name="prefLegalGnomeIconsLong">Lizenz des benutzen Icons aus dem Gnome Projekt. Danke für das schöne Icon.</string>
     <string name="msg_disable_cpu_tuner">Deaktiviere cpu tuner</string>
     <string name="msg_disable_cputuner_question">Möchtest Du cpu tuner stoppen?</string>
     <string name="msg_delete_autoload_configuration">Lösche diese Auto-Laden Konfiguration?</string>

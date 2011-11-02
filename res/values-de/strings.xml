@@ -1,9 +1,3 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-		<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the on power profile will be chosen.</string>
-		<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the screen off profile will be chosen.</string>
-		<string name="title_choose_experiance_level">Choose your experiance level</string>
-	<string name="prefLegalServiceIcons">Service icons License</string>
-	<string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod.
-		Thanks for the nice icons.</string>
 </resources>
