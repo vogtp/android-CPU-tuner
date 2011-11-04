@@ -33,7 +33,7 @@ public class PulseHelper {
 
 	private static PulseHelper instance;
 
-	private static final Handler handler = new Handler();
+	private static Handler handler = new Handler();
 
 	private static Runnable startPulseRunnable;
 
@@ -228,7 +228,13 @@ public class PulseHelper {
 				}
 			}
 		};
-		handler.postDelayed(startPulseRunnable, delayMillis);
+		try {
+			handler.postDelayed(startPulseRunnable, delayMillis);
+		} catch (Throwable e) {
+			Logger.e("Delayed pulse handler is dead restarting...", e);
+			handler = new Handler();
+			handler.postDelayed(startPulseRunnable, delayMillis);
+		}
 
 	}
 
