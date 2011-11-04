@@ -4,7 +4,7 @@
 	android:title="@string/prefCatSystem"
 	android:key="prefKeySystemScreen"
 	android:summary="@string/prefCatSystemLong"
->
+> 
 	<Preference
 		android:key="prefKeyProfiles"
 		android:title="@string/prefKeyProfiles"
@@ -19,7 +19,7 @@
 		android:key="prefKeyCpu"
 		android:title="@string/prefCpu"
 		android:summary="@string/prefCpuLong"
-	></Preference>
+	></Preference><Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference>
 	<EditTextPreference
 		android:key="prefKeyEnableBeta"
 		android:title="@string/prefEnableBeta"

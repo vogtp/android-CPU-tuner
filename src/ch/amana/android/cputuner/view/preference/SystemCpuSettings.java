@@ -1,14 +1,10 @@
 package ch.amana.android.cputuner.view.preference;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class SystemCpuSettings extends BaseSettings {
@@ -23,17 +19,6 @@ public class SystemCpuSettings extends BaseSettings {
 		actionBar.setTitle(R.string.prefCpu);
 		addPreferencesFromResource(R.xml.settings_system_cpu);
 	
-		findPreference("prefKeyCapabilities").setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(SystemCpuSettings.this, CapabilityCheckerActivity.class);
-				intent.putExtra(CapabilityCheckerActivity.EXTRA_RECHEK, true);
-				startActivity(intent);
-				return true;
-			}
-		});
-
 		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);
 		String freqs[] = new String[availCpuFreq.length];
 		for (int i = 0; i < availCpuFreq.length; i++) {
