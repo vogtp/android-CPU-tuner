@@ -15,6 +15,7 @@ import ch.amana.android.cputuner.R;
 
 public class Logger {
 	private static final String TAG = "CPUTuner";
+	private static final String STACKTRACE_TAG = "CPUTunerStracktraceLog";
 
 	public final static boolean DEBUG = false;
 
@@ -23,6 +24,7 @@ public class Logger {
 	private static Date now;
 
 	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
+
 	public static void addToLog(String msg) {
 		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
 			return;
@@ -114,7 +116,7 @@ public class Logger {
 		if (!Logger.DEBUG) {
 			return;
 		}
-		Log.w(TAG, "Stacktrace logger: " + msg, e);
+		Log.w(STACKTRACE_TAG, msg, e);
 		try {
 			Writer w = new FileWriter("/mnt/sdcard/cputuner.log", true);
 			w.write("**************  Stacktrace ***********************\n");
@@ -127,7 +129,7 @@ public class Logger {
 			w.flush();
 			w.close();
 		} catch (IOException e1) {
-			Logger.w("Cannot write delete log", e1);
+			Logger.w("Cannot write stacktrage log", e1);
 		}
 	}
 
