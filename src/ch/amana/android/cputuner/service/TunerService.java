@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
@@ -23,6 +24,8 @@ import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 
 public class TunerService extends IntentService {
 
+	private static final int[] lock = new int[0];
+
 	public static final String ACTION_START_CPUTUNER = "ch.amana.android.cputuner.ACTION_START_CPUTUNER";
 	public static final String ACTION_STOP_CPUTUNER = "ch.amana.android.cputuner.ACTION_STOP_CPUTUNER";
 	public static final String ACTION_TUNERSERVICE_BATTERY = "ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY";
@@ -32,11 +35,17 @@ public class TunerService extends IntentService {
 
 	public static final String EXTRA_ACTION = "EXTRA_ACTION";
 	public static final String EXTRA_PHONE_STATE = "EXTRA_PHONE_STATE";
-	public static final String EXTRA_ON_OFF = "EXTRA_ON_OFF";
+	public static final String EXTRA_PULSE_ON_OFF = "EXTRA_ON_OFF";
 	public static final String EXTRA_IS_MANUAL_PROFILE = "EXTRA_IS_MANUAL_PROFILE";
 	public static final String EXTRA_PROFILE_ID = "EXTRA_PROFILE_ID";
+	public static final String EXTRA_PULSE_START = "EXTRA_PULSE_START";
+	public static final String EXTRA_PULSE_STOP = "EXTRA_PULSE_STOP";
 
 	private static final long MIN_TO_MILLIES = 1000 * 60;
+
+	private final Handler handler = new Handler();
+
+	private Runnable startPulseRunnable;
 
 	private PowerManager pm;
 	private WakeLock wakeLock = null;
@@ -70,13 +79,18 @@ public class TunerService extends IntentService {
 				startCpuTuner();
 			} else if (ACTION_STOP_CPUTUNER.equals(serviceAction)) {
 				stopCpuTuner();
-			} else
-			if (ACTION_TUNERSERVICE_BATTERY.equals(serviceAction)) {
+			} else if (ACTION_TUNERSERVICE_BATTERY.equals(serviceAction)) {
 				handleBattery(intent);
 			} else if (ACTION_TUNERSERVICE_PHONESTATE.equals(serviceAction)) {
 				handlePhoneState(intent);
 			} else if (ACTION_PULSE.equals(serviceAction)) {
-				handlePulse(intent);
+				if (intent.getBooleanExtra(EXTRA_PULSE_START, false)) {
+					startPulse();
+				} else if (intent.getBooleanExtra(EXTRA_PULSE_STOP, false)) {
+					stopPulse();
+				} else {
+					handlePulse(intent.getExtras().getBoolean(EXTRA_PULSE_ON_OFF));
+				}
 			} else if (ACTION_TUNERSERVICE_MANUAL_PROFILE.equals(serviceAction)) {
 				handleManualProfile(intent);
 			}
@@ -139,8 +153,47 @@ public class TunerService extends IntentService {
 		}
 	}
 
-	private void handlePulse(Intent intent) {
-		boolean on = intent.getExtras().getBoolean(EXTRA_ON_OFF);
+
+	private void startPulse() {
+		long delayMillis = SettingsStorage.getInstance().getPulseInitalDelay() * 1000;
+		synchronized (lock) {
+			if (delayMillis < 1) {
+				handlePulse(true);
+			} else if (startPulseRunnable != null) {
+				Logger.w("Not starting pulse service since it is allready beeing started");
+			} else {
+				Logger.i("Start pulse service in " + delayMillis + " ms");
+				startPulseRunnable = new Runnable() {
+
+					@Override
+					public void run() {
+						synchronized (lock) {
+							handlePulse(true);
+							startPulseRunnable = null;
+						}
+					}
+				};
+				handler.postDelayed(startPulseRunnable, delayMillis);
+			}
+		}
+	}
+
+	private void stopPulse() {
+		Context ctx = getApplicationContext();
+		synchronized (lock) {
+			if (startPulseRunnable != null) {
+				Logger.i("Cancel start pulse service delayed runnable");
+				handler.removeCallbacks(startPulseRunnable);
+				startPulseRunnable = null;
+			}
+		}
+		Intent intent = new Intent(TunerService.ACTION_PULSE);
+		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+		am.cancel(operation);
+	}
+
+	private void handlePulse(boolean on) {
 		Logger.i("Do pulse (value: " + on + ")");
 		PulseHelper.getInstance(getApplicationContext()).doPulse(on);
 		reschedulePulse(!on);
@@ -151,7 +204,7 @@ public class TunerService extends IntentService {
 		Logger.i("Next pulse in " + delay + " min (value: " + b + ")");
 		long triggerAtTime = SystemClock.elapsedRealtime() + delay * MIN_TO_MILLIES;
 		Intent intent = new Intent(ACTION_PULSE);
-		intent.putExtra(EXTRA_ON_OFF, b);
+		intent.putExtra(EXTRA_PULSE_ON_OFF, b);
 		Context ctx = getApplicationContext();
 		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);

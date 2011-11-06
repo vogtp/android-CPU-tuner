@@ -1,10 +1,7 @@
 package ch.amana.android.cputuner.helper;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.service.TunerService;
@@ -33,9 +30,6 @@ public class PulseHelper {
 
 	private static PulseHelper instance;
 
-	private static Handler handler = new Handler();
-
-	private static Runnable startPulseRunnable;
 
 	public static PulseHelper getInstance(Context ctx) {
 		if (instance == null) {
@@ -213,44 +207,17 @@ public class PulseHelper {
 	}
 
 	public static void startPulseService(final Context ctx) {
-		long delayMillis = SettingsStorage.getInstance(ctx).getPulseInitalDelay() * 1000;
-		Logger.i("Start pulse service in " + delayMillis + " ms");
-		startPulseRunnable = new Runnable() {
-
-			@Override
-			public void run() {
-				synchronized (lock) {
-					Logger.i("Start pulse service now");
-					Intent i = new Intent(TunerService.ACTION_PULSE);
-					i.putExtra(TunerService.EXTRA_ON_OFF, true);
-					ctx.startService(i);
-					startPulseRunnable = null;
-				}
-			}
-		};
-		try {
-			handler.postDelayed(startPulseRunnable, delayMillis);
-		} catch (Throwable e) {
-			Logger.e("Delayed pulse handler is dead restarting...", e);
-			handler = new Handler();
-			handler.postDelayed(startPulseRunnable, delayMillis);
-		}
-
+		Logger.w("Start pulse service now");
+		Intent i = new Intent(TunerService.ACTION_PULSE);
+		i.putExtra(TunerService.EXTRA_PULSE_START, true);
+		ctx.startService(i);
 	}
 
 	public static void stopPulseService(Context ctx) {
-		Logger.i("Stop pulse service");
-		synchronized (lock) {
-			if (startPulseRunnable != null) {
-				Logger.i("Cancel start pulse service runnable");
-				handler.removeCallbacks(startPulseRunnable);
-			}
-		}
+		Logger.w("Stop pulse service");
 		Intent intent = new Intent(TunerService.ACTION_PULSE);
-		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-		am.cancel(operation);
-		ctx.stopService(new Intent(TunerService.ACTION_PULSE));
+		intent.putExtra(TunerService.EXTRA_PULSE_STOP, true);
+		ctx.startService(intent);
 	}
 
 }
