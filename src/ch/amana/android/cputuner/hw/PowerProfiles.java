@@ -74,8 +74,9 @@ public class PowerProfiles {
 
 	private final SettingsStorage settings;
 
-	public static PowerProfiles getInstance(Context ctx) {
+	public static synchronized PowerProfiles getInstance(Context ctx) {
 		if (instance == null) {
+			Logger.w("Creating new PowerProfiles instance");
 			instance = new PowerProfiles(ctx.getApplicationContext());
 		}
 		return instance;
@@ -241,7 +242,7 @@ public class PowerProfiles {
 		int lastState = lastServiceState.get(type);
 		boolean wasPulsing = PulseHelper.getInstance(context).isPulsing();
 		if (type != ServiceType.mobiledata3g) {
-			if (state == SERVICE_STATE_PULSE || lastState == SERVICE_STATE_PULSE) {
+			if (state == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulse(type, true);
 				return NO_STATE;
 			}
