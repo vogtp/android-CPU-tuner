@@ -98,7 +98,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			for (int i = numberOfCpus; i >= 1; i--) {
 				cpuAdapter.add(i);
 			}
-			spUseCpus.setAdapter(cpuAdapter );
+			spUseCpus.setAdapter(cpuAdapter);
 			spUseCpus.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -269,9 +269,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 		if (governorConfig.hasPowersaveBias()) {
 			llPowersaveBias.setVisibility(View.VISIBLE);
-		}else {
+		} else {
 			llPowersaveBias.setVisibility(View.GONE);
 		}
-		
+
 	}
 }
