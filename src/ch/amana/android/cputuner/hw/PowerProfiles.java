@@ -86,7 +86,7 @@ public class PowerProfiles {
 		return instance;
 	}
 
-	public PowerProfiles(Context ctx) {
+	private PowerProfiles(Context ctx) {
 		context = ctx;
 		settings = SettingsStorage.getInstance(ctx);
 		modelAccess = ModelAccess.getInstace(ctx);
