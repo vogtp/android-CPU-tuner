@@ -25,7 +25,7 @@ public class Logger {
 
 	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-	public static void addToLog(String msg) {
+	public static void addToSwitchLog(String msg) {
 		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
 			return;
 		}

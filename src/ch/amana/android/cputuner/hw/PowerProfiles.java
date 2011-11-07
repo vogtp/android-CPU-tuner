@@ -230,7 +230,7 @@ public class PowerProfiles {
 		StringBuilder sb = new StringBuilder();
 		sb.append(currentTrigger.getName()).append(" -> ");
 		sb.append(currentProfile.getProfileName());
-		Logger.addToLog(sb.toString());
+		Logger.addToSwitchLog(sb.toString());
 	}
 
 	private String getServiceTypeName(ServiceType type) {
