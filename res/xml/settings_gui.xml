@@ -35,13 +35,6 @@
             android:summary="@string/prefKeyCalcPowerUsageLong"
             android:title="@string/prefKeyCalcPowerUsage" >
         </ListPreference>
-
-        <EditTextPreference
-            android:defaultValue="10"
-            android:key="prefKeyProfileSwitchLogSize"
-            android:summary="@string/prefProfileSwitchLogSizeLong"
-            android:title="@string/prefProfileSwitchLogSize" >
-        </EditTextPreference>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -64,6 +57,25 @@
             android:summaryOn="@string/prefKeyEnableProfilesOn"
             android:title="@string/prefStatusbarNotifications" >
         </CheckBoxPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="prefKeySwitchLog"
+        android:title="@string/labelLogTab" >
+
+        <EditTextPreference
+            android:defaultValue="10"
+            android:key="prefKeyProfileSwitchLogSize"
+            android:summary="@string/prefProfileSwitchLogSizeLong"
+            android:title="@string/prefProfileSwitchLogSize" >
+        </EditTextPreference>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefKeyLogPulse"
+            android:summaryOff="@string/prefLogPulseOff"
+            android:summaryOn="@string/prefLogPulseOn"
+            android:title="@string/prefLogPulse" />
     </PreferenceCategory>
 
 </PreferenceScreen>

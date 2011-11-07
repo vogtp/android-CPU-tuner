@@ -2,13 +2,12 @@ package ch.amana.android.cputuner.helper;
 
 import android.content.Context;
 import android.content.Intent;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.service.TunerService;
 
 public class PulseHelper {
-
-	private static final int[] lock = new int[0];
 
 	private boolean pulsing = false;
 
@@ -39,12 +38,16 @@ public class PulseHelper {
 	}
 
 	public void doPulse(boolean isOn) {
-		if (!SettingsStorage.getInstance().isEnableProfiles()) {
-			Logger.i("Not pulsing since profiles are not eabled.");
-			return;
-		}
+		SettingsStorage settings = SettingsStorage.getInstance();
+		//		if (!settings.isEnableProfiles()) {
+		//			Logger.i("Not pulsing since profiles are not eabled.");
+		//			return;
+		//		}
 		if (pulsing) {
 			this.pulseOn = isOn;
+			if (settings.isLogPulse()) {
+				Logger.addToSwitchLog(ctx.getString(isOn ? R.string.msg_pulse_log_on : R.string.msg_pulse_log_off));
+			}
 			if (pulseBackgroundSyncState) {
 				ServicesHandler.enableBackgroundSync(ctx, isOn);
 			}
@@ -61,7 +64,7 @@ public class PulseHelper {
 				ServicesHandler.enableAirplaneMode(ctx, isOn);
 			}
 			if (pulseMobiledataConnectionState) {
-				if (SettingsStorage.getInstance().isPulseMobiledataOnWifi()) {
+				if (settings.isPulseMobiledataOnWifi()) {
 					ServicesHandler.enableMobileData(ctx, isOn);
 				} else {
 					if (isOn && ServicesHandler.isWifiConnected(ctx)) {
@@ -85,6 +88,9 @@ public class PulseHelper {
 		} else {
 			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
 			if (!someService) {
+				if (SettingsStorage.getInstance().isLogPulse()) {
+					Logger.addToSwitchLog(ctx.getString(R.string.msg_pulse_log_end));
+				}
 				pulsing = false;
 				PulseHelper.stopPulseService(ctx);
 				ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
