@@ -25,6 +25,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	private Spinner spinnerSetGov;
 	private TextView tvExplainGov;
 	private Cursor cursor;
+	private TextView labelCpuGov;
 
 	public VirtualGovernorFragment() {
 		super();
@@ -39,6 +40,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		// Inflate the layout for this fragment
 		View v = inflater.inflate(R.layout.virtual_governor_fragment, container, false);
 		tvExplainGov = (TextView) v.findViewById(R.id.tvExplainGov);
+		labelCpuGov = (TextView) v.findViewById(R.id.labelCpuGov);
 		spinnerSetGov = (Spinner) v.findViewById(R.id.SpinnerCpuGov);
 		return v;
 	}
@@ -48,12 +50,13 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		FragmentActivity act = getActivity();
 
-
 		cursor = act.managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
 		SimpleCursorAdapter arrayAdapter = new SimpleCursorAdapter(act, android.R.layout.simple_spinner_item, cursor,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME }, new int[] { android.R.id.text1 });
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
+		long virtualGovernor = getGovernorModel().getVirtualGovernor();
+		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -115,5 +118,4 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		}
 		updateVirtGov = true;
 	}
-
 }

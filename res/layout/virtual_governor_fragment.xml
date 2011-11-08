@@ -14,7 +14,7 @@
 	android:layout_weight="1" android:layout_height="0dp">
 		<TextView
 			android:text="@string/labelCpuGov"
-			android:id="@+id/textView3"
+			android:id="@+id/labelCpuGov"
 			android:paddingRight="5dp"
 			android:textSize="20sp"
 			android:layout_height="wrap_content"

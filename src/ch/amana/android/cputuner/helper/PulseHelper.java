@@ -85,7 +85,8 @@ public class PulseHelper {
 		if (b) {
 			pulsing = true;
 			PulseHelper.startPulseService(ctx);
-		} else {
+		} else if (pulsing) {
+
 			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
 			if (!someService) {
 				if (SettingsStorage.getInstance().isLogPulse()) {
