@@ -199,9 +199,6 @@ public class PowerProfiles {
 				return;
 			}
 
-			if (settings.getProfileSwitchLogSize() > 0) {
-				updateProfileSwitchLog();
-			}
 
 			CpuHandler cpuHandler = CpuHandler.getInstance();
 			cpuHandler.applyCpuSettings(currentProfile);
@@ -218,9 +215,10 @@ public class PowerProfiles {
 			} catch (Exception e) {
 				Logger.w("Error printing switch profile", e);
 			}
-			StringBuilder sb = new StringBuilder(50);
-			sb.append("Setting power profile to ");
-			sb.append(currentProfile.getProfileName());
+
+			if (settings.getProfileSwitchLogSize() > 0) {
+				updateProfileSwitchLog();
+			}
 			context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);
