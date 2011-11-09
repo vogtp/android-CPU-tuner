@@ -130,7 +130,6 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean setCurGov(String gov) {
 		Logger.i("Setting governor to " + gov);
-		Logger.logStacktrace("CPU settings are applied...");
 		return RootHandler.writeFile(getFile(CPU_DIR, SCALING_GOVERNOR), gov);
 	}
 
