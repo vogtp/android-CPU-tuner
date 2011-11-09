@@ -116,7 +116,7 @@ public class Logger {
 		if (!Logger.DEBUG) {
 			return;
 		}
-		Log.w(STACKTRACE_TAG, msg, e);
+		Log.d(STACKTRACE_TAG, msg, e);
 		try {
 			Writer w = new FileWriter("/mnt/sdcard/cputuner.log", true);
 			w.write("**************  Stacktrace ***********************\n");
