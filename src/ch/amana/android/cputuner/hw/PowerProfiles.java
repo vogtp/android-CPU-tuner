@@ -212,6 +212,7 @@ public class PowerProfiles {
 			applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
 			applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
 			applyAirplanemodeState(currentProfile.getAirplainemodeState());
+			PulseHelper.getInstance(context).stopPulseIfNeeded();
 			try {
 				Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName() + "< on batterylevel " + batteryLevel + "%");
 			} catch (Exception e) {

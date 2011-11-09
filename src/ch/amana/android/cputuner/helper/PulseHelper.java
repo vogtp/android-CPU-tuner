@@ -74,6 +74,7 @@ public class PulseHelper {
 					}
 				}
 			}
+			stopPulseIfNeeded();
 			ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 		}
 	}
@@ -82,11 +83,14 @@ public class PulseHelper {
 		if (pulsing == b) {
 			return;
 		}
-		if (b) {
+		if (b && !pulsing) {
 			pulsing = true;
 			PulseHelper.startPulseService(ctx);
-		} else if (pulsing) {
+		}
+	}
 
+	public void stopPulseIfNeeded() {
+		if (pulsing) {
 			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
 			if (!someService) {
 				if (SettingsStorage.getInstance().isLogPulse()) {
