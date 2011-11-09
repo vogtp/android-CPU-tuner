@@ -19,6 +19,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
@@ -122,7 +123,9 @@ public class StatsFragment extends PagerFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.upgrade_option, menu);
+		if (SettingsStorage.getInstance().allowExtentions()) {
+			inflater.inflate(R.menu.upgrade_option, menu);
+		}
 	}
 
 	@Override

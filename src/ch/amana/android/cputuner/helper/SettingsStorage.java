@@ -596,4 +596,9 @@ public class SettingsStorage {
 	public boolean isLogPulse() {
 		return getPreferences().getBoolean("prefKeyLogPulse", false);
 	}
+
+	public boolean allowExtentions() {
+		// TODO remove later
+		return isEnableBeta();
+	}
 }
