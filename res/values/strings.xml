@@ -5,5 +5,5 @@
     <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
     <string name="msg_pulse_log_on">Pulse switched to on</string>
     <string name="msg_pulse_log_off">Pulse switched to off</string>
-    <string name="msg_pulse_log_end">Pulse switched to off (due to profile switch)</string>
+    <string name="msg_pulse_log_end">Pulse ended since no more services are pulsed</string>
 </resources>

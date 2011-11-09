@@ -3,9 +3,10 @@
 - does manual profile work?
 
 - refresh stats on extention install
+- refresh billing status (menu/action) and set settings for display of bought stuff
 
 - new market description and images
-- disable logging
+- disable debugging
 
 ****************** POST 3.0.0:
 
@@ -14,7 +15,6 @@
 - graph for trigger and or profile
 - rework graph to use screen size
 
-- refresh billing status (menu/action) and set settings for display of bought stuff
 - ensure display of current entity in list
 
 - fix hasManualServicesChanges to reflect current trigger and get better answers

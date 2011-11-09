@@ -135,6 +135,7 @@ public class BackupRestoreHelper {
 			}
 			Logger.i("Loading configuration " + name);
 			try {
+				CpuTunerProvider.setNotifyChanges(false);
 				Context context = cb.getContext();
 				if (isUserConfig) {
 					File file = new File(getStoragePath(context, DIRECTORY_CONFIGURATIONS), name);
@@ -155,6 +156,8 @@ public class BackupRestoreHelper {
 				Logger.e("Cannot restore configuration", e);
 				cb.hasFinished(false);
 				throw new Exception("Cannot restore configuration", e);
+			} finally {
+				CpuTunerProvider.setNotifyChanges(true);
 			}
 		}
 	}

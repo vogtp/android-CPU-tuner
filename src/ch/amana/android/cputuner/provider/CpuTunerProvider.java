@@ -30,6 +30,8 @@ public class CpuTunerProvider extends ContentProvider {
 
 	private static final UriMatcher sUriMatcher;
 
+	private static boolean notifyChanges = true;
+
 	private OpenHelper openHelper;
 
 	@Override
@@ -154,11 +156,15 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	private void notifyChange(Uri uri) {
-		if (SettingsStorage.getInstance().isEnableProfiles()) {
+		if (notifyChanges && SettingsStorage.getInstance().isEnableProfiles()) {
 			PowerProfiles.getInstance(getContext()).reapplyProfile(true);
 		}
 		getContext().getContentResolver().notifyChange(uri, null);
 		// BackupRestoreHelper.backup(getContext()); 
+	}
+
+	public static void setNotifyChanges(boolean b) {
+		notifyChanges = b;
 	}
 
 	static {
