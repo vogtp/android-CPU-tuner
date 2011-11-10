@@ -1,52 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-	package="ch.amana.android.cputuner"
-	android:versionName="@string/version"
-	android:installLocation="internalOnly"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:versionCode="201111080"
->
-	<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
-	<uses-permission android:name="com.android.vending.BILLING"></uses-permission>
-	<permission
-		android:name="ch.amana.android.cputuner.LOAD_CONFIGURATION"
-		android:protectionLevel="dangerous"
-	></permission>
-	<application 
-		android:icon="@drawable/icon"
-		android:label="@string/app_name"
-		android:name=".application.CpuTunerApplication"
-		android:allowClearUserData="true"
-		android:allowBackup="true"
-		android:backupAgent="ch.amana.android.cputuner.helper.CpuTunerBackupAgent"
-	>
-		<meta-data
-			android:name="com.google.android.backup.api_key"
-			android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
-		<receiver android:name=".receiver.BootReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED"></action>
-			</intent-filter>
-		</receiver>
-		<activity
-			android:name=".view.activity.ProfileEditor"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-			android:configChanges="orientation"
-		>
-			<intent-filter>
-				<action android:name="android.intent.action.EDIT"></action>
-				<action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW"></action>
-				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile"></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT"></action>
-				<data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.cpuProfile"></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-		</activity>
-		<receiver android:name=".receiver.BatteryReceiver">
-		<!-- 
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:installLocation="internalOnly"
+    package="ch.amana.android.cputuner"
+    android:versionCode="201111090"
+    android:versionName="@string/version" >
+
+    <uses-permission android:name="android.permission.VIBRATE" >
+    </uses-permission>
+    <uses-permission android:name="com.android.vending.BILLING" >
+    </uses-permission>
+
+    <permission
+        android:name="ch.amana.android.cputuner.LOAD_CONFIGURATION"
+        android:protectionLevel="dangerous" >
+    </permission>
+
+    <application
+        android:allowBackup="true"
+        android:allowClearUserData="true"
+        android:backupAgent="ch.amana.android.cputuner.helper.CpuTunerBackupAgent"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:name=".application.CpuTunerApplication" >
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
+
+        <receiver android:name=".receiver.BootReceiver" >
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED" >
+                </action>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:configChanges="orientation"
+            android:name=".view.activity.ProfileEditor"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter >
+                <action android:name="android.intent.action.EDIT" >
+                </action>
+                <action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.cpuProfile" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+            <intent-filter >
+                <action android:name="android.intent.action.INSERT" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.cpuProfile" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".receiver.BatteryReceiver" >
+
+            <!--
 			<intent-filter>
 				<action android:name="android.intent.action.SCREEN_OFF"></action>
 			</intent-filter>
@@ -68,205 +85,272 @@
 			<intent-filter>
 				<action android:name="android.net.wifi.STATE_CHANGE"></action>
 			</intent-filter>
-			 -->
-		</receiver>
-		<activity
-			android:name=".view.activity.CpuTunerViewpagerActivity"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-			android:configChanges="orientation"
-		>
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".view.preference.SettingsMainActivity"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.activity.TriggerEditor"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-			android:configChanges="orientation"
-		>
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT"></action>
-				<data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.trigger"></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW"></action>
-				<action android:name="android.intent.action.EDIT"></action>
-				<data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.trigger"></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-		</activity>
-		<provider
-			android:name=".provider.CpuTunerProvider"
-			android:authorities="ch.amana.android.cputuner"
-		></provider>
-		<activity
-			android:configChanges="orientation"
-			android:name=".view.activity.CapabilityCheckerActivity"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.activity.HelpActivity"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity android:name=".view.activity.SendReportActivity"></activity>
-		<activity android:name=".view.activity.UserExperianceLevelChooser"></activity>
-		<activity
-			android:name=".view.activity.VirtualGovernorEditorActivity"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		>
-			<intent-filter>
-				<action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW"></action>
-				<action android:name="android.intent.action.EDIT"></action>
-				<data
-					android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.virtualGovernor"
-				></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT"></action>
-				<data
-					android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.virtualGovernor"
-				></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-		</activity>
-		<activity android:name=".view.activity.ConfigurationManageActivity"></activity>
-		<activity android:name=".view.activity.ConfigurationAutoloadListActivity"></activity>
-		<activity android:name=".view.activity.ConfigurationAutoloadEditor">
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT"></action>
-				<data
-					android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.configurationAutoload"
-				></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.EDIT"></action>
-				<data
-					android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.configurationAutoload"
-				></data>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-		</activity>
-		<service android:name=".service.ConfigurationAutoloadService">
-			<intent-filter>
-				<action android:name="ch.amana.android.cputuner.ACTION_SCEDULE_AUTOLOAD"></action>
-			</intent-filter>
-		</service>
-		<activity android:name=".view.activity.ChangelogActivity" android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
-		<activity
-			android:name=".service.ConfigurationLoadServiceActivity"
-			android:permission="ch.amana.android.cputuner.LOAD_CONFIGURATION"
-		>
-			<intent-filter>
-				<action android:name="ch.amana.android.cputuner.LOAD_CONFIG"></action>
-				<category android:name="android.intent.category.DEFAULT"></category>
-			</intent-filter>
-		</activity>
-		<activity android:name=".view.activity.FirstRunActivity"></activity>
-		<activity android:name=".view.activity.BillingProductListActiviy"></activity>
-		<activity
-			android:name=".view.preference.SettingsConfigurationsActivity"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.preference.GuiSettings"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.preference.SystemSettings"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.preference.SystemCpuSettings"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.preference.SystemProfilesSettings"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.preference.SystemServiceSwitchesSettings"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<activity
-			android:name=".view.preference.VariousSettings"
-			android:theme="@android:style/Theme.Black.NoTitleBar"
-		></activity>
-		<service android:name=".service.TunerService">
-			<intent-filter>
-				<action android:name="ch.amana.android.cputuner.ACTION_PULSE"></action><action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY"/>
-				<action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_PHONESTATE"/>
-				<action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_MANUAL_PROFILE"/>
-				<action android:name="ch.amana.android.cputuner.ACTION_START_CPUTUNER"/>
-				<action android:name="ch.amana.android.cputuner.ACTION_STOP_CPUTUNER"/>
-			</intent-filter>
-		</service>
-	</application>
-	<uses-sdk
-		android:minSdkVersion="7"
-		android:targetSdkVersion="8" />
-	<supports-screens
-		android:largeScreens="true"
-		android:normalScreens="true"
-		android:smallScreens="true"
-		android:anyDensity="true" android:resizeable="true"/>
-	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
-	<uses-permission
-		android:name="android.permission.CHANGE_WIFI_STATE"
-		android:required="false"
-	></uses-permission>
-	<uses-feature
-		android:name="android.hardware.wifi"
-		android:required="false"
-	></uses-feature>
-	<uses-permission
-		android:name="android.permission.WRITE_SECURE_SETTINGS"
-		android:required="false" />
-	<uses-permission
-		android:name="android.permission.READ_SECURE_SETTINGS"
-		android:required="false" />
-	<uses-permission
-		android:name="android.permission.BLUETOOTH_ADMIN"
-		android:required="false"
-	></uses-permission>
-	<uses-feature
-		android:name="android.hardware.bluetooth"
-		android:required="false" />
-	<uses-feature
-		android:name="android.hardware.location.gps"
-		android:required="false" />
-	<uses-permission
-		android:name="android.permission.ACCESS_WIFI_STATE"
-		android:required="false"
-	></uses-permission>
-	<uses-permission android:name="android.permission.REBOOT"></uses-permission>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-	<uses-permission
-		android:name="com.android.phone.CHANGE_NETWORK_MODE"
-		android:required="false"
-	></uses-permission>
-	<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"></uses-permission>
-	<uses-permission android:name="android.permission.READ_SYNC_SETTINGS"></uses-permission>
-	<uses-permission
-		android:name="android.permission.BLUETOOTH"
-		android:required="false"
-	></uses-permission>
-	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-	<uses-permission
-		android:name="android.permission.CHANGE_NETWORK_STATE"
-		android:required="false"
-	></uses-permission>
-	<uses-permission
-		android:name="android.permission.ACCESS_NETWORK_STATE"
-		android:required="false"
-	></uses-permission>
+            -->
+        </receiver>
+
+        <activity
+            android:configChanges="orientation"
+            android:name=".view.activity.CpuTunerViewpagerActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.preference.SettingsMainActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:configChanges="orientation"
+            android:name=".view.activity.TriggerEditor"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter >
+                <action android:name="android.intent.action.INSERT" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.trigger" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+            <intent-filter >
+                <action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW" >
+                </action>
+                <action android:name="android.intent.action.EDIT" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.trigger" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:authorities="ch.amana.android.cputuner"
+            android:name=".provider.CpuTunerProvider" >
+        </provider>
+
+        <activity
+            android:configChanges="orientation"
+            android:name=".view.activity.CapabilityCheckerActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".view.activity.HelpActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity android:name=".view.activity.SendReportActivity" >
+        </activity>
+        <activity android:name=".view.activity.UserExperianceLevelChooser" >
+        </activity>
+        <activity
+            android:name=".view.activity.VirtualGovernorEditorActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter >
+                <action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW" >
+                </action>
+                <action android:name="android.intent.action.EDIT" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.virtualGovernor" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+            <intent-filter >
+                <action android:name="android.intent.action.INSERT" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.virtualGovernor" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.ConfigurationManageActivity" >
+        </activity>
+        <activity android:name=".view.activity.ConfigurationAutoloadListActivity" >
+        </activity>
+        <activity android:name=".view.activity.ConfigurationAutoloadEditor" >
+            <intent-filter >
+                <action android:name="android.intent.action.INSERT" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.dir/ch.amana.android.cputuner.configurationAutoload" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+            <intent-filter >
+                <action android:name="android.intent.action.EDIT" >
+                </action>
+
+                <data android:mimeType="vnd.android.cursor.item/ch.amana.android.cputuner.configurationAutoload" >
+                </data>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
+
+        <service android:name=".service.ConfigurationAutoloadService" >
+            <intent-filter >
+                <action android:name="ch.amana.android.cputuner.ACTION_SCEDULE_AUTOLOAD" >
+                </action>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".view.activity.ChangelogActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".service.ConfigurationLoadServiceActivity"
+            android:permission="ch.amana.android.cputuner.LOAD_CONFIGURATION" >
+            <intent-filter >
+                <action android:name="ch.amana.android.cputuner.LOAD_CONFIG" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.FirstRunActivity" >
+        </activity>
+        <activity android:name=".view.activity.BillingProductListActiviy" >
+        </activity>
+        <activity
+            android:name=".view.preference.SettingsConfigurationsActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".view.preference.GuiSettings"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".view.preference.SystemSettings"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".view.preference.SystemCpuSettings"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".view.preference.SystemProfilesSettings"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".view.preference.SystemServiceSwitchesSettings"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".view.preference.VariousSettings"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+
+        <service android:name=".service.TunerService" >
+            <intent-filter >
+                <action android:name="ch.amana.android.cputuner.ACTION_PULSE" >
+                </action>
+                <action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY" />
+                <action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_PHONESTATE" />
+                <action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_MANUAL_PROFILE" />
+                <action android:name="ch.amana.android.cputuner.ACTION_START_CPUTUNER" />
+                <action android:name="ch.amana.android.cputuner.ACTION_STOP_CPUTUNER" />
+            </intent-filter>
+        </service>
+        <service android:name="ch.almana.android.billing.backend.BillingService" />
+
+        <receiver android:name="ch.almana.android.billing.backend.BillingReceiver" >
+            <intent-filter >
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
+                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="8" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.CHANGE_WIFI_STATE"
+        android:required="false" >
+    </uses-permission>
+
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" >
+    </uses-feature>
+
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.READ_SECURE_SETTINGS"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:required="false" >
+    </uses-permission>
+
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.REBOOT" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission
+        android:name="com.android.phone.CHANGE_NETWORK_MODE"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.CHANGE_NETWORK_STATE"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:required="false" >
+    </uses-permission>
+
 </manifest>
