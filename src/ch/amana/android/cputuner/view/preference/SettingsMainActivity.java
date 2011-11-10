@@ -41,9 +41,7 @@ public class SettingsMainActivity extends BaseSettings {
 			}
 		});
 
-		Preference prefExtentions = findPreference("prefKeyExtentions");
-		prefExtentions.setEnabled(settings.allowExtentions());
-		prefExtentions.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		findPreference("prefKeyExtentions").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
