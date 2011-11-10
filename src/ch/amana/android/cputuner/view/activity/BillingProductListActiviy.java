@@ -22,6 +22,7 @@ import ch.amana.android.cputuner.view.adapter.BillingProductAdaper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class BillingProductListActiviy extends ListActivity implements PurchaseListener {
 
@@ -56,6 +57,18 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 			@Override
 			public int getDrawable() {
 				return R.drawable.cputuner_back;
+			}
+		});
+
+		actionBar.addAction(new Action() {
+			@Override
+			public void performAction(View view) {
+				refreshFromMarket();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.ic_menu_refresh;
 			}
 		});
 
@@ -145,8 +158,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 		switch (item.getItemId()) {
 
 		case R.id.itemRefresh:
-			bm.restoreTransactionsFromMarket();
-			reinitaliseOwnedItems();
+			refreshFromMarket();
 			return true;
 
 		default:
@@ -155,6 +167,11 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 			}
 		}
 		return false;
+	}
+
+	private void refreshFromMarket() {
+		bm.restoreTransactionsFromMarket();
+		reinitaliseOwnedItems();
 	}
 
 }
