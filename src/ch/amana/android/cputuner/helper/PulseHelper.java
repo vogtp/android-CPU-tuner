@@ -74,7 +74,6 @@ public class PulseHelper {
 					}
 				}
 			}
-			stopPulseIfNeeded();
 			ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 		}
 	}
@@ -93,12 +92,7 @@ public class PulseHelper {
 		if (pulsing) {
 			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
 			if (!someService) {
-				if (SettingsStorage.getInstance().isLogPulse()) {
-					Logger.addToSwitchLog(ctx.getString(R.string.msg_pulse_log_end));
-				}
-				pulsing = false;
 				PulseHelper.stopPulseService(ctx);
-				ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 			}
 		}
 	}
@@ -226,6 +220,13 @@ public class PulseHelper {
 
 	public static void stopPulseService(Context ctx) {
 		Logger.w("Stop pulse service");
+		Logger.logStacktrace("Stop pulse service");
+		if (SettingsStorage.getInstance().isLogPulse()) {
+			Logger.addToSwitchLog(ctx.getString(R.string.msg_pulse_log_end));
+		}
+		PulseHelper.getInstance(ctx).pulsing = false;
+		ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+
 		Intent intent = new Intent(TunerService.ACTION_PULSE);
 		intent.putExtra(TunerService.EXTRA_PULSE_STOP, true);
 		ctx.startService(intent);

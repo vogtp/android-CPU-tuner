@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
@@ -24,8 +23,6 @@ import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 
 public class TunerService extends IntentService {
 
-	private static final int[] lock = new int[0];
-
 	public static final String ACTION_START_CPUTUNER = "ch.amana.android.cputuner.ACTION_START_CPUTUNER";
 	public static final String ACTION_STOP_CPUTUNER = "ch.amana.android.cputuner.ACTION_STOP_CPUTUNER";
 	public static final String ACTION_TUNERSERVICE_BATTERY = "ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY";
@@ -40,12 +37,6 @@ public class TunerService extends IntentService {
 	public static final String EXTRA_PROFILE_ID = "EXTRA_PROFILE_ID";
 	public static final String EXTRA_PULSE_START = "EXTRA_PULSE_START";
 	public static final String EXTRA_PULSE_STOP = "EXTRA_PULSE_STOP";
-
-	private static final long MIN_TO_MILLIES = 1000 * 60;
-
-	private final Handler handler = new Handler();
-
-	private Runnable startPulseRunnable;
 
 	private PowerManager pm;
 	private WakeLock wakeLock = null;
@@ -153,40 +144,19 @@ public class TunerService extends IntentService {
 		}
 	}
 
-
 	private void startPulse() {
-		long delayMillis = SettingsStorage.getInstance().getPulseInitalDelay() * 1000;
-		synchronized (lock) {
-			if (delayMillis < 1) {
-				handlePulse(true);
-			} else if (startPulseRunnable != null) {
-				Logger.w("Not starting pulse service since it is allready beeing started");
-			} else {
-				Logger.i("Start pulse service in " + delayMillis + " ms");
-				startPulseRunnable = new Runnable() {
-
-					@Override
-					public void run() {
-						synchronized (lock) {
-							handlePulse(true);
-							startPulseRunnable = null;
-						}
-					}
-				};
-				handler.postDelayed(startPulseRunnable, delayMillis);
-			}
+		long delay = SettingsStorage.getInstance().getPulseInitalDelay();
+		if (delay < 1) {
+			handlePulse(true);
+		} else {
+			Logger.i("Start pulse service in " + delay + " s");
+			schedulePulse(delay, true);
 		}
 	}
 
 	private void stopPulse() {
+		Logger.i("Stopping pulse");
 		Context ctx = getApplicationContext();
-		synchronized (lock) {
-			if (startPulseRunnable != null) {
-				Logger.i("Cancel start pulse service delayed runnable");
-				handler.removeCallbacks(startPulseRunnable);
-				startPulseRunnable = null;
-			}
-		}
 		Intent intent = new Intent(TunerService.ACTION_PULSE);
 		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
@@ -196,19 +166,21 @@ public class TunerService extends IntentService {
 	private void handlePulse(boolean on) {
 		Logger.i("Do pulse (value: " + on + ")");
 		PulseHelper.getInstance(getApplicationContext()).doPulse(on);
-		reschedulePulse(!on);
+		long delay = on ? SettingsStorage.getInstance().getPulseDelayOn() : SettingsStorage.getInstance().getPulseDelayOff();
+		delay = delay * 60;
+		schedulePulse(delay, !on);
 	}
 
-	private void reschedulePulse(boolean b) {
-		long delay = b ? SettingsStorage.getInstance().getPulseDelayOff() : SettingsStorage.getInstance().getPulseDelayOn();
-		Logger.i("Next pulse in " + delay + " min (value: " + b + ")");
-		long triggerAtTime = SystemClock.elapsedRealtime() + delay * MIN_TO_MILLIES;
+	private void schedulePulse(long delay, boolean b) {
+		Logger.i("Next pulse in " + delay + " sec (value: " + b + ")");
+		long triggerAtTime = SystemClock.elapsedRealtime() + delay * 1000;
 		Intent intent = new Intent(ACTION_PULSE);
 		intent.putExtra(EXTRA_PULSE_ON_OFF, b);
 		Context ctx = getApplicationContext();
 		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
-		am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, 0, operation);
+		am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, -1, operation);
+		//			am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, 0, operation);
 	}
 
 	private void handlePhoneState(Intent intent) {
