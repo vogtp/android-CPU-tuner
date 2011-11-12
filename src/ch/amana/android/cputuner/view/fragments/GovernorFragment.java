@@ -241,9 +241,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 			etGovTreshUp.setText(up + "");
 		} else {
 			governorModel.setGovernorThresholdUp(0);
-			etGovTreshUp.setText("");
 			labelGovThreshUp.setVisibility(View.INVISIBLE);
 			etGovTreshUp.setVisibility(View.INVISIBLE);
+			etGovTreshUp.setText("-1");
 		}
 
 		if (hasThreshholdDown) {
@@ -262,9 +262,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 			etGovTreshDown.setText(down + "");
 		} else {
 			governorModel.setGovernorThresholdDown(0);
-			etGovTreshDown.setText("");
 			labelGovThreshDown.setVisibility(View.INVISIBLE);
 			etGovTreshDown.setVisibility(View.INVISIBLE);
+			etGovTreshDown.setText("-1");
 		}
 
 		if (governorConfig.hasPowersaveBias()) {
