@@ -1,0 +1,28 @@
+Cpu tuner ermöglicht die volle Kontrolle über den Batterieverbrauch des Android Gerätes.
+Der Hauptzweck ist es, so viel Akku wie möglich zu sparen, cpu tuner kann auch übertakten (wenn der Kernel des Gerätes es unterstützt).
+
+Abhängig von Schwellenwerten der Batterie (Auslöser) werden verschiedene Profile geladen. Jeder Auslöser hat verschiedene Profile je nach Zustand (gesperrt, im Batteriebetrieb, am Laden oder am telefonieren) des Gerätes.
+
+Profile können die folgenden Änderungen vornehmen:
+
+* Die CPU Regler (Governors) ihre Schwellenwerte sowie die minimalen und maximalen Frequenzen der CPU. 
+(D.h. die Geschwindigkeit der CPU)
+* Den Zustand von Diensten:
+- mobile Verbindung
+- 3G/2G Verbindung
+- Hintergrunds Synchronisierung
+- Wireless Netzwerk
+- GPS (als System App)
+- Bluetooth
+- Flugmodus
+
+Konfigurationen (d.h. ein Satz von Auslösern und Profilen) können basierend auf der Tageszeit und dem Wochentag geladen werden. Dies ermöglicht ein anderes Verhalten während der Nacht oder am Wochenende einstellen.
+
+Falls Du diese App verwendest dann abonniere bitte die Mailingliste cputuner-help@lists.sourceforge.net und beteilige Dich in den Foren auf https://sourceforge.net/projects/cputuner/ (Projekt-Webseite).
+Du kannst die cpu tuner auf https://plus.google.com/109797451979104819882 folgen.
+
+Falls cpu tuner beim starten crashed bitte deinstallieren und neu installieren.
+
+Bitte Fehler in einer Mail an die unten stehende Adresse melden und nicht in einem Marktkommentar.
+Am besten wird im voraus ein kompatibilitäts Report erstellt (im Menu unter Einstellungen, System dann Prüfen der Unterstützung), danach ein e-Mail Report generieren (und als Entwurf speichern). 
+Das Anliegen sollte möglichst genau beschreiben werden (und wenn möglich noch ein Logcat Report zusammen mit der zip Datei aus dem Report mit schicken).

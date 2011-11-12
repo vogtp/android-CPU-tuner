@@ -20,6 +20,7 @@ Configurations (i.e. a set of trigger and profiles) can be loaded based on the t
 In praise of CyanogenMod... ;)
 
 If you use and like this app please subscribe to the mailing list cputuner-help@lists.sourceforge.net and participate in the forums on https://sourceforge.net/projects/cputuner/ (Project webpage).
+You can follow cpu tuner on: https://plus.google.com/109797451979104819882
 
 If anybody wants to translate cpu tuner, please write an e-mail.
 
