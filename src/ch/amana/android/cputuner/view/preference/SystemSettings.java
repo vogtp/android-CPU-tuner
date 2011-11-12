@@ -25,9 +25,7 @@ public class SystemSettings extends BaseSettings {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(SystemSettings.this, CapabilityCheckerActivity.class);
-				intent.putExtra(CapabilityCheckerActivity.EXTRA_RECHEK, true);
-				startActivity(intent);
+				startActivity(new Intent(SystemSettings.this, CapabilityCheckerActivity.class));
 				return true;
 			}
 		});

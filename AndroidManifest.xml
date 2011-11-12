@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201111090"
+    android:versionCode="201111110"
     android:versionName="@string/version" >
 
     <uses-permission android:name="android.permission.VIBRATE" >
@@ -143,8 +143,6 @@
         <activity
             android:name=".view.activity.HelpActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
-        </activity>
-        <activity android:name=".view.activity.SendReportActivity" >
         </activity>
         <activity android:name=".view.activity.UserExperianceLevelChooser" >
         </activity>

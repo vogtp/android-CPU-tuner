@@ -1,15 +1,13 @@
-- check if billing is supported -> old market
+- virtual gov editor close
 
-- does manual profile work?
-
-- refresh stats on extention install
-- refresh billing status (menu/action) and set settings for display of bought stuff
-
-- new market description and images
+- new market description (de) and images
 - disable debugging
 
 ****************** POST 3.0.0:
-
+- eliminate TunerService class in intents
+- refresh stats on extension install
+- clear or mark for profile switch log
+- check if billing is supported -> old market
 - battery hot should not choose top profile
 - timed manual service changes (i.e. change back after a certain time)
 - graph for trigger and or profile

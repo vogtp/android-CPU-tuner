@@ -145,8 +145,6 @@
     <string name="labelExplainTriggerProfiles">Ανάλογα με τη κατάσταση του τηλεφώνου, θα επιλεγεί ένα απ τα παρακάτω προφίλ.</string>
     <string name="labelBatteryLevel">Επίπεδο μπαταρίας</string>
     <string name="labelExplainTrigger">Ενεργοποιείται εάν η φόρτιση της μπαταρίας της συσκευής είναι κάτω από το επίπεδο της μπαταρίας και δεν υπάρχουν άλλα εναύσματα με χαμηλότερο όριο που να ταιριάζουν.</string>
-    <string name="labelSendMail">Αποστολή mail</string>
-    <string name="labelBody">Σώμα:</string>
     <string name="labelGovernor">Governor:</string>
     <string name="labelBluetooth">Bluetooth</string>
     <string name="labelWifi">Wifi</string>
@@ -161,7 +159,6 @@
     <string name="labelUsage">Χρήση:</string>
     <string name="labelBuFindFeq">Αναζήτηση συχνοτήτων (μόνο για beta) </string>
     <string name="msgAckAndHide">Αναγνώριση ζητημάτων και απόκρυψη από την κύρια οθόνη.</string>
-    <string name="msgDeviceInfo">Αποστολή e-mail με πληροφορίες για τη συσκευή</string>
     <string name="msgNoEmail">Παρακαλώ μη γράφετε άδεια e-mails...</string>
     <string name="labelResult">Αποτέλεσμα</string>
     <string name="labelCheck">Έλεγχος</string>

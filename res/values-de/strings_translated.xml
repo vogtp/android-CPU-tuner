@@ -277,8 +277,6 @@
     <string name="labelExplainTriggerProfiles">Je nach Zustand des Gerätes, kann einer der folgenden Profile gewählt werden.</string>
     <string name="labelBatteryLevel">Ladezustand:</string>
     <string name="labelExplainTrigger">Aktiviert, wenn der Akku des Gerätes unter den Ladezustand gefallen ist und keine anderen Auslöser mit einem passenderen Ladezustand gefunden wurden.</string>
-    <string name="labelSendMail">E-Mail senden</string>
-    <string name="labelBody">Body:</string>
     <string name="labelGovernor">Regler:</string>
     <string name="labelBluetooth">Bluetooth</string>
     <string name="labelWifi">Wifi</string>
@@ -293,7 +291,6 @@
     <string name="labelUsage">Verbrauch:</string>
     <string name="labelBuFindFeq">Finde Frequenzen (beta)</string>
     <string name="msgAckAndHide">Bestätige die Fragen und zurück zum Haupt-Bildschirm.</string>
-    <string name="msgDeviceInfo">E-Mail mit den Geräteinformationen senden</string>
     <string name="msgNoEmail">Bitte schreibe keine leeren E-Mails ...</string>
     <string name="labelResult">Resultat</string>
     <string name="labelCheck">Prüfe</string>

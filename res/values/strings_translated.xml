@@ -342,8 +342,6 @@
 	<string name="labelExplainTrigger">Activates if the battery charge of the device is
 		below the battery level and no other trigger with a lower and matching
 		battery level is found.</string>
-	<string name="labelSendMail">Send mail</string>
-	<string name="labelBody">Body:</string>
 	<string name="labelGovernor">Governor:</string>
 	<string name="labelBluetooth">Bluetooth</string>
 	<string name="labelWifi">Wifi</string>
@@ -358,7 +356,6 @@
 	<string name="labelUsage">Usage:</string>
 	<string name="labelBuFindFeq">Find frequencies (beta only)</string>
 	<string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
-	<string name="msgDeviceInfo">Send e-mail with device information</string>
 	<string name="msgNoEmail">Please do not write empty e-mails...</string>
 	<string name="labelResult">Result</string>
 	<string name="labelCheck">Check</string>
