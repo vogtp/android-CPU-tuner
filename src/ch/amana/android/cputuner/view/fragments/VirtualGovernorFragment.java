@@ -25,7 +25,6 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	private Spinner spinnerSetGov;
 	private TextView tvExplainGov;
 	private Cursor cursor;
-	private TextView labelCpuGov;
 
 	public VirtualGovernorFragment() {
 		super();
@@ -40,7 +39,6 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		// Inflate the layout for this fragment
 		View v = inflater.inflate(R.layout.virtual_governor_fragment, container, false);
 		tvExplainGov = (TextView) v.findViewById(R.id.tvExplainGov);
-		labelCpuGov = (TextView) v.findViewById(R.id.labelCpuGov);
 		spinnerSetGov = (Spinner) v.findViewById(R.id.SpinnerCpuGov);
 		return v;
 	}

@@ -267,7 +267,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		final SettingsStorage settings = SettingsStorage.getInstance();
 		final Activity act = getActivity();
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance(getActivity());
@@ -275,11 +274,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
 		governorHelper = new GovernorHelperCurInfo();
-		//		if (!settings.isUseVirtualGovernors() || !settings.isEnableProfiles()) {
-		//			governorFragment = new GovernorFragment(this, governorHelper, true);
-		//		} else {
 		governorFragment = new VirtualGovernorFragment(this, governorHelper);
-		//		}
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);

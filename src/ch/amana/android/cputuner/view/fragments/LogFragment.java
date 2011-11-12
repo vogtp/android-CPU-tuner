@@ -25,7 +25,6 @@ import com.markupartist.android.widget.ActionBar.Action;
 
 public class LogFragment extends PagerFragment implements StateChangeListener {
 
-	private static final int[] lock = new int[1];
 	private TextView tvStats;
 
 	@Override
