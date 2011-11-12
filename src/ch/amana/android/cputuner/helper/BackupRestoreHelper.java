@@ -18,6 +18,7 @@ import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.constants.JsonConstants;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -147,7 +148,7 @@ public class BackupRestoreHelper {
 					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, is);
 					restore(dje, restoreAutoload);
 					fixGovernors();
-					fixFrequencies();
+					fixProfiles();
 					InstallHelper.updateProfilesFromVirtGovs(context);
 				}
 				PowerProfiles.getInstance(context).reapplyProfile(true);
@@ -162,7 +163,7 @@ public class BackupRestoreHelper {
 		}
 	}
 
-	private void fixFrequencies() {
+	private void fixProfiles() {
 		SettingsStorage settings = SettingsStorage.getInstance();
 		ContentValues values = new ContentValues(2);
 		int maxFreq = settings.getMaxFrequencyDefault();
@@ -203,6 +204,14 @@ public class BackupRestoreHelper {
 						Logger.i("Using " + gov);
 						ContentValues values = new ContentValues(1);
 						values.put(DB.VirtualGovernor.NAME_REAL_GOVERNOR, gov);
+						// check for thresholds
+						GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(gov);
+						if (!governorConfig.hasThreshholdUpFeature()) {
+							values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, -1);
+						}
+						if (!governorConfig.hasThreshholdDownFeature()) {
+							values.put(DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, -1);
+						}
 						if (contentResolver.update(DB.VirtualGovernor.CONTENT_URI, values, DB.SELECTION_BY_ID, new String[] { Long.toString(c.getLong(DB.INDEX_ID)) }) > 0) {
 							found = true;
 							break;
