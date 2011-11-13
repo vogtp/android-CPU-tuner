@@ -219,12 +219,15 @@ public class PulseHelper {
 	}
 
 	public static void stopPulseService(Context ctx) {
+		PulseHelper pulseHelper = PulseHelper.getInstance(ctx);
+		if (!pulseHelper.pulsing) {
+			return;
+		}
 		Logger.w("Stop pulse service");
-		Logger.logStacktrace("Stop pulse service");
 		if (SettingsStorage.getInstance().isLogPulse()) {
 			Logger.addToSwitchLog(ctx.getString(R.string.msg_pulse_log_end));
 		}
-		PulseHelper.getInstance(ctx).pulsing = false;
+		pulseHelper.pulsing = false;
 		ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 
 		Intent intent = new Intent(TunerService.ACTION_PULSE);
