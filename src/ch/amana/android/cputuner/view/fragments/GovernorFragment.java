@@ -196,6 +196,10 @@ public class GovernorFragment extends GovernorBaseFragment {
 		}
 		IGovernorModel governorModel = getGovernorModel();
 		String curGov = governorModel.getGov();
+		if (spinnerSetGov == null) {
+			// we have no been created yet
+			return;
+		}
 		for (int i = 0; i < availCpuGovs.length; i++) {
 			if (curGov.equals(availCpuGovs[i])) {
 				spinnerSetGov.setSelection(i);
