@@ -1,6 +1,4 @@
-- virtual gov editor close
 
-- new market description (de) and images
 - disable debugging
 
 ****************** POST 3.0.0:
@@ -10,8 +8,8 @@
 - check if billing is supported -> old market
 - battery hot should not choose top profile
 - timed manual service changes (i.e. change back after a certain time)
-- graph for trigger and or profile
-- rework graph to use screen size
+- advanced statistics: graph for trigger and or profile
+- advanced statistics: rework graph to use screen size
 
 - ensure display of current entity in list
 
