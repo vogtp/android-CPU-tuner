@@ -62,6 +62,9 @@ public class StatsFragment extends PagerFragment {
 	}
 
 	private void updateView(Context context) {
+		if (tvStats == null) {
+			return;
+		}
 		StringBuilder sb = new StringBuilder();
 		getTotalTransitions(context, sb);
 		getTimeInState(sb);
@@ -133,7 +136,7 @@ public class StatsFragment extends PagerFragment {
 			return true;
 
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_INDEX)) {
 			return true;
 		}
 		return false;

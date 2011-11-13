@@ -42,15 +42,10 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		super.onPostExecute(result);
 	}
 
-	public static CapabilityChecker getInstance(Context ctx) {
-		return getInstance(ctx, false);
-	}
 
-	public static CapabilityChecker getInstance(Context ctx, boolean recheck) {
-		if (instance == null || recheck) {
-			instance = new CapabilityChecker(ctx);
-			instance.execute((Void[]) null);
-		}
+	public static CapabilityChecker getCapabilityChecker(Context ctx) {
+		CapabilityChecker instance = new CapabilityChecker(ctx);
+		instance.execute((Void[]) null);
 		return instance;
 	}
 
@@ -191,13 +186,14 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 				return "does not apply";
 			case CANNOT_CHECK:
 				return "cannot check";
+			case WORKING:
+				return "working";
 			}
 			return "unknown";
 		}
 	}
 
 	private int[] freqs = null;
-	private static CapabilityChecker instance;
 	private boolean rooted = false;
 	private Map<String, GovernorResult> govChecks = null;
 	private String[] governors = null;
@@ -259,7 +255,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} catch (Throwable t) {
 			Logger.w("Capability check threw ", t);
 		} finally {
-			CpuTunerApplication.stopCpuTuner(ctx);
+			CpuTunerApplication.startCpuTuner(ctx);
 			SettingsStorage.getInstance().userLevel = userLevel;
 			cpuHandler.applyCpuSettings(currentCpuSettings);
 			try {

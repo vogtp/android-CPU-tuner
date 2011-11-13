@@ -4,7 +4,7 @@
 	android:title="@string/prefCpu"
 	android:key="prefKeyCpu"
 	android:summary="@string/prefCpuLong"
->
+> 
 	<ListPreference
 		android:entries="@array/prefMulticoreEntries"
 		android:key="prefKeyMulticore"
@@ -32,11 +32,6 @@
 		android:title="@string/prefCpuFreq"
 		android:dialogMessage="@string/prefCpuFreqMsg"
 	></EditTextPreference>
-	<Preference
-		android:key="prefKeyCapabilities"
-		android:title="@string/prefCapabilities"
-		android:summary="@string/prefCapabilitiesLong"
-	></Preference>
 	<PreferenceCategory
 		android:title="@string/prefKeyFrequencies"
 		android:key="prefKeyDefaultFrequencies"

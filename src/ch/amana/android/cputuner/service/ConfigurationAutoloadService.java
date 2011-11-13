@@ -99,7 +99,7 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 							SettingsStorage settings = SettingsStorage.getInstance();
 							BackupRestoreHelper brh = new BackupRestoreHelper(this);
 							brh.restoreConfiguration(configuration, true, false);
-							Logger.addToLog("Loaded configuration " + configuration);
+							Logger.addToSwitchLog("Loaded configuration " + configuration);
 							settings.setCurrentConfiguration(configuration);
 						} catch (Exception e) {
 							Logger.e("Cannot autoload configuration " + configuration, e);

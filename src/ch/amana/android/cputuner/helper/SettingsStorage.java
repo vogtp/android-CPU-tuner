@@ -592,4 +592,9 @@ public class SettingsStorage {
 		}
 		return powerStrongerThanScreenoff;
 	}
+
+	public boolean isLogPulse() {
+		return getPreferences().getBoolean("prefKeyLogPulse", false);
+	}
+
 }

@@ -129,8 +129,6 @@
     <string name="labelExplainTriggerProfiles">In base allo stato del dispositivo sarà scelto uno dei seguenti profili.</string>
     <string name="labelBatteryLevel">Livello Batteria</string>
     <string name="labelExplainTrigger">Si attiva quando la carica della batteria del telefono è al di sotto del livello della batteria scelto e nessun altro trigger con un livello della batteria minore o uguale viene trovato.</string>
-    <string name="labelSendMail">Invia e-mail</string>
-    <string name="labelBody">Corpo:</string>
     <string name="labelGovernor">Governor:</string>
     <string name="labelBluetooth">Bluetooth</string>
     <string name="labelWifi">Wifi</string>
@@ -145,7 +143,6 @@
     <string name="labelUsage">Utilizzo:</string>
     <string name="labelBuFindFeq">Trova frequenze (solo beta)</string>
     <string name="msgAckAndHide">Riconosci i problemi e nascondili dalla schermata principale.</string>
-    <string name="msgDeviceInfo">Manda un\'e-mail con le informazioni del dispositivo</string>
     <string name="msgNoEmail">Per favore non inserire e-mail vuote...</string>
     <string name="labelResult">Esito</string>
     <string name="labelCheck">Verifica</string>

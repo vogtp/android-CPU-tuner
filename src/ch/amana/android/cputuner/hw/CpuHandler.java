@@ -59,8 +59,9 @@ public class CpuHandler extends HardwareHandler {
 		return getInstance();
 	}
 
-	public static CpuHandler getInstance() {
+	public synchronized static CpuHandler getInstance() {
 		if (instance == null) {
+			Logger.w("Creating new CpuHandler instance");
 			SettingsStorage settingsStorage = SettingsStorage.getInstance();
 			File cpuBase = new File(CPU_BASE_DIR);
 			String[] cpus = cpuBase.list(new FilenameFilter() {

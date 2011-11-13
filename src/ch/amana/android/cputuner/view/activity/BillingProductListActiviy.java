@@ -4,19 +4,25 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
+import android.widget.Toast;
 import ch.almana.android.billing.BillingManager;
 import ch.almana.android.billing.Product;
 import ch.almana.android.billing.PurchaseListener;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.adapter.BillingProductAdaper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class BillingProductListActiviy extends ListActivity implements PurchaseListener {
 
@@ -54,8 +60,25 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 			}
 		});
 
+		actionBar.addAction(new Action() {
+			@Override
+			public void performAction(View view) {
+				refreshFromMarket();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.ic_menu_refresh;
+			}
+		});
+
 		bm = new BillingManager(this);
+		bm.addPurchaseListener(this);
 		updateView();
+	}
+
+	private void reinitaliseOwnedItems() {
+		SettingsStorage.getInstance().setAdvancesStatistics(bm.getCountOfProduct(BillingProducts.statistics) > 0);
 	}
 
 	private void updateView() {
@@ -74,21 +97,26 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 
 	@Override
 	protected void onPause() {
-		bm.removePurchaseListener(this);
 		super.onPause();
+		reinitaliseOwnedItems();
 	}
 
 	@Override
-	protected void onStop() {
+	protected void onDestroy() {
+		bm.removePurchaseListener(this);
 		bm.release();
-		super.onStop();
+		super.onDestroy();
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		Product product = (Product) billingProductAdaper.getItem(position);
 		if (!product.isManaged() || product.getCount() < 1) {
-			bm.requestPurchase(product.getProductId());
+			try {
+				bm.requestPurchase(product.getProductId());
+			} catch (Throwable e) {
+				Logger.w("Error requesting purchase", e);
+			}
 		}
 		super.onListItemClick(l, v, position, id);
 	}
@@ -103,6 +131,47 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 		if (BillingProducts.statistics.equals(pid)) {
 			SettingsStorage.getInstance().setAdvancesStatistics(count > 0);
 		}
+	}
+
+	@Override
+	public void billingSupported(boolean supported) {
+		if (!supported) {
+			Toast.makeText(this, "Billing not supported!", Toast.LENGTH_LONG).show();
+			getListView().setEnabled(false);
+			if (getIntent().getIntExtra(EXTRA_PRODUCT_TYPE, -1) == BillingProducts.PRODUCT_TYPE_BUY_ME_BEER) {
+				loadOldMarketBuyMeABeer();
+				finish();
+			}
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		//		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
+		getMenuInflater().inflate(R.menu.refresh_option, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.itemRefresh:
+			refreshFromMarket();
+			return true;
+
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_INDEX)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void refreshFromMarket() {
+		bm.restoreTransactionsFromMarket();
+		reinitaliseOwnedItems();
 	}
 
 }

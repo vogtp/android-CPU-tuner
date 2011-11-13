@@ -2,6 +2,8 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.File;
 
+import ch.amana.android.cputuner.helper.Logger;
+
 public class BatteryHandler extends HardwareHandler {
 	private static final String CURRENT_NOW = "current_now";
 	private static final String CURRENT_AVG = "current_avg";
@@ -22,8 +24,9 @@ public class BatteryHandler extends HardwareHandler {
 
 	private static BatteryHandler instance = null;
 
-	public static BatteryHandler getInstance() {
+	public synchronized static BatteryHandler getInstance() {
 		if (instance == null) {
+			Logger.w("Creating new BatteryHandler instance");
 			instance = new BatteryHandler();
 		}
 		return instance;

@@ -40,12 +40,13 @@ public class SettingsMainActivity extends BaseSettings {
 				return true;
 			}
 		});
+
 		findPreference("prefKeyExtentions").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent i = new Intent(SettingsMainActivity.this, BillingProductListActiviy.class);
-				i.putExtra(BillingProductListActiviy.EXTRA_TITLE, getString(R.string.prefBuyMeABeer));
+				i.putExtra(BillingProductListActiviy.EXTRA_TITLE, getString(R.string.title_extentions));
 				i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);
 				startActivity(i);
 				return true;

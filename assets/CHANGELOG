@@ -15,7 +15,7 @@ V 3.0.0
 - separate statics and profile switch log and update on click
 - pulsed services do not restart sequence on profile switch and allow initial delay
 - cpu tuner can be added to the statusbar while not running
-- new extension framework (in app billing)
+- new extension framework
 - graphical statistics (as extension)
 - lots of other things
 * bug fixes
@@ -25,6 +25,12 @@ V 3.0.0
 - save but do not apply on editor close when cpu tuner is disabled
 - fix battery hot and call in progress profile if none is set
 - more fixes
+
+V 2.7.8
+* features
+- optimised configuration handling
+* bug fixes
+- fixes
 
 V 2.7.7
 * features

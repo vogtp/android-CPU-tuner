@@ -48,12 +48,13 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		FragmentActivity act = getActivity();
 
-
 		cursor = act.managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
 		SimpleCursorAdapter arrayAdapter = new SimpleCursorAdapter(act, android.R.layout.simple_spinner_item, cursor,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME }, new int[] { android.R.id.text1 });
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
+		long virtualGovernor = getGovernorModel().getVirtualGovernor();
+		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -104,13 +105,15 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 
 	@Override
 	public void updateView() {
-		long virtualGovernor = getGovernorModel().getVirtualGovernor();
+		if (tvExplainGov == null) {
+			return;
+		}
 		updateVirtGov = false;
+		long virtualGovernor = getGovernorModel().getVirtualGovernor();
 		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
-		updateVirtGov = true;
 		if (tvExplainGov != null) {
 			tvExplainGov.setText(getGovernorModel().getDescription(getActivity()));
 		}
+		updateVirtGov = true;
 	}
-
 }

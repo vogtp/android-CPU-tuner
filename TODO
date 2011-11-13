@@ -1,23 +1,16 @@
-- translate German
-- check with small screen sizes
-- refresh stats on install
-
-- check for different android versions
-- new market description
-- disable logging
-
-****************** POST 3.0.0:
-
+- eliminate TunerService class in intents
+- refresh stats on extension install
+- clear or mark for profile switch log
+- check if billing is supported -> old market
 - battery hot should not choose top profile
 - timed manual service changes (i.e. change back after a certain time)
-- graph for trigger and or profile
-- rework graph to use screen size
+- advanced statistics: graph for trigger and or profile
+- advanced statistics: rework graph to use screen size
 
-- refresh billing status (menu/action) and set settings for display of bought stuff
 - ensure display of current entity in list
 
 - fix hasManualServicesChanges to reflect current trigger and get better answers
-- move powerprofile read to service
+- move powerprofile read from service
 - move profile switch logging to  DB
 
 - create chooser for homescreen link of configurations (buy?)

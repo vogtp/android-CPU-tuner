@@ -14,8 +14,6 @@
     <string name="labelExplainTriggerProfiles">Selon l\'état de l\'appareil un des profils suivants sera choisi.</string>
     <string name="labelBatteryLevel">Niveau de batterie</string>
     <string name="labelExplainTrigger">S\'active si la charge de la batterie de l\'appareil est en dessous du niveau de batterie spécifié et qu\'il n\'y en a aucun autre avec un niveau de batterie plus faible.</string>
-    <string name="labelSendMail">Envoyez un courriel</string>
-    <string name="labelBody">Corps:</string>
     <string name="labelGovernor">Gouverneur:</string>
     <string name="labelBluetooth">Bluetooth</string>
     <string name="labelWifi">Wifi</string>
@@ -30,7 +28,6 @@
     <string name="labelUsage">Utilisation:</string>
     <string name="labelBuFindFeq">Trouver les fréquences (beta)</string>
     <string name="msgAckAndHide">Reconnaître les problèmes et les cacher de l\'écran principal.</string>
-    <string name="msgDeviceInfo">Envoyer un e-mail avec les informations du périphérique</string>
     <string name="msgNoEmail">SVP pas de courriel vide...</string>
     <string name="labelResult">Résultat</string>
     <string name="labelCheck">Vérifier</string>

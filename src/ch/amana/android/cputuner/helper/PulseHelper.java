@@ -1,17 +1,13 @@
 package ch.amana.android.cputuner.helper;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.service.TunerService;
 
 public class PulseHelper {
-
-	private static final int[] lock = new int[0];
 
 	private boolean pulsing = false;
 
@@ -33,9 +29,6 @@ public class PulseHelper {
 
 	private static PulseHelper instance;
 
-	private static final Handler handler = new Handler();
-
-	private static Runnable startPulseRunnable;
 
 	public static PulseHelper getInstance(Context ctx) {
 		if (instance == null) {
@@ -45,12 +38,16 @@ public class PulseHelper {
 	}
 
 	public void doPulse(boolean isOn) {
-		if (!SettingsStorage.getInstance().isEnableProfiles()) {
-			Logger.i("Not pulsing since profiles are not eabled.");
-			return;
-		}
+		SettingsStorage settings = SettingsStorage.getInstance();
+		//		if (!settings.isEnableProfiles()) {
+		//			Logger.i("Not pulsing since profiles are not eabled.");
+		//			return;
+		//		}
 		if (pulsing) {
 			this.pulseOn = isOn;
+			if (settings.isLogPulse()) {
+				Logger.addToSwitchLog(ctx.getString(isOn ? R.string.msg_pulse_log_on : R.string.msg_pulse_log_off));
+			}
 			if (pulseBackgroundSyncState) {
 				ServicesHandler.enableBackgroundSync(ctx, isOn);
 			}
@@ -67,7 +64,7 @@ public class PulseHelper {
 				ServicesHandler.enableAirplaneMode(ctx, isOn);
 			}
 			if (pulseMobiledataConnectionState) {
-				if (SettingsStorage.getInstance().isPulseMobiledataOnWifi()) {
+				if (settings.isPulseMobiledataOnWifi()) {
 					ServicesHandler.enableMobileData(ctx, isOn);
 				} else {
 					if (isOn && ServicesHandler.isWifiConnected(ctx)) {
@@ -85,15 +82,17 @@ public class PulseHelper {
 		if (pulsing == b) {
 			return;
 		}
-		if (b) {
+		if (b && !pulsing) {
 			pulsing = true;
 			PulseHelper.startPulseService(ctx);
-		} else {
+		}
+	}
+
+	public void stopPulseIfNeeded() {
+		if (pulsing) {
 			boolean someService = pulseBackgroundSyncState || pulseBluetoothState || pulseGpsState || pulseWifiState || pulseMobiledataConnectionState;
 			if (!someService) {
-				pulsing = false;
 				PulseHelper.stopPulseService(ctx);
-				ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 			}
 		}
 	}
@@ -213,38 +212,27 @@ public class PulseHelper {
 	}
 
 	public static void startPulseService(final Context ctx) {
-		long delayMillis = SettingsStorage.getInstance(ctx).getPulseInitalDelay() * 1000;
-		Logger.i("Start pulse service in " + delayMillis + " ms");
-		startPulseRunnable = new Runnable() {
-
-			@Override
-			public void run() {
-				synchronized (lock) {
-					Logger.i("Start pulse service now");
-					Intent i = new Intent(TunerService.ACTION_PULSE);
-					i.putExtra(TunerService.EXTRA_ON_OFF, true);
-					ctx.startService(i);
-					startPulseRunnable = null;
-				}
-			}
-		};
-		handler.postDelayed(startPulseRunnable, delayMillis);
-
+		Logger.w("Start pulse service now");
+		Intent i = new Intent(TunerService.ACTION_PULSE);
+		i.putExtra(TunerService.EXTRA_PULSE_START, true);
+		ctx.startService(i);
 	}
 
 	public static void stopPulseService(Context ctx) {
-		Logger.i("Stop pulse service");
-		synchronized (lock) {
-			if (startPulseRunnable != null) {
-				Logger.i("Cancel start pulse service runnable");
-				handler.removeCallbacks(startPulseRunnable);
-			}
+		PulseHelper pulseHelper = PulseHelper.getInstance(ctx);
+		if (!pulseHelper.pulsing) {
+			return;
 		}
+		Logger.w("Stop pulse service");
+		if (SettingsStorage.getInstance().isLogPulse()) {
+			Logger.addToSwitchLog(ctx.getString(R.string.msg_pulse_log_end));
+		}
+		pulseHelper.pulsing = false;
+		ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+
 		Intent intent = new Intent(TunerService.ACTION_PULSE);
-		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-		am.cancel(operation);
-		ctx.stopService(new Intent(TunerService.ACTION_PULSE));
+		intent.putExtra(TunerService.EXTRA_PULSE_STOP, true);
+		ctx.startService(intent);
 	}
 
 }

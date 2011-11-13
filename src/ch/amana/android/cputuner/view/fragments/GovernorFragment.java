@@ -98,7 +98,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 			for (int i = numberOfCpus; i >= 1; i--) {
 				cpuAdapter.add(i);
 			}
-			spUseCpus.setAdapter(cpuAdapter );
+			spUseCpus.setAdapter(cpuAdapter);
 			spUseCpus.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -190,6 +190,10 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 	@Override
 	public void updateView() {
+		if (spinnerSetGov == null) {
+			// we have no been created yet
+			return;
+		}
 		IGovernorModel governorModel = getGovernorModel();
 		String curGov = governorModel.getGov();
 		if (spinnerSetGov == null) {
@@ -241,9 +245,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 			etGovTreshUp.setText(up + "");
 		} else {
 			governorModel.setGovernorThresholdUp(0);
-			etGovTreshUp.setText("");
 			labelGovThreshUp.setVisibility(View.INVISIBLE);
 			etGovTreshUp.setVisibility(View.INVISIBLE);
+			etGovTreshUp.setText("-1");
 		}
 
 		if (hasThreshholdDown) {
@@ -262,16 +266,16 @@ public class GovernorFragment extends GovernorBaseFragment {
 			etGovTreshDown.setText(down + "");
 		} else {
 			governorModel.setGovernorThresholdDown(0);
-			etGovTreshDown.setText("");
 			labelGovThreshDown.setVisibility(View.INVISIBLE);
 			etGovTreshDown.setVisibility(View.INVISIBLE);
+			etGovTreshDown.setText("-1");
 		}
 
 		if (governorConfig.hasPowersaveBias()) {
 			llPowersaveBias.setVisibility(View.VISIBLE);
-		}else {
+		} else {
 			llPowersaveBias.setVisibility(View.GONE);
 		}
-		
+
 	}
 }

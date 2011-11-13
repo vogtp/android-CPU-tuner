@@ -90,11 +90,17 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setGov(String gov) {
+			if (isInUpdateView) {
+				return;
+			}
 			cpuHandler.setCurGov(gov);
 		}
 
 		@Override
 		public void setGovernorThresholdUp(String string) {
+			if (isInUpdateView) {
+				return;
+			}
 			try {
 				setGovernorThresholdUp(Integer.parseInt(string));
 			} catch (Exception e) {
@@ -104,6 +110,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setGovernorThresholdDown(String string) {
+			if (isInUpdateView) {
+				return;
+			}
 			try {
 				setGovernorThresholdDown(Integer.parseInt(string));
 			} catch (Exception e) {
@@ -130,16 +139,25 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setGovernorThresholdUp(int i) {
+			if (isInUpdateView) {
+				return;
+			}
 			cpuHandler.setGovThresholdUp(i);
 		}
 
 		@Override
 		public void setGovernorThresholdDown(int i) {
+			if (isInUpdateView) {
+				return;
+			}
 			cpuHandler.setGovThresholdDown(i);
 		}
 
 		@Override
 		public void setVirtualGovernor(long id) {
+			if (isInUpdateView) {
+				return;
+			}
 			Cursor c = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
 					VirtualGovernor.SORTORDER_DEFAULT);
 			if (c.moveToFirst()) {
@@ -159,6 +177,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setPowersaveBias(int powersaveBias) {
+			if (isInUpdateView) {
+				return;
+			}
 			cpuHandler.setPowersaveBias(powersaveBias);
 		}
 
@@ -174,6 +195,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setUseNumberOfCpus(int position) {
+			if (isInUpdateView) {
+				return;
+			}
 			cpuHandler.setNumberOfActiveCpus(position);
 		}
 
@@ -243,7 +267,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		final SettingsStorage settings = SettingsStorage.getInstance();
 		final Activity act = getActivity();
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance(getActivity());
@@ -251,11 +274,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
 		governorHelper = new GovernorHelperCurInfo();
-		if (!settings.isUseVirtualGovernors() || !settings.isEnableProfiles()) {
-			governorFragment = new GovernorFragment(this, governorHelper, true);
-		} else {
-			governorFragment = new VirtualGovernorFragment(this, governorHelper);
-		}
+		governorFragment = new VirtualGovernorFragment(this, governorHelper);
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
@@ -362,7 +381,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		super.onResume();
 		governorFragment.updateVirtGov(true);
 		spProfiles.requestFocus();
-		updateView();
+		//		updateView();
 	}
 
 	@Override
@@ -385,6 +404,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void deviceStatusChanged() {
+		if (tvAcPower == null) {
+			return;
+		}
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
 		StringBuilder bat = new StringBuilder();
 		bat.append(powerProfiles.getBatteryLevel()).append("%");
@@ -421,6 +443,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void profileChanged() {
+		if (tvPulse == null) {
+			return;
+		}
 		final Activity act = getActivity();
 		SettingsStorage settings = SettingsStorage.getInstance();
 		if (PulseHelper.getInstance(act).isPulsing()) {

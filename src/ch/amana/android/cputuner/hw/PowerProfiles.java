@@ -74,8 +74,9 @@ public class PowerProfiles {
 
 	private final SettingsStorage settings;
 
-	public static PowerProfiles getInstance(Context ctx) {
+	public static synchronized PowerProfiles getInstance(Context ctx) {
 		if (instance == null) {
+			Logger.w("Creating new PowerProfiles instance");
 			instance = new PowerProfiles(ctx.getApplicationContext());
 		}
 		return instance;
@@ -85,7 +86,7 @@ public class PowerProfiles {
 		return instance;
 	}
 
-	public PowerProfiles(Context ctx) {
+	private PowerProfiles(Context ctx) {
 		context = ctx;
 		settings = SettingsStorage.getInstance(ctx);
 		modelAccess = ModelAccess.getInstace(ctx);
@@ -198,9 +199,6 @@ public class PowerProfiles {
 				return;
 			}
 
-			if (settings.getProfileSwitchLogSize() > 0) {
-				updateProfileSwitchLog();
-			}
 
 			CpuHandler cpuHandler = CpuHandler.getInstance();
 			cpuHandler.applyCpuSettings(currentProfile);
@@ -211,14 +209,16 @@ public class PowerProfiles {
 			applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
 			applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
 			applyAirplanemodeState(currentProfile.getAirplainemodeState());
+			PulseHelper.getInstance(context).stopPulseIfNeeded();
 			try {
 				Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName() + "< on batterylevel " + batteryLevel + "%");
 			} catch (Exception e) {
 				Logger.w("Error printing switch profile", e);
 			}
-			StringBuilder sb = new StringBuilder(50);
-			sb.append("Setting power profile to ");
-			sb.append(currentProfile.getProfileName());
+
+			if (settings.getProfileSwitchLogSize() > 0) {
+				updateProfileSwitchLog();
+			}
 			context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);
@@ -229,7 +229,7 @@ public class PowerProfiles {
 		StringBuilder sb = new StringBuilder();
 		sb.append(currentTrigger.getName()).append(" -> ");
 		sb.append(currentProfile.getProfileName());
-		Logger.addToLog(sb.toString());
+		Logger.addToSwitchLog(sb.toString());
 	}
 
 	private String getServiceTypeName(ServiceType type) {
@@ -241,7 +241,7 @@ public class PowerProfiles {
 		int lastState = lastServiceState.get(type);
 		boolean wasPulsing = PulseHelper.getInstance(context).isPulsing();
 		if (type != ServiceType.mobiledata3g) {
-			if (state == SERVICE_STATE_PULSE || lastState == SERVICE_STATE_PULSE) {
+			if (state == SERVICE_STATE_PULSE) {
 				PulseHelper.getInstance(context).pulse(type, true);
 				return NO_STATE;
 			}

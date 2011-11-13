@@ -16,8 +16,8 @@ public class VirtualGovernorModel implements IGovernorModel {
 
 	private String virtualGov = ProfileModel.NO_VALUE_STR;
 	private String realGov = ProfileModel.NO_VALUE_STR;
-	private int governorThresholdUp = 98;
-	private int governorThresholdDown = 95;
+	private int governorThresholdUp = -1;
+	private int governorThresholdDown = -1;
 	private String script = "";
 	private int powersaveBias = 0;
 	private int useNumberOfCpus;
@@ -214,7 +214,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 
 	@Override
 	public void setGovernorThresholdUp(int i) {
-		if (i > -1 && i < 101) {
+		if (i > -2 && i < 101) {
 			this.governorThresholdUp = i;
 		}
 	}
@@ -226,7 +226,7 @@ public class VirtualGovernorModel implements IGovernorModel {
 
 	@Override
 	public void setGovernorThresholdDown(int i) {
-		if (i > -1 && i < 101) {
+		if (i > -2 && i < 101) {
 			this.governorThresholdDown = i;
 		}
 	}

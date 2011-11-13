@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Average value</item>
@@ -15,11 +15,11 @@
 	<string name="labelPowesaveBiasPowersave">Powersave</string>
 	<string name="prefMaxFreq">Default maximum frequency</string>
 	<string name="prefMaxFreqLong">The maximum frequency to be applied when loading
-		default configurations.</string>
+		system configurations.</string>
 	<string name="prefMinFreq">Default minimum frequency</string>
 	<string name="prefMinFreqLong">The minimum frequency to be applied when loading
-		default configurations.</string>
-	<string name="prefKeyFrequencies">Frequencies for default configurations</string>
+		system configurations.</string>
+	<string name="prefKeyFrequencies">Frequencies for system configurations</string>
 	<string name="title_triggers">Triggers</string>
 	<string name="msg_title_unsaved_changes">Unsaved changes</string>
 	<string name="msg_unsaved_changes">This editor has unsaved changes, if you close
@@ -96,9 +96,9 @@
 		Change this in settings.</string>
 	<string name="menuUpgrade">Get extensions</string>
 	<string name="desc_extention_stats">
-		The statistic extension generates nicer and more detailed statistics.
+		The statistics extension generates nicer and more detailed statistics.
 		<br></br>
-		It helps you to fine tune you settings by giving you additional
+		It helps you to fine tune your settings by giving you additional
 		information.
 		<br></br>
 		Work in progress...
@@ -145,8 +145,8 @@
 		<string name="prefInitialPulseDelayLong">Wait for some time (in s) bevore starting the first pulse.</string>
 		<string name="prefInitialPulseDelayMsg">Delay time in seconds</string>
 		<string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
-		<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the on power profile will be chosen.</string>
-		<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the screen off profile will be chosen.</string>
+		<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the \"on power\" profile will be chosen.</string>
+		<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the \"screen off\" profile will be chosen.</string>
 		<string name="title_choose_experiance_level">Choose your experiance level</string>
 	<string name="auto">Auto</string>
 	<string name="msg_manual_profile">manual</string>
@@ -172,7 +172,7 @@
         <item>Disable</item>
     </string-array>
     <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
-    <string name="prefConfigurationsLong">Backup and restore</string>
+    <string name="prefConfigurationsLong">Backup and restore (and more)</string>
     <string name="prefCpu">CPU Settings</string>
     <string name="prefChangelog">Show Changelog</string>
     <string name="label_version">Version:</string>
@@ -342,8 +342,6 @@
 	<string name="labelExplainTrigger">Activates if the battery charge of the device is
 		below the battery level and no other trigger with a lower and matching
 		battery level is found.</string>
-	<string name="labelSendMail">Send mail</string>
-	<string name="labelBody">Body:</string>
 	<string name="labelGovernor">Governor:</string>
 	<string name="labelBluetooth">Bluetooth</string>
 	<string name="labelWifi">Wifi</string>
@@ -358,7 +356,6 @@
 	<string name="labelUsage">Usage:</string>
 	<string name="labelBuFindFeq">Find frequencies (beta only)</string>
 	<string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
-	<string name="msgDeviceInfo">Send e-mail with device information</string>
 	<string name="msgNoEmail">Please do not write empty e-mails...</string>
 	<string name="labelResult">Result</string>
 	<string name="labelCheck">Check</string>
