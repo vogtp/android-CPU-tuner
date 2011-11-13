@@ -237,9 +237,10 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
-				final String name = input.getText().toString();
-				if (name == null || "".equals(name.trim())) {
+				final String name = input.getText().toString().trim();
+				if (name == null || "".equals(name)) {
 					Toast.makeText(ConfigurationManageActivity.this, R.string.msg_empty_configuration_name, Toast.LENGTH_LONG).show();
+
 					return;
 				}
 				if (configsAdapter.hasConfig(name)) {
@@ -278,14 +279,24 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
-				String name = input.getText().toString();
+				String name = input.getText().toString().trim();
+				if (name == null || "".equals(name)) {
+					Toast.makeText(ConfigurationManageActivity.this, R.string.msg_empty_configuration_name, Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (configsAdapter.hasConfig(name)) {
+					Toast.makeText(ConfigurationManageActivity.this, R.string.msg_config_name_exists, Toast.LENGTH_LONG).show();
+					return;
+				}
 				String path = file.getPath();
 				int idx = path.lastIndexOf("/");
 				String oldName = path.substring(idx + 1);
 				File dest = new File(path.substring(0, idx), name);
 				file.renameTo(dest);
 				renameDB(oldName, name);
-				settings.setCurrentConfiguration(name);
+				if (oldName.equals(settings.getCurrentConfiguration())) {
+					settings.setCurrentConfiguration(name);
+				}
 				updateListView();
 			}
 		});
