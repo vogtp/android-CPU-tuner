@@ -22,16 +22,16 @@
     "governor": "conservative|interactive|smartass|ondemand|powersave",
     "virtualGovernor": "Extreme Save Battery",
     "_id": "3",
-    "powersaveBias": "500",
-    "governorThresholdUp": "95",
-    "governorThresholdDown": "85"
+    "powersaveBias": "1000",
+    "governorThresholdUp": "98",
+    "governorThresholdDown": "90"
    },
    {
     "governor": "conservative|interactive|smartass|ondemand|powersave",
     "virtualGovernor": "Save Battery",
     "_id": "4",
     "powersaveBias": "300",
-    "governorThresholdUp": "92",
+    "governorThresholdUp": "95",
     "governorThresholdDown": "80"
    }
   ],
@@ -92,7 +92,7 @@
    {
     "gpsState": "0",
     "frequencyMax": "998400",
-    "virtualGovernor": "4",
+    "virtualGovernor": "3",
     "_id": "4",
     "bluetoothState": "0",
     "governor": "conservative",
