@@ -1,7 +1,3 @@
-
-- disable debugging
-
-****************** POST 3.0.0:
 - eliminate TunerService class in intents
 - refresh stats on extension install
 - clear or mark for profile switch log
