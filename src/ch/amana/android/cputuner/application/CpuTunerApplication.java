@@ -43,36 +43,9 @@ public class CpuTunerApplication extends Application {
 
 	public static void startCpuTuner(Context context) {
 		context.startService(new Intent(TunerService.ACTION_START_CPUTUNER));
-		//		Logger.i("Starting cpu tuner services (" + context.getString(R.string.version) + ")");
-		//		Context ctx = context.getApplicationContext();
-		//		BatteryReceiver.registerBatteryReceiver(ctx);
-		//		CallPhoneStateListener.register(ctx);
-		//		PowerProfiles.getInstance(ctx).reapplyProfile(true);
-		//		ConfigurationAutoloadService.scheduleNextEvent(ctx);
-		//		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
-		//			Notifier.startStatusbarNotifications(ctx);
-		//		}
 	}
 
 	public static void stopCpuTuner(Context context) {
 		context.startService(new Intent(TunerService.ACTION_STOP_CPUTUNER));
-		//		Logger.i("Stopping cpu tuner services (" + context.getString(R.string.version) + ")");
-		//		Logger.logStacktrace("Stopping cputuner services");
-		//		Context ctx = context.getApplicationContext();
-		//		CallPhoneStateListener.unregister(ctx);
-		//		BatteryReceiver.unregisterBatteryReceiver(ctx);
-		//		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
-		//		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
-		//		case SettingsStorage.STATUSBAR_RUNNING:
-		//			Notifier.stopStatusbarNotifications(ctx);
-		//			break;
-		//		case SettingsStorage.STATUSBAR_ALWAYS:
-		//			Notifier.startStatusbarNotifications(ctx);
-		//			break;
-		//
-		//		default:
-		//			break;
-		//		}
-		//		context.stopService(new Intent(ctx, TunerService.class));
 	}
 }
