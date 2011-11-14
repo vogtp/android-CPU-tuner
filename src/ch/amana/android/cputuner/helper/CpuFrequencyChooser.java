@@ -65,7 +65,7 @@ public class CpuFrequencyChooser {
 				try {
 					int val = availCpuFreqsMax[availCpuFreqsMax.length - position - 1];
 					fireMaxCpuFreqChanged(val);
-				} catch (ArrayIndexOutOfBoundsException e) {
+				} catch (Exception e) {
 					Logger.e("Cannot set max freq in gui", e);
 				}
 			}
@@ -82,7 +82,7 @@ public class CpuFrequencyChooser {
 				try {
 					int val = availCpuFreqsMin[availCpuFreqsMin.length - position - 1];
 					fireMinCpuFreqChanged(val);
-				} catch (ArrayIndexOutOfBoundsException e) {
+				} catch (Exception e) {
 					Logger.e("Cannot set min freq in gui", e);
 				}
 			}
@@ -102,7 +102,7 @@ public class CpuFrequencyChooser {
 				try {
 					int val = availCpuFreqsMax[position];
 					fireMaxCpuFreqChanged(val);
-				} catch (ArrayIndexOutOfBoundsException e) {
+				} catch (Exception e) {
 					Logger.e("Cannot set max freq in gui", e);
 				}
 			}
@@ -125,7 +125,7 @@ public class CpuFrequencyChooser {
 				try {
 					int val = availCpuFreqsMin[position];
 					fireMinCpuFreqChanged(val);
-				} catch (ArrayIndexOutOfBoundsException e) {
+				} catch (Exception e) {
 					Logger.e("Cannot set min freq in gui", e);
 				}
 			}
