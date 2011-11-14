@@ -53,8 +53,13 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME }, new int[] { android.R.id.text1 });
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
-		long virtualGovernor = getGovernorModel().getVirtualGovernor();
-		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
+		try {
+			long virtualGovernor = getGovernorModel().getVirtualGovernor();
+			GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
+		} catch (Exception e) {
+			Logger.w("Cannot set virtual governor", e);
+			GuiUtils.setSpinner(spinnerSetGov, -1);
+		}
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
