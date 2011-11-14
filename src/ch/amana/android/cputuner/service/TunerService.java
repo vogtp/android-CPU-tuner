@@ -189,15 +189,15 @@ public class TunerService extends IntentService {
 		switch (state) {
 		case TelephonyManager.CALL_STATE_IDLE:
 			// hangup
-			PowerProfiles.getInstance().setCallInProgress(false);
+			PowerProfiles.getInstance(getApplicationContext()).setCallInProgress(false);
 			break;
 		case TelephonyManager.CALL_STATE_RINGING:
 			// incomming
-			PowerProfiles.getInstance().setCallInProgress(true);
+			PowerProfiles.getInstance(getApplicationContext()).setCallInProgress(true);
 			break;
 		case TelephonyManager.CALL_STATE_OFFHOOK:
 			// outgoing
-			PowerProfiles.getInstance().setCallInProgress(true);
+			PowerProfiles.getInstance(getApplicationContext()).setCallInProgress(true);
 			break;
 
 		default:
@@ -213,7 +213,7 @@ public class TunerService extends IntentService {
 		}
 		try {
 			acquireWakelock();
-			PowerProfiles powerProfiles = PowerProfiles.getInstance();
+			PowerProfiles powerProfiles = PowerProfiles.getInstance(getApplicationContext());
 			if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
 				int level = -1;
 				int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
