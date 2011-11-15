@@ -128,7 +128,9 @@ public class PagerAdapter extends FragmentPagerAdapter
 		Fragment oldPage = currentPage;
 		currentPage = getItem(position);
 		if (currentPage != oldPage) {
-			oldPage.onPause();
+			if (oldPage != null) {
+				oldPage.onPause();
+			}
 			currentPage.onResume();
 		}
 		addActions((PagerItem) currentPage);
@@ -154,6 +156,9 @@ public class PagerAdapter extends FragmentPagerAdapter
 	}
 
 	public static Fragment getCurrentItem() {
+		if (currentPage == null) {
+			return new Fragment();
+		}
 		return currentPage;
 	}
 
