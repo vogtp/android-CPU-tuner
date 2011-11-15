@@ -7,4 +7,6 @@
     <string name="msg_pulse_log_off">Pulse switched to off</string>
     <string name="msg_pulse_log_end">Stop pulsing</string>
     <string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
+    <string name="menuMarkLog">Mark</string>
+    <string name="menuClearLog">Clear Log</string>
 </resources>

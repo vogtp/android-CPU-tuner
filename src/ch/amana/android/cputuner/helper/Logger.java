@@ -43,6 +43,10 @@ public class Logger {
 		}
 	}
 
+	public static void clearSwitchLog() {
+		log.clear();
+	}
+
 	public static String getLog(Context context) {
 		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
 			return context.getString(R.string.not_enabled);

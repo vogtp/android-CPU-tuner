@@ -1,6 +1,3 @@
-- eliminate TunerService class in intents
-- refresh stats on extension install
-- clear or mark for profile switch log
 - check if billing is supported -> old market
 - battery hot should not choose top profile
 - timed manual service changes (i.e. change back after a certain time)
@@ -16,7 +13,7 @@
 - create chooser for homescreen link of configurations (buy?)
 - nummeric keyboard for pulse lengthes 
 - buy configs
-
+- refresh stats on extension install
 - message in config manage if sd card is not accessible
 - refresh config list if sdcard gets mounted
 - rework help for configurations and autoload

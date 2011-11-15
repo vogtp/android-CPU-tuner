@@ -16,6 +16,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -86,6 +87,9 @@ public class LogFragment extends PagerFragment implements StateChangeListener {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.refresh_option, menu);
+		if (SettingsStorage.getInstance().isAdvancesStatistics()) {
+			inflater.inflate(R.menu.log_advstat_option, menu);
+		}
 	}
 
 	@Override
@@ -94,7 +98,14 @@ public class LogFragment extends PagerFragment implements StateChangeListener {
 		case R.id.itemRefresh:
 			updateView();
 			return true;
-
+		case R.id.itemMark:
+			Logger.addToSwitchLog("-----------------------------------");
+			updateView();
+			return true;
+		case R.id.itemClear:
+			Logger.clearSwitchLog();
+			updateView();
+			return true;
 		}
 		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
 			return true;
