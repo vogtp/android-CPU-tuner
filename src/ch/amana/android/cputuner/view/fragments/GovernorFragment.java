@@ -43,6 +43,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private LinearLayout llGovernorThresholds;
 	private Spinner spUseCpus;
 	private int numberOfCpus;
+
 	private CpuHandler cpuHandler;
 
 	public GovernorFragment() {
@@ -89,7 +90,10 @@ public class GovernorFragment extends GovernorBaseFragment {
 		super.onActivityCreated(savedInstanceState);
 
 		FragmentActivity act = getActivity();
-
+		if (cpuHandler == null) {
+			this.cpuHandler = CpuHandler.getInstance();
+			this.availCpuGovs = cpuHandler.getAvailCpuGov();
+		}
 
 		numberOfCpus = cpuHandler.getNumberOfCpus();
 		if (cpuHandler instanceof CpuHandlerMulticore) {
@@ -136,7 +140,6 @@ public class GovernorFragment extends GovernorBaseFragment {
 		});
 
 		OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener() {
-
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
