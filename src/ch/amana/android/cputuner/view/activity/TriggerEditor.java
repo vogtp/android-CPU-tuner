@@ -171,7 +171,23 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		GuiUtils.setSpinner(spBattery, triggerModel.getBatteryProfileId());
 		GuiUtils.setSpinner(spScreenLocked, triggerModel.getScreenOffProfileId());
 		GuiUtils.setSpinner(spPower, triggerModel.getPowerProfileId());
-		GuiUtils.setSpinner(spHot, triggerModel.getHotProfileId());
+		long hotProfileId = triggerModel.getHotProfileId();
+		if (hotProfileId == -1) {
+			Cursor c = null;
+			try {
+				c = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_ID_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+				if (c.moveToLast()) {
+					hotProfileId = c.getLong(DB.INDEX_ID);
+				}
+			} finally {
+				if (c != null) {
+					c.close();
+					c = null;
+				}
+			}
+
+		}
+		GuiUtils.setSpinner(spHot, hotProfileId);
 		GuiUtils.setSpinner(spCall, triggerModel.getCallInProgessProfileId());
 	}
 

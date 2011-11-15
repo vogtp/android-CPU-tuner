@@ -1,24 +1,23 @@
-- check if billing is supported -> old market
-- battery hot should not choose top profile
-- timed manual service changes (i.e. change back after a certain time)
 - advanced statistics: graph for trigger and or profile
 - advanced statistics: rework graph to use screen size
 
+- timed manual service changes (i.e. change back after a certain time)
+- fix hasManualServicesChanges to reflect current trigger and get better answers
+
 - ensure display of current entity in list
 
-- fix hasManualServicesChanges to reflect current trigger and get better answers
 - move powerprofile read from service
 - move profile switch logging to  DB
+
+- check if billing is supported -> old market
 
 - create chooser for homescreen link of configurations (buy?)
 - nummeric keyboard for pulse lengthes 
 - buy configs
-- refresh stats on extension install
 - message in config manage if sd card is not accessible
 - refresh config list if sdcard gets mounted
 - rework help for configurations and autoload
 - enable/disable services in settings
-- switch when the phone is unlocked instead of just screen on
 
 - pulse timing for each triggers
 - add ignore nice load
