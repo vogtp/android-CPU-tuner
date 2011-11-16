@@ -261,8 +261,6 @@
                 <action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY" />
                 <action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_PHONESTATE" />
                 <action android:name="ch.amana.android.cputuner.ACTION_TUNERSERVICE_MANUAL_PROFILE" />
-                <action android:name="ch.amana.android.cputuner.ACTION_START_CPUTUNER" />
-                <action android:name="ch.amana.android.cputuner.ACTION_STOP_CPUTUNER" />
             </intent-filter>
         </service>
         <service android:name="ch.almana.android.billing.backend.BillingService" />
@@ -274,6 +272,13 @@
                 <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".service.EventListenerService" >
+            <intent-filter >
+                <action android:name="ch.amana.android.cputuner.ACTION_START_CPUTUNER" />
+                <action android:name="ch.amana.android.cputuner.ACTION_STOP_CPUTUNER" />
+            </intent-filter>
+        </service>
     </application>
 
     <uses-sdk

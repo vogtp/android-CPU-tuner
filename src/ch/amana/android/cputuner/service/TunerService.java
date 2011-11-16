@@ -12,19 +12,13 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
 import android.telephony.TelephonyManager;
-import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.log.Notifier;
-import ch.amana.android.cputuner.receiver.BatteryReceiver;
-import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 
 public class TunerService extends IntentService {
 
-	public static final String ACTION_START_CPUTUNER = "ch.amana.android.cputuner.ACTION_START_CPUTUNER";
-	public static final String ACTION_STOP_CPUTUNER = "ch.amana.android.cputuner.ACTION_STOP_CPUTUNER";
 	public static final String ACTION_TUNERSERVICE_BATTERY = "ch.amana.android.cputuner.ACTION_TUNERSERVICE_BATTERY";
 	public static final String ACTION_TUNERSERVICE_PHONESTATE = "ch.amana.android.cputuner.ACTION_TUNERSERVICE_PHONESTATE";
 	public static final String ACTION_PULSE = "ch.amana.android.cputuner.ACTION_PULSE";
@@ -42,7 +36,7 @@ public class TunerService extends IntentService {
 	private WakeLock wakeLock = null;
 
 	public TunerService() {
-		super("Tuner Background Service");
+		super("Cpu tuner background worker");
 	}
 
 	@Override
@@ -66,11 +60,7 @@ public class TunerService extends IntentService {
 				Logger.d("TunerService got action " + serviceAction);
 				startTs = System.currentTimeMillis();
 			}
-			if (ACTION_START_CPUTUNER.equals(serviceAction)) {
-				startCpuTuner();
-			} else if (ACTION_STOP_CPUTUNER.equals(serviceAction)) {
-				stopCpuTuner();
-			} else if (ACTION_TUNERSERVICE_BATTERY.equals(serviceAction)) {
+			if (ACTION_TUNERSERVICE_BATTERY.equals(serviceAction)) {
 				handleBattery(intent);
 			} else if (ACTION_TUNERSERVICE_PHONESTATE.equals(serviceAction)) {
 				handlePhoneState(intent);
@@ -92,42 +82,6 @@ public class TunerService extends IntentService {
 			}
 			releaseWakelock();
 		}
-	}
-
-	private void startCpuTuner() {
-		Context context = getApplicationContext();
-		Logger.i("Starting cpu tuner services (" + context.getString(R.string.version) + ")");
-		Context ctx = context.getApplicationContext();
-		BatteryReceiver.registerBatteryReceiver(ctx);
-		CallPhoneStateListener.register(ctx);
-		PowerProfiles.getInstance(ctx).reapplyProfile(true);
-		ConfigurationAutoloadService.scheduleNextEvent(ctx);
-		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
-			Notifier.startStatusbarNotifications(ctx);
-		}
-	}
-
-	private void stopCpuTuner() {
-		Context context = getApplicationContext();
-		Logger.i("Stopping cpu tuner services (" + context.getString(R.string.version) + ")");
-		Logger.logStacktrace("Stopping cputuner services");
-		Context ctx = context.getApplicationContext();
-		CallPhoneStateListener.unregister(ctx);
-		BatteryReceiver.unregisterBatteryReceiver(ctx);
-		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
-		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
-		case SettingsStorage.STATUSBAR_RUNNING:
-			Notifier.stopStatusbarNotifications(ctx);
-			break;
-		case SettingsStorage.STATUSBAR_ALWAYS:
-			Notifier.startStatusbarNotifications(ctx);
-			break;
-
-		default:
-			break;
-		}
-		//context.stopService(new Intent(ctx, TunerService.class));
-		stopSelf();
 	}
 
 	private void handleManualProfile(Intent intent) {
