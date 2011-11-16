@@ -30,7 +30,7 @@ import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
+import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 
 public class BackupRestoreHelper {
 
@@ -53,7 +53,7 @@ public class BackupRestoreHelper {
 			storagePath.mkdir();
 		}
 		// ModelAccess.getInstace(cb.getContext()).applyDelayedTriggerUpdates();
-		SQLiteDatabase db = new OpenHelper(cb.getContext()).getWritableDatabase();
+		SQLiteDatabase db = new CpuTunerOpenHelper(cb.getContext()).getWritableDatabase();
 		ExportDataTask exportDataTask = new ExportDataTask(cb, db, storagePath, ExportDataTask.ExportType.JSON);
 		exportDataTask.execute(new String[] { DB.DATABASE_NAME });
 	}

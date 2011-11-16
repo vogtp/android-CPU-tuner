@@ -17,7 +17,7 @@ public interface DB {
 	public static final String[] PROJECTION_IDE = new String[] { NAME_ID };
 	public static final String SELECTION_BY_ID = NAME_ID + "=?";
 
-	public class OpenHelper extends SQLiteOpenHelper {
+	public class CpuTunerOpenHelper extends SQLiteOpenHelper {
 
 		private static final int DATABASE_VERSION = 14;
 
@@ -55,7 +55,7 @@ public interface DB {
 				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_CONFIGURATION + " text, " + DB.ConfigurationAutoload.NAME_NEXT_EXEC + " long, "
 				+ DB.ConfigurationAutoload.NAME_EXACT_SCEDULING + " int DEFAULT 0)";
 
-		public OpenHelper(Context context) {
+		public CpuTunerOpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
 		}
 

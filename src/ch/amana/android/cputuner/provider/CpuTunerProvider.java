@@ -11,7 +11,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
+import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.provider.db.DBBackendConfigurationAutoload;
 import ch.amana.android.cputuner.provider.db.DBBackendCpuProfile;
 import ch.amana.android.cputuner.provider.db.DBBackendTrigger;
@@ -32,11 +32,11 @@ public class CpuTunerProvider extends ContentProvider {
 
 	private static boolean notifyChanges = true;
 
-	private OpenHelper openHelper;
+	private CpuTunerOpenHelper openHelper;
 
 	@Override
 	public boolean onCreate() {
-		openHelper = new OpenHelper(getContext());
+		openHelper = new CpuTunerOpenHelper(getContext());
 		return true;
 	}
 

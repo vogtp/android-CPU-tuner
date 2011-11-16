@@ -13,7 +13,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
-import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
+import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 
 public class DBBackendCpuProfile {
 
@@ -24,7 +24,7 @@ public class DBBackendCpuProfile {
 
 	private static final UriMatcher sUriMatcher;
 
-	public static int delete(OpenHelper openHelper, Uri uri, String selection, String[] selectionArgs) {
+	public static int delete(CpuTunerOpenHelper openHelper, Uri uri, String selection, String[] selectionArgs) {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		int count;
 		switch (sUriMatcher.match(uri)) {
@@ -58,7 +58,7 @@ public class DBBackendCpuProfile {
 		}
 	}
 
-	public static Cursor query(OpenHelper openHelper, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+	public static Cursor query(CpuTunerOpenHelper openHelper, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.CpuProfile.TABLE_NAME);
@@ -90,7 +90,7 @@ public class DBBackendCpuProfile {
 		return c;
 	}
 
-	public static int update(OpenHelper openHelper, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+	public static int update(CpuTunerOpenHelper openHelper, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		int count;
 		switch (sUriMatcher.match(uri)) {
@@ -111,7 +111,7 @@ public class DBBackendCpuProfile {
 		return count;
 	}
 
-	public static Uri insert(OpenHelper openHelper, Uri uri, ContentValues initialValues) {
+	public static Uri insert(CpuTunerOpenHelper openHelper, Uri uri, ContentValues initialValues) {
 		// Validate the requested uri
 		if (sUriMatcher.match(uri) != CPU_PROFILE) {
 			throw new IllegalArgumentException("Unknown URI " + uri);

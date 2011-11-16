@@ -38,7 +38,7 @@ import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.OpenHelper;
+import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
@@ -341,7 +341,7 @@ public class CapabilityCheckerActivity extends Activity {
 		body.append(checker.toString());
 
 		try {
-			DB.OpenHelper oh = new OpenHelper(this);
+			DB.CpuTunerOpenHelper oh = new CpuTunerOpenHelper(this);
 			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), new File(path, DIR_REPORT));
 			Logger.v("Send report: exporting DB");
 			try {
