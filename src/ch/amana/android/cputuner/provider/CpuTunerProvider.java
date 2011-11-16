@@ -14,6 +14,7 @@ import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.provider.db.DBBackendConfigurationAutoload;
 import ch.amana.android.cputuner.provider.db.DBBackendCpuProfile;
+import ch.amana.android.cputuner.provider.db.DBBackendSwitchLog;
 import ch.amana.android.cputuner.provider.db.DBBackendTrigger;
 import ch.amana.android.cputuner.provider.db.DBBackendVirtualGovernor;
 
@@ -27,6 +28,7 @@ public class CpuTunerProvider extends ContentProvider {
 	private static final int CPU_PROFILE = 2;
 	private static final int VIRTUAL_GOVERNOR = 3;
 	private static final int CONFIGURATION_AUTOLOAD = 4;
+	private static final int SWITCH_LOG = 5;
 
 	private static final UriMatcher sUriMatcher;
 
@@ -57,6 +59,9 @@ public class CpuTunerProvider extends ContentProvider {
 		case CONFIGURATION_AUTOLOAD:
 			count = DBBackendConfigurationAutoload.delete(openHelper, uri, selection, selectionArgs);
 			break;
+		case SWITCH_LOG:
+			count = DBBackendSwitchLog.delete(openHelper, uri, selection, selectionArgs);
+			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -76,6 +81,8 @@ public class CpuTunerProvider extends ContentProvider {
 			return DBBackendVirtualGovernor.getType(uri);
 		case CONFIGURATION_AUTOLOAD:
 			return DBBackendConfigurationAutoload.getType(uri);
+		case SWITCH_LOG:
+			return DBBackendSwitchLog.getType(uri);
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -96,6 +103,9 @@ public class CpuTunerProvider extends ContentProvider {
 			break;
 		case CONFIGURATION_AUTOLOAD:
 			ret = DBBackendConfigurationAutoload.insert(openHelper, uri, initialValues);
+			break;
+		case SWITCH_LOG:
+			ret = DBBackendSwitchLog.insert(openHelper, uri, initialValues);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
@@ -120,6 +130,9 @@ public class CpuTunerProvider extends ContentProvider {
 			break;
 		case CONFIGURATION_AUTOLOAD:
 			c = DBBackendConfigurationAutoload.query(openHelper, uri, projection, selection, selectionArgs, sortOrder);
+			break;
+		case SWITCH_LOG:
+			c = DBBackendSwitchLog.query(openHelper, uri, projection, selection, selectionArgs, sortOrder);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
@@ -147,6 +160,9 @@ public class CpuTunerProvider extends ContentProvider {
 		case CONFIGURATION_AUTOLOAD:
 			count = DBBackendConfigurationAutoload.update(openHelper, uri, values, selection, selectionArgs);
 			break;
+		case SWITCH_LOG:
+			count = DBBackendSwitchLog.update(openHelper, uri, values, selection, selectionArgs);
+			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -156,7 +172,8 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	private void notifyChange(Uri uri) {
-		if (notifyChanges && SettingsStorage.getInstance().isEnableProfiles()) {
+		if (notifyChanges && SettingsStorage.getInstance().isEnableProfiles()
+				&& sUriMatcher.match(uri) < CONFIGURATION_AUTOLOAD) {
 			PowerProfiles.getInstance(getContext()).reapplyProfile(true);
 		}
 		getContext().getContentResolver().notifyChange(uri, null);
@@ -177,6 +194,8 @@ public class CpuTunerProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DB.VirtualGovernor.CONTENT_ITEM_NAME + "/#", VIRTUAL_GOVERNOR);
 		sUriMatcher.addURI(AUTHORITY, DB.ConfigurationAutoload.CONTENT_ITEM_NAME, CONFIGURATION_AUTOLOAD);
 		sUriMatcher.addURI(AUTHORITY, DB.ConfigurationAutoload.CONTENT_ITEM_NAME + "/#", CONFIGURATION_AUTOLOAD);
+		sUriMatcher.addURI(AUTHORITY, DB.SwitchLogDB.CONTENT_ITEM_NAME, SWITCH_LOG);
+		sUriMatcher.addURI(AUTHORITY, DB.SwitchLogDB.CONTENT_ITEM_NAME + "/#", SWITCH_LOG);
 	}
 
 	public static void deleteAllTables(Context ctx, boolean deleteAutoloadConfig) {

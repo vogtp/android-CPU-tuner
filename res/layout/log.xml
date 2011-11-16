@@ -9,11 +9,19 @@
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 	>
+
 		<LinearLayout
-			android:id="@+id/linearLayout1"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-		> 
+		    android:id="@+id/linearLayout1"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:orientation="vertical" >
+ <ListView
+		android:id="@+android:id/list"
+		android:background="@android:color/black"
+		android:layout_width="match_parent"
+		android:layout_weight="1"
+		android:layout_height="0dp"
+	></ListView>
 			<TextView
 				android:text="TextView"
 				android:layout_height="match_parent"

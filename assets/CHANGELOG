@@ -1,5 +1,6 @@
 V 
 * features
+- switch log uses DB
 - clear and mark in switch log (adv stats)
 * bug fixes
 -

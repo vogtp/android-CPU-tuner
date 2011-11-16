@@ -19,7 +19,7 @@ public interface DB {
 
 	public class CpuTunerOpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 14;
+		private static final int DATABASE_VERSION = 15;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -55,6 +55,12 @@ public interface DB {
 				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_CONFIGURATION + " text, " + DB.ConfigurationAutoload.NAME_NEXT_EXEC + " long, "
 				+ DB.ConfigurationAutoload.NAME_EXACT_SCEDULING + " int DEFAULT 0)";
 
+		private static final String CREATE_SWITCH_LOG_TABLE = "create table if not exists " + SwitchLogDB.TABLE_NAME + " (" + DB.NAME_ID
+				+ " integer primary key, " + DB.SwitchLogDB.NAME_TIME + " long, " + DB.SwitchLogDB.NAME_MESSAGE + " text, "
+				+ DB.SwitchLogDB.NAME_TRIGGER + " text, " + DB.SwitchLogDB.NAME_PROFILE + " text, " + DB.SwitchLogDB.NAME_VIRTGOV + " text, "
+				+ DB.SwitchLogDB.NAME_BATTERY + " int, " + DB.SwitchLogDB.NAME_LOCKED + " int, " + DB.SwitchLogDB.NAME_AC + " int, " + DB.SwitchLogDB.NAME_CALL + " int, "
+				+ DB.SwitchLogDB.NAME_HOT + " int)";
+
 		public CpuTunerOpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
 		}
@@ -65,8 +71,10 @@ public interface DB {
 			db.execSQL(CREATE_CPUPROFILES_TABLE);
 			db.execSQL(CREATE_VIRTUAL_GOVERNOR_TABLE);
 			db.execSQL(CREATE_CONFIGURATION_AUTOLOAD_TABLE);
+			db.execSQL(CREATE_SWITCH_LOG_TABLE);
 			db.execSQL("create index idx_trigger_battery_level on " + Trigger.TABLE_NAME + " (" + Trigger.NAME_BATTERY_LEVEL + "); ");
 			db.execSQL("create index idx_cpuprofiles_profilename on " + CpuProfile.TABLE_NAME + " (" + CpuProfile.NAME_PROFILE_NAME + "); ");
+			db.execSQL("create index idx_switchlog_time on " + SwitchLogDB.TABLE_NAME + " (" + SwitchLogDB.NAME_TIME + "); ");
 			Logger.i("Created tables ");
 		}
 
@@ -145,6 +153,11 @@ public interface DB {
 				Logger.w("Upgrading to DB Version 14...");
 				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_USE_NUMBER_OF_CPUS + " int;");
 				db.execSQL("alter table " + VirtualGovernor.TABLE_NAME + " add column " + VirtualGovernor.NAME_USE_NUMBER_OF_CPUS + " int;");
+
+			case 14:
+				Logger.w("Upgrading to DB Version 15...");
+				db.execSQL(CREATE_SWITCH_LOG_TABLE);
+				db.execSQL("create index idx_switchlog_time on " + SwitchLogDB.TABLE_NAME + " (" + SwitchLogDB.NAME_TIME + "); ");
 				
 			default:
 				Logger.w("Finished DB upgrading!");
@@ -344,14 +357,6 @@ public interface DB {
 
 		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
 
-		//
-		// public static final int FLAG_SUNDAY = Calendar.SUNDAY;
-		// public static final int FLAG_MONDAY = Calendar.MONDAY;
-		// public static final int FLAG_TUESDAY = Calendar.TUESDAY;
-		// public static final int FLAG_WEDNESDAY = Calendar.WEDNESDAY;
-		// public static final int FLAG_THURSDAY = Calendar.THURSDAY;
-		// public static final int FLAG_FRIDAY = Calendar.FRIDAY;
-		// public static final int FLAG_SATURDAY = Calendar.SATURDAY;
 
 		public static final String NAME_HOUR = "hour";
 		public static final String NAME_MINUTE = "minute";
@@ -374,6 +379,50 @@ public interface DB {
 		public static final String SORTORDER_REVERSE = NAME_NEXT_EXEC + " DESC";
 
 		public static final String SELECTION_TIME_WEEKDAY = NAME_HOUR + "=? and " + NAME_MINUTE + "=? and " + NAME_WEEKDAY + "=? ";
+
+	}
+
+	public interface SwitchLogDB {
+
+		public static final String TABLE_NAME = "switchLog";
+
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		public static final String NAME_TIME = "time";
+		public static final String NAME_MESSAGE = "message";
+		public static final String NAME_TRIGGER = "trigger";
+		public static final String NAME_PROFILE = "profile";
+		public static final String NAME_VIRTGOV = "virtGov";
+		public static final String NAME_BATTERY = "battery";
+		public static final String NAME_LOCKED = "locked";
+		public static final String NAME_AC = "ac";
+		public static final String NAME_CALL = "call";
+		public static final String NAME_HOT = "hot";
+
+		public static final int INDEX_TIME = 1;
+		public static final int INDEX_MESSAGE = 2;
+		public static final int INDEX_TRIGGER = 3;
+		public static final int INDEX_PROFILE = 4;
+		public static final int INDEX_VIRTGOV = 5;
+		public static final int INDEX_BATTERY = 6;
+		public static final int INDEX_LOCKED = 7;
+		public static final int INDEX_AC = 8;
+		public static final int INDEX_CALL = 9;
+		public static final int INDEX_HOT = 10;
+
+		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV, NAME_BATTERY, NAME_LOCKED, NAME_AC,
+				NAME_CALL, NAME_HOT };
+		public static final String[] PROJECTION_DEFAULT = colNames;
+		public static final String[] PROJECTION_NORMAL_LOG = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE };
+
+		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
+		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
 
 	}
 }

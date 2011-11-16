@@ -63,29 +63,6 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 		final Activity act = getActivity();
 		displayCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 
-		//		checkCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_MINIMAL_HOT_PROFILE, DB.Trigger.NAME_HOT_PROFILE_ID + " > -1", null,
-		//				DB.Trigger.SORTORDER_MINIMAL_HOT_PROFILE);
-
-		if (act instanceof CpuTunerViewpagerActivity) {
-			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-		}
-	}
-
-	@Override
-	public void onDestroy() {
-		Activity act = getActivity();
-		if (act instanceof CpuTunerViewpagerActivity) {
-			if (act != null) {
-				((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-			}
-		}
-		super.onDestroy();
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-
 		int layout = SettingsStorage.getInstance().isPowerStrongerThanScreenoff() ? R.layout.trigger_item_pwrstrong : R.layout.trigger_item_pwrweak;
 		adapter = new SimpleCursorAdapter(getActivity(), layout, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
 				DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
@@ -196,6 +173,21 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 		});
 		getListView().setOnCreateContextMenuListener(this);
+
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		Activity act = getActivity();
+		if (act instanceof CpuTunerViewpagerActivity) {
+			if (act != null) {
+				((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+			}
+		}
+		super.onDestroy();
 	}
 
 	@Override
