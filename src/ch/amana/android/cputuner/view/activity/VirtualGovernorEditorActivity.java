@@ -17,7 +17,7 @@ import ch.amana.android.cputuner.helper.EditorActionbarHelper;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;

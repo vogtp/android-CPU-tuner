@@ -28,13 +28,13 @@ import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallb
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
-import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.CpuHandlerMulticore;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;

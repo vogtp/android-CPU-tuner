@@ -14,7 +14,7 @@ import java.io.Writer;
 
 import android.content.Context;
 import android.os.Environment;
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 
 public class RootHandler {
 	public static final String NOT_AVAILABLE = "not available";

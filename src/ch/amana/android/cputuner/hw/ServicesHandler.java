@@ -8,9 +8,9 @@ import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
-import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
+import ch.amana.android.cputuner.log.Logger;
 
 public class ServicesHandler {
 

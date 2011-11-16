@@ -11,8 +11,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
-import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
 

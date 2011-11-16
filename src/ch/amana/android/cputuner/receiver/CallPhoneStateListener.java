@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.service.TunerService;
 
 public class CallPhoneStateListener extends PhoneStateListener {

@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TwoLineListItem;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 
 public class SysConfigurationsAdapter extends BaseAdapter {
 

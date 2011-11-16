@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.service.TunerService;
 
 public class BatteryReceiver extends BroadcastReceiver {

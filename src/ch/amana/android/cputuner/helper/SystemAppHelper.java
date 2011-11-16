@@ -12,6 +12,7 @@ import android.os.PowerManager;
 import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.log.Logger;
 
 public class SystemAppHelper implements OnClickListener {
 

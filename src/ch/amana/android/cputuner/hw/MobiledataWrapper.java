@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 
 public class MobiledataWrapper {
 

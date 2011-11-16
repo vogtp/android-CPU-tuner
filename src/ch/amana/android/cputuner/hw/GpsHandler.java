@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.location.LocationManager;
 import android.provider.Settings;
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 
 public class GpsHandler {
 

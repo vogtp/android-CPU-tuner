@@ -4,10 +4,10 @@ import java.util.EnumMap;
 
 import android.content.Context;
 import android.content.Intent;
-import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;

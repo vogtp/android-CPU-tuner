@@ -16,8 +16,8 @@ import ch.almana.android.billing.PurchaseListener;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
-import ch.amana.android.cputuner.helper.Logger;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.adapter.BillingProductAdaper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 

@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.helper;
+package ch.amana.android.cputuner.log;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,12 +12,13 @@ import java.util.Iterator;
 import android.content.Context;
 import android.util.Log;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class Logger {
 	private static final String TAG = "CPUTuner";
 	private static final String STACKTRACE_TAG = "CPUTunerStracktraceLog";
 
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
 
 	private static ArrayList<String> log;
 

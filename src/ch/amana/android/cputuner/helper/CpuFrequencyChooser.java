@@ -14,6 +14,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
+import ch.amana.android.cputuner.log.Logger;
 
 public class CpuFrequencyChooser {
 

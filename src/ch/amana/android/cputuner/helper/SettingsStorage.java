@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
+import ch.amana.android.cputuner.log.Logger;
 
 public class SettingsStorage {
 

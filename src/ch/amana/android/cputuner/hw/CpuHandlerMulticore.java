@@ -1,6 +1,6 @@
 package ch.amana.android.cputuner.hw;
 
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandlerMulticore extends CpuHandler {

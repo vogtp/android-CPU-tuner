@@ -1,4 +1,4 @@
-package ch.amana.android.cputuner.helper;
+package ch.amana.android.cputuner.log;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.PulseHelper;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 

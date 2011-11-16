@@ -13,11 +13,11 @@ import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 

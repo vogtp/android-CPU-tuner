@@ -5,6 +5,8 @@ import android.content.Intent;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
+import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.service.TunerService;
 
 public class PulseHelper {

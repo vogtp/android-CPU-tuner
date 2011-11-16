@@ -2,7 +2,7 @@ package ch.amana.android.cputuner.hw;
 
 import java.io.File;
 
-import ch.amana.android.cputuner.helper.Logger;
+import ch.amana.android.cputuner.log.Logger;
 
 public class BatteryHandler extends HardwareHandler {
 	private static final String CURRENT_NOW = "current_now";

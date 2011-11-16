@@ -4,9 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import ch.amana.android.cputuner.helper.InstallHelper;
-import ch.amana.android.cputuner.helper.Logger;
-import ch.amana.android.cputuner.helper.Notifier;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.service.TunerService;
 
 public class CpuTunerApplication extends Application {
