@@ -8,6 +8,7 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
+import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
@@ -216,20 +217,17 @@ public class PowerProfiles {
 				Logger.w("Error printing switch profile", e);
 			}
 
+			Intent intent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
 			if (settings.getProfileSwitchLogSize() > 0) {
-				updateProfileSwitchLog();
+				StringBuilder sb = new StringBuilder();
+				sb.append(currentTrigger.getName()).append(" -> ");
+				sb.append(currentProfile.getProfileName());
+				intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, sb.toString());
 			}
-			context.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+			context.sendBroadcast(intent);
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);
 		}
-	}
-
-	private void updateProfileSwitchLog() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(currentTrigger.getName()).append(" -> ");
-		sb.append(currentProfile.getProfileName());
-		Logger.addToSwitchLog(sb.toString());
 	}
 
 	private String getServiceTypeName(ServiceType type) {

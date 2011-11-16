@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -61,7 +62,7 @@ public class LogFragment extends PagerFragment implements StateChangeListener {
 		if (tvStats == null) {
 			return;
 		}
-		tvStats.setText(Logger.getLog(getActivity()));
+		tvStats.setText(SwitchLog.getLog(getActivity()));
 	}
 
 
@@ -99,11 +100,13 @@ public class LogFragment extends PagerFragment implements StateChangeListener {
 			updateView();
 			return true;
 		case R.id.itemMark:
-			Logger.addToSwitchLog("-----------------------------------");
+			Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
+			i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, "-----------------------------------");
+			act.sendBroadcast(i);
 			updateView();
 			return true;
 		case R.id.itemClear:
-			Logger.clearSwitchLog();
+			SwitchLog.clearSwitchLog();
 			updateView();
 			return true;
 		}

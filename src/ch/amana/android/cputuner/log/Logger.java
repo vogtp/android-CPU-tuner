@@ -4,15 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
-import android.content.Context;
 import android.util.Log;
-import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class Logger {
 	private static final String TAG = "CPUTuner";
@@ -20,52 +14,6 @@ public class Logger {
 
 	public final static boolean DEBUG = true;
 
-	private static ArrayList<String> log;
-
-	private static Date now;
-
-	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
-
-	public static void addToSwitchLog(String msg) {
-		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
-			return;
-		}
-		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
-		if (log == null) {
-			log = new ArrayList<String>(logSize);
-			now = new Date();
-		}
-		now.setTime(System.currentTimeMillis());
-		StringBuilder sb = new StringBuilder();
-		sb.append(logDateFormat.format(now)).append(": ").append(msg);
-		log.add(0, sb.toString());
-		for (int i = logSize - 1; i < log.size(); i++) {
-			log.remove(i);
-		}
-	}
-
-	public static void clearSwitchLog() {
-		log.clear();
-	}
-
-	public static String getLog(Context context) {
-		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
-			return context.getString(R.string.not_enabled);
-		}
-		StringBuilder sb = new StringBuilder();
-		if (log != null) {
-			for (Iterator<String> profileLogItr = log.iterator(); profileLogItr.hasNext();) {
-				String log = profileLogItr.next();
-				if (log != null) {
-					sb.append(log).append("\n");
-				}
-			}
-		}
-		if (sb.length() < 2) {
-			sb.append(context.getString(R.string.msg_no_profile_switch_log));
-		}
-		return sb.toString();
-	}
 
 	public static void e(String msg, Throwable t) {
 		try {

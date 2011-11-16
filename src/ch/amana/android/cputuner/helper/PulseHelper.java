@@ -7,6 +7,7 @@ import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
+import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.service.TunerService;
 
 public class PulseHelper {
@@ -47,9 +48,6 @@ public class PulseHelper {
 		//		}
 		if (pulsing) {
 			this.pulseOn = isOn;
-			if (settings.isLogPulse()) {
-				Logger.addToSwitchLog(ctx.getString(isOn ? R.string.msg_pulse_log_on : R.string.msg_pulse_log_off));
-			}
 			if (pulseBackgroundSyncState) {
 				ServicesHandler.enableBackgroundSync(ctx, isOn);
 			}
@@ -76,7 +74,11 @@ public class PulseHelper {
 					}
 				}
 			}
-			ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+			Intent intent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
+			if (settings.isLogPulse()) {
+				intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, ctx.getString(isOn ? R.string.msg_pulse_log_on : R.string.msg_pulse_log_off));
+			}
+			ctx.sendBroadcast(intent);
 		}
 	}
 
@@ -226,15 +228,16 @@ public class PulseHelper {
 			return;
 		}
 		Logger.w("Stop pulse service");
+		Intent profileChangedIntent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
 		if (SettingsStorage.getInstance().isLogPulse()) {
-			Logger.addToSwitchLog(ctx.getString(R.string.msg_pulse_log_end));
+			profileChangedIntent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, ctx.getString(R.string.msg_pulse_log_end));
 		}
 		pulseHelper.pulsing = false;
-		ctx.sendBroadcast(new Intent(Notifier.BROADCAST_PROFILE_CHANGED));
+		ctx.sendBroadcast(profileChangedIntent);
 
-		Intent intent = new Intent(TunerService.ACTION_PULSE);
-		intent.putExtra(TunerService.EXTRA_PULSE_STOP, true);
-		ctx.startService(intent);
+		Intent pulseIntent = new Intent(TunerService.ACTION_PULSE);
+		pulseIntent.putExtra(TunerService.EXTRA_PULSE_STOP, true);
+		ctx.startService(pulseIntent);
 	}
 
 }

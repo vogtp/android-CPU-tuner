@@ -7,7 +7,7 @@ import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
-import ch.amana.android.cputuner.service.TunerService;
+import ch.amana.android.cputuner.service.EventListenerService;
 
 public class CpuTunerApplication extends Application {
 	@Override
@@ -42,10 +42,10 @@ public class CpuTunerApplication extends Application {
 	}
 
 	public static void startCpuTuner(Context context) {
-		context.startService(new Intent(TunerService.ACTION_START_CPUTUNER));
+		context.startService(new Intent(EventListenerService.ACTION_START_CPUTUNER));
 	}
 
 	public static void stopCpuTuner(Context context) {
-		context.startService(new Intent(TunerService.ACTION_STOP_CPUTUNER));
+		context.startService(new Intent(EventListenerService.ACTION_STOP_CPUTUNER));
 	}
 }

@@ -38,6 +38,22 @@ public class Notifier extends BroadcastReceiver {
 		instance.notifyStatus("");
 	}
 
+	public static void stopStatusbarNotifications(Context ctx) {
+		try {
+			ctx.unregisterReceiver(instance);
+			instance.notificationManager.cancel(NOTIFICATION_PROFILE);
+		} catch (Throwable e) {
+		}
+		instance = null;
+	}
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
+			notifyStatus(PowerProfiles.getInstance(context).getCurrentProfileName());
+		}
+	}
+
 	public Notifier(final Context ctx) {
 		super();
 		this.context = ctx.getApplicationContext();
@@ -99,22 +115,6 @@ public class Notifier extends BroadcastReceiver {
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;
 		}
 		return notification;
-	}
-
-	public static void stopStatusbarNotifications(Context ctx) {
-		try {
-			ctx.unregisterReceiver(instance);
-			instance.notificationManager.cancel(NOTIFICATION_PROFILE);
-		} catch (Throwable e) {
-		}
-		instance = null;
-	}
-
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
-			notifyStatus(PowerProfiles.getInstance(context).getCurrentProfileName());
-		}
 	}
 
 }
