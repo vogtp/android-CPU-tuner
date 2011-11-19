@@ -19,6 +19,7 @@ public class SwitchLog extends BroadcastReceiver {
 	public static final String ACTION_ADD_TO_LOG = "ch.amana.android.cputuner.ACTION_ADD_TO_LOG";
 	public static final String ACTION_FLUSH_LOG = "ch.amana.android.cputuner.ACTION_FLUSH_LOG";
 	public static final String EXTRA_LOG_ENTRY = DB.SwitchLogDB.NAME_MESSAGE;
+	public static final String EXTRA_FLUSH_LOG = "EXTRA_FLUSH_LOG";
 
 
 	private final ArrayList<ContentProviderOperation> operations;
@@ -83,7 +84,7 @@ public class SwitchLog extends BroadcastReceiver {
 			Builder opp = ContentProviderOperation.newInsert(DB.SwitchLogDB.CONTENT_URI);
 			opp.withValues(values);
 			operations.add(opp.build());
-			if (operations.size() > 10) {
+			if (operations.size() > 10 || intent.getBooleanExtra(EXTRA_FLUSH_LOG, false)) {
 				flushLogToDB(context);
 			}
 
