@@ -115,6 +115,7 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		case R.id.itemMark:
 			Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
 			i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, act.getString(R.string.menuMarkLog));
+			i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);
 			act.sendBroadcast(i);
 			return true;
 		case R.id.itemClear:
