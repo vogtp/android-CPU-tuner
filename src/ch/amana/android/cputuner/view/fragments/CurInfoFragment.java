@@ -389,9 +389,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onResume() {
 		super.onResume();
-		governorFragment.updateVirtGov(true);
-		spProfiles.requestFocus();
-		updateView();
+		if (getActivity() != null) {
+			governorFragment.updateVirtGov(true);
+			updateView();
+		}
 	}
 
 	@Override
