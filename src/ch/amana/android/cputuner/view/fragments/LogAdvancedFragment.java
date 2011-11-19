@@ -64,8 +64,14 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 				@Override
 				protected Cursor getChildrenCursor(Cursor groupCursor) {
 					String id = Integer.toString(groupCursor.getInt(DB.INDEX_ID));
-					return act.managedQuery(DB.SwitchLogDB.CONTENT_URI, SwitchLogDB.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+					Cursor c = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, SwitchLogDB.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
 							new String[] { id }, SwitchLogDB.SORTORDER_DEFAULT);
+					if (c.moveToFirst() && c.getString(SwitchLogDB.INDEX_TRIGGER) != null) {
+						return c;
+					} else {
+						return null;
+					}
+
 				}
 			};
 
