@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -156,7 +158,18 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	}
 
 	private void requestUpdate() {
-		getActivity().sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
+		FragmentActivity activity = getActivity();
+		if (activity == null) {
+			Handler h = new Handler();
+			h.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					requestUpdate();
+				}
+			}, 2000);
+		} else {
+			activity.sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
+		}
 	}
 
 }
