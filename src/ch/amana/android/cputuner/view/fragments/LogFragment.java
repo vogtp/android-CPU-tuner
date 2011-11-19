@@ -18,9 +18,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -99,6 +101,7 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.refresh_option, menu);
+		inflater.inflate(R.menu.upgrade_option, menu);
 	}
 
 	@Override
@@ -106,6 +109,12 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 		switch (item.getItemId()) {
 		case R.id.itemRefresh:
 			requestUpdate();
+			return true;
+		case R.id.itemUpgrade:
+			Intent i = new Intent(act, BillingProductListActiviy.class);
+			i.putExtra(BillingProductListActiviy.EXTRA_TITLE, act.getString(R.string.title_extentions));
+			i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);
+			act.startActivity(i);
 			return true;
 		}
 		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
