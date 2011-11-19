@@ -283,7 +283,12 @@ public class StatsAdvancedFragment extends PagerFragment {
 	}
 
 	private void createBaseline(Context ctx) {
-		totaltransitionsBaseline = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions());
+		try {
+			totaltransitionsBaseline = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions());
+		} catch (NumberFormatException e) {
+			Logger.w("Cannot parse cpu transitions as long ", e);
+			totaltransitionsBaseline = -1;
+		}
 		timeinstateBaseline = CpuHandler.getInstance().getCpuTimeinstate();
 		SettingsStorage.getInstance().setTimeinstateBaseline(timeinstateBaseline);
 		SettingsStorage.getInstance().setTotaltransitionsBaseline(totaltransitionsBaseline);
