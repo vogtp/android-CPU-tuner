@@ -9,4 +9,6 @@
     <string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
     <string name="menuMarkLog">Mark</string>
     <string name="menuClearLog">Clear Log</string>
+    <string name="enabled">enabled</string>
+    <string name="not_enabled">not enabled</string>
 </resources>
