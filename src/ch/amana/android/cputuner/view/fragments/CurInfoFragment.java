@@ -1,5 +1,8 @@
 package ch.amana.android.cputuner.view.fragments;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,6 +15,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -25,6 +31,7 @@ import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
+import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.helper.GuiUtils;
@@ -44,7 +51,10 @@ import ch.amana.android.cputuner.service.TunerService;
 import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
+import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
+
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback, StateChangeListener {
 
@@ -381,7 +391,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		super.onResume();
 		governorFragment.updateVirtGov(true);
 		spProfiles.requestFocus();
-		//		updateView();
+		updateView();
 	}
 
 	@Override
@@ -420,12 +430,15 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		BatteryHandler batteryHandler = BatteryHandler.getInstance();
 		int currentNow = batteryHandler.getBatteryCurrentNow();
 		if (currentNow > 0) {
-			currentText.append(batteryHandler.getBatteryCurrentNow()).append(" mA/h");
+			currentText.append(currentNow).append(" mA/h");
 		}
 		if (batteryHandler.hasAvgCurrent()) {
 			int currentAvg = batteryHandler.getBatteryCurrentAverage();
-			if (currentAvg != BatteryHandler.NO_VALUE_INT) {
-				currentText.append(" (").append(getString(R.string.label_avgerage)).append(" ").append(batteryHandler.getBatteryCurrentAverage()).append(" mA/h)");
+			if (currentAvg > 0) {
+				if (currentText.length() > 0) {
+					currentText.append("; ");
+				}
+				currentText.append(getString(R.string.label_avgerage)).append(" ").append(currentAvg).append(" mA/h");
 			}
 		}
 		if (currentText.length() > 0) {
@@ -542,4 +555,41 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		return getActivity();
 	}
 
+	@Override
+	public List<Action> getActions() {
+		List<Action> actions = new ArrayList<Action>(2);
+		actions.add(new Action() {
+			@Override
+			public void performAction(View view) {
+				updateView();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.ic_menu_refresh;
+			}
+		});
+		return actions;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.refresh_option, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.itemRefresh:
+			updateView();
+			return true;
+
+		}
+		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_INDEX)) {
+			return true;
+		}
+		return false;
+	}
 }
