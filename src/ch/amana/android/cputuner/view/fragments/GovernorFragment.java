@@ -126,15 +126,21 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				callback.updateModel();
+				if (callback != null) {
+					callback.updateModel();
+				}
 				String gov = parent.getItemAtPosition(pos).toString();
 				getGovernorModel().setGov(gov);
-				callback.updateView();
+				if (callback != null) {
+					callback.updateView();
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				callback.updateView();
+				if (callback != null) {
+					callback.updateView();
+				}
 			}
 
 		});
