@@ -122,12 +122,16 @@ public class StatsFragment extends PagerFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.refresh_option, menu);
 		inflater.inflate(R.menu.upgrade_option, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.itemRefresh:
+			updateView(getActivity());
+			return true;
 		case R.id.itemUpgrade:
 			Intent i = new Intent(act, BillingProductListActiviy.class);
 			i.putExtra(BillingProductListActiviy.EXTRA_TITLE, act.getString(R.string.title_extentions));
