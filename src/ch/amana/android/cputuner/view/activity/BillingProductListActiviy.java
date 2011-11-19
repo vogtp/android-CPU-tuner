@@ -98,7 +98,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	@Override
 	protected void onPause() {
 		super.onPause();
-		reinitaliseOwnedItems();
+		//		reinitaliseOwnedItems();
 	}
 
 	@Override
@@ -116,6 +116,19 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 				bm.requestPurchase(product.getProductId());
 			} catch (Throwable e) {
 				Logger.w("Error requesting purchase", e);
+			}
+		}
+		if (product.isManaged() && product.getCount() > 0) {
+			if (BillingProducts.statistics.equals(product.getProductId())) {
+				SettingsStorage settings = SettingsStorage.getInstance();
+				if (settings.isAdvancesStatistics()) {
+					settings.setAdvancesStatistics(false);
+					Toast.makeText(this, product.getName() + ": " + getString(R.string.not_enabled), Toast.LENGTH_SHORT).show();
+				} else {
+					settings.setAdvancesStatistics(true);
+					Toast.makeText(this, product.getName() + ": " + getString(R.string.enabled), Toast.LENGTH_SHORT).show();
+				}
+				updateView();
 			}
 		}
 		super.onListItemClick(l, v, position, id);
