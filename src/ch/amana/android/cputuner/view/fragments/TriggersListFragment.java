@@ -146,6 +146,9 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 							}
 						}
 					}
+					if (cpuCursor != null) {
+						cpuCursor.close();
+					}
 					TextView tv = ((TextView) view);
 					tv.setText(profileName);
 					tv.setTextColor(color);
