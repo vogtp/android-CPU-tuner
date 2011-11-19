@@ -1,7 +1,9 @@
 package ch.amana.android.cputuner.view.fragments;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,13 +22,14 @@ import android.widget.SimpleCursorTreeAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.SwitchLogDB;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class LogAdvancedFragment extends PagerFragment implements StateChangeListener {
 
@@ -92,6 +95,12 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		requestUpdate();
+	}
+
+	@Override
 	public void onPause() {
 
 		Activity act = getActivity();
@@ -104,19 +113,18 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		if (SettingsStorage.getInstance().isAdvancesStatistics()) {
-			inflater.inflate(R.menu.log_advstat_option, menu);
-		}
+		inflater.inflate(R.menu.refresh_option, menu);
+		inflater.inflate(R.menu.log_advstat_option, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.itemRefresh:
+			requestUpdate();
+			return true;
 		case R.id.itemMark:
-			Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
-			i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, act.getString(R.string.menuMarkLog));
-			i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);
-			act.sendBroadcast(i);
+			markLog(act);
 			return true;
 		case R.id.itemClear:
 			act.getContentResolver().delete(DB.SwitchLogDB.CONTENT_URI, null, null);
@@ -126,6 +134,41 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Action> getActions() {
+		List<Action> actions = new ArrayList<Action>(2);
+		actions.add(new Action() {
+			@Override
+			public void performAction(View view) {
+				markLog(getActivity());
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.ic_menu_mark;
+			}
+		});
+		actions.add(new Action() {
+			@Override
+			public void performAction(View view) {
+				requestUpdate();
+			}
+
+			@Override
+			public int getDrawable() {
+				return R.drawable.ic_menu_refresh;
+			}
+		});
+		return actions;
+	}
+
+	private void markLog(Activity act) {
+		Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
+		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, act.getString(R.string.menuMarkLog));
+		i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);
+		act.sendBroadcast(i);
 	}
 
 	@Override
