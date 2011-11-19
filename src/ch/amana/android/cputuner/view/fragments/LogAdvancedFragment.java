@@ -8,46 +8,47 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
+import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.SimpleCursorTreeAdapter;
+import android.widget.SimpleCursorTreeAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.SwitchLogDB;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class LogFragment extends PagerListFragment implements StateChangeListener {
+public class LogAdvancedFragment extends PagerFragment implements StateChangeListener {
 
-	//	private TextView tvStats;
 	private Cursor displayCursor;
-	private SimpleCursorAdapter adapter;
+	private SimpleCursorTreeAdapter adapter;
 	private final Date now = new Date();
+	private ExpandableListView elvLog;
 
 	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-	//	@Override
-	//	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	//		// Inflate the layout for this fragment
-	//		View v = inflater.inflate(R.layout.list, container, false);
-	//		//		tvStats = (TextView) v.findViewById(R.id.tvLog);
-	//		return v;
-	//	}
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		View v = inflater.inflate(R.layout.switch_log_adv, container, false);
+		elvLog = (ExpandableListView) v.findViewById(R.id.elvLog);
+		return v;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Activity act = getActivity();
-		if (act instanceof CpuTunerViewpagerActivity) {
-			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-		}
+
 	}
 
 	@Override
@@ -55,11 +56,21 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 		super.onResume();
 		final Activity act = getActivity();
 		if (displayCursor == null) {
-			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
-			adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
-					new String[] { DB.SwitchLogDB.NAME_MESSAGE },
-					new int[] { android.R.id.text1 });
+			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+			adapter = new SimpleCursorTreeAdapter(act, displayCursor,
+					android.R.layout.simple_spinner_item, new String[] { DB.SwitchLogDB.NAME_MESSAGE }, new int[] { android.R.id.text1 },
+					android.R.layout.two_line_list_item, new String[] { DB.SwitchLogDB.NAME_BATTERY, DB.SwitchLogDB.NAME_PROFILE }, new int[] { android.R.id.text1,
+							android.R.id.text2 }) {
+				
+				@Override
+				protected Cursor getChildrenCursor(Cursor groupCursor) {
+					String id = Integer.toString(groupCursor.getInt(DB.INDEX_ID));
+					return act.managedQuery(DB.SwitchLogDB.CONTENT_URI, SwitchLogDB.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+							new String[] { id }, SwitchLogDB.SORTORDER_DEFAULT);
+				}
+			};
 
+			
 			adapter.setViewBinder(new ViewBinder() {
 
 				@Override
@@ -77,9 +88,10 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 					return false;
 				}
 			});
-			
-			setListAdapter(adapter);
+
+			elvLog.setAdapter(adapter);
 		}
+
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
@@ -139,5 +151,4 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	private void requestUpdate() {
 		getActivity().sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
 	}
-
 }

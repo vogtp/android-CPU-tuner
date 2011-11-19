@@ -57,9 +57,11 @@ public interface DB {
 
 		private static final String CREATE_SWITCH_LOG_TABLE = "create table if not exists " + SwitchLogDB.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, " + DB.SwitchLogDB.NAME_TIME + " long, " + DB.SwitchLogDB.NAME_MESSAGE + " text, "
-				+ DB.SwitchLogDB.NAME_TRIGGER + " text, " + DB.SwitchLogDB.NAME_PROFILE + " text, " + DB.SwitchLogDB.NAME_VIRTGOV + " text, "
-				+ DB.SwitchLogDB.NAME_BATTERY + " int, " + DB.SwitchLogDB.NAME_LOCKED + " int, " + DB.SwitchLogDB.NAME_AC + " int, " + DB.SwitchLogDB.NAME_CALL + " int, "
-				+ DB.SwitchLogDB.NAME_HOT + " int)";
+				+ DB.SwitchLogDB.NAME_TRIGGER + " text DEFAULT NULL, " + DB.SwitchLogDB.NAME_PROFILE + " text DEFAULT NULL, " + DB.SwitchLogDB.NAME_VIRTGOV
+				+ " text DEFAULT NULL, "
+				+ DB.SwitchLogDB.NAME_BATTERY + " int DEFAULT -1, " + DB.SwitchLogDB.NAME_LOCKED + " int DEFAULT -1, " + DB.SwitchLogDB.NAME_AC + " int DEFAULT -1, "
+				+ DB.SwitchLogDB.NAME_CALL + " int DEFAULT -1, "
+				+ DB.SwitchLogDB.NAME_HOT + " int DEFAULT -1)";
 
 		public CpuTunerOpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);

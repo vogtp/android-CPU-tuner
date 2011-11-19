@@ -1,4 +1,6 @@
 - fix cpu tuner not triggering over night
+- sort user cofigs by time
+- fix insert (new) and rename
 
 - advanced statistics: graph for trigger and or profile
 - advanced statistics: rework graph to use screen size

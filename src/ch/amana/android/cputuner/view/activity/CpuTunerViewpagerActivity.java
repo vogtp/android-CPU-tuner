@@ -29,6 +29,7 @@ import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter.PagerItem;
 import ch.amana.android.cputuner.view.fragments.CurInfoFragment;
+import ch.amana.android.cputuner.view.fragments.LogAdvancedFragment;
 import ch.amana.android.cputuner.view.fragments.LogFragment;
 import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
 import ch.amana.android.cputuner.view.fragments.StatsAdvancedFragment;
@@ -48,8 +49,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
 	private final Set<StateChangeListener> stateChangeListeners = new HashSet<StateChangeListener>();
-
-	//	private BillingManager billingManager;
 
 	public interface StateChangeListener {
 
@@ -139,11 +138,14 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		}
 		if (settings.isAdvancesStatistics()) {
 			pagerAdapter.addPage(StatsAdvancedFragment.class, R.string.labelStatisticsTab);
+			if (settings.isEnableLogProfileSwitches()) {
+				pagerAdapter.addPage(LogAdvancedFragment.class, R.string.labelLogTab);
+			}
 		} else {
 			pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
-		}
-		if (settings.getProfileSwitchLogSize() > 0) {
-			pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
+			if (settings.isEnableLogProfileSwitches()) {
+				pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
+			}
 		}
 	}
 

@@ -12,6 +12,7 @@ import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
+import ch.amana.android.cputuner.provider.db.DB;
 
 public class PowerProfiles {
 
@@ -218,11 +219,19 @@ public class PowerProfiles {
 			}
 
 			Intent intent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
-			if (settings.getProfileSwitchLogSize() > 0) {
+			if (settings.isEnableLogProfileSwitches()) {
 				StringBuilder sb = new StringBuilder();
 				sb.append(currentTrigger.getName()).append(" -> ");
 				sb.append(currentProfile.getProfileName());
 				intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, sb.toString());
+				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
+				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
+				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, currentProfile.toString());
+				intent.putExtra(DB.SwitchLogDB.NAME_AC, acPower ? 1 : 0);
+				intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, batteryLevel);
+				intent.putExtra(DB.SwitchLogDB.NAME_CALL, callInProgress ? 1 : 0);
+				intent.putExtra(DB.SwitchLogDB.NAME_HOT, batteryHot ? 1 : 0);
+				intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, screenOff ? 1 : 0);
 			}
 			context.sendBroadcast(intent);
 		} catch (Throwable e) {
