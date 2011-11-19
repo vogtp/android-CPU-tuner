@@ -190,14 +190,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		//		return pagerAdapter.onCreateOptionsMenu(menu);
-		//		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
-		//		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
-		return true;
-	}
-
-	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		//		return pagerAdapter.onPrepareOptionsMenu(menu);
 		menu.clear();
@@ -231,10 +223,12 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		registerReceiver();
+		PagerAdapter.getCurrentItem().onResume();
 	}
 
 	@Override
 	protected void onPause() {
+		PagerAdapter.getCurrentItem().onPause();
 		unregisterReceiver();
 		super.onPause();
 	}
