@@ -8,8 +8,9 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,9 +56,10 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		if (displayCursor == null) {
 			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
 			adapter = new SimpleCursorTreeAdapter(act, displayCursor,
-					android.R.layout.simple_spinner_item, new String[] { DB.SwitchLogDB.NAME_MESSAGE }, new int[] { android.R.id.text1 },
-					android.R.layout.two_line_list_item, new String[] { DB.SwitchLogDB.NAME_BATTERY, DB.SwitchLogDB.NAME_PROFILE }, new int[] { android.R.id.text1,
-							android.R.id.text2 }) {
+					R.layout.log_adv_item_main, new String[] { DB.SwitchLogDB.NAME_TIME, DB.SwitchLogDB.NAME_MESSAGE }, new int[] { R.id.tvTime, R.id.tvMsg },
+					R.layout.log_adv_item_child,
+					new String[] { DB.SwitchLogDB.NAME_TRIGGER, DB.SwitchLogDB.NAME_PROFILE, DB.SwitchLogDB.NAME_VIRTGOV, DB.SwitchLogDB.NAME_BATTERY, DB.SwitchLogDB.NAME_LOCKED },
+					new int[] { R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvOther }) {
 				
 				@Override
 				protected Cursor getChildrenCursor(Cursor groupCursor) {
@@ -72,14 +74,21 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 
 				@Override
 				public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-					if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE) {
+					if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
 						now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
+						((TextView) view).setText(logDateFormat.format(now));
+						return true;
+					} else if (columnIndex == DB.SwitchLogDB.INDEX_LOCKED) {
 						StringBuilder sb = new StringBuilder();
-						sb.append(logDateFormat.format(now)).append(": ");
-						sb.append(cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE));
-						TextView textView = (TextView) view;
-						textView.setText(sb.toString());
-						textView.setTextColor(Color.LTGRAY);
+						sb.append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_LOCKED) == 0 ? R.string.screenOn : R.string.screenOff));
+						sb.append(", ").append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_AC) == 0 ? R.string.battery : R.string.ac_power));
+						if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
+							sb.append(", ").append(R.string.call_active);
+						}
+						if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
+							sb.append(", ").append(R.string.battery_hot);
+						}
+						((TextView) view).setText(sb.toString());
 						return true;
 					}
 					return false;
@@ -187,6 +196,17 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	}
 
 	private void requestUpdate() {
-		getActivity().sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
+		FragmentActivity activity = getActivity();
+		if (activity == null) {
+			Handler h = new Handler();
+			h.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					requestUpdate();
+				}
+			}, 2000);
+		}else {
+			activity.sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
+		}
 	}
 }

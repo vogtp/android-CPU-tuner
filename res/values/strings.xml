@@ -10,4 +10,10 @@
     <string name="menuMarkLog">Mark</string>
     <string name="menuClearLog">Clear Log</string>
     <string name="enabled">Enabled</string>
+    <string name="ac_power">On AC Power</string>
+    <string name="battery">On battery</string>
+    <string name="screenOn">Screen On</string>
+    <string name="screenOff">Screen Off</string>
+    <string name="call_active">Call active</string>
+    <string name="battery_hot">Battery hot</string>
 </resources>
