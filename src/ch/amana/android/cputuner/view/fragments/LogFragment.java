@@ -44,15 +44,6 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Activity act = getActivity();
-		if (act instanceof CpuTunerViewpagerActivity) {
-			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-		}
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
 		final Activity act = getActivity();
 		if (displayCursor == null) {
 			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);

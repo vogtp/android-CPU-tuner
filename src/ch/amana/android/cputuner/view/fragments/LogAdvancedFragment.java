@@ -48,12 +48,6 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
 		final Activity act = getActivity();
 		if (displayCursor == null) {
 			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
