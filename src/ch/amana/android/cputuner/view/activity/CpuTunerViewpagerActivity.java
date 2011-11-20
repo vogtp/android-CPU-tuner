@@ -201,8 +201,12 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
-			return true;
+		try {
+			if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
+				return true;
+			}
+		} catch (ClassCastException e) {
+			Logger.w("Current page is not a pager item", e);
 		}
 		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
 			return true;
