@@ -21,6 +21,7 @@ public class SwitchLog extends BroadcastReceiver {
 	public static final String EXTRA_LOG_ENTRY = DB.SwitchLogDB.NAME_MESSAGE;
 	public static final String EXTRA_FLUSH_LOG = "EXTRA_FLUSH_LOG";
 
+	private static final long HOURS_IN_MILLIES = 1000 * 60 * 60;
 
 	private final ArrayList<ContentProviderOperation> operations;
 	//	private ArrayList<String> log;
@@ -94,6 +95,14 @@ public class SwitchLog extends BroadcastReceiver {
 
 	private void flushLogToDB(Context context) {
 		try {
+			int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
+			if (logSize > -1) {
+				Builder opp = ContentProviderOperation.newDelete(DB.SwitchLogDB.CONTENT_URI);
+				String time = Long.toString(System.currentTimeMillis() - (logSize * HOURS_IN_MILLIES));
+				opp.withSelection(DB.SwitchLogDB.SELECTION_BY_TIME, new String[] { time });
+				operations.add(opp.build());
+			}
+
 			context.getContentResolver().applyBatch(CpuTunerProvider.AUTHORITY, operations);
 			operations.clear();
 		} catch (Exception e) {

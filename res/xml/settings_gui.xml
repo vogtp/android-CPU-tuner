@@ -64,7 +64,7 @@
         android:title="@string/labelLogTab" >
 
         <EditTextPreference
-            android:defaultValue="0"
+            android:defaultValue="24"
             android:key="prefKeyProfileSwitchLogSize"
             android:summary="@string/prefProfileSwitchLogSizeLong"
             android:title="@string/prefProfileSwitchLogSize" >

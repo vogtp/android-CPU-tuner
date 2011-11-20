@@ -519,7 +519,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableLogProfileSwitches() {
-		return getProfileSwitchLogSize() > 0;
+		return getProfileSwitchLogSize() != 0;
 	}
 
 	public boolean isFirstRun() {

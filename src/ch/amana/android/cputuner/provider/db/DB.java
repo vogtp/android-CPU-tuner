@@ -426,5 +426,7 @@ public interface DB {
 		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
 		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
 
+		public static final String SELECTION_BY_TIME = NAME_TIME + " < ?";
+
 	}
 }

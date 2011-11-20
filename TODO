@@ -1,10 +1,18 @@
+- clear switch log after x hours (and change pref strings)
+- adv log: display message in details and display battery in overview
+- adv log: display day if it is older than 24h
+
 - fix cpu tuner not triggering over night
-- sort user cofigs by time
-- fix insert (new) and rename
+
+- check if cpu tuner is running (timed)
+- sf web site
 
 - advanced statistics: graph for trigger and or profile
 - advanced statistics: rework graph to use screen size
 
+- ask user to disable log if he does not use it
+
+- sort user cofigs by time
 - timed manual service changes (i.e. change back after a certain time)
 - fix hasManualServicesChanges to reflect current trigger and get better answers
 
