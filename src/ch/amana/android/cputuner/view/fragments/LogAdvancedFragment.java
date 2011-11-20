@@ -55,12 +55,16 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		final Activity act = getActivity();
 		if (displayCursor == null) {
 			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
-			adapter = new SimpleCursorTreeAdapter(act, displayCursor,
-					R.layout.log_adv_item_main, new String[] { DB.SwitchLogDB.NAME_TIME, DB.SwitchLogDB.NAME_MESSAGE }, new int[] { R.id.tvTime, R.id.tvMsg },
+			adapter = new SimpleCursorTreeAdapter(
+					act,
+					displayCursor,
+					R.layout.log_adv_item_main,
+					new String[] { DB.SwitchLogDB.NAME_TIME, DB.SwitchLogDB.NAME_MESSAGE },
+					new int[] { R.id.tvTime, R.id.tvMsg },
 					R.layout.log_adv_item_child,
 					new String[] { DB.SwitchLogDB.NAME_TRIGGER, DB.SwitchLogDB.NAME_PROFILE, DB.SwitchLogDB.NAME_VIRTGOV, DB.SwitchLogDB.NAME_BATTERY, DB.SwitchLogDB.NAME_LOCKED },
 					new int[] { R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvOther }) {
-				
+
 				@Override
 				protected Cursor getChildrenCursor(Cursor groupCursor) {
 					String id = Integer.toString(groupCursor.getInt(DB.INDEX_ID));
@@ -75,7 +79,6 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 				}
 			};
 
-			
 			adapter.setViewBinder(new ViewBinder() {
 
 				@Override
@@ -202,17 +205,15 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	}
 
 	private void requestUpdate() {
-		FragmentActivity activity = getActivity();
-		if (activity == null) {
-			Handler h = new Handler();
-			h.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					requestUpdate();
+		Handler h = new Handler();
+		h.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				FragmentActivity activity = getActivity();
+				if (activity != null) {
+					activity.sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
 				}
-			}, 2000);
-		}else {
-			activity.sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
-		}
+			}
+		}, 1000);
 	}
 }

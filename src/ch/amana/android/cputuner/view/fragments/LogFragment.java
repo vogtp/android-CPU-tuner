@@ -158,18 +158,16 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	}
 
 	private void requestUpdate() {
-		FragmentActivity activity = getActivity();
-		if (activity == null) {
-			Handler h = new Handler();
-			h.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					requestUpdate();
+		Handler h = new Handler();
+		h.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				FragmentActivity activity = getActivity();
+				if (activity != null) {
+					activity.sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
 				}
-			}, 2000);
-		} else {
-			activity.sendBroadcast(new Intent(SwitchLog.ACTION_FLUSH_LOG));
-		}
+			}
+		}, 1000);
 	}
 
 }
