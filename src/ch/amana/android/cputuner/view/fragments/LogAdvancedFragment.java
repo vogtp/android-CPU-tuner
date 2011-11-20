@@ -58,11 +58,12 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 				act,
 				displayCursor,
 				R.layout.log_adv_item_main,
-				new String[] { DB.SwitchLogDB.NAME_TIME, DB.SwitchLogDB.NAME_MESSAGE },
-				new int[] { R.id.tvTime, R.id.tvMsg },
+				new String[] { DB.SwitchLogDB.NAME_TIME, DB.SwitchLogDB.NAME_MESSAGE, DB.SwitchLogDB.NAME_BATTERY },
+				new int[] { R.id.tvTime, R.id.tvMsg, R.id.tvBattery },
 				R.layout.log_adv_item_child,
-				new String[] { DB.SwitchLogDB.NAME_TRIGGER, DB.SwitchLogDB.NAME_PROFILE, DB.SwitchLogDB.NAME_VIRTGOV, DB.SwitchLogDB.NAME_BATTERY, DB.SwitchLogDB.NAME_LOCKED },
-				new int[] { R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvOther }) {
+				new String[] { DB.SwitchLogDB.NAME_MESSAGE, DB.SwitchLogDB.NAME_TRIGGER, DB.SwitchLogDB.NAME_PROFILE, DB.SwitchLogDB.NAME_VIRTGOV, DB.SwitchLogDB.NAME_BATTERY,
+						DB.SwitchLogDB.NAME_LOCKED },
+				new int[] { R.id.tvMsg, R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvState }) {
 
 			@Override
 			protected Cursor getChildrenCursor(Cursor groupCursor) {
@@ -83,6 +84,14 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 				if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
 					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
 					((TextView) view).setText(logDateFormat.format(now));
+					return true;
+				} else if (columnIndex == DB.SwitchLogDB.INDEX_BATTERY) {
+					int bat = cursor.getInt(DB.SwitchLogDB.INDEX_BATTERY);
+					if (bat > -1) {
+						((TextView) view).setText(bat + "%");
+					} else {
+						((TextView) view).setText("");
+					}
 					return true;
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_LOCKED) {
 					StringBuilder sb = new StringBuilder();

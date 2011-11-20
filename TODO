@@ -1,5 +1,4 @@
-- clear switch log after x hours (and change pref strings)
-- adv log: display message in details and display battery in overview
+- clear switch log after x hours (check)
 - adv log: display day if it is older than 24h
 
 - fix cpu tuner not triggering over night
