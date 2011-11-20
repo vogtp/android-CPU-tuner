@@ -227,7 +227,11 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		registerReceiver();
-		PagerAdapter.getCurrentItem().onResume();
+		try {
+			PagerAdapter.getCurrentItem().onResume();
+		} catch (Exception e) {
+			Logger.e("Cannot resume current fragment", e);
+		}
 	}
 
 	@Override
