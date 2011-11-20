@@ -50,71 +50,62 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public void onResume() {
+		super.onResume();
 		final Activity act = getActivity();
-		if (displayCursor == null) {
-			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
-			adapter = new SimpleCursorTreeAdapter(
-					act,
-					displayCursor,
-					R.layout.log_adv_item_main,
-					new String[] { DB.SwitchLogDB.NAME_TIME, DB.SwitchLogDB.NAME_MESSAGE },
-					new int[] { R.id.tvTime, R.id.tvMsg },
-					R.layout.log_adv_item_child,
-					new String[] { DB.SwitchLogDB.NAME_TRIGGER, DB.SwitchLogDB.NAME_PROFILE, DB.SwitchLogDB.NAME_VIRTGOV, DB.SwitchLogDB.NAME_BATTERY, DB.SwitchLogDB.NAME_LOCKED },
-					new int[] { R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvOther }) {
+		displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+		adapter = new SimpleCursorTreeAdapter(
+				act,
+				displayCursor,
+				R.layout.log_adv_item_main,
+				new String[] { DB.SwitchLogDB.NAME_TIME, DB.SwitchLogDB.NAME_MESSAGE },
+				new int[] { R.id.tvTime, R.id.tvMsg },
+				R.layout.log_adv_item_child,
+				new String[] { DB.SwitchLogDB.NAME_TRIGGER, DB.SwitchLogDB.NAME_PROFILE, DB.SwitchLogDB.NAME_VIRTGOV, DB.SwitchLogDB.NAME_BATTERY, DB.SwitchLogDB.NAME_LOCKED },
+				new int[] { R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvOther }) {
 
-				@Override
-				protected Cursor getChildrenCursor(Cursor groupCursor) {
-					String id = Integer.toString(groupCursor.getInt(DB.INDEX_ID));
-					Cursor c = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, SwitchLogDB.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
-							new String[] { id }, SwitchLogDB.SORTORDER_DEFAULT);
-					if (c.moveToFirst() && c.getString(SwitchLogDB.INDEX_TRIGGER) != null) {
-						return c;
-					} else {
-						return null;
-					}
-
+			@Override
+			protected Cursor getChildrenCursor(Cursor groupCursor) {
+				String id = Integer.toString(groupCursor.getInt(DB.INDEX_ID));
+				Cursor c = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, SwitchLogDB.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+						new String[] { id }, SwitchLogDB.SORTORDER_DEFAULT);
+				if (c.moveToFirst() && c.getString(SwitchLogDB.INDEX_TRIGGER) != null) {
+					return c;
 				}
-			};
+				return null;
+			}
+		};
 
-			adapter.setViewBinder(new ViewBinder() {
+		adapter.setViewBinder(new ViewBinder() {
 
-				@Override
-				public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-					if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
-						now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
-						((TextView) view).setText(logDateFormat.format(now));
-						return true;
-					} else if (columnIndex == DB.SwitchLogDB.INDEX_LOCKED) {
-						StringBuilder sb = new StringBuilder();
-						sb.append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_LOCKED) == 0 ? R.string.screenOn : R.string.screenOff));
-						sb.append(", ").append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_AC) == 0 ? R.string.battery : R.string.ac_power));
-						if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
-							sb.append(", ").append(R.string.call_active);
-						}
-						if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
-							sb.append(", ").append(R.string.battery_hot);
-						}
-						((TextView) view).setText(sb.toString());
-						return true;
+			@Override
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
+					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
+					((TextView) view).setText(logDateFormat.format(now));
+					return true;
+				} else if (columnIndex == DB.SwitchLogDB.INDEX_LOCKED) {
+					StringBuilder sb = new StringBuilder();
+					sb.append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_LOCKED) == 0 ? R.string.screenOn : R.string.screenOff));
+					sb.append(", ").append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_AC) == 0 ? R.string.battery : R.string.ac_power));
+					if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
+						sb.append(", ").append(R.string.call_active);
 					}
-					return false;
+					if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
+						sb.append(", ").append(R.string.battery_hot);
+					}
+					((TextView) view).setText(sb.toString());
+					return true;
 				}
-			});
+				return false;
+			}
+		});
 
-			elvLog.setAdapter(adapter);
-		}
+		elvLog.setAdapter(adapter);
 
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
 		requestUpdate();
 	}
 
