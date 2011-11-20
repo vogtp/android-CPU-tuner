@@ -370,7 +370,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			try {
 				String action = getIntent().getAction();
 				if (exitStatus == ExitStatus.save) {
-					if (Intent.ACTION_INSERT.equals(action)) {
+					if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
 						modelAccess.insertProfile(profile);
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateProfile(profile);

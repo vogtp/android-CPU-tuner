@@ -246,7 +246,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 			try {
 				String action = getIntent().getAction();
 				if (exitStatus == ExitStatus.save && hasChange()) {
-					if (Intent.ACTION_INSERT.equals(action)) {
+					if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
 						modelAccess.insertTrigger(triggerModel);
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateTrigger(triggerModel);

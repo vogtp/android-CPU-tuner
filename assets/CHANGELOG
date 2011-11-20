@@ -11,6 +11,7 @@ V 3.1.0
 - refresh in "current" view  
 * bug fixes
 - prevent background service from stop working
+- save after insert as new
 
 V 3.0.2
 * features

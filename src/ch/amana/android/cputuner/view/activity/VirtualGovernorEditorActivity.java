@@ -134,7 +134,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 			try {
 				String action = getIntent().getAction();
 				if (exitStatus == ExitStatus.save) {
-					if (Intent.ACTION_INSERT.equals(action)) {
+					if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
 						modelAccess.insertVirtualGovernor(virtualGovModel);
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateVirtualGovernor(virtualGovModel);
