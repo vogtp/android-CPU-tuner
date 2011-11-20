@@ -1,183 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>Average value</item>
-		<item>Current value</item>
-		<!-- <item>Battery % per hour</item> -->
-		<item>No calculation</item>
-	</string-array>
-	<string name="msgEnableCputuner">Enabling cpu tuner</string>
-	<string name="msgDisableCputuner">Disabling cpu tuner</string>
-	<string name="labelYourConfigurations">Your configurations</string>
-	<string name="labelSystemConfigurations">System configurations</string>
-	<string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
-	<string name="labelPowesaveBiasPerformance">Performance</string>
-	<string name="labelPowesaveBiasPowersave">Powersave</string>
-	<string name="prefMaxFreq">Default maximum frequency</string>
-	<string name="prefMaxFreqLong">The maximum frequency to be applied when loading
-		default configurations.</string>
-	<string name="prefMinFreq">Default minimum frequency</string>
-	<string name="prefMinFreqLong">The minimum frequency to be applied when loading
-		default configurations.</string>
-	<string name="prefKeyFrequencies">Frequencies for default configurations</string>
-	<string name="title_triggers">Triggers</string>
-	<string name="msg_title_unsaved_changes">Unsaved changes</string>
-	<string name="msg_unsaved_changes">This editor has unsaved changes, if you close
-		without saving all changes will be lost. Do you want to save the
-		content?</string>
-	<string name="msg_title_grant_root">Grant root access.</string>
-	<string name="msg_grant_root">You will be asked to grant cpu tuner superuser
-		access. Please grant it and check the remember checkbox. Without this
-		access cpu tuner will not work. 
-	</string>
-	<string name="labelLogTab">Profile switch log</string>
-	<string name="msg_no_profile_switch_log">No profile switch log found</string>
-	<string name="menuItemInsertAsNew">Insert as new</string>
-	<string name="prefCatGUILong">Change the way it is displayed.</string>
-	<string name="prefCatSystemLong">Change the way it works.</string>
-	<string name="prefBuyMeABeerLong">Make me happier nothing more.</string>
-	<string name="prefVariousLong">Informations about cpu tuner.</string>
-	<string name="prefConfigurationsManageLong">Backup and restore configurations (i.e. a set of
-		triggers, profiles and governors).</string>
-	<string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>
-	<string name="prefLanguageLong">Choose a different language. You will have to
-		reopen cpu tuner.</string>
-	<string name="prefEnableCputunerOn">Cpu tuner is running.</string>
-	<string name="prefEnableCputunerOff">Cpu tuner is not running.</string>
-	<string name="prefKeyProfilesLong">Change the way profiles, triggers and governors
-		behave.</string>
-	<string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile date,
-		wifi or bluetooth) behave.</string>
-	<string name="prefCpuLong">Settings concerning the CPU.</string>
-	<string name="title_help_pages">Help pages</string>
-	<string name="msg_no_trigger_name">Please enter a trigger name</string>
-	<string name="msg_triggername_exists">A trigger with the same name already exists! Choose
-		a new name.</string>
-	<string name="msg_triggerbatterylevel_exists">A trigger with the same battery level already
-		exists! Change the battery level.</string>
-	<string name="msg_no_profile_name">Please enter a profile name</string>
-	<string name="msg_profilename_exists">A profile with the same name already exists! Choose
-		a new name.</string>
-	<string name="msg_no_virtgov_name">Please enter a virtual governor name</string>
-	<string name="msg_virtgovname_exists">A virtual governor with the same name already
-		exists! Choose a new name.</string>
-	<string name="title_load_configuration">Load configuration</string>
-	<string name="title_config_name_exists">Name exists</string>
-	<string name="msg_config_name_exists">A configuration with this name already exists.</string>
-	<string name="overwrite">Overwrite</string>
-	<string name="msg_empty_configuration_name">The configuration name must not be empty.</string>
-	<string name="label_frequency">Frequency</string>
-	<string name="label_time">Time</string>
-	<string name="prefLegalServiceIcons">Service icons License</string>
-	<string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod.
-		Thanks for the nice icons.</string>
-	<string name="title_no_configuration">No usable configuration</string>
-	<string name="label_no_configuration">Cpu tuner detected a unusable configuration and is
-		unable to run properly. Do you want to load a configuration?</string>
-	<string name="load">Load</string>
-	<string name="cont">Continue</string>
-	<string name="msg_error_loadconfig">Loading this configuration did not produce a valid
-		configuration! Either the configuration is broken or something went
-		wrong while loading. Please try again (with an other config).</string>
-	<string name="msg_unusable_comfig_save">This configuration cannot be saved since it is not
-		usable. There are either no trigger, profiles or virtual governors</string>
-	<string name="tvSequenceInfo">The profile are listed in the reverse sequence. Cpu
-		tuner starts at the bottom and chooses the first profile that matches
-		the current state</string>
-	<string name="msg_warning_manual_service_switches">
-		You enabled \"manual service changes\" in settings.
-		<br></br>
-		This means that services will not get switched when changed outside
-		cpu tuner.
-		<br></br>
-		Pulsed services and back to previous will get applied as normal.
-	</string>
-	<string name="msg_warning_not_switch_wifi_connected">Wifi will not switch if connected to a network.
-		Change this in settings.</string>
-	<string name="menuUpgrade">Get extensions</string>
-	<string name="desc_extention_stats">
-		The statistic extension generates nicer and more detailed statistics.
-		<br></br>
-		It helps you to fine tune you settings by giving you additional
-		information.
-		<br></br>
-		Work in progress...
-	</string>
-	<string name="title_products">Products</string>
-	<string name="title_extentions">Extensions</string>
-	<string name="name_extention_stats">Statistics Extension</string>
-	<string name="installed">Installed</string>
-	<string name="not_installed">Not installed</string>
-	<string name="purchased">Purchased: </string>
-	<string name="name_buy_me_a_beer">Buy me a beer</string>
-	<string name="name_buy_me_a_whiskey">Buy me a whiskey</string>
-	<string name="name_buy_cookie">Buy a cookie for my kid</string>
-	<string name="desc_buy_beer">This will make me happy.</string>
-	<string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-	<string name="desc_buy_cookie">This will keep my kid occupied and probable lets me
-		fix a bug (no promises made).</string>
-	<string name="desc_buy_toy">This will keep my kid occupied for some time and
-		probable lets me implement a feature (no promises made).</string>
-	<string name="name_buy_toy">Buy my kid a new toy</string>
-	<string name="prefextentionsLong">Add new features to cpu tuner</string>
-	<string name="title_changelog">Changelog</string>
-	<string name="refresh">Refresh</string>
-	<string name="reset">Reset</string>
-	<string name="title_reset_statistics">Reset statistics</string>
-	<string name="msg_reset_statistics">Reset the statistics and use the current state as
-		baseline for the future</string>
-	<string name="msgManualServiceChanges">
-		Some services have been manualy changed and will not be managed by cpu tuner until the next trigger.
-		<br></br>
-		Click text to reset.
-	</string>
-	<string name="title_reset_manual_service_switches">Reset services?</string>
-	<string name="msg_reset_manual_service_switches">Do you want to reset all manually changed services
-		and let cpu tuner handle further switches again?</string> 
-	<string name="msg_cpu_tuner_not_running">cpu tuner is not running</string>
-	<string-array name="prefAddToNotificationEntries">
-		<item>When running</item>
-		<item>Always</item>
-		<item>Never</item>
-	</string-array>
-		<string name="prefStatusbarAddToLong">Add to statusbar and notification area.</string>
-		<string name="prefInitialPulseDelay">Initial pulse delay</string>
-		<string name="prefInitialPulseDelayLong">Wait for some time (in s) bevore starting the first pulse.</string>
-		<string name="prefInitialPulseDelayMsg">Delay time in seconds</string>
-		<string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
-		<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the on power profile will be chosen.</string>
-		<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the screen off profile will be chosen.</string>
-		<string name="title_choose_experiance_level">Choose your experiance level</string>
-    <string name="labelUseCpus_front">Use </string>
-    <string name="labelUseCpus_end">CPUs</string>
-    <string name="prefMulticore">Use multicore CPU features</string>
-    <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
-    <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
-    <string name="labelActiveCpus">Active CPUs:</string>
-    <string name="prefEnableCputuner">Enable CPU tuner</string>
-    <string-array name="prefMulticoreEntries">
-        <item>Auto</item>
-        <item>Enable</item>
-        <item>Disable</item>
-    </string-array>
-    <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
-    <string name="prefConfigurationsLong">Backup and restore</string>
-    <string name="prefCpu">CPU Settings</string>
-    <string name="prefChangelog">Show Changelog</string>
-    <string name="label_version">Version:</string>
-    <string name="prefLegalGnomeIcons">Main icon License</string>
-    <string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
-		nice icons.</string>
-    <string name="msg_disable_cpu_tuner">Disable CPU tuner</string>
-    <string name="msg_disable_cputuner_question">Do you want to stop CPU tuner?</string>
-
-    <string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
-    <string name="prefNetworkModeOnWifiConnected">Netmode on wifi connected</string>
-    <string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a wifi network is connected. If the network is disconnected cpu tuner goes back to previous.</string>
-    <string-array name="mobiledataOnWifiStatesEnties">
-        <item>leave unchanged</item>
-        <item>2G only</item>
-        <item>3G/2G</item>
-        <item>3G only</item>
-    </string-array> 
+    <string name="prefLogPulse">Log pulse to switch log</string>
+    <string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
+    <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
+    <string name="msg_pulse_log_on">Pulse switched to on</string>
+    <string name="msg_pulse_log_off">Pulse switched to off</string>
+    <string name="msg_pulse_log_end">Stop pulsing</string>
+    <string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
+    <string name="menuMarkLog">Mark</string>
+    <string name="menuClearLog">Clear Log</string>
+    <string name="enabled">Enabled</string>
+    <string name="ac_power">On AC Power</string>
+    <string name="battery">On battery</string>
+    <string name="screenOn">Screen On</string>
+    <string name="screenOff">Screen Off</string>
+    <string name="call_active">Call active</string>
+    <string name="battery_hot">Battery hot</string>
+	<string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use 0
+		to disable and -1 to log for ever.</string>
 </resources>

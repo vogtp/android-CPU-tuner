@@ -20,7 +20,6 @@
 		<string name="label_profile_switches">Scambia profili:</string>
 		<string name="not_enabled">Non abilitato</string>
 		<string name="prefProfileSwitchLogSize">Dimensione log scambio profili</string>
-		<string name="prefProfileSwitchLogSizeLong">Numero di voci nel log scambio profili. Usa 0 perdisabilitarlo</string>
 		<string name="cbExactScheduling">Usa programmazione precisa.</string>
 		<string name="labelExactSchedulingExplain">La programmazione precisa consuma maggiore batteria.\nCon la programmazione imprecisa il cambio di configurazione potrebbe essere ritardato fino a mezzora</string>
 		<string name="msg_cannot_delete_configuration">Impossibile cancellare la configurazione dal momento che viene caricata automaticamente.</string>

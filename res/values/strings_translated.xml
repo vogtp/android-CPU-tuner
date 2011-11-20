@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="prefLogPulse">Log pulse to switch log</string>
+    <string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
+    <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
+    <string name="msg_pulse_log_on">Pulse switched to on</string>
+    <string name="msg_pulse_log_off">Pulse switched to off</string>
+    <string name="msg_pulse_log_end">Stop pulsing</string>
+    <string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
+    <string name="menuMarkLog">Mark</string>
+    <string name="menuClearLog">Clear Log</string>
+    <string name="enabled">Enabled</string>
+    <string name="ac_power">On AC Power</string>
+    <string name="battery">On battery</string>
+    <string name="screenOn">Screen On</string>
+    <string name="screenOff">Screen Off</string>
+    <string name="call_active">Call active</string>
+    <string name="battery_hot">Battery hot</string>
+	<string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use 0
+		to disable and -1 to log for ever.</string>
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Average value</item>
 		<item>Current value</item>
@@ -201,8 +219,6 @@
 	<string name="label_profile_switches">Profile switches:</string>
 	<string name="not_enabled">Not enabled</string>
 	<string name="prefProfileSwitchLogSize">Profile switch log size</string>
-	<string name="prefProfileSwitchLogSizeLong">Number of entries in the profile switch log. Use 0
-		to disable</string>
 	<string name="cbExactScheduling">Use exact scheduling.</string>
 	<string name="labelExactSchedulingExplain">Exact scheduling consumes more battery.\nWith
 		inexact scheduling the configuration change may delay up to half an

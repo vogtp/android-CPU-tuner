@@ -19,7 +19,6 @@
 		<string name="label_profile_switches">Διακόπτες προφίλ:</string>
 		<string name="not_enabled">Μη ενεργό</string>
 		<string name="prefProfileSwitchLogSize">Μέγεθος αρχείου καταγραφής αλλαγών προφίλ</string>
-		<string name="prefProfileSwitchLogSizeLong">Αριθμός των καταχωρήσεων στη καταγραφή αλλαγών προφίλ. Βάλτε 0 για απενεργοποίηση</string>
 		<string name="cbExactScheduling">Χρήση ακριβούς προγραμματισμού.</string>
 		<string name="labelExactSchedulingExplain">Ο ακριβής προγραμματισμός καταναλώνει περισσότερη μπαταρία.\nΜε τον ανακριβής προγραμματισμό η αλλαγή διαμόρφωσης μπορεί να καθυστερήσει έως και μισή ώρα.</string>
 		<string name="msg_cannot_delete_configuration">Δεν μπορείτε να διαγράψετε τη διαμόρφωση, δεδομένου ότι χρησιμοποιείται σε αυτόματη φόρτωση.</string>

@@ -196,8 +196,8 @@
 		<string name="hint_profile_name">Profil Name</string>
 		<string name="label_profile_switches">Profil wechsel:</string>
 		<string name="not_enabled">Nicht aktiviert</string>
-		<string name="prefProfileSwitchLogSize">Anz. gespeicherter Profil Wechsel</string>
-		<string name="prefProfileSwitchLogSizeLong">Anzahl Einträge in Profile-Wechsel Log. Verwende 0 um das Speichern abzuschalten.</string>
+		<string name="prefProfileSwitchLogSize">Profil Wechsel Log Grösse</string>
+		<string name="prefProfileSwitchLogSizeLong">Wie viele Stunden soll das Profile-Wechsel Log beinhalten. Verwende 0 um das Speichern abzuschalten und -1 um beliebig viel zu speichern.</string>
 		<string name="cbExactScheduling">Genaue Wechsel</string>
 		<string name="labelExactSchedulingExplain">Genaue Wechsel braucht mehr Batterie.\nUngenaue Wechsel können bis zu einer halben Stunde später erfolgen.</string>
 		<string name="msg_cannot_delete_configuration">Diese Kongiuration kann nicht gelöscht werden, da sie im Auto-Laden verwendet wird..</string>
