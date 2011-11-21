@@ -39,7 +39,8 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	private final Date now = new Date();
 	private ExpandableListView elvLog;
 
-	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
+	private static final SimpleDateFormat logTimeFormat = new SimpleDateFormat("HH:mm:ss");
+	private static final SimpleDateFormat logDateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,8 +63,8 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 				new int[] { R.id.tvTime, R.id.tvMsg, R.id.tvBattery },
 				R.layout.log_adv_item_child,
 				new String[] { DB.SwitchLogDB.NAME_MESSAGE, DB.SwitchLogDB.NAME_TRIGGER, DB.SwitchLogDB.NAME_PROFILE, DB.SwitchLogDB.NAME_VIRTGOV, DB.SwitchLogDB.NAME_BATTERY,
-						DB.SwitchLogDB.NAME_LOCKED },
-				new int[] { R.id.tvMsg, R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvState }) {
+						DB.SwitchLogDB.NAME_LOCKED, DB.SwitchLogDB.NAME_TIME },
+				new int[] { R.id.tvMessage, R.id.tvTrigger, R.id.tvProfile, R.id.tvGovernor, R.id.tvBatteryLevel, R.id.tvState, R.id.tvDateTimeDetail }) {
 
 			@Override
 			protected Cursor getChildrenCursor(Cursor groupCursor) {
@@ -81,9 +82,21 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-				if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
+				if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE && view.getId() == R.id.tvMsg) {
+					String profile = cursor.getString(DB.SwitchLogDB.INDEX_PROFILE);
+					if (profile != null) {
+						((TextView) view).setText(profile);
+						return true;
+					}
+				} else if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
 					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
-					((TextView) view).setText(logDateFormat.format(now));
+					String timeSrring;
+					if (view.getId() == R.id.tvDateTimeDetail) {
+						timeSrring = logDateTimeFormat.format(now);
+					} else {
+						timeSrring = logTimeFormat.format(now);
+					}
+					((TextView) view).setText(timeSrring);
 					return true;
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_BATTERY) {
 					int bat = cursor.getInt(DB.SwitchLogDB.INDEX_BATTERY);
@@ -184,7 +197,7 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 
 	private void markLog(Activity act) {
 		Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
-		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, act.getString(R.string.menuMarkLog));
+		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, act.getString(R.string.msgMarkLog));
 		i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);
 		act.sendBroadcast(i);
 	}

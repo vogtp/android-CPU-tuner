@@ -13,7 +13,27 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/labelTrigger"
+                android:id="@+id/labelTime"
+                style="@style/styleLogChildEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/labelTime" />
+
+            <TextView
+                android:id="@+id/tvDateTimeDetail"
+                style="@style/styleLogChildEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/labelMessage"
                 style="@style/styleLogChildEntry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -21,7 +41,7 @@
                 android:text="@string/labelMessage" />
 
             <TextView
-                android:id="@+id/tvMsg"
+                android:id="@+id/tvMessage"
                 style="@style/styleLogChildEntry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
