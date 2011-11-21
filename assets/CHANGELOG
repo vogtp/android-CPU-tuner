@@ -8,7 +8,7 @@ V 3.1.0
 * features
 - switch log uses DB
 - new advanced switch log with clear and mark (adv stats)
-- refresh in "current" view  
+- refresh "current" view  
 * bug fixes
 - prevent background service from stop working
 - save after insert as new
