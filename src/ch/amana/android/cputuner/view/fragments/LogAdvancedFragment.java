@@ -90,13 +90,13 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 					}
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
 					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
-					String timeSrring;
+					String timeString;
 					if (view.getId() == R.id.tvDateTimeDetail) {
-						timeSrring = logDateTimeFormat.format(now);
+						timeString = logDateTimeFormat.format(now);
 					} else {
-						timeSrring = logTimeFormat.format(now);
+						timeString = logTimeFormat.format(now);
 					}
-					((TextView) view).setText(timeSrring);
+					((TextView) view).setText(timeString);
 					return true;
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_BATTERY) {
 					int bat = cursor.getInt(DB.SwitchLogDB.INDEX_BATTERY);
