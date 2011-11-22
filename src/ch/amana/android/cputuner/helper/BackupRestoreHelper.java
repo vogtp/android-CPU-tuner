@@ -10,6 +10,7 @@ import org.json.JSONException;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
@@ -23,6 +24,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -136,9 +138,9 @@ public class BackupRestoreHelper {
 				return;
 			}
 			Logger.i("Loading configuration " + name);
+			Context context = cb.getContext();
 			try {
 				CpuTunerProvider.setNotifyChanges(false);
-				Context context = cb.getContext();
 				if (isUserConfig) {
 					File file = new File(getStoragePath(context, DIRECTORY_CONFIGURATIONS), name);
 					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
@@ -160,6 +162,9 @@ public class BackupRestoreHelper {
 				throw new Exception("Cannot restore configuration", e);
 			} finally {
 				CpuTunerProvider.setNotifyChanges(true);
+				Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
+				i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, name + " config loaded.");
+				context.sendBroadcast(i);
 			}
 		}
 	}
