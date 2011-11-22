@@ -43,7 +43,6 @@ import com.markupartist.android.widget.ActionBar.Action;
 public class ConfigurationManageActivity extends ListActivity implements OnItemClickListener, BackupRestoreCallback {
 
 	public static final String EXTRA_ASK_LOAD_CONFIRMATION = "askLoadConfirmation";
-	private static final String SELECT_CONFIG_BY_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	public static final String EXTRA_CLOSE_ON_LOAD = "closeOnLoad";
 	public static final String EXTRA_FIRST_RUN = "firstRun";
 	public static final String EXTRA_TITLE = "title";
@@ -307,7 +306,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	protected void renameDB(String oldName, String name) {
 		ContentValues values = new ContentValues(1);
 		values.put(DB.ConfigurationAutoload.NAME_CONFIGURATION, name);
-		getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, values, SELECT_CONFIG_BY_NAME, new String[] { oldName });
+		getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, values, DB.ConfigurationAutoload.SELECTION_NAME, new String[] { oldName });
 	}
 
 	private void replace(final File configuration) {
@@ -376,7 +375,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			Toast.makeText(this, R.string.msg_cannot_delete_current_configuration, Toast.LENGTH_LONG).show();
 			return;
 		}
-		Cursor cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, SELECT_CONFIG_BY_NAME,
+		Cursor cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, DB.ConfigurationAutoload.SELECTION_NAME,
 				new String[] { name }, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
 
 		// while (cursor.moveToNext()) {

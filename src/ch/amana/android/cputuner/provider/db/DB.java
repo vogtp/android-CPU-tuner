@@ -381,7 +381,7 @@ public interface DB {
 		public static final String SORTORDER_REVERSE = NAME_NEXT_EXEC + " DESC";
 
 		public static final String SELECTION_TIME_WEEKDAY = NAME_HOUR + "=? and " + NAME_MINUTE + "=? and " + NAME_WEEKDAY + "=? ";
-
+		public static final String SELECTION_NAME = DB.ConfigurationAutoload.NAME_CONFIGURATION + "=?";
 	}
 
 	public interface SwitchLogDB {
