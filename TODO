@@ -1,4 +1,4 @@
-- clear switch log after x hours (check)
+
 - adv log: display day if it is older than 24h
 
 - fix cpu tuner not triggering over night
