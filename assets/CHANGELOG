@@ -13,6 +13,7 @@ V 3.1.0
 - extensions can be disabled 
 * bug fixes
 - save after insert as new
+. force closes
 
 V 3.0.2
 * features
