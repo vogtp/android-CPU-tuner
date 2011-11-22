@@ -12,7 +12,7 @@ public class Logger {
 	private static final String TAG = "CPUTuner";
 	private static final String STACKTRACE_TAG = "CPUTunerStracktraceLog";
 
-	public final static boolean DEBUG = true;
+	public final static boolean DEBUG = false;
 
 
 	public static void e(String msg, Throwable t) {
