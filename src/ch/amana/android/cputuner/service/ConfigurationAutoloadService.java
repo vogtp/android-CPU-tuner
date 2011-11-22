@@ -13,7 +13,6 @@ import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
 import ch.amana.android.cputuner.provider.db.DB;
 
@@ -100,9 +99,6 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 							SettingsStorage settings = SettingsStorage.getInstance();
 							BackupRestoreHelper brh = new BackupRestoreHelper(this);
 							brh.restoreConfiguration(configuration, true, false);
-							Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
-							i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, "Loaded configuration " + configuration);
-							sendBroadcast(i);
 							settings.setCurrentConfiguration(configuration);
 						} catch (Exception e) {
 							Logger.e("Cannot autoload configuration " + configuration, e);
