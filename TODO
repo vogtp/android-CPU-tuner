@@ -1,8 +1,3 @@
-
-- adv log: display day if it is older than 24h
-
-- fix cpu tuner not triggering over night
-
 - check if cpu tuner is running (timed)
 - sf web site
 
