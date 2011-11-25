@@ -67,7 +67,7 @@
             android:defaultValue="24"
             android:key="prefKeyProfileSwitchLogSize"
             android:summary="@string/prefProfileSwitchLogSizeLong"
-            android:title="@string/prefProfileSwitchLogSize" >
+            android:title="@string/prefProfileSwitchLogSize" android:dialogMessage="@string/prefProfileSwitchLogSizeLong">
         </EditTextPreference>
 
         <CheckBoxPreference
