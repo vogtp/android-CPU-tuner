@@ -97,7 +97,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 				return false;
 			}
 		});
-
+		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(this);
 		getListView().setEnabled(SettingsStorage.getInstance().isUseVirtualGovernors());
 		
@@ -118,12 +118,12 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 		super.onDestroy();
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-
-		setListAdapter(adapter);
-	}
+	//	@Override
+	//	public void onResume() {
+	//		super.onResume();
+	//
+	//		setListAdapter(adapter);
+	//	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
