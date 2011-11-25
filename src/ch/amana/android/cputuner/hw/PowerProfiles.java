@@ -265,14 +265,17 @@ public class PowerProfiles {
 			Logger.v("Switching " + getServiceTypeName(type) + "  to last state which was " + lastState);
 			ret = lastState;
 		} else if (settings.isAllowManualServiceChanges()) {
-			if (ServicesHandler.getServiceState(context, type) != lastState && !wasPulsing) {
+			int lastSavedState = ServicesHandler.getServiceState(context, type);
+			if (lastSavedState != lastState && !wasPulsing && lastSavedState != SERVICE_STATE_LEAVE) {
 				Logger.v("Not switching " + getServiceTypeName(type) + " since it changed since last time");
 				manualServiceChanges.put(type, true);
 				return NO_STATE;
 			}
 		}
 		manualServiceChanges.put(type, false);
-		lastServiceState.put(type, ret);
+		if (ret != SERVICE_STATE_LEAVE) {
+			lastServiceState.put(type, ret);
+		}
 		return ret;
 	}
 
