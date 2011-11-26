@@ -1,4 +1,4 @@
-- check if cpu tuner is running (timed)
+- exclude profile switch log from backup
 - sf web site
 
 - advanced statistics: graph for trigger and or profile
@@ -6,7 +6,7 @@
 
 - ask user to disable log if he does not use it
 
-- sort user cofigs by time
+- sort user configs by time
 - timed manual service changes (i.e. change back after a certain time)
 - fix hasManualServicesChanges to reflect current trigger and get better answers
 

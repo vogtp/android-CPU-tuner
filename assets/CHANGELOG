@@ -4,6 +4,13 @@ V
 * bug fixes
 - 
 
+V 3.1.1
+* features
+- 
+* bug fixes
+- fix manual service changes getting confused by service state leave
+- fix force closes
+
 V 3.1.0 
 * features
 - background is more resistant to being killed
