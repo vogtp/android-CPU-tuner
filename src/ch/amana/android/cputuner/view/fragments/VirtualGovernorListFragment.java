@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -56,16 +57,30 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		displayCursor = getActivity().managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+		FragmentActivity act = getActivity();
+		initListView();
+		getListView().setOnCreateContextMenuListener(this);
 
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
+	}
 
-		adapter = new SimpleCursorAdapter(getActivity(), R.layout.virtual_governor_item, displayCursor,
+	private boolean initListView() {
+		if (displayCursor != null && !displayCursor.isClosed()) {
+			return false;
+		}
+
+		FragmentActivity act = getActivity();
+		displayCursor = act.managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+
+		adapter = new SimpleCursorAdapter(act, R.layout.virtual_governor_item, displayCursor,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, DB.VirtualGovernor.NAME_REAL_GOVERNOR,
 						DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP },
 				new int[] { R.id.tvVirtualGovernor, R.id.tvGorvernor, R.id.tvThresholdDown, R.id.tvThresholdUp });
 
 		adapter.setViewBinder(new ViewBinder() {
-			
+
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 				if (columnIndex == VirtualGovernor.INDEX_VIRTUAL_GOVERNOR_NAME) {
@@ -86,7 +101,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 						return true;
 					}
 					((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.VISIBLE);
-				}else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN) {
+				} else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN) {
 					if (cursor.getInt(columnIndex) < 1) {
 						((TextView) view).setText("");
 						((View) view.getParent()).findViewById(R.id.labelThresholdDown).setVisibility(View.INVISIBLE);
@@ -98,13 +113,8 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 			}
 		});
 		setListAdapter(adapter);
-		getListView().setOnCreateContextMenuListener(this);
 		getListView().setEnabled(SettingsStorage.getInstance().isUseVirtualGovernors());
-		
-		Activity act = getActivity();
-		if (act instanceof CpuTunerViewpagerActivity) {
-			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-		}
+		return true;
 	}
 
 	@Override
@@ -235,6 +245,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 				Intent intent = new Intent(Intent.ACTION_INSERT, DB.VirtualGovernor.CONTENT_URI);
 				view.getContext().startActivity(intent);
 			}
+
 			@Override
 			public int getDrawable() {
 				return android.R.drawable.ic_menu_add;
@@ -245,7 +256,9 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 
 	@Override
 	public void profileChanged() {
-		getListView().setAdapter(adapter);
+		if (!initListView()) {
+			getListView().setAdapter(adapter);
+		}
 	}
 
 	@Override
@@ -254,5 +267,11 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 
 	@Override
 	public void triggerChanged() {
+	}
+
+	@Override
+	public void onResume() {
+		initListView();
+		super.onResume();
 	}
 }

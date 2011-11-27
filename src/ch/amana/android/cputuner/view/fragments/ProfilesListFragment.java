@@ -57,6 +57,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 	private static final int ALPHA_OFF = 40;
 	private static final int ALPHA_LEAVE = 100;
 	private SimpleCursorAdapter adapter;
+	private Cursor displayCursor;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -64,14 +65,14 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		super.onCreate(savedInstanceState);
 	}
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
+	private boolean initListView() {
+		if (displayCursor != null && !displayCursor.isClosed()) {
+			return false;
+		}
 		Activity act = getActivity();
-		Cursor c = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		displayCursor = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
-		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, c,
+		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, displayCursor,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
 						DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
 						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
@@ -225,6 +226,16 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		});
 
 		setListAdapter(adapter);
+		return true;
+
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Activity act = getActivity();
+
+		initListView();
 		getListView().setOnCreateContextMenuListener(this);
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
@@ -376,6 +387,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 				Intent intent = new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI);
 				view.getContext().startActivity(intent);
 			}
+
 			@Override
 			public int getDrawable() {
 				return android.R.drawable.ic_menu_add;
@@ -386,7 +398,9 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public void profileChanged() {
-		getListView().setAdapter(adapter);
+		if (!initListView()) {
+			getListView().setAdapter(adapter);
+		}
 	}
 
 	@Override
@@ -395,6 +409,12 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public void triggerChanged() {
+	}
+
+	@Override
+	public void onResume() {
+		initListView();
+		super.onResume();
 	}
 
 }

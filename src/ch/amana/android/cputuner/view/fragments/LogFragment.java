@@ -48,36 +48,44 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	//		return v;
 	//	}
 
+	private boolean initListView() {
+
+		if (displayCursor != null && !displayCursor.isClosed()) {
+			return false;
+		}
+		final Activity act = getActivity();
+		displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
+				new String[] { DB.SwitchLogDB.NAME_MESSAGE },
+				new int[] { android.R.id.text1 });
+
+		adapter.setViewBinder(new ViewBinder() {
+
+			@Override
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE) {
+					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
+					StringBuilder sb = new StringBuilder();
+					sb.append(logDateFormat.format(now)).append(": ");
+					sb.append(cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE));
+					TextView textView = (TextView) view;
+					textView.setText(sb.toString());
+					textView.setTextColor(Color.LTGRAY);
+					return true;
+				}
+				return false;
+			}
+		});
+
+		setListAdapter(adapter);
+		return true;
+	}
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		final Activity act = getActivity();
-		if (displayCursor == null) {
-			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
-			adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
-					new String[] { DB.SwitchLogDB.NAME_MESSAGE },
-					new int[] { android.R.id.text1 });
-
-			adapter.setViewBinder(new ViewBinder() {
-
-				@Override
-				public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-					if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE) {
-						now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
-						StringBuilder sb = new StringBuilder();
-						sb.append(logDateFormat.format(now)).append(": ");
-						sb.append(cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE));
-						TextView textView = (TextView) view;
-						textView.setText(sb.toString());
-						textView.setTextColor(Color.LTGRAY);
-						return true;
-					}
-					return false;
-				}
-			});
-
-			setListAdapter(adapter);
-		}
+		initListView();
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
@@ -85,6 +93,7 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 
 	@Override
 	public void onResume() {
+		initListView();
 		super.onResume();
 		requestUpdate();
 	}

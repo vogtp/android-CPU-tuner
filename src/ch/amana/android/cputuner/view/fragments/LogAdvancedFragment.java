@@ -42,17 +42,10 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	private static final SimpleDateFormat logTimeFormat = new SimpleDateFormat("HH:mm:ss");
 	private static final SimpleDateFormat logDateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		View v = inflater.inflate(R.layout.switch_log_adv, container, false);
-		elvLog = (ExpandableListView) v.findViewById(R.id.elvLog);
-		return v;
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
+	private boolean initListView() {
+		if (displayCursor != null && !displayCursor.isClosed()) {
+			return true;
+		}
 		final Activity act = getActivity();
 		displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
 		adapter = new SimpleCursorTreeAdapter(
@@ -124,6 +117,22 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		});
 
 		elvLog.setAdapter(adapter);
+		return true;
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		View v = inflater.inflate(R.layout.switch_log_adv, container, false);
+		elvLog = (ExpandableListView) v.findViewById(R.id.elvLog);
+		return v;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		final Activity act = getActivity();
+		initListView();
 
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);

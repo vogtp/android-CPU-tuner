@@ -56,10 +56,10 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 		super.onCreate(savedInstanceState);
 	}
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
+	private boolean initListView() {
+		if (displayCursor != null && !displayCursor.isClosed()) {
+			return false;
+		}
 		final Activity act = getActivity();
 		displayCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 
@@ -82,7 +82,8 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 				int color = Color.LTGRAY;
 				PowerProfiles powerProfiles = PowerProfiles.getInstance(getActivity());
 				TriggerModel currentTrigger = powerProfiles.getCurrentTrigger();
-				boolean isCurrentTrigger = currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID) && SettingsStorage.getInstance().isEnableProfiles();
+				boolean isCurrentTrigger = currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)
+						&& SettingsStorage.getInstance().isEnableProfiles();
 				if (columnIndex == DB.Trigger.INDEX_TRIGGER_NAME) {
 					if (isCurrentTrigger) {
 						color = getResources().getColor(R.color.cputuner_green);
@@ -175,6 +176,17 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 			}
 
 		});
+		return true;
+
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		final Activity act = getActivity();
+
+		initListView();
+
 		getListView().setOnCreateContextMenuListener(this);
 
 		if (act instanceof CpuTunerViewpagerActivity) {
@@ -365,7 +377,15 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public void triggerChanged() {
-		getListView().setAdapter(adapter);
+		if (!initListView()) {
+			getListView().setAdapter(adapter);
+		}
+	}
+
+	@Override
+	public void onResume() {
+		initListView();
+		super.onResume();
 	}
 
 }
