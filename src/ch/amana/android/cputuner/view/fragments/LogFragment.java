@@ -54,6 +54,9 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 			return false;
 		}
 		final Activity act = getActivity();
+		if (act == null) {
+			return true;
+		}
 		displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
 		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
 				new String[] { DB.SwitchLogDB.NAME_MESSAGE },

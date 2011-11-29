@@ -47,6 +47,9 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 			return true;
 		}
 		final Activity act = getActivity();
+		if (act == null) {
+			return true;
+		}
 		displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
 		adapter = new SimpleCursorTreeAdapter(
 				act,

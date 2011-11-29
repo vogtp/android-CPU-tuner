@@ -72,6 +72,9 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 		}
 
 		FragmentActivity act = getActivity();
+		if (act == null) {
+			return true;
+		}
 		displayCursor = act.managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
 
 		adapter = new SimpleCursorAdapter(act, R.layout.virtual_governor_item, displayCursor,

@@ -61,6 +61,10 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 			return false;
 		}
 		final Activity act = getActivity();
+		if (act == null) {
+			return true;
+		}
+
 		displayCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 
 		int layout = SettingsStorage.getInstance().isPowerStrongerThanScreenoff() ? R.layout.trigger_item_pwrstrong : R.layout.trigger_item_pwrweak;

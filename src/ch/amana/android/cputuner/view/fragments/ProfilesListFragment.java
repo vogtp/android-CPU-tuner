@@ -70,6 +70,9 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 			return false;
 		}
 		Activity act = getActivity();
+		if (act == null) {
+			return true;
+		}
 		displayCursor = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 
 		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, displayCursor,
