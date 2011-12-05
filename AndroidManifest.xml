@@ -196,6 +196,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" >
                 </category>
+                <action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW"/>
             </intent-filter>
         </activity>
 

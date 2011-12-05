@@ -56,13 +56,17 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 		setContentView(R.layout.configuration_autoload_editor);
 
 		String action = getIntent().getAction();
-		if (Intent.ACTION_EDIT.equals(action)) {
+		if (Intent.ACTION_EDIT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
 			Cursor c = null;
 			try {
 				c = getContentResolver().query(getIntent().getData(), DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, null);
 				if (c.moveToFirst()) {
 					caModel = new ConfigurationAutoloadModel(c);
 					origCaModel = new ConfigurationAutoloadModel(c);
+					if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+						caModel.setDbId(-1);
+						origCaModel.setDbId(-1);
+					}
 				}
 			} finally {
 				if (c != null) {
