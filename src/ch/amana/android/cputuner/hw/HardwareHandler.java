@@ -22,6 +22,18 @@ public class HardwareHandler {
 		return i;
 	}
 
+	protected static long getLongFromStr(String intString) {
+		long i = NO_VALUE_INT;
+		try {
+			if (!RootHandler.NOT_AVAILABLE.equals(intString)) {
+				i = Long.parseLong(intString);
+			}
+		} catch (Exception e) {
+			Logger.w("Cannot parse " + intString + " as long");
+		}
+		return i;
+	}
+
 	protected String[] moveCurListElementTop(String[] list, String topElement) {
 		if (list == null || list.length < 2) {
 			return list;

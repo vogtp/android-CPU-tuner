@@ -48,6 +48,9 @@ public class CpuHandler extends HardwareHandler {
 	protected static final String CPU_STATS_DIR = CPU_DIR + "stats/";
 	protected static final String TIME_IN_STATE = "time_in_state";
 	protected static final String TOTAL_TRANSITIONS = "total_trans";
+	protected static final String SAMPLING_RATE = "sampling_rate";
+	protected static final String SAMPLING_RATE_MIN = "sampling_rate_min";
+	protected static final String SAMPLING_RATE_MAX = "sampling_rate_max";
 
 	private boolean availCpuFreq = true;
 	private final Map<String, File> fileMap = new WeakHashMap<String, File>();
@@ -208,7 +211,7 @@ public class CpuHandler extends HardwareHandler {
 			i = 98;
 		}
 		Logger.i("Setting threshold up to " + i);
-		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP), i + "");
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_UP), Integer.toString(i));
 	}
 
 	protected File getFile(String path, String name) {
@@ -230,7 +233,7 @@ public class CpuHandler extends HardwareHandler {
 			i = 95;
 		}
 		Logger.i("Setting threshold down to " + i);
-		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), i + "");
+		return RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN), Integer.toString(i));
 	}
 
 	public int[] getAvailCpuFreq(boolean allowLowFreqs) {
@@ -340,6 +343,25 @@ public class CpuHandler extends HardwareHandler {
 
 	public int getNumberOfActiveCpus() {
 		return 1;
+	}
+
+	public long getSamplingRate() {
+		return getLongFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), SAMPLING_RATE)));
+	}
+
+	public long getSamplingRateMin() {
+		return getLongFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), SAMPLING_RATE_MIN)));
+	}
+
+	public long getSamplingRateMax() {
+		return getLongFromStr(RootHandler.readFile(getFile(CPU_DIR + getCurCpuGov(), SAMPLING_RATE_MAX)));
+	}
+
+	public void setSamplingIntervall(long i) {
+		if (i < 0) {
+			return;
+		}
+		RootHandler.writeFile(getFile(CPU_DIR + getCurCpuGov(), SAMPLING_RATE), Long.toString(i));
 	}
 
 }
