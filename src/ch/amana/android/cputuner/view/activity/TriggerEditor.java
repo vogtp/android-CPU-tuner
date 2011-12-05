@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -175,7 +176,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		if (hotProfileId == -1) {
 			Cursor c = null;
 			try {
-				c = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_ID_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+				c = getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_ID_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 				if (c.moveToLast()) {
 					hotProfileId = c.getLong(DB.INDEX_ID);
 				}
@@ -192,7 +193,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	}
 
 	private void updateModel() {
-		triggerModel.setName(etName.getText().toString());
+		triggerModel.setName(etName.getText().toString().trim());
 		try {
 			triggerModel.setBatteryLevel(Integer.parseInt(etBatteryLevel.getText().toString()));
 		} catch (Exception e) {
@@ -231,7 +232,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	}
 
 	private void setProfilesAdapter(Spinner spinner) {
-		Cursor cursor = managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(this, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		Cursor cursor = cursorLoader.loadInBackground();
 
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor, new String[] { DB.CpuProfile.NAME_PROFILE_NAME },
 				new int[] { android.R.id.text1 });
@@ -297,7 +299,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	private boolean isNameUnique() {
 		Cursor cursor = null;
 		try {
-			cursor = managedQuery(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_ID_NAME, Trigger.SELECTION_NAME, new String[] { triggerModel.getName() }, null);
+			cursor = getContentResolver().query(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_ID_NAME, Trigger.SELECTION_NAME, new String[] { triggerModel.getName() }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
 			}
@@ -312,7 +314,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	private boolean isBatterylevelUnique() {
 		Cursor cursor = null;
 		try {
-			cursor = managedQuery(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_BATTERY_LEVEL, Trigger.SELECTION_BATTERYLEVEL, new String[] { Integer.toString(triggerModel
+			cursor = getContentResolver().query(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_BATTERY_LEVEL, Trigger.SELECTION_BATTERYLEVEL,
+					new String[] { Integer.toString(triggerModel
 					.getBatteryLevel()) }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();

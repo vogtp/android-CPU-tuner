@@ -25,6 +25,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
+import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsSpinnerAdapter;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
@@ -56,12 +57,19 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
-			Cursor c = managedQuery(getIntent().getData(), DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, null);
-			if (c.moveToFirst()) {
-				caModel = new ConfigurationAutoloadModel(c);
-				origCaModel = new ConfigurationAutoloadModel(c);
+			Cursor c = null;
+			try {
+				c = getContentResolver().query(getIntent().getData(), DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, null);
+				if (c.moveToFirst()) {
+					caModel = new ConfigurationAutoloadModel(c);
+					origCaModel = new ConfigurationAutoloadModel(c);
+				}
+			} finally {
+				if (c != null) {
+					c.close();
+					c = null;
+				}
 			}
-			c.close();
 		}
 
 		if (caModel == null) {
@@ -121,7 +129,7 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 					return;
 				}
 				String action = getIntent().getAction();
-				if (Intent.ACTION_INSERT.equals(action)) {
+				if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
 					Uri uri = getContentResolver().insert(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues());
 					long id = ContentUris.parseId(uri);
 					if (id > 0) {
@@ -256,7 +264,7 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 	private boolean isTimeUnique() {
 		Cursor cursor = null;
 		try {
-			cursor = managedQuery(DB.ConfigurationAutoload.CONTENT_URI, DB.PROJECTION_IDE, DB.ConfigurationAutoload.SELECTION_TIME_WEEKDAY,
+			cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.PROJECTION_IDE, DB.ConfigurationAutoload.SELECTION_TIME_WEEKDAY,
 					new String[] { Integer.toString(caModel.getHour()), Integer.toString(caModel.getMinute()), Integer.toString(caModel.getWeekday()) }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == caModel.getDbId();

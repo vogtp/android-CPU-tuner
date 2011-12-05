@@ -343,7 +343,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 	@Override
 	public void updateModel() {
-		profile.setProfileName(etName.getText().toString());
+		profile.setProfileName(etName.getText().toString().trim());
 		governorFragment.updateModel();
 	}
 
@@ -493,7 +493,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private boolean isNameUnique() {
 		Cursor cursor = null;
 		try {
-			cursor = managedQuery(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_ID_NAME, CpuProfile.SELECTION_NAME, new String[] { profile.getProfileName() }, null);
+			cursor = getContentResolver().query(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_ID_NAME, CpuProfile.SELECTION_NAME, new String[] { profile.getProfileName() }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == profile.getDbId();
 			}

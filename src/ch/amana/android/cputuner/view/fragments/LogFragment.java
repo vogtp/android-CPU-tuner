@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.CursorLoader;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,24 +41,16 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 
 	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-	//	@Override
-	//	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	//		// Inflate the layout for this fragment
-	//		View v = inflater.inflate(R.layout.list, container, false);
-	//		//		tvStats = (TextView) v.findViewById(R.id.tvLog);
-	//		return v;
-	//	}
-
-	private boolean initListView() {
-
-		if (displayCursor != null && !displayCursor.isClosed()) {
-			return false;
-		}
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		final Activity act = getActivity();
 		if (act == null) {
-			return true;
+			return;
 		}
-		displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(act, DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+		displayCursor = cursorLoader.loadInBackground();
+
 		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
 				new String[] { DB.SwitchLogDB.NAME_MESSAGE },
 				new int[] { android.R.id.text1 });
@@ -81,23 +74,15 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 		});
 
 		setListAdapter(adapter);
-		return true;
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		final Activity act = getActivity();
-		initListView();
-		if (act instanceof CpuTunerViewpagerActivity) {
-			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-		}
 	}
 
 	@Override
 	public void onResume() {
-		initListView();
 		super.onResume();
+		final Activity act = getActivity();
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
 		requestUpdate();
 	}
 

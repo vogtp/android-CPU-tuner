@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.CursorLoader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -58,24 +59,11 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		FragmentActivity act = getActivity();
-		initListView();
-		getListView().setOnCreateContextMenuListener(this);
-
-		if (act instanceof CpuTunerViewpagerActivity) {
-			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-		}
-	}
-
-	private boolean initListView() {
-		if (displayCursor != null && !displayCursor.isClosed()) {
-			return false;
-		}
-
-		FragmentActivity act = getActivity();
 		if (act == null) {
-			return true;
+			return;
 		}
-		displayCursor = act.managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(act, DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+		displayCursor = cursorLoader.loadInBackground();
 
 		adapter = new SimpleCursorAdapter(act, R.layout.virtual_governor_item, displayCursor,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, DB.VirtualGovernor.NAME_REAL_GOVERNOR,
@@ -117,7 +105,12 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 		});
 		setListAdapter(adapter);
 		getListView().setEnabled(SettingsStorage.getInstance().isUseVirtualGovernors());
-		return true;
+
+		getListView().setOnCreateContextMenuListener(this);
+
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
 	}
 
 	@Override
@@ -130,13 +123,6 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 		}
 		super.onDestroy();
 	}
-
-	//	@Override
-	//	public void onResume() {
-	//		super.onResume();
-	//
-	//		setListAdapter(adapter);
-	//	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -259,9 +245,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 
 	@Override
 	public void profileChanged() {
-		if (!initListView()) {
-			getListView().setAdapter(adapter);
-		}
+		getListView().setAdapter(adapter);
 	}
 
 	@Override
@@ -272,9 +256,4 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 	public void triggerChanged() {
 	}
 
-	@Override
-	public void onResume() {
-		initListView();
-		super.onResume();
-	}
 }

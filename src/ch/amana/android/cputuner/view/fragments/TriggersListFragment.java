@@ -15,6 +15,8 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.CursorLoader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -54,18 +56,13 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	}
-
-	private boolean initListView() {
-		if (displayCursor != null && !displayCursor.isClosed()) {
-			return false;
-		}
 		final Activity act = getActivity();
 		if (act == null) {
-			return true;
+			return;
 		}
 
-		displayCursor = act.managedQuery(DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(act, DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+		displayCursor = cursorLoader.loadInBackground();
 
 		int layout = SettingsStorage.getInstance().isPowerStrongerThanScreenoff() ? R.layout.trigger_item_pwrstrong : R.layout.trigger_item_pwrweak;
 		adapter = new SimpleCursorAdapter(getActivity(), layout, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
@@ -84,7 +81,11 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 					return false;
 				}
 				int color = Color.LTGRAY;
-				PowerProfiles powerProfiles = PowerProfiles.getInstance(getActivity());
+				FragmentActivity activity = getActivity();
+				if (activity == null) {
+					return true;
+				}
+				PowerProfiles powerProfiles = PowerProfiles.getInstance(activity);
 				TriggerModel currentTrigger = powerProfiles.getCurrentTrigger();
 				boolean isCurrentTrigger = currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)
 						&& SettingsStorage.getInstance().isEnableProfiles();
@@ -100,36 +101,40 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 						|| columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
 					long profileId = cursor.getLong(columnIndex);
 					String profileName = NO_PROFILE;
-					Cursor cpuCursor = getActivity().managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME,
-							DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
-					if (cpuCursor.moveToFirst()) {
-						profileName = cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
-						((View) view.getParent()).setVisibility(View.VISIBLE);
-					} else {
-						((View) view.getParent()).setVisibility(View.GONE);
-					}
-					if (columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID && !SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
-						((View) view.getParent()).setVisibility(View.GONE);
-					}
-					if (isCurrentTrigger && cursor.getLong(columnIndex) == powerProfiles.getCurrentProfile().getDbId()) {
-						if (powerProfiles.isCallInProgress() && SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
-							if (columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
-								color = getResources().getColor(R.color.cputuner_green);
-							}
-						} else if (powerProfiles.isBatteryHot() && cursor.getInt(DB.Trigger.INDEX_HOT_PROFILE_ID) != PowerProfiles.NO_PROFILE) {
-							if (columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID) {
-								color = getResources().getColor(R.color.cputuner_green);
-							}
+					Cursor cpuCursor = null;
+					try {
+						cpuCursor = activity.getContentResolver().query(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME,
+								DB.NAME_ID + "=?", new String[] { profileId + "" }, DB.CpuProfile.SORTORDER_DEFAULT);
+						if (cpuCursor.moveToFirst()) {
+							profileName = cpuCursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
+							((View) view.getParent()).setVisibility(View.VISIBLE);
 						} else {
-							if ((columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID && powerProfiles.isOnBatteryProfile())
-									|| (columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID && powerProfiles.isAcPower())
-									|| (columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID && powerProfiles.isScreenOff())) {
-								color = getResources().getColor(R.color.cputuner_green);
+							((View) view.getParent()).setVisibility(View.GONE);
+						}
+						if (columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID && !SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
+							((View) view.getParent()).setVisibility(View.GONE);
+						}
+						if (isCurrentTrigger && cursor.getLong(columnIndex) == powerProfiles.getCurrentProfile().getDbId()) {
+							if (powerProfiles.isCallInProgress() && SettingsStorage.getInstance().isEnableCallInProgressProfile()) {
+								if (columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
+									color = getResources().getColor(R.color.cputuner_green);
+								}
+							} else if (powerProfiles.isBatteryHot() && cursor.getInt(DB.Trigger.INDEX_HOT_PROFILE_ID) != PowerProfiles.NO_PROFILE) {
+								if (columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID) {
+									color = getResources().getColor(R.color.cputuner_green);
+								}
+							} else {
+								if ((columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID && powerProfiles.isOnBatteryProfile())
+										|| (columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID && powerProfiles.isAcPower())
+										|| (columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID && powerProfiles.isScreenOff())) {
+									color = getResources().getColor(R.color.cputuner_green);
+								}
 							}
 						}
-					}
-					if (cpuCursor != null) {
-						cpuCursor.close();
+					} finally {
+						if (cpuCursor != null) {
+							cpuCursor.close();
+						}
 					}
 					TextView tv = ((TextView) view);
 					tv.setText(profileName);
@@ -180,7 +185,6 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 			}
 
 		});
-		return true;
 
 	}
 
@@ -188,8 +192,6 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		final Activity act = getActivity();
-
-		initListView();
 
 		getListView().setOnCreateContextMenuListener(this);
 
@@ -381,15 +383,6 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public void triggerChanged() {
-		if (!initListView()) {
-			getListView().setAdapter(adapter);
-		}
+		getListView().setAdapter(adapter);
 	}
-
-	@Override
-	public void onResume() {
-		initListView();
-		super.onResume();
-	}
-
 }

@@ -90,7 +90,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 
 	@Override
 	public void updateModel() {
-		virtualGovModel.setVirtualGovernorName(etVirtualGovernorName.getText().toString());
+		virtualGovModel.setVirtualGovernorName(etVirtualGovernorName.getText().toString().trim());
 		governorFragment.updateModel();
 	}
 
@@ -193,8 +193,8 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 	private boolean isNameUnique() {
 		Cursor cursor = null;
 		try {
-			cursor = managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_ID_NAME, VirtualGovernor.SELECTION_NAME, new String[] { virtualGovModel
-					.getVirtualGovernorName() }, null);
+			cursor = getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_ID_NAME, VirtualGovernor.SELECTION_NAME,
+					new String[] { virtualGovModel.getVirtualGovernorName() }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == virtualGovModel.getDbId();
 			} else {

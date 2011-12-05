@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.view.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,9 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		FragmentActivity act = getActivity();
 
-		cursor = act.managedQuery(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(act, DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+		cursor = cursorLoader.loadInBackground();
+
 		SimpleCursorAdapter arrayAdapter = new SimpleCursorAdapter(act, android.R.layout.simple_spinner_item, cursor,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME }, new int[] { android.R.id.text1 });
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -85,10 +88,19 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		if (getActivity() == null) {
 			return null;
 		}
-		Cursor c = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, SELECTION_VIRT_GOV, new String[] { Long.toString(virtualGovernor) },
-				VirtualGovernor.SORTORDER_DEFAULT);
-		if (c.moveToFirst()) {
-			return new VirtualGovernorModel(c);
+		Cursor c = null;
+		try {
+			c = getActivity().getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, SELECTION_VIRT_GOV,
+					new String[] { Long.toString(virtualGovernor) },
+					VirtualGovernor.SORTORDER_DEFAULT);
+			if (c.moveToFirst()) {
+				return new VirtualGovernorModel(c);
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+				c = null;
+			}
 		}
 		return null;
 	}

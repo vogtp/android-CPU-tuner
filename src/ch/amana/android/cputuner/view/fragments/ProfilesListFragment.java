@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -63,17 +64,13 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	}
 
-	private boolean initListView() {
-		if (displayCursor != null && !displayCursor.isClosed()) {
-			return false;
-		}
 		Activity act = getActivity();
 		if (act == null) {
-			return true;
+			return;
 		}
-		displayCursor = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		displayCursor = cursorLoader.loadInBackground();
 
 		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, displayCursor,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
@@ -101,13 +98,21 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 					if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
 						int virtGovId = cursor.getInt(CpuProfile.INDEX_VIRTUAL_GOVERNOR);
 						if (virtGovId > -1) {
-							Cursor virtGovCursor = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+							Cursor virtGovCursor = null;
+							try {
+								virtGovCursor = getActivity().getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
 									new String[] { virtGovId + "" }, VirtualGovernor.SORTORDER_DEFAULT);
 							if (virtGovCursor.moveToFirst()) {
 								VirtualGovernorModel vgm = new VirtualGovernorModel(virtGovCursor);
 								((TextView) view).setText(vgm.getVirtualGovernorName());
 								((TextView) ((View) view.getParent()).findViewById(R.id.labelGovernor)).setText(R.string.labelVirtualGovernor);
 								return true;
+							}
+							} finally {
+								if (virtGovCursor != null) {
+									virtGovCursor.close();
+									virtGovCursor = null;
+								}
 							}
 						}
 					}
@@ -229,7 +234,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		});
 
 		setListAdapter(adapter);
-		return true;
+		return;
 
 	}
 
@@ -238,7 +243,6 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		super.onActivityCreated(savedInstanceState);
 		Activity act = getActivity();
 
-		initListView();
 		getListView().setOnCreateContextMenuListener(this);
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
@@ -401,9 +405,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public void profileChanged() {
-		if (!initListView()) {
-			getListView().setAdapter(adapter);
-		}
+		getListView().setAdapter(adapter);
 	}
 
 	@Override
@@ -412,12 +414,6 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public void triggerChanged() {
-	}
-
-	@Override
-	public void onResume() {
-		initListView();
-		super.onResume();
 	}
 
 }

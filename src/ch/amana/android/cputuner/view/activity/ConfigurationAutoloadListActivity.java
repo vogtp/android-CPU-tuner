@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -66,7 +67,9 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 				android.R.drawable.ic_menu_manage));
 		actionBar.addAction(new ActionBar.IntentAction(this, new Intent(Intent.ACTION_INSERT, DB.ConfigurationAutoload.CONTENT_URI), android.R.drawable.ic_menu_add));
 
-		cursor = managedQuery(DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, DB.ConfigurationAutoload.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(this, DB.ConfigurationAutoload.CONTENT_URI, DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null,
+				DB.ConfigurationAutoload.SORTORDER_DEFAULT);
+		cursor = cursorLoader.loadInBackground();
 
 		adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[] { DB.ConfigurationAutoload.NAME_HOUR,
 				DB.ConfigurationAutoload.NAME_NEXT_EXEC }, new int[] { android.R.id.text1, android.R.id.text2 });
