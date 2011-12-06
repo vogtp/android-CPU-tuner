@@ -14,6 +14,7 @@ import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 
@@ -140,6 +141,7 @@ public class TunerService extends IntentService {
 	private void handlePhoneState(Intent intent) {
 		int state = intent.getIntExtra(EXTRA_PHONE_STATE, -1);
 		Logger.v("Got call state: " + state);
+		startSpeedUpSwitch();
 		switch (state) {
 		case TelephonyManager.CALL_STATE_IDLE:
 			// hangup
@@ -157,6 +159,7 @@ public class TunerService extends IntentService {
 		default:
 			break;
 		}
+		endSpeedUpSwitch();
 	}
 
 	private void handleBattery(Intent intent) {
@@ -190,13 +193,21 @@ public class TunerService extends IntentService {
 					powerProfiles.setAcPower(plugged > 0);
 				}
 			} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
+				startSpeedUpSwitch();
 				powerProfiles.setAcPower(true);
+				endSpeedUpSwitch();
 			} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
+				startSpeedUpSwitch();
 				powerProfiles.setAcPower(false);
+				endSpeedUpSwitch();
 			} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+				startSpeedUpSwitch();
 				powerProfiles.setScreenOff(true);
+				endSpeedUpSwitch();
 			} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
+				startSpeedUpSwitch();
 				powerProfiles.setScreenOff(false);
+				endSpeedUpSwitch();
 			} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
 				// manage network state on wifi
 				int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
@@ -223,5 +234,21 @@ public class TunerService extends IntentService {
 			wakeLock.release();
 			wakeLock = null;
 		}
+	}
+
+	private long samplingRate = -1;
+	private void startSpeedUpSwitch() {
+		CpuHandler cpuHandler = CpuHandler.getInstance();
+		samplingRate = cpuHandler.getSamplingRate();
+		cpuHandler.setSamplingIntervall(cpuHandler.getSamplingRateMin());
+		int[] availCpuFreq = cpuHandler.getAvailCpuFreq(false);
+		cpuHandler.setMaxCpuFreq(availCpuFreq[availCpuFreq.length - 1]);
+		cpuHandler.setCurGov(CpuHandler.GOV_PERFORMANCE);
+	}
+
+	private void endSpeedUpSwitch() {
+		CpuHandler.getInstance().setSamplingIntervall(samplingRate);
+		PowerProfiles powerProfiles = PowerProfiles.getInstance();
+		powerProfiles.applyProfile(powerProfiles.getCurrentProfile().getDbId());
 	}
 }
