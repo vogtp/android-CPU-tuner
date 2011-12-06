@@ -155,6 +155,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 			return;
 		}
 		backupRestoreHelper.backupConfiguration(name);
+		settings.setCurrentConfiguration(name);
 	}
 
 	private void loadConfig(String file, String name, boolean isUserConfig) {
@@ -305,6 +306,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 
 	protected void renameDB(String oldName, String name) {
 		ContentValues values = new ContentValues(1);
+		name = name.trim();
 		values.put(DB.ConfigurationAutoload.NAME_CONFIGURATION, name);
 		getContentResolver().update(DB.ConfigurationAutoload.CONTENT_URI, values, DB.ConfigurationAutoload.SELECTION_NAME, new String[] { oldName });
 	}
