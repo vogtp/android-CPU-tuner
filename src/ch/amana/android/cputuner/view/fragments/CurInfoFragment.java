@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -168,12 +169,20 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			if (isInUpdateView) {
 				return;
 			}
-			Cursor c = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
+			Cursor c = null;
+			try {
+				c = getActivity().getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
 					VirtualGovernor.SORTORDER_DEFAULT);
 			if (c.moveToFirst()) {
 				VirtualGovernorModel vgm = new VirtualGovernorModel(c);
 				cpuHandler.applyGovernorSettings(vgm);
 				powerProfiles.getCurrentProfile().setVirtualGovernor(id);
+			}
+			} finally {
+				if (c != null) {
+					c.close();
+					c = null;
+				}
 			}
 		}
 
@@ -290,7 +299,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
 		fragmentTransaction.commit();
 
-		Cursor cursor = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		CursorLoader cursorLoader = new CursorLoader(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		Cursor cursor = cursorLoader.loadInBackground();
 
 		profileAdapter = new ProfileAdaper(act, cursor);
 		spProfiles.setAdapter(profileAdapter);

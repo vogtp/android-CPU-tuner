@@ -4,6 +4,25 @@ V
 * bug fixes
 - 
 
+V 3.1.4
+* features
+- 
+* bug fixes
+- fixes ICS crashes (should fix HC as well)
+- fix insert as new for configuration autoload
+
+V 3.1.3
+* features
+- 
+* bug fixes
+- fixes
+
+V 3.1.2
+* features
+- 
+* bug fixes
+- fix force closes
+
 V 3.1.1
 * features
 - 

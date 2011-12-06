@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.CursorLoader;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,52 +41,48 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 
 	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-	//	@Override
-	//	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	//		// Inflate the layout for this fragment
-	//		View v = inflater.inflate(R.layout.list, container, false);
-	//		//		tvStats = (TextView) v.findViewById(R.id.tvLog);
-	//		return v;
-	//	}
-
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		final Activity act = getActivity();
-		if (displayCursor == null) {
-			displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
-			adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
-					new String[] { DB.SwitchLogDB.NAME_MESSAGE },
-					new int[] { android.R.id.text1 });
+		if (act == null) {
+			return;
+		}
+		CursorLoader cursorLoader = new CursorLoader(act, DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+		displayCursor = cursorLoader.loadInBackground();
 
-			adapter.setViewBinder(new ViewBinder() {
+		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
+				new String[] { DB.SwitchLogDB.NAME_MESSAGE },
+				new int[] { android.R.id.text1 });
 
-				@Override
-				public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-					if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE) {
-						now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
-						StringBuilder sb = new StringBuilder();
-						sb.append(logDateFormat.format(now)).append(": ");
-						sb.append(cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE));
-						TextView textView = (TextView) view;
-						textView.setText(sb.toString());
-						textView.setTextColor(Color.LTGRAY);
-						return true;
-					}
-					return false;
+		adapter.setViewBinder(new ViewBinder() {
+
+			@Override
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE) {
+					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
+					StringBuilder sb = new StringBuilder();
+					sb.append(logDateFormat.format(now)).append(": ");
+					sb.append(cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE));
+					TextView textView = (TextView) view;
+					textView.setText(sb.toString());
+					textView.setTextColor(Color.LTGRAY);
+					return true;
 				}
-			});
+				return false;
+			}
+		});
 
-			setListAdapter(adapter);
-		}
-		if (act instanceof CpuTunerViewpagerActivity) {
-			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
-		}
+		setListAdapter(adapter);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		final Activity act = getActivity();
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
 		requestUpdate();
 	}
 

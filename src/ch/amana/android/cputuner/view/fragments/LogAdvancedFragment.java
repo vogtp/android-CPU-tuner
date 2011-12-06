@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,18 +44,17 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	private static final SimpleDateFormat logDateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		View v = inflater.inflate(R.layout.switch_log_adv, container, false);
-		elvLog = (ExpandableListView) v.findViewById(R.id.elvLog);
-		return v;
-	}
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-	@Override
-	public void onResume() {
-		super.onResume();
 		final Activity act = getActivity();
-		displayCursor = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+		if (act == null) {
+			return;
+		}
+
+		CursorLoader cursorLoader = new CursorLoader(act, DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_DEFAULT, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+		displayCursor = cursorLoader.loadInBackground();
+
 		adapter = new SimpleCursorTreeAdapter(
 				act,
 				displayCursor,
@@ -69,11 +69,14 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 			@Override
 			protected Cursor getChildrenCursor(Cursor groupCursor) {
 				String id = Integer.toString(groupCursor.getInt(DB.INDEX_ID));
-				Cursor c = act.managedQuery(DB.SwitchLogDB.CONTENT_URI, SwitchLogDB.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+
+				CursorLoader cursorLoaderChild = new CursorLoader(act, DB.SwitchLogDB.CONTENT_URI, SwitchLogDB.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
 						new String[] { id }, SwitchLogDB.SORTORDER_DEFAULT);
+				Cursor c = cursorLoaderChild.loadInBackground();
 				if (c.moveToFirst() && c.getString(SwitchLogDB.INDEX_TRIGGER) != null) {
 					return c;
 				}
+
 				return null;
 			}
 		};
@@ -124,7 +127,20 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		});
 
 		elvLog.setAdapter(adapter);
+	}
 
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		View v = inflater.inflate(R.layout.switch_log_adv, container, false);
+		elvLog = (ExpandableListView) v.findViewById(R.id.elvLog);
+		return v;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		final Activity act = getActivity();
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}

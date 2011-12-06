@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -57,21 +58,21 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 	private static final int ALPHA_OFF = 40;
 	private static final int ALPHA_LEAVE = 100;
 	private SimpleCursorAdapter adapter;
+	private Cursor displayCursor;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
 
 		Activity act = getActivity();
-		Cursor c = act.managedQuery(DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		if (act == null) {
+			return;
+		}
+		CursorLoader cursorLoader = new CursorLoader(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+		displayCursor = cursorLoader.loadInBackground();
 
-		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, c,
+		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, displayCursor,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
 						DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
 						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
@@ -97,13 +98,21 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 					if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
 						int virtGovId = cursor.getInt(CpuProfile.INDEX_VIRTUAL_GOVERNOR);
 						if (virtGovId > -1) {
-							Cursor virtGovCursor = getActivity().managedQuery(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+							Cursor virtGovCursor = null;
+							try {
+								virtGovCursor = getActivity().getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
 									new String[] { virtGovId + "" }, VirtualGovernor.SORTORDER_DEFAULT);
 							if (virtGovCursor.moveToFirst()) {
 								VirtualGovernorModel vgm = new VirtualGovernorModel(virtGovCursor);
 								((TextView) view).setText(vgm.getVirtualGovernorName());
 								((TextView) ((View) view.getParent()).findViewById(R.id.labelGovernor)).setText(R.string.labelVirtualGovernor);
 								return true;
+							}
+							} finally {
+								if (virtGovCursor != null) {
+									virtGovCursor.close();
+									virtGovCursor = null;
+								}
 							}
 						}
 					}
@@ -225,6 +234,15 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		});
 
 		setListAdapter(adapter);
+		return;
+
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Activity act = getActivity();
+
 		getListView().setOnCreateContextMenuListener(this);
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
@@ -376,6 +394,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 				Intent intent = new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI);
 				view.getContext().startActivity(intent);
 			}
+
 			@Override
 			public int getDrawable() {
 				return android.R.drawable.ic_menu_add;

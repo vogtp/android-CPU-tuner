@@ -73,7 +73,7 @@ public class StatsFragment extends PagerFragment {
 
 	private void getTotalTransitions(Context context, StringBuilder sb) {
 		String totaltransitions = CpuHandler.getInstance().getCpuTotalTransitions();
-		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
+		if (context != null && !RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
 			sb.append(context.getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
 			sb.append("\n");
 		}

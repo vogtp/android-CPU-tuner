@@ -1,7 +1,5 @@
 - make boost profile configurable
 
-- merge
-
 - add sampling interval 
  Ich hab mich mal über die smpling_rate ein wenig schlau gemacht, die
 Kernel Docu schreibt dazu:
@@ -19,6 +17,11 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
     >ondemand/sampling_rate
 (linux/Documentation/cpu-freq/governors.txt)
 
+- advanced statistics: 
+	* rework graph to use screen size
+	* fix tablet 
+	* graph for trigger and or profile
+
 - exclude profile switch log from backup
 - check for su binary and fix superuser not installed (ics)
 
@@ -26,8 +29,6 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
 
 - check for changed governors (use pershot kernel)
 
-- advanced statistics: graph for trigger and or profile
-- advanced statistics: rework graph to use screen size
 
 - ask user to disable log if he does not use it
 
