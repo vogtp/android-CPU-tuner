@@ -146,7 +146,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 
 		public long getTime(int f) {
 			Long time = states.get(f);
-			if (baseline != null) {
+			if (baseline != null && baseline.states != null) {
 				time = time - baseline.states.get(f);
 			}
 			if (time < 0) {

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.CursorLoader;
@@ -166,12 +167,13 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setVirtualGovernor(long id) {
-			if (isInUpdateView) {
+			FragmentActivity activity = getActivity();
+			if (isInUpdateView || activity == null) {
 				return;
 			}
 			Cursor c = null;
 			try {
-				c = getActivity().getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
+				c = activity.getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
 					VirtualGovernor.SORTORDER_DEFAULT);
 			if (c.moveToFirst()) {
 				VirtualGovernorModel vgm = new VirtualGovernorModel(c);
