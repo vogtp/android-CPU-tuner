@@ -29,10 +29,14 @@ public class RootHandler {
 	private static Writer logWriter;
 
 	public static boolean execute(String cmd) {
-		return execute(cmd, null);
+		return execute(cmd, null, null);
 	}
 
 	public static boolean execute(String cmd, StringBuilder result) {
+		return execute(cmd, result, result);
+	}
+
+	public static boolean execute(String cmd, StringBuilder out, StringBuilder err) {
 		Process p;
 		boolean success = false;
 		try {
@@ -56,13 +60,16 @@ public class RootHandler {
 					writeLog(msg);
 					Logger.i(msg);
 				}
-				copyStreamToLog("OUT", p.getInputStream(), result);
-				copyStreamToLog("ERR", p.getErrorStream(), result);
+				copyStreamToLog("OUT", p.getInputStream(), out);
+				copyStreamToLog("ERR", p.getErrorStream(), err);
 				if (p.exitValue() != 255) {
 					success = true;
 				}
-				if (result != null) {
-					Logger.v(cmd + " result: " + result);
+				if (out != null) {
+					Logger.v(cmd + " stdout: " + out);
+				}
+				if (err != null) {
+					Logger.v(cmd + " stderr: " + err);
 				}
 			} catch (InterruptedException e) {
 				Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
@@ -113,7 +120,7 @@ public class RootHandler {
 
 	public static boolean isRoot() {
 		if (!isRoot) {
-			isRoot = execute("ls -ld /");
+			isRoot = execute("ls -l -d /");
 		}
 		return isRoot;
 	}
@@ -165,6 +172,7 @@ public class RootHandler {
 						line = reader.readLine();
 					}
 					reader.close();
+				} else if (execute("cat " + file.getAbsolutePath(), val, null)) {
 				} else {
 					if (Logger.DEBUG) {
 						String msg = "Cannot read from file >" + file + "< it does not exist.";
