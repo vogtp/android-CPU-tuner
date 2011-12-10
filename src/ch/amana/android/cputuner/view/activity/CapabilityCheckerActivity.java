@@ -24,6 +24,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import ch.almana.android.importexportdb.ExportConfig;
+import ch.almana.android.importexportdb.ExportConfig.ExportType;
 import ch.almana.android.importexportdb.exporter.DataExporter;
 import ch.almana.android.importexportdb.exporter.DataJsonExporter;
 import ch.amana.android.cputuner.R;
@@ -342,10 +344,12 @@ public class CapabilityCheckerActivity extends Activity {
 
 		try {
 			DB.CpuTunerOpenHelper oh = new CpuTunerOpenHelper(this);
+			ExportConfig config = new ExportConfig(oh.getWritableDatabase(), DB.DATABASE_NAME, new File(path, DIR_REPORT), ExportType.JSON);
+			config.setExcludeTable(DB.SwitchLogDB.TABLE_NAME);
 			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), new File(path, DIR_REPORT));
 			Logger.v("Send report: exporting DB");
 			try {
-				dm.export(DB.DATABASE_NAME);
+				dm.export(config);
 			} catch (Exception e) {
 				Logger.w("Error exporting DB", e);
 			}

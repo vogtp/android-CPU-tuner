@@ -15,6 +15,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
+import ch.almana.android.importexportdb.ExportConfig;
+import ch.almana.android.importexportdb.ExportConfig.ExportType;
 import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.constants.JsonConstants;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
@@ -56,8 +58,10 @@ public class BackupRestoreHelper {
 		}
 		// ModelAccess.getInstace(cb.getContext()).applyDelayedTriggerUpdates();
 		SQLiteDatabase db = new CpuTunerOpenHelper(cb.getContext()).getWritableDatabase();
-		ExportDataTask exportDataTask = new ExportDataTask(cb, db, storagePath, ExportDataTask.ExportType.JSON);
-		exportDataTask.execute(new String[] { DB.DATABASE_NAME });
+		ExportConfig config = new ExportConfig(db, DB.DATABASE_NAME, storagePath, ExportType.JSON);
+		config.setExcludeTable(DB.SwitchLogDB.TABLE_NAME);
+		ExportDataTask exportDataTask = new ExportDataTask(cb);
+		exportDataTask.execute(new ExportConfig[] { config });
 	}
 
 	public static File getStoragePath(Context ctx, String directory) {

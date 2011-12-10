@@ -1,8 +1,8 @@
 - make boost profile configurable
 
+- label setting cab checker group
+
 - add sampling interval 
- Ich hab mich mal über die smpling_rate ein wenig schlau gemacht, die
-Kernel Docu schreibt dazu:
 sampling_rate: measured in uS (10^-6 seconds), this is how often you
 want the kernel to look at the CPU usage and to make decisions on
 what to do about the frequency.  Typically this is set to values of
@@ -21,6 +21,8 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
 	* rework graph to use screen size
 	* fix tablet 
 	* graph for trigger and or profile
+
+- export config merge to master
 
 - exclude profile switch log from backup
 - check for su binary and fix superuser not installed (ics)
