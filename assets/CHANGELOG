@@ -4,6 +4,12 @@ V
 * bug fixes
 - 
 
+V 
+* features
+- 
+* bug fixes
+- files only be read by root in some devices (JackieKu)
+
 V 3.1.4
 * features
 - 
