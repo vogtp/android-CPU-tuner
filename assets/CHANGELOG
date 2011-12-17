@@ -9,6 +9,7 @@ V 3.2.0
 - 
 * bug fixes
 - use added configuration as the current one
+- files only be read by root in some devices (JackieKu)
 
 V 3.1.4
 * features
