@@ -41,6 +41,9 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateCh
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
+
 public class VirtualGovernorListFragment extends PagerListFragment implements StateChangeListener {
 
 	private Cursor displayCursor;
@@ -74,7 +77,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 				if (columnIndex == VirtualGovernor.INDEX_VIRTUAL_GOVERNOR_NAME) {
 					FragmentActivity activity = getActivity();
 					if (activity == null) {
-						return;
+						return true;
 					}
 					long virtGovId = PowerProfiles.getInstance(activity).getCurrentProfile().getVirtualGovernor();
 					int color = Color.LTGRAY;
