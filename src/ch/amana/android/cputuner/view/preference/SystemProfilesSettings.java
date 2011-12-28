@@ -1,11 +1,14 @@
 package ch.amana.android.cputuner.view.preference;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.activity.ProfileEditor;
 
 public class SystemProfilesSettings extends BaseSettings {
 
@@ -30,12 +33,15 @@ public class SystemProfilesSettings extends BaseSettings {
 				return true;
 			}
 		});
+		findPreference(SettingsStorage.PREF_KEY_SWITCH_CPU_SETTINGS).setIntent(new Intent(ProfileEditor.ACTION_EDIT_SWITCHPROFILE));
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
+		findPreference("prefCatSwitchCpuSettings").setEnabled(SettingsStorage.getInstance(this).isPowerUser());
 	}
 
 	@Override

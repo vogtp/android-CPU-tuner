@@ -4,5 +4,11 @@
     <string name="labelMessage">Message:</string>
     <string name="labelState">State:</string>
     <string name="labelTime">Time:</string>
+    <string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
+    <string name="prefEnableSwitchCpuSetting">Use special CPU settings on profile switch</string>
+    <string name="prefEnableSwitchCpuSettingOn">Special CPU settings will be used on profile switch.</string>
+    <string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
+    <string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
+    <string name="prefSwitchCpuSettingLong">These CPU settings will be used on profile switch, it can speed up profile switch when heavily underclocking (underclocking is not recommended).</string>
 
 </resources>

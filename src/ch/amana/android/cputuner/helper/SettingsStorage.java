@@ -2,15 +2,20 @@ package ch.amana.android.cputuner.helper;
 
 import java.text.SimpleDateFormat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.model.ProfileModel;
 
 public class SettingsStorage {
 
@@ -53,6 +58,7 @@ public class SettingsStorage {
 	private static final String PREF_KEY_TIMEINSTATE_BASELINE = "prefKeyTimeinstateBaseline";
 
 	private static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
+	public static final String PREF_KEY_SWITCH_CPU_SETTINGS = "prefKeySwitchCpuSetting";
 
 	public static final int STATUSBAR_NEVER = 0;
 	public static final int STATUSBAR_RUNNING = 1;
@@ -94,8 +100,14 @@ public class SettingsStorage {
 	private boolean checkedStatusbarAddTo = false;
 	private int statusbarAddTo;
 	private boolean checkedPowerStrongerThanScreenoff = false;
+	private boolean loadedSwitchCpuSetting = false;
+	private boolean enableSwitchCpuSetting = false;
+	private boolean checkedEnableSwitchCpuSetting = false;
 
 	private boolean powerStrongerThanScreenoff;
+
+	private ProfileModel switchCpuSetting = ProfileModel.NO_PROFILE;
+
 
 	public void forgetValues() {
 		checkedBeta = false;
@@ -114,6 +126,7 @@ public class SettingsStorage {
 		checkedProfileSwitchLogSize = false;
 		checkedStatusbarAddTo = false;
 		checkedPowerStrongerThanScreenoff = false;
+		checkedEnableSwitchCpuSetting = false;
 	}
 
 	public static SettingsStorage getInstance(Context ctx) {
@@ -582,14 +595,9 @@ public class SettingsStorage {
 	}
 
 	public boolean isPowerStrongerThanScreenoff() {
-
 		if (!checkedPowerStrongerThanScreenoff) {
 			checkedPowerStrongerThanScreenoff = true;
-			try {
-				powerStrongerThanScreenoff = getPreferences().getBoolean("prefKeyPowerStrongerThanScreenoff", true);
-			} catch (NumberFormatException e) {
-				Logger.w("Cannot parse prefKeyProfileSwitchLogSize as int", e);
-			}
+			powerStrongerThanScreenoff = getPreferences().getBoolean("prefKeyPowerStrongerThanScreenoff", true);
 		}
 		return powerStrongerThanScreenoff;
 	}
@@ -598,4 +606,37 @@ public class SettingsStorage {
 		return getPreferences().getBoolean("prefKeyLogPulse", false);
 	}
 
+	public boolean isEnableSwitchCpuSetting() {
+		if (!checkedEnableSwitchCpuSetting) {
+			checkedEnableSwitchCpuSetting = true;
+			enableSwitchCpuSetting = getPreferences().getBoolean("prefKeyEnableSwitchCpuSetting", false);
+		}
+		return enableSwitchCpuSetting;
+	}
+
+	public ProfileModel getSwitchCpuSetting() {
+		if (!loadedSwitchCpuSetting) {
+			loadedSwitchCpuSetting = true;
+			String json = getPreferences().getString(PREF_KEY_SWITCH_CPU_SETTINGS, null);
+			if (json != null) {
+				switchCpuSetting = new ProfileModel();
+				try {
+					switchCpuSetting.readFromJson(new JSONBundle(new JSONObject(json)));
+				} catch (JSONException e) {
+					Logger.w("Cannot real switch cpu settings from json string ", e);
+				}
+			}
+		}
+		return switchCpuSetting;
+	}
+
+	public void setSwitchCpuSetting(ProfileModel profile) {
+		switchCpuSetting = new ProfileModel(profile);
+		JSONObject json = new JSONObject();
+		JSONBundle jsonBundle = new JSONBundle(json);
+		profile.saveToJson(jsonBundle);
+		Editor editor = getPreferences().edit();
+		editor.putString(PREF_KEY_SWITCH_CPU_SETTINGS, json.toString());
+		editor.commit();
+	}
 }

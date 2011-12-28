@@ -142,6 +142,31 @@ public class ProfileModel implements IGovernorModel {
 		}
 	}
 
+	public void saveToJson(JSONBundle jsonBundle) {
+		if (id > -1) {
+			jsonBundle.putLong(DB.NAME_ID, id);
+		} else {
+			jsonBundle.putLong(DB.NAME_ID, -1);
+		}
+		jsonBundle.putString(DB.CpuProfile.NAME_PROFILE_NAME, getProfileName());
+		jsonBundle.putString(DB.CpuProfile.NAME_GOVERNOR, getGov());
+		jsonBundle.putInt(DB.CpuProfile.NAME_FREQUENCY_MAX, getMaxFreq());
+		jsonBundle.putInt(DB.CpuProfile.NAME_FREQUENCY_MIN, getMinFreq());
+		jsonBundle.putInt(DB.CpuProfile.NAME_WIFI_STATE, getWifiState());
+		jsonBundle.putInt(DB.CpuProfile.NAME_GPS_STATE, getGpsState());
+		jsonBundle.putInt(DB.CpuProfile.NAME_BLUETOOTH_STATE, getBluetoothState());
+		jsonBundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, getMobiledata3GState());
+		jsonBundle.putInt(DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE, getMobiledataConnectionState());
+		jsonBundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP, getGovernorThresholdUp());
+		jsonBundle.putInt(DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN, getGovernorThresholdDown());
+		jsonBundle.putInt(DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE, getBackgroundSyncState());
+		jsonBundle.putLong(DB.CpuProfile.NAME_VIRTUAL_GOVERNOR, getVirtualGovernor());
+		jsonBundle.putString(DB.CpuProfile.NAME_SCRIPT, getScript());
+		jsonBundle.putInt(DB.CpuProfile.NAME_POWERSEAVE_BIAS, getPowersaveBias());
+		jsonBundle.putInt(DB.CpuProfile.NAME_AIRPLANEMODE_STATE, getAirplainemodeState());
+		jsonBundle.putInt(DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS, getUseNumberOfCpus());
+	}
+
 	public void readFromJson(JSONBundle jsonBundle) {
 		id = jsonBundle.getLong(DB.NAME_ID);
 		profileName = jsonBundle.getString(DB.CpuProfile.NAME_PROFILE_NAME);

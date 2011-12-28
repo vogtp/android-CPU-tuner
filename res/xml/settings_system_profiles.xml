@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:key="prefKeyProfiles"
-	android:title="@string/prefKeyProfiles"
-	android:summary="@string/prefKeyProfilesLong"
->
-	<CheckBoxPreference android:key="prefKeyPowerStrongerThanScreenoff" android:defaultValue="true" android:summaryOn="@string/prefPowerStrongerThanScreenoffOn" android:summaryOff="@string/prefPowerStrongerThanScreenoffOff" android:title="@string/prefPowerStrongerThanScreenoff"/><CheckBoxPreference
-		android:title="@string/prefCallInProgressProfile"
-		android:key="prefKeyCallInProgressProfile"
-		android:summary="@string/prefCallInProgressProfileLong"
-		android:enabled="true"
-		android:defaultValue="true" 
-	></CheckBoxPreference>
-	<CheckBoxPreference
-		android:key="prefKeyUseVirtualGovernors"
-		android:summary="@string/prefUseVirtualGovernorsLong"
-		android:title="@string/cbEnableVirtualGovernors"
-		android:defaultValue="true"
-	></CheckBoxPreference>
-	<CheckBoxPreference
-		android:key="prefKeySwitchProfileWhilePhoneNotIdle"
-		android:summaryOff="@string/prefSwitchProfileWhilePhoneNotIdleOff"
-		android:summaryOn="@string/prefSwitchProfileWhilePhoneNotIdleOn"
-		android:title="@string/prefSwitchProfileWhilePhoneNotIdle"
-		android:defaultValue="false"
-	></CheckBoxPreference>
-	<EditTextPreference
-		android:title="@string/prefBatteryHotTemp"
-		android:key="prefKeyBatteryHotTemp"
-		android:dialogMessage="@string/prefBatteryHotTempMsg"
-		android:dialogTitle="@string/prefBatteryHotTemp"
-		android:summary="@string/prefBatteryHotTempLong"
-	></EditTextPreference>
-	
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefKeyProfiles"
+    android:summary="@string/prefKeyProfilesLong"
+    android:title="@string/prefKeyProfiles" >
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="prefKeyPowerStrongerThanScreenoff"
+        android:summaryOff="@string/prefPowerStrongerThanScreenoffOff"
+        android:summaryOn="@string/prefPowerStrongerThanScreenoffOn"
+        android:title="@string/prefPowerStrongerThanScreenoff" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:enabled="true"
+        android:key="prefKeyCallInProgressProfile"
+        android:summary="@string/prefCallInProgressProfileLong"
+        android:title="@string/prefCallInProgressProfile" >
+    </CheckBoxPreference>
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="prefKeyUseVirtualGovernors"
+        android:summary="@string/prefUseVirtualGovernorsLong"
+        android:title="@string/cbEnableVirtualGovernors" >
+    </CheckBoxPreference>
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="prefKeySwitchProfileWhilePhoneNotIdle"
+        android:summaryOff="@string/prefSwitchProfileWhilePhoneNotIdleOff"
+        android:summaryOn="@string/prefSwitchProfileWhilePhoneNotIdleOn"
+        android:title="@string/prefSwitchProfileWhilePhoneNotIdle" >
+    </CheckBoxPreference>
+
+    <EditTextPreference
+        android:dialogMessage="@string/prefBatteryHotTempMsg"
+        android:dialogTitle="@string/prefBatteryHotTemp"
+        android:key="prefKeyBatteryHotTemp"
+        android:summary="@string/prefBatteryHotTempLong"
+        android:title="@string/prefBatteryHotTemp" >
+    </EditTextPreference>
+
+    <PreferenceCategory
+        android:key="prefCatSwitchCpuSettings"
+        android:title="@string/prefCatSwitchCpuSettings" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefKeyEnableSwitchCpuSetting"
+            android:summaryOff="@string/prefEnableSwitchCpuSettingOff"
+            android:summaryOn="@string/prefEnableSwitchCpuSettingOn"
+            android:title="@string/prefEnableSwitchCpuSetting" />
+
+        <Preference
+            android:dependency="prefKeyEnableSwitchCpuSetting"
+            android:key="prefKeySwitchCpuSetting"
+            android:summary="@string/prefSwitchCpuSettingLong"
+            android:title="@string/prefSwitchCpuSetting" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

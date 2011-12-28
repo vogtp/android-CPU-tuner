@@ -51,6 +51,8 @@ import com.markupartist.android.widget.ActionBar;
 
 public class ProfileEditor extends FragmentActivity implements GovernorFragmentCallback, FrequencyChangeCallback, EditorCallback {
 
+	public static final String ACTION_EDIT_SWITCHPROFILE = "ACTION_EDIT_SWITCHPROFILE";
+
 	private ProfileModel profile;
 	private CpuHandler cpuHandler;
 	private SeekBar sbCpuFreqMax;
@@ -85,8 +87,15 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_editor);
+		SettingsStorage settings = SettingsStorage.getInstance();
 
 		modelAccess = ModelAccess.getInstace(this);
+
+		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+			governorFragment = new VirtualGovernorFragment(this, profile);
+		} else {
+			governorFragment = new GovernorFragment(this, profile);
+		}
 
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
@@ -95,6 +104,11 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			profile = modelAccess.getProfile(getIntent().getData());
 			profile.setProfileName(null);
 			profile.setDbId(-1);
+		} else if (ACTION_EDIT_SWITCHPROFILE.equals(action)) {
+			findViewById(R.id.llServices).setVisibility(View.GONE);
+			findViewById(R.id.llProfileName).setVisibility(View.GONE);
+			profile = new ProfileModel(settings.getSwitchCpuSetting());
+			governorFragment = new GovernorFragment(this, profile);
 		}
 
 		if (profile == null) {
@@ -122,9 +136,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		cpuHandler = CpuHandler.getInstance();
 		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
 		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
-		SettingsStorage settings = SettingsStorage.getInstance();
 
-		governorFragment = getFragment();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
@@ -310,16 +322,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		// updateView();
 	}
 
-	private GovernorBaseFragment getFragment() {
-		GovernorBaseFragment gf;
-		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
-			gf = new VirtualGovernorFragment(this, profile);
-		} else {
-			gf = new GovernorFragment(this, profile);
-		}
-		return gf;
-	}
-
 	private ArrayAdapter<CharSequence> getSystemsAdapter() {
 		int devicestates = R.array.deviceStates;
 		if (SettingsStorage.getInstance().isEnableBeta() || hasDeviceStatesBeta) {
@@ -374,6 +376,8 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 						modelAccess.insertProfile(profile);
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateProfile(profile);
+					} else if (ACTION_EDIT_SWITCHPROFILE.equals(action)) {
+						SettingsStorage.getInstance(this).setSwitchCpuSetting(profile);
 					}
 				}
 			} catch (Exception e) {
@@ -486,11 +490,17 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	}
 
 	private boolean hasName() {
+		if (ACTION_EDIT_SWITCHPROFILE.equals(getIntent().getAction())) {
+			return true;
+		}
 		String name = profile.getProfileName();
 		return name != null && !"".equals(name.trim());
 	}
 
 	private boolean isNameUnique() {
+		if (ACTION_EDIT_SWITCHPROFILE.equals(getIntent().getAction())) {
+			return true;
+		}
 		Cursor cursor = null;
 		try {
 			cursor = getContentResolver().query(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_ID_NAME, CpuProfile.SELECTION_NAME, new String[] { profile.getProfileName() }, null);

@@ -1,5 +1,8 @@
 - make boost profile configurable
 
+- rework tunerservice to be a service (not an intent service)
+
+- introduce categories in profile settings
 - label setting cab checker group
 
 - add sampling interval 

@@ -236,19 +236,16 @@ public class TunerService extends IntentService {
 		}
 	}
 
-	private long samplingRate = -1;
 	private void startSpeedUpSwitch() {
-		CpuHandler cpuHandler = CpuHandler.getInstance();
-		samplingRate = cpuHandler.getSamplingRate();
-		cpuHandler.setSamplingIntervall(cpuHandler.getSamplingRateMin());
-		int[] availCpuFreq = cpuHandler.getAvailCpuFreq(false);
-		cpuHandler.setMaxCpuFreq(availCpuFreq[availCpuFreq.length - 1]);
-		cpuHandler.setCurGov(CpuHandler.GOV_PERFORMANCE);
+		SettingsStorage settings = SettingsStorage.getInstance();
+		if (settings.isEnableSwitchCpuSetting()) {
+			CpuHandler.getInstance().applyCpuSettings(settings.getSwitchCpuSetting());
+		}
 	}
 
 	private void endSpeedUpSwitch() {
-		CpuHandler.getInstance().setSamplingIntervall(samplingRate);
-		PowerProfiles powerProfiles = PowerProfiles.getInstance();
-		powerProfiles.applyProfile(powerProfiles.getCurrentProfile().getDbId());
+		if (SettingsStorage.getInstance().isEnableSwitchCpuSetting()) {
+			CpuHandler.getInstance().applyCpuSettings(PowerProfiles.getInstance().getCurrentProfile());
+		}
 	}
 }

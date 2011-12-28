@@ -22,7 +22,7 @@
             android:padding="5dp" >
 
             <LinearLayout
-                android:id="@+id/LinearLayoutProfile"
+                android:id="@+id/llProfileName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp" >
@@ -44,178 +44,172 @@
                 </EditText>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:text="@string/labelServices"
-                android:textSize="20sp" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/tvWarningManualServiceChanges"
+            <LinearLayout
+                android:id="@+id/llServices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" android:paddingBottom="4dp">
-            </TextView>
+                android:orientation="vertical" >
 
-            <TableLayout
-                android:id="@+id/TableLayoutServices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/labelServices"
+                    android:textSize="20sp" />
 
-                <TableRow
-                    android:id="@+id/TableRowMobileData3G"
+                <TextView
+                    android:id="@+id/tvWarningManualServiceChanges"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:paddingBottom="4dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TableLayout
+                    android:id="@+id/TableLayoutServices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <TextView
-                        android:id="@+id/TextView01"
-                        style="@style/profileServiceLabel"
-                        android:text="@string/labelMobileData32G" >
-                    </TextView>
-
-                    <Spinner
-                        android:id="@+id/spMobileData3G"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1" >
-                    </Spinner>
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/TableRowMobiledataConnection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView02"
-                        style="@style/profileServiceLabel"
-                        android:text="@string/labelMobileDataConn" >
-                    </TextView>
-
-                    <Spinner
-                        android:id="@+id/spMobileDataConnection"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1" >
-                    </Spinner>
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/TableRowSync"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView01"
-                        style="@style/profileServiceLabel"
-                        android:text="@string/labelBackgroundSync" >
-                    </TextView>
-
-                    <Spinner
-                        android:id="@+id/spSync"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1" >
-                    </Spinner>
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/TableRowGps"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView01"
-                        style="@style/profileServiceLabel"
-                        android:text="@string/labelGPS" >
-                    </TextView>
-
-                    <Spinner
-                        android:id="@+id/spGps"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1" >
-                    </Spinner>
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/TableRowWifi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView01"
-                        style="@style/profileServiceLabel"
-                        android:text="@string/labelWifi" >
-                    </TextView>
-
-                    <LinearLayout
-                        android:id="@+id/llWifi"
+                    <TableRow
+                        android:id="@+id/TableRowMobileData3G"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1"
-                        android:orientation="vertical" >
-
-                        <Spinner
-                            android:id="@+id/spWifi"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight=".1" >
-                        </Spinner>
+                        android:layout_height="wrap_content" >
 
                         <TextView
-                            android:id="@+id/tvWarningWifiConnected"
+                            android:id="@+id/TextView01"
+                            style="@style/profileServiceLabel"
+                            android:text="@string/labelMobileData32G" />
+
+                        <Spinner
+                            android:id="@+id/spMobileData3G"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRowMobiledataConnection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/TextView02"
+                            style="@style/profileServiceLabel"
+                            android:text="@string/labelMobileDataConn" />
+
+                        <Spinner
+                            android:id="@+id/spMobileDataConnection"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRowSync"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/TextView01"
+                            style="@style/profileServiceLabel"
+                            android:text="@string/labelBackgroundSync" />
+
+                        <Spinner
+                            android:id="@+id/spSync"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRowGps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/TextView01"
+                            style="@style/profileServiceLabel"
+                            android:text="@string/labelGPS" />
+
+                        <Spinner
+                            android:id="@+id/spGps"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRowWifi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/TextView01"
+                            style="@style/profileServiceLabel"
+                            android:text="@string/labelWifi" />
+
+                        <LinearLayout
+                            android:id="@+id/llWifi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight=".1"
-                            android:textAppearance="?android:attr/textAppearanceSmall" android:paddingLeft="1dp" android:paddingRight="1dp" android:paddingBottom="4dp">
-                        </TextView>
-                    </LinearLayout>
-                </TableRow>
+                            android:orientation="vertical" >
 
-                <TableRow
-                    android:id="@+id/TableRowBluetooth"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                            <Spinner
+                                android:id="@+id/spWifi"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1" />
 
-                    <TextView
-                        android:id="@+id/TextView01"
-                        style="@style/profileServiceLabel"
-                        android:text="@string/labelBluetooth" >
-                    </TextView>
+                            <TextView
+                                android:id="@+id/tvWarningWifiConnected"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".1"
+                                android:paddingBottom="4dp"
+                                android:paddingLeft="1dp"
+                                android:paddingRight="1dp"
+                                android:textAppearance="?android:attr/textAppearanceSmall" />
+                        </LinearLayout>
+                    </TableRow>
 
-                    <Spinner
-                        android:id="@+id/spBluetooth"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1" >
-                    </Spinner>
-                </TableRow>
+                    <TableRow
+                        android:id="@+id/TableRowBluetooth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
 
-                <TableRow
-                    android:id="@+id/TableRowAirplaneMode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                        <TextView
+                            android:id="@+id/TextView01"
+                            style="@style/profileServiceLabel"
+                            android:text="@string/labelBluetooth" />
 
-                    <TextView
-                        android:id="@+id/TextView03"
-                        style="@style/profileServiceLabel"
-                        android:text="@string/labelAirplaneMode" >
-                    </TextView>
+                        <Spinner
+                            android:id="@+id/spBluetooth"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1" />
+                    </TableRow>
 
-                    <Spinner
-                        android:id="@+id/spAirplaneMode"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1" >
-                    </Spinner>
-                </TableRow>
-            </TableLayout>
+                    <TableRow
+                        android:id="@+id/TableRowAirplaneMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/TextView03"
+                            style="@style/profileServiceLabel"
+                            android:text="@string/labelAirplaneMode" />
+
+                        <Spinner
+                            android:id="@+id/spAirplaneMode"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".1" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llGovernorFragmentAncor"
