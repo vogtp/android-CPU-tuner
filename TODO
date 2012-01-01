@@ -1,6 +1,6 @@
-- make boost profile configurable
+- rework tunerservice to be a service (not an intent service) make chooseable in settings
 
-- rework tunerservice to be a service (not an intent service)
+- do not touch the governor if not enabled (unless the user sets it)
 
 - introduce categories in profile settings
 - label setting cab checker group
@@ -28,7 +28,7 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
 - export config merge to master
 
 - exclude profile switch log from backup
-- check for su binary and fix superuser not installed (ics)
+- check for su binary and fix superuser not installed
 
 - sf web site
 

@@ -6,6 +6,7 @@ V
 
 V 3.2.0
 * features
+- speedup profile switches
 - allow special cpu setting during profile switch
 * bug fixes
 - use added configuration as the current one

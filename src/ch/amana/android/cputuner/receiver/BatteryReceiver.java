@@ -55,10 +55,14 @@ public class BatteryReceiver extends BroadcastReceiver {
 				String action = intent == null ? "null intent" : intent.getAction();
 				Logger.i("Battery receiver got intent with action " + action);
 			}
-			Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_BATTERY);
-			i.putExtra(TunerService.EXTRA_ACTION, intent.getAction());
-			i.putExtras(intent);
-			context.startService(i);
+			if (true) {
+				TunerService.handleBattery(context, intent.getAction(), intent);
+			} else {
+				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_BATTERY);
+				i.putExtra(TunerService.EXTRA_ACTION, intent.getAction());
+				i.putExtras(intent);
+				context.startService(i);
+			}
 		} catch (Exception e) {
 			String action = intent == null ? "null intent" : intent.getAction();
 			Logger.e("Error executing action " + action + " in background in battery receiver", e);

@@ -33,8 +33,8 @@ public class TunerService extends IntentService {
 	public static final String EXTRA_PULSE_START = "EXTRA_PULSE_START";
 	public static final String EXTRA_PULSE_STOP = "EXTRA_PULSE_STOP";
 
-	private PowerManager pm;
-	private WakeLock wakeLock = null;
+	private static PowerManager pm;
+	private static WakeLock wakeLock = null;
 
 	public TunerService() {
 		super("Cpu tuner background worker");
@@ -62,9 +62,9 @@ public class TunerService extends IntentService {
 				startTs = System.currentTimeMillis();
 			}
 			if (ACTION_TUNERSERVICE_BATTERY.equals(serviceAction)) {
-				handleBattery(intent);
+				handleBattery(getApplicationContext(), intent.getStringExtra(EXTRA_ACTION), intent);
 			} else if (ACTION_TUNERSERVICE_PHONESTATE.equals(serviceAction)) {
-				handlePhoneState(intent);
+				handlePhoneState(getApplicationContext(), intent.getIntExtra(EXTRA_PHONE_STATE, -1));
 			} else if (ACTION_PULSE.equals(serviceAction)) {
 				if (intent.getBooleanExtra(EXTRA_PULSE_START, false)) {
 					startPulse();
@@ -138,22 +138,21 @@ public class TunerService extends IntentService {
 		//			am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, 0, operation);
 	}
 
-	private void handlePhoneState(Intent intent) {
-		int state = intent.getIntExtra(EXTRA_PHONE_STATE, -1);
+	public static void handlePhoneState(Context context, int state) {
 		Logger.v("Got call state: " + state);
 		startSpeedUpSwitch();
 		switch (state) {
 		case TelephonyManager.CALL_STATE_IDLE:
 			// hangup
-			PowerProfiles.getInstance(getApplicationContext()).setCallInProgress(false);
+			PowerProfiles.getInstance(context).setCallInProgress(false);
 			break;
 		case TelephonyManager.CALL_STATE_RINGING:
 			// incomming
-			PowerProfiles.getInstance(getApplicationContext()).setCallInProgress(true);
+			PowerProfiles.getInstance(context).setCallInProgress(true);
 			break;
 		case TelephonyManager.CALL_STATE_OFFHOOK:
 			// outgoing
-			PowerProfiles.getInstance(getApplicationContext()).setCallInProgress(true);
+			PowerProfiles.getInstance(context).setCallInProgress(true);
 			break;
 
 		default:
@@ -162,15 +161,14 @@ public class TunerService extends IntentService {
 		endSpeedUpSwitch();
 	}
 
-	private void handleBattery(Intent intent) {
-		String action = intent.getStringExtra(EXTRA_ACTION);
+	public static void handleBattery(Context ctx, String action, Intent intent) {
 		if (action == null) {
 			Logger.w("BatteryJob got null intent returning");
 			return;
 		}
 		try {
-			acquireWakelock();
-			PowerProfiles powerProfiles = PowerProfiles.getInstance(getApplicationContext());
+			acquireWakelock(ctx);
+			PowerProfiles powerProfiles = PowerProfiles.getInstance(ctx);
 			if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
 				int level = -1;
 				int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
@@ -221,29 +219,29 @@ public class TunerService extends IntentService {
 		}
 	}
 
-	private void acquireWakelock() {
+	private static void acquireWakelock(Context ctx) {
 		if (pm == null) {
-			pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
+			pm = (PowerManager) ctx.getApplicationContext().getSystemService(Context.POWER_SERVICE);
 		}
 		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
 		wakeLock.acquire();
 	}
 
-	private void releaseWakelock() {
+	private static void releaseWakelock() {
 		if (wakeLock != null) {
 			wakeLock.release();
 			wakeLock = null;
 		}
 	}
 
-	private void startSpeedUpSwitch() {
+	private static void startSpeedUpSwitch() {
 		SettingsStorage settings = SettingsStorage.getInstance();
 		if (settings.isEnableSwitchCpuSetting()) {
 			CpuHandler.getInstance().applyCpuSettings(settings.getSwitchCpuSetting());
 		}
 	}
 
-	private void endSpeedUpSwitch() {
+	private static void endSpeedUpSwitch() {
 		if (SettingsStorage.getInstance().isEnableSwitchCpuSetting()) {
 			CpuHandler.getInstance().applyCpuSettings(PowerProfiles.getInstance().getCurrentProfile());
 		}
