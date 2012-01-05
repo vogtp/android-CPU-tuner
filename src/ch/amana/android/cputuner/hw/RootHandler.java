@@ -14,6 +14,7 @@ import java.io.Writer;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 import ch.amana.android.cputuner.log.Logger;
 
 public class RootHandler {
@@ -65,11 +66,11 @@ public class RootHandler {
 				if (p.exitValue() != 255) {
 					success = true;
 				}
-				if (out != null) {
-					Logger.v(cmd + " stdout: " + out);
+				if (Logger.DEBUG && out != null && !TextUtils.isEmpty(out)) {
+					Logger.v(cmd.trim() + " stdout: " + out);
 				}
-				if (err != null) {
-					Logger.v(cmd + " stderr: " + err);
+				if (Logger.DEBUG && err != null && !TextUtils.isEmpty(err)) {
+					Logger.v(cmd.trim() + " stderr: " + err);
 				}
 			} catch (InterruptedException e) {
 				Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
