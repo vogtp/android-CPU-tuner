@@ -42,10 +42,10 @@ public class GpsHandler {
 	// // }
 	// }
 
-	public static boolean isGpxEnabled(Context ctx) {
+	public static boolean isGpsEnabled(Context ctx) {
 		ContentResolver resolver = ctx.getContentResolver();
 		String providers = Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-		return providers.indexOf(LocationManager.GPS_PROVIDER) > -1;
+		return providers != null && providers.indexOf(LocationManager.GPS_PROVIDER) > -1;
 	}
 
 	public static void enableGps(Context ctx, boolean enabled) {

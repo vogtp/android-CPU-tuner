@@ -55,7 +55,7 @@ public class ServicesHandler {
 	}
 
 	public static boolean isGpsEnabled(Context ctx) {
-		return GpsHandler.isGpxEnabled(ctx);
+		return GpsHandler.isGpsEnabled(ctx);
 	}
 
 	public static void enableGps(Context ctx, boolean enable) {
