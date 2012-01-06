@@ -106,6 +106,9 @@ public class StatsAdvancedFragment extends PagerFragment {
 	}
 
 	private void getTotalTransitions(Context context, StringBuilder sb) {
+		if (context == null) {
+			return;
+		}
 		long totaltransitions = getTotalTransitions();
 		if (totaltransitions != NO_TRANSITIONS) {
 			sb.append(context.getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
