@@ -152,7 +152,7 @@ public class RootHandler {
 	}
 
 	static String readFile(File file) {
-		if (file == null) {
+		if (file == null || file == CpuHandler.DUMMY_FILE || !file.exists()) {
 			return NOT_AVAILABLE;
 		}
 		synchronized (file) {
@@ -207,6 +207,12 @@ public class RootHandler {
 	}
 
 	public static boolean writeFile(File file, String val) {
+		if (file == CpuHandler.DUMMY_FILE || !file.exists()) {
+			if (Logger.DEBUG) {
+				Logger.w(file.getAbsolutePath() + " does not exist!");
+			}
+			return false;
+		}
 		String readFile = readFile(file);
 		if (val == null || val.equals(readFile) || RootHandler.NOT_AVAILABLE.equals(readFile)) {
 			return false;

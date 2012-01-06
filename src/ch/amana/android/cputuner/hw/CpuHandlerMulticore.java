@@ -6,7 +6,7 @@ import ch.amana.android.cputuner.model.ProfileModel;
 public class CpuHandlerMulticore extends CpuHandler {
 
 	private static final String CPU_ONLINE = "online";
-	private String[] cpus;
+	private final String[] cpus;
 
 	public CpuHandlerMulticore(String[] cpus) {
 		super();
@@ -19,51 +19,60 @@ public class CpuHandlerMulticore extends CpuHandler {
 		setNumberOfActiveCpus(profile.getUseNumberOfCpus());
 	}
 
-	private boolean writeFile(String file, String value) {
-		return writeFile(null, file, value);
-	}
-
 	private boolean writeFile(String subDir, String file, String value) {
-		for (int i = 0; i < cpus.length; i++) {
-			writeCpuFile(subDir, file, value, i);
+		if (writeCpuFile(subDir, file, value, -1)) {
+			return true;
 		}
-		return false;
+		for (int i = 0; i < cpus.length; i++) {
+			if (!writeCpuFile(subDir, file, value, i)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	private void writeCpuFile(String subDir, String file, String value, int i) {
+	private boolean writeCpuFile(String subDir, String file, String value, int i) {
 		StringBuilder path = new StringBuilder(CPU_BASE_DIR);
-		path.append("/").append(cpus[i]);
+		if (i < -1) {
+			path.append("/").append(cpus[i]);
+		}
 		if (subDir != null) {
 			path.append("/").append(subDir);
 		}
-		RootHandler.writeFile(getFile(path.toString(), file), value);
+		return RootHandler.writeFile(getFile(path.toString(), file), value);
 	}
 
+	@Override
 	public boolean setCurGov(String gov) {
 		Logger.i("Setting multicore governor to " + gov);
 		return writeFile(CPUFREQ_DIR, SCALING_GOVERNOR, gov);
 	}
 
 
+	@Override
 	public boolean setUserCpuFreq(int val) {
 		Logger.i("Setting  multicore user frequency to " + val);
 		return writeFile(CPUFREQ_DIR, SCALING_SETSPEED, val + "");
 	}
 
+	@Override
 	public boolean setMaxCpuFreq(int val) {
 		Logger.i("Setting multicore max frequency to " + val);
 		return writeFile(CPUFREQ_DIR, SCALING_MAX_FREQ, Integer.toString(val));
 	}
 
+	@Override
 	public boolean setMinCpuFreq(int i) {
 		Logger.i("Setting multicore min frequency to " + i);
 		return writeFile(CPUFREQ_DIR, SCALING_MIN_FREQ, Integer.toString(i));
 	}
 
+	@Override
 	public boolean setGovSamplingRate(int i) {
 		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_SAMPLING_RATE, i + "");
 	}
 
+	@Override
 	public boolean setPowersaveBias(int i) {
 		if (i < 0) {
 			return false;
@@ -71,6 +80,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 		return writeFile(CPUFREQ_DIR + getCurCpuGov(), POWERSAVE_BIAS, i + "");
 	}
 
+	@Override
 	public boolean setGovThresholdUp(int i) {
 		if (i < 1) {
 			return false;
@@ -82,6 +92,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
 	}
 
+	@Override
 	public boolean setGovThresholdDown(int i) {
 		if (i < 1) {
 			return false;
@@ -93,10 +104,12 @@ public class CpuHandlerMulticore extends CpuHandler {
 		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
 	}
 
+	@Override
 	public int getNumberOfCpus() {
 		return cpus.length;
 	}
 
+	@Override
 	public void setNumberOfActiveCpus(int activeCpus) {
 		if (activeCpus < 1) {
 			return;
@@ -112,6 +125,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 		}
 	}
 
+	@Override
 	public int getNumberOfActiveCpus() {
 		int count = 0;
 		for (int i = 0; i < getNumberOfCpus(); i++) {

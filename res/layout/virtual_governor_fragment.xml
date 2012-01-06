@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content"
-	android:id="@+id/llGovernorFragment"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
->
-	<LinearLayout
-		android:paddingTop="20dp"
-		android:id="@+id/llCpuGov"
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-	android:layout_weight="1" android:layout_height="0dp">
-		<TextView
-			android:text="@string/labelCpuGov"
-			android:id="@+id/labelCpuGov"
-			android:paddingRight="5dp"
-			android:textSize="20sp"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:layout_gravity="center_vertical"
-		></TextView>
-		<Spinner
-			android:id="@+id/SpinnerCpuGov"
-			android:focusable="true"
-			android:prompt="@string/spinnerPromptGov"
-			android:layout_height="wrap_content"
-			android:layout_weight=".7"
-			android:layout_width="match_parent"
-		></Spinner>
-	</LinearLayout>
-	<TextView
-		android:text="Explain Gov"
-		android:id="@+id/tvExplainGov"
-		android:layout_width="wrap_content"
-	android:layout_weight="1" android:layout_height="0dp"></TextView>
-</LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llGovernorFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
+    <LinearLayout
+        android:id="@+id/llCpuGov"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:id="@+id/labelCpuGov"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/labelCpuGov"
+            android:textSize="20sp" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/SpinnerCpuGov"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7"
+            android:focusable="true"
+            android:prompt="@string/spinnerPromptGov" >
+        </Spinner>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvExplainGov"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".9"
+        android:text="Explain Gov" >
+    </TextView>
+
+</LinearLayout>

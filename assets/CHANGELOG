@@ -11,6 +11,7 @@ V 3.2.0
 - allow special cpu setting during profile switch
 * bug fixes
 - use added configuration as the current one
+- cpufreq files not found in some kernels
 - files only be read by root in some devices (JackieKu)
 
 V 3.1.4
