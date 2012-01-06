@@ -91,12 +91,6 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 		modelAccess = ModelAccess.getInstace(this);
 
-		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
-			governorFragment = new VirtualGovernorFragment(this, profile);
-		} else {
-			governorFragment = new GovernorFragment(this, profile);
-		}
-
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			profile = modelAccess.getProfile(getIntent().getData());
@@ -117,22 +111,36 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 		origProfile = new ProfileModel(profile);
 
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
 
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
+		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+			governorFragment = new VirtualGovernorFragment(this, profile);
+		} else {
+			governorFragment = new GovernorFragment(this, profile);
+		}
+		if (ACTION_EDIT_SWITCHPROFILE.equals(action)) {
+			governorFragment = new GovernorFragment(this, profile);
+		}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
-		actionBar.setTitle(getString(R.string.title_profile_editor) + " " + profile.getProfileName());
-		EditorActionbarHelper.addActions(this, actionBar);
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.title_profile_editor);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
+
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+			cputunerActionBar.setTitle(getString(R.string.title_profile_editor) + ": " + profile.getProfileName());
+			EditorActionbarHelper.addActions(this, cputunerActionBar);
+		}
 		cpuHandler = CpuHandler.getInstance();
 		availCpuFreqsMax = cpuHandler.getAvailCpuFreq(false);
 		availCpuFreqsMin = cpuHandler.getAvailCpuFreq(true);
@@ -356,6 +364,11 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		} else {
 			profile.readFromBundle(savedInstanceState);
 		}
+		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+			governorFragment = new VirtualGovernorFragment(this, profile);
+		} else {
+			governorFragment = new GovernorFragment(this, profile);
+		}
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 
@@ -391,6 +404,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		updateModel();
 		return !origProfile.equals(profile);
 	}
+
 	@Override
 	public void updateView() {
 		String profileName = profile.getProfileName();

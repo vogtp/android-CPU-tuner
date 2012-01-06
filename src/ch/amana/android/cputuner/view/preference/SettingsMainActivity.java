@@ -22,7 +22,11 @@ public class SettingsMainActivity extends BaseSettings {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		actionBar.setTitle(R.string.labelSettingsTab);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.labelSettingsTab);
+		} else {
+			cputunerActionBar.setTitle(R.string.labelSettingsTab);
+		}
 		addPreferencesFromResource(R.xml.settings_main);
 
 		startIntentForPref("prefKeyConfigurations", SettingsConfigurationsActivity.class);

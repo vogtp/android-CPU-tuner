@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.view.preference;
 
 import android.os.Bundle;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 public class SystemServiceSwitchesSettings extends BaseSettings {
@@ -10,7 +11,11 @@ public class SystemServiceSwitchesSettings extends BaseSettings {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-		actionBar.setTitle(R.string.prefServiceSwitches);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.prefServiceSwitches);
+		} else {
+			cputunerActionBar.setTitle(R.string.prefServiceSwitches);
+		}
 		addPreferencesFromResource(R.xml.settings_system_serviceswitches);
 	}
 

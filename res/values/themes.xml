@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="CpuTunerTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <!-- Any customizations for your app running on pre-3.0 devices here -->
+    </style>
+
+</resources>

@@ -16,7 +16,11 @@ public class SystemCpuSettings extends BaseSettings {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-		actionBar.setTitle(R.string.prefCpu);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.prefCpu);
+		} else {
+			cputunerActionBar.setTitle(R.string.prefCpu);
+		}
 		addPreferencesFromResource(R.xml.settings_system_cpu);
 	
 		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);

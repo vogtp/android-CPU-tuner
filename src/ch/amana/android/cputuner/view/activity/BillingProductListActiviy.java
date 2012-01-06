@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 import ch.almana.android.billing.BillingManager;
@@ -36,41 +35,44 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.list);
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 
 		String title = getIntent().getStringExtra(EXTRA_TITLE);
 		if (title == null) {
-			actionBar.setTitle(R.string.title_products);
-		} else {
-			actionBar.setTitle(title);
+			title = getString(R.string.title_products);
 		}
 
-		actionBar.setHomeAction(new ActionBar.Action() {
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(title);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setTitle(title);
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
 
-		actionBar.addAction(new Action() {
-			@Override
-			public void performAction(View view) {
-				refreshFromMarket();
-			}
+			cputunerActionBar.addAction(new Action() {
+				@Override
+				public void performAction(View view) {
+					refreshFromMarket();
+				}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.ic_menu_refresh;
-			}
-		});
+				@Override
+				public int getDrawable() {
+					return R.drawable.ic_menu_refresh;
+				}
+			});
+		}
 
 		bm = new BillingManager(this);
 		bm.addPurchaseListener(this);

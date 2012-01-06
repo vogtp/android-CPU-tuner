@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.activity.ChangelogActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
@@ -15,7 +16,11 @@ public class VariousSettings extends BaseSettings {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-		actionBar.setTitle(R.string.prefVarious);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.prefVarious);
+		} else {
+			cputunerActionBar.setTitle(R.string.prefVarious);
+		}
 		addPreferencesFromResource(R.xml.settings_various);
 
 		findPreference("prefKeyLegalGnomeIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {

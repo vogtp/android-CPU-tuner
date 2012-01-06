@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemBack"
+        android:icon="@drawable/back"
+        android:showAsAction="always"
+        android:title="@string/label_back">
+    </item>
+    <item
+        android:id="@+id/itemForward"
+        android:icon="@drawable/forward"
+        android:showAsAction="always"
+        android:title="@string/label_forward">
+    </item>
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/home"
+        android:showAsAction="always"
+        android:title="@string/labelHome">
+    </item>
+
+</menu>

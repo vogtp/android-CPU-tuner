@@ -17,6 +17,7 @@ import ch.amana.android.cputuner.helper.EditorActionbarHelper;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
@@ -64,22 +65,24 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 
 		origVirtualGovModel = new VirtualGovernorModel(virtualGovModel);
 
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
-
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
-
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
-		actionBar.setTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
-		EditorActionbarHelper.addActions(this, actionBar);
-
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.titleVirtualGovernorEditor);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+			cputunerActionBar.setTitle(getString(R.string.titleVirtualGovernorEditor) + " " + virtualGovModel.getVirtualGovernorName());
+			EditorActionbarHelper.addActions(this, cputunerActionBar);
+		}
 		etVirtualGovernorName = (EditText) findViewById(R.id.etVirtualGovernorName);
 		governorFragment = new GovernorFragment(this, virtualGovModel);
 		FragmentManager fragmentManager = getSupportFragmentManager();

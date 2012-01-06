@@ -10,5 +10,8 @@
     <string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
     <string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
     <string name="prefSwitchCpuSettingLong">These CPU settings will be used on profile switch, it can speed up profile switch when heavily underclocking (underclocking is not recommended).</string>
+    <string name="label_back">Go back</string>
+    <string name="label_forward">Go forward</string>
+    <string name="label_home">Home</string>
 
 </resources>

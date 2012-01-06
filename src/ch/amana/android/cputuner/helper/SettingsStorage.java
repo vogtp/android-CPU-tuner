@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
@@ -638,5 +639,9 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putString(PREF_KEY_SWITCH_CPU_SETTINGS, json.toString());
 		editor.commit();
+	}
+
+	public boolean hasHoloTheme() {
+		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 	}
 }

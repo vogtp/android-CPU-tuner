@@ -16,7 +16,11 @@ public class SystemProfilesSettings extends BaseSettings {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		actionBar.setTitle(R.string.prefKeyProfiles);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.prefKeyProfiles);
+		} else {
+			cputunerActionBar.setTitle(R.string.prefKeyProfiles);
+		}
 		addPreferencesFromResource(R.xml.settings_system_profiles);
 		findPreference("prefKeyCallInProgressProfile").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 

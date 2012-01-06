@@ -78,21 +78,26 @@ public class TriggerEditor extends Activity implements EditorCallback {
 
 		origTriggerModel = new TriggerModel(triggerModel);
 
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.title_trigger_editor);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
-		actionBar.setTitle(getString(R.string.title_trigger_editor) + " " + triggerModel.getName());
-		EditorActionbarHelper.addActions(this, actionBar);
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+			cputunerActionBar.setTitle(getString(R.string.title_trigger_editor) + ": " + triggerModel.getName());
+			EditorActionbarHelper.addActions(this, cputunerActionBar);
+		}
 
 		etName = (EditText) findViewById(R.id.etName);
 		etBatteryLevel = (EditText) findViewById(R.id.etBatteryLevel);
@@ -316,7 +321,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		try {
 			cursor = getContentResolver().query(DB.Trigger.CONTENT_URI, Trigger.PROJECTION_BATTERY_LEVEL, Trigger.SELECTION_BATTERYLEVEL,
 					new String[] { Integer.toString(triggerModel
-					.getBatteryLevel()) }, null);
+							.getBatteryLevel()) }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == triggerModel.getDbId();
 			}

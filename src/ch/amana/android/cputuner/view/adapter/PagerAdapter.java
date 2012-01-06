@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import ch.amana.android.cputuner.view.widget.ActionBarWrapper;
 import ch.amana.android.cputuner.view.widget.PagerHeader;
 
 import com.markupartist.android.widget.ActionBar;
@@ -28,7 +29,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	private final ArrayList<PageInfo> mPages = new ArrayList<PageInfo>();
 	private static Fragment currentPage;
 	private boolean first = true;
-	private final ActionBar mActionBar;
+	private final ActionBarWrapper mActionBar;
 	private final Map<Integer, Fragment> fragments = new HashMap<Integer, Fragment>();
 
 	public interface PagerItem {
@@ -52,7 +53,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	}
 
 	public PagerAdapter(FragmentActivity activity, ViewPager pager,
-			PagerHeader header, ActionBar actionBar) {
+			PagerHeader header, ActionBarWrapper actionBar) {
 		super(activity.getSupportFragmentManager());
 		mContext = activity;
 		mPager = pager;

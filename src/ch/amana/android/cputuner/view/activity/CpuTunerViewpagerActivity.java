@@ -17,7 +17,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -36,6 +38,7 @@ import ch.amana.android.cputuner.view.fragments.StatsAdvancedFragment;
 import ch.amana.android.cputuner.view.fragments.StatsFragment;
 import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorListFragment;
+import ch.amana.android.cputuner.view.widget.ActionBarWrapper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 import ch.amana.android.cputuner.view.widget.PagerHeader;
 
@@ -104,9 +107,11 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		SettingsStorage settings = SettingsStorage.getInstance();
+		if (!settings.hasHoloTheme()) {
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+		}
+
 		String lang = settings.getLanguage();
 		if (!"".equals(lang)) {
 			GuiUtils.setLanguage(this, lang);
@@ -119,17 +124,30 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 		setContentView(R.layout.viewpager);
 
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setTitle(R.string.app_name);
-		actionBar.setHomeLogo(R.drawable.icon);
-		actionBar.setHomeTitleAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.icon));
+		ActionBarWrapper actionBarWrapper;
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (settings.hasHoloTheme()) {
+			android.app.ActionBar bar = getActionBar();
+			actionBarWrapper = new ActionBarWrapper(this, bar);
+			setTitle(R.string.app_name);
+			if (Logger.DEBUG) {
+				bar.setSubtitle("DEBUG MODE" + " (" + getString(R.string.version) + ")");
+			}
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
 
-		if (Logger.DEBUG) {
-			actionBar.setTitle(getString(R.string.app_name) + " - DEBUG MODE" + " (" + getString(R.string.version) + ")");
+			String title = getString(R.string.app_name);
+			if (Logger.DEBUG) {
+				title = title + " - DEBUG MODE" + " (" + getString(R.string.version) + ")";
+			}
+			cputunerActionBar.setTitle(title);
+			cputunerActionBar.setHomeLogo(R.drawable.icon);
+			cputunerActionBar.setHomeTitleAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.icon));
+			actionBarWrapper = new ActionBarWrapper(cputunerActionBar);
 		}
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header), actionBar);
+		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header), actionBarWrapper);
 		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
 		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
 		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
@@ -193,9 +211,10 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		//		return pagerAdapter.onPrepareOptionsMenu(menu);
 		menu.clear();
-		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, getMenuInflater());
-		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
-		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
+		MenuInflater menuInflater = getMenuInflater();
+		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
+		menuInflater.inflate(R.menu.gerneral_help_menu, menu);
+		menuInflater.inflate(R.menu.gerneral_options_menu, menu);
 		return true;
 	}
 

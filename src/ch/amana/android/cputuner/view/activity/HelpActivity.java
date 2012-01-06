@@ -59,57 +59,66 @@ public class HelpActivity extends Activity {
 		}
 
 		wvHelp = (WebView) findViewById(R.id.wvHelp);
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.title_help_pages);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setTitle(R.string.title_help_pages);
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+
+			cputunerActionBar.setHomeAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.cputuner_back));
+
+			cputunerActionBar.addAction(new Action() {
+				@Override
+				public void performAction(View view) {
+					wvHelp.goBack();
+				}
+
+				@Override
+				public int getDrawable() {
+					return R.drawable.back;
+				}
+			});
+			cputunerActionBar.addAction(new Action() {
+				@Override
+				public void performAction(View view) {
+					wvHelp.goForward();
+				}
+
+				@Override
+				public int getDrawable() {
+					return R.drawable.forward;
+				}
+			});
+			cputunerActionBar.addAction(new Action() {
+				@Override
+				public void performAction(View view) {
+					go(PAGE_INDEX);
+				}
+
+				@Override
+				public int getDrawable() {
+					return R.drawable.home;
+				}
+			});
+
+		}
 
 		WebSettings webSettings = wvHelp.getSettings();
 		webSettings.setBuiltInZoomControls(false);
 		webSettings.setDefaultFontSize(16);
-
-		actionBar.setTitle(R.string.title_help_pages);
-		actionBar.setHomeAction(new ActionBar.IntentAction(this, CpuTunerViewpagerActivity.getStartIntent(this), R.drawable.cputuner_back));
-
-		actionBar.addAction(new Action() {
-			@Override
-			public void performAction(View view) {
-				wvHelp.goBack();
-			}
-			@Override
-			public int getDrawable() {
-				return R.drawable.back;
-			}
-		});
-		actionBar.addAction(new Action() {
-			@Override
-			public void performAction(View view) {
-				wvHelp.goForward();
-			}
-			@Override
-			public int getDrawable() {
-				return R.drawable.forward;
-			}
-		});
-		actionBar.addAction(new Action() {
-			@Override
-			public void performAction(View view) {
-				go(PAGE_INDEX);
-			}
-			@Override
-			public int getDrawable() {
-				return R.drawable.home;
-			}
-		});
 
 		go(page);
 	}
@@ -129,7 +138,7 @@ public class HelpActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 	}
-	
+
 	private String getFilePath(String page) {
 		String language = SettingsStorage.getInstance().getLanguage();
 		if ("".equals(language)) {
@@ -157,14 +166,28 @@ public class HelpActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.help_options_menu, menu);
 		getMenuInflater().inflate(R.menu.gerneral_options_menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
+		switch (item.getItemId()) {
+		case R.id.itemForward:
+			wvHelp.goForward();
 			return true;
+		case R.id.itemBack:
+			wvHelp.goBack();
+			return true;
+		case R.id.itemHome:
+			go(PAGE_INDEX);
+			return true;
+
+		default:
+			if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
+				return true;
+			}
 		}
 		return false;
 	}

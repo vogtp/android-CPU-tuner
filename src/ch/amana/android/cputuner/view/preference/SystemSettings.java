@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
@@ -14,7 +15,11 @@ public class SystemSettings extends BaseSettings {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-		actionBar.setTitle(R.string.prefCatSystem);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.prefCatSystem);
+		} else {
+			cputunerActionBar.setTitle(R.string.prefCatSystem);
+		}
 		addPreferencesFromResource(R.xml.settings_system);
 
 		startIntentForPref("prefKeyProfiles", SystemProfilesSettings.class);

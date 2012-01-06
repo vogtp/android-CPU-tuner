@@ -120,30 +120,35 @@ public class CapabilityCheckerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.capability_checker);
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.prefCapabilities);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
-		actionBar.setTitle(getString(R.string.prefCapabilities));
-		actionBar.addAction(new Action() {
-			@Override
-			public void performAction(View view) {
-				sendMail();
-			}
-			@Override
-			public int getDrawable() {
-				return android.R.drawable.ic_dialog_email;
-			}
-		});
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+			cputunerActionBar.setTitle(getString(R.string.prefCapabilities));
+			cputunerActionBar.addAction(new Action() {
+				@Override
+				public void performAction(View view) {
+					sendMail();
+				}
 
+				@Override
+				public int getDrawable() {
+					return android.R.drawable.ic_dialog_email;
+				}
+			});
+		}
 		openLogFile(FILE_CAPABILITIESCHECK);
 		checker = CapabilityChecker.getCapabilityChecker(this);
 
@@ -219,7 +224,6 @@ public class CapabilityCheckerActivity extends Activity {
 		tv.setText(text);
 		return tv;
 	}
-
 
 	private void closeLogFile() {
 		RootHandler.clearLogLocation();

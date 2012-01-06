@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
@@ -23,26 +24,31 @@ public class ChangelogActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.changelog);
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.title_changelog);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
-		actionBar.setTitle(R.string.title_changelog);
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+			cputunerActionBar.setTitle(R.string.title_changelog);
+		}
 		TextView tvChangelog = (TextView) findViewById(R.id.tvChangelog);
 
 		try {
 			InputStream is = getResources().getAssets().open(CHANGELOG);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-			for (int i= 0; i<5;i++) {
+			for (int i = 0; i < 5; i++) {
 				reader.readLine();
 			}
 			StringBuffer sb = new StringBuffer();

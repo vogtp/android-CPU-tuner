@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menuItemSendMail" android:title="@string/email" android:icon="@android:drawable/ic_dialog_email"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuItemSendMail"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:showAsAction="always"
+        android:title="@string/email">
+    </item>
+
 </menu>

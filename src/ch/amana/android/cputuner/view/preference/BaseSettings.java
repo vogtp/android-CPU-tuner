@@ -18,7 +18,7 @@ import com.markupartist.android.widget.ActionBar;
 
 public abstract class BaseSettings extends PreferenceActivity {
 
-	protected CputunerActionBar actionBar;
+	protected CputunerActionBar cputunerActionBar;
 	protected SettingsStorage settings;
 
 	@Override
@@ -27,20 +27,24 @@ public abstract class BaseSettings extends PreferenceActivity {
 		setContentView(R.layout.preferences);
 
 		settings = SettingsStorage.getInstance();
+		cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setTitle(R.string.app_name);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
-		actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
 
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
-
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+		}
 	}
 
 	@Override
@@ -69,7 +73,6 @@ public abstract class BaseSettings extends PreferenceActivity {
 		return false;
 	}
 
-
 	protected void startIntentForPref(final String prefKey, final Class<?> settingsClass) {
 		findPreference(prefKey).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -80,6 +83,6 @@ public abstract class BaseSettings extends PreferenceActivity {
 			}
 		});
 	}
-	
+
 	protected abstract String getHelpPage();
 }

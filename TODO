@@ -25,9 +25,8 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
 	* fix tablet 
 	* graph for trigger and or profile
 
-- export config merge to master
+- export (backup/restore) config merge to master
 
-- exclude profile switch log from backup
 - check for su binary and fix superuser not installed
 
 - sf web site
@@ -38,7 +37,7 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
 - ask user to disable log if he does not use it
 
 - sort user configs by time
-- timed manual service changes (i.e. change back after a certain time)
+- pulse settings (times) per profile
 - fix hasManualServicesChanges to reflect current trigger and get better answers
 
 - ensure display of current entity in list

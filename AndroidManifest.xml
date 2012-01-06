@@ -21,7 +21,8 @@
         android:allowClearUserData="true"
         android:backupAgent="ch.amana.android.cputuner.helper.CpuTunerBackupAgent"
         android:icon="@drawable/icon"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/CpuTunerTheme" >
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAINQCJA85hmMYm3sbqv9ypn7fLMp6KwDmc5_IO-A" />
@@ -35,8 +36,7 @@
 
         <activity
             android:name=".view.activity.ProfileEditor"
-            android:configChanges="orientation"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:configChanges="orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" >
                 </action>
@@ -96,22 +96,18 @@
 
         <activity
             android:name=".view.activity.CpuTunerViewpagerActivity"
-            android:configChanges="orientation"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:configChanges="orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.preference.SettingsMainActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.SettingsMainActivity" >
         </activity>
         <activity
             android:name=".view.activity.TriggerEditor"
-            android:configChanges="orientation"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:configChanges="orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" >
                 </action>
@@ -143,18 +139,13 @@
 
         <activity
             android:name=".view.activity.CapabilityCheckerActivity"
-            android:configChanges="orientation"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:configChanges="orientation" >
         </activity>
-        <activity
-            android:name=".view.activity.HelpActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.activity.HelpActivity" >
         </activity>
         <activity android:name=".view.activity.UserExperianceLevelChooser" >
         </activity>
-        <activity
-            android:name=".view.activity.VirtualGovernorEditorActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.activity.VirtualGovernorEditorActivity" >
             <intent-filter>
                 <action android:name="ch.amana.android.cputuner.ACTION_INSERT_AS_NEW" >
                 </action>
@@ -214,9 +205,7 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".view.activity.ChangelogActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.activity.ChangelogActivity" >
         </activity>
         <activity
             android:name=".service.ConfigurationLoadServiceActivity"
@@ -233,33 +222,19 @@
         </activity>
         <activity android:name=".view.activity.BillingProductListActiviy" >
         </activity>
-        <activity
-            android:name=".view.preference.SettingsConfigurationsActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.SettingsConfigurationsActivity" >
         </activity>
-        <activity
-            android:name=".view.preference.GuiSettings"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.GuiSettings" >
         </activity>
-        <activity
-            android:name=".view.preference.SystemSettings"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.SystemSettings" >
         </activity>
-        <activity
-            android:name=".view.preference.SystemCpuSettings"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.SystemCpuSettings" >
         </activity>
-        <activity
-            android:name=".view.preference.SystemProfilesSettings"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.SystemProfilesSettings" >
         </activity>
-        <activity
-            android:name=".view.preference.SystemServiceSwitchesSettings"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.SystemServiceSwitchesSettings" >
         </activity>
-        <activity
-            android:name=".view.preference.VariousSettings"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity android:name=".view.preference.VariousSettings" >
         </activity>
 
         <service android:name=".service.TunerService" >
@@ -291,7 +266,7 @@
 
     <uses-sdk
         android:minSdkVersion="7"
-        android:targetSdkVersion="8" />
+        android:targetSdkVersion="15" />
 
     <supports-screens
         android:anyDensity="true"

@@ -17,7 +17,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -59,44 +58,46 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.configuration_manage);
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
-
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
-
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
-
 		String title = getIntent().getStringExtra(EXTRA_TITLE);
 		if (title == null) {
-			actionBar.setTitle(R.string.titleManageConfigurations);
-		} else {
-			actionBar.setTitle(title);
+			title = getString(R.string.titleManageConfigurations);
 		}
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(title);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setTitle(title);
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
-		if (InstallHelper.hasConfig(this)) {
-			Intent intent = new Intent(getContext(), ConfigurationAutoloadListActivity.class);
-			actionBar.addAction(new ActionBar.IntentAction(getContext(), intent, android.R.drawable.ic_menu_today));
-			// android.R.drawable.ic_menu_my_calendar
-			actionBar.addAction(new Action() {
 				@Override
 				public void performAction(View view) {
-					add();
+					onBackPressed();
 				}
 
 				@Override
 				public int getDrawable() {
-					return android.R.drawable.ic_menu_add;
+					return R.drawable.cputuner_back;
 				}
 			});
+
+			if (InstallHelper.hasConfig(this)) {
+				Intent intent = new Intent(getContext(), ConfigurationAutoloadListActivity.class);
+				cputunerActionBar.addAction(new ActionBar.IntentAction(getContext(), intent, android.R.drawable.ic_menu_today));
+				// android.R.drawable.ic_menu_my_calendar
+				cputunerActionBar.addAction(new Action() {
+					@Override
+					public void performAction(View view) {
+						add();
+					}
+
+					@Override
+					public int getDrawable() {
+						return android.R.drawable.ic_menu_add;
+					}
+				});
+			}
 		}
 
 		askLoadConfirmation = getIntent().getBooleanExtra(EXTRA_ASK_LOAD_CONFIRMATION, true);
@@ -186,6 +187,9 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		switch (item.getItemId()) {
 		case R.id.itemAdd:
 			add();
+			return true;
+		case R.id.itemManageAutoload:
+			startActivity(new Intent(getContext(), ConfigurationAutoloadListActivity.class));
 			return true;
 		}
 		return GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_SETTINGS_CONFIGURATION);

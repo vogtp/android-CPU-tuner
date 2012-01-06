@@ -295,7 +295,12 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
 		governorHelper = new GovernorHelperCurInfo();
-		governorFragment = new VirtualGovernorFragment(this, governorHelper);
+		SettingsStorage settings = SettingsStorage.getInstance(getContext());
+		if (settings.isUseVirtualGovernors() && settings.isEnableProfiles()) {
+			governorFragment = new VirtualGovernorFragment(this, governorHelper);
+		} else {
+			governorFragment = new GovernorFragment(this, governorHelper, true);
+		}
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);

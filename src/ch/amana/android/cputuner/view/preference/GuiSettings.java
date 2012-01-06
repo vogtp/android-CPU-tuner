@@ -18,7 +18,12 @@ public class GuiSettings extends BaseSettings {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		actionBar.setTitle(R.string.prefCatGUI);
+
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.prefCatGUI);
+		} else {
+			cputunerActionBar.setTitle(R.string.prefCatGUI);
+		}
 		addPreferencesFromResource(R.xml.settings_gui);
 
 		findPreference("prefKeyLanguage").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -70,19 +75,19 @@ public class GuiSettings extends BaseSettings {
 					return false;
 				}
 				switch (newValueInt) {
-					case SettingsStorage.STATUSBAR_NEVER:
-						Notifier.stopStatusbarNotifications(getApplicationContext());
-						break;
+				case SettingsStorage.STATUSBAR_NEVER:
+					Notifier.stopStatusbarNotifications(getApplicationContext());
+					break;
 				case SettingsStorage.STATUSBAR_ALWAYS:
-						Notifier.startStatusbarNotifications(getApplicationContext());
-						break;
+					Notifier.startStatusbarNotifications(getApplicationContext());
+					break;
 				case SettingsStorage.STATUSBAR_RUNNING:
-						if (settings.isEnableProfiles()) {
-							Notifier.startStatusbarNotifications(getApplicationContext());
-						} else {
-							Notifier.stopStatusbarNotifications(getApplicationContext());
-						}
-						break;
+					if (settings.isEnableProfiles()) {
+						Notifier.startStatusbarNotifications(getApplicationContext());
+					} else {
+						Notifier.stopStatusbarNotifications(getApplicationContext());
+					}
+					break;
 
 				}
 				updateView();

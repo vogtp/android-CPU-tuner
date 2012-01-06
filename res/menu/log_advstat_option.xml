@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/itemMark" android:title="@string/menuMarkLog" android:icon="@drawable/ic_menu_mark"></item>
-    <item android:id="@+id/itemClear" android:title="@string/menuClearLog" android:icon="@android:drawable/ic_menu_delete"></item>
 
-    
+    <item
+        android:id="@+id/itemMark"
+        android:icon="@drawable/ic_menu_mark"
+        android:showAsAction="always"
+        android:title="@string/menuMarkLog">
+    </item>
+    <item
+        android:id="@+id/itemClear"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/menuClearLog">
+    </item>
 
 </menu>

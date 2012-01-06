@@ -1,136 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-		<string name="prefConfigurationsSettings">Ρυθμίσεις διαμόρφωσης</string>
-		<string name="prefSaveConfigOnSwitch">Αποθήκευση διαμόρφωσης</string>
-		<string name="prefSaveConfigOnSwitchFull">Αποθήκευση αλλαγών για προφίλ, εναύσματα ή governors στη τρέχουσα διαμόρφωση.</string>
-	<string name="saved_at">Αποθήκευση σε </string>
-	<string name="day_mon">Δευ</string>
-	<string name="day_tue">Τρι</string>
-	<string name="day_wed">Τετ</string>
-	<string name="day_thu">Πεμ</string> 
-	<string name="day_fri">Παρ</string>
-	<string name="day_sat">Σαβ</string>
-	<string name="day_sun">Κυρ</string>
-	<string name="label_weekdays">Καθημερινές: </string>
-<string name="prefConfigurationsManage">Διαχείριση ρυθμίσεων</string>
-		<string name="prefConfigurationsAutoLoad">διαμορφώσεις αυτόματης φορτώσεως</string>
-		<string name="title_configuration_autoload_editor">Επεξεργαστής διαμορφώσεων αυτ. φόρτωσης</string>
-		<string name="hint_profile_name">Όνομα προφίλ</string>
-		<string name="label_profile_switches">Διακόπτες προφίλ:</string>
-		<string name="not_enabled">Μη ενεργό</string>
-		<string name="prefProfileSwitchLogSize">Μέγεθος αρχείου καταγραφής αλλαγών προφίλ</string>
-		<string name="cbExactScheduling">Χρήση ακριβούς προγραμματισμού.</string>
-		<string name="labelExactSchedulingExplain">Ο ακριβής προγραμματισμός καταναλώνει περισσότερη μπαταρία.\nΜε τον ανακριβής προγραμματισμό η αλλαγή διαμόρφωσης μπορεί να καθυστερήσει έως και μισή ώρα.</string>
-		<string name="msg_cannot_delete_configuration">Δεν μπορείτε να διαγράψετε τη διαμόρφωση, δεδομένου ότι χρησιμοποιείται σε αυτόματη φόρτωση.</string>
-		<string name="label_load_configuration_1">Φόρτωση διαμόρφωσης</string>
-		<string name="label_load_configuration_2">σε</string>
-		<string name="labelConfig">Ρύθμιση:</string>
-	<string name="labelAirplaneMode">Λειτουργία πτήσης</string>
-	<string name="labelAirplaneModeOn">ΛΠ</string>
-	<string name="labelAirplaneModeOff">
-		<strike>ΛΠ</strike>
-	</string>
-	<string name="labelAirplaneModePrev">ΛΠ?</string>
-	<string name="msg_add_current_configuration">Προσθήκη τρέχουσας διαμόρφωσης</string>
-	<string name="msg_choose_name_for_config">Επιλέξτε όνομα για τη διαμόρφωση</string>
-	<string name="rename">Μετονομασία</string>
-	<string name="msg_rename_configuration">Μετονομασία διαμόρφωσης</string>
-	<string name="email">e-mail</string>
-	<string name="prefConfigurations">Διαμορφώσεις</string>
-	<string name="titleManageConfigurations">Διαχείρηση διαμορφώσεψν</string>
-	<string name="buAddConfiguration">Προσθήκη τρέχουσας διαμόρφωσης</string>
-	<string name="menuReplaceWithCurrent">Αντικαταστήστε με την τρέχουσαt</string>
-	<string name="menuLoad">Φόρτωση</string>
-	<string name="delete">Διαγραφή</string>
-	<string name="msg_delete_configuration">
-		Διαγραφή διαμόρφωσης \'
-		<xliff:g id="string">%s</xliff:g>
-		\'?
-	</string>
-	<string name="msg_replace_with_current">
-		Αντικατάσταση διαμόρφωσης \'
-		<xliff:g id="string">%s</xliff:g>
-		\' με την τρέχουσα ενεργή;
-	</string>
-	<string name="msg_load_configuration">
-		Φόρτωση διαμόρφωσης \'
-		<xliff:g id="string">%s</xliff:g>
-		\' ως ενεργή;
-	</string>
-	<string name="msg_loaded">
-		Φορτώθηκε \'
-		<xliff:g id="string">%s</xliff:g>
-		\'
-	</string>
-	<string name="menuAddCurrent">Προσθήκη τρέχουσας</string>
-	<string name="msg_fully_working">Πλήρως ενεργό</string>
-	<string name="msg_capcheck_not_rooted">Το CPU tuner δεν έχει προσβαση υπερχρήστη (root)!\nΌλες οι
+
+    <string name="prefConfigurationsSettings">Ρυθμίσεις διαμόρφωσης</string>
+    <string name="prefSaveConfigOnSwitch">Αποθήκευση διαμόρφωσης</string>
+    <string name="prefSaveConfigOnSwitchFull">Αποθήκευση αλλαγών για προφίλ, εναύσματα ή governors στη τρέχουσα διαμόρφωση.</string>
+    <string name="saved_at">Αποθήκευση σε </string>
+    <string name="day_mon">Δευ</string>
+    <string name="day_tue">Τρι</string>
+    <string name="day_wed">Τετ</string>
+    <string name="day_thu">Πεμ</string>
+    <string name="day_fri">Παρ</string>
+    <string name="day_sat">Σαβ</string>
+    <string name="day_sun">Κυρ</string>
+    <string name="label_weekdays">Καθημερινές: </string>
+    <string name="prefConfigurationsManage">Διαχείριση ρυθμίσεων</string>
+    <string name="prefConfigurationsAutoLoad">διαμορφώσεις αυτόματης φορτώσεως</string>
+    <string name="title_configuration_autoload_editor">Επεξεργαστής διαμορφώσεων αυτ. φόρτωσης</string>
+    <string name="hint_profile_name">Όνομα προφίλ</string>
+    <string name="label_profile_switches">Διακόπτες προφίλ:</string>
+    <string name="not_enabled">Μη ενεργό</string>
+    <string name="prefProfileSwitchLogSize">Μέγεθος αρχείου καταγραφής αλλαγών προφίλ</string>
+    <string name="cbExactScheduling">Χρήση ακριβούς προγραμματισμού.</string>
+    <string name="labelExactSchedulingExplain">Ο ακριβής προγραμματισμός καταναλώνει περισσότερη μπαταρία.\nΜε τον ανακριβής προγραμματισμό η αλλαγή διαμόρφωσης μπορεί να καθυστερήσει έως και μισή ώρα.</string>
+    <string name="msg_cannot_delete_configuration">Δεν μπορείτε να διαγράψετε τη διαμόρφωση, δεδομένου ότι χρησιμοποιείται σε αυτόματη φόρτωση.</string>
+    <string name="label_load_configuration_1">Φόρτωση διαμόρφωσης</string>
+    <string name="label_load_configuration_2">σε</string>
+    <string name="labelConfig">Ρύθμιση:</string>
+    <string name="labelAirplaneMode">Λειτουργία πτήσης</string>
+    <string name="labelAirplaneModeOn">ΛΠ</string>
+    <string name="labelAirplaneModeOff"><strike>ΛΠ</strike></string>
+    <string name="labelAirplaneModePrev">ΛΠ?</string>
+    <string name="msg_add_current_configuration">Προσθήκη τρέχουσας διαμόρφωσης</string>
+    <string name="msg_choose_name_for_config">Επιλέξτε όνομα για τη διαμόρφωση</string>
+    <string name="rename">Μετονομασία</string>
+    <string name="msg_rename_configuration">Μετονομασία διαμόρφωσης</string>
+    <string name="email">e-mail</string>
+    <string name="prefConfigurations">Διαμορφώσεις</string>
+    <string name="titleManageConfigurations">Διαχείρηση διαμορφώσεψν</string>
+    <string name="buAddConfiguration">Προσθήκη τρέχουσας διαμόρφωσης</string>
+    <string name="menuReplaceWithCurrent">Αντικαταστήστε με την τρέχουσαt</string>
+    <string name="menuLoad">Φόρτωση</string>
+    <string name="delete">Διαγραφή</string>
+    <string name="msg_delete_configuration">		Διαγραφή διαμόρφωσης \'<xliff:g id="string">%s</xliff:g>		\'?</string>
+    <string name="msg_replace_with_current">		Αντικατάσταση διαμόρφωσης \'<xliff:g id="string">%s</xliff:g>		\' με την τρέχουσα ενεργή;</string>
+    <string name="msg_load_configuration">		Φόρτωση διαμόρφωσης \'<xliff:g id="string">%s</xliff:g>		\' ως ενεργή;</string>
+    <string name="msg_loaded">		Φορτώθηκε \'<xliff:g id="string">%s</xliff:g>		\'</string>
+    <string name="menuAddCurrent">Προσθήκη τρέχουσας</string>
+    <string name="msg_fully_working">Πλήρως ενεργό</string>
+    <string name="msg_capcheck_not_rooted">Το CPU tuner δεν έχει προσβαση υπερχρήστη (root)!\nΌλες οι
 		λειτουργίες ρύθμισης της CPU ΔΕΝ ΘΑ λειτουργούν.\nΈχετε δικαιώματα υπερ-χρήστη στη συσκευή?\nΔώσατε
 		στο CPU tuner προνόμμια υπερχρήστη?</string>
-	<string name="msg_capcheck_found_some_issues">Βρέθηκαν κάποια θέματα... Ορισμένες λειτουργίες ενδέχεται να μην δουλεύουν.</string>
-	<string name="msg_capcheck_no_issues">Δε βρέθηκαν προβλήματα...</string>
-	<string name="and">και</string>
-	<string name="msg_capcheck_work_but_cannot_set_frequency">Λειτουργεί, αλλά δεν μπορεί να ορίσει συχνότητα.\nΑκόμα κι έτσι
+    <string name="msg_capcheck_found_some_issues">Βρέθηκαν κάποια θέματα... Ορισμένες λειτουργίες ενδέχεται να μην δουλεύουν.</string>
+    <string name="msg_capcheck_no_issues">Δε βρέθηκαν προβλήματα...</string>
+    <string name="and">και</string>
+    <string name="msg_capcheck_work_but_cannot_set_frequency">Λειτουργεί, αλλά δεν μπορεί να ορίσει συχνότητα.\nΑκόμα κι έτσι
 		έχουμε καλά αποτελέσματα.</string>
-	<string name="msg_premail_working">Οι governors είναι επί το πλείστον  ενεργοί.\n
+    <string name="msg_premail_working">Οι governors είναι επί το πλείστον  ενεργοί.\n
 		Για τους governors που δεν λειτουργούν φταίει ο πυρήνας / ROM. Έχετε 3
 		δυνατότητες:\n1) Κάνετε χρήση των λειτουργικών governors και αγνοήστε τους άλλους.
 		Ακόμα κι έτσι υπάρχουν αρκετά καλά αποτελέσματα.\n2) Βάλτε έναν
 		άλλο πυρίνα\n3) Βάλτε άλλη ROM\nΠαρακαλώ μην στέλνετε e-mail εκτός και αν 
 				πιστεύετε ότι κάτι δεν πάει καλά με τον έλεγχο ή την εφαρμογή.</string>
-	<string name="labelCurrentFrequency">τρέχων</string>
-	<string name="prefScreenLegal">Νομικά θέματα</string>
-	<string name="prefLegalOxigenIcons">Καρτέλα άδειας χρήσης εικονιδίου</string>
-	<string name="prefLegalOxigenIconsLong">Άδεια για τη χρήση εικόνων oxygen. Ευχαριστώ για τα 
+    <string name="labelCurrentFrequency">τρέχων</string>
+    <string name="prefScreenLegal">Νομικά θέματα</string>
+    <string name="prefLegalOxigenIcons">Καρτέλα άδειας χρήσης εικονιδίου</string>
+    <string name="prefLegalOxigenIconsLong">Άδεια για τη χρήση εικόνων oxygen. Ευχαριστώ για τα 
 	ωραία εικονίδια.</string>
-	<string name="virtual_governor">Εικονικός governor</string>
-	<string name="msg_cannot_load_virtual_governor">Δε μπορεί να γίνει φόρτωση του εικονικού governor...</string>
-	<string name="labelStatisticsTab">Στατιστικά</string>
-	<string name="label_time_in_state">Χρόνος σε κατάσταση:</string>
-	<string name="titleVirtualGovernorEditor">Επεξεργαστής εικονικού Governor:</string>
-	<string name="msgDeleteVirtGovNotPossible">Δε μπορεί διαγραφεί ο εικονικός Governor επειδή
+    <string name="virtual_governor">Εικονικός governor</string>
+    <string name="msg_cannot_load_virtual_governor">Δε μπορεί να γίνει φόρτωση του εικονικού governor...</string>
+    <string name="labelStatisticsTab">Στατιστικά</string>
+    <string name="label_time_in_state">Χρόνος σε κατάσταση:</string>
+    <string name="titleVirtualGovernorEditor">Επεξεργαστής εικονικού Governor</string>
+    <string name="msgDeleteVirtGovNotPossible">Δε μπορεί διαγραφεί ο εικονικός Governor επειδή
 		είναι σε χρήση από κάποιο(α) προφίλ!</string>
-	<string name="labelName">Όνομα:</string>
-	<string name="hintVirtualGovernorName">Όνομα εικονικού Governor</string>
-	<string name="prefCatGUI">Διεπαφή χρήστη</string>
-	<string name="prefCatDisplay">Προβολή</string>
-	<string name="labelPowersaveBias">Powersave bias:</string>
-	<string name="labelVirtualGovernor">Εικονικός Governor:</string>
-	<string name="prefUseVirtualGovernorsLong">Ο εικονικός governor αποσπά τις ρυθμίσεις των governors
+    <string name="labelName">Όνομα:</string>
+    <string name="hintVirtualGovernorName">Όνομα εικονικού Governor</string>
+    <string name="prefCatGUI">Διεπαφή χρήστη</string>
+    <string name="prefCatDisplay">Προβολή</string>
+    <string name="labelPowersaveBias">Powersave bias:</string>
+    <string name="labelVirtualGovernor">Εικονικός Governor:</string>
+    <string name="prefUseVirtualGovernorsLong">Ο εικονικός governor αποσπά τις ρυθμίσεις των governors
 		απο το προφίλ.</string>
-	<string name="label_total_transitions">Σύνολο μεταβάσεων:</string>
-	<string name="prefPulseMobiledataOnWifi">Διατήρηση σύνδεσης δεδομένων σε wifi</string>
-	<string name="prefPulseMobiledataOnWifiOn">Η σύνδεση δεδομένων θα παραμένει ενεργή έστω κι αν
+    <string name="label_total_transitions">Σύνολο μεταβάσεων:</string>
+    <string name="prefPulseMobiledataOnWifi">Διατήρηση σύνδεσης δεδομένων σε wifi</string>
+    <string name="prefPulseMobiledataOnWifiOn">Η σύνδεση δεδομένων θα παραμένει ενεργή έστω κι αν
 		υπάρχει συνδεδεμένο WiFi.</string>
-	<string name="prefPulseMobiledataOnWifiOff">Η σύνδεση δεδομένων ΔΕΝ ΘΑ παραμένει ενεργή όταν
+    <string name="prefPulseMobiledataOnWifiOff">Η σύνδεση δεδομένων ΔΕΝ ΘΑ παραμένει ενεργή όταν
 		υπάρχει σύνδεση WiFi.</string>
-<string name="prefLanguage">Επιλογή γλώσσας</string>
-<string name="msg_up_threshhold_has_to_be_between_0_and_100">Το μέγιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
-<string name="msg_down_threshhold_has_to_be_between_0_and_100">Το ελάχιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
-<string name="msg_up_threshhold_smaler_than_the_down_threshold">Το μέγιστο πρέπει να είναι μεγαλύτερο απ το ελάχιστο όριο.</string>
-<string name="msg_threshhold_NaN">Το όριο πρέπει να είναι ακαίρεος αριθμός.</string>
-<string name="msg_minimal_frequency_bigger_than_the_maximal">Η μικρότερη συχνότητα πρέπει να μην υπερβαίνει τη μέγιστη.</string>
-<string name="msgDeleteTriggerNotPossible">Δεν μπορείτε να διαγράψετε αυτό το προφίλ γιατί χρησιμοποιείται σε ένα ή περισσότερα εναύσματα!</string>
-<string name="prefBasics">Βασικές</string>
-<string name="labelScript">Script:</string>
-<string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor.</string>
-<string name="label_governor_tresholds">Όριο:</string>
-<string name="prefEnableUserspaceGovernor">Προβολή του Userspace Governor</string>
-<string name="prefEnableUserspaceGovernorOn">Είναι δυνατή η επιλογή του Userspace Governor</string>
-<string name="prefEnableUserspaceGovernorOff">Το Userspace Governor θα φιλτράρεται.</string>
-<string name="prefCatPulsedServiceSwitches">Διακόπτες του Pulsed Service </string>
-<string name="prefPulseDelayOn">Χρόνος ενεργοποίησης</string>
-<string name="prefPulseDelayOnLong">Ο χρόνος (σε λεπτά) για μια ενεργή υπηρεσία στο pulsed mode.</string> 
-<string name="prefPulseDelayOff">Χρόνος απενεργοποίησης</string>
-<string name="prefPulseDelayOffLong">Ο χρόνος (σε λεπτά) για μια ανενεργή υπηρεσία στο pulsed mode.</string> 
-<string name="labelPulseOn">Pulse ενεργό</string> 
-<string name="labelPulseOff">Pulse ανενεργό</string> 
-<string name="labelCurrentTab">Τώρα</string> 
-<string name="labelTriggersTab">Εναύσματα</string> 
-<string name="labelProfilesTab">Προφίλ</string> 
-<string name="labelHelpTab">Βοήθεια</string> 
-<string name="labelSettingsTab">Ρυθμήσεις</string> 
-<string name="labelPowerUserExplain">Πλήρης έλεγχος!</string>
+    <string name="prefLanguage">Επιλογή γλώσσας</string>
+    <string name="msg_up_threshhold_has_to_be_between_0_and_100">Το μέγιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
+    <string name="msg_down_threshhold_has_to_be_between_0_and_100">Το ελάχιστο όριο δίνεται σε % και πρέπει να είναι μεταξύ 0 και 100.</string>
+    <string name="msg_up_threshhold_smaler_than_the_down_threshold">Το μέγιστο πρέπει να είναι μεγαλύτερο απ το ελάχιστο όριο.</string>
+    <string name="msg_threshhold_NaN">Το όριο πρέπει να είναι ακαίρεος αριθμός.</string>
+    <string name="msg_minimal_frequency_bigger_than_the_maximal">Η μικρότερη συχνότητα πρέπει να μην υπερβαίνει τη μέγιστη.</string>
+    <string name="msgDeleteTriggerNotPossible">Δεν μπορείτε να διαγράψετε αυτό το προφίλ γιατί χρησιμοποιείται σε ένα ή περισσότερα εναύσματα!</string>
+    <string name="prefBasics">Βασικές</string>
+    <string name="labelScript">Script:</string>
+    <string name="hintScriptToRun">Script για εκτέλεση μετά την αλλαγή του governor.</string>
+    <string name="label_governor_tresholds">Όριο:</string>
+    <string name="prefEnableUserspaceGovernor">Προβολή του Userspace Governor</string>
+    <string name="prefEnableUserspaceGovernorOn">Είναι δυνατή η επιλογή του Userspace Governor</string>
+    <string name="prefEnableUserspaceGovernorOff">Το Userspace Governor θα φιλτράρεται.</string>
+    <string name="prefCatPulsedServiceSwitches">Διακόπτες του Pulsed Service </string>
+    <string name="prefPulseDelayOn">Χρόνος ενεργοποίησης</string>
+    <string name="prefPulseDelayOnLong">Ο χρόνος (σε λεπτά) για μια ενεργή υπηρεσία στο pulsed mode.</string>
+    <string name="prefPulseDelayOff">Χρόνος απενεργοποίησης</string>
+    <string name="prefPulseDelayOffLong">Ο χρόνος (σε λεπτά) για μια ανενεργή υπηρεσία στο pulsed mode.</string>
+    <string name="labelPulseOn">Pulse ενεργό</string>
+    <string name="labelPulseOff">Pulse ανενεργό</string>
+    <string name="labelCurrentTab">Τώρα</string>
+    <string name="labelTriggersTab">Εναύσματα</string>
+    <string name="labelProfilesTab">Προφίλ</string>
+    <string name="labelHelpTab">Βοήθεια</string>
+    <string name="labelSettingsTab">Ρυθμήσεις</string>
+    <string name="labelPowerUserExplain">Πλήρης έλεγχος!</string>
     <string name="labelPowerUser">Έμπειρος χρήστης</string>
     <string name="labelNormalExplain">Πιο προχωρημένες ρυθμήσεις, όμως υπάρχει όριο στον υπερχρονισμό.</string>
     <string name="labelNormal">Κανονικό</string>
@@ -165,13 +148,12 @@
     <string name="msgNoIssuesFound">Δε βρέθηκαν θέματα.</string>
     <string name="prefVritualGovernorsListLong">Εικονικοί governors είναι προκαθορισμένοι cpu governors.</string>
     <string name="virtualGovernorsList">Εικονικοί Governors</string>
-    <string name="prefBatteryHotTempMsg">Θερμοκρασία η οποία θα καλέσει το προφίλ ζεστής μπαταρίας.<br /> Ακαίρεος αριθμός σε Β°C.</string>
+    <string name="prefBatteryHotTempMsg">Θερμοκρασία η οποία θα καλέσει το προφίλ ζεστής μπαταρίας.<br />
+ Ακαίρεος αριθμός σε Β°C.</string>
     <string name="prefBatteryHotTempLong">Θερμοκρασία η οποία θα καλέσει το προφίλ ζεστής μπαταρίας.</string>
     <string name="prefBatteryHotTemp">Θερμοκρασία ζεστής μπαταρίας</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Η αλλαγή προφίλ επιτρέπεται κατά τη διάρκεια κλήσης. Το mobile data δεν θα αλλάζει ότι και να δώσετε σ αυτή την επιλογή..</string>
-
     <string name="prefSwitchProfileWhilePhoneNotIdleOff">Η αλλαγή προφίλ κατά τη διάρκεια κλήσης είναι απαγορευμένη. Το mobile data δε θα αλλάζει, ότι και να επιλέξετε εδώ.</string>
-
     <string name="prefSwitchProfileWhilePhoneNotIdle">Αλλαγή προφίλ κατά τη διάρκεια κλήσης.</string>
     <string name="prefSwitchWifiOnConnectedNetworkOn">Το Wifi θα κλείνει ακόμα και αν είναι συνδεδεμένο σε δίκτυο.</string>
     <string name="prefSwitchWifiOnConnectedNetworkOff">Το Wifi δε θα κλείνει αν είναι συνδεδεμένο σε δίκτυο.</string>
@@ -180,220 +162,208 @@
     <string name="prefUserLevelLong">Επιλέγετε πόσο σύνθετες είναι οι ρυθμήσεις και πόσο πρέπει/χρειάζεται να  παρέμβετε.</string>
     <string name="prefUserLevel">Επίπεδο εμπειρίας</string>
     <string name="prefVarious">Διάφορα</string>
-	<string name="notAvailable">Μη διαθέσιμο</string>
-	<string name="yes">Ναι</string>
-	<string name="no">Όχι</string>
-	<string name="save">Αποθήκευση</string>
-	<string name="cancel">Άκυρο</string>
-	<string name="prefMinSensibleFrequencyLong">Μικρότερη συχνότητα που θα φαίνεται αν δεν είστε σε επίπεδο προχωριμένου χρήστη.</string>
-	<string name="prefMinSensibleFrequency">Μικρότερη  τιμή συχνότητας που θα προβάλλεται</string>
-	<string name="prefKeyProfiles">Προφίλ και εναύσματα</string>
-
-	<string name="prefBuyMeABeer">Κέρασε με μια μπύρα.</string>
-	<string name="prefAllowManualServiceChangesOn">Μην αλλάξετε την κατάσταση μιας υπηρεσίας, εάν αυτή τροποποιήθηκε χειροκίνητα
+    <string name="notAvailable">Μη διαθέσιμο</string>
+    <string name="yes">Ναι</string>
+    <string name="no">Όχι</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="cancel">Άκυρο</string>
+    <string name="prefMinSensibleFrequencyLong">Μικρότερη συχνότητα που θα φαίνεται αν δεν είστε σε επίπεδο προχωριμένου χρήστη.</string>
+    <string name="prefMinSensibleFrequency">Μικρότερη  τιμή συχνότητας που θα προβάλλεται</string>
+    <string name="prefKeyProfiles">Προφίλ και εναύσματα</string>
+    <string name="prefBuyMeABeer">Κέρασε με μια μπύρα.</string>
+    <string name="prefAllowManualServiceChangesOn">Μην αλλάξετε την κατάσταση μιας υπηρεσίας, εάν αυτή τροποποιήθηκε χειροκίνητα
 		και δεν έγινε αλλαγή εναύσματος από τότε.</string>
-	<string name="prefAllowManualServiceChangesOff">Να αλλάξετε την κατάσταση μιας υπηρεσίας, ανεξαρτήτως εάν αυτή τροποποιήθηκε χειροκίνητα.</string>
-	<string name="prefAllowManualServiceChanges">Χειροκίνητη αλλαγή υπηρεσιών</string>
-	<string name="prefCpuFreqMsg">Διάστημα διαχωρισμένης λίστας συχνοτήτων.</string>
-	<string name="prefCpuFreq">Επιτρέπτές συχνότητες CPU</string>
-	<string name="prefCpuFreqLong">Αφήστε το κενό αν δε γνωρίζετε...!</string>
-	<string name="mailMessageOK">Δεν βρέθηκαν θέματα ... Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα.</string>
-	<string name="mailMessage"></string>
-	<string name="prefEnableBetaLong">Στείλτε μου e-mail</string>
-	<string name="prefKeyCalcPowerUsageLong">Αυτό θα μπορούσε να στοιχίσει λίγο μπαταρία</string>
-	<string name="prefKeyCalcPowerUsage">Υπολογισμός κατανάλωσης ενέργειας</string>
-	<string name="menuItemClearPowerCurrent">Εκκαθάριση κατανάλωσης ενέργειας</string>
-	<string name="menuItemInsert">Εισαγωγή</string>
-	<string name="menuItemEdit">Επεξεργασία</string>
-	<string name="menuItemDelete">Διαγραφή</string>
-	<string name="prefEnableBetaMessage">Ενεργοποιήστε κάποια χαρακτηριστικά τα οποία είναι σε δοκιμαστική κατάσταση. </string>
-	<string name="prefEnableBeta">Ενεργοποίηστε δοκιμαστικά χαρακτηριστικά</string>
-	<string name="prefCapabilitiesLong">Ο έλεγχος για το εάν οι συσκευή υποστηρίζει API απαιτείται αν υπάρχουν προβλήματα.</string>
-	<string name="prefCapabilities">Έλεγχος Δυνατοτήτων</string>
-	<string name="prefStatusbarAddTo">Προσθήκη στην γραμμή κατάστασης</string>
-	<string name="prefStatusbarNotificationsOff">Να μην εμφανίζονται μηνύματα στη γραμμή κατάστασης για την αλλαγή στο προφίλ.</string>
-	<string name="prefKeyEnableProfilesOn">Παρουσίαση ενός μηνύματος στη γραμμή κατάστασης για την κάθε αλλαγή προφίλ.</string>
-	<string name="prefSystemAppOff">Μη εγκαθίσταται ως εφαρμογή συστήματος, δεν θα έχει πρόσβαση στις ρυθμίσεις του συστήματος, όπως το GPS.</string>
-	<string name="prefSystemAppOn">Είναι εφαρμογή συστήματος, μπορεί να αλλάξει τις ρυθμήσεις του GPS</string>
-	<string name="prefSystemApp">Εγκατάσταση σαν εφαρμογή συστήματος</string>
-	<string name="prefToastNotifications">ειδοποιήσεις Toast </string>
-	<string name="prefStatusbarNotifications">Ειδοποιήσεις γραμμής κατάστασης</string>
-	<string name="prefCatNotifications">Ειδοποιήσεις</string>
-	<string name="prefCatSystem">Σύστημα</string>
-	<string name="prefEnableProfiles">Ενεργοποίηση των προφίλ</string>
-	<string name="prefSetCpuSetting">Ρυθμήσεις CPU</string>
-	<string name="profileBatteryGood">Καλή μπαταρία</string>
-	<string name="profileBatteryCrtitical">Οριακή μπαταρία</string>
-	<string name="profileBatteryPower">Σε μπαταρία</string>
-	<string name="profileAcPower">Στο ρεύμα</string>
-	<string name="profileScreenOff">Η οθόνη είναι κλειστή</string>
-	<string name="prefSystemPowerProfiles">Προφίλ ενέργειας συστήματος</string>
-	<string name="prefPowerProfiles">Προφίλ  ενέργειας</string>
-	<string name="prefCustomPowerProfiles">Προσαρμοσμένα προφίλ ενέργειας</string>
-	<string name="labelCpuFreq">Συχνότητες:</string>
-	<string name="labelCpuGov">Governor:</string>
-	<string name="labelCurrent">Τωρινό</string>
-	<string name="labelCurrentTrigger">Έναυσμα:</string>
-	<string name="labelCurrentProfile">Προφίλ:</string>
-	<string name="labelCurrentBattery">Μπαταρία:</string>
-	<string name="labelAcPower">Ρεύμα:</string>
-	<string name="labelMax">Μέγιστο:</string>
-	<string name="labelMin">Ελάχιστο:</string>
-	<string name="app_name">CPU tuner</string>
-	<string name="labelPowerProfile">Προφίλ: </string>
-	<string name="spinnerPromptGov">Επιλογή governor</string>
-	<string name="buApplyCurProfile">Εφαρμογή στο τωρίνο προφίλ CPU</string>
-	<string name="notEnabled">Μη ενεργό</string>
-	<string name="triggersExplain">Τα εναύσματα ορίζουν, ανάλογα με το επίπεδο μπαταρίας,  ποιό προφίλ θα  χρησημοποιηθεί. Για διαφορετικές καταστάσεις (πχ αν η συσκευή  είναι στη μπαταρία ή στο ρεύμα  ή αν η οθόνη είναι κλειδωμένη) μπορούν να επιλεγούν διαφορετικά  προφίλ..</string>
-	<string name="explainGovOnDemand">Δυναμική αλλαγή συχνότητας με βάση τη  χρήση της CPU με έμφαση στις επιδόσεις.</string>
-	<string name="explainGovConservative">Δυναμική αλλαγή συχνότητας με βάση τη  χρήση της CPU με έμφαση στην εξοικονόμηση ενέργειας.</string>
-	<string name="explainGovPerformance">Καθορίζει τη συχνότητα στατικά με βάση την υψηλότερηδιαθέσιμη συχνότητα της CPU.</string>
-	<string name="explainGovPowersave">Καθορίζει τη συχνότητα στατικά στη χαμηλότερη διαθέσιμη συχνότητα της CPU.</string>
-	<string name="explainGovUserspace">Καθορίζει τη συχνότητα στατική στη δεδομένη συχνότητα.</string>
-	<string name="explainGovInteractive">Σχεδιασμένο για χαμηλό χρόνο αναμονής σε κατάσταση φόρτου,  Η ρύθμιση γίνεται όταν βγαίνετε  από κατάσταση  αδράνειας αντί  από polling..</string>
-	<string name="label3g2g">2/3G</string>
-	<string name="label2g">2G</string>
-	<string name="label3g">3G</string>
-	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">sync</string>
-	<string name="labelSyncOff">
-		<strike>sync</strike>
-	</string>
-	<string name="labelSyncPrev">sync?</string>
-	<string name="labelWifiOn">wifi</string>
-	<string name="labelWifiOff">
-		<strike>wifi</strike>
-	</string>
-	<string name="labelWifiPrev">wifi?</string>
-	<string name="labelGpsOn">GPS</string>
-	<string name="labelGpsOff">
-		<strike>GPS</strike>
-	</string>
-	<string name="labelGpsPrev">GPS?</string>
-	<string name="labelBluetoothOn">BT</string>
-	<string name="labelBluetoothOff">
-		<strike>BT</strike>
-	</string>
-	<string name="labelBluetoothPrev">BT?</string>
-	<string name="labelMobiledataOn">MD</string>
-	<string name="labelMobiledataOff">
-		<strike>MD</strike>
-	</string>
-	<string name="labelMobiledataPrev">MD?</string>
+    <string name="prefAllowManualServiceChangesOff">Να αλλάξετε την κατάσταση μιας υπηρεσίας, ανεξαρτήτως εάν αυτή τροποποιήθηκε χειροκίνητα.</string>
+    <string name="prefAllowManualServiceChanges">Χειροκίνητη αλλαγή υπηρεσιών</string>
+    <string name="prefCpuFreqMsg">Διάστημα διαχωρισμένης λίστας συχνοτήτων.</string>
+    <string name="prefCpuFreq">Επιτρέπτές συχνότητες CPU</string>
+    <string name="prefCpuFreqLong">Αφήστε το κενό αν δε γνωρίζετε...!</string>
+    <string name="mailMessageOK">Δεν βρέθηκαν θέματα ... Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα.</string>
+    <string name="mailMessage"></string>
+    <string name="prefEnableBetaLong">Στείλτε μου e-mail</string>
+    <string name="prefKeyCalcPowerUsageLong">Αυτό θα μπορούσε να στοιχίσει λίγο μπαταρία</string>
+    <string name="prefKeyCalcPowerUsage">Υπολογισμός κατανάλωσης ενέργειας</string>
+    <string name="menuItemClearPowerCurrent">Εκκαθάριση κατανάλωσης ενέργειας</string>
+    <string name="menuItemInsert">Εισαγωγή</string>
+    <string name="menuItemEdit">Επεξεργασία</string>
+    <string name="menuItemDelete">Διαγραφή</string>
+    <string name="prefEnableBetaMessage">Ενεργοποιήστε κάποια χαρακτηριστικά τα οποία είναι σε δοκιμαστική κατάσταση. </string>
+    <string name="prefEnableBeta">Ενεργοποίηστε δοκιμαστικά χαρακτηριστικά</string>
+    <string name="prefCapabilitiesLong">Ο έλεγχος για το εάν οι συσκευή υποστηρίζει API απαιτείται αν υπάρχουν προβλήματα.</string>
+    <string name="prefCapabilities">Έλεγχος Δυνατοτήτων</string>
+    <string name="prefStatusbarAddTo">Προσθήκη στην γραμμή κατάστασης</string>
+    <string name="prefStatusbarNotificationsOff">Να μην εμφανίζονται μηνύματα στη γραμμή κατάστασης για την αλλαγή στο προφίλ.</string>
+    <string name="prefKeyEnableProfilesOn">Παρουσίαση ενός μηνύματος στη γραμμή κατάστασης για την κάθε αλλαγή προφίλ.</string>
+    <string name="prefSystemAppOff">Μη εγκαθίσταται ως εφαρμογή συστήματος, δεν θα έχει πρόσβαση στις ρυθμίσεις του συστήματος, όπως το GPS.</string>
+    <string name="prefSystemAppOn">Είναι εφαρμογή συστήματος, μπορεί να αλλάξει τις ρυθμήσεις του GPS</string>
+    <string name="prefSystemApp">Εγκατάσταση σαν εφαρμογή συστήματος</string>
+    <string name="prefToastNotifications">ειδοποιήσεις Toast </string>
+    <string name="prefStatusbarNotifications">Ειδοποιήσεις γραμμής κατάστασης</string>
+    <string name="prefCatNotifications">Ειδοποιήσεις</string>
+    <string name="prefCatSystem">Σύστημα</string>
+    <string name="prefEnableProfiles">Ενεργοποίηση των προφίλ</string>
+    <string name="prefSetCpuSetting">Ρυθμήσεις CPU</string>
+    <string name="profileBatteryGood">Καλή μπαταρία</string>
+    <string name="profileBatteryCrtitical">Οριακή μπαταρία</string>
+    <string name="profileBatteryPower">Σε μπαταρία</string>
+    <string name="profileAcPower">Στο ρεύμα</string>
+    <string name="profileScreenOff">Η οθόνη είναι κλειστή</string>
+    <string name="prefSystemPowerProfiles">Προφίλ ενέργειας συστήματος</string>
+    <string name="prefPowerProfiles">Προφίλ  ενέργειας</string>
+    <string name="prefCustomPowerProfiles">Προσαρμοσμένα προφίλ ενέργειας</string>
+    <string name="labelCpuFreq">Συχνότητες:</string>
+    <string name="labelCpuGov">Governor:</string>
+    <string name="labelCurrent">Τωρινό</string>
+    <string name="labelCurrentTrigger">Έναυσμα:</string>
+    <string name="labelCurrentProfile">Προφίλ:</string>
+    <string name="labelCurrentBattery">Μπαταρία:</string>
+    <string name="labelAcPower">Ρεύμα:</string>
+    <string name="labelMax">Μέγιστο:</string>
+    <string name="labelMin">Ελάχιστο:</string>
+    <string name="app_name">CPU tuner</string>
+    <string name="labelPowerProfile">Προφίλ: </string>
+    <string name="spinnerPromptGov">Επιλογή governor</string>
+    <string name="buApplyCurProfile">Εφαρμογή στο τωρίνο προφίλ CPU</string>
+    <string name="notEnabled">Μη ενεργό</string>
+    <string name="triggersExplain">Τα εναύσματα ορίζουν, ανάλογα με το επίπεδο μπαταρίας,  ποιό προφίλ θα  χρησημοποιηθεί. Για διαφορετικές καταστάσεις (πχ αν η συσκευή  είναι στη μπαταρία ή στο ρεύμα  ή αν η οθόνη είναι κλειδωμένη) μπορούν να επιλεγούν διαφορετικά  προφίλ..</string>
+    <string name="explainGovOnDemand">Δυναμική αλλαγή συχνότητας με βάση τη  χρήση της CPU με έμφαση στις επιδόσεις.</string>
+    <string name="explainGovConservative">Δυναμική αλλαγή συχνότητας με βάση τη  χρήση της CPU με έμφαση στην εξοικονόμηση ενέργειας.</string>
+    <string name="explainGovPerformance">Καθορίζει τη συχνότητα στατικά με βάση την υψηλότερηδιαθέσιμη συχνότητα της CPU.</string>
+    <string name="explainGovPowersave">Καθορίζει τη συχνότητα στατικά στη χαμηλότερη διαθέσιμη συχνότητα της CPU.</string>
+    <string name="explainGovUserspace">Καθορίζει τη συχνότητα στατική στη δεδομένη συχνότητα.</string>
+    <string name="explainGovInteractive">Σχεδιασμένο για χαμηλό χρόνο αναμονής σε κατάσταση φόρτου,  Η ρύθμιση γίνεται όταν βγαίνετε  από κατάσταση  αδράνειας αντί  από polling..</string>
+    <string name="label3g2g">2/3G</string>
+    <string name="label2g">2G</string>
+    <string name="label3g">3G</string>
+    <string name="label3g2gPrev">2/3G?</string>
+    <string name="labelSyncOn">sync</string>
+    <string name="labelSyncOff"><strike>sync</strike></string>
+    <string name="labelSyncPrev">sync?</string>
+    <string name="labelWifiOn">wifi</string>
+    <string name="labelWifiOff"><strike>wifi</strike></string>
+    <string name="labelWifiPrev">wifi?</string>
+    <string name="labelGpsOn">GPS</string>
+    <string name="labelGpsOff"><strike>GPS</strike></string>
+    <string name="labelGpsPrev">GPS?</string>
+    <string name="labelBluetoothOn">BT</string>
+    <string name="labelBluetoothOff"><strike>BT</strike></string>
+    <string name="labelBluetoothPrev">BT?</string>
+    <string name="labelMobiledataOn">MD</string>
+    <string name="labelMobiledataOff"><strike>MD</strike></string>
+    <string name="labelMobiledataPrev">MD?</string>
 
+    <string-array name="deviceStates">
+        <item>Όχι αλλαγή</item>
+        <item>Ενεργό</item>
+        <item>Ανενεργό</item>
+        <item>Επιστροφή στην πρ. κατάσταση </item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="deviceStatesBeta">
+        <item>Όχι αλλαγή</item>
+        <item>Ενεργό </item>
+        <item>Απενεργοποίηση</item>
+        <item>Επιστροφή στην πρ. κατάσταση </item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="mobiledataStates">
+        <item>Όχι αλλαγή</item>
+        <item>Μόνο 2G</item>
+        <item>3G/2G</item>
+        <item>Επιστροφή στην πρ. κατάσταση</item>
+        <item>Μόνο 3G</item>
+    </string-array>
+    <string-array name="mobiledataStatesBeta">
+        <item>Όχι αλλαγή</item>
+        <item>Μόνο 2G</item>
+        <item>3G/2G</item>
+        <item>Επιστροφή στην πρ. κατάσταση</item>
+        <item>Μόνο 3G</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Μέση τιμή</item>
+        <item>Τρέχουσα τιμή</item>
+        <item>Χωρίς υπολογισμό</item>
+    </string-array>
+    <string-array name="prefUserLevelEntries">
+        <item><b>Αρχάριος</b>: Το cpu tuner προσπαθεί να είναι "έξυπνο".</item>
+        <item><b>Κανονικός</b>: Το cpu tuner σε υποστηρίζει.</item>
+        <item><b>Έμπειρος</b>: Είσαι το αφεντικό!</item>
+    </string-array>
 
-	<string-array name="deviceStates">
-		<item>Όχι αλλαγή</item>
-		<item>Ενεργό</item>
-		<item>Ανενεργό</item>
-		<item>Επιστροφή στην πρ. κατάσταση </item>
-		<item>Pulse</item>
-	</string-array>
-	<string-array name="deviceStatesBeta">
-	<item>Όχι αλλαγή</item>
-		<item>Ενεργό </item>
-		<item>Απενεργοποίηση</item>
-		<item>Επιστροφή στην πρ. κατάσταση </item>
-		<item>Pulse</item>
-	</string-array>
-	<string-array name="mobiledataStates">
-		<item>Όχι αλλαγή</item>
-		<item>Μόνο 2G</item>
-		<item>3G/2G</item>
-		<item>Επιστροφή στην πρ. κατάσταση</item>
-		<item>Μόνο 3G</item>
-	</string-array>
-	<string-array name="mobiledataStatesBeta">
-		<item>Όχι αλλαγή</item>
-		<item>Μόνο 2G</item>
-		<item>3G/2G</item>
-		<item>Επιστροφή στην πρ. κατάσταση</item>
-		<item>Μόνο 3G</item>
-	</string-array>
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>Μέση τιμή</item>
-		<item>Τρέχουσα τιμή</item>
-		<item>Χωρίς υπολογισμό</item>
-	</string-array>
-	<string-array name="prefUserLevelEntries">
-		<item><b>Αρχάριος</b>: Το cpu tuner προσπαθεί να είναι "έξυπνο".</item>
-		<item><b>Κανονικός</b>: Το cpu tuner σε υποστηρίζει.</item>
-		<item><b>Έμπειρος</b>: Είσαι το αφεντικό!</item>
-	</string-array>
-<string name="cbEnableVirtualGovernors">Ενεργοποίηση των εικονικών governors</string>
-<string name="userExperianceLevelExplain">Το CPU tuner μπορεί να λειτουργήσει σε διαφορετικά επίπεδα εμπειρίας. Ανάλογα με το επίπεδο σας δίνει περισσότερες επιλογές και σας επιτρέπει να κάνετε περισσότερα πράγματα.</string>
-<string name="prefCallInProgressProfile">Προφίλ σε περίπτωση τηλ. κλήσης</string>
-<string name="prefCallInProgressProfileLong">Ενεργοποιεί ένα προφίλ όταν υπάρχει τηλ. κλήση.</string>
-<string name="msg_checking_capabilities">Έλεγχος δυνατοτήτων</string>
-<string name="msg_checking_governors">Έλεγχος governors ...</string>
-<string name="msg_not_enough_frequencies_found">Δεν αρκούν οι συχνότητες που βρέθηκαν</string>
-<string name="msg_no_governors_found">Δε βρέθηκαν governors</string>
-<string name="msg_not_checked">Δεν ελέγχθηκε</string>
-<string name="msg_success">Επιτυχία</string>
-<string name="msg_failure">Αποτυχία</string>
-<string name="msg_does_not_apply">Δεν εφαρμόζεται</string>
-<string name="msg_cannot_check">Δε μπορεί να ελεγχθεί</string>
-<string name="explainNotAvailable">Δεν υπάρχει επεξήγηση γι αυτό τον governor...</string>
-<string name="title_reset_to_default">Επαναφορά προεπιλογώων</string>
-<string name="msg_reset_to_default">Επαναφορά στην προεπιλογή θα απορρίψει όλες τις τροποποιήσεις σας σε εναύσματα &amp; προφιλ, συμπεριλαμβανομένων των νεοσύστατων.</string>
-<string name="msg_loading_default_profiles">Φόρτωση προεπιλεγμένων προφίλ</string>
-<string name="profilename_performance">Επίδοση</string>
-<string name="profilename_good">Καλή μπαταρία</string>
-<string name="profilename_normal">Κανονική μπαταρία</string>
-<string name="profilename_screen_off">Κλειστή οθόνη</string>
-<string name="profilename_extreme_powersave">Ακραία εξοικονόμηση ενέργειας</string>
-<string name="triggername_battery_full">Γεμάτη μπαταρία</string>
-<string name="triggername_battery_used">Μπαταρία χρησιμοποιείται</string>
-<string name="triggername_battery_low">Χαμηλή μπαταρία</string>
-<string name="triggername_battery_empty">Άδεια μπαταρία</string>
-<string name="triggername_battery_critical">Κρίσιμο σημείο μπαταρίας</string>
-<string name="virtgovname_full_speed">Μέγιστη ταχύτητα</string>
-<string name="virtgovname_normal">Κανονικό</string>
-<string name="virtgovname_save_battery">Εξοικονόμηση μπαταρίας</string>
-<string name="virtgovname_extrem_save_battery">Ακραία εξοικονόμηση μπαταρίας</string>
-<string name="title_reboot">Επανεκκίνηση</string>
-<string name="msg_reboot">Η αυτόματη (αποθήκευση) επανεκκίνηση απέτυχε. Παρακαλούμε να κάνετε μια χειροκίνητη πατώντας το κουμπί  τροφοδοσίας,  αλλιώς η εφαρμογή δε θα λειτουργήσει.</string>
-<string name="bu_system_reboot">Επανεκκίνηση του συστήματος (δεν συνιστάται)</string>
-<string name="title_uninstall_sys">Απεγκατάσταση του cpu tuner ως εφαρμογή συστήματος</string>
-<string name="bu_yes_uninstall_sys">Απεγκατάσταση  και επανεκκίνηση</string>
-<string name="msg_uninstall_sys">Απαιτείται επανεκκίνηση, πατώντας \'Απεγκατάσταση  και επανεκκίνηση\' η συσκευή θα επανεκκινήσει.</string>
-<string name="msg_install_sys">Απαιτείται επανεκκίνηση, πατώντας \'Εγκατάσταση  και επανεκκίνηση\' η συσκευή θα επανεκκινήσει.</string>
-<string name="bu_yes_title_install_sys">Εγκατάσταση  και επανεκκίνηση</string>
-<string name="title_install_sys">Εγκατάσταση του cpu tuner ως εφαρμογή συστήματος</string>
-<string name="msg_has_issues">Υπάρχουν θέματα</string>
-<string name="msg_not_working">Δε λειτουργεί</string>
-<string name="msg_working">Λειτουργεί</string>
-<string name="msg_premail_no_issues">Δεν βρέθηκαν θέματα ... Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα
+    <string name="cbEnableVirtualGovernors">Ενεργοποίηση των εικονικών governors</string>
+    <string name="userExperianceLevelExplain">Το CPU tuner μπορεί να λειτουργήσει σε διαφορετικά επίπεδα εμπειρίας. Ανάλογα με το επίπεδο σας δίνει περισσότερες επιλογές και σας επιτρέπει να κάνετε περισσότερα πράγματα.</string>
+    <string name="prefCallInProgressProfile">Προφίλ σε περίπτωση τηλ. κλήσης</string>
+    <string name="prefCallInProgressProfileLong">Ενεργοποιεί ένα προφίλ όταν υπάρχει τηλ. κλήση.</string>
+    <string name="msg_checking_capabilities">Έλεγχος δυνατοτήτων</string>
+    <string name="msg_checking_governors">Έλεγχος governors ...</string>
+    <string name="msg_not_enough_frequencies_found">Δεν αρκούν οι συχνότητες που βρέθηκαν</string>
+    <string name="msg_no_governors_found">Δε βρέθηκαν governors</string>
+    <string name="msg_not_checked">Δεν ελέγχθηκε</string>
+    <string name="msg_success">Επιτυχία</string>
+    <string name="msg_failure">Αποτυχία</string>
+    <string name="msg_does_not_apply">Δεν εφαρμόζεται</string>
+    <string name="msg_cannot_check">Δε μπορεί να ελεγχθεί</string>
+    <string name="explainNotAvailable">Δεν υπάρχει επεξήγηση γι αυτό τον governor...</string>
+    <string name="title_reset_to_default">Επαναφορά προεπιλογώων</string>
+    <string name="msg_reset_to_default">Επαναφορά στην προεπιλογή θα απορρίψει όλες τις τροποποιήσεις σας σε εναύσματα &amp; προφιλ, συμπεριλαμβανομένων των νεοσύστατων.</string>
+    <string name="msg_loading_default_profiles">Φόρτωση προεπιλεγμένων προφίλ</string>
+    <string name="profilename_performance">Επίδοση</string>
+    <string name="profilename_good">Καλή μπαταρία</string>
+    <string name="profilename_normal">Κανονική μπαταρία</string>
+    <string name="profilename_screen_off">Κλειστή οθόνη</string>
+    <string name="profilename_extreme_powersave">Ακραία εξοικονόμηση ενέργειας</string>
+    <string name="triggername_battery_full">Γεμάτη μπαταρία</string>
+    <string name="triggername_battery_used">Μπαταρία χρησιμοποιείται</string>
+    <string name="triggername_battery_low">Χαμηλή μπαταρία</string>
+    <string name="triggername_battery_empty">Άδεια μπαταρία</string>
+    <string name="triggername_battery_critical">Κρίσιμο σημείο μπαταρίας</string>
+    <string name="virtgovname_full_speed">Μέγιστη ταχύτητα</string>
+    <string name="virtgovname_normal">Κανονικό</string>
+    <string name="virtgovname_save_battery">Εξοικονόμηση μπαταρίας</string>
+    <string name="virtgovname_extrem_save_battery">Ακραία εξοικονόμηση μπαταρίας</string>
+    <string name="title_reboot">Επανεκκίνηση</string>
+    <string name="msg_reboot">Η αυτόματη (αποθήκευση) επανεκκίνηση απέτυχε. Παρακαλούμε να κάνετε μια χειροκίνητη πατώντας το κουμπί  τροφοδοσίας,  αλλιώς η εφαρμογή δε θα λειτουργήσει.</string>
+    <string name="bu_system_reboot">Επανεκκίνηση του συστήματος (δεν συνιστάται)</string>
+    <string name="title_uninstall_sys">Απεγκατάσταση του cpu tuner ως εφαρμογή συστήματος</string>
+    <string name="bu_yes_uninstall_sys">Απεγκατάσταση  και επανεκκίνηση</string>
+    <string name="msg_uninstall_sys">Απαιτείται επανεκκίνηση, πατώντας \'Απεγκατάσταση  και επανεκκίνηση\' η συσκευή θα επανεκκινήσει.</string>
+    <string name="msg_install_sys">Απαιτείται επανεκκίνηση, πατώντας \'Εγκατάσταση  και επανεκκίνηση\' η συσκευή θα επανεκκινήσει.</string>
+    <string name="bu_yes_title_install_sys">Εγκατάσταση  και επανεκκίνηση</string>
+    <string name="title_install_sys">Εγκατάσταση του cpu tuner ως εφαρμογή συστήματος</string>
+    <string name="msg_has_issues">Υπάρχουν θέματα</string>
+    <string name="msg_not_working">Δε λειτουργεί</string>
+    <string name="msg_working">Λειτουργεί</string>
+    <string name="msg_premail_no_issues">Δεν βρέθηκαν θέματα ... Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα
 
 Παρακαλώ μη γράφετε άδεια e-mails!</string>
-<string name="msg_premail_no_root">Το  CPU tuner δεν έχει πρόσβαση υπερ-χρήστη (root)!
+    <string name="msg_premail_no_root">Το  CPU tuner δεν έχει πρόσβαση υπερ-χρήστη (root)!
 Το Cpu tuner δε μπορεί να λειτουργήσει!
 
 Σας παρακαλούμε να μην στείλετε e-mail αν δεν πιστεύετε ότι υπάρχει κάτι λάθος με τον έλεγχο ή την εφαρμογή.
 
 Παρακαλώ μη γράφετε άδεια e-mails!</string>
-<string name="msg_premail_issues">Η διαμόρφωση σας έχει θέματα...
+    <string name="msg_premail_issues"> διαμόρφωση σας έχει θέματα...
 Κατά πάσα πιθανότητα οφείλονται στο kernel/ROM. Έχετε 2 επιλογές:
 
 1) Βάλτε άλλον kernel
 
-2) Βάλτε άλλη ROM
-</string>
-<string name="msg_premail_issues_cm">Μπορεί να θέλετε να ρίξετε μια ματιά στο http://wiki.cyanogenmod.com έχουν πολύ καλές ROM
+2) Βάλτε άλλη ROM</string>
+    <string name="msg_premail_issues_cm">πορεί να θέλετε να ρίξετε μια ματιά στο http://wiki.cyanogenmod.com έχουν πολύ καλές ROM
 
-Σας παρακαλούμε να μην στείλετε e-mail αν δεν πιστεύετε ότι υπάρχει κάτι λάθος με τον έλεγχο ή την εφαρμογή.
-</string>
-<string name="title_profile_editor">Συντάκτης προφίλ: </string>
-<string name="title_profiles">Προφίλ</string>
-<string name="title_trigger_editor">Συντάκτης εναυσμάτων: </string>
-<string name="msg_delete_selected_item">Διαγραφή του επιλεγμένου?</string>
-<string name="msg_clear_power_consumption_of_named_trigger">Εκκαθάριση ενεργειακής κατανάλωσης του εναύσματος "%s"?</string>
-<string name="msg_setting_cpu_max_freq">Ορισμός της μέγιστης συχνότητας CPU σε %d Hz</string>
-<string name="setting_cpu_min_freq">Ορισμός της ελάχιστης συχνότητας CPU σε %d Hz</string>
-<string name="msg_setting_govenor">Ορισμός του governor σε %s</string>
-<string name="msg_found_some_issues">Βρέθηκαν θέματα... Κάποιες λειτουργίες μπορεί να μη δουλέψουν. (Πατήστε εδώ για πληροφορίες.)</string>
-<string name="label_hot">Ζεστό: </string>
-<string name="label_avgerage">μέση τημή: </string>
-<string name="label_tresh_up">Μέγιστο: </string>
-<string name="label_tresh_down">Ελάχιστο: </string>
+Σας παρακαλούμε να μην στείλετε e-mail αν δεν πιστεύετε ότι υπάρχει κάτι λάθος με τον έλεγχο ή την εφαρμογή.</string>
+    <string name="title_profile_editor">Συντάκτης προφίλ </string>
+    <string name="title_profiles">Προφίλ</string>
+    <string name="title_trigger_editor">Συντάκτης εναυσμάτων </string>
+    <string name="msg_delete_selected_item">Διαγραφή του επιλεγμένου?</string>
+    <string name="msg_clear_power_consumption_of_named_trigger">Εκκαθάριση ενεργειακής κατανάλωσης του εναύσματος "%s"?</string>
+    <string name="msg_setting_cpu_max_freq">Ορισμός της μέγιστης συχνότητας CPU σε %d Hz</string>
+    <string name="setting_cpu_min_freq">Ορισμός της ελάχιστης συχνότητας CPU σε %d Hz</string>
+    <string name="msg_setting_govenor">Ορισμός του governor σε %s</string>
+    <string name="msg_found_some_issues">Βρέθηκαν θέματα... Κάποιες λειτουργίες μπορεί να μη δουλέψουν. (Πατήστε εδώ για πληροφορίες.)</string>
+    <string name="label_hot">Ζεστό: </string>
+    <string name="label_avgerage">μέση τημή: </string>
+    <string name="label_tresh_up">Μέγιστο: </string>
+    <string name="label_tresh_down">Ελάχιστο: </string>
+
 </resources>

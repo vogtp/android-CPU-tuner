@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  style="@android:style/Theme.Black.NoTitleBar"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-	<ch.amana.android.cputuner.view.widget.CputunerActionBar
-		style="@style/ActionBar" android:id="@+id/abCpuTuner" android:paddingBottom="3dp"/>
-    <ListView android:id="@android:id/list"
-        android:layout_width="fill_parent" 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ch.amana.android.cputuner.view.widget.CputunerActionBar
+        android:id="@+id/abCpuTuner"
+        style="@style/ActionBar"
+        android:paddingBottom="3dp" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:drawSelectorOnTop="false"
         android:scrollbarAlwaysDrawVerticalTrack="true" />
+
 </LinearLayout>

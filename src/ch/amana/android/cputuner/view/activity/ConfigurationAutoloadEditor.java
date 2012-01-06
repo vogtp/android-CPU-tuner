@@ -82,21 +82,26 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 			origCaModel = new ConfigurationAutoloadModel();
 		}
 
-		CputunerActionBar actionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
-		actionBar.setHomeAction(new ActionBar.Action() {
+		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
+		if (SettingsStorage.getInstance(this).hasHoloTheme()) {
+			getActionBar().setSubtitle(R.string.title_configuration_autoload_editor);
+			cputunerActionBar.setVisibility(View.GONE);
+		} else {
+			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
-			@Override
-			public void performAction(View view) {
-				onBackPressed();
-			}
+				@Override
+				public void performAction(View view) {
+					onBackPressed();
+				}
 
-			@Override
-			public int getDrawable() {
-				return R.drawable.cputuner_back;
-			}
-		});
-		actionBar.setTitle(getString(R.string.title_configuration_autoload_editor) + " " + caModel.getConfiguration());
-		EditorActionbarHelper.addActions(this, actionBar);
+				@Override
+				public int getDrawable() {
+					return R.drawable.cputuner_back;
+				}
+			});
+			cputunerActionBar.setTitle(getString(R.string.title_configuration_autoload_editor) + " " + caModel.getConfiguration());
+			EditorActionbarHelper.addActions(this, cputunerActionBar);
+		}
 
 		spConfiguration = (Spinner) findViewById(R.id.spConfiguration);
 		configurationsSpinnerAdapter = new ConfigurationsSpinnerAdapter(this);
