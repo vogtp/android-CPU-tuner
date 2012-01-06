@@ -1,5 +1,9 @@
 package ch.amana.android.cputuner.hw;
 
+import java.io.File;
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
 
@@ -7,6 +11,8 @@ public class CpuHandlerMulticore extends CpuHandler {
 
 	private static final String CPU_ONLINE = "online";
 	private final String[] cpus;
+
+	private final Map<String, File[]> fileMap = new WeakHashMap<String, File[]>();
 
 	public CpuHandlerMulticore(String[] cpus) {
 		super();
@@ -19,57 +25,33 @@ public class CpuHandlerMulticore extends CpuHandler {
 		setNumberOfActiveCpus(profile.getUseNumberOfCpus());
 	}
 
-	private boolean writeFile(String subDir, String file, String value) {
-		if (writeCpuFile(subDir, file, value, -1)) {
-			return true;
-		}
-		for (int i = 0; i < cpus.length; i++) {
-			if (!writeCpuFile(subDir, file, value, i)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean writeCpuFile(String subDir, String file, String value, int i) {
-		StringBuilder path = new StringBuilder(CPU_BASE_DIR);
-		if (i < -1) {
-			path.append("/").append(cpus[i]);
-		}
-		if (subDir != null) {
-			path.append("/").append(subDir);
-		}
-		return RootHandler.writeFile(getFile(path.toString(), file), value);
-	}
-
 	@Override
 	public boolean setCurGov(String gov) {
 		Logger.i("Setting multicore governor to " + gov);
-		return writeFile(CPUFREQ_DIR, SCALING_GOVERNOR, gov);
+		return writeFiles(getFiles(SCALING_GOVERNOR), gov);
 	}
-
 
 	@Override
 	public boolean setUserCpuFreq(int val) {
 		Logger.i("Setting  multicore user frequency to " + val);
-		return writeFile(CPUFREQ_DIR, SCALING_SETSPEED, val + "");
+		return writeFiles(getFiles(SCALING_SETSPEED), val + "");
 	}
 
 	@Override
 	public boolean setMaxCpuFreq(int val) {
 		Logger.i("Setting multicore max frequency to " + val);
-		return writeFile(CPUFREQ_DIR, SCALING_MAX_FREQ, Integer.toString(val));
+		return writeFiles(getFiles(SCALING_MAX_FREQ), Integer.toString(val));
 	}
 
 	@Override
 	public boolean setMinCpuFreq(int i) {
 		Logger.i("Setting multicore min frequency to " + i);
-		return writeFile(CPUFREQ_DIR, SCALING_MIN_FREQ, Integer.toString(i));
+		return writeFiles(getFiles(SCALING_MIN_FREQ), Integer.toString(i));
 	}
 
 	@Override
 	public boolean setGovSamplingRate(int i) {
-		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_SAMPLING_RATE, i + "");
+		return writeFiles(getFiles(GOV_SAMPLING_RATE, getCurCpuGov()), i + "");
 	}
 
 	@Override
@@ -77,7 +59,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 		if (i < 0) {
 			return false;
 		}
-		return writeFile(CPUFREQ_DIR + getCurCpuGov(), POWERSAVE_BIAS, i + "");
+		return writeFiles(getFiles(POWERSAVE_BIAS, getCurCpuGov()), i + "");
 	}
 
 	@Override
@@ -89,7 +71,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 			i = 98;
 		}
 		Logger.i("Setting multicore threshold up to " + i);
-		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_TRESHOLD_UP, i + "");
+		return writeFiles(getFiles(GOV_TRESHOLD_UP, getCurCpuGov()), i + "");
 	}
 
 	@Override
@@ -101,7 +83,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 			i = 95;
 		}
 		Logger.i("Setting multicore threshold down to " + i);
-		return writeFile(CPUFREQ_DIR + getCurCpuGov(), GOV_TRESHOLD_DOWN, i + "");
+		return writeFiles(getFiles(GOV_TRESHOLD_DOWN, getCurCpuGov()), i + "");
 	}
 
 	@Override
@@ -112,16 +94,17 @@ public class CpuHandlerMulticore extends CpuHandler {
 	@Override
 	public void setNumberOfActiveCpus(int activeCpus) {
 		if (activeCpus < 1) {
-			return;
+			activeCpus = getNumberOfCpus();
 		}
 		int i;
+		File[] cpuOnlineFiles = getFiles(CPU_ONLINE);
 		for (i = 0; i < activeCpus; i++) {
-			Logger.i("Switching on cpu"+i);
-			writeCpuFile(null, CPU_ONLINE, "1", i);
+			Logger.i("Switching on cpu" + i);
+			writeFiles(cpuOnlineFiles, "1", i);
 		}
 		for (int j = i; j < getNumberOfCpus(); j++) {
 			Logger.i("Switching off cpu" + j);
-			writeCpuFile(null, CPU_ONLINE, "0", j);
+			writeFiles(cpuOnlineFiles, "0", j);
 		}
 	}
 
@@ -131,7 +114,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 		for (int i = 0; i < getNumberOfCpus(); i++) {
 			StringBuilder path = new StringBuilder(CPU_BASE_DIR);
 			path.append("/").append(cpus[i]);
-			String online = RootHandler.readFile(getFile(path.toString(), CPU_ONLINE));
+			String online = RootHandler.readFile(getFiles(CPU_ONLINE)[i]);
 			if ("1".equals(online)) {
 				count++;
 				if (Logger.DEBUG) {
@@ -141,5 +124,91 @@ public class CpuHandlerMulticore extends CpuHandler {
 		}
 		Logger.d("Found " + count + " online cpus");
 		return count;
+	}
+
+	protected File[] getFiles(String name) {
+		return getFiles(name, "");
+	}
+
+	protected File[] getFiles(String name, String subDir) {
+		String idx = name + subDir;
+		File[] files = fileMap.get(idx);
+		if (files == null) {
+			File file;
+			file = new File(CPU_BASE_DIR + cpus[0] + subDir, name);
+			if (file.exists()) {
+				// get the other cpu files
+				files = new File[cpus.length];
+				files[0] = file;
+				for (int i = 1; i < cpus.length; i++) {
+					file = new File(CPU_BASE_DIR + cpus[i] + subDir, name);
+					if (file.exists()) {
+						files[i] = file;
+					} else {
+						files[i] = CpuHandler.DUMMY_FILE;
+					}
+				}
+			} else {
+				file = new File(CPU_BASE_DIR + CPUFREQ_DIR + subDir, name);
+				if (file.exists()) {
+					files = new File[1];
+					files[0] = file;
+				} else {
+					file = new File(CPU_BASE_DIR + subDir, name);
+					if (file.exists()) {
+						files = new File[1];
+						files[0] = file;
+					} else {
+						file = new File(CPU_BASE_DIR + cpus[0] + CPUFREQ_DIR + subDir, name);
+						if (file.exists()) {
+							// get the other cpu files
+							files = new File[cpus.length];
+							files[0] = file;
+							for (int i = 1; i < cpus.length; i++) {
+								file = new File(CPU_BASE_DIR + cpus[i] + CPUFREQ_DIR + subDir, name);
+								if (file.exists()) {
+									files[i] = file;
+								} else {
+									files[i] = CpuHandler.DUMMY_FILE;
+								}
+							}
+						}
+
+					}
+				}
+			}
+
+			if (files == null) {
+				files = new File[0];
+			}
+
+			fileMap.put(idx, files);
+		}
+		return files;
+	}
+
+	private boolean writeFiles(File[] files, String value) {
+		boolean ret = false;
+		for (int i = 0; i < files.length; i++) {
+			if (RootHandler.writeFile(files[i], value)) {
+				ret = true;
+			}
+		}
+		return ret;
+	}
+
+	private boolean writeFiles(File[] files, String value, int i) {
+		return RootHandler.writeFile(files[i], value);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (File[] files : fileMap.values()) {
+			for (int i = 0; i < files.length; i++) {
+				sb.append(files[i].getAbsolutePath());
+			}
+		}
+		return sb.toString();
 	}
 }

@@ -209,7 +209,7 @@ public class RootHandler {
 	public static boolean writeFile(File file, String val) {
 		if (file == CpuHandler.DUMMY_FILE || !file.exists()) {
 			if (Logger.DEBUG) {
-				Logger.w(file.getAbsolutePath() + " does not exist!");
+				Logger.logStacktrace(file.getAbsolutePath() + " does not exist!");
 			}
 			return false;
 		}

@@ -345,6 +345,9 @@ public class CapabilityCheckerActivity extends Activity {
 		closeLogFile();
 		body.append('\n').append("------------------------------------------").append('\n');
 		body.append(checker.toString());
+		body.append('\n').append("------------------------------------------").append('\n');
+		body.append("CPU paths:\n");
+		body.append(cpuHandler.toString());
 
 		try {
 			DB.CpuTunerOpenHelper oh = new CpuTunerOpenHelper(this);

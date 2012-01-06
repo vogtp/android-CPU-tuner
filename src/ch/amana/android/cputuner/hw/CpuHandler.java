@@ -214,22 +214,24 @@ public class CpuHandler extends HardwareHandler {
 		return RootHandler.writeFile(getFile(GOV_TRESHOLD_UP, getCurCpuGov()), Integer.toString(i));
 	}
 
-
 	protected File getFile(String name) {
-		return getFile(name,"");
+		return getFile(name, "");
 	}
 
 	protected File getFile(String name, String subDir) {
-		String idx = name+subDir;
+		String idx = name + subDir;
 		File file = fileMap.get(idx);
 		if (file == null) {
 			file = new File(CPU_BASE_DIR + CPU0_DIR + CPUFREQ_DIR + subDir, name);
 			if (!file.exists()) {
 				file = new File(CPU_BASE_DIR + CPUFREQ_DIR + subDir, name);
 				if (!file.exists()) {
-					file = new File(CPU_BASE_DIR + subDir, name);
+					file = new File(CPU_BASE_DIR + CPUFREQ_DIR + subDir, name);
 					if (!file.exists()) {
-						return DUMMY_FILE;
+						file = new File(CPU_BASE_DIR + subDir, name);
+						if (!file.exists()) {
+							return DUMMY_FILE;
+						}
 					}
 				}
 			}
@@ -375,6 +377,15 @@ public class CpuHandler extends HardwareHandler {
 			return;
 		}
 		RootHandler.writeFile(getFile(SAMPLING_RATE, getCurCpuGov()), Long.toString(i));
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (File file : fileMap.values()) {
+			sb.append(file.getAbsolutePath());
+		}
+		return sb.toString();
 	}
 
 }

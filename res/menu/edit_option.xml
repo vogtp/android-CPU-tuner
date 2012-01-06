@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/menuItemSave"
-        android:icon="@android:drawable/ic_menu_save"
-        android:showAsAction="always"
-        android:title="@string/save">
-    </item>
-    <item
         android:id="@+id/menuItemCancel"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:showAsAction="always"
         android:title="@string/cancel">
+    </item>
+    <item
+        android:id="@+id/menuItemSave"
+        android:icon="@android:drawable/ic_menu_save"
+        android:showAsAction="always"
+        android:title="@string/save">
     </item>
 
 </menu>
