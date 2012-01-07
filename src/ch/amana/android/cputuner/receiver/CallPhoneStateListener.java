@@ -22,7 +22,7 @@ public class CallPhoneStateListener extends PhoneStateListener {
 	@Override
 	public void onCallStateChanged(int state, String incomingNumber) {
 		super.onCallStateChanged(state, incomingNumber);
-		if (true) {
+		if (SettingsStorage.FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD) {
 			TunerService.handlePhoneState(context, state);
 		} else {
 			Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_PHONESTATE);

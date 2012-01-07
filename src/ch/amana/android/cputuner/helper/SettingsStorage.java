@@ -65,6 +65,8 @@ public class SettingsStorage {
 	public static final int STATUSBAR_RUNNING = 1;
 	public static final int STATUSBAR_ALWAYS = 2;
 
+	public static final boolean FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD = true;
+
 	private static SettingsStorage instance;
 	private final Context context;
 	private boolean checkedBluetooth = false;

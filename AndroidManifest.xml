@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201112050"
+    android:versionCode="201201070"
     android:versionName="@string/version" >
 
     <uses-permission android:name="android.permission.VIBRATE" >

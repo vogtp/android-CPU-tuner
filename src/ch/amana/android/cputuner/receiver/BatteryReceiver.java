@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.service.TunerService;
 
@@ -55,7 +56,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 				String action = intent == null ? "null intent" : intent.getAction();
 				Logger.i("Battery receiver got intent with action " + action);
 			}
-			if (true) {
+			if (SettingsStorage.FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD) {
 				TunerService.handleBattery(context, intent.getAction(), intent);
 			} else {
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_BATTERY);
