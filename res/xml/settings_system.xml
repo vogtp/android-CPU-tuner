@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="@string/prefCatSystem"
-	android:key="prefKeySystemScreen"
-	android:summary="@string/prefCatSystemLong"
-> 
-	<Preference
-		android:key="prefKeyProfiles"
-		android:title="@string/prefKeyProfiles"
-		android:summary="@string/prefKeyProfilesLong"
-	></Preference>
-	<Preference
-		android:key="prefKeyServiceSwitches"
-		android:title="@string/prefServiceSwitches"
-		android:summary="@string/prefServiceSwitchesLong"
-	></Preference>
-	<Preference
-		android:key="prefKeyCpu"
-		android:title="@string/prefCpu"
-		android:summary="@string/prefCpuLong"
-	></Preference>
-	
-	<PreferenceCategory><Preference android:key="prefKeyCapabilities" android:title="@string/prefCapabilities" android:summary="@string/prefCapabilitiesLong"></Preference><EditTextPreference android:key="prefKeyEnableBeta" android:title="@string/prefEnableBeta" android:dialogMessage="@string/prefEnableBetaMessage" android:dialogTitle="@string/prefEnableBeta" android:summary="@string/prefEnableBetaMessage"></EditTextPreference></PreferenceCategory>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefKeySystemScreen"
+    android:summary="@string/prefCatSystemLong"
+    android:title="@string/prefCatSystem" >
+
+    <PreferenceCategory
+        android:key="prefCatEngine"
+        android:title="@string/prefCatEngine" >
+        <Preference
+            android:key="prefKeyProfiles"
+            android:summary="@string/prefKeyProfilesLong"
+            android:title="@string/prefKeyProfiles" >
+        </Preference>
+        <Preference
+            android:key="prefKeyServiceSwitches"
+            android:summary="@string/prefServiceSwitchesLong"
+            android:title="@string/prefServiceSwitches" >
+        </Preference>
+        <Preference
+            android:key="prefKeyCpu"
+            android:summary="@string/prefCpuLong"
+            android:title="@string/prefCpu" >
+        </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="prefCatHelper"
+        android:title="@string/prefCatHelper" >
+        <Preference
+            android:key="prefKeyCapabilities"
+            android:summary="@string/prefCapabilitiesLong"
+            android:title="@string/prefCapabilities" >
+        </Preference>
+
+        <EditTextPreference
+            android:dialogMessage="@string/prefEnableBetaMessage"
+            android:dialogTitle="@string/prefEnableBeta"
+            android:key="prefKeyEnableBeta"
+            android:summary="@string/prefEnableBetaMessage"
+            android:title="@string/prefEnableBeta" >
+        </EditTextPreference>
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -1,9 +1,4 @@
-- rework tunerservice to be a service (not an intent service) make chooseable in settings
-
 - do not touch the governor if not enabled (unless the user sets it)
-
-- introduce categories in profile settings
-- label setting cab checker group
 
 - add sampling interval 
 sampling_rate: measured in uS (10^-6 seconds), this is how often you
@@ -33,7 +28,6 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
 
 - check for changed governors (use pershot kernel)
 
-
 - ask user to disable log if he does not use it
 
 - sort user configs by time
@@ -43,8 +37,6 @@ echo `$(($(cat cpuinfo_transition_latency) * 750 / 1000)) \
 - ensure display of current entity in list
 
 - move powerprofile read from service
-
-- check if billing is supported -> old market
 
 - create chooser for homescreen link of configurations (buy?)
 - nummeric keyboard for pulse lengthes 

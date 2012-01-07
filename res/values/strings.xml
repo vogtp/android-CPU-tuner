@@ -13,5 +13,7 @@
     <string name="label_back">Go back</string>
     <string name="label_forward">Go forward</string>
     <string name="label_home">Home</string>
+    <string name="prefCatEngine">Engine</string>
+    <string name="prefCatHelper">Helper</string>
 
 </resources>
