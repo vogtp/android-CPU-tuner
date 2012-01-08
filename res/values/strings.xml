@@ -15,5 +15,7 @@
     <string name="label_home">Home</string>
     <string name="prefCatEngine">Engine</string>
     <string name="prefCatHelper">Helper</string>
+    <string name="msg_config_loaded">Loaded</string>
+    <string name="msg_config">configuration</string>
 
 </resources>

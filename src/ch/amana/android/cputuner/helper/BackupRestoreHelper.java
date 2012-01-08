@@ -21,6 +21,7 @@ import ch.almana.android.importexportdb.ExportDataTask;
 import ch.almana.android.importexportdb.constants.JsonConstants;
 import ch.almana.android.importexportdb.importer.DataJsonImporter;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
@@ -167,7 +168,10 @@ public class BackupRestoreHelper {
 			} finally {
 				CpuTunerProvider.setNotifyChanges(true);
 				Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
-				i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, name + " config loaded.");
+				StringBuilder msg = new StringBuilder(context.getString(R.string.msg_config_loaded)).append(" ");
+				msg.append(name.replaceFirst("\\d+_", ""));
+				msg.append(" ").append(context.getString(R.string.msg_config));
+				i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, msg.toString());
 				context.sendBroadcast(i);
 			}
 		}
