@@ -201,7 +201,6 @@ public class PowerProfiles {
 				return;
 			}
 
-
 			CpuHandler cpuHandler = CpuHandler.getInstance();
 			cpuHandler.applyCpuSettings(currentProfile);
 			applyWifiState(currentProfile.getWifiState());
