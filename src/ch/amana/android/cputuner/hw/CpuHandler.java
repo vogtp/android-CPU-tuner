@@ -383,7 +383,7 @@ public class CpuHandler extends HardwareHandler {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (File file : fileMap.values()) {
-			sb.append(file.getAbsolutePath());
+			sb.append(file.getAbsolutePath()).append("\n");
 		}
 		return sb.toString();
 	}

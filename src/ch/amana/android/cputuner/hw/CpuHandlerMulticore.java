@@ -206,7 +206,7 @@ public class CpuHandlerMulticore extends CpuHandler {
 		StringBuilder sb = new StringBuilder();
 		for (File[] files : fileMap.values()) {
 			for (int i = 0; i < files.length; i++) {
-				sb.append(files[i].getAbsolutePath());
+				sb.append(files[i].getAbsolutePath()).append("\n");
 			}
 		}
 		return sb.toString();

@@ -39,9 +39,8 @@ public class EventListenerService extends Service {
 	}
 
 	private void startCpuTuner() {
-		Context context = getApplicationContext();
-		Logger.w("Starting cpu tuner services (" + context.getString(R.string.version) + ")");
-		Context ctx = context.getApplicationContext();
+		Context ctx = getApplicationContext();
+		Logger.w("Starting cpu tuner services (" + ctx.getString(R.string.version) + ")");
 		BatteryReceiver.registerBatteryReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
@@ -49,8 +48,12 @@ public class EventListenerService extends Service {
 		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
 			Notifier.startStatusbarNotifications(ctx);
 		}
-		if (SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
+		SettingsStorage settingsStorage = SettingsStorage.getInstance();
+		if (settingsStorage.isEnableLogProfileSwitches()) {
 			SwitchLog.start(ctx);
+		}
+		if (settingsStorage.isRunStatisticsService()) {
+			StatisticsService.start(ctx);
 		}
 	}
 
@@ -62,6 +65,7 @@ public class EventListenerService extends Service {
 		CallPhoneStateListener.unregister(ctx);
 		BatteryReceiver.unregisterBatteryReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
+		StatisticsService.stop(context);
 		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
 		case SettingsStorage.STATUSBAR_RUNNING:
 			Notifier.stopStatusbarNotifications(ctx);

@@ -57,7 +57,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 				Logger.i("Battery receiver got intent with action " + action);
 			}
 			if (SettingsStorage.FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD) {
-				TunerService.handleBattery(context, intent.getAction(), intent);
+					TunerService.handleBattery(context, intent.getAction(), intent);
 			} else {
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_BATTERY);
 				i.putExtra(TunerService.EXTRA_ACTION, intent.getAction());

@@ -35,9 +35,10 @@ public class TunerService extends IntentService {
 
 	private static PowerManager pm;
 	private static WakeLock wakeLock = null;
+	private static Object lock = new Object();
 
 	public TunerService() {
-		super("Cpu tuner background worker");
+		super("cpu tuner background worker");
 	}
 
 	@Override
@@ -139,26 +140,29 @@ public class TunerService extends IntentService {
 	}
 
 	public static void handlePhoneState(Context context, int state) {
-		Logger.v("Got call state: " + state);
-		startSpeedUpSwitch();
-		switch (state) {
-		case TelephonyManager.CALL_STATE_IDLE:
-			// hangup
-			PowerProfiles.getInstance(context).setCallInProgress(false);
-			break;
-		case TelephonyManager.CALL_STATE_RINGING:
-			// incomming
-			PowerProfiles.getInstance(context).setCallInProgress(true);
-			break;
-		case TelephonyManager.CALL_STATE_OFFHOOK:
-			// outgoing
-			PowerProfiles.getInstance(context).setCallInProgress(true);
-			break;
+		synchronized (lock) {
 
-		default:
-			break;
+			Logger.v("Got call state: " + state);
+			startSpeedUpSwitch();
+			switch (state) {
+			case TelephonyManager.CALL_STATE_IDLE:
+				// hangup
+				PowerProfiles.getInstance(context).setCallInProgress(false);
+				break;
+			case TelephonyManager.CALL_STATE_RINGING:
+				// incomming
+				PowerProfiles.getInstance(context).setCallInProgress(true);
+				break;
+			case TelephonyManager.CALL_STATE_OFFHOOK:
+				// outgoing
+				PowerProfiles.getInstance(context).setCallInProgress(true);
+				break;
+
+			default:
+				break;
+			}
+			endSpeedUpSwitch();
 		}
-		endSpeedUpSwitch();
 	}
 
 	public static void handleBattery(Context ctx, String action, Intent intent) {
@@ -166,56 +170,58 @@ public class TunerService extends IntentService {
 			Logger.w("BatteryJob got null intent returning");
 			return;
 		}
-		try {
-			acquireWakelock(ctx);
-			PowerProfiles powerProfiles = PowerProfiles.getInstance(ctx);
-			if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
-				int level = -1;
-				int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-				int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-				int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-				int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
-				int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Integer.MAX_VALUE);
-				if (rawlevel >= 0 && scale > 0) {
-					level = (rawlevel * 100) / scale;
-				}
-				Logger.d("Battery Level Remaining: " + level + "%");
-				if (level > -1) {
-					// handle battery event
-					powerProfiles.setBatteryLevel(level);
-				}
-				powerProfiles.setBatteryTemperature(temperature / 10);
-				powerProfiles.setBatteryHot(health == BatteryManager.BATTERY_HEALTH_OVERHEAT);
+		synchronized (lock) {
+			try {
+				acquireWakelock(ctx);
+				PowerProfiles powerProfiles = PowerProfiles.getInstance(ctx);
+				if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
+					int level = -1;
+					int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+					int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+					int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+					int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
+					int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Integer.MAX_VALUE);
+					if (rawlevel >= 0 && scale > 0) {
+						level = (rawlevel * 100) / scale;
+					}
+					Logger.d("Battery Level Remaining: " + level + "%");
+					if (level > -1) {
+						// handle battery event
+						powerProfiles.setBatteryLevel(level);
+					}
+					powerProfiles.setBatteryTemperature(temperature / 10);
+					powerProfiles.setBatteryHot(health == BatteryManager.BATTERY_HEALTH_OVERHEAT);
 
-				if (plugged > -1) {
-					powerProfiles.setAcPower(plugged > 0);
+					if (plugged > -1) {
+						powerProfiles.setAcPower(plugged > 0);
+					}
+				} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
+					startSpeedUpSwitch();
+					powerProfiles.setAcPower(true);
+					endSpeedUpSwitch();
+				} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
+					startSpeedUpSwitch();
+					powerProfiles.setAcPower(false);
+					endSpeedUpSwitch();
+				} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+					startSpeedUpSwitch();
+					powerProfiles.setScreenOff(true);
+					endSpeedUpSwitch();
+				} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
+					startSpeedUpSwitch();
+					powerProfiles.setScreenOff(false);
+					endSpeedUpSwitch();
+				} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
+					// manage network state on wifi
+					int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
+					if (state != PowerProfiles.SERVICE_STATE_LEAVE) {
+						NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+						powerProfiles.setWifiConnected(networkInfo.isConnected());
+					}
 				}
-			} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
-				startSpeedUpSwitch();
-				powerProfiles.setAcPower(true);
-				endSpeedUpSwitch();
-			} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
-				startSpeedUpSwitch();
-				powerProfiles.setAcPower(false);
-				endSpeedUpSwitch();
-			} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
-				startSpeedUpSwitch();
-				powerProfiles.setScreenOff(true);
-				endSpeedUpSwitch();
-			} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
-				startSpeedUpSwitch();
-				powerProfiles.setScreenOff(false);
-				endSpeedUpSwitch();
-			} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
-				// manage network state on wifi
-				int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
-				if (state != PowerProfiles.SERVICE_STATE_LEAVE) {
-					NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-					powerProfiles.setWifiConnected(networkInfo.isConnected());
-				}
+			} finally {
+				releaseWakelock();
 			}
-		} finally {
-			releaseWakelock();
 		}
 	}
 

@@ -17,5 +17,6 @@
     <string name="prefCatHelper">Helper</string>
     <string name="msg_config_loaded">Loaded</string>
     <string name="msg_config">configuration</string>
+    <string name="all">All</string>
 
 </resources>

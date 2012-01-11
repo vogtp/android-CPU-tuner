@@ -35,6 +35,7 @@ import ch.amana.android.cputuner.view.fragments.LogAdvancedFragment;
 import ch.amana.android.cputuner.view.fragments.LogFragment;
 import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
 import ch.amana.android.cputuner.view.fragments.StatsAdvancedFragment;
+import ch.amana.android.cputuner.view.fragments.StatsAdvancedFragment2;
 import ch.amana.android.cputuner.view.fragments.StatsFragment;
 import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorListFragment;
@@ -149,6 +150,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header), actionBarWrapper);
 		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
+		pagerAdapter.addPage(StatsAdvancedFragment2.class, "NEW ADV Stat");
 		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
 		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
 		if (settings.isUseVirtualGovernors()) {

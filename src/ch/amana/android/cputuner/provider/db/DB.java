@@ -19,7 +19,7 @@ public interface DB {
 
 	public class CpuTunerOpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 15;
+		private static final int DATABASE_VERSION = 16;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -28,7 +28,7 @@ public interface DB {
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_BAT + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_BAT + " long,"
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_LCK + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_LCK + " long,"
 				+ DB.Trigger.NAME_HOT_PROFILE_ID + " long default -1," + DB.Trigger.NAME_POWER_CURRENT_SUM_HOT + " long,"
-				+ DB.Trigger.NAME_POWER_CURRENT_CNT_HOT+ " long,"+ DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID + " long,"
+				+ DB.Trigger.NAME_POWER_CURRENT_CNT_HOT + " long," + DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID + " long,"
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_CALL + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_CALL + " long)";
 
 		private static final String CREATE_CPUPROFILES_TABLE = "create table if not exists " + CpuProfile.TABLE_NAME + " (" + DB.NAME_ID
@@ -36,22 +36,22 @@ public interface DB {
 				+ DB.CpuProfile.NAME_PROFILE_NAME + " text, " + DB.CpuProfile.NAME_GOVERNOR + " text," + DB.CpuProfile.NAME_FREQUENCY_MAX + " int,"
 				+ DB.CpuProfile.NAME_FREQUENCY_MIN + " int," + DB.CpuProfile.NAME_WIFI_STATE + " int," + DB.CpuProfile.NAME_GPS_STATE + " int,"
 				+ DB.CpuProfile.NAME_BLUETOOTH_STATE + " int," + DB.CpuProfile.NAME_MOBILEDATA_3G_STATE + " int,"
- + DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 0,"
+				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_UP + " int DEFAULT 0,"
 				+ DB.CpuProfile.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 0,"
- + DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int, " + DB.CpuProfile.NAME_VIRTUAL_GOVERNOR
+				+ DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE + " int, " + DB.CpuProfile.NAME_VIRTUAL_GOVERNOR
 				+ " int default -1," + DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE + " int, " + DB.CpuProfile.NAME_SCRIPT + " text, " + DB.CpuProfile.NAME_POWERSEAVE_BIAS
 				+ " int," + DB.CpuProfile.NAME_AIRPLANEMODE_STATE + " int," + DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS + " int)";
 
 		private static final String CREATE_VIRTUAL_GOVERNOR_TABLE = "create table if not exists " + VirtualGovernor.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
 				+ DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME + " text, " + DB.VirtualGovernor.NAME_REAL_GOVERNOR + " text,"
- + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP
+				+ DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP
 				+ " int DEFAULT 98," + DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN + " int DEFAULT 95, " + DB.VirtualGovernor.NAME_SCRIPT + " text, "
 				+ DB.VirtualGovernor.NAME_POWERSEAVE_BIAS + " int, " + DB.CpuProfile.NAME_USE_NUMBER_OF_CPUS + " int)";
 
 		private static final String CREATE_CONFIGURATION_AUTOLOAD_TABLE = "create table if not exists " + ConfigurationAutoload.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
- + DB.ConfigurationAutoload.NAME_HOUR + " int, " + DB.ConfigurationAutoload.NAME_MINUTE + " int, "
+				+ DB.ConfigurationAutoload.NAME_HOUR + " int, " + DB.ConfigurationAutoload.NAME_MINUTE + " int, "
 				+ DB.ConfigurationAutoload.NAME_WEEKDAY + " int, " + DB.ConfigurationAutoload.NAME_CONFIGURATION + " text, " + DB.ConfigurationAutoload.NAME_NEXT_EXEC + " long, "
 				+ DB.ConfigurationAutoload.NAME_EXACT_SCEDULING + " int DEFAULT 0)";
 
@@ -62,6 +62,19 @@ public interface DB {
 				+ DB.SwitchLogDB.NAME_BATTERY + " int DEFAULT -1, " + DB.SwitchLogDB.NAME_LOCKED + " int DEFAULT -1, " + DB.SwitchLogDB.NAME_AC + " int DEFAULT -1, "
 				+ DB.SwitchLogDB.NAME_CALL + " int DEFAULT -1, "
 				+ DB.SwitchLogDB.NAME_HOT + " int DEFAULT -1)";
+
+		private static final String CREATE_TIS_INPUT_TABLE = "create table if not exists " + TimeInStateInput.TABLE_NAME + " (" + DB.NAME_ID
+				+ " integer primary key, " + DB.TimeInStateInput.NAME_TIME + " long, "
+				+ DB.TimeInStateInput.NAME_TRIGGER + " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_PROFILE + " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_VIRTGOV
+				+ " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_TIS_START + " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_TIS_END + " text DEFAULT NULL)";
+
+		private static final String CREATE_TIS_INDEX_TABLE = "create table if not exists " + TimeInStateIndex.TABLE_NAME + " (" + DB.NAME_ID
+				+ " integer primary key, " + DB.TimeInStateIndex.NAME_TIME + " long, "
+				+ DB.TimeInStateIndex.NAME_TRIGGER + " text DEFAULT NULL, " + DB.TimeInStateIndex.NAME_PROFILE + " text DEFAULT NULL, " + DB.TimeInStateIndex.NAME_VIRTGOV
+				+ " text DEFAULT NULL)";
+
+		private static final String CREATE_TIS_VALUE_TABLE = "create table if not exists " + TimeInStateValue.TABLE_NAME + " (" + DB.NAME_ID
+				+ " integer primary key, " + DB.TimeInStateValue.NAME_IDX + " long, " + DB.TimeInStateValue.NAME_STATE + " int, " + DB.TimeInStateValue.NAME_TIME + " long )";
 
 		public CpuTunerOpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
@@ -74,9 +87,14 @@ public interface DB {
 			db.execSQL(CREATE_VIRTUAL_GOVERNOR_TABLE);
 			db.execSQL(CREATE_CONFIGURATION_AUTOLOAD_TABLE);
 			db.execSQL(CREATE_SWITCH_LOG_TABLE);
+			db.execSQL(CREATE_TIS_INPUT_TABLE);
+			db.execSQL(CREATE_TIS_INDEX_TABLE);
+			db.execSQL(CREATE_TIS_VALUE_TABLE);
 			db.execSQL("create index idx_trigger_battery_level on " + Trigger.TABLE_NAME + " (" + Trigger.NAME_BATTERY_LEVEL + "); ");
 			db.execSQL("create index idx_cpuprofiles_profilename on " + CpuProfile.TABLE_NAME + " (" + CpuProfile.NAME_PROFILE_NAME + "); ");
 			db.execSQL("create index idx_switchlog_time on " + SwitchLogDB.TABLE_NAME + " (" + SwitchLogDB.NAME_TIME + "); ");
+			db.execSQL("create index idx_tis_tigger on " + TimeInStateIndex.TABLE_NAME + " (" + TimeInStateIndex.NAME_TRIGGER + "); ");
+			db.execSQL("create index idx_tis_profile on " + TimeInStateIndex.TABLE_NAME + " (" + TimeInStateIndex.NAME_PROFILE + "); ");
 			Logger.i("Created tables ");
 		}
 
@@ -138,8 +156,8 @@ public interface DB {
 			case 10:
 				Logger.w("Upgrading to DB Version 11...");
 				try {
-				db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_POWERSEAVE_BIAS + " int;");
-				db.execSQL("alter table " + VirtualGovernor.TABLE_NAME + " add column " + VirtualGovernor.NAME_POWERSEAVE_BIAS + " int;");
+					db.execSQL("alter table " + CpuProfile.TABLE_NAME + " add column " + CpuProfile.NAME_POWERSEAVE_BIAS + " int;");
+					db.execSQL("alter table " + VirtualGovernor.TABLE_NAME + " add column " + VirtualGovernor.NAME_POWERSEAVE_BIAS + " int;");
 				} catch (Throwable e) {
 				}
 
@@ -160,7 +178,15 @@ public interface DB {
 				Logger.w("Upgrading to DB Version 15...");
 				db.execSQL(CREATE_SWITCH_LOG_TABLE);
 				db.execSQL("create index idx_switchlog_time on " + SwitchLogDB.TABLE_NAME + " (" + SwitchLogDB.NAME_TIME + "); ");
-				
+
+			case 15:
+				Logger.w("Upgrading to DB Version 16...");
+				db.execSQL(CREATE_TIS_INPUT_TABLE);
+				db.execSQL(CREATE_TIS_INDEX_TABLE);
+				db.execSQL(CREATE_TIS_VALUE_TABLE);
+				db.execSQL("create index idx_tis_tigger on " + TimeInStateIndex.TABLE_NAME + " (" + TimeInStateIndex.NAME_TRIGGER + "); ");
+				db.execSQL("create index idx_tis_profile on " + TimeInStateIndex.TABLE_NAME + " (" + TimeInStateIndex.NAME_PROFILE + "); ");
+
 			default:
 				Logger.w("Finished DB upgrading!");
 				break;
@@ -219,7 +245,7 @@ public interface DB {
 		public static final String[] colNames = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
 				NAME_BATTERY_PROFILE_ID, NAME_POWER_PROFILE_ID, NAME_POWER_CURRENT_SUM_POW, NAME_POWER_CURRENT_CNT_POW, NAME_POWER_CURRENT_SUM_BAT,
 				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK, NAME_HOT_PROFILE_ID, NAME_POWER_CURRENT_SUM_HOT,
-				NAME_POWER_CURRENT_CNT_HOT,  NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL};
+				NAME_POWER_CURRENT_CNT_HOT, NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String[] PROJECTION_BATTERY_LEVEL = new String[] { NAME_ID, NAME_BATTERY_LEVEL };
@@ -290,7 +316,7 @@ public interface DB {
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
 				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_3G_STATE, NAME_GOVERNOR_THRESHOLD_UP,
- NAME_GOVERNOR_THRESHOLD_DOWN, NAME_BACKGROUND_SYNC_STATE, NAME_VIRTUAL_GOVERNOR,
+				NAME_GOVERNOR_THRESHOLD_DOWN, NAME_BACKGROUND_SYNC_STATE, NAME_VIRTUAL_GOVERNOR,
 				NAME_MOBILEDATA_CONNECTION_STATE, NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_AIRPLANEMODE_STATE, NAME_USE_NUMBER_OF_CPUS };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
@@ -334,7 +360,7 @@ public interface DB {
 		public static final int INDEX_USE_NUMBER_OF_CPUS = 7;
 
 		public static final String[] colNames = new String[] { NAME_ID, NAME_VIRTUAL_GOVERNOR_NAME, NAME_REAL_GOVERNOR,
- NAME_GOVERNOR_THRESHOLD_UP, NAME_GOVERNOR_THRESHOLD_DOWN,
+				NAME_GOVERNOR_THRESHOLD_UP, NAME_GOVERNOR_THRESHOLD_DOWN,
 				NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_USE_NUMBER_OF_CPUS };
 		public static final String[] PROJECTION_DEFAULT = colNames;
 
@@ -358,7 +384,6 @@ public interface DB {
 		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
 
 		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
 
 		public static final String NAME_HOUR = "hour";
 		public static final String NAME_MINUTE = "minute";
@@ -427,6 +452,118 @@ public interface DB {
 		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
 
 		public static final String SELECTION_BY_TIME = NAME_TIME + " < ?";
+
+	}
+
+	public interface TimeInStateInput {
+
+		public static final String TABLE_NAME = "TimeInStateInput";
+
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		public static final String NAME_TIME = "time";
+		public static final String NAME_TRIGGER = "trigger";
+		public static final String NAME_PROFILE = "profile";
+		public static final String NAME_VIRTGOV = "virtGov";
+		public static final String NAME_TIS_START = "tisStart";
+		public static final String NAME_TIS_END = "tisEnd";
+
+		public static final int INDEX_TIME = 1;
+		public static final int INDEX_TRIGGER = 2;
+		public static final int INDEX_PROFILE = 3;
+		public static final int INDEX_VIRTGOV = 4;
+		public static final int INDEX_TIS_START = 5;
+		public static final int INDEX_TIS_END = 6;
+
+		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV, NAME_TIS_START, NAME_TIS_END };
+
+		public static final String[] PROJECTION_DEFAULT = colNames;
+
+		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
+		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
+
+		public static final String SELECTION_NOT_FINISHED = NAME_TIS_END + " is null";
+
+		public static final String SELECTION_FINISHED = NAME_TIS_END + " is not null";
+
+		public static final String SELECTION_FINISHED_BY_TRIGGER_PROFILE_VIRTGOV = NAME_TIS_END + " is not null and " + NAME_TRIGGER + " LIKE ? and " + NAME_PROFILE
+				+ " LIKE ? and " + NAME_VIRTGOV + " LIKE ?";
+	}
+
+	public interface TimeInStateIndex {
+
+		public static final String TABLE_NAME = "TimeInStateIndex";
+
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+
+		public static final String NAME_TIME = "time";
+		public static final String NAME_TRIGGER = "trigger";
+		public static final String NAME_PROFILE = "profile";
+		public static final String NAME_VIRTGOV = "virtGov";
+
+		public static final int INDEX_TIME = 1;
+		public static final int INDEX_TRIGGER = 2;
+		public static final int INDEX_PROFILE = 3;
+		public static final int INDEX_VIRTGOV = 4;
+
+		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV };
+
+		public static final String[] PROJECTION_DEFAULT = colNames;
+
+		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
+		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
+
+		public static final String SELECTION_TRIGGER_PROFILE_VIRTGOV = NAME_TRIGGER + " like ? and " + NAME_PROFILE + " like ? and " + NAME_VIRTGOV + " like ?";
+
+	}
+
+	public interface TimeInStateValue {
+
+		public static final String TABLE_NAME = "TimeInStateValue";
+
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static final String CONTENT_ITEM_NAME_GROUPED = TABLE_NAME + "GROUPED";
+		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static String CONTENT_URI_STRING_GROUPED = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME_GROUPED;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		public static Uri CONTENT_URI_GROUPED = Uri.parse(CONTENT_URI_STRING_GROUPED);
+
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_TYPE_GROUPED = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME_GROUPED;
+		static final String CONTENT_ITEM_TYPE_GROUPED = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME_GROUPED;
+
+		public static final String NAME_IDX = "tisIndex";
+		public static final String NAME_STATE = "state";
+		public static final String NAME_TIME = "time";
+
+		public static final int INDEX_IDX = 1;
+		public static final int INDEX_STATE = 2;
+		public static final int INDEX_TIME = 3;
+
+		public static final String[] colNames = new String[] { NAME_ID, NAME_IDX, NAME_STATE, NAME_TIME };
+
+		public static final String[] PROJECTION_TIME_SUM = new String[] { TABLE_NAME + "." + NAME_ID + " as " + NAME_ID, NAME_IDX, NAME_STATE,
+				TABLE_NAME + "." + NAME_TIME + " as time" };
+
+		public static final String[] PROJECTION_DEFAULT = colNames;
+
+		public static final String SORTORDER_DEFAULT = NAME_STATE + " ASC";
+		public static final String SORTORDER_REVERSE = NAME_STATE + " DESC";
+
+		public static final String SELECTION_BY_ID_STATE = NAME_ID + " like ? and " + NAME_STATE + " like ?";
 
 	}
 }

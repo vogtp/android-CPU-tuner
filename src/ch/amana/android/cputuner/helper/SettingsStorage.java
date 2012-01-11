@@ -17,6 +17,7 @@ import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.service.StatisticsService;
 
 public class SettingsStorage {
 
@@ -552,6 +553,11 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(PREF_KEY_ADV_STATS, b);
 		editor.commit();
+		if (b && isRunStatisticsService()) {
+			StatisticsService.start(context);
+		} else {
+			StatisticsService.stop(context);
+		}
 	}
 
 	public boolean isAdvancesStatistics() {
@@ -645,5 +651,9 @@ public class SettingsStorage {
 
 	public boolean hasHoloTheme() {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+	}
+
+	public boolean isRunStatisticsService() {
+		return isAdvancesStatistics();
 	}
 }

@@ -160,7 +160,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 		}
 
 		public String getTimeFromated(int f) {
-			return Long.toString(getTime(f)) + "ms";
+			return Long.toString(getTime(f)) + " ms";
 		}
 
 		public void setBaseline(TimeInStateParser bl) {

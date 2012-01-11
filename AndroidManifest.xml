@@ -5,9 +5,83 @@
     android:versionCode="201201070"
     android:versionName="@string/version" >
 
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="15" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
     <uses-permission android:name="android.permission.VIBRATE" >
     </uses-permission>
     <uses-permission android:name="com.android.vending.BILLING" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.CHANGE_WIFI_STATE"
+        android:required="false" >
+    </uses-permission>
+
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" >
+    </uses-feature>
+
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.READ_SECURE_SETTINGS"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:required="false" >
+    </uses-permission>
+
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.REBOOT" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission
+        android:name="com.android.phone.CHANGE_NETWORK_MODE"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.CHANGE_NETWORK_STATE"
+        android:required="false" >
+    </uses-permission>
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:required="false" >
     </uses-permission>
 
     <permission
@@ -262,81 +336,14 @@
                 <action android:name="ch.amana.android.cputuner.ACTION_STOP_CPUTUNER" />
             </intent-filter>
         </service>
+        <service android:name=".service.StatisticsService" >
+            <intent-filter>
+                <action android:name="ch.amana.android.cputuner.profileChanged" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".receiver.StatisticsReceiver" >
+        </receiver>
     </application>
-
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="15" />
-
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
-
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" >
-    </uses-permission>
-    <uses-permission
-        android:name="android.permission.CHANGE_WIFI_STATE"
-        android:required="false" >
-    </uses-permission>
-
-    <uses-feature
-        android:name="android.hardware.wifi"
-        android:required="false" >
-    </uses-feature>
-
-    <uses-permission
-        android:name="android.permission.WRITE_SECURE_SETTINGS"
-        android:required="false" />
-    <uses-permission
-        android:name="android.permission.READ_SECURE_SETTINGS"
-        android:required="false" />
-    <uses-permission
-        android:name="android.permission.BLUETOOTH_ADMIN"
-        android:required="false" >
-    </uses-permission>
-
-    <uses-feature
-        android:name="android.hardware.bluetooth"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.location.gps"
-        android:required="false" />
-
-    <uses-permission
-        android:name="android.permission.ACCESS_WIFI_STATE"
-        android:required="false" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.REBOOT" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
-    </uses-permission>
-    <uses-permission
-        android:name="com.android.phone.CHANGE_NETWORK_MODE"
-        android:required="false" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" >
-    </uses-permission>
-    <uses-permission
-        android:name="android.permission.BLUETOOTH"
-        android:required="false" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WAKE_LOCK" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
-    </uses-permission>
-    <uses-permission
-        android:name="android.permission.CHANGE_NETWORK_STATE"
-        android:required="false" >
-    </uses-permission>
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE"
-        android:required="false" >
-    </uses-permission>
 
 </manifest>
