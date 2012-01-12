@@ -44,7 +44,6 @@ import com.markupartist.android.widget.ActionBar.Action;
 
 public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderCallbacks<Cursor>, StateChangeListener {
 
-	private TimeinstateCursorLoader tisCursorLoader;
 	private Spinner spTrigger;
 	private Spinner spProfile;
 	private Spinner spVirtGov;
@@ -53,6 +52,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 	private String trigger = DB.SQL_WILDCARD;
 	private String profile = DB.SQL_WILDCARD;
 	private String virtgov = DB.SQL_WILDCARD;
+	private double totalTime = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,10 +79,8 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-				if (tisCursorLoader == null) {
-					return true;
-				}
-				PercentGraphView percentGraphView = (PercentGraphView) ((View) view.getParent().getParent()).findViewById(R.id.percentGraphView1);
+				View parent = (View) view.getParent().getParent();
+				PercentGraphView percentGraphView = (PercentGraphView) parent.findViewById(R.id.percentGraphView1);
 				if (columnIndex == TimeInStateValue.INDEX_STATE) {
 					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
 					((TextView) view).setText(Integer.toString(state / 1000));
@@ -91,7 +89,6 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 				} else
 				if (columnIndex == TimeInStateValue.INDEX_TIME) {
 					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
-					double totalTime = tisCursorLoader.getTotalTime();
 					float percent = (float) (time * 100f / totalTime);
 					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", percent));
 					percentGraphView.setPercent(percent);
@@ -166,12 +163,6 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
-	}
-
-	@Override
-	public void onDestroy() {
-		tisCursorLoader.stopLoading();
-		super.onDestroy();
 	}
 
 	private void updateStatistics(Context context) {
@@ -256,18 +247,22 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-		tisCursorLoader = new TimeinstateCursorLoader(getActivity(), trigger, profile, virtgov);
-		return tisCursorLoader;
+		return new TimeinstateCursorLoader(getActivity(), trigger, profile, virtgov);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
 		curCpuFreq = CpuHandler.getInstance().getCurCpuFreq();
+		totalTime = 0;
+		while (c.moveToNext()) {
+			totalTime += c.getLong(TimeInStateValue.INDEX_TIME);
+		}
 		adapter.swapCursor(c);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		totalTime = 0;
 		adapter.swapCursor(null);
 	}
 

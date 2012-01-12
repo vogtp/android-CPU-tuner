@@ -27,7 +27,7 @@ public class TimeinstateCursorLoader extends CursorLoader {
 	private long indexID = -1;
 	private final ContentResolver resolver;
 	private final Context context;
-	private long totalTime;
+
 
 	private class TimeInStateParser {
 
@@ -123,12 +123,6 @@ public class TimeinstateCursorLoader extends CursorLoader {
 		String selection = TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV;
 		String[] selectionArgs = new String[] { triggerName, profileName, virtgovName };
 		Cursor resultCursor = resolver.query(TimeInStateValue.CONTENT_URI_GROUPED, null, selection, selectionArgs, TimeInStateValue.SORTORDER_DEFAULT);
-		long tt = 0;
-		while (resultCursor.moveToNext()) {
-			tt += resultCursor.getLong(TimeInStateValue.INDEX_TIME);
-		}
-		totalTime = tt;
-		//			deliverResult(resultCursor);
 		return resultCursor;
 	}
 
@@ -208,10 +202,6 @@ public class TimeinstateCursorLoader extends CursorLoader {
 		setSelection(TimeInStateInput.SELECTION_FINISHED_BY_TRIGGER_PROFILE_VIRTGOV);
 		setSelectionArgs(new String[] { triggerName, profileName, virtgovName });
 		forceLoad();
-	}
-
-	public long getTotalTime() {
-		return totalTime;
 	}
 
 }
