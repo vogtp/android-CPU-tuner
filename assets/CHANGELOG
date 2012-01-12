@@ -8,6 +8,7 @@ V 3.2.0
 * features
 - optimise layout for ice cream sandwich (android 4)
 - speedup profile switches
+- new advanced statistics that allow filtering
 - allow special cpu setting during profile switch
 * bug fixes
 - use added configuration as the current one

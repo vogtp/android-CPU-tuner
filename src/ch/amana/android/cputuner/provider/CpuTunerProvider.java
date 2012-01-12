@@ -266,6 +266,9 @@ public class CpuTunerProvider extends ContentProvider {
 		resolver.delete(DB.Trigger.CONTENT_URI, null, null);
 		resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
 		resolver.delete(DB.VirtualGovernor.CONTENT_URI, null, null);
+		resolver.delete(DB.TimeInStateInput.CONTENT_URI, null, null);
+		resolver.delete(DB.TimeInStateIndex.CONTENT_URI, null, null);
+		resolver.delete(DB.TimeInStateValue.CONTENT_URI, null, null);
 		if (deleteAutoloadConfig) {
 			resolver.delete(DB.ConfigurationAutoload.CONTENT_URI, null, null);
 		}
