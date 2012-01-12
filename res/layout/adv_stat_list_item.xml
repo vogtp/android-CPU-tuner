@@ -5,10 +5,13 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/llTisValues"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="3dp" >
+        android:paddingBottom="1dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp" >
 
         <TextView
             android:id="@+id/tvState"
@@ -67,7 +70,9 @@
     <ch.amana.android.cputuner.view.widget.PercentGraphView
         android:id="@+id/percentGraphView1"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:padding="3dp" />
+        android:layout_height="10dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp" />
 
 </LinearLayout>

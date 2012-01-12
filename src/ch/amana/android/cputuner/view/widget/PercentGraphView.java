@@ -63,8 +63,8 @@ public class PercentGraphView extends View {
 		int padB = getPaddingBottom();
 		int padL = getPaddingLeft();
 		int padR = getPaddingRight();
-		int width = canvas.getWidth() - padL - padR;
-		int height = canvas.getHeight() - padT - padB;
+		int width = getWidth() - padL - padR;
+		int height = getHeight() - padT - padB;
 		int corners = height / 4;
 
 		int lenth = Math.round(width * percent / 100f);
