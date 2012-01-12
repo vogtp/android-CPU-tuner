@@ -65,25 +65,22 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 		getLoaderManager().initLoader(0, null, this);
 
-		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1, null,
-				new String[] { TimeInStateValue.NAME_STATE },
-				new int[] { android.R.id.text1 });
+		adapter = new SimpleCursorAdapter(getActivity(), R.layout.adv_stat_list_item, null,
+				new String[] { TimeInStateValue.NAME_STATE, TimeInStateValue.NAME_TIME },
+				new int[] { R.id.tvState, R.id.tvTime });
 
 		adapter.setViewBinder(new ViewBinder() {
 
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-				if (columnIndex == TimeInStateValue.INDEX_STATE) {
-					StringBuilder sb = new StringBuilder();
-					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
+				if (columnIndex == TimeInStateValue.INDEX_TIME) {
 					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
-					sb.append(state / 1000).append(" MHz ");
-					sb.append(Long.toString(time)).append(" ms ");
 					double totalTime = tisCursorLoader.getTotalTime();
-					sb.append(String.format("%.2f", time * 100 / totalTime)).append("%");
-					((TextView) view).setText(sb.toString());
+					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", time * 100 / totalTime));
+					((TextView) view).setText(Long.toString(time));
+					return true;
 				}
-				return true;
+				return false;
 			}
 		});
 
