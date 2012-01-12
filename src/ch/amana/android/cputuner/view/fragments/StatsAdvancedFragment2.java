@@ -13,6 +13,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,8 +24,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
@@ -73,7 +73,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 		adapter = new SimpleCursorAdapter(getActivity(), R.layout.adv_stat_list_item, null,
 				new String[] { TimeInStateValue.NAME_STATE, TimeInStateValue.NAME_TIME },
-				new int[] { R.id.tvState, R.id.tvTime });
+				new int[] { R.id.tvState, R.id.tvTime }, 0);
 
 		adapter.setViewBinder(new ViewBinder() {
 
