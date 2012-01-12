@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
@@ -47,6 +48,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 	private Spinner spProfile;
 	private Spinner spVirtGov;
 	private SimpleCursorAdapter adapter;
+	private int curCpuFreq;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +75,16 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (columnIndex == TimeInStateValue.INDEX_STATE) {
+					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
+					((TextView) view).setText(Integer.toString(state / 1000));
+					if (state == curCpuFreq) {
+						((View) view.getParent()).setBackgroundColor(getResources().getColor(R.color.cputuner_green));
+					} else {
+						((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.background_dark));
+					}
+					return true;
+				} else
 				if (columnIndex == TimeInStateValue.INDEX_TIME) {
 					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
 					double totalTime = tisCursorLoader.getTotalTime();
@@ -241,6 +253,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+		curCpuFreq = CpuHandler.getInstance().getCurCpuFreq();
 		adapter.swapCursor(c);
 	}
 
