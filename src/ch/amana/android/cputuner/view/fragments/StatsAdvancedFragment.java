@@ -2,53 +2,75 @@ package ch.amana.android.cputuner.view.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.RootHandler;
-import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.model.ModelAccess;
+import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
+import ch.amana.android.cputuner.provider.loader.TimeinstateCursorLoader;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.AdvStatsFilterAdaper;
+import ch.amana.android.cputuner.view.widget.PercentGraphView;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class StatsAdvancedFragment extends PagerFragment {
+public class StatsAdvancedFragment extends PagerListFragment implements LoaderCallbacks<Cursor>, StateChangeListener {
 
-	private static final long NO_TRANSITIONS = Long.MAX_VALUE;
-	private TextView tvStats;
-	private TableLayout tlSwitches;
-	private LayoutInflater inflater;
-	private long totaltransitionsBaseline;
-	private String timeinstateBaseline;
+	private Spinner spTrigger;
+	private Spinner spProfile;
+	private Spinner spVirtGov;
+	private SimpleCursorAdapter adapter;
+	private int curCpuFreq;
+	private String trigger = DB.SQL_WILDCARD;
+	private String profile = DB.SQL_WILDCARD;
+	private String virtgov = DB.SQL_WILDCARD;
+	private double totalTime = 0;
+	private ProgressBar pbWait;
+	private TextView labelNoDataForFilter;
+
+	enum LoadingState {
+		LOADING, HASDATA, NODATA
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		this.inflater = inflater;
-		View v = inflater.inflate(R.layout.stats, container, false);
-		tvStats = (TextView) v.findViewById(R.id.tvStats);
-		tlSwitches = (TableLayout) v.findViewById(R.id.tlSwitches);
+		View v = inflater.inflate(R.layout.adv_stat_list, container, false);
+
+		spTrigger = (Spinner) v.findViewById(R.id.spTrigger);
+		spProfile = (Spinner) v.findViewById(R.id.spProfile);
+		spVirtGov = (Spinner) v.findViewById(R.id.spVirtGov);
+		pbWait = (ProgressBar) v.findViewById(R.id.pbWait);
+		labelNoDataForFilter = (TextView) v.findViewById(R.id.labelNoDataForFilter);
 		return v;
 	}
 
@@ -56,185 +78,132 @@ public class StatsAdvancedFragment extends PagerFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		OnClickListener clickListener = new OnClickListener() {
+		getLoaderManager().initLoader(0, null, this);
+
+		adapter = new SimpleCursorAdapter(getActivity(), R.layout.adv_stat_list_item, null,
+				new String[] { TimeInStateValue.NAME_STATE, TimeInStateValue.NAME_TIME },
+				new int[] { R.id.tvState, R.id.tvTime }, 0);
+
+		setDataState(LoadingState.LOADING);
+
+		adapter.setViewBinder(new ViewBinder() {
+
 			@Override
-			public void onClick(View v) {
-				updateView(getActivity());
-			}
-		};
-		tvStats.setOnClickListener(clickListener);
-		tlSwitches.setOnClickListener(clickListener);
-		SettingsStorage settings = SettingsStorage.getInstance();
-		totaltransitionsBaseline = settings.getTotaltransitionsBaseline();
-		if (totaltransitionsBaseline == 0 || getTotalTransitions() < 0) {
-			// create firsttime baseline
-			createBaseline(getActivity());
-			totaltransitionsBaseline = settings.getTotaltransitionsBaseline();
-		}
-		timeinstateBaseline = settings.getTimeinstateBaseline();
-	}
-
-	@Override
-	public void onResume() {
-		updateView(getActivity());
-		super.onResume();
-	}
-
-	private void updateView(Context context) {
-		if (tvStats == null) {
-			return;
-		}
-		StringBuilder sb = new StringBuilder();
-		getTotalTransitions(context, sb);
-		sb.append(context.getString(R.string.label_time_in_state));
-		tvStats.setText(sb.toString());
-		getTimeInState(context);
-	}
-
-	private long getTotalTransitions() {
-		String totaltransitionsStr = CpuHandler.getInstance().getCpuTotalTransitions();
-		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitionsStr)) {
-			try {
-				long totaltransitions = Long.parseLong(totaltransitionsStr) - totaltransitionsBaseline;
-				return totaltransitions;
-			} catch (NumberFormatException e) {
-				Logger.w("Cannot parse cpu total transitions", e);
-			}
-
-		}
-		return NO_TRANSITIONS;
-	}
-
-	private void getTotalTransitions(Context context, StringBuilder sb) {
-		if (context == null) {
-			return;
-		}
-		long totaltransitions = getTotalTransitions();
-		if (totaltransitions != NO_TRANSITIONS) {
-			sb.append(context.getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
-			sb.append("\n");
-		}
-	}
-
-	class TimeInStateParser {
-
-		private long maxTime = Long.MIN_VALUE;
-		private final Map<Integer, Long> states = new TreeMap<Integer, Long>();
-		private TimeInStateParser baseline = null;
-		private boolean parseOk = false;
-
-		public TimeInStateParser(String timeinstate) {
-			try {
-				String[] lines = timeinstate.split("\n");
-				for (int i = 0; i < lines.length; i++) {
-					String[] vals = lines[i].split(" +");
-					int freq = Integer.parseInt(vals[0]);
-					long time = Long.parseLong(vals[1]);
-					states.put(freq, time);
-					maxTime = Math.max(time, maxTime);
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				View parent = (View) view.getParent().getParent();
+				PercentGraphView percentGraphView = (PercentGraphView) parent.findViewById(R.id.percentGraphView1);
+				if (columnIndex == TimeInStateValue.INDEX_STATE) {
+					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
+					((TextView) view).setText(Integer.toString(state / 1000));
+					percentGraphView.setHiglight(state == curCpuFreq);
+					return true;
+				} else
+				if (columnIndex == TimeInStateValue.INDEX_TIME) {
+					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
+					float percent = (float) (time * 100f / totalTime);
+					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", percent));
+					percentGraphView.setPercent(percent);
+					((TextView) view).setText(Long.toString(time));
+					return true;
 				}
-				parseOk = lines.length == states.size();
-			} catch (Exception e) {
-				Logger.w("cannot parse timeinstate");
+				return false;
 			}
-		}
+		});
 
-		public Set<Integer> getStates() {
-			return states.keySet();
-		}
+		setListAdapter(adapter);
+		final Activity act = getActivity();
 
-		public String getFreqFromated(int f) {
-			return String.format("%d MHz", f / 1000);
-		}
+		spProfile.setAdapter(new AdvStatsFilterAdaper(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, DB.CpuProfile.SORTORDER_DEFAULT));
+		spTrigger.setAdapter(new AdvStatsFilterAdaper(act, DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_ID_NAME, DB.Trigger.SORTORDER_DEFAULT));
+		spVirtGov.setAdapter(new AdvStatsFilterAdaper(act, DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_ID_NAME, DB.VirtualGovernor.SORTORDER_DEFAULT));
 
-		public long getTime(int f) {
-			Long time = states.get(f);
-			if (baseline != null && baseline.states != null) {
-				time = time - baseline.states.get(f);
-			}
-			if (time < 0) {
-				time = 0l;
-
-			}
-			return time;
-		}
-
-		public String getTimeFromated(int f) {
-			return Long.toString(getTime(f)) + " ms";
-		}
-
-		public void setBaseline(TimeInStateParser bl) {
-			if (parseOk && states.size() == bl.states.size()) {
-				this.baseline = bl;
-			}
-		}
-
-		public long getMaxTime() {
-			if (baseline != null) {
-				return maxTime - baseline.maxTime;
-			}
-			return maxTime;
-		}
-
-	}
-
-	private void getTimeInState(Context context) {
-		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
-		tlSwitches.removeAllViews();
-		if (!RootHandler.NOT_AVAILABLE.equals(timeinstate)) {
-			int curCpuFreq = CpuHandler.getInstance().getCurCpuFreq();
-			addTextToRow(0, context.getString(R.string.label_frequency), context.getString(R.string.label_time), false);
-
-			TimeInStateParser tisParser = new TimeInStateParser(timeinstate);
-			tisParser.setBaseline(new TimeInStateParser(timeinstateBaseline));
-			int width = context.getResources().getDisplayMetrics().widthPixels;
-			long max = tisParser.getMaxTime();
-			for (Integer freq : tisParser.getStates()) {
-				TextView graph = addTextToRow(freq, tisParser.getFreqFromated(freq), tisParser.getTimeFromated(freq), curCpuFreq == freq);
-				if (graph != null) {
-					long pixelsl = 0;
-					if (max != 0) {
-						pixelsl = tisParser.getTime(freq) * width / max;
-					}
-					int pixels = width;
-					if (pixelsl <= Integer.MAX_VALUE) {
-						pixels = (int) pixelsl;
-					}
-					graph.setMaxWidth(pixels);
-					graph.setWidth(pixels);
-					graph.setMinimumWidth(pixels);
-					graph.setMinWidth(pixels);
+		spProfile.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				profile = DB.SQL_WILDCARD;
+				if (id != AdvStatsFilterAdaper.ALL_ID) {
+					profile = ModelAccess.getInstace(getActivity()).getProfileName(id);
 				}
+				//				tisCursorLoader.setProfile(profile);
+				updateStatistics(act);
 			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+		spTrigger.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				trigger = DB.SQL_WILDCARD;
+				if (id != AdvStatsFilterAdaper.ALL_ID) {
+					trigger = ModelAccess.getInstace(getActivity()).getTrigger(id).getName();
+				}
+				//				tisCursorLoader.setTrigger(trigger);
+				updateStatistics(act);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+		spVirtGov.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				virtgov = DB.SQL_WILDCARD;
+				if (id != AdvStatsFilterAdaper.ALL_ID) {
+					virtgov = ModelAccess.getInstace(getActivity()).getVirtualGovernor(id).getVirtualGovernorName();
+				}
+				//				tisCursorLoader.setVirtGov(virtgov);
+				updateStatistics(act);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				updateStatistics(act);
+			}
+		});
+
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
 	}
 
-	private TextView addTextToRow(long f, String frq, String time, boolean current) {
-		if (inflater == null) {
-			inflater = (LayoutInflater) tlSwitches.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		}
-		View v = inflater.inflate(R.layout.stats_table_row, tlSwitches, false);
-		Resources resources = v.getContext().getResources();
-		int color = resources.getColor(android.R.color.secondary_text_dark);
-		if (current) {
-			color = resources.getColor(R.color.cputuner_green);
-		}
-		TextView tvFreq = (TextView) v.findViewById(R.id.tvFreq);
-		TextView tvTime = (TextView) v.findViewById(R.id.tvTime);
-		TextView tvGraph = (TextView) v.findViewById(R.id.tvGraph);
-		tvFreq.setText(frq);
-		tvTime.setText(time);
-		tvGraph.setText("");
-		tvFreq.setTextColor(color);
-		tvTime.setTextColor(color);
+	private void setDataState(LoadingState state) {
+		switch (state) {
+		case LOADING:
+			getListView().setVisibility(View.INVISIBLE);
+			labelNoDataForFilter.setVisibility(View.INVISIBLE);
+			pbWait.setVisibility(View.VISIBLE);
+			break;
+		case HASDATA:
+			getListView().setVisibility(View.VISIBLE);
+			labelNoDataForFilter.setVisibility(View.INVISIBLE);
+			pbWait.setVisibility(View.INVISIBLE);
+			break;
+		case NODATA:
+			getListView().setVisibility(View.INVISIBLE);
+			labelNoDataForFilter.setVisibility(View.VISIBLE);
+			pbWait.setVisibility(View.INVISIBLE);
+			break;
 
-		tlSwitches.addView(v);
-
-		if (f > 0) {
-			tvGraph.setBackgroundColor(color);
-			return tvGraph;
+		default:
+			break;
 		}
-		return null;
+
+	}
+
+	private void updateStatistics(Context context) {
+		//		context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
+		getLoaderManager().restartLoader(0, null, this);
+		setDataState(LoadingState.LOADING);
 	}
 
 	@Override
@@ -254,9 +223,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				tvStats = (TextView) view.getRootView().findViewById(R.id.tvStats);
-				tlSwitches = (TableLayout) view.getRootView().findViewById(R.id.tlSwitches);
-				updateView(view.getContext());
+				updateStatistics(view.getContext());
 			}
 
 			@Override
@@ -277,24 +244,16 @@ public class StatsAdvancedFragment extends PagerFragment {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				createBaseline(ctx);
-				updateView(ctx);
+				ContentResolver resolver = ctx.getContentResolver();
+				resolver.delete(DB.TimeInStateInput.CONTENT_URI, null, null);
+				resolver.delete(DB.TimeInStateIndex.CONTENT_URI, null, null);
+				resolver.delete(DB.TimeInStateValue.CONTENT_URI, null, null);
+				//				SettingsStorage.getInstance().setTimeinstateBaseline(CpuHandler.getInstance().getCpuTimeinstate());
+				updateStatistics(ctx);
 			}
 		});
 		AlertDialog alert = alertBuilder.create();
 		alert.show();
-	}
-
-	private void createBaseline(Context ctx) {
-		try {
-			totaltransitionsBaseline = Long.parseLong(CpuHandler.getInstance().getCpuTotalTransitions());
-		} catch (NumberFormatException e) {
-			Logger.w("Cannot parse cpu transitions as long ", e);
-			totaltransitionsBaseline = -1;
-		}
-		timeinstateBaseline = CpuHandler.getInstance().getCpuTimeinstate();
-		SettingsStorage.getInstance().setTimeinstateBaseline(timeinstateBaseline);
-		SettingsStorage.getInstance().setTotaltransitionsBaseline(totaltransitionsBaseline);
 	}
 
 	@Override
@@ -312,7 +271,7 @@ public class StatsAdvancedFragment extends PagerFragment {
 			return true;
 
 		case R.id.itemRefresh:
-			updateView(act);
+			updateStatistics(act);
 			return true;
 
 		}
@@ -320,5 +279,44 @@ public class StatsAdvancedFragment extends PagerFragment {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+		setDataState(LoadingState.LOADING);
+		return new TimeinstateCursorLoader(getActivity(), trigger, profile, virtgov);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+		curCpuFreq = CpuHandler.getInstance().getCurCpuFreq();
+		totalTime = 0;
+		while (c.moveToNext()) {
+			totalTime += c.getLong(TimeInStateValue.INDEX_TIME);
+		}
+		setDataState(totalTime > 0 ? LoadingState.HASDATA : LoadingState.NODATA);
+		adapter.swapCursor(c);
+		getListView().setVisibility(View.VISIBLE);
+		pbWait.setVisibility(View.INVISIBLE);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		totalTime = 0;
+		setDataState(LoadingState.LOADING);
+		adapter.swapCursor(null);
+	}
+
+	@Override
+	public void profileChanged() {
+		updateStatistics(getActivity());
+	}
+
+	@Override
+	public void deviceStatusChanged() {
+	}
+
+	@Override
+	public void triggerChanged() {
 	}
 }
