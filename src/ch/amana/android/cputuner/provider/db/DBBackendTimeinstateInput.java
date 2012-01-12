@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.provider.db;
 
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -16,8 +14,6 @@ import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateInput;
 
 public class DBBackendTimeinstateInput {
-
-	private static HashMap<String, String> projectionMap;
 
 	private static final int TIS = 1;
 	private static final int TIS_ID = 2;
@@ -62,7 +58,6 @@ public class DBBackendTimeinstateInput {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.TimeInStateInput.TABLE_NAME);
-		qb.setProjectionMap(projectionMap);
 		switch (sUriMatcher.match(uri)) {
 		case TIS:
 			break;
@@ -136,11 +131,5 @@ public class DBBackendTimeinstateInput {
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateInput.CONTENT_ITEM_NAME, TIS);
-		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateInput.CONTENT_ITEM_NAME + "/#", TIS_ID);
-
-		projectionMap = new HashMap<String, String>();
-		for (String col : TimeInStateInput.colNames) {
-			projectionMap.put(col, col);
-		}
 	}
 }

@@ -25,9 +25,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
@@ -35,25 +35,31 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateInput;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
+import ch.amana.android.cputuner.receiver.StatisticsReceiver;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.AdvStatsFilterAdaper;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadCompleteListener<Cursor> {
+public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadCompleteListener<Cursor>, StateChangeListener {
 
+	private static final String SQL_WILDCARD = "%";
 	private TisCursorLoader tisCursorLoader;
 	private double totalTime = 0;
 	private Spinner spTrigger;
 	private Spinner spProfile;
 	private Spinner spVirtGov;
+	private SimpleCursorAdapter adapter;
 
 	private class TimeInStateParser {
 
@@ -120,9 +126,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 		}
 
 		public TisCursorLoader(Context context, String triggerName, String profileName, String virtgovName) {
-			super(context, DB.TimeInStateInput.CONTENT_URI, DB.TimeInStateInput.PROJECTION_DEFAULT, DB.TimeInStateInput.SELECTION_FINISHED_BY_TRIGGER_PROFILE_VIRTGOV,
-					new String[] { triggerName, profileName, virtgovName },
-					DB.TimeInStateInput.SORTORDER_DEFAULT);
+			super(context, DB.TimeInStateInput.CONTENT_URI, DB.TimeInStateInput.PROJECTION_DEFAULT, null, null, DB.TimeInStateInput.SORTORDER_DEFAULT);
 			this.context = context;
 			this.triggerName = triggerName;
 			this.profileName = profileName;
@@ -138,35 +142,28 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 
 		@Override
 		public Cursor loadInBackground() {
-			//			doResult();
+			addCurrentValues();
 			processInput(triggerName, profileName, virtgovName);
-			//			doResult();
-			//			processInput("%", "%", "%");
 			return doResult();
 		}
 
+		private void addCurrentValues() {
+			PowerProfiles instance = PowerProfiles.getInstance();
+			if (instance.getCurrentProfileName().equals(profileName) &&
+					instance.getCurrentTriggerName().equals(triggerName)) {
+				Bundle bundle = new Bundle(5);
+				bundle.putString(DB.SwitchLogDB.NAME_TRIGGER, profileName);
+				bundle.putString(DB.SwitchLogDB.NAME_PROFILE, triggerName);
+				bundle.putString(DB.SwitchLogDB.NAME_VIRTGOV, ModelAccess.getInstace(context).getVirtualGovernor(instance.getCurrentProfile().getVirtualGovernor())
+						.getVirtualGovernorName());
+				StatisticsReceiver.updateStatisticsInputQueue(getActivity(), bundle);
+			}
+		}
+
 		private Cursor doResult() {
-
-
-			//			SQLiteDatabase db = new CpuTunerOpenHelper(context).getReadableDatabase();
-			//
-			//			SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-			//			qb.setTables(TimeInStateValue.TABLE_NAME + ", " + TimeInStateIndex.TABLE_NAME);
-			//			qb.appendWhere("TimeInStateValue.tisIndex=TimeInStateIndex._id");
-			//			//			qb.appendWhere(" AND ");
-			//			//			qb.appendWhere(TimeInStateIndex.NAME_TRIGGER + "=?");
-			//			//			qb.appendWhere(" AND ");
-			//			//			qb.appendWhere(TimeInStateIndex.NAME_PROFILE + "=?");
-			//			//			qb.appendWhere(" AND ");
-			//			//			qb.appendWhere(TimeInStateIndex.NAME_VIRTGOV + "=?");
-			//			// select tisIndex, state, total(TimeInStateValue.time) as time from TimeInStateValue, TimeInStateIndex where (TimeInStateValue.tisIndex=TimeInStateIndex._id) and (TimeInStateIndex.trigger = 'All')  group by state;
-			//			String sql = qb.buildQuery(TimeInStateValue.PROJECTION_TIME_SUM, null, TimeInStateValue.NAME_STATE, null, TimeInStateValue.SORTORDER_DEFAULT, null);
-			//			Cursor resultCursor = qb.query(db, TimeInStateValue.PROJECTION_TIME_SUM, TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV, new String[] { triggerName, profileName,
-			//					virtgovName }, TimeInStateValue.NAME_STATE, null, TimeInStateValue.SORTORDER_DEFAULT);
-			//			//			Cursor resultCursor = db.rawQuery("select _id, tisIndex, state, total(time) as time from TimeInStateValue group by state", selectionAgrs);
-
-			Cursor resultCursor = resolver.query(TimeInStateValue.CONTENT_URI_GROUPED, null, TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV,
-					new String[] { triggerName, profileName, virtgovName }, TimeInStateValue.SORTORDER_DEFAULT);
+			String selection = TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV;
+			String[] selectionArgs = new String[] { triggerName, profileName, virtgovName };
+			Cursor resultCursor = resolver.query(TimeInStateValue.CONTENT_URI_GROUPED, null, selection, selectionArgs, TimeInStateValue.SORTORDER_DEFAULT);
 			long tt = 0;
 			while (resultCursor.moveToNext()) {
 				tt += resultCursor.getLong(TimeInStateValue.INDEX_TIME);
@@ -270,10 +267,32 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		tisCursorLoader = new TisCursorLoader(getActivity(), "%", "%", "%");
-
+		tisCursorLoader = new TisCursorLoader(getActivity(), SQL_WILDCARD, SQL_WILDCARD, SQL_WILDCARD);
 		tisCursorLoader.registerListener(0, this);
-		Activity act = getActivity();
+		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1, null,
+				new String[] { TimeInStateValue.NAME_STATE },
+				new int[] { android.R.id.text1 });
+
+		adapter.setViewBinder(new ViewBinder() {
+
+			@Override
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (columnIndex == TimeInStateValue.INDEX_STATE) {
+					StringBuilder sb = new StringBuilder();
+					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
+					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
+					sb.append(state / 1000).append(" MHz ");
+					sb.append(Long.toString(time)).append(" ms ");
+					double l = time * 100 / totalTime;
+					sb.append(String.format("%.2f", time * 100 / totalTime)).append(SQL_WILDCARD);
+					((TextView) view).setText(sb.toString());
+				}
+				return true;
+			}
+		});
+
+		setListAdapter(adapter);
+		final Activity act = getActivity();
 
 		spProfile.setAdapter(new AdvStatsFilterAdaper(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, DB.CpuProfile.SORTORDER_DEFAULT));
 		spTrigger.setAdapter(new AdvStatsFilterAdaper(act, DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_ID_NAME, DB.Trigger.SORTORDER_DEFAULT));
@@ -282,7 +301,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 		spProfile.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = "%";
+				String selection = SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
 					selection = ModelAccess.getInstace(getActivity()).getProfileName(id);
 				}
@@ -296,7 +315,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 		spTrigger.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = "%";
+				String selection = SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
 					selection = ModelAccess.getInstace(getActivity()).getTrigger(id).getName();
 				}
@@ -310,7 +329,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 		spVirtGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = "%";
+				String selection = SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
 					selection = ModelAccess.getInstace(getActivity()).getVirtualGovernor(id).getVirtualGovernorName();
 				}
@@ -322,18 +341,21 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 			}
 		});
 
-		OnClickListener clickListener = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				updateView(getActivity());
-			}
-		};
+		getListView().setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				updateView(act);
+			}
+		});
+		if (act instanceof CpuTunerViewpagerActivity) {
+			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
+		}
 	}
 
 	@Override
 	public void onResume() {
-		updateView(getActivity());
+		//		updateView(getActivity());
 		super.onResume();
 	}
 
@@ -423,31 +445,20 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements OnLoadC
 	}
 
 	@Override
-	public void onLoadComplete(Loader<Cursor> arg0, Cursor displayCursor) {
+	public void onLoadComplete(Loader<Cursor> arg0, Cursor c) {
+		adapter.swapCursor(c);
+	}
 
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1, displayCursor,
-				new String[] { TimeInStateValue.NAME_STATE },
-				new int[] { android.R.id.text1 });
+	@Override
+	public void profileChanged() {
+		updateView(getActivity());
+	}
 
-		adapter.setViewBinder(new ViewBinder() {
+	@Override
+	public void deviceStatusChanged() {
+	}
 
-			@Override
-			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-				if (columnIndex == TimeInStateValue.INDEX_STATE) {
-					StringBuilder sb = new StringBuilder();
-					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
-					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
-					sb.append(state / 1000).append(" MHz ");
-					sb.append(Long.toString(time)).append(" ms ");
-					double l = time * 100 / totalTime;
-					sb.append(String.format("%.2f", time * 100 / totalTime)).append("%");
-					((TextView) view).setText(sb.toString());
-				}
-				return true;
-			}
-		});
-
-		setListAdapter(adapter);
-
+	@Override
+	public void triggerChanged() {
 	}
 }

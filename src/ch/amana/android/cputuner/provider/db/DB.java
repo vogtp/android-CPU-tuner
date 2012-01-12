@@ -556,7 +556,7 @@ public interface DB {
 		public static final String[] colNames = new String[] { NAME_ID, NAME_IDX, NAME_STATE, NAME_TIME };
 
 		public static final String[] PROJECTION_TIME_SUM = new String[] { TABLE_NAME + "." + NAME_ID + " as " + NAME_ID, NAME_IDX, NAME_STATE,
-				TABLE_NAME + "." + NAME_TIME + " as time" };
+				"total(" + TABLE_NAME + "." + NAME_TIME + ") as time" };
 
 		public static final String[] PROJECTION_DEFAULT = colNames;
 

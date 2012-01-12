@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.provider.db;
 
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -17,8 +15,6 @@ import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
 
 public class DBBackendTimeinstateValue {
-
-	private static HashMap<String, String> projectionMap;
 
 	private static final int TIS = 1;
 	private static final int TIS_ID = 2;
@@ -68,7 +64,6 @@ public class DBBackendTimeinstateValue {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.TimeInStateValue.TABLE_NAME);
-		qb.setProjectionMap(projectionMap);
 		switch (sUriMatcher.match(uri)) {
 		case TIS:
 			break;
@@ -102,7 +97,6 @@ public class DBBackendTimeinstateValue {
 		qb.setTables(TimeInStateValue.TABLE_NAME + ", " + TimeInStateIndex.TABLE_NAME);
 		qb.appendWhere("TimeInStateValue.tisIndex=TimeInStateIndex._id");
 
-
 		switch (sUriMatcher.match(uri)) {
 		case TIS_G:
 			break;
@@ -125,9 +119,7 @@ public class DBBackendTimeinstateValue {
 
 		// Get the database and run the query
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		Cursor c = qb.query(db, TimeInStateValue.PROJECTION_TIME_SUM, selection, selectionArgs, TimeInStateValue.NAME_STATE, null, orderBy);
-
-		return c;
+		return qb.query(db, TimeInStateValue.PROJECTION_TIME_SUM, selection, selectionArgs, TimeInStateValue.NAME_STATE, null, orderBy);
 	}
 
 	public static int update(CpuTunerOpenHelper openHelper, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
@@ -178,11 +170,5 @@ public class DBBackendTimeinstateValue {
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateValue.CONTENT_ITEM_NAME, TIS);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateValue.CONTENT_ITEM_NAME + "/#", TIS_ID);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateValue.CONTENT_ITEM_NAME_GROUPED, TIS_G);
-		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateValue.CONTENT_ITEM_NAME_GROUPED + "/#", TIS_ID_G);
-
-		projectionMap = new HashMap<String, String>();
-		for (String col : TimeInStateValue.colNames) {
-			projectionMap.put(col, col);
-		}
 	}
 }

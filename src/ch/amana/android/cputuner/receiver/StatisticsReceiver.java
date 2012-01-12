@@ -20,45 +20,44 @@ public class StatisticsReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		//		// remove this toast and it will not work...
-		//		Toast.makeText(context, "StatisticsReceiver", Toast.LENGTH_SHORT).show();
-		//		context.startService(intent);
-		handleStatistics(context, intent);
-	}
-
-	private void handleStatistics(final Context context, final Intent intent) {
 		if (!SettingsStorage.getInstance(context).isRunStatisticsService()) {
 			return;
 		}
-
+		final Bundle extras = intent.getExtras();
+		final Context ctx = context;
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				Logger.d("Adding timeinstate to input queue");
-				String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
-				Bundle extras = intent.getExtras();
-				String triggerName = extras.getString(DB.SwitchLogDB.NAME_TRIGGER);
-				String profileName = extras.getString(DB.SwitchLogDB.NAME_PROFILE);
-				String virtGovName = extras.getString(DB.SwitchLogDB.NAME_VIRTGOV);
-				ContentResolver contentResolver = context.getContentResolver();
-				ContentValues values = new ContentValues();
-				values.put(DB.TimeInStateInput.NAME_TIS_END, timeinstate);
-				int count = contentResolver.update(DB.TimeInStateInput.CONTENT_URI, values, DB.TimeInStateInput.SELECTION_NOT_FINISHED, null);
-				if (count != 1) {
-					Logger.w("Should only update 1 statistics record! Updated: " + count);
-				}
-				values.put(DB.TimeInStateInput.NAME_TIME, System.currentTimeMillis());
-				values.put(DB.TimeInStateInput.NAME_TRIGGER, triggerName);
-				values.put(DB.TimeInStateInput.NAME_PROFILE, profileName);
-				values.put(DB.TimeInStateInput.NAME_VIRTGOV, virtGovName);
-				values.put(DB.TimeInStateInput.NAME_TIS_START, timeinstate);
-				values.remove(DB.TimeInStateInput.NAME_TIS_END);
-				contentResolver.insert(DB.TimeInStateInput.CONTENT_URI, values);
+				updateStatisticsInputQueue(ctx, extras);
 			}
+
 		}).start();
 
 
+	}
+
+	public static void updateStatisticsInputQueue(Context context, Bundle extras) {
+		Logger.d("Adding timeinstate to input queue");
+		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
+
+		String triggerName = extras.getString(DB.SwitchLogDB.NAME_TRIGGER);
+		String profileName = extras.getString(DB.SwitchLogDB.NAME_PROFILE);
+		String virtGovName = extras.getString(DB.SwitchLogDB.NAME_VIRTGOV);
+		ContentResolver contentResolver = context.getContentResolver();
+		ContentValues values = new ContentValues();
+		values.put(DB.TimeInStateInput.NAME_TIS_END, timeinstate);
+		int count = contentResolver.update(DB.TimeInStateInput.CONTENT_URI, values, DB.TimeInStateInput.SELECTION_NOT_FINISHED, null);
+		if (count != 1) {
+			Logger.w("Should only update 1 statistics record! Updated: " + count);
+		}
+		values.put(DB.TimeInStateInput.NAME_TIME, System.currentTimeMillis());
+		values.put(DB.TimeInStateInput.NAME_TRIGGER, triggerName);
+		values.put(DB.TimeInStateInput.NAME_PROFILE, profileName);
+		values.put(DB.TimeInStateInput.NAME_VIRTGOV, virtGovName);
+		values.put(DB.TimeInStateInput.NAME_TIS_START, timeinstate);
+		values.remove(DB.TimeInStateInput.NAME_TIS_END);
+		contentResolver.insert(DB.TimeInStateInput.CONTENT_URI, values);
 	}
 
 	public static void register(Context context) {
