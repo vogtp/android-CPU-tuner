@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.provider.db;
 
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -16,8 +14,6 @@ import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.provider.db.DB.SwitchLogDB;
 
 public class DBBackendSwitchLog {
-
-	private static HashMap<String, String> sSwitchLogProjectionMap;
 
 	private static final int SWITCH_LOG = 1;
 	private static final int SWITCH_LOG_ID = 2;
@@ -61,7 +57,6 @@ public class DBBackendSwitchLog {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.SwitchLogDB.TABLE_NAME);
-		qb.setProjectionMap(sSwitchLogProjectionMap);
 		switch (sUriMatcher.match(uri)) {
 		case SWITCH_LOG:
 			break;
@@ -137,10 +132,5 @@ public class DBBackendSwitchLog {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, SwitchLogDB.CONTENT_ITEM_NAME, SWITCH_LOG);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, SwitchLogDB.CONTENT_ITEM_NAME + "/#", SWITCH_LOG_ID);
-
-		sSwitchLogProjectionMap = new HashMap<String, String>();
-		for (String col : SwitchLogDB.colNames) {
-			sSwitchLogProjectionMap.put(col, col);
-		}
 	}
 }

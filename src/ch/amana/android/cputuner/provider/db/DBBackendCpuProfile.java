@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.provider.db;
 
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -16,8 +14,6 @@ import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 
 public class DBBackendCpuProfile {
-
-	private static HashMap<String, String> sCpuProfileProjectionMap;
 
 	private static final int CPU_PROFILE = 1;
 	private static final int CPU_PROFILE_ID = 2;
@@ -62,7 +58,6 @@ public class DBBackendCpuProfile {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.CpuProfile.TABLE_NAME);
-		qb.setProjectionMap(sCpuProfileProjectionMap);
 		switch (sUriMatcher.match(uri)) {
 		case CPU_PROFILE:
 			break;
@@ -137,10 +132,5 @@ public class DBBackendCpuProfile {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, CpuProfile.CONTENT_ITEM_NAME, CPU_PROFILE);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, CpuProfile.CONTENT_ITEM_NAME + "/#", CPU_PROFILE_ID);
-
-		sCpuProfileProjectionMap = new HashMap<String, String>();
-		for (String col : CpuProfile.colNames) {
-			sCpuProfileProjectionMap.put(col, col);
-		}
 	}
 }

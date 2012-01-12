@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.provider.db;
 
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -16,8 +14,6 @@ import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.provider.db.DB.Trigger;
 
 public class DBBackendTrigger {
-
-	private static HashMap<String, String> sTriggerProjectionMap;
 
 	private static final int TRIGGER = 1;
 	private static final int TRIGGER_ID = 2;
@@ -61,7 +57,6 @@ public class DBBackendTrigger {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.Trigger.TABLE_NAME);
-		qb.setProjectionMap(sTriggerProjectionMap);
 		switch (sUriMatcher.match(uri)) {
 		case TRIGGER:
 			break;
@@ -136,10 +131,5 @@ public class DBBackendTrigger {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, Trigger.CONTENT_ITEM_NAME, TRIGGER);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, Trigger.CONTENT_ITEM_NAME + "/#", TRIGGER_ID);
-
-		sTriggerProjectionMap = new HashMap<String, String>();
-		for (String col : Trigger.colNames) {
-			sTriggerProjectionMap.put(col, col);
-		}
 	}
 }

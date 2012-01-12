@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.provider.db;
 
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -16,8 +14,6 @@ import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class DBBackendVirtualGovernor {
-
-	private static HashMap<String, String> sVirtualGovernorProjectionMap;
 
 	private static final int VIRTUAL_GOVERNOR = 1;
 	private static final int VIRTUAL_GOVERNOR_ID = 2;
@@ -62,7 +58,6 @@ public class DBBackendVirtualGovernor {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.VirtualGovernor.TABLE_NAME);
-		qb.setProjectionMap(sVirtualGovernorProjectionMap);
 		switch (sUriMatcher.match(uri)) {
 		case VIRTUAL_GOVERNOR:
 			break;
@@ -137,10 +132,5 @@ public class DBBackendVirtualGovernor {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, VirtualGovernor.CONTENT_ITEM_NAME, VIRTUAL_GOVERNOR);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, VirtualGovernor.CONTENT_ITEM_NAME + "/#", VIRTUAL_GOVERNOR_ID);
-
-		sVirtualGovernorProjectionMap = new HashMap<String, String>();
-		for (String col : VirtualGovernor.colNames) {
-			sVirtualGovernorProjectionMap.put(col, col);
-		}
 	}
 }

@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.provider.db;
 
-import java.util.HashMap;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -16,8 +14,6 @@ import ch.amana.android.cputuner.provider.db.DB.ConfigurationAutoload;
 import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 
 public class DBBackendConfigurationAutoload {
-
-	private static HashMap<String, String> sConfigurationAutoloadProjectionMap;
 
 	private static final int CONFIGURATION_AUTOLOAD = 1;
 	private static final int CONFIGURATION_AUTOLOAD_ID = 2;
@@ -61,7 +57,6 @@ public class DBBackendConfigurationAutoload {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		qb.setTables(DB.ConfigurationAutoload.TABLE_NAME);
-		qb.setProjectionMap(sConfigurationAutoloadProjectionMap);
 		switch (sUriMatcher.match(uri)) {
 		case CONFIGURATION_AUTOLOAD:
 			break;
@@ -137,10 +132,5 @@ public class DBBackendConfigurationAutoload {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, ConfigurationAutoload.CONTENT_ITEM_NAME, CONFIGURATION_AUTOLOAD);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, ConfigurationAutoload.CONTENT_ITEM_NAME + "/#", CONFIGURATION_AUTOLOAD_ID);
-
-		sConfigurationAutoloadProjectionMap = new HashMap<String, String>();
-		for (String col : ConfigurationAutoload.colNames) {
-			sConfigurationAutoloadProjectionMap.put(col, col);
-		}
 	}
 }
