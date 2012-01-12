@@ -29,12 +29,34 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+android:id/list"
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/black" >
-    </ListView>
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <ListView
+            android:id="@+android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/black" >
+        </ListView>
+
+        <ProgressBar
+            android:id="@+id/pbWait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/labelNoDataForFilter"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="50dp"
+            android:text="@string/labelNoDataForFilter"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
 
 </LinearLayout>

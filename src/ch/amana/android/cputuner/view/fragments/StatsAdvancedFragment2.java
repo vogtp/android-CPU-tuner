@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
@@ -53,6 +54,12 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 	private String profile = DB.SQL_WILDCARD;
 	private String virtgov = DB.SQL_WILDCARD;
 	private double totalTime = 0;
+	private ProgressBar pbWait;
+	private TextView labelNoDataForFilter;
+
+	enum LoadingState {
+		LOADING, HASDATA, NODATA
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +69,8 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		spTrigger = (Spinner) v.findViewById(R.id.spTrigger);
 		spProfile = (Spinner) v.findViewById(R.id.spProfile);
 		spVirtGov = (Spinner) v.findViewById(R.id.spVirtGov);
+		pbWait = (ProgressBar) v.findViewById(R.id.pbWait);
+		labelNoDataForFilter = (TextView) v.findViewById(R.id.labelNoDataForFilter);
 		return v;
 	}
 
@@ -74,6 +83,8 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		adapter = new SimpleCursorAdapter(getActivity(), R.layout.adv_stat_list_item, null,
 				new String[] { TimeInStateValue.NAME_STATE, TimeInStateValue.NAME_TIME },
 				new int[] { R.id.tvState, R.id.tvTime }, 0);
+
+		setDataState(LoadingState.LOADING);
 
 		adapter.setViewBinder(new ViewBinder() {
 
@@ -165,9 +176,34 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		}
 	}
 
+	private void setDataState(LoadingState state) {
+		switch (state) {
+		case LOADING:
+			getListView().setVisibility(View.INVISIBLE);
+			labelNoDataForFilter.setVisibility(View.INVISIBLE);
+			pbWait.setVisibility(View.VISIBLE);
+			break;
+		case HASDATA:
+			getListView().setVisibility(View.VISIBLE);
+			labelNoDataForFilter.setVisibility(View.INVISIBLE);
+			pbWait.setVisibility(View.INVISIBLE);
+			break;
+		case NODATA:
+			getListView().setVisibility(View.INVISIBLE);
+			labelNoDataForFilter.setVisibility(View.VISIBLE);
+			pbWait.setVisibility(View.INVISIBLE);
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
 	private void updateStatistics(Context context) {
 		//		context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
 		getLoaderManager().restartLoader(0, null, this);
+		setDataState(LoadingState.LOADING);
 	}
 
 	@Override
@@ -247,6 +283,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+		setDataState(LoadingState.LOADING);
 		return new TimeinstateCursorLoader(getActivity(), trigger, profile, virtgov);
 	}
 
@@ -257,12 +294,16 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		while (c.moveToNext()) {
 			totalTime += c.getLong(TimeInStateValue.INDEX_TIME);
 		}
+		setDataState(totalTime > 0 ? LoadingState.HASDATA : LoadingState.NODATA);
 		adapter.swapCursor(c);
+		getListView().setVisibility(View.VISIBLE);
+		pbWait.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		totalTime = 0;
+		setDataState(LoadingState.LOADING);
 		adapter.swapCursor(null);
 	}
 

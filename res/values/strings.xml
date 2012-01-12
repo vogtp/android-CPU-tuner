@@ -18,5 +18,6 @@
     <string name="msg_config_loaded">Loaded</string>
     <string name="msg_config">configuration</string>
     <string name="all">All</string>
+    <string name="labelNoDataForFilter">No data for this filter combination found.</string>
 
 </resources>
