@@ -2,60 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="3dp" >
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tvState"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="3"
-        android:gravity="right"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:orientation="horizontal"
+        android:padding="3dp" >
 
-    <TextView
-        android:id="@+id/labelState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="3"
-        android:paddingLeft="2dp"
-        android:text="MHz"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/tvState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:gravity="right"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="9"
-        android:gravity="right"
-        android:paddingLeft="5dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/labelState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:paddingLeft="2dp"
+            android:text="MHz"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/labelTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="2"
-        android:paddingLeft="2dp"
-        android:text="ms"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="9"
+            android:gravity="right"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/tvPercent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="3"
-        android:gravity="right"
-        android:paddingLeft="5dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/labelTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="2"
+            android:paddingLeft="2dp"
+            android:text="ms"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/labelPercent"
+        <TextView
+            android:id="@+id/tvPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:gravity="right"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/labelPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="1"
+            android:paddingLeft="2dp"
+            android:text="%"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <ch.amana.android.cputuner.view.widget.PercentGraphView
+        android:id="@+id/percentGraphView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="1"
-        android:paddingLeft="2dp"
-        android:text="%"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_height="15dp"
+        android:padding="3dp" />
 
 </LinearLayout>

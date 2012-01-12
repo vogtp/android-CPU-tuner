@@ -37,6 +37,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.AdvStatsFilterAdaper;
+import ch.amana.android.cputuner.view.widget.PercentGraphView;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
@@ -49,6 +50,9 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 	private Spinner spVirtGov;
 	private SimpleCursorAdapter adapter;
 	private int curCpuFreq;
+	private String trigger = DB.SQL_WILDCARD;
+	private String profile = DB.SQL_WILDCARD;
+	private String virtgov = DB.SQL_WILDCARD;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,20 +79,22 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (tisCursorLoader == null) {
+					return true;
+				}
+				PercentGraphView percentGraphView = (PercentGraphView) ((View) view.getParent().getParent()).findViewById(R.id.percentGraphView1);
 				if (columnIndex == TimeInStateValue.INDEX_STATE) {
 					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
 					((TextView) view).setText(Integer.toString(state / 1000));
-					if (state == curCpuFreq) {
-						((View) view.getParent()).setBackgroundColor(getResources().getColor(R.color.cputuner_green));
-					} else {
-						((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.background_dark));
-					}
+					percentGraphView.setHiglight(state == curCpuFreq);
 					return true;
 				} else
 				if (columnIndex == TimeInStateValue.INDEX_TIME) {
 					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
 					double totalTime = tisCursorLoader.getTotalTime();
-					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", time * 100 / totalTime));
+					float percent = (float) (time * 100f / totalTime);
+					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", percent));
+					percentGraphView.setPercent(percent);
 					((TextView) view).setText(Long.toString(time));
 					return true;
 				}
@@ -106,11 +112,12 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		spProfile.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = DB.SQL_WILDCARD;
+				profile = DB.SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
-					selection = ModelAccess.getInstace(getActivity()).getProfileName(id);
+					profile = ModelAccess.getInstace(getActivity()).getProfileName(id);
 				}
-				tisCursorLoader.setProfile(selection);
+				//				tisCursorLoader.setProfile(profile);
+				updateStatistics(act);
 			}
 
 			@Override
@@ -120,11 +127,12 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		spTrigger.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = DB.SQL_WILDCARD;
+				trigger = DB.SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
-					selection = ModelAccess.getInstace(getActivity()).getTrigger(id).getName();
+					trigger = ModelAccess.getInstace(getActivity()).getTrigger(id).getName();
 				}
-				tisCursorLoader.setTrigger(selection);
+				//				tisCursorLoader.setTrigger(trigger);
+				updateStatistics(act);
 			}
 
 			@Override
@@ -134,11 +142,12 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		spVirtGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = DB.SQL_WILDCARD;
+				virtgov = DB.SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
-					selection = ModelAccess.getInstace(getActivity()).getVirtualGovernor(id).getVirtualGovernorName();
+					virtgov = ModelAccess.getInstace(getActivity()).getVirtualGovernor(id).getVirtualGovernorName();
 				}
-				tisCursorLoader.setVirtGov(selection);
+				//				tisCursorLoader.setVirtGov(virtgov);
+				updateStatistics(act);
 			}
 
 			@Override
@@ -247,7 +256,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-		tisCursorLoader = new TimeinstateCursorLoader(getActivity(), DB.SQL_WILDCARD, DB.SQL_WILDCARD, DB.SQL_WILDCARD);
+		tisCursorLoader = new TimeinstateCursorLoader(getActivity(), trigger, profile, virtgov);
 		return tisCursorLoader;
 	}
 
