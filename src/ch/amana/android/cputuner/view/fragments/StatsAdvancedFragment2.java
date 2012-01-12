@@ -42,7 +42,6 @@ import com.markupartist.android.widget.ActionBar.Action;
 
 public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderCallbacks<Cursor>, StateChangeListener {
 
-	private static final String SQL_WILDCARD = "%";
 	private TimeinstateCursorLoader tisCursorLoader;
 	private Spinner spTrigger;
 	private Spinner spProfile;
@@ -98,7 +97,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		spProfile.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = SQL_WILDCARD;
+				String selection = DB.SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
 					selection = ModelAccess.getInstace(getActivity()).getProfileName(id);
 				}
@@ -112,7 +111,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		spTrigger.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = SQL_WILDCARD;
+				String selection = DB.SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
 					selection = ModelAccess.getInstace(getActivity()).getTrigger(id).getName();
 				}
@@ -126,7 +125,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		spVirtGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				String selection = SQL_WILDCARD;
+				String selection = DB.SQL_WILDCARD;
 				if (id != AdvStatsFilterAdaper.ALL_ID) {
 					selection = ModelAccess.getInstace(getActivity()).getVirtualGovernor(id).getVirtualGovernorName();
 				}
@@ -142,18 +141,13 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				updateView(act);
+				updateStatistics(act);
 			}
 		});
+
 		if (act instanceof CpuTunerViewpagerActivity) {
 			((CpuTunerViewpagerActivity) act).addStateChangeListener(this);
 		}
-	}
-
-	@Override
-	public void onResume() {
-		//		updateView(getActivity());
-		super.onResume();
 	}
 
 	@Override
@@ -162,7 +156,8 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		super.onDestroy();
 	}
 
-	private void updateView(Context context) {
+	private void updateStatistics(Context context) {
+		//		context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
 		getLoaderManager().restartLoader(0, null, this);
 	}
 
@@ -183,7 +178,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				updateView(view.getContext());
+				updateStatistics(view.getContext());
 			}
 
 			@Override
@@ -209,7 +204,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 				resolver.delete(DB.TimeInStateIndex.CONTENT_URI, null, null);
 				resolver.delete(DB.TimeInStateValue.CONTENT_URI, null, null);
 				//				SettingsStorage.getInstance().setTimeinstateBaseline(CpuHandler.getInstance().getCpuTimeinstate());
-				updateView(ctx);
+				updateStatistics(ctx);
 			}
 		});
 		AlertDialog alert = alertBuilder.create();
@@ -231,7 +226,7 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 			return true;
 
 		case R.id.itemRefresh:
-			updateView(act);
+			updateStatistics(act);
 			return true;
 
 		}
@@ -242,21 +237,8 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 	}
 
 	@Override
-	public void profileChanged() {
-		updateView(getActivity());
-	}
-
-	@Override
-	public void deviceStatusChanged() {
-	}
-
-	@Override
-	public void triggerChanged() {
-	}
-
-	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-		tisCursorLoader = new TimeinstateCursorLoader(getActivity(), SQL_WILDCARD, SQL_WILDCARD, SQL_WILDCARD);
+		tisCursorLoader = new TimeinstateCursorLoader(getActivity(), DB.SQL_WILDCARD, DB.SQL_WILDCARD, DB.SQL_WILDCARD);
 		return tisCursorLoader;
 	}
 
@@ -268,5 +250,18 @@ public class StatsAdvancedFragment2 extends PagerListFragment implements LoaderC
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		adapter.swapCursor(null);
+	}
+
+	@Override
+	public void profileChanged() {
+		updateStatistics(getActivity());
+	}
+
+	@Override
+	public void deviceStatusChanged() {
+	}
+
+	@Override
+	public void triggerChanged() {
 	}
 }

@@ -7,14 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.TextUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class StatisticsReceiver extends BroadcastReceiver {
 
+	public static String BROADCAST_UPDATE_TIMEINSTATE = "ch.amana.android.cputuner.BROADCAST_UPDATE_TIMEINSTATE";
 	private static Object lock = new Object();
 	private static StatisticsReceiver receiver = null;
 
@@ -23,12 +26,13 @@ public class StatisticsReceiver extends BroadcastReceiver {
 		if (!SettingsStorage.getInstance(context).isRunStatisticsService()) {
 			return;
 		}
-		final Bundle extras = intent.getExtras();
 		final Context ctx = context;
-		new Thread(new Runnable() {
+		final Intent i = intent;
 
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				final Bundle extras = i.getExtras();
 				updateStatisticsInputQueue(ctx, extras);
 			}
 
@@ -40,10 +44,21 @@ public class StatisticsReceiver extends BroadcastReceiver {
 	public static void updateStatisticsInputQueue(Context context, Bundle extras) {
 		Logger.d("Adding timeinstate to input queue");
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
-
+		if (extras == null) {
+			extras = new Bundle();
+		}
 		String triggerName = extras.getString(DB.SwitchLogDB.NAME_TRIGGER);
 		String profileName = extras.getString(DB.SwitchLogDB.NAME_PROFILE);
 		String virtGovName = extras.getString(DB.SwitchLogDB.NAME_VIRTGOV);
+		if (TextUtils.isEmpty(triggerName)) {
+			triggerName = PowerProfiles.getInstance(context).getCurrentTriggerName();
+		}
+		if (TextUtils.isEmpty(profileName)) {
+			profileName = PowerProfiles.getInstance(context).getCurrentProfileName();
+		}
+		if (TextUtils.isEmpty(virtGovName)) {
+			virtGovName = PowerProfiles.getInstance(context).getCurrentVirtGovName();
+		}
 		ContentResolver contentResolver = context.getContentResolver();
 		ContentValues values = new ContentValues();
 		values.put(DB.TimeInStateInput.NAME_TIS_END, timeinstate);
@@ -65,6 +80,7 @@ public class StatisticsReceiver extends BroadcastReceiver {
 			if (receiver == null) {
 				receiver = new StatisticsReceiver();
 				context.registerReceiver(receiver, new IntentFilter(Notifier.BROADCAST_PROFILE_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(BROADCAST_UPDATE_TIMEINSTATE));
 				Logger.w("Registered StatisticsReceiver");
 
 			} else {

@@ -225,7 +225,7 @@ public class PowerProfiles {
 				intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, sb.toString());
 				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
 				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
-				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName());
+				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
 				intent.putExtra(DB.SwitchLogDB.NAME_AC, acPower ? 1 : 0);
 				intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, batteryLevel);
 				intent.putExtra(DB.SwitchLogDB.NAME_CALL, callInProgress ? 1 : 0);
@@ -234,7 +234,7 @@ public class PowerProfiles {
 			} else if (settings.isRunStatisticsService()) {
 				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
 				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
-				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName());
+				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
 			}
 			context.sendBroadcast(intent);
 		} catch (Throwable e) {
@@ -504,14 +504,14 @@ public class PowerProfiles {
 		return acPower;
 	}
 
-	public CharSequence getCurrentProfileName() {
+	public String getCurrentProfileName() {
 		if (currentProfile == null) {
 			return UNKNOWN;
 		}
 		return currentProfile.getProfileName();
 	}
 
-	public CharSequence getCurrentTriggerName() {
+	public String getCurrentTriggerName() {
 		if (currentTrigger == null) {
 			return UNKNOWN;
 		}
@@ -609,6 +609,10 @@ public class PowerProfiles {
 
 	public boolean isOnBatteryProfile() {
 		return !(acPower || batteryHot || callInProgress || screenOff);
+	}
+
+	public String getCurrentVirtGovName() {
+		return ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName();
 	}
 
 }

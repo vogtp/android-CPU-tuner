@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateInput;
@@ -110,14 +109,13 @@ public class TimeinstateCursorLoader extends CursorLoader {
 
 	private void addCurrentValues() {
 		PowerProfiles instance = PowerProfiles.getInstance();
-		if (instance.getCurrentProfileName().equals(profileName) &&
-				instance.getCurrentTriggerName().equals(triggerName)) {
-			Bundle bundle = new Bundle(5);
+		if (DB.SQL_WILDCARD.equals(profileName) || (instance.getCurrentProfileName().equals(profileName)) &&
+				(DB.SQL_WILDCARD.equals(triggerName) || instance.getCurrentTriggerName().equals(triggerName))) {
+			Bundle bundle = new Bundle(3);
 			bundle.putString(DB.SwitchLogDB.NAME_TRIGGER, profileName);
 			bundle.putString(DB.SwitchLogDB.NAME_PROFILE, triggerName);
-			bundle.putString(DB.SwitchLogDB.NAME_VIRTGOV, ModelAccess.getInstace(context).getVirtualGovernor(instance.getCurrentProfile().getVirtualGovernor())
-					.getVirtualGovernorName());
-			StatisticsReceiver.updateStatisticsInputQueue(context, bundle);
+			bundle.putString(DB.SwitchLogDB.NAME_VIRTGOV, instance.getCurrentVirtGovName());
+			StatisticsReceiver.updateStatisticsInputQueue(context, null);
 		}
 	}
 

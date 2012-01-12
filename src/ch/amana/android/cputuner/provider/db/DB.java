@@ -9,6 +9,7 @@ import ch.amana.android.cputuner.provider.CpuTunerProvider;
 
 public interface DB {
 
+	public static final String SQL_WILDCARD = "%";
 	public static final String DATABASE_NAME = "cputuner";
 
 	public static final String NAME_ID = "_id";
