@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
@@ -32,8 +33,8 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
-import ch.amana.android.cputuner.provider.loader.TimeinstateCursorLoader;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -177,6 +178,9 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	}
 
 	private void setDataState(LoadingState state) {
+		if (!isVisible()) {
+			return;
+		}
 		switch (state) {
 		case LOADING:
 			getListView().setVisibility(View.INVISIBLE);
@@ -201,7 +205,6 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	}
 
 	private void updateStatistics(Context context) {
-		//		context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
 		getLoaderManager().restartLoader(0, null, this);
 		setDataState(LoadingState.LOADING);
 	}
@@ -245,10 +248,8 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				ContentResolver resolver = ctx.getContentResolver();
-				resolver.delete(DB.TimeInStateInput.CONTENT_URI, null, null);
 				resolver.delete(DB.TimeInStateIndex.CONTENT_URI, null, null);
 				resolver.delete(DB.TimeInStateValue.CONTENT_URI, null, null);
-				//				SettingsStorage.getInstance().setTimeinstateBaseline(CpuHandler.getInstance().getCpuTimeinstate());
 				updateStatistics(ctx);
 			}
 		});
@@ -284,7 +285,8 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
 		setDataState(LoadingState.LOADING);
-		return new TimeinstateCursorLoader(getActivity(), trigger, profile, virtgov);
+		return new CursorLoader(getActivity(), TimeInStateValue.CONTENT_URI_GROUPED, null, TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV,
+				new String[] { trigger, profile, virtgov }, TimeInStateValue.SORTORDER_DEFAULT);
 	}
 
 	@Override

@@ -336,11 +336,6 @@
                 <action android:name="ch.amana.android.cputuner.ACTION_STOP_CPUTUNER" />
             </intent-filter>
         </service>
-        <service android:name=".service.StatisticsService" >
-            <intent-filter>
-                <action android:name="ch.amana.android.cputuner.profileChanged" />
-            </intent-filter>
-        </service>
 
         <receiver android:name=".receiver.StatisticsReceiver" >
         </receiver>

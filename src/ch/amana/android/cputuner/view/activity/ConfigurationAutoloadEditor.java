@@ -273,7 +273,7 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 	private boolean isTimeUnique() {
 		Cursor cursor = null;
 		try {
-			cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.PROJECTION_IDE, DB.ConfigurationAutoload.SELECTION_TIME_WEEKDAY,
+			cursor = getContentResolver().query(DB.ConfigurationAutoload.CONTENT_URI, DB.PROJECTION_ID, DB.ConfigurationAutoload.SELECTION_TIME_WEEKDAY,
 					new String[] { Integer.toString(caModel.getHour()), Integer.toString(caModel.getMinute()), Integer.toString(caModel.getWeekday()) }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == caModel.getDbId();

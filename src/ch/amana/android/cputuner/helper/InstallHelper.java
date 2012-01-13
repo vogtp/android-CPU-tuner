@@ -148,7 +148,7 @@ public class InstallHelper {
 	private static boolean checkCursor(ContentResolver resolver, Uri contentUri) {
 		Cursor c = null;
 		try {
-			c = resolver.query(contentUri, DB.PROJECTION_IDE, null, null, null);
+			c = resolver.query(contentUri, DB.PROJECTION_ID, null, null, null);
 			if (c == null) {
 				return false;
 			}

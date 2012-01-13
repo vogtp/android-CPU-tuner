@@ -16,7 +16,6 @@ import ch.amana.android.cputuner.provider.db.DBBackendConfigurationAutoload;
 import ch.amana.android.cputuner.provider.db.DBBackendCpuProfile;
 import ch.amana.android.cputuner.provider.db.DBBackendSwitchLog;
 import ch.amana.android.cputuner.provider.db.DBBackendTimeinstateIndex;
-import ch.amana.android.cputuner.provider.db.DBBackendTimeinstateInput;
 import ch.amana.android.cputuner.provider.db.DBBackendTimeinstateValue;
 import ch.amana.android.cputuner.provider.db.DBBackendTrigger;
 import ch.amana.android.cputuner.provider.db.DBBackendVirtualGovernor;
@@ -32,10 +31,9 @@ public class CpuTunerProvider extends ContentProvider {
 	private static final int VIRTUAL_GOVERNOR = 3;
 	private static final int CONFIGURATION_AUTOLOAD = 4;
 	private static final int SWITCH_LOG = 5;
-	private static final int TIS_INPUT = 6;
-	private static final int TIS_INDEX = 7;
-	private static final int TIS_VALUE = 8;
-	private static final int TIS_VALUE_GROUPED = 9;
+	private static final int TIS_INDEX = 6;
+	private static final int TIS_VALUE = 7;
+	private static final int TIS_VALUE_GROUPED = 8;
 
 	private static final UriMatcher sUriMatcher;
 
@@ -69,9 +67,6 @@ public class CpuTunerProvider extends ContentProvider {
 		case SWITCH_LOG:
 			count = DBBackendSwitchLog.delete(openHelper, uri, selection, selectionArgs);
 			break;
-		case TIS_INPUT:
-			count = DBBackendTimeinstateInput.delete(openHelper, uri, selection, selectionArgs);
-			break;
 		case TIS_INDEX:
 			count = DBBackendTimeinstateIndex.delete(openHelper, uri, selection, selectionArgs);
 			break;
@@ -99,8 +94,6 @@ public class CpuTunerProvider extends ContentProvider {
 			return DBBackendConfigurationAutoload.getType(uri);
 		case SWITCH_LOG:
 			return DBBackendSwitchLog.getType(uri);
-		case TIS_INPUT:
-			return DBBackendTimeinstateInput.getType(uri);
 		case TIS_INDEX:
 			return DBBackendTimeinstateIndex.getType(uri);
 		case TIS_VALUE:
@@ -130,9 +123,6 @@ public class CpuTunerProvider extends ContentProvider {
 			break;
 		case SWITCH_LOG:
 			ret = DBBackendSwitchLog.insert(openHelper, uri, initialValues);
-			break;
-		case TIS_INPUT:
-			ret = DBBackendTimeinstateInput.insert(openHelper, uri, initialValues);
 			break;
 		case TIS_INDEX:
 			ret = DBBackendTimeinstateIndex.insert(openHelper, uri, initialValues);
@@ -166,9 +156,6 @@ public class CpuTunerProvider extends ContentProvider {
 			break;
 		case SWITCH_LOG:
 			c = DBBackendSwitchLog.query(openHelper, uri, projection, selection, selectionArgs, sortOrder);
-			break;
-		case TIS_INPUT:
-			c = DBBackendTimeinstateInput.query(openHelper, uri, projection, selection, selectionArgs, sortOrder);
 			break;
 		case TIS_INDEX:
 			c = DBBackendTimeinstateIndex.query(openHelper, uri, projection, selection, selectionArgs, sortOrder);
@@ -207,9 +194,6 @@ public class CpuTunerProvider extends ContentProvider {
 			break;
 		case SWITCH_LOG:
 			count = DBBackendSwitchLog.update(openHelper, uri, values, selection, selectionArgs);
-			break;
-		case TIS_INPUT:
-			count = DBBackendTimeinstateInput.update(openHelper, uri, values, selection, selectionArgs);
 			break;
 		case TIS_INDEX:
 			count = DBBackendTimeinstateIndex.update(openHelper, uri, values, selection, selectionArgs);
@@ -250,8 +234,6 @@ public class CpuTunerProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DB.ConfigurationAutoload.CONTENT_ITEM_NAME + "/#", CONFIGURATION_AUTOLOAD);
 		sUriMatcher.addURI(AUTHORITY, DB.SwitchLogDB.CONTENT_ITEM_NAME, SWITCH_LOG);
 		sUriMatcher.addURI(AUTHORITY, DB.SwitchLogDB.CONTENT_ITEM_NAME + "/#", SWITCH_LOG);
-		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateInput.CONTENT_ITEM_NAME, TIS_INPUT);
-		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateInput.CONTENT_ITEM_NAME + "/#", TIS_INPUT);
 		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateIndex.CONTENT_ITEM_NAME, TIS_INDEX);
 		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateIndex.CONTENT_ITEM_NAME + "/#", TIS_INDEX);
 		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateValue.CONTENT_ITEM_NAME, TIS_VALUE);
@@ -266,7 +248,6 @@ public class CpuTunerProvider extends ContentProvider {
 		resolver.delete(DB.Trigger.CONTENT_URI, null, null);
 		resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
 		resolver.delete(DB.VirtualGovernor.CONTENT_URI, null, null);
-		resolver.delete(DB.TimeInStateInput.CONTENT_URI, null, null);
 		resolver.delete(DB.TimeInStateIndex.CONTENT_URI, null, null);
 		resolver.delete(DB.TimeInStateValue.CONTENT_URI, null, null);
 		if (deleteAutoloadConfig) {

@@ -17,7 +17,7 @@ import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
-import ch.amana.android.cputuner.service.StatisticsService;
+import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 
 public class SettingsStorage {
 
@@ -554,9 +554,9 @@ public class SettingsStorage {
 		editor.putBoolean(PREF_KEY_ADV_STATS, b);
 		editor.commit();
 		if (b && isRunStatisticsService()) {
-			StatisticsService.start(context);
+			StatisticsReceiver.register(context);
 		} else {
-			StatisticsService.stop(context);
+			StatisticsReceiver.unregister(context);
 		}
 	}
 

@@ -15,7 +15,7 @@ public interface DB {
 	public static final String NAME_ID = "_id";
 	public static final int INDEX_ID = 0;
 
-	public static final String[] PROJECTION_IDE = new String[] { NAME_ID };
+	public static final String[] PROJECTION_ID = new String[] { NAME_ID };
 	public static final String SELECTION_BY_ID = NAME_ID + "=?";
 
 	public class CpuTunerOpenHelper extends SQLiteOpenHelper {
@@ -64,11 +64,6 @@ public interface DB {
 				+ DB.SwitchLogDB.NAME_CALL + " int DEFAULT -1, "
 				+ DB.SwitchLogDB.NAME_HOT + " int DEFAULT -1)";
 
-		private static final String CREATE_TIS_INPUT_TABLE = "create table if not exists " + TimeInStateInput.TABLE_NAME + " (" + DB.NAME_ID
-				+ " integer primary key, " + DB.TimeInStateInput.NAME_TIME + " long, "
-				+ DB.TimeInStateInput.NAME_TRIGGER + " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_PROFILE + " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_VIRTGOV
-				+ " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_TIS_START + " text DEFAULT NULL, " + DB.TimeInStateInput.NAME_TIS_END + " text DEFAULT NULL)";
-
 		private static final String CREATE_TIS_INDEX_TABLE = "create table if not exists " + TimeInStateIndex.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, " + DB.TimeInStateIndex.NAME_TIME + " long, "
 				+ DB.TimeInStateIndex.NAME_TRIGGER + " text DEFAULT NULL, " + DB.TimeInStateIndex.NAME_PROFILE + " text DEFAULT NULL, " + DB.TimeInStateIndex.NAME_VIRTGOV
@@ -88,7 +83,6 @@ public interface DB {
 			db.execSQL(CREATE_VIRTUAL_GOVERNOR_TABLE);
 			db.execSQL(CREATE_CONFIGURATION_AUTOLOAD_TABLE);
 			db.execSQL(CREATE_SWITCH_LOG_TABLE);
-			db.execSQL(CREATE_TIS_INPUT_TABLE);
 			db.execSQL(CREATE_TIS_INDEX_TABLE);
 			db.execSQL(CREATE_TIS_VALUE_TABLE);
 			db.execSQL("create index idx_trigger_battery_level on " + Trigger.TABLE_NAME + " (" + Trigger.NAME_BATTERY_LEVEL + "); ");
@@ -182,7 +176,6 @@ public interface DB {
 
 			case 15:
 				Logger.w("Upgrading to DB Version 16...");
-				db.execSQL(CREATE_TIS_INPUT_TABLE);
 				db.execSQL(CREATE_TIS_INDEX_TABLE);
 				db.execSQL(CREATE_TIS_VALUE_TABLE);
 				db.execSQL("create index idx_tis_tigger on " + TimeInStateIndex.TABLE_NAME + " (" + TimeInStateIndex.NAME_TRIGGER + "); ");
@@ -454,47 +447,6 @@ public interface DB {
 
 		public static final String SELECTION_BY_TIME = NAME_TIME + " < ?";
 
-	}
-
-	public interface TimeInStateInput {
-
-		public static final String TABLE_NAME = "TimeInStateInput";
-
-		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
-
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		public static final String NAME_TIME = "time";
-		public static final String NAME_TRIGGER = "trigger";
-		public static final String NAME_PROFILE = "profile";
-		public static final String NAME_VIRTGOV = "virtGov";
-		public static final String NAME_TIS_START = "tisStart";
-		public static final String NAME_TIS_END = "tisEnd";
-
-		public static final int INDEX_TIME = 1;
-		public static final int INDEX_TRIGGER = 2;
-		public static final int INDEX_PROFILE = 3;
-		public static final int INDEX_VIRTGOV = 4;
-		public static final int INDEX_TIS_START = 5;
-		public static final int INDEX_TIS_END = 6;
-
-		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV, NAME_TIS_START, NAME_TIS_END };
-
-		public static final String[] PROJECTION_DEFAULT = colNames;
-
-		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
-		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
-
-		public static final String SELECTION_NOT_FINISHED = NAME_TIS_END + " is null";
-
-		public static final String SELECTION_FINISHED = NAME_TIS_END + " is not null";
-
-		public static final String SELECTION_FINISHED_BY_TRIGGER_PROFILE_VIRTGOV = NAME_TIS_END + " is not null and " + NAME_TRIGGER + " LIKE ? and " + NAME_PROFILE
-				+ " LIKE ? and " + NAME_VIRTGOV + " LIKE ?";
 	}
 
 	public interface TimeInStateIndex {

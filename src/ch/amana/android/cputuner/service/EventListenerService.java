@@ -12,6 +12,7 @@ import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
+import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 
 public class EventListenerService extends Service {
 
@@ -53,7 +54,7 @@ public class EventListenerService extends Service {
 			SwitchLog.start(ctx);
 		}
 		if (settingsStorage.isRunStatisticsService()) {
-			StatisticsService.start(ctx);
+			StatisticsReceiver.register(ctx);
 		}
 	}
 
@@ -65,7 +66,7 @@ public class EventListenerService extends Service {
 		CallPhoneStateListener.unregister(ctx);
 		BatteryReceiver.unregisterBatteryReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
-		StatisticsService.stop(context);
+		StatisticsReceiver.unregister(ctx);
 		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
 		case SettingsStorage.STATUSBAR_RUNNING:
 			Notifier.stopStatusbarNotifications(ctx);
