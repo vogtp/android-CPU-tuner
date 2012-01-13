@@ -17,6 +17,7 @@ public class DBBackendTimeinstateIndex {
 
 	private static final int TIS = 1;
 	private static final int TIS_ID = 2;
+	private static final int TIS_D = 3;
 
 	private static final UriMatcher sUriMatcher;
 
@@ -66,6 +67,10 @@ public class DBBackendTimeinstateIndex {
 			qb.appendWhere(DB.NAME_ID + "=" + uri.getPathSegments().get(1));
 			break;
 
+		case TIS_D:
+			qb.setDistinct(true);
+			break;
+
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -80,9 +85,7 @@ public class DBBackendTimeinstateIndex {
 
 		// Get the database and run the query
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
-
-		return c;
+		return qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
 	}
 
 	public static int update(CpuTunerOpenHelper openHelper, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
@@ -131,6 +134,7 @@ public class DBBackendTimeinstateIndex {
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateIndex.CONTENT_ITEM_NAME, TIS);
+		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateIndex.CONTENT_ITEM_NAME_DISTINCT, TIS_D);
 		sUriMatcher.addURI(CpuTunerProvider.AUTHORITY, TimeInStateIndex.CONTENT_ITEM_NAME + "/#", TIS_ID);
 	}
 }

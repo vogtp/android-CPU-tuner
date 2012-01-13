@@ -31,7 +31,6 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
@@ -114,18 +113,20 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		setListAdapter(adapter);
 		final Activity act = getActivity();
 
-		spProfile.setAdapter(new AdvStatsFilterAdaper(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, DB.CpuProfile.SORTORDER_DEFAULT));
-		spTrigger.setAdapter(new AdvStatsFilterAdaper(act, DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_ID_NAME, DB.Trigger.SORTORDER_DEFAULT));
-		spVirtGov.setAdapter(new AdvStatsFilterAdaper(act, DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_ID_NAME, DB.VirtualGovernor.SORTORDER_DEFAULT));
+		spProfile.setAdapter(new AdvStatsFilterAdaper(act, TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_PROFILE },
+				TimeInStateIndex.SORTORDER_DEFAULT));
+		spTrigger.setAdapter(new AdvStatsFilterAdaper(act, TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_TRIGGER },
+				TimeInStateIndex.SORTORDER_DEFAULT));
+		spVirtGov.setAdapter(new AdvStatsFilterAdaper(act, TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_VIRTGOV },
+				TimeInStateIndex.SORTORDER_DEFAULT));
 
 		spProfile.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				profile = DB.SQL_WILDCARD;
-				if (id != AdvStatsFilterAdaper.ALL_ID) {
-					profile = ModelAccess.getInstace(getActivity()).getProfileName(id);
+				if (id > 0) {
+					profile = ((TextView) view).getText().toString();
 				}
-				//				tisCursorLoader.setProfile(profile);
 				updateStatistics(act);
 			}
 
@@ -137,10 +138,9 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				trigger = DB.SQL_WILDCARD;
-				if (id != AdvStatsFilterAdaper.ALL_ID) {
-					trigger = ModelAccess.getInstace(getActivity()).getTrigger(id).getName();
+				if (id > 0) {
+					trigger = ((TextView) view).getText().toString();
 				}
-				//				tisCursorLoader.setTrigger(trigger);
 				updateStatistics(act);
 			}
 
@@ -152,10 +152,9 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				virtgov = DB.SQL_WILDCARD;
-				if (id != AdvStatsFilterAdaper.ALL_ID) {
-					virtgov = ModelAccess.getInstace(getActivity()).getVirtualGovernor(id).getVirtualGovernorName();
+				if (id > 0) {
+					virtgov = ((TextView) view).getText().toString();
 				}
-				//				tisCursorLoader.setVirtGov(virtgov);
 				updateStatistics(act);
 			}
 

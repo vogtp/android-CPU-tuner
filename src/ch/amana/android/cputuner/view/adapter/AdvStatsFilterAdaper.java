@@ -14,13 +14,10 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.provider.db.DB;
 
 public class AdvStatsFilterAdaper extends BaseAdapter implements SpinnerAdapter {
 
-	public static final long ALL_ID = Long.MIN_VALUE;
 	private final String ALL;
 	private final Cursor cursor;
 	private final LayoutInflater layoutInflator;
@@ -56,13 +53,7 @@ public class AdvStatsFilterAdaper extends BaseAdapter implements SpinnerAdapter 
 
 	@Override
 	public long getItemId(int position) {
-		if (position == 0) {
-			return ALL_ID;
-		} else if (position == Integer.MAX_VALUE) {
-			return position;
-		}
-		cursor.moveToPosition(position - 1);
-		return cursor.getLong(DB.INDEX_ID);
+		return position;
 	}
 
 	@Override
@@ -72,19 +63,15 @@ public class AdvStatsFilterAdaper extends BaseAdapter implements SpinnerAdapter 
 		if (position > 0) {
 			try {
 				if (cursor.moveToPosition(position - 1)) {
-					text = cursor.getString(DB.CpuProfile.INDEX_PROFILE_NAME);
+					text = cursor.getString(0);
 				}
 			} catch (Throwable e) {
 				Logger.i("Cannot get profilename from cursor", e);
 			}
+			view.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD), Typeface.BOLD);
 		} else {
-			if (SettingsStorage.getInstance().isEnableProfiles()) {
-				text = ALL;
-				view.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC), Typeface.ITALIC);
-			} else {
-				text = ctx.getString(R.string.not_enabled);
-				view.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD), Typeface.BOLD);
-			}
+			text = ALL;
+			view.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC), Typeface.ITALIC);
 		}
 		view.setText(text);
 		return view;

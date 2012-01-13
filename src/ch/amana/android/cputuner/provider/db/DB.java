@@ -454,8 +454,11 @@ public interface DB {
 		public static final String TABLE_NAME = "TimeInStateIndex";
 
 		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static final String CONTENT_ITEM_NAME_DISTINCT = TABLE_NAME + "_DISTINCT";
 		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static String CONTENT_URI_STRING_DISTINCT = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME_DISTINCT;
 		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		public static Uri CONTENT_URI_DISTINCT = Uri.parse(CONTENT_URI_STRING_DISTINCT);
 
 		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
 

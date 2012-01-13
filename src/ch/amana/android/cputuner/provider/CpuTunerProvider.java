@@ -235,6 +235,7 @@ public class CpuTunerProvider extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DB.SwitchLogDB.CONTENT_ITEM_NAME, SWITCH_LOG);
 		sUriMatcher.addURI(AUTHORITY, DB.SwitchLogDB.CONTENT_ITEM_NAME + "/#", SWITCH_LOG);
 		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateIndex.CONTENT_ITEM_NAME, TIS_INDEX);
+		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateIndex.CONTENT_ITEM_NAME_DISTINCT, TIS_INDEX);
 		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateIndex.CONTENT_ITEM_NAME + "/#", TIS_INDEX);
 		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateValue.CONTENT_ITEM_NAME, TIS_VALUE);
 		sUriMatcher.addURI(AUTHORITY, DB.TimeInStateValue.CONTENT_ITEM_NAME + "/#", TIS_VALUE);
