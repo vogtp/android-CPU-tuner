@@ -3,8 +3,6 @@ package ch.amana.android.cputuner.view.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.support.v4.content.CursorLoader;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +17,19 @@ import ch.amana.android.cputuner.log.Logger;
 public class AdvStatsFilterAdaper extends BaseAdapter implements SpinnerAdapter {
 
 	private final String ALL;
-	private final Cursor cursor;
+	private Cursor cursor;
 	private final LayoutInflater layoutInflator;
 	private final Context ctx;
 
-	public AdvStatsFilterAdaper(Context context, Uri contentUri, String[] projection, String sortOrder) {
+	public AdvStatsFilterAdaper(Context context) {
 		super();
 		this.ctx = context;
 		this.layoutInflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.ALL = context.getString(R.string.all);
-		CursorLoader cursorLoader = new CursorLoader(context, contentUri, projection, null, null, sortOrder);
-		this.cursor = cursorLoader.loadInBackground();
+	}
+
+	public void setCursor(Cursor cursor) {
+		this.cursor = cursor;
 	}
 
 	@Override

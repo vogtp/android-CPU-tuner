@@ -45,6 +45,11 @@ import com.markupartist.android.widget.ActionBar.Action;
 
 public class StatsAdvancedFragment extends PagerListFragment implements LoaderCallbacks<Cursor>, StateChangeListener {
 
+	private static final int LOADER_DATA = 0;
+	private static final int LOADER_TIGGER = 1;
+	private static final int LOADER_PROFILE = 2;
+	private static final int LOADER_VIRTGOV = 3;
+
 	private Spinner spTrigger;
 	private Spinner spProfile;
 	private Spinner spVirtGov;
@@ -56,6 +61,9 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	private double totalTime = 0;
 	private ProgressBar pbWait;
 	private TextView labelNoDataForFilter;
+	private AdvStatsFilterAdaper profileAdapter;
+	private AdvStatsFilterAdaper triggerAdapter;
+	private AdvStatsFilterAdaper virtgovAdapter;
 
 	enum LoadingState {
 		LOADING, HASDATA, NODATA
@@ -78,7 +86,10 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		getLoaderManager().initLoader(0, null, this);
+		getLoaderManager().initLoader(LOADER_DATA, null, this);
+		getLoaderManager().initLoader(LOADER_TIGGER, null, this);
+		getLoaderManager().initLoader(LOADER_PROFILE, null, this);
+		getLoaderManager().initLoader(LOADER_VIRTGOV, null, this);
 
 		adapter = new SimpleCursorAdapter(getActivity(), R.layout.adv_stat_list_item, null,
 				new String[] { TimeInStateValue.NAME_STATE, TimeInStateValue.NAME_TIME },
@@ -113,12 +124,12 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		setListAdapter(adapter);
 		final Activity act = getActivity();
 
-		spProfile.setAdapter(new AdvStatsFilterAdaper(act, TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_PROFILE },
-				TimeInStateIndex.SORTORDER_DEFAULT));
-		spTrigger.setAdapter(new AdvStatsFilterAdaper(act, TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_TRIGGER },
-				TimeInStateIndex.SORTORDER_DEFAULT));
-		spVirtGov.setAdapter(new AdvStatsFilterAdaper(act, TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_VIRTGOV },
-				TimeInStateIndex.SORTORDER_DEFAULT));
+		profileAdapter = new AdvStatsFilterAdaper(act);
+		triggerAdapter = new AdvStatsFilterAdaper(act);
+		virtgovAdapter = new AdvStatsFilterAdaper(act);
+		spProfile.setAdapter(profileAdapter);
+		spTrigger.setAdapter(triggerAdapter);
+		spVirtGov.setAdapter(virtgovAdapter);
 
 		spProfile.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
@@ -283,29 +294,70 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-		setDataState(LoadingState.LOADING);
-		return new CursorLoader(getActivity(), TimeInStateValue.CONTENT_URI_GROUPED, null, TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV,
-				new String[] { trigger, profile, virtgov }, TimeInStateValue.SORTORDER_DEFAULT);
+		switch (id) {
+		case LOADER_DATA:
+			setDataState(LoadingState.LOADING);
+			return new CursorLoader(getActivity(), TimeInStateValue.CONTENT_URI_GROUPED, null, TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV,
+					new String[] { trigger, profile, virtgov }, TimeInStateValue.SORTORDER_DEFAULT);
+		case LOADER_TIGGER:
+			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_TRIGGER }, null, null,
+					TimeInStateIndex.SORTORDER_DEFAULT);
+		case LOADER_PROFILE:
+			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_PROFILE }, null, null,
+					TimeInStateIndex.SORTORDER_DEFAULT);
+		case LOADER_VIRTGOV:
+			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_VIRTGOV }, null, null,
+					TimeInStateIndex.SORTORDER_DEFAULT);
+
+		default:
+			throw new RuntimeException("No valid cursor loader");
+		}
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
-		curCpuFreq = CpuHandler.getInstance().getCurCpuFreq();
-		totalTime = 0;
-		while (c.moveToNext()) {
-			totalTime += c.getLong(TimeInStateValue.INDEX_TIME);
+		switch (loader.getId()) {
+		case LOADER_DATA:
+			curCpuFreq = CpuHandler.getInstance().getCurCpuFreq();
+			totalTime = 0;
+			while (c.moveToNext()) {
+				totalTime += c.getLong(TimeInStateValue.INDEX_TIME);
+			}
+			setDataState(totalTime > 0 ? LoadingState.HASDATA : LoadingState.NODATA);
+			adapter.swapCursor(c);
+			getListView().setVisibility(View.VISIBLE);
+			pbWait.setVisibility(View.INVISIBLE);
+			break;
+		case LOADER_TIGGER:
+			triggerAdapter.setCursor(c);
+			break;
+		case LOADER_PROFILE:
+			profileAdapter.setCursor(c);
+			break;
+		case LOADER_VIRTGOV:
+			virtgovAdapter.setCursor(c);
+			break;
 		}
-		setDataState(totalTime > 0 ? LoadingState.HASDATA : LoadingState.NODATA);
-		adapter.swapCursor(c);
-		getListView().setVisibility(View.VISIBLE);
-		pbWait.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
-		totalTime = 0;
-		setDataState(LoadingState.LOADING);
-		adapter.swapCursor(null);
+		switch (loader.getId()) {
+		case LOADER_DATA:
+			totalTime = 0;
+			setDataState(LoadingState.LOADING);
+			adapter.swapCursor(null);
+			break;
+		case LOADER_TIGGER:
+			triggerAdapter.setCursor(null);
+			break;
+		case LOADER_PROFILE:
+			profileAdapter.setCursor(null);
+			break;
+		case LOADER_VIRTGOV:
+			virtgovAdapter.setCursor(null);
+			break;
+		}
 	}
 
 	@Override
