@@ -10,6 +10,7 @@ V 3.2.0
 - speedup profile switches
 - new advanced statistics that allow filtering
 - allow special cpu setting during profile switch
+- settings for extensions
 * bug fixes
 - use added configuration as the current one
 - cpufreq files not found in some kernels
