@@ -13,17 +13,17 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
 
 public class VirtualGovernorFragment extends GovernorBaseFragment {
 
 	private static final String SELECTION_VIRT_GOV = DB.NAME_ID + "=?";
-	private Spinner spinnerSetGov;
+	private SpinnerWrapper spinnerSetGov;
 	private TextView tvExplainGov;
 	private Cursor cursor;
 
@@ -40,7 +40,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		// Inflate the layout for this fragment
 		View v = inflater.inflate(R.layout.virtual_governor_fragment, container, false);
 		tvExplainGov = (TextView) v.findViewById(R.id.tvExplainGov);
-		spinnerSetGov = (Spinner) v.findViewById(R.id.SpinnerCpuGov);
+		spinnerSetGov = new SpinnerWrapper((Spinner) v.findViewById(R.id.SpinnerCpuGov));
 		return v;
 	}
 
@@ -57,23 +57,19 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerSetGov.setAdapter(arrayAdapter);
 		try {
-			long virtualGovernor = getGovernorModel().getVirtualGovernor();
-			GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
+			spinnerSetGov.setSelectionDbId(getGovernorModel().getVirtualGovernor());
 		} catch (Exception e) {
 			Logger.w("Cannot set virtual governor", e);
-			GuiUtils.setSpinner(spinnerSetGov, -1);
+			spinnerSetGov.setSelectionDbId(-1);
 		}
 		spinnerSetGov.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				if (updateVirtGov) {
-					callback.updateModel();
-					getGovernorModel().setVirtualGovernor(id);
-					callback.updateModel(); // need it twice to get real gov
-											// right
-					callback.updateView();
-				}
+				callback.updateModel();
+				getGovernorModel().setVirtualGovernor(id);
+				callback.updateModel(); // FIXME need it twice to get real gov right
+				callback.updateView();
 			}
 
 			@Override
@@ -126,10 +122,8 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		if (tvExplainGov == null) {
 			return;
 		}
-		updateVirtGov = false;
 		long virtualGovernor = governorModel.getVirtualGovernor();
-		GuiUtils.setSpinner(spinnerSetGov, virtualGovernor);
+		spinnerSetGov.setSelectionDbId(virtualGovernor);
 		tvExplainGov.setText(governorModel.getDescription(getActivity()));
-		updateVirtGov = true;
 	}
 }

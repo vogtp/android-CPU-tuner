@@ -6,7 +6,6 @@ import ch.amana.android.cputuner.model.IGovernorModel;
 public abstract class GovernorBaseFragment extends Fragment {
 
 	protected GovernorFragmentCallback callback;
-	protected boolean updateVirtGov = false;
 
 	private IGovernorModel governor;
 
@@ -33,7 +32,6 @@ public abstract class GovernorBaseFragment extends Fragment {
 	public abstract void updateView();
 
 	public void updateVirtGov(boolean b) {
-		updateVirtGov = true;
 	}
 
 }

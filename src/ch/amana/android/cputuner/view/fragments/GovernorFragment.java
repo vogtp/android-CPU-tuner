@@ -23,6 +23,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.CpuHandlerMulticore;
 import ch.amana.android.cputuner.model.IGovernorModel;
+import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
 
 public class GovernorFragment extends GovernorBaseFragment {
 
@@ -31,7 +32,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private TextView labelGovThreshDown;
 	private EditText etGovTreshUp;
 	private EditText etGovTreshDown;
-	private Spinner spinnerSetGov;
+	private SpinnerWrapper spinnerSetGov;
 	private EditText etScript;
 	private LinearLayout llFragmentTop;
 	private String[] availCpuGovs;
@@ -41,7 +42,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private boolean disableScript;
 	private LinearLayout llPowersaveBias;
 	private LinearLayout llGovernorThresholds;
-	private Spinner spUseCpus;
+	private SpinnerWrapper spUseCpus;
 	private int numberOfCpus;
 
 	private CpuHandler cpuHandler;
@@ -74,11 +75,11 @@ public class GovernorFragment extends GovernorBaseFragment {
 		labelGovThreshDown = (TextView) v.findViewById(R.id.labelGovThreshDown);
 		etGovTreshUp = (EditText) v.findViewById(R.id.etGovTreshUp);
 		etGovTreshDown = (EditText) v.findViewById(R.id.etGovTreshDown);
-		spinnerSetGov = (Spinner) v.findViewById(R.id.SpinnerCpuGov);
+		spinnerSetGov = new SpinnerWrapper((Spinner) v.findViewById(R.id.SpinnerCpuGov));
 		etScript = (EditText) v.findViewById(R.id.etScript);
 		llPowersaveBias = (LinearLayout) v.findViewById(R.id.llPowersaveBias);
 		sbPowersaveBias = (SeekBar) v.findViewById(R.id.sbPowersaveBias);
-		spUseCpus = (Spinner) v.findViewById(R.id.spUseCpus);
+		spUseCpus = new SpinnerWrapper((Spinner) v.findViewById(R.id.spUseCpus));
 		if (disableScript || !SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
 			llFragmentTop.removeView(v.findViewById(R.id.llScript));
 		}
