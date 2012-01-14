@@ -24,12 +24,6 @@ public class SwitchLog extends BroadcastReceiver {
 	private static final long HOURS_IN_MILLIES = 1000 * 60 * 60;
 
 	private final ArrayList<ContentProviderOperation> operations;
-	//	private ArrayList<String> log;
-
-	//	private Date now;
-	//
-	//	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
-
 
 	public static void start(Context ctx) {
 		if (instance == null) {
@@ -69,7 +63,6 @@ public class SwitchLog extends BroadcastReceiver {
 		String logEntry = intent.getStringExtra(EXTRA_LOG_ENTRY);
 		if (logEntry != null) {
 			long now = System.currentTimeMillis();
-			//			addToSwitchLog(now, logEntry);
 			ContentValues values = new ContentValues();
 			values.put(DB.SwitchLogDB.NAME_TIME, now);
 			values.put(DB.SwitchLogDB.NAME_MESSAGE, logEntry);
@@ -89,7 +82,6 @@ public class SwitchLog extends BroadcastReceiver {
 				flushLogToDB(context);
 			}
 
-//			context.getContentResolver().insert(DB.SwitchLogDB.CONTENT_URI, values);
 		}
 	}
 
@@ -109,53 +101,5 @@ public class SwitchLog extends BroadcastReceiver {
 			Logger.w("Cannot flush to switch log");
 		}
 	}
-
-	//	private void addToSwitchLog(long currentTimeMillis, String msg) {
-	//
-	//		int logSize = SettingsStorage.getInstance().getProfileSwitchLogSize();
-	//		if (log == null) {
-	//			log = new ArrayList<String>(logSize);
-	//			now = new Date();
-	//		}
-	//		now.setTime(currentTimeMillis);
-	//		StringBuilder sb = new StringBuilder();
-	//		sb.append(logDateFormat.format(now)).append(": ").append(msg);
-	//		log.add(0, sb.toString());
-	//		for (int i = logSize - 1; i < log.size(); i++) {
-	//			log.remove(i);
-	//		}
-	//	}
-	//
-	//	public static void clearSwitchLog() {
-	//		if (instance != null) {
-	//			instance.log.clear();
-	//		}
-	//	}
-	//
-	//	public static String getLog(Context context) {
-	//		if (instance != null) {
-	//			return instance.getLogInternal(context);
-	//		}
-	//		return context.getString(R.string.msg_no_profile_switch_log);
-	//	}
-	//
-	//	private String getLogInternal(Context context) {
-	//		if (!SettingsStorage.getInstance().isEnableLogProfileSwitches()) {
-	//			return context.getString(R.string.not_enabled);
-	//		}
-	//		StringBuilder sb = new StringBuilder();
-	//		if (log != null) {
-	//			for (Iterator<String> profileLogItr = log.iterator(); profileLogItr.hasNext();) {
-	//				String log = profileLogItr.next();
-	//				if (log != null) {
-	//					sb.append(log).append("\n");
-	//				}
-	//			}
-	//		}
-	//		if (sb.length() < 2) {
-	//			sb.append(context.getString(R.string.msg_no_profile_switch_log));
-	//		}
-	//		return sb.toString();
-	//	}
 
 }
