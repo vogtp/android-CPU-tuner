@@ -8,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TwoLineListItem;
 import ch.almana.android.billing.Product;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BillingProducts;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class BillingProductAdaper extends BaseAdapter {
 
@@ -46,10 +44,7 @@ public class BillingProductAdaper extends BaseAdapter {
 		StringBuilder sb = new StringBuilder();
 		if (p.isManaged()) {
 			boolean installed = p.getCount() > 0;
-			sb.append(ctx.getString(installed ? R.string.installed : R.string.not_installed));
-			if (installed && BillingProducts.statistics.equals(p.getProductId())) {
-				sb.append(" - ").append(ctx.getString(SettingsStorage.getInstance().isAdvancesStatistics() ? R.string.enabled : R.string.not_enabled));
-			}
+			sb.append(ctx.getString(installed ? R.string.extention_installed : R.string.not_installed));
 		}else {
 			sb.append(ctx.getString(R.string.purchased));
 			sb.append(" ");

@@ -18,6 +18,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.adapter.BillingProductAdaper;
+import ch.amana.android.cputuner.view.preference.AdvStatisticsExtentionSettings;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
@@ -98,12 +99,6 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	}
 
 	@Override
-	protected void onPause() {
-		super.onPause();
-		//		reinitaliseOwnedItems();
-	}
-
-	@Override
 	protected void onDestroy() {
 		bm.removePurchaseListener(this);
 		bm.release();
@@ -122,15 +117,16 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 		}
 		if (product.isManaged() && product.getCount() > 0) {
 			if (BillingProducts.statistics.equals(product.getProductId())) {
-				SettingsStorage settings = SettingsStorage.getInstance();
-				if (settings.isAdvancesStatistics()) {
-					settings.setAdvancesStatistics(false);
-					Toast.makeText(this, product.getName() + ": " + getString(R.string.not_enabled), Toast.LENGTH_SHORT).show();
-				} else {
-					settings.setAdvancesStatistics(true);
-					Toast.makeText(this, product.getName() + ": " + getString(R.string.enabled), Toast.LENGTH_SHORT).show();
-				}
-				updateView();
+				startActivity(new Intent(this, AdvStatisticsExtentionSettings.class));
+//				SettingsStorage settings = SettingsStorage.getInstance();
+//				if (settings.isAdvancesStatistics()) {
+//					settings.setAdvancesStatistics(false);
+//					Toast.makeText(this, product.getName() + ": " + getString(R.string.not_enabled), Toast.LENGTH_SHORT).show();
+//				} else {
+//					settings.setAdvancesStatistics(true);
+//					Toast.makeText(this, product.getName() + ": " + getString(R.string.enabled), Toast.LENGTH_SHORT).show();
+//				}
+//				updateView();
 			}
 		}
 		super.onListItemClick(l, v, position, id);
@@ -144,7 +140,10 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	public void purchaseChanged(String pid, int count) {
 		updateView();
 		if (BillingProducts.statistics.equals(pid)) {
-			SettingsStorage.getInstance().setAdvancesStatistics(count > 0);
+			boolean installed = count > 0;
+			SettingsStorage settings = SettingsStorage.getInstance();
+			settings.setAdvancesStatistics(installed);
+			settings.setRunStatisticsService(installed);
 		}
 	}
 

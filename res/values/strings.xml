@@ -19,5 +19,11 @@
     <string name="msg_config">configuration</string>
     <string name="all">All</string>
     <string name="labelNoDataForFilter">No data for this filter combination found.</string>
+    <string name="prefCatAdvStatistics">Advances Statistics and Logging</string>
+    <string name="prefCatExtention">Extention</string>
+    <string name="prefEnableExtention">Enable Extention</string>
+    <string name="prefEnableSwitchLog">Enable profile switch log</string>
+    <string name="prefCatStatistics">Statistics</string>
+    <string name="prefEnableStatistics">Enable statistics</string>
 
 </resources>

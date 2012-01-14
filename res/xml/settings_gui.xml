@@ -7,7 +7,6 @@
     <PreferenceCategory
         android:key="prefkeyCatDisplay"
         android:title="@string/prefCatDisplay" >
-
         <ListPreference
             android:entries="@array/prefLanguageEntries"
             android:entryValues="@array/prefLanguageValues"
@@ -36,11 +35,9 @@
             android:title="@string/prefKeyCalcPowerUsage" >
         </ListPreference>
     </PreferenceCategory>
-
     <PreferenceCategory
         android:key="prefKeyCatNotifications"
         android:title="@string/prefCatNotifications" >
-
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/prefAddToNotificationEntries"
@@ -57,25 +54,6 @@
             android:summaryOn="@string/prefKeyEnableProfilesOn"
             android:title="@string/prefStatusbarNotifications" >
         </CheckBoxPreference>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="prefKeySwitchLog"
-        android:title="@string/labelLogTab" >
-
-        <EditTextPreference
-            android:defaultValue="24"
-            android:key="prefKeyProfileSwitchLogSize"
-            android:summary="@string/prefProfileSwitchLogSizeLong"
-            android:title="@string/prefProfileSwitchLogSize" android:dialogMessage="@string/prefProfileSwitchLogSizeLong">
-        </EditTextPreference>
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="prefKeyLogPulse"
-            android:summaryOff="@string/prefLogPulseOff"
-            android:summaryOn="@string/prefLogPulseOn"
-            android:title="@string/prefLogPulse" />
     </PreferenceCategory>
 
 </PreferenceScreen>

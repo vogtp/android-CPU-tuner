@@ -17,6 +17,5 @@
     <string name="screenOff">Screen Off</string>
     <string name="call_active">Call active</string>
     <string name="battery_hot">Battery hot</string>
-	<string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use 0
-		to disable and -1 to log for ever.</string>
+	<string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use -1 to log for ever.</string>
 </resources>

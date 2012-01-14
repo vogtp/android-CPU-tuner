@@ -39,11 +39,11 @@
     <string name="msg_warning_not_switch_wifi_connected">Wifi wird nicht geändert wenn es mit einen Netzwerk verbunden ist. 
 	  Dies kann in den Einstellungen geändert werden.</string>
     <string name="menuUpgrade">Erweiterungen</string>
-    <string name="desc_extention_stats">Die Statistik Erweiterung generiert schönere und detailliertere Statistiken.<br></br>		Sie hilft dabei aus cpu tune das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.</string>
+    <string name="desc_extention_stats">Die Statistik Erweiterung generiert schönere und detailliertere Statistiken und Logs.<br></br>		Sie hilft dabei aus cpu tune das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.</string>
     <string name="title_products">Produkte</string>
     <string name="title_extentions">Erweiterungen</string>
-    <string name="name_extention_stats">Statistik Erweiterung</string>
-    <string name="installed">Installiert</string>
+    <string name="name_extention_stats">Statistik und Logger Erweiterung</string>
+    <string name="extention_installed">Installiert, zum Konfigurieren anklicken.</string>
     <string name="not_installed">Nicht installiert</string>
     <string name="purchased">Gekauft: </string>
     <string name="name_buy_me_a_beer">Kauf mir ein Bier</string>
@@ -190,7 +190,7 @@
     <string name="label_profile_switches">Profil wechsel:</string>
     <string name="not_enabled">Nicht aktiviert</string>
     <string name="prefProfileSwitchLogSize">Profil Wechsel Log Grösse</string>
-    <string name="prefProfileSwitchLogSizeLong">Wie viele Stunden soll das Profile-Wechsel Log beinhalten. Verwende 0 um das Speichern abzuschalten und -1 um beliebig viel zu speichern.</string>
+    <string name="prefProfileSwitchLogSizeLong">Wie viele Stunden soll das Profile-Wechsel Log beinhalten. Verwende -1 um beliebig lange zu speichern.</string>
     <string name="cbExactScheduling">Genaue Wechsel</string>
     <string name="labelExactSchedulingExplain">Genaue Wechsel braucht mehr Batterie.\nUngenaue Wechsel können bis zu einer halben Stunde später erfolgen.</string>
     <string name="msg_cannot_delete_configuration">Diese Kongiuration kann nicht gelöscht werden, da sie im Auto-Laden verwendet wird..</string>

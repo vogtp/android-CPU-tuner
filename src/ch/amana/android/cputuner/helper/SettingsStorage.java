@@ -16,10 +16,13 @@ import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 
 public class SettingsStorage {
+
+
 
 	private final static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
@@ -28,6 +31,8 @@ public class SettingsStorage {
 	public static final String NO_VALUE = "noValue";
 	public static final String ENABLE_PROFILES = "prefKeyEnableProfiles";
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
+	public static final String PREF_KEY_ENABLE_STATISTICS_SERVICE = "prefKeyEnableStatisticsService";
+	public static final String PREF_KEY_ENABLE_SWITCH_LOG = "prefKeyEnableSwitchLog";
 
 	public static final int NO_BATTERY_HOT_TEMP = 5000;
 
@@ -107,10 +112,16 @@ public class SettingsStorage {
 	private boolean loadedSwitchCpuSetting = false;
 	private boolean enableSwitchCpuSetting = false;
 	private boolean checkedEnableSwitchCpuSetting = false;
+	private boolean enableEnableSwitchLog;
+	private boolean checkedEnableSwitchLog = false;
+	private boolean enableEnableStatistics;
+	private boolean checkedEnableStatistics = false;
 
 	private boolean powerStrongerThanScreenoff;
 
 	private ProfileModel switchCpuSetting = ProfileModel.NO_PROFILE;
+
+
 
 
 	public void forgetValues() {
@@ -131,6 +142,8 @@ public class SettingsStorage {
 		checkedStatusbarAddTo = false;
 		checkedPowerStrongerThanScreenoff = false;
 		checkedEnableSwitchCpuSetting = false;
+		checkedEnableSwitchLog = false;
+		checkedEnableStatistics = false;
 	}
 
 	public static SettingsStorage getInstance(Context ctx) {
@@ -535,8 +548,23 @@ public class SettingsStorage {
 		editor.commit();
 	}
 
+	public void setEnableLogProfileSwitches(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_ENABLE_SWITCH_LOG, b);
+		editor.commit();
+		if (b) {
+			SwitchLog.start(context);
+		} else {
+			SwitchLog.stop(context);
+		}
+	}
+
 	public boolean isEnableLogProfileSwitches() {
-		return getProfileSwitchLogSize() != 0;
+		if (!checkedEnableSwitchLog) {
+			checkedEnableSwitchLog = true;
+			enableEnableSwitchLog = getPreferences().getBoolean(PREF_KEY_ENABLE_SWITCH_LOG, true);
+		}
+		return enableEnableSwitchLog;
 	}
 
 	public boolean isFirstRun() {
@@ -553,11 +581,6 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(PREF_KEY_ADV_STATS, b);
 		editor.commit();
-		if (b && isRunStatisticsService()) {
-			StatisticsReceiver.register(context);
-		} else {
-			StatisticsReceiver.unregister(context);
-		}
 	}
 
 	public boolean isAdvancesStatistics() {
@@ -653,7 +676,23 @@ public class SettingsStorage {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 	}
 
+	public void setRunStatisticsService(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_ENABLE_STATISTICS_SERVICE, b);
+		editor.commit();
+		enableEnableStatistics = b;
+		if (b) {
+			StatisticsReceiver.register(context);
+		} else {
+			StatisticsReceiver.unregister(context);
+		}
+	}
+
 	public boolean isRunStatisticsService() {
-		return isAdvancesStatistics();
+		if (!checkedEnableStatistics) {
+			checkedEnableStatistics = true;
+			enableEnableStatistics = getPreferences().getBoolean(PREF_KEY_ENABLE_STATISTICS_SERVICE, false);
+		}
+		return enableEnableStatistics;
 	}
 }

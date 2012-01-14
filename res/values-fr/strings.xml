@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
     <string name="prefLogPulse">Log pulse to switch log</string>
     <string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
     <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
@@ -17,6 +18,6 @@
     <string name="screenOff">Screen Off</string>
     <string name="call_active">Call active</string>
     <string name="battery_hot">Battery hot</string>
-	<string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use 0
-		to disable and -1 to log for ever.</string>
+    <string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use -1 to log for ever.</string>
+
 </resources>

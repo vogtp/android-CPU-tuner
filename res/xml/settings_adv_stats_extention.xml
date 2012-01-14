@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="@string/prefCatAdvStatistics" >
+
+    <PreferenceCategory android:title="@string/prefCatExtention" >
+        <CheckBoxPreference
+            android:key="prefKeyAdvStats"
+            android:title="@string/prefEnableExtention" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefCatStatistics" >
+        <CheckBoxPreference
+            android:key="prefKeyEnableStatisticsService"
+            android:title="@string/prefEnableStatistics" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="prefKeySwitchLog"
+        android:title="@string/labelLogTab" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeyEnableSwitchLog"
+            android:title="@string/prefEnableSwitchLog" />
+
+        <EditTextPreference
+            android:defaultValue="24"
+            android:dialogMessage="@string/prefProfileSwitchLogSizeLong"
+            android:key="prefKeyProfileSwitchLogSize"
+            android:summary="@string/prefProfileSwitchLogSizeLong"
+            android:title="@string/prefProfileSwitchLogSize" >
+        </EditTextPreference>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefKeyLogPulse"
+            android:summaryOff="@string/prefLogPulseOff"
+            android:summaryOn="@string/prefLogPulseOn"
+            android:title="@string/prefLogPulse" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

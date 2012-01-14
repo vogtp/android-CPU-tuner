@@ -104,12 +104,12 @@
     <string name="msg_warning_not_switch_wifi_connected">Wifi will not switch if connected to a network.
 		Change this in settings.</string>
     <string name="menuUpgrade">Get extensions</string>
-    <string name="desc_extention_stats">		The statistic extension generates nicer and more detailed statistics.<br></br>		It helps you to fine tune you settings by giving you additional
+    <string name="desc_extention_stats">		The statistic extension generates nicer and more detailed statistics and logs.<br></br>		It helps you to fine tune you settings by giving you additional
 		information.</string>
     <string name="title_products">Products</string>
     <string name="title_extentions">Extensions</string>
-    <string name="name_extention_stats">Statistics Extension</string>
-    <string name="installed">Installed</string>
+    <string name="name_extention_stats">Statistics and logging Extension</string>
+    <string name="extention_installed">Installed, tap to configure.</string>
     <string name="not_installed">Not installed</string>
     <string name="purchased">Purchased: </string>
     <string name="name_buy_me_a_beer">Buy me a beer</string>

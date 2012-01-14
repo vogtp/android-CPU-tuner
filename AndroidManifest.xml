@@ -339,6 +339,9 @@
 
         <receiver android:name=".receiver.StatisticsReceiver" >
         </receiver>
+
+        <activity android:name=".view.preference.AdvStatisticsExtentionSettings" >
+        </activity>
     </application>
 
 </manifest>

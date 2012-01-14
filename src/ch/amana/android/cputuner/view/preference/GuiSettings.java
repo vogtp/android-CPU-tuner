@@ -9,7 +9,6 @@ import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
-import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 
@@ -43,23 +42,6 @@ public class GuiSettings extends BaseSettings {
 				UserExperianceLevelChooser uec = new UserExperianceLevelChooser(GuiSettings.this, true);
 				uec.show();
 				return true;
-			}
-		});
-		findPreference("prefKeyProfileSwitchLogSize").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
-			@Override
-			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				try {
-					if (Integer.parseInt((String) newValue) > 0) {
-						SwitchLog.start(getApplicationContext());
-					} else {
-						SwitchLog.stop(getApplicationContext());
-					}
-					return true;
-				} catch (Exception e) {
-					Logger.w("Cannot parse prefKeyStatusbarAddToChoice as int", e);
-					return false;
-				}
 			}
 		});
 
