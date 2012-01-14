@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.CursorLoader;
@@ -40,14 +39,10 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.CpuHandlerMulticore;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.model.IGovernorModel;
+import ch.amana.android.cputuner.model.HardwareGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
-import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.service.TunerService;
 import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
@@ -73,7 +68,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private PowerProfiles powerProfiles;
 	private SpinnerWrapper spProfiles;
 	private GovernorBaseFragment governorFragment;
-	private GovernorHelperCurInfo governorHelper;
+	private HardwareGovernorModel governorHelper;
 	private TextView tvPulse;
 	private TableRow trPulse;
 	private TableRow trMaxFreq;
@@ -87,152 +82,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private ProfileAdaper profileAdapter;
 	private TextView tvManualServiceChanges;
 
-	private class GovernorHelperCurInfo implements IGovernorModel {
 
-		@Override
-		public int getGovernorThresholdUp() {
-			return cpuHandler.getGovThresholdUp();
-		}
-
-		@Override
-		public int getGovernorThresholdDown() {
-			return cpuHandler.getGovThresholdDown();
-		}
-
-		@Override
-		public void setGov(String gov) {
-			cpuHandler.setCurGov(gov);
-		}
-
-		@Override
-		public void setGovernorThresholdUp(String string) {
-			try {
-				setGovernorThresholdUp(Integer.parseInt(string));
-			} catch (Exception e) {
-				Logger.w("Cannot parse " + string + " as int");
-			}
-		}
-
-		@Override
-		public void setGovernorThresholdDown(String string) {
-			try {
-				setGovernorThresholdDown(Integer.parseInt(string));
-			} catch (Exception e) {
-				Logger.w("Cannot parse " + string + " as int");
-			}
-		}
-
-		@Override
-		public void setScript(String string) {
-			// not used
-
-		}
-
-		@Override
-		public String getGov() {
-			return cpuHandler.getCurCpuGov();
-		}
-
-		@Override
-		public String getScript() {
-			// not used
-			return "";
-		}
-
-		@Override
-		public void setGovernorThresholdUp(int i) {
-			cpuHandler.setGovThresholdUp(i);
-		}
-
-		@Override
-		public void setGovernorThresholdDown(int i) {
-			cpuHandler.setGovThresholdDown(i);
-		}
-
-		@Override
-		public void setVirtualGovernor(long id) {
-			FragmentActivity activity = getActivity();
-			if (activity == null) {
-				return;
-			}
-			Cursor c = null;
-			try {
-				c = activity.getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
-						VirtualGovernor.SORTORDER_DEFAULT);
-				if (c.moveToFirst()) {
-					VirtualGovernorModel vgm = new VirtualGovernorModel(c);
-					cpuHandler.applyGovernorSettings(vgm);
-					powerProfiles.getCurrentProfile().setVirtualGovernor(id);
-				}
-			} finally {
-				if (c != null) {
-					c.close();
-					c = null;
-				}
-			}
-		}
-
-		@Override
-		public long getVirtualGovernor() {
-			if (powerProfiles == null || powerProfiles.getCurrentProfile() == null) {
-				return -1;
-			}
-			return powerProfiles.getCurrentProfile().getVirtualGovernor();
-		}
-
-		@Override
-		public void setPowersaveBias(int powersaveBias) {
-			cpuHandler.setPowersaveBias(powersaveBias);
-		}
-
-		@Override
-		public int getPowersaveBias() {
-			return cpuHandler.getPowersaveBias();
-		}
-
-		@Override
-		public boolean hasScript() {
-			return false;
-		}
-
-		@Override
-		public void setUseNumberOfCpus(int position) {
-			cpuHandler.setNumberOfActiveCpus(position);
-		}
-
-		@Override
-		public int getUseNumberOfCpus() {
-			return cpuHandler.getNumberOfActiveCpus();
-		}
-
-		@Override
-		public CharSequence getDescription(Context ctx) {
-			if (ctx == null) {
-				return "";
-			}
-			StringBuilder sb = new StringBuilder();
-			sb.append(ctx.getString(R.string.labelGovernor)).append(" ").append(getGov());
-			int governorThresholdUp = getGovernorThresholdUp();
-			if (governorThresholdUp > 0) {
-				sb.append("\n").append(ctx.getString(R.string.labelThreshsUp)).append(" ").append(governorThresholdUp);
-			}
-			int governorThresholdDown = getGovernorThresholdDown();
-			if (governorThresholdDown > 0) {
-				sb.append(" ").append(ctx.getString(R.string.labelDown)).append(" ").append(governorThresholdDown);
-			}
-			if (cpuHandler instanceof CpuHandlerMulticore) {
-				int useNumberOfCpus = getUseNumberOfCpus();
-				int numberOfCpus = cpuHandler.getNumberOfCpus();
-				if (useNumberOfCpus < 1 || useNumberOfCpus > numberOfCpus) {
-					useNumberOfCpus = numberOfCpus;
-				}
-				sb.append("\n").append(ctx.getString(R.string.labelActiveCpus)).append(" ").append(useNumberOfCpus);
-				sb.append("/").append(numberOfCpus);
-			}
-			return sb.toString();
-		}
-
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -272,7 +122,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
-		governorHelper = new GovernorHelperCurInfo();
+		governorHelper = new HardwareGovernorModel(act);
 		SettingsStorage settings = SettingsStorage.getInstance(getContext());
 		if (settings.isUseVirtualGovernors() && settings.isEnableProfiles()) {
 			governorFragment = new VirtualGovernorFragment(this, governorHelper);

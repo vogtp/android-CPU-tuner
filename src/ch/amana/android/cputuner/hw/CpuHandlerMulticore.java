@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandlerMulticore extends CpuHandler {
@@ -23,6 +24,12 @@ public class CpuHandlerMulticore extends CpuHandler {
 	public void applyCpuSettings(ProfileModel profile) {
 		super.applyCpuSettings(profile);
 		setNumberOfActiveCpus(profile.getUseNumberOfCpus());
+	}
+
+	@Override
+	public void applyGovernorSettings(IGovernorModel governor) {
+		super.applyGovernorSettings(governor);
+		setNumberOfActiveCpus(governor.getUseNumberOfCpus());
 	}
 
 	@Override
