@@ -91,7 +91,7 @@
 		Change this in settings.</string>
     <string name="menuUpgrade">Get extensions</string>
     <string name="desc_extention_stats">		The statistic extension generates nicer and more detailed statistics.<br></br>		It helps you to fine tune you settings by giving you additional
-		information.<br></br>		Work in progress...</string>
+		information.</string>
     <string name="title_products">Products</string>
     <string name="title_extentions">Extensions</string>
     <string name="name_extention_stats">Statistics Extension</string>
@@ -100,14 +100,14 @@
     <string name="purchased">Purchased: </string>
     <string name="name_buy_me_a_beer">Buy me a beer</string>
     <string name="name_buy_me_a_whiskey">Buy me a whiskey</string>
-    <string name="name_buy_cookie">Buy a cookie for my kid</string>
+    <string name="name_buy_cookie">Buy a cookie for my kids</string>
     <string name="desc_buy_beer">This will make me happy.</string>
     <string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-    <string name="desc_buy_cookie">This will keep my kid occupied and probable lets me
+    <string name="desc_buy_cookie">This will keep my kids occupied and probable lets me
 		fix a bug (no promises made).</string>
-    <string name="desc_buy_toy">This will keep my kid occupied for some time and
+    <string name="desc_buy_toy">This will keep my kids occupied for some time and
 		probable lets me implement a feature (no promises made).</string>
-    <string name="name_buy_toy">Buy my kid a new toy</string>
+    <string name="name_buy_toy">Buy my kids a new toy</string>
     <string name="prefextentionsLong">Add new features to cpu tuner</string>
     <string name="title_changelog">Changelog</string>
     <string name="refresh">Refresh</string>

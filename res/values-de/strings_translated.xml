@@ -39,7 +39,7 @@
     <string name="msg_warning_not_switch_wifi_connected">Wifi wird nicht geändert wenn es mit einen Netzwerk verbunden ist. 
 	  Dies kann in den Einstellungen geändert werden.</string>
     <string name="menuUpgrade">Erweiterungen</string>
-    <string name="desc_extention_stats">	  Die Statistik Erweiterung generiert schönere und detailliertere Statistiken.<br></br>		Sie hilft dabei aus cpu tune das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.</string>
+    <string name="desc_extention_stats">Die Statistik Erweiterung generiert schönere und detailliertere Statistiken.<br></br>		Sie hilft dabei aus cpu tune das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.</string>
     <string name="title_products">Produkte</string>
     <string name="title_extentions">Erweiterungen</string>
     <string name="name_extention_stats">Statistik Erweiterung</string>
@@ -48,14 +48,14 @@
     <string name="purchased">Gekauft: </string>
     <string name="name_buy_me_a_beer">Kauf mir ein Bier</string>
     <string name="name_buy_me_a_whiskey">Kauf mir einen Whiskey</string>
-    <string name="name_buy_cookie">Kauf meinem Kind einen Keks</string>
+    <string name="name_buy_cookie">Kauf meinen Kindern einen Keks</string>
     <string name="desc_buy_beer">Dies macht mich glücklich.</string>
     <string name="desc_buy_whiskey">Dies macht mich glücklicher. (Und weniger betrunken!)</string>
-    <string name="desc_buy_cookie">Dies wird mein Kind einige Zeit beschäftigen und hilft mir vielleicht
+    <string name="desc_buy_cookie">Dies wird meine Kinder einige Zeit beschäftigen und hilft mir vielleicht
 	  einen Fehler zu beheben. (Ich kann aber nichts versprechen....)</string>
-    <string name="desc_buy_toy">Dies wird mein Kind eine längere Zeit beschäftigen und hilft mir vielleicht
+    <string name="desc_buy_toy">Dies wird mein Kinder eine längere Zeit beschäftigen und hilft mir vielleicht
 	  etwas Neues zu implementieren. (Ich kann aber nichts versprechen....)</string>
-    <string name="name_buy_toy">Kauf meinem Kind ein Spiel.</string>
+    <string name="name_buy_toy">Kauf meinen Kindern ein Spiel.</string>
     <string name="prefextentionsLong">Erweitere cpu tuner...</string>
     <string name="title_changelog">Changelog</string>
     <string name="prefServiceSwitchesLong">Ändere die Art wie Dienst-Änderungen durchgeführt werden.</string>
