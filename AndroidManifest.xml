@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201201070"
+    android:versionCode="201201150"
     android:versionName="@string/version" >
 
     <uses-sdk
@@ -340,7 +340,7 @@
         <receiver android:name=".receiver.StatisticsReceiver" >
         </receiver>
 
-        <activity android:name=".view.preference.AdvStatisticsExtentionSettings" >
+        <activity android:name=".view.preference.AdvStatisticsExtensionSettings" >
         </activity>
     </application>
 

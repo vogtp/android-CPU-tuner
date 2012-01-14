@@ -9,7 +9,7 @@ import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-public class AdvStatisticsExtentionSettings extends BaseSettings {
+public class AdvStatisticsExtensionSettings extends BaseSettings {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

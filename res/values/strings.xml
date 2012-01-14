@@ -21,7 +21,7 @@
     <string name="labelNoDataForFilter">No data for this filter combination found.</string>
     <string name="prefCatAdvStatistics">Advances Statistics and Logging</string>
     <string name="prefCatExtention">Extention</string>
-    <string name="prefEnableExtention">Enable Extention</string>
+    <string name="prefEnableExtention">Enable Extension</string>
     <string name="prefEnableSwitchLog">Enable profile switch log</string>
     <string name="prefCatStatistics">Statistics</string>
     <string name="prefEnableStatistics">Enable statistics</string>
