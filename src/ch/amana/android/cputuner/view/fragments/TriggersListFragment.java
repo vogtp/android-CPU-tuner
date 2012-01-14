@@ -16,7 +16,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -25,8 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -45,34 +47,30 @@ import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class TriggersListFragment extends PagerListFragment implements StateChangeListener {
+public class TriggersListFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
 	protected static final String NO_PROFILE = "no profile";
-	private Cursor displayCursor;
-	//	private Cursor checkCursor;
 	private SimpleCursorAdapter adapter;
 
-	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		final Activity act = getActivity();
 		if (act == null) {
 			return;
 		}
 
-		CursorLoader cursorLoader = new CursorLoader(act, DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
-		displayCursor = cursorLoader.loadInBackground();
-
 		int layout = SettingsStorage.getInstance().isPowerStrongerThanScreenoff() ? R.layout.trigger_item_pwrstrong : R.layout.trigger_item_pwrweak;
-		adapter = new SimpleCursorAdapter(getActivity(), layout, displayCursor, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
+		adapter = new SimpleCursorAdapter(getActivity(), layout, null, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
 				DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
 				DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_HOT,
 				DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery,
 				R.id.tvProfileOnPower, R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentLocked, R.id.tvProfileHot,
-				R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall });
+				R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall }, 0);
 
+		setListShown(false);
 		setListAdapter(adapter);
+		getLoaderManager().initLoader(0, null, this);
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -185,13 +183,6 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 			}
 
 		});
-
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		final Activity act = getActivity();
 
 		getListView().setOnCreateContextMenuListener(this);
 
@@ -384,5 +375,27 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	@Override
 	public void triggerChanged() {
 		getListView().setAdapter(adapter);
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int loader, Bundle bundle) {
+		return new CursorLoader(getActivity(), DB.Trigger.CONTENT_URI, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+		adapter.swapCursor(c);
+
+		// The list should now be shown.
+		if (isResumed()) {
+			setListShown(true);
+		} else {
+			setListShownNoAnimation(true);
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		adapter.swapCursor(null);
 	}
 }

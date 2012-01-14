@@ -14,7 +14,11 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -28,8 +32,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -52,33 +54,31 @@ import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class ProfilesListFragment extends PagerListFragment implements StateChangeListener {
+public class ProfilesListFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
 	private static final int ALPHA_ON = 200;
 	private static final int ALPHA_OFF = 40;
 	private static final int ALPHA_LEAVE = 100;
 	private SimpleCursorAdapter adapter;
-	private Cursor displayCursor;
 
-	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		Activity act = getActivity();
 		if (act == null) {
 			return;
 		}
-		CursorLoader cursorLoader = new CursorLoader(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
-		displayCursor = cursorLoader.loadInBackground();
 
-		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, displayCursor,
+		adapter = new SimpleCursorAdapter(act, R.layout.profile_item, null,
 				new String[] { DB.CpuProfile.NAME_PROFILE_NAME, DB.CpuProfile.NAME_GOVERNOR,
 						DB.CpuProfile.NAME_FREQUENCY_MIN, DB.CpuProfile.NAME_FREQUENCY_MAX, DB.CpuProfile.NAME_WIFI_STATE, DB.CpuProfile.NAME_GPS_STATE,
 						DB.CpuProfile.NAME_BLUETOOTH_STATE, DB.CpuProfile.NAME_MOBILEDATA_3G_STATE, DB.CpuProfile.NAME_BACKGROUND_SYNC_STATE,
 						DB.CpuProfile.NAME_MOBILEDATA_CONNECTION_STATE, DB.CpuProfile.NAME_AIRPLANEMODE_STATE },
 				new int[] { R.id.tvName, R.id.tvGov, R.id.tvFreqMin, R.id.tvFreqMax, R.id.ivServiceWifi, R.id.ivServiceGPS, R.id.ivServiceBluetooth,
-						R.id.ivServiceMD3g, R.id.ivServiceSync, R.id.ivServiceMDCon, R.id.ivServiceAirplane });
+						R.id.ivServiceMD3g, R.id.ivServiceSync, R.id.ivServiceMDCon, R.id.ivServiceAirplane }, 0);
+
+		setListShown(false);
+		getLoaderManager().initLoader(0, null, this);
 
 		adapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -234,14 +234,6 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		});
 
 		setListAdapter(adapter);
-		return;
-
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		Activity act = getActivity();
 
 		getListView().setOnCreateContextMenuListener(this);
 		if (act instanceof CpuTunerViewpagerActivity) {
@@ -414,6 +406,28 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public void triggerChanged() {
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int loader, Bundle bundle) {
+		return new CursorLoader(getActivity(), DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+		adapter.swapCursor(c);
+
+		// The list should now be shown.
+		if (isResumed()) {
+			setListShown(true);
+		} else {
+			setListShownNoAnimation(true);
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		adapter.swapCursor(null);
 	}
 
 }

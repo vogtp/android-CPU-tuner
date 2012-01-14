@@ -15,7 +15,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -24,8 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -44,9 +46,8 @@ import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class VirtualGovernorListFragment extends PagerListFragment implements StateChangeListener {
+public class VirtualGovernorListFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
-	private Cursor displayCursor;
 	private SimpleCursorAdapter adapter;
 
 	/** Called when the activity is first created. */
@@ -62,13 +63,14 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 		if (act == null) {
 			return;
 		}
-		CursorLoader cursorLoader = new CursorLoader(act, DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
-		displayCursor = cursorLoader.loadInBackground();
 
-		adapter = new SimpleCursorAdapter(act, R.layout.virtual_governor_item, displayCursor,
+		setListShown(false);
+		getLoaderManager().initLoader(0, null, this);
+
+		adapter = new SimpleCursorAdapter(act, R.layout.virtual_governor_item, null,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, DB.VirtualGovernor.NAME_REAL_GOVERNOR,
 						DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP },
-				new int[] { R.id.tvVirtualGovernor, R.id.tvGorvernor, R.id.tvThresholdDown, R.id.tvThresholdUp });
+				new int[] { R.id.tvVirtualGovernor, R.id.tvGorvernor, R.id.tvThresholdDown, R.id.tvThresholdUp }, 0);
 
 		adapter.setViewBinder(new ViewBinder() {
 
@@ -260,4 +262,25 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 	public void triggerChanged() {
 	}
 
+	@Override
+	public Loader<Cursor> onCreateLoader(int loader, Bundle bundle) {
+		return new CursorLoader(getActivity(), DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, DB.VirtualGovernor.SORTORDER_DEFAULT);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+		adapter.swapCursor(c);
+
+		// The list should now be shown.
+		if (isResumed()) {
+			setListShown(true);
+		} else {
+			setListShownNoAnimation(true);
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		adapter.swapCursor(null);
+	}
 }

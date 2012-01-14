@@ -12,13 +12,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
@@ -32,28 +34,27 @@ import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class LogFragment extends PagerListFragment implements StateChangeListener {
+public class LogFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
-	//	private TextView tvStats;
-	private Cursor displayCursor;
 	private SimpleCursorAdapter adapter;
 	private final Date now = new Date();
 
 	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		final Activity act = getActivity();
 		if (act == null) {
 			return;
 		}
-		CursorLoader cursorLoader = new CursorLoader(act, DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
-		displayCursor = cursorLoader.loadInBackground();
 
-		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, displayCursor,
+		setListShown(false);
+		getLoaderManager().initLoader(0, null, this);
+
+		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_spinner_item, null,
 				new String[] { DB.SwitchLogDB.NAME_MESSAGE },
-				new int[] { android.R.id.text1 });
+				new int[] { android.R.id.text1 }, 0);
 
 		adapter.setViewBinder(new ViewBinder() {
 
@@ -165,6 +166,28 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 				}
 			}
 		}, 1000);
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int loader, Bundle bundle) {
+		return new CursorLoader(getActivity(), DB.SwitchLogDB.CONTENT_URI, DB.SwitchLogDB.PROJECTION_NORMAL_LOG, null, null, DB.SwitchLogDB.SORTORDER_DEFAULT);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+		adapter.swapCursor(c);
+
+		// The list should now be shown.
+		if (isResumed()) {
+			setListShown(true);
+		} else {
+			setListShownNoAnimation(true);
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		adapter.swapCursor(null);
 	}
 
 }
