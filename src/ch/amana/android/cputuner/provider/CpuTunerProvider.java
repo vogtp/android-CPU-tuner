@@ -244,7 +244,6 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	public static void deleteAllTables(Context ctx, boolean deleteAutoloadConfig) {
-		Logger.logStacktrace("delete all tables");
 		ContentResolver resolver = ctx.getContentResolver();
 		resolver.delete(DB.Trigger.CONTENT_URI, null, null);
 		resolver.delete(DB.CpuProfile.CONTENT_URI, null, null);
