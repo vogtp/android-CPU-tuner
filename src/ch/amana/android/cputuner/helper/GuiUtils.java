@@ -11,30 +11,32 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 
 public class GuiUtils {
 
-	public static void setSpinner(Spinner spinner, long dbId) {
+	public static int setSpinner(Spinner spinner, long dbId) {
 		if (spinner == null) {
-			return;
+			return Integer.MIN_VALUE;
 		}
 		SpinnerAdapter adapter = spinner.getAdapter();
 		if (adapter == null) {
-			return;
+			return Integer.MIN_VALUE;
 		}
 		for (int i = 0; i < adapter.getCount(); i++) {
 			if (adapter.getItemId(i) == dbId) {
 				spinner.setSelection(i);
-				return;
+				return i;
 			}
 		}
+		return Integer.MIN_VALUE;
 	}
 
-	public static void setSpinner(Spinner spinner, String text) {
+	public static int setSpinner(Spinner spinner, String text) {
 		SpinnerAdapter adapter = spinner.getAdapter();
 		for (int i = 0; i < adapter.getCount(); i++) {
 			if (adapter.getItem(i) == text) {
 				spinner.setSelection(i);
-				return;
+				return i;
 			}
 		}
+		return Integer.MIN_VALUE;
 	}
 
 	public static CharSequence getExplainGovernor(Context ctx, String gov) {

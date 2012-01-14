@@ -36,7 +36,6 @@ import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallb
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
-import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
@@ -55,6 +54,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
+import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
 
 import com.markupartist.android.widget.ActionBar.Action;
 
@@ -71,7 +71,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TextView labelCpuFreqMax;
 	private TextView tvBatteryCurrent;
 	private PowerProfiles powerProfiles;
-	private Spinner spProfiles;
+	private SpinnerWrapper spProfiles;
 	private GovernorBaseFragment governorFragment;
 	private GovernorHelperCurInfo governorHelper;
 	private TextView tvPulse;
@@ -85,7 +85,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TableRow trBattery;
 	private TableRow trPower;
 	private ProfileAdaper profileAdapter;
-	private boolean isInUpdateView = true;
 	private TextView tvManualServiceChanges;
 
 	private class GovernorHelperCurInfo implements IGovernorModel {
@@ -102,17 +101,11 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setGov(String gov) {
-			if (isInUpdateView) {
-				return;
-			}
 			cpuHandler.setCurGov(gov);
 		}
 
 		@Override
 		public void setGovernorThresholdUp(String string) {
-			if (isInUpdateView) {
-				return;
-			}
 			try {
 				setGovernorThresholdUp(Integer.parseInt(string));
 			} catch (Exception e) {
@@ -122,9 +115,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setGovernorThresholdDown(String string) {
-			if (isInUpdateView) {
-				return;
-			}
 			try {
 				setGovernorThresholdDown(Integer.parseInt(string));
 			} catch (Exception e) {
@@ -151,35 +141,29 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setGovernorThresholdUp(int i) {
-			if (isInUpdateView) {
-				return;
-			}
 			cpuHandler.setGovThresholdUp(i);
 		}
 
 		@Override
 		public void setGovernorThresholdDown(int i) {
-			if (isInUpdateView) {
-				return;
-			}
 			cpuHandler.setGovThresholdDown(i);
 		}
 
 		@Override
 		public void setVirtualGovernor(long id) {
 			FragmentActivity activity = getActivity();
-			if (isInUpdateView || activity == null) {
+			if (activity == null) {
 				return;
 			}
 			Cursor c = null;
 			try {
 				c = activity.getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID, new String[] { id + "" },
-					VirtualGovernor.SORTORDER_DEFAULT);
-			if (c.moveToFirst()) {
-				VirtualGovernorModel vgm = new VirtualGovernorModel(c);
-				cpuHandler.applyGovernorSettings(vgm);
-				powerProfiles.getCurrentProfile().setVirtualGovernor(id);
-			}
+						VirtualGovernor.SORTORDER_DEFAULT);
+				if (c.moveToFirst()) {
+					VirtualGovernorModel vgm = new VirtualGovernorModel(c);
+					cpuHandler.applyGovernorSettings(vgm);
+					powerProfiles.getCurrentProfile().setVirtualGovernor(id);
+				}
 			} finally {
 				if (c != null) {
 					c.close();
@@ -198,9 +182,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setPowersaveBias(int powersaveBias) {
-			if (isInUpdateView) {
-				return;
-			}
 			cpuHandler.setPowersaveBias(powersaveBias);
 		}
 
@@ -216,9 +197,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		@Override
 		public void setUseNumberOfCpus(int position) {
-			if (isInUpdateView) {
-				return;
-			}
 			cpuHandler.setNumberOfActiveCpus(position);
 		}
 
@@ -262,7 +240,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		View v = inflater.inflate(R.layout.cur_info, container, false);
 
 		tvCurrentTrigger = (TextView) v.findViewById(R.id.tvCurrentTrigger);
-		spProfiles = (Spinner) v.findViewById(R.id.spProfiles);
+		spProfiles = new SpinnerWrapper((Spinner) v.findViewById(R.id.spProfiles));
 		tvBatteryLevel = (TextView) v.findViewById(R.id.tvBatteryLevel);
 		tvAcPower = (TextView) v.findViewById(R.id.tvAcPower);
 		tvBatteryCurrent = (TextView) v.findViewById(R.id.tvBatteryCurrent);
@@ -316,14 +294,11 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, final int pos, final long id) {
-				if (isInUpdateView) {
-					return;
-				}
 				if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableProfiles()) {
 					return;
 				}
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
-				i.putExtra(TunerService.EXTRA_IS_MANUAL_PROFILE, pos > 0);
+				i.putExtra(TunerService.EXTRA_IS_MANUAL_PROFILE, id != PowerProfiles.AUTOMATIC_PROFILE);
 				i.putExtra(TunerService.EXTRA_PROFILE_ID, id);
 				act.startService(i);
 			}
@@ -417,19 +392,14 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		super.onPause();
 		if (governorFragment != null) {
 			governorFragment.updateVirtGov(false);
-		} 
+		}
 	}
 
 	@Override
 	public void updateView() {
-		try {
-			isInUpdateView = true;
-			deviceStatusChanged();
-			profileChanged();
-			triggerChanged();
-		} finally {
-			isInUpdateView = false;
-		}
+		deviceStatusChanged();
+		profileChanged();
+		triggerChanged();
 	}
 
 	@Override
@@ -532,17 +502,15 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	private void updateProfileSpinner() {
-		isInUpdateView = true;
 		ProfileModel currentProfile = powerProfiles.getCurrentProfile();
 		if (currentProfile != PowerProfiles.DUMMY_PROFILE) {
 			if (powerProfiles.isManualProfile()) {
-				GuiUtils.setSpinner(spProfiles, currentProfile.getDbId());
+				spProfiles.setSelectionDbId(currentProfile.getDbId());
 			} else {
 				spProfiles.setAdapter(profileAdapter);
 				spProfiles.setSelection(0);
 			}
 		}
-		isInUpdateView = false;
 	}
 
 	@Override
