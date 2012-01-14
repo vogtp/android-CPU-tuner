@@ -1,10 +1,6 @@
 package ch.amana.android.cputuner.receiver;
 
-import java.util.ArrayList;
-
 import android.content.BroadcastReceiver;
-import android.content.ContentProviderOperation;
-import android.content.ContentProviderOperation.Builder;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -45,14 +41,14 @@ public class StatisticsReceiver extends BroadcastReceiver {
 			@Override
 			public void run() {
 				final Bundle extras = i.getExtras();
-				updateStatisticsInputQueue(ctx, extras);
+				updateStatistics(ctx, extras);
 			}
 
 		}).start();
 
 	}
 
-	public static void updateStatisticsInputQueue(Context context, Bundle extras) {
+	public static void updateStatistics(Context context, Bundle extras) {
 		Logger.d("Adding timeinstate to input queue");
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
 		TimeInStateParser tisParser = new TimeInStateParser(timeinstate);
@@ -95,8 +91,8 @@ public class StatisticsReceiver extends BroadcastReceiver {
 			tisParser.setBaseline(oldTisParser);
 
 			String idStr = Long.toString(indexID);
-			ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(tisParser.getStates().size());
-			Builder opp;
+			//			ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(tisParser.getStates().size());
+			//			Builder opp;
 			for (Integer state : tisParser.getStates()) {
 				Long time = tisParser.getTime(state);
 				String[] selection = new String[] { idStr, Integer.toString(state) };
@@ -110,19 +106,16 @@ public class StatisticsReceiver extends BroadcastReceiver {
 					resolver.update(TimeInStateValue.CONTENT_URI, values, TimeInStateValue.SELECTION_BY_ID_STATE, selection);
 					//					opp = ContentProviderOperation.newUpdate(TimeInStateValue.CONTENT_URI);
 					//					opp.withSelection(TimeInStateValue.SELECTION_BY_ID_STATE, selection);
-					//					opp.withValue(TimeInStateValue.NAME_TIME, time);
+					//					opp.withValues(values);
 				} else {
-					values = new ContentValues();
 					values.put(TimeInStateValue.NAME_IDX, indexID);
 					values.put(TimeInStateValue.NAME_STATE, state);
 					values.put(TimeInStateValue.NAME_TIME, time);
 					resolver.insert(TimeInStateValue.CONTENT_URI, values);
 					//					opp = ContentProviderOperation.newUpdate(TimeInStateValue.CONTENT_URI);
-					//					opp.withValue(TimeInStateValue.NAME_IDX, indexID);
-					//					opp.withValue(TimeInStateValue.NAME_STATE, state);
-					//					opp.withValue(TimeInStateValue.NAME_TIME, time);
+					//					opp.withValues(values);
 				}
-				//operations.add(opp.build());
+				//				operations.add(opp.build());
 				if (c != null) {
 					c.close();
 				}
