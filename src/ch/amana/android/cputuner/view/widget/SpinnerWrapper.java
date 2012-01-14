@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import ch.amana.android.cputuner.helper.GuiUtils;
-import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 
 public class SpinnerWrapper implements OnItemSelectedListener {
 
@@ -23,7 +23,7 @@ public class SpinnerWrapper implements OnItemSelectedListener {
 		spinner.setOnItemSelectedListener(this);
 	}
 
-	public void setAdapter(ProfileAdaper adapter) {
+	public void setAdapter(SpinnerAdapter adapter) {
 		possition = INITIAL;
 		spinner.setAdapter(adapter);
 	}
@@ -58,6 +58,10 @@ public class SpinnerWrapper implements OnItemSelectedListener {
 		for (OnItemSelectedListener listener : listeners) {
 			listener.onNothingSelected(parent);
 		}
+	}
+
+	public SpinnerAdapter getAdapter() {
+		return spinner.getAdapter();
 	}
 
 }

@@ -15,6 +15,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
 
 public class CpuFrequencyChooser {
 
@@ -27,9 +28,9 @@ public class CpuFrequencyChooser {
 	}
 
 	private SeekBar sbCpuFreqMax;
-	private Spinner spCpuFreqMax;
+	private SpinnerWrapper spCpuFreqMax;
 	private SeekBar sbCpuFreqMin;
-	private Spinner spCpuFreqMin;
+	private SpinnerWrapper spCpuFreqMin;
 	private final int[] availCpuFreqsMin;
 	private final int[] availCpuFreqsMax;
 	private FrequencyChangeCallback callback;
@@ -51,13 +52,13 @@ public class CpuFrequencyChooser {
 		}
 	}
 
-	public CpuFrequencyChooser(FrequencyChangeCallback callback, SeekBar sbCpuFreqMin, Spinner spCpuFreqMin, SeekBar sbCpuFreqMax, Spinner spCpuFreqMax) {
+	public CpuFrequencyChooser(FrequencyChangeCallback callback, SeekBar sbCpuFreqMin, Spinner spinnerCpuFreqMin, SeekBar sbCpuFreqMax, Spinner spinnerCpuFreqMax) {
 		this();
 		this.callback = callback;
 		this.sbCpuFreqMin = sbCpuFreqMin;
-		this.spCpuFreqMin = spCpuFreqMin;
+		this.spCpuFreqMin = new SpinnerWrapper(spinnerCpuFreqMin);
 		this.sbCpuFreqMax = sbCpuFreqMax;
-		this.spCpuFreqMax = spCpuFreqMax;
+		this.spCpuFreqMax = new SpinnerWrapper(spinnerCpuFreqMax);
 
 		spCpuFreqMax.setAdapter(getCpufreqSpinnerAdapter(availCpuFreqsMax));
 		spCpuFreqMax.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -215,7 +216,7 @@ public class CpuFrequencyChooser {
 		}
 	}
 
-	private void setSpinner(int freq, Spinner spinner) {
+	private void setSpinner(int freq, SpinnerWrapper spinner) {
 		try {
 			SpinnerAdapter adapter = spinner.getAdapter();
 			for (int i = 0; i < adapter.getCount(); i++) {
