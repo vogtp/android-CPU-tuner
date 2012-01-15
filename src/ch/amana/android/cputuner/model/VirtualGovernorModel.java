@@ -142,7 +142,9 @@ public class VirtualGovernorModel implements IGovernorModel {
 	}
 
 	public void setVirtualGovernorName(String virtualGovernorName) {
-		this.virtualGov = virtualGovernorName.trim();
+		if (virtualGovernorName != null) {
+			this.virtualGov = virtualGovernorName.trim();
+		}
 	}
 
 	public long getDbId() {

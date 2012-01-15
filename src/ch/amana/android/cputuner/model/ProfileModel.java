@@ -252,7 +252,9 @@ public class ProfileModel implements IGovernorModel {
 	}
 
 	public void setProfileName(String profileName) {
-		this.profileName = profileName.trim();
+		if (profileName != null) {
+			this.profileName = profileName.trim();
+		}
 	}
 
 	public long getDbId() {

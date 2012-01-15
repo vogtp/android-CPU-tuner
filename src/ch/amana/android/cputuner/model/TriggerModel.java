@@ -199,7 +199,9 @@ public class TriggerModel {
 	}
 
 	public void setName(String name) {
-		this.name = name.trim();
+		if (name != null) {
+			this.name = name.trim();
+		}
 	}
 
 	public void setBatteryLevel(int batLevel) {
