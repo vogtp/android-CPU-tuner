@@ -82,8 +82,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private ProfileAdaper profileAdapter;
 	private TextView tvManualServiceChanges;
 
-
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
@@ -130,9 +128,11 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			governorFragment = new GovernorFragment(this, governorHelper, true);
 		}
 		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
-		fragmentTransaction.commit();
+		if (fragmentManager.findFragmentByTag("governorFragment") == null) {
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment, "governorFragment");
+			fragmentTransaction.commit();
+		}
 
 		CursorLoader cursorLoader = new CursorLoader(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 		Cursor cursor = cursorLoader.loadInBackground();
@@ -247,6 +247,11 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void updateView() {
+		if (getActivity() == null) {
+			// somehow we get the wrong act
+			// FIXME this disables it but avoids crashes
+			return;
+		}
 		deviceStatusChanged();
 		profileChanged();
 		triggerChanged();

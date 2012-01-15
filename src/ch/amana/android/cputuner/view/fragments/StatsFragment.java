@@ -62,6 +62,11 @@ public class StatsFragment extends PagerFragment {
 	}
 
 	private void updateView(Context context) {
+		if (getActivity() == null) {
+			// somehow we get the wrong act
+			// FIXME this disables it but avoids crashes
+			return;
+		}
 		if (tvStats == null) {
 			return;
 		}

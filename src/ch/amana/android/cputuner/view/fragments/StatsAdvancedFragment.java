@@ -215,6 +215,11 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	}
 
 	private void updateStatistics(Context context) {
+		if (getActivity() == null) {
+			// somehow we get the wrong act
+			// FIXME this disables it but avoids crashes
+			return;
+		}
 		getLoaderManager().restartLoader(0, null, this);
 		setDataState(LoadingState.LOADING);
 	}
