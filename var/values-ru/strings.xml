@@ -1,3 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="labelMessage">Message:</string>
+    <string name="labelState">State:</string>
+    <string name="labelTime">Time:</string>
+    <string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
+    <string name="prefEnableSwitchCpuSetting">Use special CPU settings on profile switch</string>
+    <string name="prefEnableSwitchCpuSettingOn">Special CPU settings will be used on profile switch.</string>
+    <string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
+    <string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
+    <string name="prefSwitchCpuSettingLong">These CPU settings will be used on profile switch, it can speed up profile switch when heavily underclocking (underclocking is not recommended).</string>
+    <string name="label_back">Go back</string>
+    <string name="label_forward">Go forward</string>
+    <string name="label_home">Home</string>
+    <string name="prefCatEngine">Engine</string>
+    <string name="prefCatHelper">Helper</string>
+    <string name="msg_config_loaded">Loaded</string>
+    <string name="msg_config">configuration</string>
+    <string name="all">All</string>
+    <string name="labelNoDataForFilter">No data for this filter combination found.</string>
+    <string name="prefCatAdvStatistics">Advanced Statistics and Logging</string>
+    <string name="prefCatExtention">Extention</string>
+    <string name="prefEnableExtention">Enable Extension</string>
+    <string name="prefEnableSwitchLog">Enable profile switch log</string>
+    <string name="prefCatStatistics">Statistics</string>
+    <string name="prefEnableStatistics">Enable statistics</string>
+    <string name="prefLogPulse">Log pulse to switch log</string>
+    <string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
+    <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
+    <string name="msg_pulse_log_on">Pulse switched to on</string>
+    <string name="msg_pulse_log_off">Pulse switched to off</string>
+    <string name="msg_pulse_log_end">Stop pulsing</string>
+    <string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
+    <string name="menuMarkLog">Mark</string>
+    <string name="msgMarkLog">*** Mark ***</string>
+    <string name="menuClearLog">Clear Log</string>
+    <string name="enabled">Enabled</string>
+    <string name="ac_power">On AC Power</string>
+    <string name="battery">On battery</string>
+    <string name="screenOn">Screen On</string>
+    <string name="screenOff">Screen Off</string>
+    <string name="call_active">Call active</string>
+    <string name="battery_hot">Battery hot</string>
+    <string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use -1 to log for ever.</string>
+
 </resources> 
