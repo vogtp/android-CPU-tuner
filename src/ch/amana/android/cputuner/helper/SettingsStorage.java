@@ -581,6 +581,11 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(PREF_KEY_ADV_STATS, b);
 		editor.commit();
+		if (b && isRunStatisticsService()) {
+			StatisticsReceiver.register(context);
+		} else {
+			StatisticsReceiver.unregister(context);
+		}
 	}
 
 	public boolean isAdvancesStatistics() {
@@ -681,7 +686,7 @@ public class SettingsStorage {
 		editor.putBoolean(PREF_KEY_ENABLE_STATISTICS_SERVICE, b);
 		editor.commit();
 		enableEnableStatistics = b;
-		if (b) {
+		if (b && isAdvancesStatistics()) {
 			StatisticsReceiver.register(context);
 		} else {
 			StatisticsReceiver.unregister(context);

@@ -31,7 +31,8 @@ public class StatisticsReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if (!SettingsStorage.getInstance(context).isRunStatisticsService()) {
+		SettingsStorage settings = SettingsStorage.getInstance(context);
+		if (!settings.isRunStatisticsService() || !settings.isAdvancesStatistics()) {
 			return;
 		}
 		final Context ctx = context;
