@@ -276,7 +276,6 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.advstats_option, menu);
-		inflater.inflate(R.menu.refresh_option, menu);
 	}
 
 	@Override
