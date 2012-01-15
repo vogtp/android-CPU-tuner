@@ -254,6 +254,9 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 
 	private void resetStatistics(final Context ctx) {
 		final Activity act = getActivity();
+		if (act == null) {
+			return;
+		}
 		Builder alertBuilder = new AlertDialog.Builder(act);
 		alertBuilder.setTitle(R.string.title_reset_statistics);
 		alertBuilder.setMessage(R.string.msg_reset_statistics);
