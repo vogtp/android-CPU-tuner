@@ -19,6 +19,7 @@
     "powersaveBias": "300",
     "governor": "conservative|ondemand|interactive|smartass|performance",
     "script": "",
+    "useNumberOfCpus": "1",
     "governorThresholdUp": "90",
     "governorThresholdDown": "50"
    }
