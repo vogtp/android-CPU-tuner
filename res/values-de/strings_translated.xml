@@ -34,10 +34,10 @@
     <string name="msg_pulse_log_on">Puls hat Dienste angeschaltet.</string>
     <string name="msg_pulse_log_off">Puls hat Dienste ausgeschaltet.</string>
     <string name="msg_pulse_log_end">Pulsieren ende.</string>
-    <string name="prefCatAdvStatistics">Statistik und Log</string>
+    <string name="prefCatAdvStatistics">Statistik und Logger</string>
     <string name="prefLogPulse">Logge pulsieren</string>
     <string name="prefLogPulseOn">Pulsieren wird geloggt.</string>
-    <string name="prefLogPulseOn">Pulsieren wird nicht geloggt.</string>
+    <string name="prefLogPulseOff">Pulsieren wird nicht geloggt.</string>
     <string name="msg_capcheck_result_more_info">(Klicke auf Resultat für mehr Informationen)</string>
     <string name="label_home">Startseite</string>
     <string name="prefPowerStrongerThanScreenoffOn">When das Gerät am Ladegerät und der Bildschirm aus ist, dann wird das Profil \"Am Ladegerät\" gewählt.</string>
@@ -49,11 +49,11 @@
     <string name="reset">Zurücksetzten</string>
     <string name="title_reset_statistics">Statistiken zurücksetzten</string>
     <string name="msg_reset_statistics">Setzte die Statistik zurück und verwende den aktuellen Zustand als Grundlage für die Zukunft.</string>
-    <string name="msgManualServiceChanges">	  Dienste wurden manuell geändert und werden daher nicht mehr von cpu tuner geändert.<br></br>		Zum zurücksetzten anklicken.</string>
+    <string name="msgManualServiceChanges">	  Dienste wurden manuell geändert und werden daher nicht mehr von CPU Tuner geändert.<br></br>		Zum zurücksetzten anklicken.</string>
     <string name="title_reset_manual_service_switches">Dienste zurücksetzten?</string>
     <string name="msg_reset_manual_service_switches">Sollen die manuellen Dienst-Änderungen zurückgesetzt werden.
-	  Cpu tuner wird dann Dienste wieder automatisch ändern.</string>
-    <string name="msg_cpu_tuner_not_running">Cpu tuner läuft nicht.</string>
+	  CPU Tuner wird dann Dienste wieder automatisch ändern.</string>
+    <string name="msg_cpu_tuner_not_running">CPU Tuner läuft nicht.</string>
 
     <string-array name="prefAddToNotificationEntries">
         <item>In Betrieb</item>
@@ -72,9 +72,9 @@
     <string name="msg_unusable_comfig_save">>Diese Konfiguration konnte nicht geladen werden. 
 	   Da sie nicht korrekt ist. Entweder fehlen Auslöser, Profile oder Regler.</string>
     <string name="tvSequenceInfo">Die Profile sind in umgekehrter Reihenfolge dargestellt.
-	  Cpu tuner beginnt mit der Evaluation von unten nach oben und wählt das erste Profil das dem 
+	  CPU Tuner beginnt mit der Evaluation von unten nach oben und wählt das erste Profil das dem 
 	  aktuellen Zustand entspricht.</string>
-    <string name="msg_warning_manual_service_switches">		\"Manuelle Dienst-Änderungen\" sind in den Einstellungen aktiviert worden.<br></br>		Dies heisst, dass ein Dienst nicht von cpu tuner geändert wird, falls er ausserhalb von cpu tuner verändert wurde.<br></br>		Pulsierende Dienste und \"zurück zum vorigen\" sind nicht davon betroffen und werde normal geändert.</string>
+    <string name="msg_warning_manual_service_switches">		\"Manuelle Dienst-Änderungen\" sind in den Einstellungen aktiviert worden.<br></br>		Dies heisst, dass ein Dienst nicht von CPU Tuner geändert wird, falls er ausserhalb von CPU Tuner verändert wurde.<br></br>		Pulsierende Dienste und \"zurück zum vorigen\" sind nicht davon betroffen und werde normal geändert.</string>
     <string name="msg_warning_not_switch_wifi_connected">Wifi wird nicht geändert wenn es mit einen Netzwerk verbunden ist. 
 	  Dies kann in den Einstellungen geändert werden.</string>
     <string name="menuUpgrade">Erweiterungen</string>
@@ -95,7 +95,7 @@
     <string name="desc_buy_toy">Dies wird mein Kinder eine längere Zeit beschäftigen und hilft mir vielleicht
 	  etwas Neues zu implementieren. (Ich kann aber nichts versprechen....)</string>
     <string name="name_buy_toy">Kauf meinen Kindern ein Spiel.</string>
-    <string name="prefextentionsLong">Erweitere cpu tuner...</string>
+    <string name="prefextentionsLong">Erweitere CPU Tuner...</string>
     <string name="title_changelog">Changelog</string>
     <string name="prefServiceSwitchesLong">Ändere die Art wie Dienst-Änderungen durchgeführt werden.</string>
     <string name="prefCpuLong">Einstellungen der CPU.</string>
@@ -115,7 +115,7 @@
     <string name="label_frequency">Frequenz</string>
     <string name="label_time">Zeit</string>
     <string name="title_no_configuration">Konfiguration nicht verwendbar.</string>
-    <string name="label_no_configuration">Cpu tuner hat festgestellt, das die aktuelle Konfiguration nicht verwendbar ist. Soll eine neue Konfiguration geladen werden?</string>
+    <string name="label_no_configuration">CPU Tuner hat festgestellt, das die aktuelle Konfiguration nicht verwendbar ist. Soll eine neue Konfiguration geladen werden?</string>
     <string name="load">Laden</string>
     <string name="cont">Weiter</string>
 
@@ -126,8 +126,8 @@
         <item>Keine Berechnung</item>
     </string-array>
 
-    <string name="msgEnableCputuner">Aktiviere cpu tuner</string>
-    <string name="msgDisableCputuner">Deaktiviere cpu tuner</string>
+    <string name="msgEnableCputuner">Aktiviere CPU Tuner</string>
+    <string name="msgDisableCputuner">Deaktiviere CPU Tuner</string>
     <string name="labelYourConfigurations">Meine Konfigurationen</string>
     <string name="labelSystemConfigurations">System Konfigurationen</string>
     <string name="msg_cannot_delete_current_configuration">Die aktuelle Konfiguration kann nicht gelöscht werden!</string>
@@ -142,20 +142,20 @@
     <string name="msg_title_unsaved_changes">Nicht gespeicherte Änderungen</string>
     <string name="msg_unsaved_changes">Der Editor hat nicht gespeicherte Änderungen. Sollen die Änderungen gespeichert werden?</string>
     <string name="msg_title_grant_root">Erlaube Superuser-Zugriff.</string>
-    <string name="msg_grant_root">u wirst gefragt werden, ob Du für cpu tuner Superuser-Zugriff erlauben willst.
-	    Bitte diesen Zugriff erlauben und Merken ankreuzen.  Cpu tuner wird ohne Superuser-Zugriff nicht funktionieren.</string>
+    <string name="msg_grant_root">u wirst gefragt werden, ob Du für CPU Tuner Superuser-Zugriff erlauben willst.
+	    Bitte diesen Zugriff erlauben und Merken ankreuzen.  CPU Tuner wird ohne Superuser-Zugriff nicht funktionieren.</string>
     <string name="labelLogTab">Profil Wechsel Log</string>
     <string name="msg_no_profile_switch_log">Kein Profil Wechsel Log gefunden</string>
     <string name="menuItemInsertAsNew">Als neu einfügen</string>
-    <string name="prefCatGUILong">Verändert die Art wie cpu tuner Dinge darstellt.</string>
-    <string name="prefCatSystemLong">Verändert die Art wie cpu tuner arbeitet .</string>
+    <string name="prefCatGUILong">Verändert die Art wie CPU Tuner Dinge darstellt.</string>
+    <string name="prefCatSystemLong">Verändert die Art wie CPU Tuner arbeitet .</string>
     <string name="prefBuyMeABeerLong">Mach mich glücklicher und nichts mehr.</string>
-    <string name="prefVariousLong">Informationen über cpu tuner.</string>
+    <string name="prefVariousLong">Informationen über CPU Tuner.</string>
     <string name="prefConfigurationsManageLong">Speichern und Wiederherstellen von Konfigurationen (d.h. der Auslöser, Profile und Regler.).</string>
     <string name="prefConfigurationsAutoLoadLong">Laden Konfigurationen basierend auf der Zeit und dem Wochentag.</string>
-    <string name="prefLanguageLong">Wähle eine andere Sprache. Cpu tuner muss dannach neu geöffnet werden.</string>
-    <string name="prefEnableCputunerOn">Cpu tuner läuft.</string>
-    <string name="prefEnableCputunerOff">Cpu tuner läuft nicht.</string>
+    <string name="prefLanguageLong">Wähle eine andere Sprache. CPU Tuner muss dannach neu geöffnet werden.</string>
+    <string name="prefEnableCputunerOn">CPU Tuner läuft.</string>
+    <string name="prefEnableCputunerOff">CPU Tuner läuft nicht.</string>
     <string name="prefKeyProfilesLong">Ändere die Art wie sich Auslöser, Profile und Regler verhalten.</string>
     <string name="labelUseCpus_front">Benutze </string>
     <string name="labelUseCpus_end">CPUs</string>
@@ -163,7 +163,7 @@
     <string name="prefForceMulticoreCodeOn">Benutze mehrkern CPU Funktionen, unabhängig davon welcher Typ CPU gefunden wurde. </string>
     <string name="prefForceMulticoreCodeOff">Benutze mehrkern CPU Funktionen, wenn eine mehrkern CPU gefunden wurde. </string>
     <string name="labelActiveCpus">Aktive CPUs:</string>
-    <string name="prefEnableCputuner">Aktiviere cpu tuner</string>
+    <string name="prefEnableCputuner">Aktiviere CPU Tuner</string>
 
     <string-array name="prefMulticoreEntries">
         <item>Auto</item>
@@ -171,18 +171,18 @@
         <item>Deaktivieren</item>
     </string-array>
 
-    <string name="prefMulticoreLong">Soll cpu tuner auf allen CPU Kernen arbeiten.</string>
+    <string name="prefMulticoreLong">Soll CPU Tuner auf allen CPU Kernen arbeiten.</string>
     <string name="prefConfigurationsLong">Speichern und Wiederherstellen (und mehr)</string>
     <string name="prefCpu">CPU Einstellungen</string>
     <string name="prefChangelog">Zeige das Changelog</string>
     <string name="label_version">Version:</string>
     <string name="prefLegalGnomeIcons">Haupt Icon Lizenz</string>
     <string name="prefLegalGnomeIconsLong">Lizenz des benutzen Icons aus dem Gnome Projekt. Danke für das schöne Icon.</string>
-    <string name="msg_disable_cpu_tuner">Deaktiviere cpu tuner</string>
-    <string name="msg_disable_cputuner_question">Möchtest Du cpu tuner stoppen?</string>
+    <string name="msg_disable_cpu_tuner">Deaktiviere CPU Tuner</string>
+    <string name="msg_disable_cputuner_question">Möchtest Du CPU Tuner stoppen?</string>
     <string name="msg_delete_autoload_configuration">Lösche diese Auto-Laden Konfiguration?</string>
     <string name="prefNetworkModeOnWifiConnected">Netzwerkmodus falls Wifi verbunden ist</string>
-    <string name="prefNetworkModeOnWifiConnectedLong">Wähle den Netzwerkmodus der verwendet wird falls Wifi Verbindung besteht. Wenn die Verbindung nicht mehr besteht geht cpu tuner zurück zum vorherigen.</string>
+    <string name="prefNetworkModeOnWifiConnectedLong">Wähle den Netzwerkmodus der verwendet wird falls Wifi Verbindung besteht. Wenn die Verbindung nicht mehr besteht geht CPU Tuner zurück zum vorherigen.</string>
 
     <string-array name="mobiledataOnWifiStatesEnties">
         <item>Unverändert lassen</item>
@@ -318,7 +318,7 @@
     <string name="msgNoEmail">Bitte schreibe keine leeren E-Mails ...</string>
     <string name="labelResult">Resultat</string>
     <string name="labelCheck">Prüfe</string>
-    <string name="labelAppVersion">CPU-Tuner Version:</string>
+    <string name="labelAppVersion">CPU Tuner Version:</string>
     <string name="msgNoIssuesFound">Keine Probleme gefunden.</string>
     <string name="prefVritualGovernorsListLong">Virtuelle Regler sind vorkonfigurierte Regler.</string>
     <string name="virtualGovernorsList">Virtuelle Regler</string>
@@ -396,7 +396,7 @@
     <string name="labelAcPower">Am laden:</string>
     <string name="labelMax">Max:</string>
     <string name="labelMin">Min:</string>
-    <string name="app_name">CPU-Tuner</string>
+    <string name="app_name">CPU Tuner</string>
     <string name="labelPowerProfile">Leistungsprofile: </string>
     <string name="spinnerPromptGov">Wähle den Regler</string>
     <string name="buApplyCurProfile">Übernehmen, um das aktuelle CPU-Profil anzuwenden</string>
@@ -468,13 +468,13 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
         <item>Keine Berechnung</item>
     </string-array>
     <string-array name="prefUserLevelEntries">
-        <item><b>Anfänger</b>: CPU-Tuner versucht schlau zu sein.</item>
-        <item><b>Normal</b>: CPU-Tuner unterstützt Dich.</item>
+        <item><b>Anfänger</b>: CPU Tuner versucht schlau zu sein.</item>
+        <item><b>Normal</b>: CPU Tuner unterstützt Dich.</item>
         <item><b>Profi</b>: Du weisst. was Du tust.</item>
     </string-array>
 
     <string name="cbEnableVirtualGovernors">Virtuellen Regler</string>
-    <string name="userExperianceLevelExplain">CPU-Tuner kennt verschiedenen Erfahrungs-Ebenen ansetzen. Abhängig von der Erfahrungsstufe kannst Du aus einer größeren Auswahl auswählen und Du kannst mehr Änderungen vornehmen.</string>
+    <string name="userExperianceLevelExplain">CPU Tuner kennt verschiedenen Erfahrungs-Ebenen ansetzen. Abhängig von der Erfahrungsstufe kannst Du aus einer größeren Auswahl auswählen und Du kannst mehr Änderungen vornehmen.</string>
     <string name="prefCallInProgressProfile">Profil während eines Anrufes</string>
     <string name="prefCallInProgressProfileLong">Aktiviert ein Profil, das während der Telefonverbindung ausgelöste wird.</string>
     <string name="msg_checking_capabilities">Fähigkeiten überprüfen </string>
@@ -505,14 +505,14 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
     <string name="virtgovname_save_battery">Akkusparend</string>
     <string name="virtgovname_extrem_save_battery">Extrem Akkusparend</string>
     <string name="title_reboot">Neustart</string>
-    <string name="msg_reboot">Der automatische Neustart ist fehlgeschlagen.  Bitte einen manuellen Neustart, durch langes Drücken der Power-Taste,erzwingen. Sonst wird CPU-Tuner nicht funktionieren.</string>
+    <string name="msg_reboot">Der automatische Neustart ist fehlgeschlagen.  Bitte einen manuellen Neustart, durch langes Drücken der Power-Taste,erzwingen. Sonst wird CPU Tuner nicht funktionieren.</string>
     <string name="bu_system_reboot">Neustart durch das Systems (nicht empfehlenswert)</string>
-    <string name="title_uninstall_sys">Deinstalliere CPU-Tuner als System APP</string>
+    <string name="title_uninstall_sys">Deinstalliere CPU Tuner als System APP</string>
     <string name="bu_yes_uninstall_sys">Deinstallieren und neu starten</string>
     <string name="msg_uninstall_sys">Erfordert einen Neustart durch Drücken \'Deinstallieren und neu starten\' wird das Gerät neu gestartet.</string>
     <string name="msg_install_sys">Erfordert einen Neustart durch Drücken \'Installation und Neustart\' wird das Gerät neu gestartet.</string>
     <string name="bu_yes_title_install_sys">Installieren und starten</string>
-    <string name="title_install_sys">Installation des CPU-Tuners als System app</string>
+    <string name="title_install_sys">Installation des CPU Tuners als System app</string>
     <string name="msg_has_issues">Hat Probleme</string>
     <string name="msg_not_working">Funktioniert nicht</string>
     <string name="msg_working">Funktioniert</string>
@@ -520,8 +520,8 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
     <string name="msg_premail_no_issues">Es sind keine Probleme gefunden worden...\n
 Bist Du zufrieden und möchtest ein Feedback geben:\n
 Kommentare und gute Bewertungen auf dem Markt werden geschätzt...</string>
-    <string name="msg_capcheck_not_rooted">CPU-Tuner verfügt nicht über Root-Zugriff!\n
-Die meisten Funktionen von CPU-Tuner gehen so nicht!\nHast Du Dein Gerät gerooted?\nHast Du CPU-Tuner root Zugriff gegeben?</string>
+    <string name="msg_capcheck_not_rooted">CPU Tuner verfügt nicht über Root-Zugriff!\n
+Die meisten Funktionen von CPU Tuner gehen so nicht!\nHast Du Dein Gerät gerooted?\nHast Du CPU Tuner root Zugriff gegeben?</string>
     <string name="msg_capcheck_found_some_issues">Kleinere Probleme gefunden... Einige Funktionen werden nicht gehen.</string>
     <string name="msg_capcheck_no_issues">Keine Probleme gefunden...</string>
     <string name="and">und</string>
@@ -531,8 +531,8 @@ Dies ergibt jedoch noch immer gute resultate</string>
     1) Benutze die funktionierenden Regler und ignorier die anderen.
 		Dies ergibt wohl noch immer gute Resultate.\n
 		2) Flashe einen neuen Kernel\n3) Flashe ein anderes ROM\n</string>
-    <string name="msg_premail_no_root">CPU-Tuner verfügt nicht über Root-Zugriff!\n
-Die meisten Funktionen von CPU-Tuner gehen so nicht!</string>
+    <string name="msg_premail_no_root">CPU Tuner verfügt nicht über Root-Zugriff!\n
+Die meisten Funktionen von CPU Tuner gehen so nicht!</string>
     <string name="msg_premail_issues">Deine Konfiguration hat Probleme ...\n
 Dies liegt wahrscheinlich am Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n
 1) Flashen eines neuen Kernels\n\n
