@@ -635,7 +635,7 @@ public class SettingsStorage {
 	}
 
 	public boolean isLogPulse() {
-		return getPreferences().getBoolean("prefKeyLogPulse", false);
+		return getPreferences().getBoolean("prefKeyLogPulse", isAdvancesStatistics());
 	}
 
 	public boolean isEnableSwitchCpuSetting() {

@@ -29,7 +29,6 @@
         </EditTextPreference>
 
         <CheckBoxPreference
-            android:defaultValue="false"
             android:key="prefKeyLogPulse"
             android:summaryOff="@string/prefLogPulseOff"
             android:summaryOn="@string/prefLogPulseOn"
