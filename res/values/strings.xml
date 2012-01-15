@@ -1,29 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="labelMessage">Message:</string>
-    <string name="labelState">State:</string>
-    <string name="labelTime">Time:</string>
-    <string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
-    <string name="prefEnableSwitchCpuSetting">Use special CPU settings on profile switch</string>
-    <string name="prefEnableSwitchCpuSettingOn">Special CPU settings will be used on profile switch.</string>
-    <string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
-    <string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
-    <string name="prefSwitchCpuSettingLong">These CPU settings will be used on profile switch, it can speed up profile switch when heavily underclocking (underclocking is not recommended).</string>
-    <string name="label_back">Go back</string>
-    <string name="label_forward">Go forward</string>
-    <string name="label_home">Home</string>
-    <string name="prefCatEngine">Engine</string>
-    <string name="prefCatHelper">Helper</string>
-    <string name="msg_config_loaded">Loaded</string>
-    <string name="msg_config">configuration</string>
-    <string name="all">All</string>
-    <string name="labelNoDataForFilter">No data for this filter combination found.</string>
-    <string name="prefCatAdvStatistics">Advances Statistics and Logging</string>
-    <string name="prefCatExtention">Extention</string>
-    <string name="prefEnableExtention">Enable Extension</string>
-    <string name="prefEnableSwitchLog">Enable profile switch log</string>
-    <string name="prefCatStatistics">Statistics</string>
-    <string name="prefEnableStatistics">Enable statistics</string>
-
 </resources>
