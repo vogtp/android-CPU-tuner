@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201201150"
+    android:versionCode="201201160"
     android:versionName="@string/version" >
 
     <uses-sdk
@@ -168,9 +168,7 @@
             -->
         </receiver>
 
-        <activity
-            android:name=".view.activity.CpuTunerViewpagerActivity"
-            android:configChanges="orientation" >
+        <activity android:name=".view.activity.CpuTunerViewpagerActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
