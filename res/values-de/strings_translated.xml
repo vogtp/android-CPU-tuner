@@ -74,11 +74,11 @@
     <string name="tvSequenceInfo">Die Profile sind in umgekehrter Reihenfolge dargestellt.
 	  CPU Tuner beginnt mit der Evaluation von unten nach oben und wählt das erste Profil das dem 
 	  aktuellen Zustand entspricht.</string>
-    <string name="msg_warning_manual_service_switches">		\"Manuelle Dienst-Änderungen\" sind in den Einstellungen aktiviert worden.<br></br>		Dies heisst, dass ein Dienst nicht von CPU Tuner geändert wird, falls er ausserhalb von CPU Tuner verändert wurde.<br></br>		Pulsierende Dienste und \"zurück zum vorigen\" sind nicht davon betroffen und werde normal geändert.</string>
+    <string name="msg_warning_manual_service_switches">	\"Manuelle Dienst-Änderungen\" sind in den Einstellungen aktiviert worden.<br></br>Dies heisst, dass ein Dienst nicht von CPU Tuner geändert wird, falls er ausserhalb von CPU Tuner verändert wurde.<br></br>		Pulsierende Dienste und \"zurück zum vorigen\" sind nicht davon betroffen und werde normal geändert.</string>
     <string name="msg_warning_not_switch_wifi_connected">Wifi wird nicht geändert wenn es mit einen Netzwerk verbunden ist. 
 	  Dies kann in den Einstellungen geändert werden.</string>
     <string name="menuUpgrade">Erweiterungen</string>
-    <string name="desc_extention_stats">Die Statistik Erweiterung generiert schönere und detailliertere Statistiken und Logs.<br></br>		Sie hilft dabei aus cpu tune das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.</string>
+    <string name="desc_extention_stats">Die Statistik Erweiterung generiert schönere und detailliertere Statistiken und Logs.<br></br>Sie hilft dabei aus CPU Tuner das letzte heraus zu holen, indem sie zusätzliche Informationen gibt.</string>
     <string name="title_products">Produkte</string>
     <string name="title_extentions">Erweiterungen</string>
     <string name="name_extention_stats">Statistik und Logger Erweiterung</string>
