@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,11 +22,11 @@ import com.markupartist.android.widget.ActionBar.Action;
 public class PagerAdapter extends FragmentPagerAdapter
 		implements ViewPager.OnPageChangeListener, PagerHeader.OnHeaderClickListener {
 
-	private final Context mContext;
+	private final FragmentActivity context;
 	private final ViewPager mPager;
 	private final PagerHeader mHeader;
 	private final ArrayList<PageInfo> mPages = new ArrayList<PageInfo>();
-	private static Fragment currentPage;
+	private Fragment currentPage;
 	private boolean first = true;
 	private final ActionBarWrapper mActionBar;
 	private final Map<Integer, Fragment> fragments = new HashMap<Integer, Fragment>();
@@ -55,7 +54,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	public PagerAdapter(FragmentActivity activity, ViewPager pager,
 			PagerHeader header, ActionBarWrapper actionBar) {
 		super(activity.getSupportFragmentManager());
-		mContext = activity;
+		context = activity;
 		mPager = pager;
 		mHeader = header;
 		mHeader.setOnHeaderClickListener(this);
@@ -73,7 +72,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	}
 
 	public void addPage(Class<? extends PagerItem> clss, Bundle args, int res) {
-		addPage(clss, null, mContext.getResources().getString(res));
+		addPage(clss, null, context.getResources().getString(res));
 	}
 
 	public void addPage(Class<? extends PagerItem> clss, Bundle args, String title) {
@@ -93,8 +92,11 @@ public class PagerAdapter extends FragmentPagerAdapter
 		Fragment f = fragments.get(position);
 		if (f == null) {
 			PageInfo info = mPages.get(position);
-			f = Fragment.instantiate(mContext, info.clss.getName(), info.args);
+			f = Fragment.instantiate(context, info.clss.getName(), info.args);
 			fragments.put(position, f);
+			if (currentPage == null) {
+				currentPage = f;
+			}
 		}
 		if (first && position == 0) {
 			first = false;
@@ -156,7 +158,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 		return currentPage.onOptionsItemSelected(item);
 	}
 
-	public static Fragment getCurrentItem() {
+	public Fragment getCurrentItem() {
 		if (currentPage == null) {
 			return new Fragment();
 		}

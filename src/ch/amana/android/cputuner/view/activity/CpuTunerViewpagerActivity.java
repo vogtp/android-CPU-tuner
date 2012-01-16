@@ -11,9 +11,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -214,7 +212,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		//		return pagerAdapter.onPrepareOptionsMenu(menu);
 		menu.clear();
 		MenuInflater menuInflater = getMenuInflater();
-		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
+		pagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
 		menuInflater.inflate(R.menu.gerneral_help_menu, menu);
 		menuInflater.inflate(R.menu.gerneral_options_menu, menu);
 		return true;
@@ -223,7 +221,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		try {
-			if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
+			if (((PagerItem) pagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
 				return true;
 			}
 		} catch (ClassCastException e) {
@@ -236,20 +234,11 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	}
 
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		Fragment currentPage = PagerAdapter.getCurrentItem();
-		if (currentPage != null) {
-			currentPage.onConfigurationChanged(newConfig);
-		}
-		super.onConfigurationChanged(newConfig);
-	}
-
-	@Override
 	protected void onResume() {
 		super.onResume();
 		registerReceiver();
 		try {
-			PagerAdapter.getCurrentItem().onResume();
+			pagerAdapter.getCurrentItem().onResume();
 		} catch (Exception e) {
 			Logger.e("Cannot resume current fragment", e);
 		}
@@ -257,7 +246,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	protected void onPause() {
-		PagerAdapter.getCurrentItem().onPause();
+		pagerAdapter.getCurrentItem().onPause();
 		unregisterReceiver();
 		super.onPause();
 	}
