@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -189,7 +190,7 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				markLog(getActivity());
+				markLog(view.getContext());
 			}
 
 			@Override
@@ -211,11 +212,11 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		return actions;
 	}
 
-	private void markLog(Activity act) {
+	private void markLog(Context context) {
 		Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
-		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, act.getString(R.string.msgMarkLog));
+		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, context.getString(R.string.msgMarkLog));
 		i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);
-		act.sendBroadcast(i);
+		context.sendBroadcast(i);
 	}
 
 	@Override
