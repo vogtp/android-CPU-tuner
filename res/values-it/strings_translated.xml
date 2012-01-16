@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="prefConfigurationsSettings">Impostazioni Configurazioni</string>
@@ -379,5 +379,47 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="prefEnableUserspaceGovernor">Mostra Governor Userspace</string>
     <string name="prefEnableUserspaceGovernorOn">È possibile scegliere il governor userspace.</string>
     <string name="prefEnableUserspaceGovernorOff">Il governor userpace verrà filtrato.</string>
+    <string name="labelMessage">Messaggio:</string>
+    <string name="labelState">Stato:</string>
+    <string name="labelTime">Ora:</string>
+    <string name="prefCatSwitchCpuSettings">Imposta CPU al cambio profilo</string>
+    <string name="prefEnableSwitchCpuSetting">Usa impostazioni speciali CPU al cambio profilo</string>
+    <string name="prefEnableSwitchCpuSettingOn">Le impostazioni speciali della CPU verranno usate al cambio profilo.</string>
+    <string name="prefEnableSwitchCpuSettingOff">Le impostazioni della CPU dei profili verranno usate al cambio profilo.</string>
+    <string name="prefSwitchCpuSetting">Impostazioni CPU al cambio profilo </string>
+    <string name="prefSwitchCpuSettingLong">Queste impostazioni della CPU verranno usate al cambio profile, può velocizzare il cambio profile quando si è sotto pesante underclock (underclock non consigliato).</string>
+    <string name="label_back">Indietro</string>
+    <string name="label_forward">Avanti</string>
+    <string name="label_home">Home</string>
+    <string name="prefCatEngine">Engine</string>
+    <string name="prefCatHelper">Aiuto</string>
+    <string name="msg_config_loaded">Caricate</string>
+    <string name="msg_config">Configurazione</string>
+    <string name="all">Tutte</string>
+    <string name="labelNoDataForFilter">Nessun dato trovato per questa combinazione.</string>
+    <string name="prefCatAdvStatistics">Statistiche avanzate e log </string>
+    <string name="prefCatExtention">Estensioni</string>
+    <string name="prefEnableExtention">Abilta Extension</string>
+    <string name="prefEnableSwitchLog">Abilita log del cambio profilo </string>
+    <string name="prefCatStatistics">Statistiche</string>
+    <string name="prefEnableStatistics">Abilita statistiche</string>
+    <string name="prefLogPulse">Log pulse to switch log</string>
+    <string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
+    <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
+    <string name="msg_pulse_log_on">Pulse switched to on</string>
+    <string name="msg_pulse_log_off">Pulse switched to off</string>
+    <string name="msg_pulse_log_end">Stop pulsing</string>
+    <string name="msg_capcheck_result_more_info">(Tap per maggiori informazioni.)</string>
+    <string name="menuMarkLog">Mark</string>
+    <string name="msgMarkLog">*** Mark ***</string>
+    <string name="menuClearLog">Cancella Log</string>
+    <string name="enabled">Abilitato</string>
+    <string name="ac_power">In carica</string>
+    <string name="battery">Con batteria</string>
+    <string name="screenOn">Schermo acceso</string>
+    <string name="screenOff">Schermo spento</string>
+    <string name="call_active">Chiamata attiva</string>
+    <string name="battery_hot">Batteria calda</string>
+    <string name="prefProfileSwitchLogSizeLong">Quante ore devono contenere. Usare -1 per registrare tutto.</string>
 
 </resources>
