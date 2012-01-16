@@ -234,7 +234,7 @@ public class TunerService extends IntentService {
 	}
 
 	private static void releaseWakelock() {
-		if (wakeLock != null) {
+		if (wakeLock != null && wakeLock.isHeld()) {
 			wakeLock.release();
 			wakeLock = null;
 		}
