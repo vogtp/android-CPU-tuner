@@ -50,8 +50,8 @@
     <string name="msg_capcheck_not_rooted">Το CPU tuner δεν έχει προσβαση υπερχρήστη (root)!\nΌλες οι
 		λειτουργίες ρύθμισης της CPU ΔΕΝ ΘΑ λειτουργούν.\nΈχετε δικαιώματα υπερ-χρήστη στη συσκευή?\nΔώσατε
 		στο CPU tuner προνόμμια υπερχρήστη?</string>
-    <string name="msg_capcheck_found_some_issues">Βρέθηκαν κάποια θέματα... Ορισμένες λειτουργίες ενδέχεται να μην δουλεύουν.</string>
-    <string name="msg_capcheck_no_issues">Δε βρέθηκαν προβλήματα...</string>
+    <string name="msg_capcheck_found_some_issues">Βρέθηκαν κάποια θέματα… Ορισμένες λειτουργίες ενδέχεται να μην δουλεύουν.</string>
+    <string name="msg_capcheck_no_issues">Δε βρέθηκαν προβλήματα…</string>
     <string name="and">και</string>
     <string name="msg_capcheck_work_but_cannot_set_frequency">Λειτουργεί, αλλά δεν μπορεί να ορίσει συχνότητα.\nΑκόμα κι έτσι
 		έχουμε καλά αποτελέσματα.</string>
@@ -67,7 +67,7 @@
     <string name="prefLegalOxigenIconsLong">Άδεια για τη χρήση εικόνων oxygen. Ευχαριστώ για τα 
 	ωραία εικονίδια.</string>
     <string name="virtual_governor">Εικονικός governor</string>
-    <string name="msg_cannot_load_virtual_governor">Δε μπορεί να γίνει φόρτωση του εικονικού governor...</string>
+    <string name="msg_cannot_load_virtual_governor">Δε μπορεί να γίνει φόρτωση του εικονικού governor…</string>
     <string name="labelStatisticsTab">Στατιστικά</string>
     <string name="label_time_in_state">Χρόνος σε κατάσταση:</string>
     <string name="titleVirtualGovernorEditor">Επεξεργαστής εικονικού Governor</string>
@@ -117,7 +117,7 @@
     <string name="labelPowerUser">Έμπειρος χρήστης</string>
     <string name="labelNormalExplain">Πιο προχωρημένες ρυθμήσεις, όμως υπάρχει όριο στον υπερχρονισμό.</string>
     <string name="labelNormal">Κανονικό</string>
-    <string name="labelBeginnerExplain">Εύκολες ρυθμήσεις οι οποίες πρέπει να σωθούν πριν τη χρήση... Υποχρονισμός εφικτός μέχρι ένα σημείο.</string>
+    <string name="labelBeginnerExplain">Εύκολες ρυθμήσεις οι οποίες πρέπει να σωθούν πριν τη χρήση… Υποχρονισμός εφικτός μέχρι ένα σημείο.</string>
     <string name="labelBeginner">Αρχάριος</string>
     <string name="labelBatteryHot">Ζεστή μπαταρία:</string>
     <string name="labelCallInProgress">Κλήση σε εξέλιξη:</string>
@@ -141,7 +141,7 @@
     <string name="labelUsage">Χρήση:</string>
     <string name="labelBuFindFeq">Αναζήτηση συχνοτήτων (μόνο για beta) </string>
     <string name="msgAckAndHide">Αναγνώριση ζητημάτων και απόκρυψη από την κύρια οθόνη.</string>
-    <string name="msgNoEmail">Παρακαλώ μη γράφετε άδεια e-mails...</string>
+    <string name="msgNoEmail">Παρακαλώ μη γράφετε άδεια e-mails…</string>
     <string name="labelResult">Αποτέλεσμα</string>
     <string name="labelCheck">Έλεγχος</string>
     <string name="labelAppVersion">Έκδοση εφαρμογής:</string>
@@ -177,8 +177,8 @@
     <string name="prefAllowManualServiceChanges">Χειροκίνητη αλλαγή υπηρεσιών</string>
     <string name="prefCpuFreqMsg">Διάστημα διαχωρισμένης λίστας συχνοτήτων.</string>
     <string name="prefCpuFreq">Επιτρέπτές συχνότητες CPU</string>
-    <string name="prefCpuFreqLong">Αφήστε το κενό αν δε γνωρίζετε...!</string>
-    <string name="mailMessageOK">Δεν βρέθηκαν θέματα ... Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα.</string>
+    <string name="prefCpuFreqLong">Αφήστε το κενό αν δε γνωρίζετε…!</string>
+    <string name="mailMessageOK">Δεν βρέθηκαν θέματα … Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα.</string>
     <string name="mailMessage"></string>
     <string name="prefEnableBetaLong">Στείλτε μου e-mail</string>
     <string name="prefKeyCalcPowerUsageLong">Αυτό θα μπορούσε να στοιχίσει λίγο μπαταρία</string>
@@ -296,7 +296,7 @@
     <string name="prefCallInProgressProfile">Προφίλ σε περίπτωση τηλ. κλήσης</string>
     <string name="prefCallInProgressProfileLong">Ενεργοποιεί ένα προφίλ όταν υπάρχει τηλ. κλήση.</string>
     <string name="msg_checking_capabilities">Έλεγχος δυνατοτήτων</string>
-    <string name="msg_checking_governors">Έλεγχος governors ...</string>
+    <string name="msg_checking_governors">Έλεγχος governors …</string>
     <string name="msg_not_enough_frequencies_found">Δεν αρκούν οι συχνότητες που βρέθηκαν</string>
     <string name="msg_no_governors_found">Δε βρέθηκαν governors</string>
     <string name="msg_not_checked">Δεν ελέγχθηκε</string>
@@ -304,7 +304,7 @@
     <string name="msg_failure">Αποτυχία</string>
     <string name="msg_does_not_apply">Δεν εφαρμόζεται</string>
     <string name="msg_cannot_check">Δε μπορεί να ελεγχθεί</string>
-    <string name="explainNotAvailable">Δεν υπάρχει επεξήγηση γι αυτό τον governor...</string>
+    <string name="explainNotAvailable">Δεν υπάρχει επεξήγηση γι αυτό τον governor…</string>
     <string name="title_reset_to_default">Επαναφορά προεπιλογώων</string>
     <string name="msg_reset_to_default">Επαναφορά στην προεπιλογή θα απορρίψει όλες τις τροποποιήσεις σας σε εναύσματα &amp; προφιλ, συμπεριλαμβανομένων των νεοσύστατων.</string>
     <string name="msg_loading_default_profiles">Φόρτωση προεπιλεγμένων προφίλ</string>
@@ -334,7 +334,7 @@
     <string name="msg_has_issues">Υπάρχουν θέματα</string>
     <string name="msg_not_working">Δε λειτουργεί</string>
     <string name="msg_working">Λειτουργεί</string>
-    <string name="msg_premail_no_issues">Δεν βρέθηκαν θέματα ... Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα
+    <string name="msg_premail_no_issues">Δεν βρέθηκαν θέματα … Εάν είστε ευχαριστημένοι και θέλετε να στείλετε σχόλια και καλή βαθμολογία στο market θα εκτημηθεί ιδιέταιρα
 
 Παρακαλώ μη γράφετε άδεια e-mails!</string>
     <string name="msg_premail_no_root">Το  CPU tuner δεν έχει πρόσβαση υπερ-χρήστη (root)!
@@ -343,7 +343,7 @@
 Σας παρακαλούμε να μην στείλετε e-mail αν δεν πιστεύετε ότι υπάρχει κάτι λάθος με τον έλεγχο ή την εφαρμογή.
 
 Παρακαλώ μη γράφετε άδεια e-mails!</string>
-    <string name="msg_premail_issues"> διαμόρφωση σας έχει θέματα...
+    <string name="msg_premail_issues"> διαμόρφωση σας έχει θέματα…
 Κατά πάσα πιθανότητα οφείλονται στο kernel/ROM. Έχετε 2 επιλογές:
 
 1) Βάλτε άλλον kernel
@@ -360,7 +360,7 @@
     <string name="msg_setting_cpu_max_freq">Ορισμός της μέγιστης συχνότητας CPU σε %d Hz</string>
     <string name="setting_cpu_min_freq">Ορισμός της ελάχιστης συχνότητας CPU σε %d Hz</string>
     <string name="msg_setting_govenor">Ορισμός του governor σε %s</string>
-    <string name="msg_found_some_issues">Βρέθηκαν θέματα... Κάποιες λειτουργίες μπορεί να μη δουλέψουν. (Πατήστε εδώ για πληροφορίες.)</string>
+    <string name="msg_found_some_issues">Βρέθηκαν θέματα… Κάποιες λειτουργίες μπορεί να μη δουλέψουν. (Πατήστε εδώ για πληροφορίες.)</string>
     <string name="label_hot">Ζεστό: </string>
     <string name="label_avgerage">μέση τημή: </string>
     <string name="label_tresh_up">Μέγιστο: </string>

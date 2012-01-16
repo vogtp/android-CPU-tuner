@@ -1,75 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content" android:layout_width="match_parent"
-	android:id="@+id/llGovernorFragment" android:orientation="vertical">
-	<LinearLayout android:paddingTop="20dp" android:id="@+id/llCpuGov"
-		android:layout_height="wrap_content" android:orientation="horizontal"
-		android:layout_width="match_parent">
-		<TextView android:text="@string/labelCpuGov" android:id="@+id/textView3"
-			android:paddingRight="5dp" android:textSize="20sp"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_gravity="center_vertical"></TextView>
-		<Spinner android:id="@+id/SpinnerCpuGov" android:focusable="true"
-			android:prompt="@string/spinnerPromptGov" android:layout_height="wrap_content"
-			android:layout_weight=".7" android:layout_width="match_parent"></Spinner>
-	</LinearLayout>
-	<TextView android:text="Explain Gov" android:id="@+id/tvExplainGov"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-	<LinearLayout android:id="@+id/llGovernorThresholds"
-		android:layout_height="wrap_content" android:layout_width="match_parent"
-		android:orientation="horizontal">
-		<TextView android:text="@string/labelThreshsUp" android:id="@+id/labelGovThreshUp"
-			android:paddingRight="7dp" android:layout_height="wrap_content"
-			android:layout_width="wrap_content"></TextView>
-		<EditText android:text="98" android:inputType="number"
-			android:height="16dp" android:id="@+id/etGovTreshUp"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"></EditText>
-		<TextView android:text="@string/labelDown"
-			android:paddingLeft="7dp" android:id="@+id/labelGovThreshDown"
-			android:paddingRight="7dp" android:layout_height="wrap_content"
-			android:layout_width="wrap_content"></TextView>
-		<EditText android:text="95" android:inputType="number"
-			android:height="16dp" android:id="@+id/etGovTreshDown"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"></EditText>
-	</LinearLayout>
-	<LinearLayout android:layout_height="match_parent"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center_vertical" android:id="@+id/llUseCpus">
-		<TextView android:layout_width="wrap_content"
-	android:layout_height="wrap_content" android:layout_gravity="center_vertical"
-	android:text="@string/labelUseCpus_front" android:id="@+id/labelUseCpus_front"></TextView>
-		<Spinner android:layout_width="wrap_content" 
-			android:layout_height="wrap_content" android:layout_weight="1"
-			android:layout_gravity="center_vertical" android:id="@+id/spUseCpus" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"></Spinner>
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:text="@string/labelUseCpus_end" android:id="@+id/labelUseCpus_end"></TextView>
-	</LinearLayout>
-	<LinearLayout android:id="@+id/llPowersaveBias"
-		android:layout_height="wrap_content" android:layout_width="match_parent" android:baselineAligned="true">
-		<TextView android:text="@string/labelPowersaveBias"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:id="@+id/labelPowersaveBias" android:layout_marginRight="3dp" android:layout_gravity="top"></TextView>
-	<LinearLayout android:orientation="vertical" android:layout_width="match_parent"
-		android:layout_height="wrap_content" android:id="@+id/llPowersaveBiasSlider">
-		<SeekBar android:layout_height="wrap_content" android:id="@+id/sbPowersaveBias"
-			android:layout_width="match_parent" android:max="1000"></SeekBar>
-	<LinearLayout android:layout_height="wrap_content"
-		android:layout_width="match_parent" android:id="@+id/linearLayout2">
-		<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall"
-			android:layout_width="wrap_content" android:id="@+id/labelPerformance" android:text="@string/labelPowesaveBiasPerformance"></TextView>
-		<TextView android:layout_gravity="right" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_width="match_parent" android:gravity="right" android:text="@string/labelPowesaveBiasPowersave"></TextView>
-	</LinearLayout>
-	</LinearLayout>
-	</LinearLayout>
-	<LinearLayout android:paddingTop="20dp" android:id="@+id/llScript"
-		android:layout_height="wrap_content" android:layout_width="match_parent">
-		<TextView android:text="@string/labelScript"
-			android:paddingRight="5dp" android:layout_height="wrap_content"
-			android:layout_width="wrap_content" android:id="@+id/labelScript"
-			android:layout_gravity="center_vertical"></TextView>
-		<EditText android:text="EditText" android:hint="@string/hintScriptToRun"
-			android:id="@+id/etScript" android:layout_height="wrap_content"
-			android:layout_width="wrap_content" android:maxLines="1"></EditText>
-	</LinearLayout>
-</LinearLayout>
+    android:id="@+id/llGovernorFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
+    <LinearLayout
+        android:id="@+id/llCpuGov"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/labelCpuGov"
+            android:textSize="20sp" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/SpinnerCpuGov"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7"
+            android:focusable="true"
+            android:prompt="@string/spinnerPromptGov" >
+        </Spinner>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvExplainGov"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/llGovernorThresholds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/labelGovThreshUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="7dp"
+            android:text="@string/labelThreshsUp" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/etGovTreshUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:height="16dp"
+            android:inputType="number"
+            android:text="98" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/labelGovThreshDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:text="@string/labelDown" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/etGovTreshDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:height="16dp"
+            android:inputType="number"
+            android:text="95" >
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llUseCpus"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/labelUseCpus_front"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/labelUseCpus_front" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/spUseCpus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/labelUseCpus_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/labelUseCpus_end" >
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPowersaveBias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true" >
+
+        <TextView
+            android:id="@+id/labelPowersaveBias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginRight="3dp"
+            android:text="@string/labelPowersaveBias" >
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/llPowersaveBiasSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <SeekBar
+                android:id="@+id/sbPowersaveBias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="1000" >
+            </SeekBar>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/labelPerformance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/labelPowesaveBiasPerformance"
+                    android:textAppearance="?android:attr/textAppearanceSmall" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:text="@string/labelPowesaveBiasPowersave" >
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llScript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:id="@+id/labelScript"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/labelScript" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/etScript"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintScriptToRun"
+            android:maxLines="1"
+            android:text="EditText" >
+        </EditText>
+    </LinearLayout>
+
+</LinearLayout>

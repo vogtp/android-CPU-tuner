@@ -5,7 +5,7 @@
     <string name="labelPowerUser">Super utilisateur</string>
     <string name="labelNormalExplain">Options de configuration avancées, surcadencement (overcloking) encore possible à ce point.</string>
     <string name="labelNormal">Normal</string>
-    <string name="labelBeginnerExplain">Facile à configurer et tous les réglages doivent être enregistrés pour les utiliser ... Souscadencement \(Underclocking\) seulement possible jusqu\'à un certain point.</string>
+    <string name="labelBeginnerExplain">Facile à configurer et tous les réglages doivent être enregistrés pour les utiliser … Souscadencement \(Underclocking\) seulement possible jusqu\'à un certain point.</string>
     <string name="labelBeginner">Débutant</string>
     <string name="labelBatteryHot">Batterie chaude:</string>
     <string name="labelCallInProgress">Appel en cours:</string>
@@ -29,7 +29,7 @@
     <string name="labelUsage">Utilisation:</string>
     <string name="labelBuFindFeq">Trouver les fréquences (beta)</string>
     <string name="msgAckAndHide">Reconnaître les problèmes et les cacher de l\'écran principal.</string>
-    <string name="msgNoEmail">SVP pas de courriel vide...</string>
+    <string name="msgNoEmail">SVP pas de courriel vide…</string>
     <string name="labelResult">Résultat</string>
     <string name="labelCheck">Vérifier</string>
     <string name="labelAppVersion">Version CPU tuner:</string>
@@ -68,8 +68,8 @@
     <string name="hintMailBody">Ajouter des informations sur le problème que vous avez rencontré.</string>
     <string name="prefCpuFreqMsg">Séparer les fréquences par un espace</string>
     <string name="prefCpuFreq">Fréquences CPU permises</string>
-    <string name="prefCpuFreqLong">Laissez vide si incertain...!</string>
-    <string name="mailMessageOK">Aucun problème n\'a été trouvé ...Si vous êtes satisfait, laissez des commentaires et une bonne évaluation dans le market... "</string>
+    <string name="prefCpuFreqLong">Laissez vide si incertain…!</string>
+    <string name="mailMessageOK">Aucun problème n\'a été trouvé …Si vous êtes satisfait, laissez des commentaires et une bonne évaluation dans le market… "</string>
     <string name="mailMessage"></string>
     <string name="prefEnableBetaLong">Laisser un message</string>
     <string name="prefKeyCalcPowerUsageLong">Cela pourrait consommer de la batterie</string>
@@ -189,7 +189,7 @@ sur la batterie, ou si l\'écran est verrouillé) différents profils peuvent ê
     <string name="prefCallInProgressProfile">Profil: Appel en cours</string>
     <string name="prefCallInProgressProfileLong">Fonction bêta : Permet à un profil de se déclencher pendant les appels.</string>
     <string name="msg_checking_capabilities">Vérification des capacités</string>
-    <string name="msg_checking_governors">Vérification des gouverneurs ...</string>
+    <string name="msg_checking_governors">Vérification des gouverneurs …</string>
     <string name="msg_not_enough_frequencies_found">Pas suffisamment de fréquences trouvées</string>
     <string name="msg_no_governors_found">Pas de gouverneurs trouvés</string>
     <string name="msg_not_checked">pas cochée</string>
@@ -197,7 +197,7 @@ sur la batterie, ou si l\'écran est verrouillé) différents profils peuvent ê
     <string name="msg_failure">échec</string>
     <string name="msg_does_not_apply">ne s\'applique pas</string>
     <string name="msg_cannot_check">ne peut pas être vérifié</string>
-    <string name="explainNotAvailable">Aucune explication disponible pour ce gouverneur ...</string>
+    <string name="explainNotAvailable">Aucune explication disponible pour ce gouverneur …</string>
     <string name="title_reset_to_default">Valeur par défaut</string>
     <string name="msg_reset_to_default">La réinitialisation remplacera toute modification de trigger ou de profil par la configuration par defaut.</string>
     <string name="msg_loading_default_profiles">Chargement des valeurs par défaut</string>
@@ -227,9 +227,9 @@ sur la batterie, ou si l\'écran est verrouillé) différents profils peuvent ê
     <string name="msg_has_issues">Problèmes</string>
     <string name="msg_not_working">Ne fonctionne pas</string>
     <string name="msg_working">Fonctionne</string>
-    <string name="msg_premail_no_issues">Aucun problème trouvé ...
+    <string name="msg_premail_no_issues">Aucun problème trouvé …
 Si vous êtes satisfait et que vous souhaitez laisser des commentaires:
-Les commentaires et les bonnes notes sur le market sont très appréciés...
+Les commentaires et les bonnes notes sur le market sont très appréciés…
 
 SVP pas de courriel vide!</string>
     <string name="msg_premail_no_root">CPU tuner n\'a pas l\'accès complet \(root\)!
@@ -238,7 +238,7 @@ Cpu tuner ne peut rien faire!
 SVP ne pas écrire de courriel à moins que vous pensiez qu\'il y ait quelque chose d\'incorrect dans l\'application.
 
 SVP pas de courriel vide!</string>
-    <string name="msg_premail_issues">otre configuration a des problèmes ...
+    <string name="msg_premail_issues">otre configuration a des problèmes …
 Ceci est probablement dû au noyau / ROM. Vous avez deux possibilités:
 
 1\) Installer un nouveau noyau
@@ -255,7 +255,7 @@ SVP ne pas écrire de courriel à moins que vous pensiez qu\'il y ait quelque ch
     <string name="msg_setting_cpu_max_freq">Définir la fréquence max du CPU à %d Hz</string>
     <string name="setting_cpu_min_freq">Définir la fréquence min du CPU à %d Hz</string>
     <string name="msg_setting_govenor">Définir le gouverneur à %s</string>
-    <string name="msg_found_some_issues">Problèmes trouvés ... Certaines fonctionnalités peuvent ne pas fonctionner. (Appuyez pour plus d\'informations.)</string>
+    <string name="msg_found_some_issues">Problèmes trouvés … Certaines fonctionnalités peuvent ne pas fonctionner. (Appuyez pour plus d\'informations.)</string>
     <string name="label_hot">chaud: </string>
     <string name="label_avgerage">moyenne: </string>
     <string name="label_tresh_up">haut: </string>

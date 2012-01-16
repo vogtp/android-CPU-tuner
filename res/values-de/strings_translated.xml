@@ -95,7 +95,7 @@
     <string name="desc_buy_toy">Dies wird mein Kinder eine längere Zeit beschäftigen und hilft mir vielleicht
 	  etwas Neues zu implementieren. (Ich kann aber nichts versprechen....)</string>
     <string name="name_buy_toy">Kauf meinen Kindern ein Spiel.</string>
-    <string name="prefextentionsLong">Erweitere CPU Tuner...</string>
+    <string name="prefextentionsLong">Erweitere CPU Tuner…</string>
     <string name="title_changelog">Changelog</string>
     <string name="prefServiceSwitchesLong">Ändere die Art wie Dienst-Änderungen durchgeführt werden.</string>
     <string name="prefCpuLong">Einstellungen der CPU.</string>
@@ -256,7 +256,7 @@
     <string name="msg_load_configuration">		Mach Konfiguration \'<xliff:g id="string">%s</xliff:g>\' zur aktulle aktiven?</string>
     <string name="msg_loaded">		Geladen: \'<xliff:g id="string">%s</xliff:g>\'</string>
     <string name="menuAddCurrent">Aktuelle hinzufügen</string>
-    <string name="msg_cannot_load_virtual_governor">Der virtuelle Regler kann nicht geladen werden...</string>
+    <string name="msg_cannot_load_virtual_governor">Der virtuelle Regler kann nicht geladen werden…</string>
     <string name="labelStatisticsTab">Statistik</string>
     <string name="label_time_in_state">Zeit pro Frequenz:</string>
     <string name="titleVirtualGovernorEditor">Virtueller Regler Editor</string>
@@ -291,7 +291,7 @@
     <string name="labelPowerUser">Profi</string>
     <string name="labelNormalExplain">Mehr erweiterte Konfigurationsoptionen. Untertakten ist nur beschränkt möglich.</string>
     <string name="labelNormal">Normal</string>
-    <string name="labelBeginnerExplain">Einfach zu konfigurieren und alle Einstellungen sollte sicher sein... Untertakten ist nur beschränkt möglich.</string>
+    <string name="labelBeginnerExplain">Einfach zu konfigurieren und alle Einstellungen sollte sicher sein… Untertakten ist nur beschränkt möglich.</string>
     <string name="labelBeginner">Anfänger</string>
     <string name="labelBatteryHot">Batterie heiss:</string>
     <string name="labelCallInProgress">Während Anruf:</string>
@@ -315,7 +315,7 @@
     <string name="labelUsage">Verbrauch:</string>
     <string name="labelBuFindFeq">Finde Frequenzen (beta)</string>
     <string name="msgAckAndHide">Bestätige die Fragen und zurück zum Haupt-Bildschirm.</string>
-    <string name="msgNoEmail">Bitte schreibe keine leeren E-Mails ...</string>
+    <string name="msgNoEmail">Bitte schreibe keine leeren E-Mails …</string>
     <string name="labelResult">Resultat</string>
     <string name="labelCheck">Prüfe</string>
     <string name="labelAppVersion">CPU Tuner Version:</string>
@@ -350,8 +350,8 @@
     <string name="prefAllowManualServiceChanges">Man. Dienst-Änderung </string>
     <string name="prefCpuFreqMsg">Durch Leerzeichen getrennte Liste von Frequenzen</string>
     <string name="prefCpuFreq">Erlaubte CPU-Frequenzen</string>
-    <string name="prefCpuFreqLong">Leer lassen, wenn Sie unsicher sind...!</string>
-    <string name="mailMessageOK">Es sind keine Probleme gefunden worden...
+    <string name="prefCpuFreqLong">Leer lassen, wenn Sie unsicher sind…!</string>
+    <string name="mailMessageOK">Es sind keine Probleme gefunden worden…
 			Wenn Sie zufrieden sind und ein Feedback, Kommentar und eine gute Bewertung geben
 			wollen, sind Bewertungen auf dem Markt hoch geschätzt..."</string>
     <string name="mailMessage"></string>
@@ -478,7 +478,7 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
     <string name="prefCallInProgressProfile">Profil während eines Anrufes</string>
     <string name="prefCallInProgressProfileLong">Aktiviert ein Profil, das während der Telefonverbindung ausgelöste wird.</string>
     <string name="msg_checking_capabilities">Fähigkeiten überprüfen </string>
-    <string name="msg_checking_governors">Regler überprüfen ...</string>
+    <string name="msg_checking_governors">Regler überprüfen …</string>
     <string name="msg_not_enough_frequencies_found">Nicht genug Frequenzen gefunden</string>
     <string name="msg_no_governors_found">Keine Regeln gefunden</string>
     <string name="msg_not_checked">Nicht geprüft</string>
@@ -486,7 +486,7 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
     <string name="msg_failure">Fehler</string>
     <string name="msg_does_not_apply">Nicht anwendbar</string>
     <string name="msg_cannot_check">Kann nicht geprüft werden</string>
-    <string name="explainNotAvailable">Keine Erklärung für dieses Regel...</string>
+    <string name="explainNotAvailable">Keine Erklärung für dieses Regel…</string>
     <string name="title_reset_to_default">Auf Standard zurücksetzen</string>
     <string name="msg_reset_to_default">Zurücksetzen auf die Standardwerte verwirft alle Änderungen der Auslöser und Profile und lädt die Standardwerte neu.</string>
     <string name="msg_loading_default_profiles">Lade die Standard-Profile</string>
@@ -517,13 +517,13 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
     <string name="msg_not_working">Funktioniert nicht</string>
     <string name="msg_working">Funktioniert</string>
     <string name="msg_fully_working">Funktioniert vollkommen</string>
-    <string name="msg_premail_no_issues">Es sind keine Probleme gefunden worden...\n
+    <string name="msg_premail_no_issues">Es sind keine Probleme gefunden worden…\n
 Bist Du zufrieden und möchtest ein Feedback geben:\n
 Kommentare und gute Bewertungen auf dem Markt werden geschätzt...</string>
     <string name="msg_capcheck_not_rooted">CPU Tuner verfügt nicht über Root-Zugriff!\n
 Die meisten Funktionen von CPU Tuner gehen so nicht!\nHast Du Dein Gerät gerooted?\nHast Du CPU Tuner root Zugriff gegeben?</string>
-    <string name="msg_capcheck_found_some_issues">Kleinere Probleme gefunden... Einige Funktionen werden nicht gehen.</string>
-    <string name="msg_capcheck_no_issues">Keine Probleme gefunden...</string>
+    <string name="msg_capcheck_found_some_issues">Kleinere Probleme gefunden… Einige Funktionen werden nicht gehen.</string>
+    <string name="msg_capcheck_no_issues">Keine Probleme gefunden…</string>
     <string name="and">und</string>
     <string name="msg_capcheck_work_but_cannot_set_frequency"> funktioniert, aber kann die mininale und maximale Frequenz nicht setzten.\n
 Dies ergibt jedoch noch immer gute resultate</string>
@@ -533,7 +533,7 @@ Dies ergibt jedoch noch immer gute resultate</string>
 		2) Flashe einen neuen Kernel\n3) Flashe ein anderes ROM\n</string>
     <string name="msg_premail_no_root">CPU Tuner verfügt nicht über Root-Zugriff!\n
 Die meisten Funktionen von CPU Tuner gehen so nicht!</string>
-    <string name="msg_premail_issues">Deine Konfiguration hat Probleme ...\n
+    <string name="msg_premail_issues">Deine Konfiguration hat Probleme …\n
 Dies liegt wahrscheinlich am Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n
 1) Flashen eines neuen Kernels\n\n
 2) Flashen eines neuen ROMs.\n</string>
@@ -546,7 +546,7 @@ Dies liegt wahrscheinlich am Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\
     <string name="msg_setting_cpu_max_freq">Die maximals Frequenz wurde auf %d Hz gesetzt.</string>
     <string name="setting_cpu_min_freq">Die minimale Frequenz wurde auf %d Hz gesetzt.</string>
     <string name="msg_setting_govenor">Der Reglers wurde auf %s gesetzt</string>
-    <string name="msg_found_some_issues">Einige Probleme gefunden... Einige Funtionen funktionieren möglicherweise nicht. (Für weitere Informationen antippen.)</string>
+    <string name="msg_found_some_issues">Einige Probleme gefunden… Einige Funtionen funktionieren möglicherweise nicht. (Für weitere Informationen antippen.)</string>
     <string name="label_hot">heiss: </string>
     <string name="label_avgerage">mittel: </string>
     <string name="label_tresh_up">oben: </string>

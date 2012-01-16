@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="prefEnableCputuner">Enable cpu tuner</string>
+
+    <string-array name="prefMulticoreEntries">
+        <item>Auto</item>
+        <item>Enable</item>
+        <item>Disable</item>
+    </string-array>
+
+    <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
+    <string name="prefConfigurationsLong">Backup and restore (and more)</string>
+    <string name="prefCpu">CPU Settings</string>
+    <string name="prefChangelog">Show Changelog</string>
+    <string name="label_version">Version:</string>
+    <string name="prefLegalGnomeIcons">Main icon License</string>
+    <string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
+		nice icons.</string>
+    <string name="msg_disable_cpu_tuner">Disable cpu tuner</string>
+    <string name="msg_disable_cputuner_question">Do you want to stop cpu tuner?</string>
+    <string name="labelUseCpus_front">Use </string>
+    <string name="labelUseCpus_end">CPUs</string>
+    <string name="prefMulticore">Use multicore CPU features</string>
+    <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
+    <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
+    <string name="labelActiveCpus">Active CPUs:</string>
     <string name="labelMessage">Message:</string>
     <string name="labelState">State:</string>
     <string name="labelTime">Time:</string>

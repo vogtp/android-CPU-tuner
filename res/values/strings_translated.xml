@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="auto">Auto</string>
+    <string name="msg_manual_profile">manual profile</string>
     <string name="labelMessage">Message:</string>
     <string name="labelState">State:</string>
     <string name="labelTime">Time:</string>
@@ -178,8 +180,6 @@
     <string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the \"on power\" profile will be chosen.</string>
     <string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the \"screen off\" profile will be chosen.</string>
     <string name="title_choose_experiance_level">Choose your experiance level</string>
-    <string name="auto">Auto</string>
-    <string name="msg_manual_profile">manual</string>
     <string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
     <string name="prefNetworkModeOnWifiConnected">Netmode on wifi connected</string>
     <string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a wifi network is connected. If the network is disconnected cpu tuner goes back to previous.</string>
@@ -267,8 +267,8 @@
     <string name="msg_capcheck_not_rooted">Cpu tuner does not have root access!\nAll CPU
 		tuning related features will not work.\nDid root your device?\nDid you
 		grant cpu tuner root access?</string>
-    <string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
-    <string name="msg_capcheck_no_issues">No issues found...</string>
+    <string name="msg_capcheck_found_some_issues">Found some issues… Some features might not work.</string>
+    <string name="msg_capcheck_no_issues">No issues found…</string>
     <string name="and">and</string>
     <string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields
 		quite good results.</string>
@@ -283,7 +283,7 @@
     <string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
 		nice icons.</string>
     <string name="virtual_governor">virtual governor</string>
-    <string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
+    <string name="msg_cannot_load_virtual_governor">Cannot load virtual governor…</string>
     <string name="labelStatisticsTab">Statistics</string>
     <string name="label_time_in_state">Time in state:</string>
     <string name="titleVirtualGovernorEditor">Virtual Governor Editor</string>
@@ -342,7 +342,7 @@
 		underclocking only possible to a point.</string>
     <string name="labelNormal">Normal</string>
     <string name="labelBeginnerExplain">Easy to configure and all setting should be save to
-		use... Underclocking only possible to a point.</string>
+		use… Underclocking only possible to a point.</string>
     <string name="labelBeginner">Beginner</string>
     <string name="labelBatteryHot">Battery Hot:</string>
     <string name="labelCallInProgress">Call in progress:</string>
@@ -369,7 +369,7 @@
     <string name="labelUsage">Usage:</string>
     <string name="labelBuFindFeq">Find frequencies (beta only)</string>
     <string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
-    <string name="msgNoEmail">Please do not write empty e-mails...</string>
+    <string name="msgNoEmail">Please do not write empty e-mails…</string>
     <string name="labelResult">Result</string>
     <string name="labelCheck">Check</string>
     <string name="labelAppVersion">Cpu tuner version:</string>
@@ -415,8 +415,8 @@
     <string name="prefAllowManualServiceChanges">Manual service changes</string>
     <string name="prefCpuFreqMsg">Space separated list of frequencies</string>
     <string name="prefCpuFreq">Allowed CPU frequencies</string>
-    <string name="prefCpuFreqLong">Leave empty if unsure...!</string>
-    <string name="mailMessageOK">No issues have been found...
+    <string name="prefCpuFreqLong">Leave empty if unsure…!</string>
+    <string name="mailMessageOK">No issues have been found…
 		If you are pleased and
 		want to give feedback, comments and good ratings
 		on the market are
@@ -549,7 +549,7 @@
     <string name="prefCallInProgressProfileLong">Enables a profile that is triggered during phone
 		calls.</string>
     <string name="msg_checking_capabilities">Checking capabilities</string>
-    <string name="msg_checking_governors">Checking governors ...</string>
+    <string name="msg_checking_governors">Checking governors …</string>
     <string name="msg_not_enough_frequencies_found">Not enough frequencies found</string>
     <string name="msg_no_governors_found">No governors found</string>
     <string name="msg_not_checked">not checked</string>
@@ -557,7 +557,7 @@
     <string name="msg_failure">failure</string>
     <string name="msg_does_not_apply">does not apply</string>
     <string name="msg_cannot_check">cannot check</string>
-    <string name="explainNotAvailable">No explanation available for this governor...</string>
+    <string name="explainNotAvailable">No explanation available for this governor…</string>
     <string name="title_reset_to_default">Reset to default</string>
     <string name="msg_reset_to_default">Reseting to default will discard all your
 		modifications on triggers and profiles, including newly created.</string>
@@ -592,15 +592,15 @@
     <string name="msg_has_issues">Has issues</string>
     <string name="msg_not_working">Not working</string>
     <string name="msg_working">Working</string>
-    <string name="msg_premail_no_issues">No issues have been found...\nIf you are pleased
+    <string name="msg_premail_no_issues">No issues have been found…\nIf you are pleased
 		and want to give feedback:\nComments and good ratings on the market
-		are highly appreciated...</string>
+		are highly appreciated…</string>
     <string name="msg_premail_no_root">Cpu tuner does not have root access!\nCpu tuner
 		cannot do anything!</string>
-    <string name="msg_premail_issues">You configuration has issues...\nThis is most
+    <string name="msg_premail_issues">You configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM</string>
-    <string name="msg_premail_issues_cm">You configuration has issues...\nThis is most
+    <string name="msg_premail_issues_cm">You configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM\nYou might want to have a look at
 		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
@@ -612,7 +612,7 @@
     <string name="msg_setting_cpu_max_freq">Setting CPU max frequency to %d Hz</string>
     <string name="setting_cpu_min_freq">Setting CPU min frequency to %d Hz</string>
     <string name="msg_setting_govenor">Setting governor to %s</string>
-    <string name="msg_found_some_issues">Found some issues... Some features might not work.
+    <string name="msg_found_some_issues">Found some issues… Some features might not work.
 		(Tap for more information.)</string>
     <string name="label_hot">hot: </string>
     <string name="label_avgerage">avg: </string>

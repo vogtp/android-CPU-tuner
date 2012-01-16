@@ -112,7 +112,6 @@
                         android:layout_height="wrap_content" >
 
                         <TextView
-                            android:id="@+id/TextView01"
                             style="@style/profileServiceLabel"
                             android:text="@string/labelBackgroundSync" />
 
@@ -129,7 +128,6 @@
                         android:layout_height="wrap_content" >
 
                         <TextView
-                            android:id="@+id/TextView01"
                             style="@style/profileServiceLabel"
                             android:text="@string/labelGPS" />
 
@@ -146,7 +144,6 @@
                         android:layout_height="wrap_content" >
 
                         <TextView
-                            android:id="@+id/TextView01"
                             style="@style/profileServiceLabel"
                             android:text="@string/labelWifi" />
 
@@ -181,7 +178,6 @@
                         android:layout_height="wrap_content" >
 
                         <TextView
-                            android:id="@+id/TextView01"
                             style="@style/profileServiceLabel"
                             android:text="@string/labelBluetooth" />
 

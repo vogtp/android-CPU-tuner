@@ -202,8 +202,8 @@
     <string name="msg_capcheck_not_rooted">CPU tuner does not have root access!\nAll CPU
 		tuning related features will not work.\nDid root your device?\nDid you
 		grant CPU tuner root access?</string>
-    <string name="msg_capcheck_found_some_issues">Found some issues... Some features might not work.</string>
-    <string name="msg_capcheck_no_issues">No issues found...</string>
+    <string name="msg_capcheck_found_some_issues">Found some issues… Some features might not work.</string>
+    <string name="msg_capcheck_no_issues">No issues found…</string>
     <string name="and">and</string>
     <string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields
 		quite good results.</string>
@@ -219,7 +219,7 @@
     <string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
 		nice icons.</string>
     <string name="virtual_governor">virtual governor</string>
-    <string name="msg_cannot_load_virtual_governor">Cannot load virtual governor...</string>
+    <string name="msg_cannot_load_virtual_governor">Cannot load virtual governor…</string>
     <string name="labelStatisticsTab">Statistics</string>
     <string name="label_time_in_state">Time in state:</string>
     <string name="titleVirtualGovernorEditor">Virtual Governor Editor</string>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="MissingTranslation" severity="warning">
+        <ignore path="res/values/version.xml" />
+        <ignore path="res/values/strings_untranslatable.xml" />
+    </issue>
+</lint>

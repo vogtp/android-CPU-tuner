@@ -50,8 +50,8 @@
     <string name="msg_capcheck_not_rooted">CPU tuner non ha l\'accesso di root!\nTutte le funzionalità
 		correlate alla CPU non funzioneranno.\nHai rootato il dispositivo?\nHai dato il permesso
 		a CPU tuner?</string>
-    <string name="msg_capcheck_found_some_issues">Trovati alcuni problemi... Alcune funzioni potrebbero non andare.</string>
-    <string name="msg_capcheck_no_issues">Nessun problema rilevato...</string>
+    <string name="msg_capcheck_found_some_issues">Trovati alcuni problemi… Alcune funzioni potrebbero non andare.</string>
+    <string name="msg_capcheck_no_issues">Nessun problema rilevato…</string>
     <string name="and">e</string>
     <string name="msg_capcheck_work_but_cannot_set_frequency"> work but cannot set frequency.\nThis still yields
 		quite good results.</string>
@@ -67,7 +67,7 @@
     <string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
 		nice icons.</string>
     <string name="virtual_governor">governor virtuale</string>
-    <string name="msg_cannot_load_virtual_governor">Impossibile caricare il governor virtuale...</string>
+    <string name="msg_cannot_load_virtual_governor">Impossibile caricare il governor virtuale…</string>
     <string name="labelStatisticsTab">Statistiche</string>
     <string name="label_time_in_state">Time in state:</string>
     <string name="titleVirtualGovernorEditor">Editor Governor Virtuale</string>
@@ -108,7 +108,7 @@
     <string name="labelPowerUser">Esperto</string>
     <string name="labelNormalExplain">Opzioni di configurazione più avanzate, l\' Underclock è possibile solo fino ad un certo valore.</string>
     <string name="labelNormal">Normale</string>
-    <string name="labelBeginnerExplain">Facile da configurare, tutte le impostazioni dovrebbero essere sicure... L\' Underclock è possibile solo fino a un certo valore.</string>
+    <string name="labelBeginnerExplain">Facile da configurare, tutte le impostazioni dovrebbero essere sicure… L\' Underclock è possibile solo fino a un certo valore.</string>
     <string name="labelBeginner">Principiante</string>
     <string name="labelBatteryHot">Batt. Surr.:</string>
     <string name="labelCallInProgress">Chiamata in Corso:</string>
@@ -132,7 +132,7 @@
     <string name="labelUsage">Utilizzo:</string>
     <string name="labelBuFindFeq">Trova frequenze (solo beta)</string>
     <string name="msgAckAndHide">Riconosci i problemi e nascondili dalla schermata principale.</string>
-    <string name="msgNoEmail">Per favore non inserire e-mail vuote...</string>
+    <string name="msgNoEmail">Per favore non inserire e-mail vuote…</string>
     <string name="labelResult">Esito</string>
     <string name="labelCheck">Verifica</string>
     <string name="labelAppVersion">Versione di CPU tuner:</string>
@@ -168,10 +168,10 @@
     <string name="prefAllowManualServiceChanges">Modifiche a un servizio</string>
     <string name="prefCpuFreqMsg">Lista di frequenze separate da uno spazio</string>
     <string name="prefCpuFreq">Frequenze CPU permesse</string>
-    <string name="prefCpuFreqLong">Lascia vuoto nell\'incertezza...!</string>
-    <string name="mailMessageOK">Nessun problema trovato...
+    <string name="prefCpuFreqLong">Lascia vuoto nell\'incertezza…!</string>
+    <string name="mailMessageOK">Nessun problema trovato…
 		Se ti piace puoi lasciare un feedback: commenti e un rating positivo
-		nel market sarebbero davvero apprezzati..."</string>
+		nel market sarebbero davvero apprezzati…"</string>
     <string name="mailMessage"></string>
     <string name="prefEnableBetaLong">Inviami un\'e-mail</string>
     <string name="prefKeyCalcPowerUsageLong">Potrebbe richiedere un po\' della carica della batteria</string>
@@ -300,7 +300,7 @@
     <string name="prefCallInProgressProfile">Profilo Chiamata in Corso</string>
     <string name="prefCallInProgressProfileLong">Abilita un profilo utilizzato durante le chiamate.</string>
     <string name="msg_checking_capabilities">Verifica funzionalità in corso</string>
-    <string name="msg_checking_governors">Verifica funzionalità...</string>
+    <string name="msg_checking_governors">Verifica funzionalità…</string>
     <string name="msg_not_enough_frequencies_found">Non sono state trovate abbastanza frequenze</string>
     <string name="msg_no_governors_found">Nessun governor rilevato</string>
     <string name="msg_not_checked">non controllato</string>
@@ -308,7 +308,7 @@
     <string name="msg_failure">fallito</string>
     <string name="msg_does_not_apply">non applicare</string>
     <string name="msg_cannot_check">impossibile controllare</string>
-    <string name="explainNotAvailable">Nessuna spiegazione disponibile per questo governor...</string>
+    <string name="explainNotAvailable">Nessuna spiegazione disponibile per questo governor…</string>
     <string name="title_reset_to_default">Ripristino impostazioni iniziali</string>
     <string name="msg_reset_to_default">Ripristinando le impostazioni iniziali annullerai tutte le modifiche fatte a profili e trigger, includendo quelli da te creati.</string>
     <string name="msg_loading_default_profiles">Carica i profili predefiniti</string>
@@ -338,7 +338,7 @@
     <string name="msg_has_issues">Ha problemi</string>
     <string name="msg_not_working">Negativo</string>
     <string name="msg_working">Positivo</string>
-    <string name="msg_premail_no_issues">Nessun problema trovato...
+    <string name="msg_premail_no_issues">Nessun problema trovato…
 Se ti piace puoi lasciare un feedback: commenti e un rating positivo
 nel market sarebbero davvero apprezzati.
 
@@ -349,7 +349,7 @@ Cpu tuner non può fare nulla!
 Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella verifica o nell\'applicazione.
 
 Per favore non scrivere e-mail vuote!</string>
-    <string name="msg_premail_issues">a tua configurazione ha degli errori...
+    <string name="msg_premail_issues">a tua configurazione ha degli errori…
 Ciò è potenzialmente dovuto dal kernel/ROM. Hai due possibilità:
 
 1) Installa un nuovo kernel
@@ -366,7 +366,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="msg_setting_cpu_max_freq">Frequenza massima della CPU impostata a %d Hz</string>
     <string name="setting_cpu_min_freq">Frequenza minima della CPU impostata a %d Hz</string>
     <string name="msg_setting_govenor">Governor impostato a %s</string>
-    <string name="msg_found_some_issues">Trovati alcuni problemi... Alcune funzioni potrebbero non funzionare. (Tocca per maggiori informazioni.)</string>
+    <string name="msg_found_some_issues">Trovati alcuni problemi… Alcune funzioni potrebbero non funzionare. (Tocca per maggiori informazioni.)</string>
     <string name="label_hot">surr.: </string>
     <string name="label_avgerage">media </string>
     <string name="label_tresh_up">superiore: </string>
