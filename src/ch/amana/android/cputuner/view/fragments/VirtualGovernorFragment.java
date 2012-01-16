@@ -119,7 +119,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 	@Override
 	public void updateView() {
 		IGovernorModel governorModel = getGovernorModel();
-		if (tvExplainGov == null) {
+		if (getActivity() == null || governorModel == null || tvExplainGov == null) {
 			return;
 		}
 		long virtualGovernor = governorModel.getVirtualGovernor();
