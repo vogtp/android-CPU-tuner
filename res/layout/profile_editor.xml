@@ -17,7 +17,7 @@
         <LinearLayout
             android:id="@+id/llTop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp" >
 
@@ -272,7 +272,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingRight="5dp"
-                        android:text="@+string/labelMin" >
+                        android:text="@string/labelMin" >
                     </TextView>
 
                     <Spinner

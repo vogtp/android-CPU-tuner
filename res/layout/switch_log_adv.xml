@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-            <ExpandableListView
-                android:id="@+id/elvLog"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
+    <ExpandableListView
+        android:id="@+id/elvLog"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+    </ExpandableListView>
 
-            </ExpandableListView>
 </LinearLayout>

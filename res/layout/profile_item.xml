@@ -1,139 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:padding="3dp"
-	android:layout_width="fill_parent"
->
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/tvName"
-		android:textStyle="bold"
-		android:textSize="16sp"
-		android:text="profile name"
-	></TextView>
-	<TableLayout
-		android:id="@+id/TableLayout01"
-		android:layout_height="wrap_content"
-		android:layout_width="fill_parent"
-	>
-		<TableRow
-			android:id="@+id/TableRow01"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-		>
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/labelGovernor"
-				android:paddingRight="20dp"
-				android:id="@+id/labelGovernor"
-			></TextView>
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="16sp"
-				android:paddingRight="5dp"
-				android:id="@+id/tvGov"
-				android:text="Governor"
-			></TextView>
-		</TableRow>
-		<TableRow
-			android:id="@+id/TableRow02"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-		>
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/labelCpuFreq"
-				android:paddingRight="20dp"
-			></TextView>
-			<LinearLayout
-				android:id="@+id/ListView01"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-			>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="3dp" >
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/tvFreqMin"
-					android:paddingRight="5dp"
-					android:text="500"
-				></TextView>
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textSize="16sp"
-					android:paddingRight="5dp"
-					android:text="-"
-				></TextView>
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/tvFreqMax"
-					android:paddingRight="5dp"
-					android:text="1000"
-				></TextView>
-			</LinearLayout>
-		</TableRow>
-		<TableRow
-			android:id="@+id/trServiceIcons"
-			android:layout_width="wrap_content" android:layout_height="match_parent">
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:paddingRight="5dp"
-				android:text="@string/labelServices"
-				android:gravity="center_vertical"
-			android:layout_gravity="center_vertical">
-			</TextView>
-			<LinearLayout
-				android:id="@+id/llServiceIcons"
-				android:layout_height="26dp"
-				android:layout_width="wrap_content"
-			> 
-				<ImageView
-					style="@style/styleServiceIcons"
-					android:src="@drawable/serviceicon_md_2g3g"
-					android:id="@+id/ivServiceMD3g" 
-				/>
-				<ImageView
-					style="@style/styleServiceIcons"
-					android:src="@drawable/serviceicon_mobiledata_con"
-					android:id="@+id/ivServiceMDCon"
-				/>
-				<ImageView
-					style="@style/styleServiceIcons"
-					android:src="@drawable/serviceicon_sync"
-					android:id="@+id/ivServiceSync"
-				/>
-				<ImageView
-					style="@style/styleServiceIcons"
-					android:src="@drawable/serviceicon_wifi"
-					android:id="@+id/ivServiceWifi"
-				/>
-				<ImageView
-					style="@style/styleServiceIcons"
-					android:src="@drawable/serviceicon_gps"
-					android:id="@+id/ivServiceGPS" 
-				/>
-				<ImageView
-					style="@style/styleServiceIcons"
-					android:src="@drawable/serviceicon_bluetooth"
-					android:id="@+id/ivServiceBluetooth"
-				/>
-				<ImageView
-					style="@style/styleServiceIcons"
-					android:src="@drawable/serviceicon_airplane"
-					android:id="@+id/ivServiceAirplane"
-				android:layout_height="wrap_content"/>
-			</LinearLayout>
-		</TableRow>
-	</TableLayout>
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold" >
+    </TextView>
 
+    <TableLayout
+        android:id="@+id/TableLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/TableRow01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/labelGovernor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20dp"
+                android:text="@string/labelGovernor" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvGov"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:textSize="16sp" >
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20dp"
+                android:text="@string/labelCpuFreq" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/ListView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tvFreqMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp" >
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:textSize="16sp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvFreqMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp" >
+                </TextView>
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trServiceIcons"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingRight="5dp"
+                android:text="@string/labelServices" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/llServiceIcons"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp" >
+
+                <ImageView
+                    android:id="@+id/ivServiceMD3g"
+                    style="@style/styleServiceIcons"
+                    android:src="@drawable/serviceicon_md_2g3g" />
+
+                <ImageView
+                    android:id="@+id/ivServiceMDCon"
+                    style="@style/styleServiceIcons"
+                    android:src="@drawable/serviceicon_mobiledata_con" />
+
+                <ImageView
+                    android:id="@+id/ivServiceSync"
+                    style="@style/styleServiceIcons"
+                    android:src="@drawable/serviceicon_sync" />
+
+                <ImageView
+                    android:id="@+id/ivServiceWifi"
+                    style="@style/styleServiceIcons"
+                    android:src="@drawable/serviceicon_wifi" />
+
+                <ImageView
+                    android:id="@+id/ivServiceGPS"
+                    style="@style/styleServiceIcons"
+                    android:src="@drawable/serviceicon_gps" />
+
+                <ImageView
+                    android:id="@+id/ivServiceBluetooth"
+                    style="@style/styleServiceIcons"
+                    android:src="@drawable/serviceicon_bluetooth" />
+
+                <ImageView
+                    android:id="@+id/ivServiceAirplane"
+                    style="@style/styleServiceIcons"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/serviceicon_airplane" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>

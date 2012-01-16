@@ -24,7 +24,7 @@
 
         <Spinner
             android:id="@+id/SpinnerCpuGov"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:focusable="true"
@@ -57,8 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:height="16dp"
-            android:inputType="number"
-            android:text="98" >
+            android:inputType="number" >
         </EditText>
 
         <TextView
@@ -75,8 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:height="16dp"
-            android:inputType="number"
-            android:text="95" >
+            android:inputType="number" >
         </EditText>
     </LinearLayout>
 
@@ -96,7 +94,7 @@
 
         <Spinner
             android:id="@+id/spUseCpus"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
@@ -186,8 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/hintScriptToRun"
-            android:maxLines="1"
-            android:text="EditText" >
+            android:maxLines="1" >
         </EditText>
     </LinearLayout>
 

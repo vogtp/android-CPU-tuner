@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:ems="3"
             android:paddingLeft="2dp"
-            android:text="MHz"
+            android:text="@string/mhz"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:ems="2"
             android:paddingLeft="2dp"
-            android:text="ms"
+            android:text="@string/ms"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:ems="1"
             android:paddingLeft="2dp"
-            android:text="%"
+            android:text="@string/percent"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="mhz">MHz</string>
+    <string name="ms">ms</string>
+    <string name="percent">%</string>
     <string name="govPowersave">powersave</string>
     <string name="govOndemand">ondemand</string>
 

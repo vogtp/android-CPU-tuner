@@ -6,7 +6,7 @@
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".1"
         android:scrollbars="vertical" >
@@ -14,8 +14,9 @@
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp" >
 
             <TextView
                 android:id="@+id/textView1"
@@ -99,7 +100,6 @@
                     android:text="@string/cancel" />
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 
 </LinearLayout>

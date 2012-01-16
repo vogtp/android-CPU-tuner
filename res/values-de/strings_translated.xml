@@ -353,7 +353,7 @@
     <string name="prefCpuFreqLong">Leer lassen, wenn Sie unsicher sind…!</string>
     <string name="mailMessageOK">Es sind keine Probleme gefunden worden…
 			Wenn Sie zufrieden sind und ein Feedback, Kommentar und eine gute Bewertung geben
-			wollen, sind Bewertungen auf dem Markt hoch geschätzt..."</string>
+			wollen, sind Bewertungen auf dem Markt hoch geschätzt…"</string>
     <string name="mailMessage"></string>
     <string name="prefEnableBetaLong">Schreibt mir ein E-Mail</string>
     <string name="prefKeyCalcPowerUsageLong">Dies könnte die Akkuleistung beeinträchtigen</string>
@@ -519,7 +519,7 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
     <string name="msg_fully_working">Funktioniert vollkommen</string>
     <string name="msg_premail_no_issues">Es sind keine Probleme gefunden worden…\n
 Bist Du zufrieden und möchtest ein Feedback geben:\n
-Kommentare und gute Bewertungen auf dem Markt werden geschätzt...</string>
+Kommentare und gute Bewertungen auf dem Markt werden geschätzt…</string>
     <string name="msg_capcheck_not_rooted">CPU Tuner verfügt nicht über Root-Zugriff!\n
 Die meisten Funktionen von CPU Tuner gehen so nicht!\nHast Du Dein Gerät gerooted?\nHast Du CPU Tuner root Zugriff gegeben?</string>
     <string name="msg_capcheck_found_some_issues">Kleinere Probleme gefunden… Einige Funktionen werden nicht gehen.</string>
