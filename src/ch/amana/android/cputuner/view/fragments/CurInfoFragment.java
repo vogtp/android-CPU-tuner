@@ -122,17 +122,22 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 		governorHelper = new HardwareGovernorModel(act);
 		SettingsStorage settings = SettingsStorage.getInstance(getContext());
+		FragmentManager fragmentManager = getFragmentManager();
+		governorFragment = (GovernorBaseFragment) fragmentManager.findFragmentByTag("governorFragment");
+		if (governorFragment != null) {
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.remove(governorFragment);
+			fragmentTransaction.commit();
+		}
 		if (settings.isUseVirtualGovernors() && settings.isEnableProfiles()) {
 			governorFragment = new VirtualGovernorFragment(this, governorHelper);
 		} else {
 			governorFragment = new GovernorFragment(this, governorHelper, true);
 		}
-		FragmentManager fragmentManager = getFragmentManager();
-		if (fragmentManager.findFragmentByTag("governorFragment") == null) {
-			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-			fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment, "governorFragment");
-			fragmentTransaction.commit();
-		}
+
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment, "governorFragment");
+		fragmentTransaction.commit();
 
 		CursorLoader cursorLoader = new CursorLoader(act, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 		Cursor cursor = cursorLoader.loadInBackground();
