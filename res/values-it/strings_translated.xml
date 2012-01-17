@@ -387,7 +387,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="prefEnableSwitchCpuSettingOn">Le impostazioni speciali della CPU verranno usate al cambio profilo.</string>
     <string name="prefEnableSwitchCpuSettingOff">Le impostazioni della CPU dei profili verranno usate al cambio profilo.</string>
     <string name="prefSwitchCpuSetting">Impostazioni CPU al cambio profilo </string>
-    <string name="prefSwitchCpuSettingLong">Queste impostazioni della CPU verranno usate al cambio profile, può velocizzare il cambio profile quando si è sotto pesante underclock (underclock non consigliato).</string>
+    <string name="prefSwitchCpuSettingLong">Queste impostazioni della CPU verranno usate al cambio profilo, può velocizzare il cambio profilo quando si è sotto pesante underclock (underclock non consigliato).</string>
     <string name="label_back">Indietro</string>
     <string name="label_forward">Avanti</string>
     <string name="label_home">Home</string>
@@ -399,7 +399,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="labelNoDataForFilter">Nessun dato trovato per questa combinazione.</string>
     <string name="prefCatAdvStatistics">Statistiche avanzate e log </string>
     <string name="prefCatExtention">Estensioni</string>
-    <string name="prefEnableExtention">Abilta Extension</string>
+    <string name="prefEnableExtention">Abilita Extension</string>
     <string name="prefEnableSwitchLog">Abilita log del cambio profilo </string>
     <string name="prefCatStatistics">Statistiche</string>
     <string name="prefEnableStatistics">Abilita statistiche</string>
@@ -421,5 +421,150 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="call_active">Chiamata attiva</string>
     <string name="battery_hot">Batteria calda</string>
     <string name="prefProfileSwitchLogSizeLong">Quante ore devono contenere. Usare -1 per registrare tutto.</string>
+    <string name="auto">Auto</string>
+    <string name="msg_manual_profile">manuale</string>
+
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Valore medio</item>
+        <item>Valore corrente</item>
+        <!-- <item>Battery % per hour</item> -->
+        <item>Nessun calcolo</item>
+    </string-array>
+
+    <string name="msgEnableCputuner">Abilita CPU tuner</string>
+    <string name="msgDisableCputuner">Disabilita CPU tuner</string>
+    <string name="labelYourConfigurations">Le tue configurazioni</string>
+    <string name="labelSystemConfigurations">Configurazioni di sistema</string>
+    <string name="msg_cannot_delete_current_configuration">Impossibile rimuovere configurazione corrente!</string>
+    <string name="labelPowesaveBiasPerformance">Prestazioni</string>
+    <string name="labelPowesaveBiasPowersave">Risparmio energetico</string>
+    <string name="prefMaxFreq">Frequenza max di default</string>
+    <string name="prefMaxFreqLong">Frequenza max applicata quando si caricano le configurazioni di default.</string>
+    <string name="prefMinFreq">Frequenza min di default</string>
+    <string name="prefMinFreqLong">Frequenza min applicata quando si caricano le configurazioni di default.</string>
+    <string name="prefKeyFrequencies">Frequenza per le configurazioni di default</string>
+    <string name="title_triggers">Triggers</string>
+    <string name="msg_title_unsaved_changes">Modifiche non salvate</string>
+    <string name="msg_unsaved_changes">Ci sono delle modifiche non salvate, se non si salva tutte le modifiche andranno perse, vuoi salvare il contenuto?</string>
+    <string name="msg_title_grant_root">Ottieni accesso root.</string>
+    <string name="msg_grant_root">ou ti chiederà di dare a cpu tuner i privilegi di superuser. Si prega di confermare e spuntare il box di ricorda i settaggi. Senza di essi cpu tuner non funzionerà. </string>
+    <string name="labelLogTab">Log del cambio profilo</string>
+    <string name="msg_no_profile_switch_log">Nessun log di cambio profilo trovato</string>
+    <string name="menuItemInsertAsNew">Inserisci come nuovo</string>
+    <string name="prefCatGUILong">Cambia il modo in cui appare.</string>
+    <string name="prefCatSystemLong">Cambia il modo in cui funziona.</string>
+    <string name="prefBuyMeABeerLong">Fammi felice, niente più.</string>
+    <string name="prefVariousLong">Informazioni su cpu tuner.</string>
+    <string name="prefConfigurationsManageLong">Backup e ripristino configurazioni (esempio, un set di trigger, profili e governors).</string>
+    <string name="prefConfigurationsAutoLoadLong">Carica configurazioni in base a un orario e a un giorno.</string>
+    <string name="prefLanguageLong">Scegli lingua. Dovrai riaprire cpu tuner.</string>
+    <string name="prefEnableCputunerOn">Cpu tuner è in funzione.</string>
+    <string name="prefEnableCputunerOff">CPU tuner non è in funzione.</string>
+    <string name="prefKeyProfilesLong">Change the way profiles, triggers and governors
+		behave.</string>
+    <string name="prefServiceSwitchesLong">Cambia il modo in cui il cambio di servizi ( rete mobile, wifi o bluetooth) si comportano.</string>
+    <string name="prefCpuLong">Impostazioni riguardanti la CPU.</string>
+    <string name="title_help_pages">Pagine d\'aiuto</string>
+    <string name="msg_no_trigger_name">Si prega di inserire un nome per il trigger</string>
+    <string name="msg_triggername_exists">Esiste già un trigger con questo nome! Scegline un altro.</string>
+    <string name="msg_triggerbatterylevel_exists">Un trigger con lo stesso livello di batteria esiste già! Scegline un altro.</string>
+    <string name="msg_no_profile_name">Si prega di inserire un nome per il profilo</string>
+    <string name="msg_profilename_exists">Esiste già un profilo con lo stesso nome! Scegline un altro.</string>
+    <string name="msg_no_virtgov_name">SI prega di inserire un nome per il virtual governor</string>
+    <string name="msg_virtgovname_exists">Un virtual governor esiste già! Scegline un altro.</string>
+    <string name="title_load_configuration">Carica configurazione</string>
+    <string name="title_config_name_exists">Nome esistente</string>
+    <string name="msg_config_name_exists">Una configurazione con questo nome esiste già.</string>
+    <string name="overwrite">Sovrascrivi</string>
+    <string name="msg_empty_configuration_name">Il nome della configurazione non può essere vuoto.</string>
+    <string name="label_frequency">Frequenza</string>
+    <string name="label_time">Ora</string>
+    <string name="prefLegalServiceIcons">Icone di servizio Licenza</string>
+    <string name="prefLegalServiceIconsLong">Licenza d\'uso delle icone da parte di cyanogenmod. Grazie per le belle icone.</string>
+    <string name="title_no_configuration">Nessuna configurazione utilizzabile</string>
+    <string name="label_no_configuration">CPU tuner ha rilevato una configurazione non utilizzabile e non può funzionare correttamente. Vuoi caricare una configurazione?</string>
+    <string name="load">Carica</string>
+    <string name="cont">Continua</string>
+    <string name="msg_error_loadconfig">Il caricamente di questa configurazione non ha prodotto una configurazione valida! O è danneggiata oppure qualcosa è andato storto durante il caricamente. Riprova (con un\'altra configurazione).</string>
+    <string name="msg_unusable_comfig_save">Questa configurazione non può essere salvata perché non utilizzabile. E\' probabile che non ci siano trigger, profili o virtual governor</string>
+    <string name="tvSequenceInfo">I profili sono visualizzati al contrario. CPU tuner comincia dal basso e sceglie il primo profilo che corrisponde allo stato corrente</string>
+    <string name="msg_warning_manual_service_switches">		Hai abilitato \"cambio manuale dei servizi\" nelle impostazioni.<br></br>		Significa che i servizi non si modificheranno quando cambiati al di fuori di
+		CPU tuner.<br></br>		Pulsed services and back to previous will get applied as normal.</string>
+    <string name="msg_warning_not_switch_wifi_connected">Wifi non si modificherà se connesso a un rete.
+		Cambialo nelle impostazioni.</string>
+    <string name="menuUpgrade">Ottieni estensioni</string>
+    <string name="desc_extention_stats">		L\'estensione  statistiche genera statistiche e log più belli e dettagliati.<br></br>		Ti aiuta a rifinire le modifiche dandoti informazioni aggiuntive.</string>
+    <string name="title_products">Prodotti</string>
+    <string name="title_extentions">Estensioni</string>
+    <string name="name_extention_stats">Statistiche e log delle estensioni</string>
+    <string name="extention_installed">Installato, tap per configurare.</string>
+    <string name="not_installed">Non installato</string>
+    <string name="purchased">Acquistate: </string>
+    <string name="name_buy_me_a_beer">Pagami una birra</string>
+    <string name="name_buy_me_a_whiskey">Pagami un whiskey</string>
+    <string name="name_buy_cookie">Pagami un biscotto per i miei bambini</string>
+    <string name="desc_buy_beer">Questo mi farà felice.</string>
+    <string name="desc_buy_whiskey">Questo mi farà ancora più felice. (E meno ubriaco!)</string>
+    <string name="desc_buy_cookie">Questo terrà i miei figli occupati e probabilmente mi farà risolvere i bug (niente promesse eh).</string>
+    <string name="desc_buy_toy">Questo terrà i miei figli occupati per un po\' e probabilmente mi darà modo di implementare altre cose (niente promesse eh).</string>
+    <string name="name_buy_toy">Compra un giocattolo ai miei figli</string>
+    <string name="prefextentionsLong">Aggiungi una nuova caratteristica a CPU tuner</string>
+    <string name="title_changelog">Changelog</string>
+    <string name="refresh">Aggiorna</string>
+    <string name="reset">Reset</string>
+    <string name="title_reset_statistics">Reset delle statistiche</string>
+    <string name="msg_reset_statistics">Reset delle statistiche e riparti da ora come base per il futuro.</string>
+    <string name="msgManualServiceChanges">		Qualche servizio è stato cambiato manualmente e non verrà gestito da CPU tuner fino al prossimo trigger.<br></br>		Click text to reset.</string>
+    <string name="title_reset_manual_service_switches">Reset dei servizi?</string>
+    <string name="msg_reset_manual_service_switches">Vuoi resettare tutti i servizi modificati manualmente e lasciare che CPU tuner si occupi dei prossimi??</string>
+    <string name="msg_cpu_tuner_not_running">CPU tuner non è in funzione</string>
+
+    <string-array name="prefAddToNotificationEntries">
+        <item>Se in funzione</item>
+        <item>Sempre</item>
+        <item>Mai</item>
+    </string-array>
+
+    <string name="prefStatusbarAddToLong">Aggiungi alla barra di status e all\'area notifiche.</string>
+    <string name="prefInitialPulseDelay">Initial pulse delay</string>
+    <string name="prefInitialPulseDelayLong">Aspetta un po\'(in s) bevore starting the first pulse.</string>
+    <string name="prefInitialPulseDelayMsg">Ritardo in secondi</string>
+    <string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
+    <string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the on power profile will be chosen.</string>
+    <string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the screen off profile will be chosen.</string>
+    <string name="title_choose_experiance_level">Scegli il tuo livello di esperienza</string>
+    <string name="labelUseCpus_front">Usa </string>
+    <string name="labelUseCpus_end">CPU</string>
+    <string name="prefMulticore">Usa le feature delle CPU  multicore</string>
+    <string name="prefForceMulticoreCodeOn">È usata la codifica per le CPU multicore senza curarsi del tipo di CPU rilevata. (Beta feature)</string>
+    <string name="prefForceMulticoreCodeOff">La codifica per le CPU multicore viene usata solo se una CPU multicore è rilevata. (Beta feature)</string>
+    <string name="labelActiveCpus">CPU attive:</string>
+    <string name="prefEnableCputuner">Abilita CPU tuner</string>
+
+    <string-array name="prefMulticoreEntries">
+        <item>Auto</item>
+        <item>Abilita</item>
+        <item>Disabilita</item>
+    </string-array>
+
+    <string name="prefMulticoreLong">Scegli se le modifiche verranno applicate a tutti i core</string>
+    <string name="prefConfigurationsLong">Backup e ripristino</string>
+    <string name="prefCpu">Impostazioni CPU</string>
+    <string name="prefChangelog">Mostra Changelog</string>
+    <string name="label_version">Versione:</string>
+    <string name="prefLegalGnomeIcons">Licenza principale icone</string>
+    <string name="prefLegalGnomeIconsLong">Licenza delle icone gnome usate. Grazie per le belle icone.</string>
+    <string name="msg_disable_cpu_tuner">Disabilita CPU tuner</string>
+    <string name="msg_disable_cputuner_question">Vuoi arrestare CPU tuner?</string>
+    <string name="msg_delete_autoload_configuration">Cancella questa configurazione in autoload?</string>
+    <string name="prefNetworkModeOnWifiConnected">Netmode con wifi connesso</string>
+    <string name="prefNetworkModeOnWifiConnectedLong">Scegli una modalità di rete da applicare se connessi a una rete wifi. Se la rete è disconnessa CPU tuner tornerà alla precedente.</string>
+
+    <string-array name="mobiledataOnWifiStatesEnties">
+        <item>Lascia invariato</item>
+        <item>Solo 2G</item>
+        <item>3G/2G</item>
+        <item>Solo 3G </item>
+    </string-array>
 
 </resources>
