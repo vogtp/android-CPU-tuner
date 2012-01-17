@@ -1,4 +1,4 @@
-Cpu tuner gives you control over the power consumption of your android device.
+CPU tuner gives you control over the power consumption of your android device.
 Its prime purpose is to save as much battery as possible, but it can be used to overclock at the same time (if the kernel of your device supports it).
 
 Depending on triggers (based on the battery) different profiles are loaded.  Each trigger has different profiles depending of the  the state (if it is locked, on battery, on power or a phone call is being done) of you phone.
@@ -20,11 +20,11 @@ Configurations (i.e. a set of trigger and profiles) can be loaded based on the t
 In praise of CyanogenMod... ;)
 
 If you use and like this app please subscribe to the mailing list cputuner-help@lists.sourceforge.net and participate in the forums on https://sourceforge.net/projects/cputuner/ (Project webpage).
-You can follow cpu tuner on: https://plus.google.com/109797451979104819882
+You can follow CPU tuner on: https://plus.google.com/109797451979104819882
 
-If anybody wants to translate cpu tuner, please write an e-mail.
+If anybody wants to translate CPU tuner, please write an e-mail.
 
-If cpu tuner crashes on start, try to uninstall and reinstall it.
+If CPU tuner crashes on start, try to uninstall and reinstall it.
 
 Please report errors in a mail to the address listed below not in a market comment.
 You best generate a capabilities report first, by going to settings then to backend and choose capabilities report, when it is done hit send (and save the mail as draft). The describe your your issue (and if possible attach a logcat output along with the zip file from the report).
