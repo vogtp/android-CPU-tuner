@@ -142,7 +142,7 @@
     <string name="msg_title_unsaved_changes">Nicht gespeicherte Änderungen</string>
     <string name="msg_unsaved_changes">Der Editor hat nicht gespeicherte Änderungen. Sollen die Änderungen gespeichert werden?</string>
     <string name="msg_title_grant_root">Erlaube Superuser-Zugriff.</string>
-    <string name="msg_grant_root">u wirst gefragt werden, ob Du für CPU Tuner Superuser-Zugriff erlauben willst.
+    <string name="msg_grant_root">Du wirst gefragt werden, ob Du für CPU Tuner Superuser-Zugriff erlauben willst.
 	    Bitte diesen Zugriff erlauben und Merken ankreuzen.  CPU Tuner wird ohne Superuser-Zugriff nicht funktionieren.</string>
     <string name="labelLogTab">Profil Wechsel Log</string>
     <string name="msg_no_profile_switch_log">Kein Profil Wechsel Log gefunden</string>

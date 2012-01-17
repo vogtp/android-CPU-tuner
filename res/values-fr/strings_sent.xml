@@ -28,7 +28,7 @@
 		without saving all changes will be lost. Do you want to save the
 		content?</string>
     <string name="msg_title_grant_root">Grant root access.</string>
-    <string name="msg_grant_root">ou will be asked to grant cpu tuner superuser
+    <string name="msg_grant_root">You will be asked to grant cpu tuner superuser
 		access. Please grant it and check the remember checkbox. Without this
 		access cpu tuner will not work. </string>
     <string name="labelLogTab">Profile switch log</string>
