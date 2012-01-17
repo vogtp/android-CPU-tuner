@@ -4,6 +4,14 @@ V
 * bug fixes
 - 
 
+V 3.2.1
+* features
+- Italian translation (by Rino)
+- minor layout optimisations
+* bug fixes
+- refresh not working after orientation change
+- rare crash
+
 V 3.2.0
 * features
 - optimise layout for ice cream sandwich (android 4)
