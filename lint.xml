@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="ContentDescription" severity="ignore" />
+    <issue id="MissingPrefix" severity="ignore" />
     <issue id="MissingTranslation" severity="warning">
         <ignore path="res/values/version.xml" />
         <ignore path="res/values/strings_untranslatable.xml" />
@@ -9,10 +10,16 @@
         <ignore path="res/layout/adv_stat_list.xml" />
         <ignore path="res/layout/trigger_item_pwrstrong.xml" />
         <ignore path="res/layout/trigger_item_pwrweak.xml" />
+        <ignore path="res/layout/user_experiance_level_chooser.xml" />
+        <ignore path="res/layout/virtual_governor_fragment.xml" />
+    </issue>
+    <issue id="Overdraw">
+        <ignore path="res/layout/configuration_manage.xml" />
     </issue>
     <issue id="UselessParent">
         <ignore path="res/layout/capability_checker.xml" />
         <ignore path="res/layout/log_adv_item_child.xml" />
         <ignore path="res/layout/log_adv_item_main.xml" />
+        <ignore path="res/layout/stats.xml" />
     </issue>
 </lint>
