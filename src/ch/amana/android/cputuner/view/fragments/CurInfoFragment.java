@@ -81,6 +81,14 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TableRow trPower;
 	private ProfileAdaper profileAdapter;
 	private TextView tvManualServiceChanges;
+	// FIXME ugly way to get around destruction of fragments on orientation change
+	private CurInfoFragment lastInstanceCreated;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		lastInstanceCreated = this;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -252,14 +260,23 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void updateView() {
+		CurInfoFragment self = this;
 		if (getActivity() == null) {
-			// somehow we get the wrong act
-			// FIXME this disables it but avoids crashes
-			return;
+			// FIXME ugly way to get around destruction of fragments on orientation change
+			if (lastInstanceCreated == null) {
+				return;
+			}
+			if (lastInstanceCreated.isDetached()) {
+				FragmentManager fragmentManager = lastInstanceCreated.getFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+				fragmentTransaction.attach(lastInstanceCreated);
+				fragmentTransaction.commit();
+			}
+			self = lastInstanceCreated;
 		}
-		deviceStatusChanged();
-		profileChanged();
-		triggerChanged();
+		self.deviceStatusChanged();
+		self.profileChanged();
+		self.triggerChanged();
 	}
 
 	@Override

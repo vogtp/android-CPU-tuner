@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -64,6 +66,8 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	private AdvStatsFilterAdaper profileAdapter;
 	private AdvStatsFilterAdaper triggerAdapter;
 	private AdvStatsFilterAdaper virtgovAdapter;
+	// FIXME ugly way to get around destruction of fragments on orientation change
+	private static StatsAdvancedFragment lastInstanceCreated;
 
 	enum LoadingState {
 		LOADING, HASDATA, NODATA
@@ -80,6 +84,12 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		pbWait = (ProgressBar) v.findViewById(R.id.pbWait);
 		labelNoDataForFilter = (TextView) v.findViewById(R.id.labelNoDataForFilter);
 		return v;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.lastInstanceCreated = this;
 	}
 
 	@Override
@@ -215,13 +225,22 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	}
 
 	private void updateStatistics(Context context) {
+		StatsAdvancedFragment self = this;
 		if (getActivity() == null) {
-			// somehow we get the wrong act
-			// FIXME this disables it but avoids crashes
-			return;
+			// FIXME ugly way to get around destruction of fragments on orientation change
+			if (lastInstanceCreated == null) {
+				return;
+			}
+			if (lastInstanceCreated.isDetached()) {
+				FragmentManager fragmentManager = lastInstanceCreated.getFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+				fragmentTransaction.attach(lastInstanceCreated);
+				fragmentTransaction.commit();
+			}
+			self = lastInstanceCreated;
 		}
-		getLoaderManager().restartLoader(0, null, this);
-		setDataState(LoadingState.LOADING);
+		self.getLoaderManager().restartLoader(0, null, self);
+		self.setDataState(LoadingState.LOADING);
 	}
 
 	@Override
@@ -253,7 +272,21 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	}
 
 	private void resetStatistics(final Context ctx) {
-		final Activity act = getActivity();
+		StatsAdvancedFragment self = this;
+		if (getActivity() == null) {
+			// FIXME ugly way to get around destruction of fragments on orientation change
+			if (lastInstanceCreated == null) {
+				return;
+			}
+			if (lastInstanceCreated.isDetached()) {
+				FragmentManager fragmentManager = lastInstanceCreated.getFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+				fragmentTransaction.attach(lastInstanceCreated);
+				fragmentTransaction.commit();
+			}
+			self = lastInstanceCreated;
+		}
+		final Activity act = self.getActivity();
 		if (act == null) {
 			return;
 		}
