@@ -9,7 +9,7 @@ V 3.2.1
 - Italian translation (by Rino)
 - minor layout optimisations
 * bug fixes
-- refresh not working after orientation change
+- fix refresh not working after orientation change
 - rare crash
 
 V 3.2.0
