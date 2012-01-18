@@ -1,0 +1,29 @@
+Con CPU tuner hai il controllo sul consumo del tuo dispositivo android. Il suo scopo principale è quello di risparmiare più batteria possibile, ma può venire usato anche per l'overclock (se il kernel lo permette).
+
+Basandosi sui trigger (in base alla batteria) si possono caricare differenti profili. Ogni trigger ha profili differenti in base all'utilizzo (a schermo spento, in carica, in utilizzo batteria, o in chiamata) del tuo telefono.
+
+I profili possono modificare le seguenti cose::
+* I governor della CPU governor, le sue soglie, le frequenze min/max  (esempio impostare la velocità della CPU).
+* I serivizi di stato come:
+- connessione dati mobili
+- cambio fra 3G/2G 
+- Synch in background 
+- wifi
+- GPS (se installato come applicazione di sistema)
+- bluethooth
+- modalità aereo
+
+
+Le configurazioni (come un set di trigger e profili) possono venire caricate in base all'orario e al giorno della settimana. Questo ti permette di impostare dei comportamenti diversi durante la notte o nei weekend..
+
+In elogio a CyanogenMod... ;)
+
+If you use and like this app please subscribe to the mailing list cputuner-help@lists.sourceforge.net and participate in the forums on https://sourceforge.net/projects/cputuner/ (Project webpage).
+You can follow CPU tuner on: https://plus.google.com/109797451979104819882
+
+If anybody wants to translate CPU tuner, please write an e-mail.
+
+If CPU tuner crashes on start, try to uninstall and reinstall it.
+
+Please report errors in a mail to the address listed below not in a market comment.
+You best generate a capabilities report first, by going to settings then to backend and choose capabilities report, when it is done hit send (and save the mail as draft). The describe your your issue (and if possible attach a logcat output along with the zip file from the report).

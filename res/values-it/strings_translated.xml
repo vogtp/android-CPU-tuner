@@ -75,16 +75,16 @@
 		è utilizzato in uno o più profili!</string>
     <string name="labelName">Nome:</string>
     <string name="hintVirtualGovernorName">Nome Governor Virtuale</string>
-    <string name="prefCatGUI">Interfaccia utentee</string>
+    <string name="prefCatGUI">Interfaccia utente</string>
     <string name="prefCatDisplay">Display</string>
     <string name="labelPowersaveBias">Powersave bias:</string>
     <string name="labelVirtualGovernor">Governor Virtuale:</string>
     <string name="prefUseVirtualGovernorsLong">Il governor virtuale astrae le impostazioni
 		dei governors dal profilo.</string>
     <string name="label_total_transitions">Transizioni totali:</string>
-    <string name="prefPulseMobiledataOnWifi">Pulsa la connesione dati sotto wifi</string>
-    <string name="prefPulseMobiledataOnWifiOn">La connessione dati sarà pulsante anche con il wifi connesso.</string>
-    <string name="prefPulseMobiledataOnWifiOff">La connessione dati non sarà pulsante se
+    <string name="prefPulseMobiledataOnWifi">Connesione dati attiva sotto wifi</string>
+    <string name="prefPulseMobiledataOnWifiOn">La connessione dati sarà attiva anche con il wifi connesso.</string>
+    <string name="prefPulseMobiledataOnWifiOff">La connessione dati non sarà attiva se
 		connesso a una rete wifi.</string>
     <string name="hintScriptToRun">Script da eseguire dopo il cambio di governor.</string>
     <string name="prefLanguage">Lingua</string>
@@ -97,7 +97,7 @@
     <string name="prefBasics">Di Base</string>
     <string name="labelScript">Script:</string>
     <string name="label_governor_tresholds">Soglie:</string>
-    <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
+    <string name="prefCatPulsedServiceSwitches"> Switch dei servizi pulse</string>
     <string name="prefPulseDelayOn">Durata attivazione</string>
     <string name="prefPulseDelayOnLong">Periodo (in minuti) durante il quale un servizio è attivo in modalità pulse.</string>
     <string name="prefPulseDelayOff">Durata disattivazione</string>
@@ -150,9 +150,9 @@
     <string name="prefSwitchWifiOnConnectedNetworkOff">Il Wifi non verrà spento se connesso a una rete.</string>
     <string name="prefSwitchWifiOnConnectedNetwork">Spegni wifi se connesso</string>
     <string name="prefServiceSwitches">Modifica Servizi</string>
-    <string name="prefUserLevelLong">Determina quanto sono difficili le impostazioni e quanto puoi intervenire.</string>
+    <string name="prefUserLevelLong">Determina la complessità dei settaggi e quanto puoi intervenire.</string>
     <string name="prefUserLevel">Livello Esperienza</string>
-    <string name="prefVarious">Vari</string>
+    <string name="prefVarious">Varie</string>
     <string name="notAvailable">non disponibile</string>
     <string name="yes">sì</string>
     <string name="no">no</string>
@@ -174,7 +174,7 @@
 		nel market sarebbero davvero apprezzati…"</string>
     <string name="mailMessage"></string>
     <string name="prefEnableBetaLong">Inviami un\'e-mail</string>
-    <string name="prefKeyCalcPowerUsageLong">Potrebbe richiedere un po\' della carica della batteria</string>
+    <string name="prefKeyCalcPowerUsageLong">Potrebbe consumare un un po\' della carica della batteria</string>
     <string name="prefKeyCalcPowerUsage">Calcola utilizzo batteria</string>
     <string name="menuItemClearPowerCurrent">Pulisci utilizzo batteria</string>
     <string name="menuItemInsert">Nuovo</string>
@@ -200,14 +200,14 @@
     <string name="prefCatSystem">Sistema</string>
     <string name="prefEnableProfiles">Abilita profili</string>
     <string name="prefSetCpuSetting">Impostazioni CPU</string>
-    <string name="profileBatteryGood">Good Battery</string>
-    <string name="profileBatteryCrtitical">Battery Critical</string>
-    <string name="profileBatteryPower">Battery Power</string>
-    <string name="profileAcPower">AC Power</string>
+    <string name="profileBatteryGood">Batteria buona</string>
+    <string name="profileBatteryCrtitical">Batteria scarica</string>
+    <string name="profileBatteryPower">Batteria carica</string>
+    <string name="profileAcPower">Alimentato</string>
     <string name="profileScreenOff">Schermo Spento</string>
-    <string name="prefSystemPowerProfiles">System Power Profiles</string>
-    <string name="prefPowerProfiles">Power Profiles</string>
-    <string name="prefCustomPowerProfiles">Custom Power Profiles</string>
+    <string name="prefSystemPowerProfiles">Profili System Power</string>
+    <string name="prefPowerProfiles">Power Profili</string>
+    <string name="prefCustomPowerProfiles"> Profili Power personalizzati</string>
     <string name="labelCpuFreq">Frequenze:</string>
     <string name="labelCpuGov">Governor:</string>
     <string name="labelCurrent">Attuale</string>
@@ -403,12 +403,12 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="prefEnableSwitchLog">Abilita log del cambio profilo </string>
     <string name="prefCatStatistics">Statistiche</string>
     <string name="prefEnableStatistics">Abilita statistiche</string>
-    <string name="prefLogPulse">Log pulse to switch log</string>
-    <string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
-    <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
-    <string name="msg_pulse_log_on">Pulse switched to on</string>
-    <string name="msg_pulse_log_off">Pulse switched to off</string>
-    <string name="msg_pulse_log_end">Stop pulsing</string>
+    <string name="prefLogPulse">Pulse sullo switch log</string>
+    <string name="prefLogPulseOn">Il pulse viene riportato nello switch log</string>
+    <string name="prefLogPulseOff">Il pulse non viene riportato nello switch log</string>
+    <string name="msg_pulse_log_on">Pulse su on</string>
+    <string name="msg_pulse_log_off">Pulse su off</string>
+    <string name="msg_pulse_log_end">Ferma il pulse</string>
     <string name="msg_capcheck_result_more_info">(Tap per maggiori informazioni.)</string>
     <string name="menuMarkLog">Mark</string>
     <string name="msgMarkLog">*** Mark ***</string>
@@ -447,7 +447,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="msg_title_unsaved_changes">Modifiche non salvate</string>
     <string name="msg_unsaved_changes">Ci sono delle modifiche non salvate, se non si salva tutte le modifiche andranno perse, vuoi salvare il contenuto?</string>
     <string name="msg_title_grant_root">Ottieni accesso root.</string>
-    <string name="msg_grant_root">ou ti chiederà di dare a cpu tuner i privilegi di superuser. Si prega di confermare e spuntare il box di ricorda i settaggi. Senza di essi cpu tuner non funzionerà. </string>
+    <string name="msg_grant_root">Ti verrà chiesto di dare a cpu tuner i privilegi di superuser. Si prega di confermare e spuntare il box per ricordare i settaggi. Senza i privilegi cpu tuner non funzionerà. </string>
     <string name="labelLogTab">Log del cambio profilo</string>
     <string name="msg_no_profile_switch_log">Nessun log di cambio profilo trovato</string>
     <string name="menuItemInsertAsNew">Inserisci come nuovo</string>
@@ -489,7 +489,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="msg_unusable_comfig_save">Questa configurazione non può essere salvata perché non utilizzabile. E\' probabile che non ci siano trigger, profili o virtual governor</string>
     <string name="tvSequenceInfo">I profili sono visualizzati al contrario. CPU tuner comincia dal basso e sceglie il primo profilo che corrisponde allo stato corrente</string>
     <string name="msg_warning_manual_service_switches">		Hai abilitato \"cambio manuale dei servizi\" nelle impostazioni.<br></br>		Significa che i servizi non si modificheranno quando cambiati al di fuori di
-		CPU tuner.<br></br>		Pulsed services and back to previous will get applied as normal.</string>
+		CPU tuner.<br></br>		I servizi pulse e i ritorni verranno applicati come prima.</string>
     <string name="msg_warning_not_switch_wifi_connected">Wifi non si modificherà se connesso a un rete.
 		Cambialo nelle impostazioni.</string>
     <string name="menuUpgrade">Ottieni estensioni</string>
@@ -507,7 +507,7 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="desc_buy_whiskey">Questo mi farà ancora più felice. (E meno ubriaco!)</string>
     <string name="desc_buy_cookie">Questo terrà i miei figli occupati e probabilmente mi farà risolvere i bug (niente promesse eh).</string>
     <string name="desc_buy_toy">Questo terrà i miei figli occupati per un po\' e probabilmente mi darà modo di implementare altre cose (niente promesse eh).</string>
-    <string name="name_buy_toy">Compra un giocattolo ai miei figli</string>
+    <string name="name_buy_toy">Compra un gioco ai miei figli</string>
     <string name="prefextentionsLong">Aggiungi una nuova caratteristica a CPU tuner</string>
     <string name="title_changelog">Changelog</string>
     <string name="refresh">Aggiorna</string>
@@ -526,12 +526,12 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     </string-array>
 
     <string name="prefStatusbarAddToLong">Aggiungi alla barra di status e all\'area notifiche.</string>
-    <string name="prefInitialPulseDelay">Initial pulse delay</string>
-    <string name="prefInitialPulseDelayLong">Aspetta un po\'(in s) bevore starting the first pulse.</string>
+    <string name="prefInitialPulseDelay">Ritardo iniziale pulse</string>
+    <string name="prefInitialPulseDelayLong">Aspetta un po\'(in s) prima di attivare il primo pulse.</string>
     <string name="prefInitialPulseDelayMsg">Ritardo in secondi</string>
-    <string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
-    <string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the on power profile will be chosen.</string>
-    <string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the screen off profile will be chosen.</string>
+    <string name="prefPowerStrongerThanScreenoff">On power è dominante rispetto al profilo screen off </string>
+    <string name="prefPowerStrongerThanScreenoffOn">Se in on power e a schermo spento verrà scelto on power.</string>
+    <string name="prefPowerStrongerThanScreenoffOff">Se in on power e a schermo spento verrà scelto il profilo screen off.</string>
     <string name="title_choose_experiance_level">Scegli il tuo livello di esperienza</string>
     <string name="labelUseCpus_front">Usa </string>
     <string name="labelUseCpus_end">CPU</string>
