@@ -20,6 +20,7 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -352,7 +353,11 @@ public class CapabilityCheckerActivity extends Activity {
 		try {
 			DB.CpuTunerOpenHelper oh = new CpuTunerOpenHelper(this);
 			ExportConfig config = new ExportConfig(oh.getWritableDatabase(), DB.DATABASE_NAME, new File(path, DIR_REPORT), ExportType.JSON);
-			config.setExcludeTable(DB.SwitchLogDB.TABLE_NAME);
+
+			CheckBox cbInclSwitchLog = (CheckBox) findViewById(R.id.cbInclSwitchLog);
+			if (cbInclSwitchLog == null || !cbInclSwitchLog.isChecked()) {
+				config.setExcludeTable(DB.SwitchLogDB.TABLE_NAME);
+			}
 			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), new File(path, DIR_REPORT));
 			Logger.v("Send report: exporting DB");
 			try {

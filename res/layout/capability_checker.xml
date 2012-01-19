@@ -101,6 +101,12 @@
                 android:text="@string/msgNoEmail"
                 android:textSize="16dp" >
             </TextView>
+
+            <CheckBox
+                android:id="@+id/cbInclSwitchLog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbInclSwitchLog" />
         </LinearLayout>
     </ScrollView>
 
