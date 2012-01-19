@@ -358,6 +358,8 @@ public class CapabilityCheckerActivity extends Activity {
 			if (cbInclSwitchLog == null || !cbInclSwitchLog.isChecked()) {
 				config.setExcludeTable(DB.SwitchLogDB.TABLE_NAME);
 			}
+			config.setExcludeTable(DB.TimeInStateIndex.TABLE_NAME);
+			config.setExcludeTable(DB.TimeInStateValue.TABLE_NAME);
 			DataExporter dm = new DataJsonExporter(oh.getWritableDatabase(), new File(path, DIR_REPORT));
 			Logger.v("Send report: exporting DB");
 			try {
