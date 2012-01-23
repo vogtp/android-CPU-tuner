@@ -212,7 +212,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		//		return pagerAdapter.onPrepareOptionsMenu(menu);
 		menu.clear();
 		MenuInflater menuInflater = getMenuInflater();
-		pagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
+		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
 		menuInflater.inflate(R.menu.gerneral_help_menu, menu);
 		menuInflater.inflate(R.menu.gerneral_options_menu, menu);
 		return true;
@@ -221,7 +221,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		try {
-			if (((PagerItem) pagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
+			if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
 				return true;
 			}
 		} catch (ClassCastException e) {
@@ -238,7 +238,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		super.onResume();
 		registerReceiver();
 		try {
-			pagerAdapter.getCurrentItem().onResume();
+			PagerAdapter.getCurrentItem().onResume();
 		} catch (Exception e) {
 			Logger.e("Cannot resume current fragment", e);
 		}
@@ -246,7 +246,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	@Override
 	protected void onPause() {
-		pagerAdapter.getCurrentItem().onPause();
+		PagerAdapter.getCurrentItem().onPause();
 		unregisterReceiver();
 		super.onPause();
 	}
