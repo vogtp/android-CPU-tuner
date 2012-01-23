@@ -78,6 +78,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 			}
 
 		});
+		updateView();
 	}
 
 	private VirtualGovernorModel getVirtualGovernorModel(long virtualGovernor) {
@@ -116,6 +117,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		}
 	}
 
+
 	@Override
 	public void updateView() {
 		IGovernorModel governorModel = getGovernorModel();
@@ -124,6 +126,7 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 		}
 		long virtualGovernor = governorModel.getVirtualGovernor();
 		spinnerSetGov.setSelectionDbId(virtualGovernor);
-		tvExplainGov.setText(governorModel.getDescription(getActivity()));
+		CharSequence description = governorModel.getDescription(getActivity());
+		tvExplainGov.setText(description);
 	}
 }

@@ -48,6 +48,7 @@ import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
 
@@ -244,10 +245,16 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (getActivity() != null) {
-			governorFragment.updateVirtGov(true);
-			updateView();
+		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
+			return;
 		}
+		if (getActivity() == null) {
+			return;
+		}
+		if (governorFragment != null) {
+			governorFragment.updateVirtGov(true);
+		}
+		updateView();
 	}
 
 	@Override
@@ -274,9 +281,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			}
 			self = lastInstanceCreated;
 		}
-		self.deviceStatusChanged();
 		self.profileChanged();
 		self.triggerChanged();
+		self.deviceStatusChanged();
 	}
 
 	@Override
