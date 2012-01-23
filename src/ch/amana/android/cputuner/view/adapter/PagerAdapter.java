@@ -26,7 +26,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 	private final ViewPager mPager;
 	private final PagerHeader mHeader;
 	private final ArrayList<PageInfo> mPages = new ArrayList<PageInfo>();
-	private Fragment currentPage;
+	private static Fragment currentPage;
 	private boolean first = true;
 	private final ActionBarWrapper mActionBar;
 	private final Map<Integer, Fragment> fragments = new HashMap<Integer, Fragment>();
@@ -94,9 +94,9 @@ public class PagerAdapter extends FragmentPagerAdapter
 			PageInfo info = mPages.get(position);
 			f = Fragment.instantiate(context, info.clss.getName(), info.args);
 			fragments.put(position, f);
-			if (currentPage == null) {
-				currentPage = f;
-			}
+			//			if (currentPage == null) {
+			//				currentPage = f;
+			//			}
 		}
 		if (first && position == 0) {
 			first = false;
@@ -158,7 +158,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 		return currentPage.onOptionsItemSelected(item);
 	}
 
-	public Fragment getCurrentItem() {
+	public static Fragment getCurrentItem() {
 		if (currentPage == null) {
 			return new Fragment();
 		}

@@ -49,6 +49,7 @@ import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
@@ -293,6 +294,9 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
+			return false;
+		}
 		super.onContextItemSelected(item);
 
 		AdapterView.AdapterContextMenuInfo info;
