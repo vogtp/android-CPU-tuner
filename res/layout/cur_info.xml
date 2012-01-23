@@ -218,10 +218,9 @@
                     android:id="@+id/SeekBarCpuFreqMax"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight=".3"
                     android:paddingBottom="3dp"
-                    android:paddingRight="5dp"
+                    android:paddingRight="15dp"
                     android:paddingTop="3dp" >
                 </SeekBar>
             </TableRow>
@@ -250,10 +249,9 @@
                     android:id="@+id/SeekBarCpuFreqMin"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight=".3"
                     android:paddingBottom="3dp"
-                    android:paddingRight="5dp"
+                    android:paddingRight="15dp"
                     android:paddingTop="3dp" >
                 </SeekBar>
             </TableRow>
