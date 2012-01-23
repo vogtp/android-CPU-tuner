@@ -8,8 +8,7 @@
     <LinearLayout
         android:id="@+id/llCpuGov"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="20dp" >
 
@@ -36,8 +35,7 @@
     <TextView
         android:id="@+id/tvExplainGov"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight=".9" >
+        android:layout_height="wrap_content" >
     </TextView>
 
 </LinearLayout>
