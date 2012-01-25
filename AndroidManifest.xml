@@ -340,6 +340,31 @@
 
         <activity android:name=".view.preference.AdvStatisticsExtensionSettings" >
         </activity>
+
+        <receiver
+            android:name=".view.appwidget.ProfileAppwidgetProvider"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/profile_widget" />
+        </receiver>
+        <receiver android:name=".view.appwidget.ProfileAppwidgetUpdateReceiver" >
+        </receiver>
+
+        <service android:name=".view.appwidget.ProfileAppwidgetUpdateService" >
+            <intent-filter>
+                <action android:name="ch.amana.android.cputuner.ACTION_START_PROFILEWIDGET_UPDATE" />
+                <action android:name="ch.amana.android.cputuner.ACTION_STOP_PROFILEWIDGET_UPDATE" />
+                <action android:name="ch.amana.android.cputuner.profileChanged" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

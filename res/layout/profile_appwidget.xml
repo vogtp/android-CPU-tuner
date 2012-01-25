@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llProfileAppWiget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="1dp" >
+
+    <TextView
+        style="@style/styleAppwidgetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvTrigger"
+        android:text="@string/labelCurrentTrigger" />
+
+    <TextView
+        android:id="@+id/tvTrigger"
+        style="@style/styleAppwidgetValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/styleAppwidgetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvProfile"
+        android:text="@string/labelCurrentProfile" />
+
+    <TextView
+        android:id="@+id/tvProfile"
+        style="@style/styleAppwidgetValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTrigger" />
+
+    <TextView
+        style="@style/styleAppwidgetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvGov"
+        android:text="@string/labelCpuGov" />
+
+    <TextView
+        android:id="@+id/tvGov"
+        style="@style/styleAppwidgetValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProfile" />
+
+    <TextView
+        style="@style/styleAppwidgetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvBattery"
+        android:text="@string/labelCurrentBattery" />
+
+    <TextView
+        android:id="@+id/tvBattery"
+        style="@style/styleAppwidgetValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvGov" />
+
+</RelativeLayout>

@@ -292,14 +292,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			return;
 		}
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
-		StringBuilder bat = new StringBuilder();
-		bat.append(powerProfiles.getBatteryLevel()).append("%");
-		bat.append(" (");
-		if (powerProfiles.isBatteryHot()) {
-			bat.append(getString(R.string.label_hot)).append(" ");
-		}
-		bat.append(powerProfiles.getBatteryTemperature()).append(" °C)");
-		tvBatteryLevel.setText(bat.toString());
+
+		tvBatteryLevel.setText(powerProfiles.getBatteryInfo());
 		StringBuilder currentText = new StringBuilder();
 		BatteryHandler batteryHandler = BatteryHandler.getInstance();
 		int currentNow = batteryHandler.getBatteryCurrentNow();

@@ -4,6 +4,7 @@ import java.util.EnumMap;
 
 import android.content.Context;
 import android.content.Intent;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
@@ -613,6 +614,17 @@ public class PowerProfiles {
 
 	public String getCurrentVirtGovName() {
 		return ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName();
+	}
+
+	public CharSequence getBatteryInfo() {
+		StringBuilder bat = new StringBuilder();
+		bat.append(getBatteryLevel()).append("%");
+		bat.append(" (");
+		if (isBatteryHot()) {
+			bat.append(context.getString(R.string.label_hot)).append(" ");
+		}
+		bat.append(getBatteryTemperature()).append(" °C)");
+		return bat.toString();
 	}
 
 }
