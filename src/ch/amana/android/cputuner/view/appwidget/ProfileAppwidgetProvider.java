@@ -6,9 +6,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.RemoteViews;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
@@ -30,7 +32,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		updateView(context);
 	}
 
-	static void updateView(Context ctx) {
+	public static void updateView(Context ctx) {
 		if (Logger.DEBUG) {
 			Logger.v("ProfileAppWidget update");
 		}
@@ -70,9 +72,22 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 		views.setOnClickPendingIntent(R.id.topAppWiget, pendingIntent);
 		PowerProfiles powerProfiles = PowerProfiles.getInstance(context);
-
-		views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
-		views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
+		if (settings.isEnableProfiles()) {
+			views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
+			views.setTextColor(R.id.tvTrigger, Color.WHITE);
+		} else {
+			views.setTextViewText(R.id.tvTrigger, context.getString(R.string.notEnabled));
+			views.setTextColor(R.id.tvTrigger, Color.RED);
+		}
+		if (powerProfiles.isManualProfile()) {
+			StringBuilder sb = new StringBuilder(powerProfiles.getCurrentProfileName());
+			sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+			views.setTextColor(R.id.tvProfile, Color.YELLOW);
+			views.setTextViewText(R.id.tvProfile, sb.toString());
+		} else {
+			views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
+			views.setTextColor(R.id.tvProfile, Color.WHITE);
+		}
 		if (settings.isUseVirtualGovernors()) {
 			views.setViewVisibility(R.id.tvGov, View.VISIBLE);
 			views.setTextViewText(R.id.tvGov, powerProfiles.getCurrentVirtGovName());
@@ -80,18 +95,18 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.tvGov, View.GONE);
 		}
 		views.setTextViewText(R.id.tvBattery, powerProfiles.getBatteryInfo());
-		//		if (PulseHelper.getInstance(act).isPulsing()) {
-		//			trPulse.setVisibility(View.VISIBLE);
-		//			int res = PulseHelper.getInstance(act).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-		//			tvPulse.setText(res);
-		//		} else {
-		//			trPulse.setVisibility(View.GONE);
-		//		}
-		//		if (powerProfiles.hasManualServicesChanges()) {
-		//			tvManualServiceChanges.setVisibility(View.VISIBLE);
-		//		} else {
-		//			tvManualServiceChanges.setVisibility(View.GONE);
-		//		}
+		if (powerProfiles.hasManualServicesChanges()) {
+			views.setViewVisibility(R.id.tvServiceMsg, View.VISIBLE);
+		} else {
+			views.setViewVisibility(R.id.tvServiceMsg, View.GONE);
+		}
+		if (PulseHelper.getInstance(context).isPulsing()) {
+			views.setViewVisibility(R.id.tvPulse, View.VISIBLE);
+			int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+			views.setTextViewText(R.id.tvPulse, context.getString(res));
+		} else {
+			views.setViewVisibility(R.id.tvPulse, View.GONE);
+		}
 		return views;
 	}
 

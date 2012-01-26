@@ -69,6 +69,7 @@ public class EventListenerService extends Service {
 		BatteryReceiver.unregisterBatteryReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
 		StatisticsReceiver.unregister(ctx);
+		ProfileAppwidgetProvider.updateView(context);
 		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
 		case SettingsStorage.STATUSBAR_RUNNING:
 			Notifier.stopStatusbarNotifications(ctx);

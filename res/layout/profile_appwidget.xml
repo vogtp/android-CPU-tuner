@@ -65,6 +65,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvGov" />
+
+        <TextView
+            android:id="@+id/tvServiceMsg"
+            style="@style/styleAppwidgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvBattery"
+            android:lines="1"
+            android:text="@string/msgManualServiceChanges"
+            android:textColor="@color/yellow"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvPulse"
+            style="@style/styleAppwidgetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvServiceMsg" />
     </RelativeLayout>
 
 </FrameLayout>
