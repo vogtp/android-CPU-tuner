@@ -592,7 +592,7 @@ public class PowerProfiles {
 
 	public void setManualProfile(long manualProfileID) {
 		this.manualProfileID = manualProfileID;
-		applyProfile(manualProfileID);
+		applyProfile(manualProfileID, true);
 	}
 
 	public boolean hasManualServicesChanges() {

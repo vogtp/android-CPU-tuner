@@ -91,11 +91,9 @@ public class TunerService extends IntentService {
 		if (intent.getBooleanExtra(EXTRA_IS_MANUAL_PROFILE, false)) {
 			long id = intent.getLongExtra(EXTRA_PROFILE_ID, powerProfiles.getCurrentAutoProfileId());
 			powerProfiles.setManualProfile(id);
-			powerProfiles.applyProfile(id);
 		} else {
 			if (powerProfiles.isManualProfile()) {
 				powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
-				powerProfiles.reapplyProfile(true);
 			}
 		}
 	}
