@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201201230"
+    android:versionCode="201201250"
     android:versionName="@string/version" >
 
     <uses-sdk
@@ -365,6 +365,14 @@
                 <action android:name="ch.amana.android.cputuner.profileChanged" />
             </intent-filter>
         </service>
+
+        <activity android:name=".view.preference.AppwidgetExtensionSettings" >
+        </activity>
+        <activity android:name=".view.appwidget.AppwidgetConfigureAction" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

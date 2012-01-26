@@ -13,6 +13,7 @@ import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
+import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class EventListenerService extends Service {
 
@@ -56,6 +57,7 @@ public class EventListenerService extends Service {
 		if (settingsStorage.isRunStatisticsService()) {
 			StatisticsReceiver.register(ctx);
 		}
+		ProfileAppwidgetProvider.enableWidget(ctx, settingsStorage.hasWidget());
 	}
 
 	private void stopCpuTuner() {
@@ -81,6 +83,7 @@ public class EventListenerService extends Service {
 		SwitchLog.stop(ctx);
 		stopSelf();
 	}
+
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub

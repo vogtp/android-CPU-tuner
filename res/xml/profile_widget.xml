@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="ch.amana.android.cputuner.view.appwidget.AppwidgetConfigureAction"
     android:initialLayout="@layout/profile_appwidget"
     android:minHeight="110dp"
     android:minResizeHeight="40dp"

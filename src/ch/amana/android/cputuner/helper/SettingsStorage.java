@@ -19,6 +19,7 @@ import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
+import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class SettingsStorage {
 
@@ -53,18 +54,19 @@ public class SettingsStorage {
 	public static final String PREF_KEY_MIN_FREQ = "prefKeyMinFreq";
 	public static final String PREF_KEY_MAX_FREQ = "prefKeyMaxFreq";
 
-	private static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
-	private static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
+	public static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
+	public static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
 
 	private static final String PREF_STORE_LOCAL = "local";
 
-	private static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
+	public static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
 
-	private static final String PREF_KEY_ADV_STATS = "prefKeyAdvStats";
+	public static final String PREF_KEY_ADV_STATS = "prefKeyAdvStats";
+	public static final String PREF_KEY_WIDGET = "prefKeyHasWidget";
 
-	private static final String PREF_KEY_TIMEINSTATE_BASELINE = "prefKeyTimeinstateBaseline";
+	public static final String PREF_KEY_TIMEINSTATE_BASELINE = "prefKeyTimeinstateBaseline";
 
-	private static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
+	public static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
 	public static final String PREF_KEY_SWITCH_CPU_SETTINGS = "prefKeySwitchCpuSetting";
 
 	public static final int STATUSBAR_NEVER = 0;
@@ -72,6 +74,7 @@ public class SettingsStorage {
 	public static final int STATUSBAR_ALWAYS = 2;
 
 	public static final boolean FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD = true;
+
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -590,6 +593,17 @@ public class SettingsStorage {
 
 	public boolean isAdvancesStatistics() {
 		return getPreferences().getBoolean(PREF_KEY_ADV_STATS, false);
+	}
+
+	public void setHasWidget(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_WIDGET, b);
+		editor.commit();
+		ProfileAppwidgetProvider.enableWidget(context, b);
+	}
+
+	public boolean hasWidget() {
+		return getPreferences().getBoolean(PREF_KEY_WIDGET, false);
 	}
 
 	public void setTimeinstateBaseline(String timeInState) {

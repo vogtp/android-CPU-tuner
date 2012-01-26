@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.activity;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.adapter.BillingProductAdaper;
 import ch.amana.android.cputuner.view.preference.AdvStatisticsExtensionSettings;
+import ch.amana.android.cputuner.view.preference.AppwidgetExtensionSettings;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
@@ -81,7 +83,9 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	}
 
 	private void reinitaliseOwnedItems() {
-		SettingsStorage.getInstance().setAdvancesStatistics(bm.getCountOfProduct(BillingProducts.statistics) > 0);
+		SettingsStorage settings = SettingsStorage.getInstance();
+		settings.setAdvancesStatistics(bm.getCountOfProduct(BillingProducts.statistics) > 0);
+		settings.setHasWidget(bm.getCountOfProduct(BillingProducts.widget) > 0);
 	}
 
 	private void updateView() {
@@ -118,15 +122,9 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 		if (product.isManaged() && product.getCount() > 0) {
 			if (BillingProducts.statistics.equals(product.getProductId())) {
 				startActivity(new Intent(this, AdvStatisticsExtensionSettings.class));
-//				SettingsStorage settings = SettingsStorage.getInstance();
-//				if (settings.isAdvancesStatistics()) {
-//					settings.setAdvancesStatistics(false);
-//					Toast.makeText(this, product.getName() + ": " + getString(R.string.not_enabled), Toast.LENGTH_SHORT).show();
-//				} else {
-//					settings.setAdvancesStatistics(true);
-//					Toast.makeText(this, product.getName() + ": " + getString(R.string.enabled), Toast.LENGTH_SHORT).show();
-//				}
-//				updateView();
+			}
+			if (BillingProducts.widget.equals(product.getProductId())) {
+				startActivity(new Intent(this, AppwidgetExtensionSettings.class));
 			}
 		}
 		super.onListItemClick(l, v, position, id);
@@ -144,6 +142,8 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 			SettingsStorage settings = SettingsStorage.getInstance();
 			settings.setAdvancesStatistics(installed);
 			settings.setRunStatisticsService(installed);
+		} else if (BillingProducts.widget.equals(pid)) {
+			SettingsStorage.getInstance().setHasWidget(count > 0);
 		}
 	}
 
@@ -188,4 +188,17 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 		reinitaliseOwnedItems();
 	}
 
+	public static Intent getBeerIntent(Context ctx) {
+		Intent i = new Intent(ctx, BillingProductListActiviy.class);
+		i.putExtra(EXTRA_TITLE, ctx.getString(R.string.prefBuyMeABeer));
+		i.putExtra(EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_BUY_ME_BEER);
+		return i;
+	}
+
+	public static Intent getExtentionsIntent(Context ctx) {
+		Intent i = new Intent(ctx, BillingProductListActiviy.class);
+		i.putExtra(EXTRA_TITLE, ctx.getString(R.string.title_extentions));
+		i.putExtra(EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);
+		return i;
+	}
 }

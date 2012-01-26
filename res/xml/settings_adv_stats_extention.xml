@@ -9,6 +9,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefCatStatistics" >
         <CheckBoxPreference
+            android:dependency="prefKeyAdvStats"
             android:key="prefKeyEnableStatisticsService"
             android:title="@string/prefEnableStatistics" />
     </PreferenceCategory>
@@ -17,11 +18,13 @@
         android:title="@string/labelLogTab" >
         <CheckBoxPreference
             android:defaultValue="true"
+            android:dependency="prefKeyAdvStats"
             android:key="prefKeyEnableSwitchLog"
             android:title="@string/prefEnableSwitchLog" />
 
         <EditTextPreference
             android:defaultValue="24"
+            android:dependency="prefKeyAdvStats"
             android:dialogMessage="@string/prefProfileSwitchLogSizeLong"
             android:key="prefKeyProfileSwitchLogSize"
             android:summary="@string/prefProfileSwitchLogSizeLong"
@@ -29,6 +32,7 @@
         </EditTextPreference>
 
         <CheckBoxPreference
+            android:dependency="prefKeyAdvStats"
             android:key="prefKeyLogPulse"
             android:summaryOff="@string/prefLogPulseOff"
             android:summaryOn="@string/prefLogPulseOn"

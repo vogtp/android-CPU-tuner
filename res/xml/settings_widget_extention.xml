@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefCatWidget"
+    android:title="@string/prefCatWidget" >
+
+    <CheckBoxPreference
+        android:key="prefKeyHasWidget"
+        android:title="@string/prefHasWidget" />
+
+</PreferenceScreen>
