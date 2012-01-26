@@ -4,6 +4,7 @@
     <dimen name="paddingUserLevelChooser">40dp</dimen>
     <dimen name="triggerEditor1Col">111dp</dimen>
     <dimen name="trigger_editor_explain_text_size">11sp</dimen>
-    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_margin_vertical">8dp</dimen>
+    <dimen name="widget_margin_horizontal">4dp</dimen>
 
 </resources>

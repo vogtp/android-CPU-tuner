@@ -14,6 +14,7 @@ import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
+import ch.amana.android.cputuner.view.activity.ProfileChooserActivity;
 
 public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
@@ -54,21 +55,43 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 	static RemoteViews createAppWidgetView(Context context) {
 		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.profile_appwidget);
-		Intent intent = CpuTunerViewpagerActivity.getStartIntent(context);
-		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+		PendingIntent pendingIntent;
+		
+		SettingsStorage settings = SettingsStorage.getInstance(context);
+		switch (settings.getAppwdigetOpenAction()) {
+		case SettingsStorage.APPWIDGET_OPENACTION_CHOOSEPROFILES:
+			pendingIntent = PendingIntent.getActivity(context, 0, ProfileChooserActivity.getStartIntent(context), 0);
+			break;
+		default:
+			pendingIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
+			break;
+		}
+		
+
 		views.setOnClickPendingIntent(R.id.topAppWiget, pendingIntent);
 		PowerProfiles powerProfiles = PowerProfiles.getInstance(context);
 
 		views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
 		views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
-		if (SettingsStorage.getInstance(context).isUseVirtualGovernors()) {
+		if (settings.isUseVirtualGovernors()) {
 			views.setViewVisibility(R.id.tvGov, View.VISIBLE);
 			views.setTextViewText(R.id.tvGov, powerProfiles.getCurrentVirtGovName());
 		} else {
 			views.setViewVisibility(R.id.tvGov, View.GONE);
 		}
 		views.setTextViewText(R.id.tvBattery, powerProfiles.getBatteryInfo());
-
+		//		if (PulseHelper.getInstance(act).isPulsing()) {
+		//			trPulse.setVisibility(View.VISIBLE);
+		//			int res = PulseHelper.getInstance(act).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
+		//			tvPulse.setText(res);
+		//		} else {
+		//			trPulse.setVisibility(View.GONE);
+		//		}
+		//		if (powerProfiles.hasManualServicesChanges()) {
+		//			tvManualServiceChanges.setVisibility(View.VISIBLE);
+		//		} else {
+		//			tvManualServiceChanges.setVisibility(View.GONE);
+		//		}
 		return views;
 	}
 

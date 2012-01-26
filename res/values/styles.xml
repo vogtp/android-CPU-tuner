@@ -43,12 +43,24 @@
         <item name="android:lines">1</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingLeft">2dp</item>
     </style>
 
     <style name="styleAppwidgetLabel" parent="android:Widget.Holo.TextView">
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textSize">8sp</item>
-        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingLeft">3dp</item>
+    </style>
+
+    <style name="styleWidgetOuter">
+        <item name="android:paddingBottom">@dimen/widget_margin_vertical</item>
+        <item name="android:paddingLeft">@dimen/widget_margin_horizontal</item>
+        <item name="android:paddingRight">@dimen/widget_margin_horizontal</item>
+        <item name="android:paddingTop">@dimen/widget_margin_vertical</item>
+    </style>
+
+    <style name="styleWidgetInner">
+        <item name="android:background">@drawable/appwidget_dark_bg_clickable</item>
     </style>
 
 </resources>

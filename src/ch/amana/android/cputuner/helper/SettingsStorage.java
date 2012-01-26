@@ -75,6 +75,8 @@ public class SettingsStorage {
 
 	public static final boolean FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD = true;
 
+	public static final int APPWIDGET_OPENACTION_CHOOSEPROFILES = 1;
+	public static final int APPWIDGET_OPENACTION_CPUTUNER = 2;
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -713,5 +715,9 @@ public class SettingsStorage {
 			enableEnableStatistics = getPreferences().getBoolean(PREF_KEY_ENABLE_STATISTICS_SERVICE, false);
 		}
 		return enableEnableStatistics;
+	}
+
+	public int getAppwdigetOpenAction() {
+		return APPWIDGET_OPENACTION_CHOOSEPROFILES;
 	}
 }
