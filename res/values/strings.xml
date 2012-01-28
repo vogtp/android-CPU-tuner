@@ -13,4 +13,15 @@
     <string name="buNeg_install_widget_dia">No, thanks.</string>
     <string name="buPos_install_widget_dia">Get it…</string>
 
+    <string-array name="deviceStatesCurrent">
+        <item>Enable</item>
+        <item>Disable</item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+        <item>2G only</item>
+        <item>3G/2G</item>
+        <item>3G only</item>
+    </string-array>
+
 </resources>

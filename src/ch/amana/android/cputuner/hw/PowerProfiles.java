@@ -627,4 +627,32 @@ public class PowerProfiles {
 		return bat.toString();
 	}
 
+	public void setServiceState(ServiceType type, int state) {
+		switch (type) {
+		case wifi:
+			applyWifiState(state);
+			break;
+		case bluetooth:
+			applyBluetoothState(state);
+			break;
+		case mobiledataConnection:
+			applyMobiledataConnectionState(state);
+			break;
+		case backgroundsync:
+			applyBackgroundSyncState(state);
+			break;
+		case airplainMode:
+			applyAirplanemodeState(state);
+			break;
+		case gps:
+			applyGpsState(state);
+			break;
+		case mobiledata3g:
+			applyMobiledata3GState(state);
+			break;
+		default:
+			Logger.e("Did not find service type " + type.toString() + " to apply new state.");
+		}
+	}
+
 }

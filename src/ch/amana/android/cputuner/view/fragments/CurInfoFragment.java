@@ -50,6 +50,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateCh
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
+import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
 
 import com.markupartist.android.widget.ActionBar.Action;
@@ -84,6 +85,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TextView tvManualServiceChanges;
 	// FIXME ugly way to get around destruction of fragments on orientation change
 	private CurInfoFragment lastInstanceCreated;
+	private ServiceSwitcher serviceSwitcher;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +119,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		trBattery = (TableRow) v.findViewById(R.id.TableRowBattery);
 		trPower = (TableRow) v.findViewById(R.id.TableRowPower);
 		tvManualServiceChanges = (TextView) v.findViewById(R.id.tvManualServiceChanges);
+		serviceSwitcher = (ServiceSwitcher) v.findViewById(R.id.serviceSwitcher);
+		serviceSwitcher.setButtonPadding(getResources().getDimension(R.dimen.cur_info_servicebutton_padding));
 		return v;
 	}
 
@@ -315,6 +319,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		} else {
 			trBatteryCurrent.setVisibility(View.GONE);
 		}
+		serviceSwitcher.updateButtonStateFromSystem();
 	}
 
 	@Override

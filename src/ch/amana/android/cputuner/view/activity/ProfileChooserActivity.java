@@ -29,7 +29,7 @@ public class ProfileChooserActivity extends ListActivity {
 		CursorLoader cursorLoader = new CursorLoader(this, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 		Cursor cursor = cursorLoader.loadInBackground();
 
-		setListAdapter(new ProfileAdaper(this, cursor, R.layout.profilechooser_item, R.id.text1));
+		setListAdapter(new ProfileAdaper(this, cursor, R.layout.profilechooser_item, R.id.ID));
 
 	}
 

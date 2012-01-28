@@ -216,21 +216,6 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 				return false;
 			}
 
-			private void setServiceStateIcon(ImageView icon, int state) {
-				icon.clearAnimation();
-				if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
-					icon.setAlpha(ALPHA_LEAVE);
-				} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
-					icon.setAlpha(ALPHA_OFF);
-				} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
-					setAnimation(icon, R.anim.back);
-				} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-					setAnimation(icon, R.anim.pluse);
-				} else {
-					icon.setAlpha(ALPHA_ON);
-				}
-			}
-
 		});
 
 		setListAdapter(adapter);
@@ -252,6 +237,20 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		super.onDestroy();
 	}
 
+	private void setServiceStateIcon(ImageView icon, int state) {
+		icon.clearAnimation();
+		if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
+			icon.setAlpha(ALPHA_LEAVE);
+		} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+			icon.setAlpha(ALPHA_OFF);
+		} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+			setAnimation(icon, R.anim.back);
+		} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+			setAnimation(icon, R.anim.pluse);
+		} else {
+			icon.setAlpha(ALPHA_ON);
+		}
+	}
 	private void setAnimation(final View v, int resID) {
 		final AnimationSet c = (AnimationSet) AnimationUtils.loadAnimation(getActivity(), resID);
 		c.setRepeatMode(Animation.RESTART);

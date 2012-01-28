@@ -66,12 +66,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvGov" />
 
+        <include
+            android:id="@+id/llServiceIcons_ref"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_below="@+id/tvBattery"
+            layout="@layout/service_icons_view" />
+
         <TextView
             android:id="@+id/tvServiceMsg"
             style="@style/styleAppwidgetLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBattery"
+            android:layout_below="@+id/llServiceIcons_ref"
             android:lines="1"
             android:text="@string/msgManualServiceChanges"
             android:textColor="@color/yellow"

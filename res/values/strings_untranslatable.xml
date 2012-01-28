@@ -51,4 +51,15 @@
         <item>0</item>
     </string-array>
 
+    <integer-array name="deviceStatesCurrentValues">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </integer-array>
+    <integer-array name="mobiledataStatesCurrentValues">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </integer-array>
+
 </resources>

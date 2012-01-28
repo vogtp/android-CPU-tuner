@@ -174,6 +174,13 @@
             </TableRow>
         </TableLayout>
 
+        <ch.amana.android.cputuner.view.widget.ServiceSwitcher
+            android:id="@+id/serviceSwitcher"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:paddingTop="10dp" >
+        </ch.amana.android.cputuner.view.widget.ServiceSwitcher>
+
         <LinearLayout
             android:id="@+id/llGovernorFragmentAncor"
             android:layout_width="match_parent"

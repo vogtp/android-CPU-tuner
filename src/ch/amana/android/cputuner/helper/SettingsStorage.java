@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
+import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.SwitchLog;
@@ -719,5 +720,26 @@ public class SettingsStorage {
 
 	public int getAppwdigetOpenAction() {
 		return APPWIDGET_OPENACTION_CHOOSEPROFILES;
+	}
+
+	public boolean isServiceEnabled(ServiceType type) {
+		switch (type) {
+		case wifi:
+			return isEnableSwitchWifi();
+		case bluetooth:
+			return isEnableSwitchBluetooth();
+		case mobiledataConnection:
+			return isEnableSwitchMobiledataConnection();
+		case backgroundsync:
+			return isEnableSwitchBackgroundSync();
+		case airplainMode:
+			return isEnableAirplaneMode();
+		case gps:
+			return isEnableSwitchGps();
+		case mobiledata3g:
+			return isEnableSwitchMobiledata3G();
+		default:
+			return false;
+		}
 	}
 }

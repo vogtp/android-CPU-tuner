@@ -4,8 +4,12 @@
     <style name="styleServiceIcons">
         <item name="android:adjustViewBounds">true</item>
         <item name="android:paddingRight">3dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <!--
         <item name="android:layout_height">26dp</item>
         <item name="android:layout_width">26dp</item>
+        -->
     </style>
 
     <style name="logText" parent="android:Widget.TextView">
@@ -38,7 +42,7 @@
         <!-- <item name="android:textSize">13sp</item> -->
     </style>
 
-    <style name="styleAppwidgetValue" parent="android:Widget.Holo.TextView">
+    <style name="styleAppwidgetValue" parent="android:Widget.TextView">
         <item name="android:ellipsize">end</item>
         <item name="android:lines">1</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
@@ -46,7 +50,7 @@
         <item name="android:paddingLeft">2dp</item>
     </style>
 
-    <style name="styleAppwidgetLabel" parent="android:Widget.Holo.TextView">
+    <style name="styleAppwidgetLabel" parent="android:Widget.TextView">
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textSize">8sp</item>
         <item name="android:paddingLeft">3dp</item>
