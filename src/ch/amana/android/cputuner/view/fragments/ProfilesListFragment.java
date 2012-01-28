@@ -50,6 +50,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
+import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
@@ -138,79 +139,15 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 						((TextView) view).setText(ProfileModel.convertFreq2GHz(freq));
 					}
 					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
-					if (SettingsStorage.getInstance().isEnableSwitchGps()) {
-						view.setVisibility(View.VISIBLE);
-						setServiceStateIcon((ImageView) view, cursor.getInt(columnIndex));
-					} else {
-						view.setVisibility(View.GONE);
-					}
-					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_WIFI_STATE) {
-					if (SettingsStorage.getInstance().isEnableSwitchWifi()) {
-						view.setVisibility(View.VISIBLE);
-						setServiceStateIcon((ImageView) view, cursor.getInt(columnIndex));
-					} else {
-						view.setVisibility(View.GONE);
-					}
-					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_BLUETOOTH_STATE) {
-					if (SettingsStorage.getInstance().isEnableSwitchBluetooth()) {
-						view.setVisibility(View.VISIBLE);
-						setServiceStateIcon((ImageView) view, cursor.getInt(columnIndex));
-					} else {
-						view.setVisibility(View.GONE);
-					}
-					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE) {
-					if (SettingsStorage.getInstance().isEnableSwitchBackgroundSync()) {
-						view.setVisibility(View.VISIBLE);
-						setServiceStateIcon((ImageView) view, cursor.getInt(columnIndex));
-					} else {
-						view.setVisibility(View.GONE);
-					}
-					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_3G_STATE) {
-					if (!SettingsStorage.getInstance().isEnableSwitchMobiledata3G()) {
-						view.setVisibility(View.GONE);
-						return true;
-					}
-					view.setVisibility(View.VISIBLE);
-					ImageView icon = (ImageView) view;
-					icon.clearAnimation();
-					int state = cursor.getInt(columnIndex);
-					if (state == PowerProfiles.SERVICE_STATE_2G) {
-						icon.setImageResource(R.drawable.serviceicon_md_2g);
-					} else if (state == PowerProfiles.SERVICE_STATE_2G_3G) {
-						icon.setImageResource(R.drawable.serviceicon_md_2g3g);
-					} else if (state == PowerProfiles.SERVICE_STATE_3G) {
-						icon.setImageResource(R.drawable.serviceicon_md_3g);
-					} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
-						icon.setImageResource(R.drawable.serviceicon_md_2g3g);
-						setAnimation(icon, R.anim.back);
-					}
-					if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
-						icon.setAlpha(ALPHA_LEAVE);
-					} else {
-						icon.setAlpha(ALPHA_ON);
-					}
-
-					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_CONNECTION_STATE) {
-					if (SettingsStorage.getInstance().isEnableSwitchMobiledataConnection()) {
-						view.setVisibility(View.VISIBLE);
-						setServiceStateIcon((ImageView) view, cursor.getInt(columnIndex));
-					} else {
-						view.setVisibility(View.GONE);
-					}
-					return true;
-				} else if (columnIndex == DB.CpuProfile.INDEX_AIRPLANEMODE_STATE) {
-					if (SettingsStorage.getInstance().isEnableAirplaneMode()) {
-						view.setVisibility(View.VISIBLE);
-						setServiceStateIcon((ImageView) view, cursor.getInt(columnIndex));
-					} else {
-						view.setVisibility(View.GONE);
-					}
+				} else if (columnIndex == DB.CpuProfile.INDEX_WIFI_STATE ||
+						columnIndex == DB.CpuProfile.INDEX_BLUETOOTH_STATE ||
+						columnIndex == DB.CpuProfile.INDEX_BACKGROUND_SYNC_STATE ||
+						columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_3G_STATE ||
+						columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_CONNECTION_STATE ||
+						columnIndex == DB.CpuProfile.INDEX_AIRPLANEMODE_STATE ||
+						columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
+					ServiceSwitcher serviceSwitcher = (ServiceSwitcher) view.getParent().getParent();
+					serviceSwitcher.setButtuonState((String) view.getTag(), cursor.getInt(columnIndex));
 					return true;
 				}
 				return false;

@@ -120,6 +120,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		trPower = (TableRow) v.findViewById(R.id.TableRowPower);
 		tvManualServiceChanges = (TextView) v.findViewById(R.id.tvManualServiceChanges);
 		serviceSwitcher = (ServiceSwitcher) v.findViewById(R.id.serviceSwitcher);
+		serviceSwitcher.setButtonClickable(true);
 		serviceSwitcher.setButtonPadding(getResources().getDimension(R.dimen.cur_info_servicebutton_padding));
 		return v;
 	}

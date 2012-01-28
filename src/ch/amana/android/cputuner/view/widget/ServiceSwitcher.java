@@ -22,6 +22,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.ServicesHandler;
+import ch.amana.android.cputuner.log.Logger;
 
 import com.markupartist.android.widget.actionbar.R;
 
@@ -69,7 +70,6 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 
 	private void initaliseButton(int id) {
 		ImageView serviceButton = (ImageView) findViewById(id);
-		serviceButton.setOnClickListener(this);
 		ServiceType serviceType = getServiceType(serviceButton);
 		serviceButtonMap.put(serviceType, serviceButton);
 		setButtuonVisibility(serviceType);
@@ -96,6 +96,14 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 	private void registerServiceChangeListener() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setButtuonState(String serviceType, int state) {
+		try {
+			setButtuonState(ServiceType.valueOf(serviceType), state);
+		} catch (IllegalArgumentException e) {
+			Logger.e("Cannot parse " + serviceType + " as service type", e);
+		}
 	}
 
 	public void setButtuonState(ServiceType serviceType, int state) {
@@ -216,6 +224,16 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 			int top = iv.getPaddingBottom();
 			int bottom = iv.getPaddingBottom();
 			iv.setPadding(p, top, p, bottom);
+		}
+	}
+
+	public void setButtonClickable(boolean b) {
+		OnClickListener listener = null;
+		if (b) {
+			listener = this;
+		}
+		for (ImageView iv : serviceButtonMap.values()) {
+			iv.setOnClickListener(listener);
 		}
 	}
 }
