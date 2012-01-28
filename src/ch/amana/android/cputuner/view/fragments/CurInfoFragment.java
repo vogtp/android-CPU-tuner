@@ -320,7 +320,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		} else {
 			trBatteryCurrent.setVisibility(View.GONE);
 		}
-		serviceSwitcher.updateButtonStateFromSystem();
+		serviceSwitcher.updateAllButtonStateFromSystem();
 	}
 
 	@Override

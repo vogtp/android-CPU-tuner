@@ -3,7 +3,14 @@ package ch.amana.android.cputuner.view.widget;
 import java.util.EnumMap;
 import java.util.Map;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
+import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +38,75 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 	private static final int ALPHA_ON = 200;
 	private static final int ALPHA_OFF = 40;
 	private static final int ALPHA_LEAVE = 100;
+	private static Object lock = new Object();
 
 	private final Map<ServiceType, ImageView> serviceButtonMap = new EnumMap<ServiceType, ImageView>(ServiceType.class);
 	private Context ctx;
 	private SettingsStorage settings;
+	private ServiceChangeReceiver receiver;
 
+	class ServiceChangeReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (Logger.DEBUG) {
+				// FIXME remove
+				Logger.d("***********************************************");
+				for (String key : intent.getExtras().keySet()) {
+					try {
+						Logger.d(action + " extra " + key + " -> " + intent.getExtras().get(key));
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}
+			}
+			if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
+					updateButtonStateFromSystem(ServiceType.wifi);
+			} else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
+				updateButtonStateFromSystem(ServiceType.bluetooth);
+			} else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
+				updateButtonStateFromSystem(ServiceType.airplainMode);
+			} else if (ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED.equals(action)) {
+				updateButtonStateFromSystem(ServiceType.backgroundsync);
+			} else {
+				updateButtonStateFromSystem(ServiceType.mobiledata3g);
+				updateButtonStateFromSystem(ServiceType.mobiledataConnection);
+			}
+		}
+
+	}
+
+	public static void registerReceiver(Context context, BroadcastReceiver receiver) {
+		synchronized (lock) {
+			if (receiver != null) {
+				// bt: ok wifi: ok airplaine: ok md: yes 3g: yes
+				// snyc: ?  
+				// gps: not supported
+				context.registerReceiver(receiver, new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION));
+				context.registerReceiver(receiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+				context.registerReceiver(receiver, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED));
+				Logger.i("Registered service change receiver");
+
+			}
+		}
+	}
+
+	public static void unregisterReceiver(Context context, BroadcastReceiver receiver) {
+		synchronized (lock) {
+			if (receiver != null) {
+				try {
+					context.unregisterReceiver(receiver);
+					Logger.i("Unegistered service change receiver");
+				} catch (Throwable e) {
+					Logger.w("Could not unregister service change receiver", e);
+				}
+			}
+		}
+	}
 
 	public ServiceSwitcher(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -79,23 +150,33 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		return ServiceType.valueOf((String) view.getTag());
 	}
 
-	public void updateButtonStateFromSystem() {
+	public void updateAllButtonStateFromSystem() {
+		ImageView gps = (ImageView) findViewById(R.id.ivServiceGPS);
+		gps.setVisibility(View.GONE);
 		ServiceType[] serviceTypes = ServiceType.values();
-		PulseHelper pulseHelper = PulseHelper.getInstance(ctx);
 		for (int i = 0; i < serviceTypes.length; i++) {
 			ServiceType st = serviceTypes[i];
-			int state = ServicesHandler.getServiceState(ctx, st);
-			if (pulseHelper.isPulsing(st)) {
-				state = PowerProfiles.SERVICE_STATE_PULSE;
-			}
-			setButtuonState(st, state);
+			updateButtonStateFromSystem(st);
 		}
-		registerServiceChangeListener();
+		listenForChange();
 	}
 
-	private void registerServiceChangeListener() {
-		// TODO Auto-generated method stub
+	public void updateButtonStateFromSystem(ServiceType st) {
+		int state = ServicesHandler.getServiceState(ctx, st);
+		if (PulseHelper.getInstance(ctx).isPulsing(st)) {
+			state = PowerProfiles.SERVICE_STATE_PULSE;
+		}
+		setButtuonState(st, state);
+	}
+	private void listenForChange() {
+		receiver = new ServiceChangeReceiver();
+		registerReceiver(ctx, receiver);
+	}
 
+	@Override
+	protected void onDetachedFromWindow() {
+		unregisterReceiver(ctx, receiver);
+		super.onDetachedFromWindow();
 	}
 
 	public void setButtuonState(String serviceType, int state) {
@@ -107,13 +188,12 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 	}
 
 	public void setButtuonState(ServiceType serviceType, int state) {
-		ImageView view = serviceButtonMap.get(serviceType);
+		ImageView icon = serviceButtonMap.get(serviceType);
 		if (serviceType == ServiceType.mobiledata3g) {
 			if (!settings.isEnableSwitchMobiledata3G()) {
 				return;
 			}
-			view.setVisibility(View.VISIBLE);
-			ImageView icon = view;
+			icon.setAlpha(ALPHA_ON);
 			icon.clearAnimation();
 			if (state == PowerProfiles.SERVICE_STATE_2G) {
 				icon.setImageResource(R.drawable.serviceicon_md_2g);
@@ -125,13 +205,13 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 				icon.setImageResource(R.drawable.serviceicon_md_2g3g);
 				setAnimation(icon, R.anim.back);
 			}
-			if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
-				icon.setAlpha(ALPHA_LEAVE);
-			} else {
-				icon.setAlpha(ALPHA_ON);
-			}
+			//			if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
+			//				icon.setAlpha(ALPHA_LEAVE);
+			//			} else {
+			//				icon.setAlpha(ALPHA_ON);
+			//			}
 		} else {
-			setServiceStateIcon(view, state);
+			setServiceStateIcon(icon, state);
 		}
 	}
 
@@ -156,6 +236,7 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 	}
 
 	private void setAnimation(final View v, int resID) {
+		v.setAlpha(ALPHA_ON);
 		final AnimationSet c = (AnimationSet) AnimationUtils.loadAnimation(ctx, resID);
 		c.setRepeatMode(Animation.RESTART);
 		c.setRepeatCount(Animation.INFINITE);
@@ -200,7 +281,7 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 				int status = statusValues[position];
 				PowerProfiles.getInstance(ctx).setServiceState(type, status);
 				lpw.dismiss();
-				updateButtonStateFromSystem();
+				updateAllButtonStateFromSystem();
 				iv.setPressed(false);
 			}
 		});
@@ -236,4 +317,5 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 			iv.setOnClickListener(listener);
 		}
 	}
+
 }
