@@ -57,20 +57,33 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 	static RemoteViews createAppWidgetView(Context context) {
 		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.profile_appwidget);
-		PendingIntent pendingIntent;
+		PendingIntent mainPendingIntent;
 		
 		SettingsStorage settings = SettingsStorage.getInstance(context);
+		PendingIntent startCpuTunerPendingIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
+		PendingIntent chooseProfilePendingIntent = PendingIntent.getActivity(context, 0, ProfileChooserActivity.getStartIntent(context), 0);
+		PendingIntent batteryPendingIntent = PendingIntent.getActivity(context, 0, new Intent(Intent.ACTION_POWER_USAGE_SUMMARY), 0);
 		switch (settings.getAppwdigetOpenAction()) {
 		case SettingsStorage.APPWIDGET_OPENACTION_CHOOSEPROFILES:
-			pendingIntent = PendingIntent.getActivity(context, 0, ProfileChooserActivity.getStartIntent(context), 0);
+			mainPendingIntent = chooseProfilePendingIntent;
 			break;
 		default:
-			pendingIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
+			mainPendingIntent = startCpuTunerPendingIntent;
 			break;
 		}
 		
 
-		views.setOnClickPendingIntent(R.id.topAppWiget, pendingIntent);
+		views.setOnClickPendingIntent(R.id.topAppWiget, mainPendingIntent);
+		views.setOnClickPendingIntent(R.id.ivCpuTunerIcon, startCpuTunerPendingIntent);
+		views.setOnClickPendingIntent(R.id.tvTrigger, chooseProfilePendingIntent);
+		views.setOnClickPendingIntent(R.id.tvProfile, chooseProfilePendingIntent);
+		views.setOnClickPendingIntent(R.id.tvGov, chooseProfilePendingIntent);
+		views.setOnClickPendingIntent(R.id.labelTrigger, chooseProfilePendingIntent);
+		views.setOnClickPendingIntent(R.id.labelProfile, chooseProfilePendingIntent);
+		views.setOnClickPendingIntent(R.id.labelGov, chooseProfilePendingIntent);
+		views.setOnClickPendingIntent(R.id.tvBattery, batteryPendingIntent);
+		views.setOnClickPendingIntent(R.id.labelBattery, batteryPendingIntent);
+
 		PowerProfiles powerProfiles = PowerProfiles.getInstance(context);
 		if (settings.isEnableProfiles()) {
 			views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
