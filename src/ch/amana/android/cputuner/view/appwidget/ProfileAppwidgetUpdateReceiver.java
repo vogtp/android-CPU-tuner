@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
+import ch.amana.android.cputuner.service.TunerService;
 
 public class ProfileAppwidgetUpdateReceiver extends BroadcastReceiver {
 	private static Object lock = new Object();
@@ -22,6 +23,7 @@ public class ProfileAppwidgetUpdateReceiver extends BroadcastReceiver {
 				receiver = new ProfileAppwidgetUpdateReceiver();
 				context.registerReceiver(receiver, new IntentFilter(Notifier.BROADCAST_PROFILE_CHANGED));
 				context.registerReceiver(receiver, new IntentFilter(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(TunerService.ACTION_PULSE));
 				Logger.w("Registered ProfileAppWidgetUpdateReceiver");
 			} else {
 				if (Logger.DEBUG) {

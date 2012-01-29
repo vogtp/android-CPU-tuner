@@ -12,6 +12,7 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/labelTrigger"
             style="@style/styleAppwidgetLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/labelProfile"
             style="@style/styleAppwidgetLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,6 +41,7 @@
             android:layout_below="@+id/tvTrigger" />
 
         <TextView
+            android:id="@+id/labelGov"
             style="@style/styleAppwidgetLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,6 +56,7 @@
             android:layout_below="@+id/tvProfile" />
 
         <TextView
+            android:id="@+id/labelBattery"
             style="@style/styleAppwidgetLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,6 +94,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvServiceMsg" />
+
+        <ImageView
+            android:id="@+id/ivCpuTunerIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon" />
     </RelativeLayout>
 
 </FrameLayout>
