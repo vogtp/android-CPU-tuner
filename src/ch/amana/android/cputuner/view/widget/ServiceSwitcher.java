@@ -236,7 +236,6 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 	}
 
 	private void setAnimation(final View v, int resID) {
-		v.setAlpha(ALPHA_ON);
 		final AnimationSet c = (AnimationSet) AnimationUtils.loadAnimation(ctx, resID);
 		c.setRepeatMode(Animation.RESTART);
 		c.setRepeatCount(Animation.INFINITE);
