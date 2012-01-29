@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="mhz">MHz</string>
+    <string name="ms">ms</string>
+    <string name="percent">%</string>
     <string name="govPowersave">powersave</string>
     <string name="govOndemand">ondemand</string>
 
@@ -47,5 +50,16 @@
         <item>2</item>
         <item>0</item>
     </string-array>
+
+    <integer-array name="deviceStatesCurrentValues">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </integer-array>
+    <integer-array name="mobiledataStatesCurrentValues">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </integer-array>
 
 </resources>
