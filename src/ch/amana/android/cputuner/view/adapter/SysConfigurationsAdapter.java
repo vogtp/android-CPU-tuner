@@ -23,6 +23,7 @@ import ch.amana.android.cputuner.log.Logger;
 
 public class SysConfigurationsAdapter extends BaseAdapter {
 
+	private static final String RESOURCE_CONFIGURATION = "configuration_";
 	private static final String INFOTAG_NAME = "title";
 	private static final String INFOTAG_DESC = "description";
 	private static final String INFO_FILENAME = "info.json";
@@ -91,13 +92,15 @@ public class SysConfigurationsAdapter extends BaseAdapter {
 	}
 
 	private String getTranslatedString(JSONObject info, String name) throws JSONException {
-		String translatedName = name +"_"+language;
-		if (info.has(translatedName)) {
-			String transString = info.getString(translatedName);
-			if (!TextUtils.isEmpty(transString)) {
-				return transString;
-			}
+		String configurationName = info.getString(INFOTAG_NAME);
+		String resString = RESOURCE_CONFIGURATION + name + "_" + configurationName;
+		try {
+			int id = ctx.getResources().getIdentifier(resString, "string", ctx.getPackageName());
+			return ctx.getString(id);
+		} catch (Exception e) {
+			Logger.w("no resource for configuration " + name + " found looking for " + resString, e);
 		}
+		
 		return info.getString(name);
 	}
 
@@ -133,7 +136,7 @@ public class SysConfigurationsAdapter extends BaseAdapter {
 
 	public String getConfigName(int position) {
 		try {
-			return getInfo(position).getString(INFOTAG_NAME);
+			return getTranslatedString(getInfo(position), INFOTAG_NAME);
 		} catch (Throwable e) {
 			Logger.w("Error getting name from sysconfig", e);
 			return null;

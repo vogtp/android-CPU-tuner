@@ -1,4 +1,3 @@
 {
-	title: "Uniform",
-	description: "The CPU is only controlled based on the state of the device regardless of the battery level. No service switches."
+	title: "uniform"
 }
