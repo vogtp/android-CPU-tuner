@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"><string-array name="prefMulticoreEntries">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="tigger_name_all">All</string>
+    <string name="tigger_name_batteryfull">Battery full</string>
+    <string name="tigger_name_batteryused">Battery used</string>
+    <string name="tigger_name_batterylow">Battery low</string>
+    <string name="tigger_name_batteryempty">Battery empty</string>
+    <string name="tigger_name_batterycritical">Battery critical</string>
+    <string name="profile_name_performance">Performance</string>
+    <string name="profile_name_good">Good</string>
+    <string name="profile_name_normal">Normal</string>
+    <string name="profile_name_screenoff">Screen off</string>
+    <string name="profile_name_screenon">Screen on</string>
+    <string name="profile_name_powersave">Powersave</string>
+    <string name="profile_name_extremepowersave">Extreme powersave</string>
+    <string name="gov_name_fullspeed">Full speed</string>
+    <string name="gov_name_normal">Normal</string>
+    <string name="gov_name_extremeSaveBattery">Extreme Save Battery</string>
+    <string name="gov_name_saveBattery">Save Battery</string>
+
+    <string-array name="prefMulticoreEntries">
         <item>Auto</item>
         <item>Enable</item>
         <item>Disable</item>
     </string-array>
 
+    <string name="configuration_title_sophisticated">Sophisticated</string>
+    <string name="configuration_description_sophisticated">Based on the battery level quite a few triggers are used to control the CPU. No service switches are activated.</string>
+    <string name="configuration_title_uniform">Uniform</string>
+    <string name="configuration_description_uniform">The CPU is only controlled based on the state of the device regardless of the battery level. No service switches.</string>
+    <string name="configuration_title_simplePowerful">Simple &amp; powerful</string>
+    <string name="configuration_description_simplePowerful">This is the profile described by D. in his blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) without mobile data switching.</string>
+    <string name="configuration_title_extreme">Extreme</string>
+    <string name="configuration_description_extreme">This is (nearly) the old default configuration.  It is similar to Sophisticated, but uses much more rigorous setting. While battery saving is better the performance gets worse.</string>
     <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
     <string name="prefConfigurationsLong">Backup and restore (and more)</string>
     <string name="prefCpu">CPU Settings</string>
@@ -21,7 +49,6 @@
     <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
     <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
     <string name="labelActiveCpus">Active CPUs:</string>
-
     <string name="prefEnableCputuner">Enable cpu tuner</string>
     <string name="labelUseCpus_front">Use </string>
     <string name="labelMessage">Message:</string>

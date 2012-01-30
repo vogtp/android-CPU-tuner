@@ -5,6 +5,7 @@
    {
     "governor": "ondemand|interactive|conservative|smartass|performance",
     "virtualGovernor": "Full speed",
+    "resId": "gov_name_fullspeed",
     "_id": "1",
     "powersaveBias": "0",
     "governorThresholdUp": "85",
@@ -13,6 +14,7 @@
    {
     "governor": "ondemand|interactive|conservative|smartass|performance",
     "virtualGovernor": "Normal",
+    "resId": "gov_name_normal",
     "_id": "2",
     "powersaveBias": "0",
     "governorThresholdUp": "90",
@@ -21,6 +23,7 @@
    {
     "governor": "conservative|interactive|smartass|ondemand|powersave",
     "virtualGovernor": "Extreme Save Battery",
+    "resId": "gov_name_extremeSaveBattery",
     "_id": "3",
     "useNumberOfCpus": "1",
     "powersaveBias": "1000",
@@ -30,6 +33,7 @@
    {
     "governor": "conservative|interactive|smartass|ondemand|powersave",
     "virtualGovernor": "Save Battery",
+    "resId": "gov_name_saveBattery",
     "_id": "4",
     "useNumberOfCpus": "1",
     "powersaveBias": "300",
@@ -55,7 +59,8 @@
     "virtualGovernor": "1",
     "_id": "1",
     "bluetoothState": "0",
-    "profileName": "Performance"
+    "profileName": "Performance",
+    "resId": "profile_name_performance"
    },
    {
     "useNumberOfCpus": "0",
@@ -74,7 +79,8 @@
     "virtualGovernor": "2",
     "_id": "2",
     "bluetoothState": "0",
-    "profileName": "Good"
+    "profileName": "Good",
+    "resId": "profile_name_good"
    },
    {
     "gpsState": "0",
@@ -88,6 +94,7 @@
     "governorThresholdUp": "90",
     "mobiledataState": "0",
     "profileName": "Normal",
+    "resId": "profile_name_normal",
     "governorThresholdDown": "0",
     "wifiState": "0"
    },
@@ -103,6 +110,7 @@
     "governorThresholdUp": "98",
     "mobiledataState": "0",
     "profileName": "Screen off",
+    "resId": "profile_name_screenoff",
     "governorThresholdDown": "95",
     "wifiState": "0"
    },
@@ -123,6 +131,7 @@
     "virtualGovernor": "4",
     "_id": "5",
     "bluetoothState": "0",
+    "resId": "profile_name_powersave",
     "profileName": "Powersave"
    },
    {
@@ -142,6 +151,7 @@
     "virtualGovernor": "3",
     "_id": "6",
     "bluetoothState": "0",
+    "resId": "profile_name_extremepowersave",
     "profileName": "Extreme powersave"
    }
   ],
@@ -154,6 +164,7 @@
     "callInProgressProfileId": "1",
     "screenOffProfileId": "4",
     "powerProfileId": "1",
+    "resId": "tigger_name_batteryfull",
     "triggerName": "Battery full"
    },
    {
@@ -164,6 +175,7 @@
     "callInProgressProfileId": "1",
     "screenOffProfileId": "4",
     "powerProfileId": "2",
+    "resId": "tigger_name_batteryused",
     "triggerName": "Battery used"
    },
    {
@@ -171,6 +183,7 @@
     "callInProgressProfileId": "2",
     "powerCurrentSumPower": "296",
     "screenOffProfileId": "4",
+    "resId": "tigger_name_batterylow",
     "triggerName": "Battery low",
     "_id": "3",
     "batteryProfileId": "5",
@@ -185,6 +198,7 @@
     "callInProgressProfileId": "2",
     "screenOffProfileId": "6",
     "powerProfileId": "5",
+    "resId": "tigger_name_batteryempty",
     "triggerName": "Battery empty"
    },
    {
@@ -195,6 +209,7 @@
     "callInProgressProfileId": "3",
     "screenOffProfileId": "6",
     "powerProfileId": "5",
+    "resId": "tigger_name_batterycritical",
     "triggerName": "Battery critical"
    }
   ]

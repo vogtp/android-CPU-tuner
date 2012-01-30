@@ -5,6 +5,7 @@
    {
     "useNumberOfCpus": "0",
     "virtualGovernor": "Full speed",
+    "resId": "gov_name_fullspeed",
     "_id": "1",
     "powersaveBias": "0",
     "governor": "conservative|ondemand|interactive|smartass|performance",
@@ -15,6 +16,7 @@
    {
     "useNumberOfCpus": "0",
     "virtualGovernor": "Save Battery",
+    "resId": "gov_name_saveBattery",
     "_id": "4",
     "powersaveBias": "300",
     "governor": "conservative|ondemand|interactive|smartass|performance",
@@ -43,6 +45,7 @@
     "virtualGovernor": "1",
     "_id": "1",
     "bluetoothState": "0",
+    "resId": "profile_name_screenon",
     "profileName": "Screen on"
    },
    {
@@ -63,6 +66,7 @@
     "virtualGovernor": "4",
     "_id": "4",
     "bluetoothState": "0",
+    "resId": "profile_name_screenoff",
     "profileName": "Screen off"
    }
   ],
@@ -80,6 +84,7 @@
     "powerCurrentSumPower": "0",
     "screenOffProfileId": "4",
     "triggerName": "All",
+    "resId": "tigger_name_all",
     "_id": "1",
     "powerCurrentCntLocked": "0",
     "batteryProfileId": "1",

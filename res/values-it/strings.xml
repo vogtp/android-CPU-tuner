@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="tigger_name_all">All</string>
+    <string name="tigger_name_batteryfull">Battery full</string>
+    <string name="tigger_name_batteryused">Battery used</string>
+    <string name="tigger_name_batterylow">Battery low</string>
+    <string name="tigger_name_batteryempty">Battery empty</string>
+    <string name="tigger_name_batterycritical">Battery critical</string>
+    <string name="profile_name_performance">Performance</string>
+    <string name="profile_name_good">Good</string>
+    <string name="profile_name_normal">Normal</string>
+    <string name="profile_name_screenoff">Screen off</string>
+    <string name="profile_name_screenon">Screen on</string>
+    <string name="profile_name_powersave">Powersave</string>
+    <string name="profile_name_extremepowersave">Extreme powersave</string>
+    <string name="gov_name_fullspeed">Full speed</string>
+    <string name="gov_name_normal">Normal</string>
+    <string name="gov_name_extremeSaveBattery">Extreme Save Battery</string>
+    <string name="gov_name_saveBattery">Save Battery</string>
+
 </resources>

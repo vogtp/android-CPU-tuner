@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -40,6 +41,7 @@ import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 public class BackupRestoreHelper {
 
 	public static final String DIRECTORY_CONFIGURATIONS = "configurations";
+	private static final String JSON_TAG_RES_ID = "resId";
 
 	public static final Object MUTEX = new Object();
 
@@ -87,11 +89,27 @@ public class BackupRestoreHelper {
 		ModelAccess.getInstace(cb.getContext()).clearCache();
 	}
 
+	private String getTranslatedName(String resString) {
+		Context ctx = cb.getContext();
+		try {
+			int id = ctx.getResources().getIdentifier(resString, "string", ctx.getPackageName());
+			return ctx.getString(id);
+		} catch (Exception e) {
+			Logger.w("no translated name found looking for " + resString, e);
+		}
+		return null;
+	}
+
 	private void loadVirtualGovernors(DataJsonImporter dje) throws JSONException {
 		JSONArray table = dje.getTables(DB.VirtualGovernor.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			VirtualGovernorModel vgm = new VirtualGovernorModel();
-			vgm.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			JSONObject jsonObject = table.getJSONObject(i);
+			vgm.readFromJson(new JSONBundle(jsonObject));
+			if (jsonObject.has(JSON_TAG_RES_ID)) {
+				String name = getTranslatedName(jsonObject.getString(JSON_TAG_RES_ID));
+				vgm.setVirtualGovernorName(name);
+			}
 			contentResolver.insert(DB.VirtualGovernor.CONTENT_URI, vgm.getValues());
 		}
 	}
@@ -100,7 +118,12 @@ public class BackupRestoreHelper {
 		JSONArray table = dje.getTables(DB.CpuProfile.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			ProfileModel pm = new ProfileModel();
-			pm.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			JSONObject jsonObject = table.getJSONObject(i);
+			pm.readFromJson(new JSONBundle(jsonObject));
+			if (jsonObject.has(JSON_TAG_RES_ID)) {
+				String name = getTranslatedName(jsonObject.getString(JSON_TAG_RES_ID));
+				pm.setProfileName(name);
+			}
 			contentResolver.insert(DB.CpuProfile.CONTENT_URI, pm.getValues());
 		}
 	}
@@ -109,7 +132,12 @@ public class BackupRestoreHelper {
 		JSONArray table = dje.getTables(DB.Trigger.TABLE_NAME);
 		for (int i = 0; i < table.length(); i++) {
 			TriggerModel tr = new TriggerModel();
-			tr.readFromJson(new JSONBundle(table.getJSONObject(i)));
+			JSONObject jsonObject = table.getJSONObject(i);
+			tr.readFromJson(new JSONBundle(jsonObject));
+			if (jsonObject.has(JSON_TAG_RES_ID)) {
+				String name = getTranslatedName(jsonObject.getString(JSON_TAG_RES_ID));
+				tr.setName(name);
+			}
 			contentResolver.insert(DB.Trigger.CONTENT_URI, tr.getValues());
 		}
 	}
