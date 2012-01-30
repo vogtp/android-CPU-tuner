@@ -24,7 +24,7 @@
         <item>Deutsch (de)</item>
         <item>Française (fr)</item>
         <item>Italiano (it)</item>
-        <item>Japanese (ja)</item>
+        <item>日本語 (ja)</item>
         <item>Ελληνικά (el)</item>
     </string-array>
     <string-array name="prefLanguageValues">
