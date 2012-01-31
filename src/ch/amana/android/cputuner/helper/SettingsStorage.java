@@ -25,6 +25,8 @@ import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 public class SettingsStorage {
 
 
+	public static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
 	private final static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 

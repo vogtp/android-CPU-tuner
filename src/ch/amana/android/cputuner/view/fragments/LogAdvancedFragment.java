@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +24,7 @@ import android.widget.SimpleCursorTreeAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.SwitchLogDB;
@@ -41,8 +41,6 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	private final Date now = new Date();
 	private ExpandableListView elvLog;
 
-	private static final SimpleDateFormat logTimeFormat = new SimpleDateFormat("HH:mm:ss");
-	private static final SimpleDateFormat logDateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -96,9 +94,9 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
 					String timeString;
 					if (view.getId() == R.id.tvDateTimeDetail) {
-						timeString = logDateTimeFormat.format(now);
+						timeString = SettingsStorage.dateTimeFormat.format(now);
 					} else {
-						timeString = logTimeFormat.format(now);
+						timeString = SettingsStorage.timeFormat.format(now);
 					}
 					((TextView) view).setText(timeString);
 					return true;
