@@ -60,7 +60,7 @@ public class ProfileChooserActivity extends ListActivity {
 
 	public static Intent getStartIntent(Context ctx) {
 		Intent intent = new Intent(ctx.getApplicationContext(), ProfileChooserActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		return intent;
 	}
 

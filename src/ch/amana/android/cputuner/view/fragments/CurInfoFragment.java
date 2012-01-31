@@ -1,8 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -52,8 +49,6 @@ import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
-
-import com.markupartist.android.widget.ActionBar.Action;
 
 public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback, StateChangeListener {
 
@@ -293,7 +288,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void deviceStatusChanged() {
-		if (tvAcPower == null) {
+		if (tvAcPower == null || isDetached()) {
 			return;
 		}
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
@@ -428,26 +423,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<Action>(2);
-		actions.add(new Action() {
-			@Override
-			public void performAction(View view) {
-				updateView();
-			}
-
-			@Override
-			public int getDrawable() {
-				return R.drawable.ic_menu_refresh;
-			}
-		});
-		return actions;
-	}
-
-	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.refresh_option, menu);
 	}
 
 	@Override

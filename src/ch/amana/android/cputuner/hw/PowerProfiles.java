@@ -72,8 +72,8 @@ public class PowerProfiles {
 
 	private boolean wifiManaged3gState = false;
 
-	EnumMap<ServiceType, Boolean> manualServiceChanges = new EnumMap<ServiceType, Boolean>(ServiceType.class);
-	EnumMap<ServiceType, Integer> lastServiceState = new EnumMap<ServiceType, Integer>(ServiceType.class);
+	private EnumMap<ServiceType, Boolean> manualServiceChanges;
+	private EnumMap<ServiceType, Integer> lastServiceState;
 
 	private final SettingsStorage settings;
 
@@ -91,6 +91,8 @@ public class PowerProfiles {
 
 	private PowerProfiles(Context ctx) {
 		context = ctx;
+		manualServiceChanges = new EnumMap<ServiceType, Boolean>(ServiceType.class);
+		lastServiceState = new EnumMap<ServiceType, Integer>(ServiceType.class);
 		settings = SettingsStorage.getInstance(ctx);
 		modelAccess = ModelAccess.getInstace(ctx);
 		BatteryHandler batteryHandler = BatteryHandler.getInstance();
