@@ -7,8 +7,10 @@ import android.content.IntentFilter;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.service.TunerService;
+import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 
 public class ProfileAppwidgetUpdateReceiver extends BroadcastReceiver {
+	private static final String ACTION_CHOOSE = "ch.amana.android.cputuner.ACTION_CHOOSE";
 	private static Object lock = new Object();
 	private static ProfileAppwidgetUpdateReceiver receiver = null;
 	@Override
@@ -23,7 +25,9 @@ public class ProfileAppwidgetUpdateReceiver extends BroadcastReceiver {
 				receiver = new ProfileAppwidgetUpdateReceiver();
 				context.registerReceiver(receiver, new IntentFilter(Notifier.BROADCAST_PROFILE_CHANGED));
 				context.registerReceiver(receiver, new IntentFilter(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(ACTION_CHOOSE));
 				context.registerReceiver(receiver, new IntentFilter(TunerService.ACTION_PULSE));
+				ServiceSwitcher.registerReceiver(context, receiver);
 				Logger.w("Registered ProfileAppWidgetUpdateReceiver");
 			} else {
 				if (Logger.DEBUG) {

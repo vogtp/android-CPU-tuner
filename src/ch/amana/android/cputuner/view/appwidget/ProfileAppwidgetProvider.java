@@ -13,10 +13,13 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
+import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.ProfileChooserActivity;
+import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 
 public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
@@ -120,7 +123,55 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		} else {
 			views.setViewVisibility(R.id.tvPulse, View.GONE);
 		}
+
+		views.setViewVisibility(R.id.ivServiceGPS, View.GONE);
+
+		views.setInt(R.id.ivServiceAirplane, "setAlpha", ServiceSwitcher.ALPHA_OFF);
+
+		setServiceStateIcon(views, R.id.ivServiceAirplane, ServicesHandler.getServiceState(context, ServiceType.airplainMode));
+		setServiceStateIcon(views, R.id.ivServiceSync, ServicesHandler.getServiceState(context, ServiceType.backgroundsync));
+		setServiceStateIcon(views, R.id.ivServiceBluetooth, ServicesHandler.getServiceState(context, ServiceType.bluetooth));
+		setService3GIcon(views, R.id.ivServiceMD3g, ServicesHandler.getServiceState(context, ServiceType.mobiledata3g));
+		setServiceStateIcon(views, R.id.ivServiceMDCon, ServicesHandler.getServiceState(context, ServiceType.mobiledataConnection));
+		setServiceStateIcon(views, R.id.ivServiceWifi, ServicesHandler.getServiceState(context, ServiceType.wifi));
+		
+		if (Logger.DEBUG) {
+			views.setViewVisibility(R.id.tvUpdate, View.VISIBLE);
+			views.setTextViewText(R.id.tvUpdate, SettingsStorage.dateTimeFormat.format(System.currentTimeMillis()));
+		}
 		return views;
+	}
+
+	private static void setServiceStateIcon(RemoteViews views, int id, int state) {
+		if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
+			setAlpha(views, id, ServiceSwitcher.ALPHA_LEAVE);
+		} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+			setAlpha(views, id, ServiceSwitcher.ALPHA_OFF);
+		} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+			//			setAnimation(icon, R.anim.back);
+		} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+			//			setAnimation(icon, R.anim.pluse);
+		} else {
+			setAlpha(views, id, ServiceSwitcher.ALPHA_ON);
+		}
+	}
+
+	private static void setService3GIcon(RemoteViews views, int id, int state) {
+		if (state == PowerProfiles.SERVICE_STATE_2G) {
+			setImageResource(views, id, R.drawable.serviceicon_md_2g);
+		} else if (state == PowerProfiles.SERVICE_STATE_2G_3G) {
+			setImageResource(views, id, R.drawable.serviceicon_md_2g3g);
+		} else if (state == PowerProfiles.SERVICE_STATE_3G) {
+			setImageResource(views, id, R.drawable.serviceicon_md_3g);
+		}
+	}
+
+	private static void setImageResource(RemoteViews views, int id, int iconId) {
+		views.setInt(id, "setImageResource", iconId);
+	}
+
+	private static void setAlpha(RemoteViews views, int id, int alpha) {
+		views.setInt(id, "setAlpha", alpha);
 	}
 
 	public static void enableWidget(Context ctx, boolean b) {

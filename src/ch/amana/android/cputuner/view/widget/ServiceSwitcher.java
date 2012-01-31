@@ -35,9 +35,9 @@ import com.markupartist.android.widget.actionbar.R;
 
 public class ServiceSwitcher extends LinearLayout implements View.OnClickListener {
 
-	private static final int ALPHA_ON = 200;
-	private static final int ALPHA_OFF = 40;
-	private static final int ALPHA_LEAVE = 100;
+	public static final int ALPHA_ON = 1000;
+	public static final int ALPHA_OFF = 40;
+	public static final int ALPHA_LEAVE = 100;
 	private static Object lock = new Object();
 
 	private final Map<ServiceType, ImageView> serviceButtonMap = new EnumMap<ServiceType, ImageView>(ServiceType.class);
@@ -50,19 +50,19 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			if (Logger.DEBUG) {
-				// FIXME remove
-				Logger.d("***********************************************");
-				for (String key : intent.getExtras().keySet()) {
-					try {
-						Logger.d(action + " extra " + key + " -> " + intent.getExtras().get(key));
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
-				}
-			}
+			//			if (Logger.DEBUG) {
+			//				// FIXME remove
+			//				Logger.d("***********************************************");
+			//				for (String key : intent.getExtras().keySet()) {
+			//					try {
+			//						Logger.d(action + " extra " + key + " -> " + intent.getExtras().get(key));
+			//					} catch (Exception e) {
+			//						// TODO: handle exception
+			//					}
+			//				}
+			//			}
 			if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
-					updateButtonStateFromSystem(ServiceType.wifi);
+				updateButtonStateFromSystem(ServiceType.wifi);
 			} else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
 				updateButtonStateFromSystem(ServiceType.bluetooth);
 			} else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
@@ -262,7 +262,7 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		lpw.setAnchorView(v);
 		lpw.setModal(true);
 		lpw.setWidth(LayoutParams.MATCH_PARENT);
-//		lpw.setPromptPosition(0);
+		//		lpw.setPromptPosition(0);
 		lpw.setAdapter(getServiceStateAdapter(type));
 		lpw.setOnItemClickListener(new OnItemClickListener() {
 
@@ -313,12 +313,15 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 	}
 
 	public void startReceiver() {
-		receiver = new ServiceChangeReceiver();
-		registerReceiver(ctx, receiver);
+		if (receiver == null) {
+			receiver = new ServiceChangeReceiver();
+			registerReceiver(ctx, receiver);
+		}
 	}
 
 	public void stopReceiver() {
 		unregisterReceiver(ctx, receiver);
+		receiver = null;
 	}
 
 }
