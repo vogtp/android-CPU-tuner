@@ -158,7 +158,6 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 			ServiceType st = serviceTypes[i];
 			updateButtonStateFromSystem(st);
 		}
-		listenForChange();
 	}
 
 	public void updateButtonStateFromSystem(ServiceType st) {
@@ -167,10 +166,6 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 			state = PowerProfiles.SERVICE_STATE_PULSE;
 		}
 		setButtuonState(st, state);
-	}
-	private void listenForChange() {
-		receiver = new ServiceChangeReceiver();
-		registerReceiver(ctx, receiver);
 	}
 
 	@Override
@@ -315,6 +310,15 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		for (ImageView iv : serviceButtonMap.values()) {
 			iv.setOnClickListener(listener);
 		}
+	}
+
+	public void startReceiver() {
+		receiver = new ServiceChangeReceiver();
+		registerReceiver(ctx, receiver);
+	}
+
+	public void stopReceiver() {
+		unregisterReceiver(ctx, receiver);
 	}
 
 }

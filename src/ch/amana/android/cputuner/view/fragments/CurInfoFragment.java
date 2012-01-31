@@ -251,6 +251,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		if (getActivity() == null) {
 			return;
 		}
+		if (serviceSwitcher != null) {
+			serviceSwitcher.startReceiver();
+			serviceSwitcher.updateAllButtonStateFromSystem();
+		}
 		if (governorFragment != null) {
 			governorFragment.updateVirtGov(true);
 		}
@@ -260,6 +264,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onPause() {
 		super.onPause();
+		if (serviceSwitcher != null) {
+			serviceSwitcher.stopReceiver();
+		}
 		if (governorFragment != null) {
 			governorFragment.updateVirtGov(false);
 		}
