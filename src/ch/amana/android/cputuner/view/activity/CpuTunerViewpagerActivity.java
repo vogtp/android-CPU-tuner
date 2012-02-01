@@ -110,6 +110,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 		}
 
+
 		String lang = settings.getLanguage();
 		if (!"".equals(lang)) {
 			GuiUtils.setLanguage(this, lang);

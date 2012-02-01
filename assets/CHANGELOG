@@ -6,9 +6,11 @@ V
 
 V 3.3.0 
 * features
+- a widget (as extension)
 - switch services from current tab
+- translated (de, it and ja) trigger, profile and virtual governor names (on system configuration load)
 * bug fixes
-- 
+- fix crashes
 
 V 3.2.2
 * features

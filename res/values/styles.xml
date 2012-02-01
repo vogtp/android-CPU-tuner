@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="Theme.Transparent_Dialog" parent="android:Theme.Dialog">
+        <!-- <item name="android:windowIsTranslucent">true</item> -->
+        <!-- <item name="android:windowBackground">@android:color/transparent</item> -->
+        <!--
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        -->
+
+
+    </style>
+
     <style name="styleServiceIcons">
         <item name="android:adjustViewBounds">true</item>
         <item name="android:paddingRight">3dp</item>

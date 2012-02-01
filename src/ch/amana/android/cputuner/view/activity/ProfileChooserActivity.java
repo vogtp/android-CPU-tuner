@@ -19,13 +19,15 @@ import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 public class ProfileChooserActivity extends ListActivity {
 
 
+	private static final String ACTION_CHOOSE_PROFILE = "ch.amana.android.cputuner.ACTION_CHOOSE_PROFILE";
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		setTheme(android.R.style.Theme_Dialog);
+		//		setTheme(R.style.Theme_Transparent_Dialog);
 		CursorLoader cursorLoader = new CursorLoader(this, DB.CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_PROFILE_NAME, null, null, DB.CpuProfile.SORTORDER_DEFAULT);
 		Cursor cursor = cursorLoader.loadInBackground();
 
@@ -55,12 +57,14 @@ public class ProfileChooserActivity extends ListActivity {
 		Intent intent = new Intent(Intent.ACTION_MAIN);
 		intent.addCategory(Intent.CATEGORY_HOME);
 		startActivity(intent);
-		//		finish();
+
+		finish();
 	}
 
 	public static Intent getStartIntent(Context ctx) {
-		Intent intent = new Intent(ctx.getApplicationContext(), ProfileChooserActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		Intent intent = new Intent(ACTION_CHOOSE_PROFILE);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		//		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		return intent;
 	}
 

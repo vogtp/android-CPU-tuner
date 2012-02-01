@@ -139,6 +139,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.tvUpdate, View.VISIBLE);
 			views.setTextViewText(R.id.tvUpdate, SettingsStorage.dateTimeFormat.format(System.currentTimeMillis()));
 		}
+
 		return views;
 	}
 

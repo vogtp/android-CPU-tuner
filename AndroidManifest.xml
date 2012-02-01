@@ -373,7 +373,23 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.ProfileChooserActivity" >
+        <activity
+            android:name=".view.activity.ProfileChooserActivity"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:finishOnTaskLaunch="true"
+            android:immersive="true"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.Transparent_Dialog" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+
+                <action android:name="ch.amana.android.cputuner.ACTION_CHOOSE_PROFILE" />
+            </intent-filter>
         </activity>
     </application>
 
