@@ -7,44 +7,60 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
-import android.widget.ListPopupWindow;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SpinnerAdapter;
 
-public class ListPopupWindowStandalone extends ListPopupWindow {
+public class ListPopupWindowStandalone extends PopupWindow {
 
 	private ViewGroup viewGroup;
 	private ListAdapter adapter;
+	private ListView list;
+	private View anchor;
 	// Only measure this many items to get a decent max width.
 	private static final int MAX_ITEMS_MEASURED = 15;
 
-	public ListPopupWindowStandalone(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	@SuppressWarnings("unused")
+	private ListPopupWindowStandalone(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	public ListPopupWindowStandalone(Context context, AttributeSet attrs, int defStyleAttr) {
+	@SuppressWarnings("unused")
+	private ListPopupWindowStandalone(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
-	public ListPopupWindowStandalone(Context context, AttributeSet attrs) {
+	@SuppressWarnings("unused")
+	private ListPopupWindowStandalone(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public ListPopupWindowStandalone(Context context) {
+	@SuppressWarnings("unused")
+	private ListPopupWindowStandalone(Context context) {
 		super(context);
 	}
 
-	public ListPopupWindowStandalone(ViewGroup viewGroup) {
+	public ListPopupWindowStandalone(ViewGroup viewGroup, View anchor) {
 		super(viewGroup.getContext());
 		this.viewGroup = viewGroup;
+		this.anchor = anchor;
+		setFocusable(true);
+		list = new ListView(viewGroup.getContext());
+		setContentView(list);
+		list.setVerticalScrollBarEnabled(false);
+		list.setHorizontalScrollBarEnabled(false);
+		list.setScrollContainer(false);
 	}
 
-	int measureContentWidth(SpinnerAdapter adapter, Drawable background) {
+	void measureContentWidth(SpinnerAdapter adapter, Drawable background) {
 		if (adapter == null || viewGroup == null) {
-			return 0;
+			return;
 		}
 
 		int width = 0;
+		int height = 0;
 		View itemView = null;
 		int itemType = 0;
 		final int widthMeasureSpec =
@@ -54,7 +70,7 @@ public class ListPopupWindowStandalone extends ListPopupWindow {
 
 		// Make sure the number of items we'll measure is capped. If it's a huge data set
 		// with wildly varying sizes, oh well.
-		int start = Math.max(0, getSelectedItemPosition());
+		int start = Math.max(0, list.getSelectedItemPosition());
 		final int end = Math.min(adapter.getCount(), start + MAX_ITEMS_MEASURED);
 		final int count = end - start;
 		start = Math.max(0, start - (MAX_ITEMS_MEASURED - count));
@@ -72,31 +88,40 @@ public class ListPopupWindowStandalone extends ListPopupWindow {
 			}
 			itemView.measure(widthMeasureSpec, heightMeasureSpec);
 			width = Math.max(width, itemView.getMeasuredWidth());
+			height = Math.max(height, itemView.getMeasuredHeight());
 		}
+
+		height *= count;
+		height += count + 2;
 
 		// Add background padding to measured width
 		if (background != null) {
 			Rect mTempRect = new Rect();
 			background.getPadding(mTempRect);
 			width += mTempRect.left + mTempRect.right;
+			height += mTempRect.top + mTempRect.left;
 		}
 
-		return width;
+		setWidth(width);
+		setHeight(height);
 	}
 
-	@Override
 	public void show() {
-		int w = measureContentWidth((SpinnerAdapter) adapter, getBackground());
-		if (w > 0) {
-			setContentWidth(w);
-		}
-		super.show();
+		measureContentWidth((SpinnerAdapter) adapter, getBackground());
+		super.showAsDropDown(anchor, anchor.getPaddingLeft(), 1);
 	}
 
-	@Override
 	public void setAdapter(ListAdapter adapter) {
 		this.adapter = adapter;
-		super.setAdapter(adapter);
+		list.setAdapter(adapter);
+	}
+
+	public void setAnchorView(View anchor) {
+		this.anchor = anchor;
+	}
+
+	public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+		list.setOnItemClickListener(onItemClickListener);
 	}
 
 }

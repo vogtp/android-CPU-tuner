@@ -23,7 +23,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListPopupWindow;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
@@ -258,11 +257,7 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		final ImageView iv = (ImageView) v;
 		iv.setPressed(true);
 		final ServiceType type = getServiceType(v);
-		final ListPopupWindow lpw = new ListPopupWindowStandalone(this);
-		lpw.setAnchorView(v);
-		lpw.setModal(true);
-		lpw.setWidth(LayoutParams.MATCH_PARENT);
-		//		lpw.setPromptPosition(0);
+		final ListPopupWindowStandalone lpw = new ListPopupWindowStandalone(this, v);
 		lpw.setAdapter(getServiceStateAdapter(ctx, type));
 		lpw.setOnItemClickListener(new OnItemClickListener() {
 
