@@ -245,8 +245,26 @@ public class PowerProfiles {
 		}
 	}
 
-	public static String getServiceTypeName(ServiceType type) {
-		return type.toString();
+	public static String getServiceTypeName(Context ctx, ServiceType type) {
+		switch (type) {
+		case wifi:
+			return ctx.getString(R.string.labelWifi);
+		case airplainMode:
+			return ctx.getString(R.string.labelAirplaneMode);
+		case bluetooth:
+			return ctx.getString(R.string.labelBluetooth);
+		case backgroundsync:
+			return ctx.getString(R.string.labelBackgroundSync);
+		case mobiledata3g:
+			return ctx.getString(R.string.labelMobileData32G);
+		case mobiledataConnection:
+			return ctx.getString(R.string.labelMobileDataConn);
+		case gps:
+			return ctx.getString(R.string.labelGPS);
+
+		default:
+			return type.toString();
+		}
 	}
 
 	private int evaluateState(ServiceType type, int state) {
@@ -268,12 +286,12 @@ public class PowerProfiles {
 			return NO_STATE;
 		}
 		if (state == SERVICE_STATE_PREV) {
-			Logger.v("Switching " + getServiceTypeName(type) + "  to last state which was " + lastState);
+			Logger.v("Switching " + getServiceTypeName(context, type) + "  to last state which was " + lastState);
 			ret = lastState;
 		} else if (settings.isAllowManualServiceChanges()) {
 			int lastSavedState = ServicesHandler.getServiceState(context, type);
 			if (lastSavedState != lastState && !wasPulsing && lastSavedState != SERVICE_STATE_LEAVE) {
-				Logger.v("Not switching " + getServiceTypeName(type) + " since it changed since last time");
+				Logger.v("Not switching " + getServiceTypeName(context, type) + " since it changed since last time");
 				manualServiceChanges.put(type, true);
 				return NO_STATE;
 			}
