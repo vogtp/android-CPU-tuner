@@ -612,7 +612,11 @@ public class PowerProfiles {
 
 	public void setManualProfile(long manualProfileID) {
 		this.manualProfileID = manualProfileID;
-		applyProfile(manualProfileID, true);
+		if (manualProfileID > -1) {
+			applyProfile(manualProfileID, true);
+		} else {
+			reapplyProfile(true);
+		}
 	}
 
 	public boolean hasManualServicesChanges() {
