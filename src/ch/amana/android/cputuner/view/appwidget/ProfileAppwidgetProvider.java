@@ -18,10 +18,12 @@ import ch.amana.android.cputuner.hw.ServicesHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
-import ch.amana.android.cputuner.view.activity.ProfileChooserActivity;
+import ch.amana.android.cputuner.view.activity.PopupChooserActivity;
 import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 
 public class ProfileAppwidgetProvider extends AppWidgetProvider {
+
+	private static int intentId = 100;
 
 	@Override
 	public void onDisabled(Context context) {
@@ -61,11 +63,13 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 	static RemoteViews createAppWidgetView(Context context) {
 		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.profile_appwidget);
 		PendingIntent mainPendingIntent;
-		
+
 		SettingsStorage settings = SettingsStorage.getInstance(context);
 		PendingIntent startCpuTunerPendingIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
-		PendingIntent chooseProfilePendingIntent = PendingIntent.getActivity(context, 0, ProfileChooserActivity.getStartIntent(context), 0);
-		PendingIntent batteryPendingIntent = PendingIntent.getActivity(context, 0, new Intent(Intent.ACTION_POWER_USAGE_SUMMARY), 0);
+		Intent profileChooserIntent = PopupChooserActivity.getStartIntent(context);
+		profileChooserIntent.putExtra(PopupChooserActivity.EXTRA_CHOOSER_TYPE, PopupChooserActivity.CHOOSER_TYPE_PROFILE);
+		PendingIntent chooseProfilePendingIntent = PendingIntent.getActivity(context, 1, profileChooserIntent, 0);
+		PendingIntent batteryPendingIntent = PendingIntent.getActivity(context, 2, new Intent(Intent.ACTION_POWER_USAGE_SUMMARY), PendingIntent.FLAG_ONE_SHOT);
 		switch (settings.getAppwdigetOpenAction()) {
 		case SettingsStorage.APPWIDGET_OPENACTION_CHOOSEPROFILES:
 			mainPendingIntent = chooseProfilePendingIntent;
@@ -74,7 +78,6 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			mainPendingIntent = startCpuTunerPendingIntent;
 			break;
 		}
-		
 
 		views.setOnClickPendingIntent(R.id.topAppWiget, mainPendingIntent);
 		views.setOnClickPendingIntent(R.id.ivCpuTunerIcon, startCpuTunerPendingIntent);
@@ -128,13 +131,13 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 		views.setInt(R.id.ivServiceAirplane, "setAlpha", ServiceSwitcher.ALPHA_OFF);
 
-		setServiceStateIcon(views, R.id.ivServiceAirplane, ServicesHandler.getServiceState(context, ServiceType.airplainMode));
-		setServiceStateIcon(views, R.id.ivServiceSync, ServicesHandler.getServiceState(context, ServiceType.backgroundsync));
-		setServiceStateIcon(views, R.id.ivServiceBluetooth, ServicesHandler.getServiceState(context, ServiceType.bluetooth));
-		setService3GIcon(views, R.id.ivServiceMD3g, ServicesHandler.getServiceState(context, ServiceType.mobiledata3g));
-		setServiceStateIcon(views, R.id.ivServiceMDCon, ServicesHandler.getServiceState(context, ServiceType.mobiledataConnection));
-		setServiceStateIcon(views, R.id.ivServiceWifi, ServicesHandler.getServiceState(context, ServiceType.wifi));
-		
+		setServiceStateIcon(context, views, R.id.ivServiceAirplane, ServiceType.airplainMode);
+		setServiceStateIcon(context, views, R.id.ivServiceSync, ServiceType.backgroundsync);
+		setServiceStateIcon(context, views, R.id.ivServiceBluetooth, ServiceType.bluetooth);
+		setServiceStateIcon(context, views, R.id.ivServiceMD3g, ServiceType.mobiledata3g);
+		setServiceStateIcon(context, views, R.id.ivServiceMDCon, ServiceType.mobiledataConnection);
+		setServiceStateIcon(context, views, R.id.ivServiceWifi, ServiceType.wifi);
+
 		if (Logger.DEBUG) {
 			views.setViewVisibility(R.id.tvUpdate, View.VISIBLE);
 			views.setTextViewText(R.id.tvUpdate, SettingsStorage.dateTimeFormat.format(System.currentTimeMillis()));
@@ -143,27 +146,33 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		return views;
 	}
 
-	private static void setServiceStateIcon(RemoteViews views, int id, int state) {
-		if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
-			setAlpha(views, id, ServiceSwitcher.ALPHA_LEAVE);
-		} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
-			setAlpha(views, id, ServiceSwitcher.ALPHA_OFF);
-		} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
-			//			setAnimation(icon, R.anim.back);
-		} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-			//			setAnimation(icon, R.anim.pluse);
+	private static void setServiceStateIcon(Context context, RemoteViews views, int id, ServiceType serviceType) {
+		Intent intent = PopupChooserActivity.getStartIntent(context);
+		intent.putExtra(PopupChooserActivity.EXTRA_CHOOSER_TYPE, PopupChooserActivity.CHOOSER_TYPE_SERVICE);
+		intent.putExtra(PopupChooserActivity.EXTRA_SERVICE_TYPE, serviceType.toString());
+		PendingIntent pendingIntent = PendingIntent.getActivity(context, intentId++, intent, PendingIntent.FLAG_ONE_SHOT);
+		views.setOnClickPendingIntent(id, pendingIntent);
+		int state = ServicesHandler.getServiceState(context, serviceType);
+		if (serviceType == ServiceType.mobiledata3g) {
+			if (state == PowerProfiles.SERVICE_STATE_2G) {
+				setImageResource(views, id, R.drawable.serviceicon_md_2g);
+			} else if (state == PowerProfiles.SERVICE_STATE_2G_3G) {
+				setImageResource(views, id, R.drawable.serviceicon_md_2g3g);
+			} else if (state == PowerProfiles.SERVICE_STATE_3G) {
+				setImageResource(views, id, R.drawable.serviceicon_md_3g);
+			}
 		} else {
-			setAlpha(views, id, ServiceSwitcher.ALPHA_ON);
-		}
-	}
-
-	private static void setService3GIcon(RemoteViews views, int id, int state) {
-		if (state == PowerProfiles.SERVICE_STATE_2G) {
-			setImageResource(views, id, R.drawable.serviceicon_md_2g);
-		} else if (state == PowerProfiles.SERVICE_STATE_2G_3G) {
-			setImageResource(views, id, R.drawable.serviceicon_md_2g3g);
-		} else if (state == PowerProfiles.SERVICE_STATE_3G) {
-			setImageResource(views, id, R.drawable.serviceicon_md_3g);
+			if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
+				setAlpha(views, id, ServiceSwitcher.ALPHA_LEAVE);
+			} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
+				setAlpha(views, id, ServiceSwitcher.ALPHA_OFF);
+			} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
+				//			setAnimation(icon, R.anim.back);
+			} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
+				//			setAnimation(icon, R.anim.pluse);
+			} else {
+				setAlpha(views, id, ServiceSwitcher.ALPHA_ON);
+			}
 		}
 	}
 

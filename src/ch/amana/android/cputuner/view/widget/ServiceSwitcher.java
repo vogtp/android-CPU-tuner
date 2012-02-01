@@ -263,27 +263,32 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		lpw.setModal(true);
 		lpw.setWidth(LayoutParams.MATCH_PARENT);
 		//		lpw.setPromptPosition(0);
-		lpw.setAdapter(getServiceStateAdapter(type));
+		lpw.setAdapter(getServiceStateAdapter(ctx, type));
 		lpw.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				int[] statusValues = ctx.getResources().getIntArray(R.array.deviceStatesCurrentValues);
-				if (type == ServiceType.mobiledata3g) {
-					statusValues = ctx.getResources().getIntArray(R.array.mobiledataStatesCurrentValues);
-				}
-				int status = statusValues[position];
-				PowerProfiles.getInstance(ctx).setServiceState(type, status);
+				setServiceStatusFromPosition(ctx, type, position);
 				lpw.dismiss();
 				updateAllButtonStateFromSystem();
 				iv.setPressed(false);
 			}
+
 		});
 
 		lpw.show();
 	}
 
-	private ArrayAdapter<CharSequence> getServiceStateAdapter(ServiceType type) {
+	public static void setServiceStatusFromPosition(Context ctx, ServiceType type, int position) {
+		int[] statusValues = ctx.getResources().getIntArray(R.array.deviceStatesCurrentValues);
+		if (type == ServiceType.mobiledata3g) {
+			statusValues = ctx.getResources().getIntArray(R.array.mobiledataStatesCurrentValues);
+		}
+		int status = statusValues[position];
+		PowerProfiles.getInstance(ctx).setServiceState(type, status);
+	}
+
+	public static ArrayAdapter<CharSequence> getServiceStateAdapter(Context ctx, ServiceType type) {
 		int devicestates = R.array.deviceStatesCurrent;
 		if (type == ServiceType.mobiledata3g) {
 			devicestates = R.array.mobiledataStatesCurrent;

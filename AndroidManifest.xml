@@ -168,7 +168,12 @@
             -->
         </receiver>
 
-        <activity android:name=".view.activity.CpuTunerViewpagerActivity" >
+        <activity
+            android:name=".view.activity.CpuTunerViewpagerActivity"
+            android:clearTaskOnLaunch="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -374,7 +379,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.ProfileChooserActivity"
+            android:name=".view.activity.PopupChooserActivity"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:finishOnCloseSystemDialogs="true"
@@ -388,7 +393,7 @@
                 <category android:name="android.intent.category.DEFAULT" >
                 </category>
 
-                <action android:name="ch.amana.android.cputuner.ACTION_CHOOSE_PROFILE" />
+                <action android:name="ch.amana.android.cputuner.ACTION_POPUP_CHOOSER" />
             </intent-filter>
         </activity>
     </application>

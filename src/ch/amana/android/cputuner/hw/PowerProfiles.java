@@ -72,8 +72,8 @@ public class PowerProfiles {
 
 	private boolean wifiManaged3gState = false;
 
-	private EnumMap<ServiceType, Boolean> manualServiceChanges;
-	private EnumMap<ServiceType, Integer> lastServiceState;
+	private final EnumMap<ServiceType, Boolean> manualServiceChanges;
+	private final EnumMap<ServiceType, Integer> lastServiceState;
 
 	private final SettingsStorage settings;
 
@@ -245,7 +245,7 @@ public class PowerProfiles {
 		}
 	}
 
-	private String getServiceTypeName(ServiceType type) {
+	public static String getServiceTypeName(ServiceType type) {
 		return type.toString();
 	}
 
