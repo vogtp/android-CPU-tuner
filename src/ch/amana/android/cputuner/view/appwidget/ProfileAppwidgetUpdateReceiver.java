@@ -43,6 +43,7 @@ public class ProfileAppwidgetUpdateReceiver extends BroadcastReceiver {
 			Logger.w("Request to unegistered ProfileAppWidgetUpdateReceiver");
 			if (receiver != null) {
 				try {
+					Logger.logStacktrace("Unregister widget");
 					context.unregisterReceiver(receiver);
 					receiver = null;
 					Logger.w("Unegistered ProfileAppWidgetUpdateReceiver");
