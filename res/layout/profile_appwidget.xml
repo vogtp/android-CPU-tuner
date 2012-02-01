@@ -81,7 +81,7 @@
         <include
             android:id="@+id/llServiceIcons_ref"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="32dp"
             android:layout_below="@+id/tvBattery"
             layout="@layout/service_icons_view" />
 
