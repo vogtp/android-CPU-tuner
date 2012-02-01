@@ -744,4 +744,28 @@ public class SettingsStorage {
 			return false;
 		}
 	}
+
+	public boolean isShowWidgetIcon() {
+		return getPreferences().getBoolean("prefKeyShowIcon", true);
+	}
+
+	public boolean isShowWidgetTrigger() {
+		return getPreferences().getBoolean("prefKeyShowTrigger", true);
+	}
+
+	public boolean isShowWidgetProfile() {
+		return getPreferences().getBoolean("prefKeyShowProfile", true);
+	}
+
+	public boolean isShowWidgetGovernor() {
+		return getPreferences().getBoolean("prefKeyShowGovernor", false);
+	}
+
+	public boolean isShowWidgetBattery() {
+		return getPreferences().getBoolean("prefKeyShowBattery", true);
+	}
+
+	public boolean isShowWidgetServices() {
+		return getPreferences().getBoolean("prefKeyShowServices", true);
+	}
 }

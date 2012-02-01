@@ -79,45 +79,81 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			break;
 		}
 
-		views.setOnClickPendingIntent(R.id.topAppWiget, mainPendingIntent);
-		views.setOnClickPendingIntent(R.id.ivCpuTunerIcon, startCpuTunerPendingIntent);
-		views.setOnClickPendingIntent(R.id.tvTrigger, chooseProfilePendingIntent);
-		views.setOnClickPendingIntent(R.id.tvProfile, chooseProfilePendingIntent);
-		views.setOnClickPendingIntent(R.id.tvGov, chooseProfilePendingIntent);
-		views.setOnClickPendingIntent(R.id.labelTrigger, chooseProfilePendingIntent);
-		views.setOnClickPendingIntent(R.id.labelProfile, chooseProfilePendingIntent);
-		views.setOnClickPendingIntent(R.id.labelGov, chooseProfilePendingIntent);
-		views.setOnClickPendingIntent(R.id.tvBattery, batteryPendingIntent);
-		views.setOnClickPendingIntent(R.id.labelBattery, batteryPendingIntent);
-
 		PowerProfiles powerProfiles = PowerProfiles.getInstance(context);
-		if (settings.isEnableProfiles()) {
-			views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
-			views.setTextColor(R.id.tvTrigger, Color.WHITE);
-		} else {
-			views.setTextViewText(R.id.tvTrigger, context.getString(R.string.notEnabled));
-			views.setTextColor(R.id.tvTrigger, Color.RED);
+		views.setOnClickPendingIntent(R.id.topAppWiget, mainPendingIntent);
+		if (settings.isShowWidgetIcon()) {
+			views.setViewVisibility(R.id.ivCpuTunerIcon, View.VISIBLE);
+			views.setOnClickPendingIntent(R.id.ivCpuTunerIcon, startCpuTunerPendingIntent);
+		}else {
+			views.setViewVisibility(R.id.ivCpuTunerIcon, View.GONE);
 		}
-		if (powerProfiles.isManualProfile()) {
-			StringBuilder sb = new StringBuilder(powerProfiles.getCurrentProfileName());
-			sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
-			views.setTextColor(R.id.tvProfile, Color.YELLOW);
-			views.setTextViewText(R.id.tvProfile, sb.toString());
-		} else {
-			views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
-			views.setTextColor(R.id.tvProfile, Color.WHITE);
+		if (settings.isShowWidgetTrigger()) {
+			views.setViewVisibility(R.id.labelTrigger, View.VISIBLE);
+			views.setViewVisibility(R.id.tvTrigger, View.VISIBLE);
+			views.setOnClickPendingIntent(R.id.tvTrigger, chooseProfilePendingIntent);
+			views.setOnClickPendingIntent(R.id.labelTrigger, chooseProfilePendingIntent);
+			if (settings.isEnableProfiles()) {
+				views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
+				views.setTextColor(R.id.tvTrigger, Color.WHITE);
+			} else {
+				views.setTextViewText(R.id.tvTrigger, context.getString(R.string.notEnabled));
+				views.setTextColor(R.id.tvTrigger, Color.RED);
+			}
+		}else {
+			views.setViewVisibility(R.id.tvTrigger, View.GONE);
+			views.setViewVisibility(R.id.labelTrigger, View.GONE);
 		}
-		if (settings.isUseVirtualGovernors()) {
+		if (settings.isShowWidgetProfile()) {
+			views.setViewVisibility(R.id.labelProfile, View.VISIBLE);
+			views.setViewVisibility(R.id.tvProfile, View.VISIBLE);
+			views.setOnClickPendingIntent(R.id.labelProfile, chooseProfilePendingIntent);
+			views.setOnClickPendingIntent(R.id.tvProfile, chooseProfilePendingIntent);
+			if (powerProfiles.isManualProfile()) {
+				StringBuilder sb = new StringBuilder(powerProfiles.getCurrentProfileName());
+				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+				views.setTextColor(R.id.tvProfile, Color.YELLOW);
+				views.setTextViewText(R.id.tvProfile, sb.toString());
+			} else {
+				views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
+				views.setTextColor(R.id.tvProfile, Color.WHITE);
+			}
+		}else {
+			views.setViewVisibility(R.id.labelProfile, View.GONE);
+			views.setViewVisibility(R.id.tvProfile, View.GONE);
+		}
+		if (settings.isShowWidgetGovernor()) {
+			views.setViewVisibility(R.id.labelGov, View.VISIBLE);
 			views.setViewVisibility(R.id.tvGov, View.VISIBLE);
-			views.setTextViewText(R.id.tvGov, powerProfiles.getCurrentVirtGovName());
-		} else {
+			views.setOnClickPendingIntent(R.id.labelGov, chooseProfilePendingIntent);
+			views.setOnClickPendingIntent(R.id.tvGov, chooseProfilePendingIntent);
+			if (settings.isUseVirtualGovernors()) {
+				views.setViewVisibility(R.id.tvGov, View.VISIBLE);
+				views.setTextViewText(R.id.tvGov, powerProfiles.getCurrentVirtGovName());
+			} else {
+				views.setViewVisibility(R.id.labelGov, View.GONE);
+				views.setViewVisibility(R.id.tvGov, View.GONE);
+			}
+			
+		}else {
+			views.setViewVisibility(R.id.labelGov, View.GONE);
 			views.setViewVisibility(R.id.tvGov, View.GONE);
 		}
-		views.setTextViewText(R.id.tvBattery, powerProfiles.getBatteryInfo());
-		if (powerProfiles.hasManualServicesChanges()) {
-			views.setViewVisibility(R.id.tvServiceMsg, View.VISIBLE);
-		} else {
-			views.setViewVisibility(R.id.tvServiceMsg, View.GONE);
+		if (settings.isShowWidgetBattery()) {
+			views.setViewVisibility(R.id.tvBattery, View.VISIBLE);
+			views.setViewVisibility(R.id.labelBattery, View.VISIBLE);
+			views.setOnClickPendingIntent(R.id.tvBattery, batteryPendingIntent);
+			views.setOnClickPendingIntent(R.id.labelBattery, batteryPendingIntent);
+
+			views.setTextViewText(R.id.tvBattery, powerProfiles.getBatteryInfo());
+			if (powerProfiles.hasManualServicesChanges()) {
+				views.setViewVisibility(R.id.tvServiceMsg, View.VISIBLE);
+			} else {
+				views.setViewVisibility(R.id.tvServiceMsg, View.GONE);
+			}
+			
+		}else {
+			views.setViewVisibility(R.id.tvBattery, View.GONE);
+			views.setViewVisibility(R.id.labelBattery, View.GONE);
 		}
 		if (PulseHelper.getInstance(context).isPulsing()) {
 			views.setViewVisibility(R.id.tvPulse, View.VISIBLE);
@@ -129,14 +165,19 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 		views.setViewVisibility(R.id.ivServiceGPS, View.GONE);
 
-		views.setInt(R.id.ivServiceAirplane, "setAlpha", ServiceSwitcher.ALPHA_OFF);
 
-		setServiceStateIcon(context, views, R.id.ivServiceAirplane, ServiceType.airplainMode);
-		setServiceStateIcon(context, views, R.id.ivServiceSync, ServiceType.backgroundsync);
-		setServiceStateIcon(context, views, R.id.ivServiceBluetooth, ServiceType.bluetooth);
-		setServiceStateIcon(context, views, R.id.ivServiceMD3g, ServiceType.mobiledata3g);
-		setServiceStateIcon(context, views, R.id.ivServiceMDCon, ServiceType.mobiledataConnection);
-		setServiceStateIcon(context, views, R.id.ivServiceWifi, ServiceType.wifi);
+		if (settings.isShowWidgetServices()) {
+			views.setViewVisibility(R.id.llServiceIcons_ref, View.VISIBLE);
+			setServiceStateIcon(context, views, R.id.ivServiceAirplane, ServiceType.airplainMode);
+			setServiceStateIcon(context, views, R.id.ivServiceSync, ServiceType.backgroundsync);
+			setServiceStateIcon(context, views, R.id.ivServiceBluetooth, ServiceType.bluetooth);
+			setServiceStateIcon(context, views, R.id.ivServiceMD3g, ServiceType.mobiledata3g);
+			setServiceStateIcon(context, views, R.id.ivServiceMDCon, ServiceType.mobiledataConnection);
+			setServiceStateIcon(context, views, R.id.ivServiceWifi, ServiceType.wifi);
+
+		} else {
+			views.setViewVisibility(R.id.llServiceIcons_ref, View.GONE);
+		}
 
 		if (Logger.DEBUG) {
 			views.setViewVisibility(R.id.tvUpdate, View.VISIBLE);

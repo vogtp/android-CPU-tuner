@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"><string name="prefWidgetUI">Displayed information</string>
+<string name="prefShowIcon">CPU tuner icon</string>
+<string name="prefShowIconLong">Used to launch CPU tuner</string>
 
 </resources>
