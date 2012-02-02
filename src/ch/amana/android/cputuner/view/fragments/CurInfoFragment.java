@@ -25,7 +25,6 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
@@ -407,9 +406,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void setMaxCpuFreq(int val) {
 		if (val != cpuHandler.getMaxCpuFreq()) {
-			if (cpuHandler.setMaxCpuFreq(val)) {
-				Toast.makeText(getContext(), getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
-			}
+			cpuHandler.setMaxCpuFreq(val);
 			updateView();
 		}
 	}
@@ -417,9 +414,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void setMinCpuFreq(int val) {
 		if (val != cpuHandler.getMinCpuFreq()) {
-			if (cpuHandler.setMinCpuFreq(val)) {
-				Toast.makeText(getContext(), getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
-			}
+			cpuHandler.setMinCpuFreq(val);
 			updateView();
 		}
 	}
