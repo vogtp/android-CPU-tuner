@@ -143,13 +143,13 @@ public class CpuHandlerMulticore extends CpuHandler {
 		if (files == null) {
 			File file;
 			file = new File(CPU_BASE_DIR + cpus[0] + subDir, name);
-			if (file.exists()) {
+			if (fileOk(file)) {
 				// get the other cpu files
 				files = new File[cpus.length];
 				files[0] = file;
 				for (int i = 1; i < cpus.length; i++) {
 					file = new File(CPU_BASE_DIR + cpus[i] + subDir, name);
-					if (file.exists()) {
+					if (fileOk(file)) {
 						files[i] = file;
 					} else {
 						files[i] = CpuHandler.DUMMY_FILE;
@@ -157,23 +157,23 @@ public class CpuHandlerMulticore extends CpuHandler {
 				}
 			} else {
 				file = new File(CPU_BASE_DIR + CPUFREQ_DIR + subDir, name);
-				if (file.exists()) {
+				if (fileOk(file)) {
 					files = new File[1];
 					files[0] = file;
 				} else {
 					file = new File(CPU_BASE_DIR + subDir, name);
-					if (file.exists()) {
+					if (fileOk(file)) {
 						files = new File[1];
 						files[0] = file;
 					} else {
 						file = new File(CPU_BASE_DIR + cpus[0] + CPUFREQ_DIR + subDir, name);
-						if (file.exists()) {
+						if (fileOk(file)) {
 							// get the other cpu files
 							files = new File[cpus.length];
 							files[0] = file;
 							for (int i = 1; i < cpus.length; i++) {
 								file = new File(CPU_BASE_DIR + cpus[i] + CPUFREQ_DIR + subDir, name);
-								if (file.exists()) {
+								if (fileOk(file)) {
 									files[i] = file;
 								} else {
 									files[i] = CpuHandler.DUMMY_FILE;
@@ -191,7 +191,21 @@ public class CpuHandlerMulticore extends CpuHandler {
 
 			fileMap.put(idx, files);
 		}
+		if (Logger.DEBUG) {
+			String s = "";
+			for (int i = 0; i < files.length; i++) {
+				s = s + " " + files[i].getAbsolutePath();
+			}
+			Logger.w("Files for " + name + ": " + s);
+		}
 		return files;
+	}
+
+	private boolean fileOk(File file) {
+		if (file == null || !file.exists()) {
+			return false;
+		}
+		return !"/".equals(file.getAbsolutePath());
 	}
 
 	private boolean writeFiles(File[] files, String value) {

@@ -18,7 +18,7 @@ import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandler extends HardwareHandler {
 
-	public static final File DUMMY_FILE = new File("");
+	public static final File DUMMY_FILE = new File("/dev/null");
 	public static final String GOV_ONDEMAND = "ondemand";
 	public static final String GOV_POWERSAVE = "powersave";
 	public static final String GOV_CONSERVATIVE = "conservative";
