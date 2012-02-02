@@ -61,8 +61,15 @@ public class InstallHelper {
 		case 4:
 			Logger.i("Initalising cpu tuner to level 5");
 			CpuHandler cpuHandler = CpuHandler.getInstance();
-			settings.setMinFrequencyDefault(cpuHandler.getMinCpuFreq());
-			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());
+			int minCpuFreq = cpuHandler.getMinCpuFreq();
+			int maxCpuFreq = cpuHandler.getMaxCpuFreq();
+			if (minCpuFreq == maxCpuFreq) {
+				int[] availCpuFreq = cpuHandler.getAvailCpuFreq(true);
+				minCpuFreq = availCpuFreq[0];
+				maxCpuFreq = availCpuFreq[availCpuFreq.length - 1];
+			}
+			settings.setMinFrequencyDefault(minCpuFreq);
+			settings.setMaxFrequencyDefault(maxCpuFreq);
 
 		}
 		settings.migrateSettings();
