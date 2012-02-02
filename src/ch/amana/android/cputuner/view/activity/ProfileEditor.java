@@ -23,7 +23,6 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
@@ -33,6 +32,7 @@ import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.log.Logger;
@@ -534,11 +534,13 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		updateModel();
 		boolean ok = true;
 		if (!hasName()) {
-			Toast.makeText(this, R.string.msg_no_profile_name, Toast.LENGTH_LONG).show();
+			GuiUtils.showDialog(this, R.string.msg_no_profile_name, R.string.msg_no_trigger_name);
+			//			Toast.makeText(this, R.string.msg_no_profile_name, Toast.LENGTH_LONG).show();
 			ok = false;
 		}
 		if (ok && !isNameUnique()) {
-			Toast.makeText(this, R.string.msg_profilename_exists, Toast.LENGTH_LONG).show();
+			GuiUtils.showDialog(this, R.string.msg_profilename_exists, R.string.msg_no_trigger_name);
+			//			Toast.makeText(this, R.string.msg_profilename_exists, Toast.LENGTH_LONG).show();
 			ok = false;
 		}
 		if (ok) {
