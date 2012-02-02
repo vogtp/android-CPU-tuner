@@ -90,6 +90,10 @@ public class CpuHandler extends HardwareHandler {
 		return instance;
 	}
 
+	public boolean isMultiCore() {
+		return false;
+	}
+
 	public ProfileModel getCurrentCpuSettings() {
 		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq(), getGovThresholdUp(), getGovThresholdDown(), getPowersaveBias());
 	}

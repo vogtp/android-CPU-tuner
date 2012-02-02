@@ -21,6 +21,11 @@ public class CpuHandlerMulticore extends CpuHandler {
 	}
 
 	@Override
+	public boolean isMultiCore() {
+		return true;
+	}
+
+	@Override
 	public void applyCpuSettings(ProfileModel profile) {
 		super.applyCpuSettings(profile);
 		setNumberOfActiveCpus(profile.getUseNumberOfCpus());
