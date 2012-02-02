@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -69,7 +70,9 @@ public class PopupChooserActivity extends ListActivity {
 			setListAdapter(new ProfileAdaper(this, cursor, R.layout.profilechooser_item, R.id.ID));
 		} else if (chooserType == CHOOSER_TYPE_SERVICE) {
 			setTitle(PowerProfiles.getServiceTypeName(this, serviceType));
-			setListAdapter(ServiceSwitcher.getServiceStateAdapter(this, serviceType));
+			ArrayAdapter<CharSequence> adapter = ServiceSwitcher.getServiceStateAdapter(this, serviceType);
+			adapter.setDropDownViewResource(R.layout.profilechooser_item);
+			setListAdapter(adapter);
 		}
 	}
 
