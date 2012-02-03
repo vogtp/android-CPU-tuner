@@ -116,15 +116,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.tvProfile, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.labelProfile, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.tvProfile, chooseProfilePendingIntent);
-			if (powerProfiles.isManualProfile()) {
-				StringBuilder sb = new StringBuilder(powerProfiles.getCurrentProfileName());
-				sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
-				views.setTextColor(R.id.tvProfile, Color.YELLOW);
-				views.setTextViewText(R.id.tvProfile, sb.toString());
-			} else {
-				views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
-				views.setTextColor(R.id.tvProfile, Color.WHITE);
-			}
+			
 		}else {
 			views.setViewVisibility(R.id.labelProfile, View.GONE);
 			views.setViewVisibility(R.id.tvProfile, View.GONE);
@@ -170,7 +162,16 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		} else {
 			views.setViewVisibility(R.id.tvPulse, View.GONE);
 		}
-
+		if (powerProfiles.isManualProfile()) {
+			StringBuilder sb = new StringBuilder(powerProfiles.getCurrentProfileName());
+			sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+			views.setTextColor(R.id.tvProfile, Color.YELLOW);
+			views.setTextViewText(R.id.tvProfile, sb.toString());
+		} else {
+			views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
+			views.setTextColor(R.id.tvProfile, Color.WHITE);
+		}
+		
 		views.setViewVisibility(R.id.ivServiceGPS, View.GONE);
 
 
