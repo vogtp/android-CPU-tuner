@@ -12,6 +12,7 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
+import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class Notifier extends BroadcastReceiver {
 
@@ -34,8 +35,10 @@ public class Notifier extends BroadcastReceiver {
 		if (instance == null) {
 			instance = new Notifier(ctx);
 		}
+		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_TRIGGER_CHANGED));
 		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_PROFILE_CHANGED));
-		instance.notifyStatus("");
+		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_DEVICESTATUS_CHANGED));
+		instance.notifyStatus();
 	}
 
 	public static void stopStatusbarNotifications(Context ctx) {
@@ -49,9 +52,14 @@ public class Notifier extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if (intent != null && BROADCAST_PROFILE_CHANGED.equals(intent.getAction())) {
-			notifyStatus(PowerProfiles.getInstance(context).getCurrentProfileName());
+		if (intent == null) {
+			return;
 		}
+		notifyStatus();
+		//if (SettingsStorage.getInstance(context).hasAppWidgets()) {
+			// the widget checks if it exists
+			ProfileAppwidgetProvider.updateView(context);
+		//}
 	}
 
 	public Notifier(final Context ctx) {
@@ -61,7 +69,9 @@ public class Notifier extends BroadcastReceiver {
 		notificationManager = (NotificationManager) ctx.getSystemService(ns);
 	}
 
-	private void notifyStatus(CharSequence profileName) {
+	private void notifyStatus() {
+		PowerProfiles powerProfiles = PowerProfiles.getInstance(context);
+		CharSequence profileName = powerProfiles.getCurrentProfileName();
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			StringBuffer sb = new StringBuffer(25);
 			String contentText = null;
@@ -71,9 +81,11 @@ public class Notifier extends BroadcastReceiver {
 				if (PowerProfiles.getInstance().isManualProfile()) {
 					sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
 				}
+				sb.append(" - ").append(context.getString(R.string.labelCurrentBattery)).append(" ");
+				sb.append(powerProfiles.getBatteryLevel()).append(context.getString(R.string.percent));
 				if (PulseHelper.getInstance(context).isPulsing()) {
 					int res = PulseHelper.getInstance(context).isOn() ? R.string.labelPulseOn : R.string.labelPulseOff;
-					sb.append(" ").append(context.getString(res));
+					sb.append(" - ").append(context.getString(res));
 				}
 				contentText = sb.toString();
 			} else {

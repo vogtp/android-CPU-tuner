@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201201300"
+    android:versionCode="201202010"
     android:versionName="@string/version" >
 
     <uses-sdk
@@ -362,14 +362,6 @@
         </receiver>
         <receiver android:name=".view.appwidget.ProfileAppwidgetUpdateReceiver" >
         </receiver>
-
-        <service android:name=".view.appwidget.ProfileAppwidgetUpdateService" >
-            <intent-filter>
-                <action android:name="ch.amana.android.cputuner.ACTION_START_PROFILEWIDGET_UPDATE" />
-                <action android:name="ch.amana.android.cputuner.ACTION_STOP_PROFILEWIDGET_UPDATE" />
-                <action android:name="ch.amana.android.cputuner.profileChanged" />
-            </intent-filter>
-        </service>
 
         <activity android:name=".view.preference.AppwidgetExtensionSettings" >
         </activity>

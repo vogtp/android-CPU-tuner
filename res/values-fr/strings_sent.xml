@@ -271,6 +271,6 @@
     <string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
     <string name="labelScript">Script:</string>
     <string name="auto">Auto</string>
-    <string name="msg_manual_profile">manual profile</string>
+    <string name="msg_manual_profile">manual</string>
 
 </resources>

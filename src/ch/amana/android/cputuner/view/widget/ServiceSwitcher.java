@@ -49,6 +49,7 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
+			Logger.e("ServiceSwitcher got action: " + action);
 			//			if (Logger.DEBUG) {
 			//				// FIXME remove
 			//				Logger.d("***********************************************");
@@ -68,6 +69,9 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 				updateButtonStateFromSystem(ServiceType.airplainMode);
 			} else if (ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED.equals(action)) {
 				updateButtonStateFromSystem(ServiceType.backgroundsync);
+			} else if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+				updateButtonStateFromSystem(ServiceType.mobiledata3g);
+				updateButtonStateFromSystem(ServiceType.mobiledataConnection);
 			} else {
 				updateButtonStateFromSystem(ServiceType.mobiledata3g);
 				updateButtonStateFromSystem(ServiceType.mobiledataConnection);

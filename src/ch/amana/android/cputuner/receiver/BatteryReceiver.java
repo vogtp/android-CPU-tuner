@@ -1,9 +1,11 @@
 package ch.amana.android.cputuner.receiver;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
@@ -24,6 +26,14 @@ public class BatteryReceiver extends BroadcastReceiver {
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_POWER_CONNECTED));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_POWER_DISCONNECTED));
 				context.registerReceiver(receiver, new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION));
+				// bt: ok wifi: ok airplaine: ok md: yes 3g: yes
+				// snyc: ?  
+				// gps: not supported
+				context.registerReceiver(receiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+				//				context.registerReceiver(receiver, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED));
 				Logger.w("Registered BatteryReceiver");
 
 			} else {

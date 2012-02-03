@@ -33,7 +33,7 @@
     <string name="configuration_title_extreme">Extreme</string>
     <string name="configuration_description_extreme">This is (nearly) the old default configuration.  It is similar to Sophisticated, but uses much more rigorous setting. While battery saving is better the performance gets worse.</string>
     <string name="auto">Auto</string>
-    <string name="msg_manual_profile">manual profile</string>
+    <string name="msg_manual_profile">manual</string>
     <string name="labelMessage">Message:</string>
     <string name="labelState">State:</string>
     <string name="labelTime">Time:</string>

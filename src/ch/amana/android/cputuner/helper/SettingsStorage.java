@@ -37,6 +37,7 @@ public class SettingsStorage {
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
 	public static final String PREF_KEY_ENABLE_STATISTICS_SERVICE = "prefKeyEnableStatisticsService";
 	public static final String PREF_KEY_ENABLE_SWITCH_LOG = "prefKeyEnableSwitchLog";
+	public static final String PREF_KEY_APPWIDGET_COUNT = "prefKeyAppwidgetCount";
 
 	public static final int NO_BATTERY_HOT_TEMP = 5000;
 
@@ -128,6 +129,7 @@ public class SettingsStorage {
 	private boolean powerStrongerThanScreenoff;
 
 	private ProfileModel switchCpuSetting = ProfileModel.NO_PROFILE;
+	private int appwidgetCount = -1;
 
 
 
@@ -767,5 +769,33 @@ public class SettingsStorage {
 
 	public boolean isShowWidgetServices() {
 		return getPreferences().getBoolean("prefKeyShowServices", true);
+	}
+
+	public int getAppWidgetsCount() {
+		if (appwidgetCount < 0) {
+			appwidgetCount = getLocalPreferences().getInt(PREF_KEY_APPWIDGET_COUNT, 0);
+		}
+		return appwidgetCount;
+	}
+
+	public void setAppWidgetsCount(int c) {
+		if (c < 0) {
+			c = 0;
+		}
+		Editor editor = getLocalPreferences().edit();
+		editor.putInt(PREF_KEY_APPWIDGET_COUNT, c);
+		editor.commit();
+	}
+
+	public boolean hasAppWidgets() {
+		return getAppWidgetsCount() > 0;
+	}
+
+	public void registerAppwidget() {
+		setAppWidgetsCount(getAppWidgetsCount() + 1);
+	}
+
+	public void unregisterAppwidget() {
+		setAppWidgetsCount(getAppWidgetsCount() - 1);
 	}
 }

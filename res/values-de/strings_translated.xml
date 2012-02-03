@@ -218,7 +218,7 @@
     </string-array>
 
     <string name="auto">Auto</string>
-    <string name="msg_manual_profile">Manuelles Profil</string>
+    <string name="msg_manual_profile">Manuell</string>
     <string name="labelPowersaveBias">Gewichtung Energiesparmodus:</string>
     <string name="msg_up_threshhold_has_to_be_between_0_and_100">Der obere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>
     <string name="msg_down_threshhold_has_to_be_between_0_and_100">Der untere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>

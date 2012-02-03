@@ -26,14 +26,19 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 	private static int intentId = 100;
 
 	@Override
+	public void onEnabled(Context context) {
+		super.onEnabled(context);
+		SettingsStorage.getInstance(context).registerAppwidget();
+	}
+
+	@Override
 	public void onDisabled(Context context) {
-		context.startService(new Intent(ProfileAppwidgetUpdateService.ACTION_STOP_PROFILEWIDGET_UPDATE));
+		SettingsStorage.getInstance(context).unregisterAppwidget();
 		super.onDisabled(context);
 	}
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-		context.startService(new Intent(ProfileAppwidgetUpdateService.ACTION_START_PROFILEWIDGET_UPDATE));
 		updateView(context);
 	}
 
@@ -41,15 +46,18 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		if (Logger.DEBUG) {
 			Logger.v("ProfileAppWidget update");
 		}
-		RemoteViews rViews;
-		if (SettingsStorage.getInstance(ctx).hasWidget()) {
-			rViews = createAppWidgetView(ctx);
-		} else {
-			rViews = createNotEnabledView(ctx);
-		}
 		ComponentName compName = new ComponentName(ctx, ProfileAppwidgetProvider.class);
 		AppWidgetManager manager = AppWidgetManager.getInstance(ctx);
-		manager.updateAppWidget(compName, rViews);
+		int[] appWidgetIds = manager.getAppWidgetIds(compName);
+		if (appWidgetIds != null && appWidgetIds.length > 0) {
+			RemoteViews rViews;
+			if (SettingsStorage.getInstance(ctx).hasWidget()) {
+				rViews = createAppWidgetView(ctx);
+			} else {
+				rViews = createNotEnabledView(ctx);
+			}
+			manager.updateAppWidget(compName, rViews);
+		}
 	}
 
 	static RemoteViews createNotEnabledView(Context ctx) {
@@ -167,6 +175,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 
 		if (settings.isShowWidgetServices()) {
+			intentId = 100;
 			views.setViewVisibility(R.id.llServiceIcons_ref, View.VISIBLE);
 			setServiceStateIcon(context, views, R.id.ivServiceAirplane, ServiceType.airplainMode);
 			setServiceStateIcon(context, views, R.id.ivServiceSync, ServiceType.backgroundsync);
@@ -201,6 +210,8 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 				setImageResource(views, id, R.drawable.serviceicon_md_2g3g);
 			} else if (state == PowerProfiles.SERVICE_STATE_3G) {
 				setImageResource(views, id, R.drawable.serviceicon_md_3g);
+			} else {
+				setImageResource(views, id, R.drawable.serviceicon_md_2g3g);
 			}
 		} else {
 			if (state == PowerProfiles.SERVICE_STATE_LEAVE) {

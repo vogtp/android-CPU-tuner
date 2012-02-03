@@ -3,10 +3,6 @@
     android:key="prefCatWidget"
     android:title="@string/prefCatWidget" >
 
-    <CheckBoxPreference
-        android:key="prefKeyHasWidget"
-        android:title="@string/prefHasWidget" />
-
     <PreferenceCategory
         android:key="prefKeyWidgetUI"
         android:title="@string/prefWidgetUI" >

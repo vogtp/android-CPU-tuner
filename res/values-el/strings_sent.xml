@@ -13,7 +13,7 @@
     </string-array>
 
     <string name="auto">Auto</string>
-    <string name="msg_manual_profile">manual profile</string>
+    <string name="msg_manual_profile">manual</string>
 
     <string-array name="prefCalcPowerUsageEntries">
         <item>Average value</item>

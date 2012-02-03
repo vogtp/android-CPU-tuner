@@ -263,9 +263,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onPause() {
 		super.onPause();
-		if (serviceSwitcher != null) {
-			serviceSwitcher.stopReceiver();
-		}
 		if (governorFragment != null) {
 			governorFragment.updateVirtGov(false);
 		}
