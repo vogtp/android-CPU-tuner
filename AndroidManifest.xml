@@ -3,7 +3,7 @@
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
     android:versionCode="201202010"
-    android:versionName="@string/version" >
+    android:versionName="3.3.0-rc2" >
 
     <uses-sdk
         android:minSdkVersion="7"

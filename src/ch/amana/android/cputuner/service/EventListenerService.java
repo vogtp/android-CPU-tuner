@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
@@ -42,7 +41,7 @@ public class EventListenerService extends Service {
 
 	private void startCpuTuner() {
 		Context ctx = getApplicationContext();
-		Logger.w("Starting cpu tuner services (" + ctx.getString(R.string.version) + ")");
+		Logger.w("Starting cpu tuner services (" + SettingsStorage.getInstance(ctx).getVersionName() + ")");
 		EventListenerReceiver.registerEventListenerReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
@@ -62,7 +61,7 @@ public class EventListenerService extends Service {
 
 	private void stopCpuTuner() {
 		Context context = getApplicationContext();
-		Logger.w("Stopping cpu tuner services (" + context.getString(R.string.version) + ")");
+		Logger.w("Stopping cpu tuner services (" + SettingsStorage.getInstance(context).getVersionName() + ")");
 		Logger.logStacktrace("Stopping cputuner services");
 		Context ctx = context.getApplicationContext();
 		CallPhoneStateListener.unregister(ctx);

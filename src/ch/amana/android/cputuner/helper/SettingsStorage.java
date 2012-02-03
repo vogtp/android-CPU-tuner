@@ -9,6 +9,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import ch.almana.android.importexportdb.importer.JSONBundle;
@@ -797,5 +799,15 @@ public class SettingsStorage {
 
 	public void unregisterAppwidget() {
 		setAppWidgetsCount(getAppWidgetsCount() - 1);
+	}
+
+	public String getVersionName() {
+		try {
+			PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			return pInfo.versionName;
+		} catch (NameNotFoundException e) {
+			Logger.i("Cannot get cpu tuner version", e);
+		}
+		return "";
 	}
 }

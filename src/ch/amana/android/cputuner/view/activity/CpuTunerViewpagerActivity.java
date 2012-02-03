@@ -130,14 +130,14 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			actionBarWrapper = new ActionBarWrapper(this, bar);
 			setTitle(R.string.app_name);
 			if (Logger.DEBUG) {
-				bar.setSubtitle("DEBUG MODE" + " (" + getString(R.string.version) + ")");
+				bar.setSubtitle("DEBUG MODE" + " (" + settings.getVersionName() + ")");
 			}
 			cputunerActionBar.setVisibility(View.GONE);
 		} else {
 
 			String title = getString(R.string.app_name);
 			if (Logger.DEBUG) {
-				title = title + " - DEBUG MODE" + " (" + getString(R.string.version) + ")";
+				title = title + " - DEBUG MODE" + " (" + settings.getVersionName() + ")";
 			}
 			cputunerActionBar.setTitle(title);
 			cputunerActionBar.setHomeLogo(R.drawable.icon);
