@@ -141,7 +141,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.BatteryReceiver" >
+        <receiver android:name=".receiver.EventListenerReceiver" >
 
             <!--
 			<intent-filter>

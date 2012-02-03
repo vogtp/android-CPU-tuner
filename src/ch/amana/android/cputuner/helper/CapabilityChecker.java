@@ -14,7 +14,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
-import ch.amana.android.cputuner.receiver.BatteryReceiver;
+import ch.amana.android.cputuner.receiver.EventListenerReceiver;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 
 public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecker> {
@@ -216,7 +216,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			CpuTunerApplication.stopCpuTuner(ctx);
 			SettingsStorage.getInstance().userLevel = 3;
 			rooted = RootHandler.isRoot();
-			BatteryReceiver.unregisterBatteryReceiver(ctx);
+			EventListenerReceiver.unregisterEventListenerReceiver(ctx);
 
 			governors = cpuHandler.getAvailCpuGov();
 			govChecks = new HashMap<String, CapabilityChecker.GovernorResult>(governors.length);

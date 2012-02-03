@@ -11,15 +11,15 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.service.TunerService;
 
-public class BatteryReceiver extends BroadcastReceiver {
+public class EventListenerReceiver extends BroadcastReceiver {
 
 	private static Object lock = new Object();
-	private static BatteryReceiver receiver = null;
+	private static EventListenerReceiver receiver = null;
 
-	public static void registerBatteryReceiver(Context context) {
+	public static void registerEventListenerReceiver(Context context) {
 		synchronized (lock) {
 			if (receiver == null) {
-				receiver = new BatteryReceiver();
+				receiver = new EventListenerReceiver();
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
@@ -34,26 +34,26 @@ public class BatteryReceiver extends BroadcastReceiver {
 				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED));
 				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 				//				context.registerReceiver(receiver, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED));
-				Logger.w("Registered BatteryReceiver");
+				Logger.w("Registered EventListenerReceiver");
 
 			} else {
 				if (Logger.DEBUG) {
-					Logger.i("BatteryReceiver allready registered, not registering again");
+					Logger.i("EventListenerReceiver allready registered, not registering again");
 				}
 			}
 		}
 	}
 
-	public static void unregisterBatteryReceiver(Context context) {
+	public static void unregisterEventListenerReceiver(Context context) {
 		synchronized (lock) {
-			Logger.w("Request to unegistered BatteryReceiver");
+			Logger.w("Request to unegistered EventListenerReceiver");
 			if (receiver != null) {
 				try {
 					context.unregisterReceiver(receiver);
 					receiver = null;
 					Logger.w("Unegistered BatteryReceiver");
 				} catch (Throwable e) {
-					Logger.w("Could not unregister BatteryReceiver", e);
+					Logger.w("Could not unregister EventListenerReceiver", e);
 				}
 			}
 		}
@@ -64,7 +64,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 		try {
 			if (Logger.DEBUG) {
 				String action = intent == null ? "null intent" : intent.getAction();
-				Logger.i("Battery receiver got intent with action " + action);
+				Logger.i("EventListenerReceiver got intent with action " + action);
 			}
 			if (SettingsStorage.FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD) {
 					TunerService.handleBattery(context, intent.getAction(), intent);
@@ -76,7 +76,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 			}
 		} catch (Exception e) {
 			String action = intent == null ? "null intent" : intent.getAction();
-			Logger.e("Error executing action " + action + " in background in battery receiver", e);
+			Logger.e("Error executing action " + action + " in background in EventListenerReceiver", e);
 		}
 	}
 

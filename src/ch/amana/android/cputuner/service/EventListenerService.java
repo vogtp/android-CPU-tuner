@@ -10,8 +10,8 @@ import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.log.SwitchLog;
-import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
+import ch.amana.android.cputuner.receiver.EventListenerReceiver;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
@@ -43,7 +43,7 @@ public class EventListenerService extends Service {
 	private void startCpuTuner() {
 		Context ctx = getApplicationContext();
 		Logger.w("Starting cpu tuner services (" + ctx.getString(R.string.version) + ")");
-		BatteryReceiver.registerBatteryReceiver(ctx);
+		EventListenerReceiver.registerEventListenerReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
@@ -66,7 +66,7 @@ public class EventListenerService extends Service {
 		Logger.logStacktrace("Stopping cputuner services");
 		Context ctx = context.getApplicationContext();
 		CallPhoneStateListener.unregister(ctx);
-		BatteryReceiver.unregisterBatteryReceiver(ctx);
+		EventListenerReceiver.unregisterEventListenerReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
 		StatisticsReceiver.unregister(ctx);
 		ProfileAppwidgetProvider.updateView(context);
