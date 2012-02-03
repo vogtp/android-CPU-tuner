@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="prefWidgetUI">Displayed information</string>
+    <string name="prefShowIcon">CPU tuner icon</string>
+    <string name="prefShowIconLong">Used to launch CPU tuner</string>
+    <string name="title_cannot_save">Unable to save</string>
     <string name="cbInclSwitchLog">Include the switch log in the mail.</string>
     <string name="name_extention_widget">Widget</string>
     <string name="desc_extention_widget">The widget lets you access CPU tuner function quickly from your home screen.</string>

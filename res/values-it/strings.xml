@@ -1,45 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="cbInclSwitchLog">Include the switch log in the mail.</string>
-    <string name="name_extention_widget">Widget</string>
-    <string name="desc_extention_widget">The widget lets you access CPU tuner function quickly from your home screen.</string>
-    <string name="prefCatWidget">Widget</string>
-    <string name="prefHasWidget">Enable Widget</string>
-    <string name="msgWidgetLoading">Loading…</string>
-    <string name="msg_widgets_not_installed">CPU tuner widget is not enabled.</string>
-    <string name="title_install_widget_dia">Widget not installed</string>
-    <string name="msg_install_widget_dia">The widget cannot be added since the widget extention is not installed</string>
-    <string name="buNeg_install_widget_dia">No, thanks.</string>
-    <string name="buPos_install_widget_dia">Get it…</string>
-
-    <string-array name="deviceStatesCurrent">
-        <item>Enable</item>
-        <item>Disable</item>
-        <item>Pulse</item>
-    </string-array>
-    <string-array name="mobiledataStatesCurrent">
-        <item>2G only</item>
-        <item>3G/2G</item>
-        <item>3G only</item>
-    </string-array>
-
-    <string name="tigger_name_all">All</string>
-    <string name="tigger_name_batteryfull">Battery full</string>
-    <string name="tigger_name_batteryused">Battery used</string>
-    <string name="tigger_name_batterylow">Battery low</string>
-    <string name="tigger_name_batteryempty">Battery empty</string>
-    <string name="tigger_name_batterycritical">Battery critical</string>
-    <string name="profile_name_performance">Performance</string>
-    <string name="profile_name_good">Good</string>
-    <string name="profile_name_normal">Normal</string>
-    <string name="profile_name_screenoff">Screen off</string>
-    <string name="profile_name_screenon">Screen on</string>
-    <string name="profile_name_powersave">Powersave</string>
-    <string name="profile_name_extremepowersave">Extreme powersave</string>
-    <string name="gov_name_fullspeed">Full speed</string>
-    <string name="gov_name_normal">Normal</string>
-    <string name="gov_name_extremeSaveBattery">Extreme Save Battery</string>
-    <string name="gov_name_saveBattery">Save Battery</string>
-
 </resources>
