@@ -337,14 +337,6 @@ public class CpuHandler extends HardwareHandler {
 		return availCpuFreq;
 	}
 
-	public boolean hasUpThreshold() {
-		return (getFile(GOV_TRESHOLD_UP, getCurCpuGov())).exists();
-	}
-
-	public boolean hasDownThreshold() {
-		return (getFile(GOV_TRESHOLD_DOWN, getCurCpuGov())).exists();
-	}
-
 	public String getCpuTimeinstate() {
 		return RootHandler.readFile(getFile(TIME_IN_STATE, CPU_STATS_DIR));
 	}
