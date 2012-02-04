@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="configuration_title_sophisticated">ｿﾌｨｽﾃｹｰﾃｯﾄﾞ</string>
+    <string name="configuration_title_sophisticated">Sophisticated</string>
     <string name="configuration_description_sophisticated">バッテリレベルに基づいたトリガーがCPUを制御します。サービススイッチは有効化されません。</string>
-    <string name="configuration_title_uniform">"ﾕﾆﾌｫｰﾑ</string>
+    <string name="configuration_title_uniform">Uniform</string>
     <string name="configuration_description_uniform">バッテリレベルに関係なくデバイスの状態に基づいてCPUを制御します。サービススイッチは有効化されません</string>
-    <string name="configuration_title_simplePowerful">ｼﾝﾌﾟﾙ &amp; ﾊﾟﾜﾌﾙ</string>
-    <string name="configuration_description_simplePowerful">http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html で D.により投稿されたプロファイルからﾓﾊﾞｲﾙﾃﾞｰﾀｽｲｯﾁを除いたものです。</string>
-    <string name="configuration_title_extreme">ｴｸｽﾄﾘｰﾑ</string>
-    <string name="configuration_description_extreme">これは古いデフォルト設定です。ｿﾌｨｽﾃｹｰﾃｯﾄﾞに似ていますが、はるかに厳格な設定を使用します。バッテリ節約中にはCPUパフォーマンスが悪化します。</string>
+    <string name="configuration_title_simplePowerful">Simple &amp; Powerful</string>
+    <string name="configuration_description_simplePowerful">http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html で D.により投稿されたプロファイルからモバイルデータスイッチを除いたものです。</string>
+    <string name="configuration_title_extreme">Extreme</string>
+    <string name="configuration_description_extreme">これは古いデフォルト設定です。Sophisticatedに似ていますが、はるかに厳格な設定を使用します。バッテリ節約中にはCPUパフォーマンスが悪化します。</string>
     <string name="labelMessage">メッセージ:</string>
     <string name="labelState">状態:</string>
     <string name="labelTime">時間:</string>
     <string name="prefCatSwitchCpuSettings">ﾌﾟﾛﾌｧｲﾙ切替用CPU設定</string>
-    <string name="prefEnableSwitchCpuSetting">プロファイル切替のために特別なCPU設定を使用</string>
+    <string name="prefEnableSwitchCpuSetting">ﾌﾟﾛﾌｧｲﾙ切替に特別設定を使用</string>
     <string name="prefEnableSwitchCpuSettingOn">プロファイル切り替えのために特別なCPU設定を使用します。</string>
     <string name="prefEnableSwitchCpuSettingOff">プロファイルからのCPU設定はプロファイル切替時に使用されます。</string>
     <string name="prefSwitchCpuSetting">ﾌﾟﾛﾌｧｲﾙ切替用CPU設定</string>
@@ -73,12 +73,9 @@
     <string name="prefKeyFrequencies">システム設定の周波数</string>
     <string name="title_triggers">トリガー</string>
     <string name="msg_title_unsaved_changes">未保存の変更内容</string>
-    <string name="msg_unsaved_changes">未保存の変更内容があります。保存せずに閉じると全ての
-		変更内容は失われます。内容を保存しますか？</string>
+    <string name="msg_unsaved_changes">未保存の変更内容があります。保存せずに閉じると全ての変更内容は失われます。内容を保存しますか？</string>
     <string name="msg_title_grant_root">rootアクセスの許可</string>
-    <string name="msg_grant_root">CPU tunerがスーパーユーザアクセスを許可するか質問し
-		ます。ぜひ許可しチェックボックスの記録をチェックして下さい。
-		アクセスが許可されないとCPU tunerは動作しません。</string>
+    <string name="msg_grant_root">CPU tunerがスーパーユーザアクセスを許可するか質問します。ぜひ許可しチェックボックスの記録をチェックして下さい。アクセスが許可されないとCPU tunerは動作しません。</string>
     <string name="labelLogTab">プロファイル切替ログ</string>
     <string name="msg_no_profile_switch_log">プロファイル切替ログが見つかりません</string>
     <string name="menuItemInsertAsNew">新規挿入</string>
@@ -118,7 +115,7 @@
     <string name="msg_error_loadconfig">読み込まれた設定は有効ではありません。設定が壊れているか読込に失敗したようです。再読込するか他の設定を試して下さい。</string>
     <string name="msg_unusable_comfig_save">使用不可のためこの設定は保存されません。トリガ・プロファイル・バーチャルガバナーのどれかがありません。</string>
     <string name="tvSequenceInfo">プロファイルは逆順にリストされています。CPU tunerは現在の状態と一致する最初のプロファイルを選択します。</string>
-    <string name="msg_warning_manual_service_switches">設定の \"手動サービス変更\" を有効にしました。<br></br>CPU tunerの外部で変更した場合は切替出来ません。<br></br>パルスサービスと前の設定に戻すは通常通り適用されます。</string>
+    <string name="msg_warning_manual_service_switches">設定の\"手動サービス変更\"を有効にしました。<br></br>CPU tunerの外部で変更した場合は切替出来ません。<br></br>パルスサービスと前の設定に戻すは通常通り適用されます。</string>
     <string name="msg_warning_not_switch_wifi_connected">Wifiはネットワーク接続中には切替されません。設定を変更する。</string>
     <string name="menuUpgrade">拡張機能をゲット</string>
     <string name="desc_extention_stats">statistics extentionは更に素晴らしい詳細分析とログを生成します。<br></br>追加情報によりあなたの設定をチューンする手助けをします</string>
@@ -130,11 +127,11 @@
     <string name="purchased">購入済: </string>
     <string name="name_buy_me_a_beer">ビールをご寄付下さい</string>
     <string name="name_buy_me_a_whiskey">ウィスキーをご寄付下さい</string>
-    <string name="name_buy_cookie">子供にクッキーを寄付して下さい</string>
+    <string name="name_buy_cookie">子供にクッキーを買って下さい</string>
     <string name="desc_buy_beer">作者が幸せな気分になります。</string>
     <string name="desc_buy_whiskey">作者がもっと幸せな気分になります（ちょっと酔っ払います）。</string>
     <string name="desc_buy_cookie">作者の子供たちを夢中させバグ修正が期待できます（約束出来ませんが）</string>
-    <string name="desc_buy_toy">作者の子供たちを幾分夢中にさせ機能追加が期待出来ます（約束できませんが）</string>
+    <string name="desc_buy_toy">作者の子供たちを幾分夢中にさせ機能追加が期待出来ます（約束出来ませんが）</string>
     <string name="name_buy_toy">子供に玩具を買って下さい</string>
     <string name="prefextentionsLong">CPU tunerに新機能を追加</string>
     <string name="title_changelog">更新履歴</string>
@@ -157,7 +154,7 @@
     <string name="prefInitialPulseDelay">初期パルス待ち時間</string>
     <string name="prefInitialPulseDelayLong">最初のパルスまでの待ち時間（秒）</string>
     <string name="prefInitialPulseDelayMsg">遅延時間（秒）</string>
-    <string name="prefPowerStrongerThanScreenoff">screen offプロファイルよりon powerのほうが優先される</string>
+    <string name="prefPowerStrongerThanScreenoff">on powerﾌﾟﾛﾌｧｲﾙを優先</string>
     <string name="prefPowerStrongerThanScreenoffOn">電源ONでスクリーンがオフの場合\"on power\"プロファイルが選択されます。</string>
     <string name="prefPowerStrongerThanScreenoffOff">電源ONでスクリーンオフの場合\"screen off\"プロファイルが選択されます。</string>
     <string name="title_choose_experiance_level">習熟レベルを選択</string>
@@ -237,10 +234,10 @@
     <string name="menuReplaceWithCurrent">現在設定に変更</string>
     <string name="menuLoad">ロード</string>
     <string name="delete">削除</string>
-    <string name="msg_delete_configuration">		設定\'<xliff:g id="string">%s</xliff:g>		\'を削除しますか?</string>
-    <string name="msg_replace_with_current">		設定\'<xliff:g id="string">%s</xliff:g>		\'を現在有効なものに変更しますか?</string>
-    <string name="msg_load_configuration">		設定\'<xliff:g id="string">%s</xliff:g>		\'を読込みし有効化しますか?</string>
-    <string name="msg_loaded">		\'<xliff:g id="string">%s</xliff:g>		\'読込まれました</string>
+    <string name="msg_delete_configuration">設定\'<xliff:g id="string">%s</xliff:g>\'を削除しますか?</string>
+    <string name="msg_replace_with_current">設定\'<xliff:g id="string">%s</xliff:g>\'を現在有効なものに変更しますか?</string>
+    <string name="msg_load_configuration">設定\'<xliff:g id="string">%s</xliff:g>\'を読込みし有効化しますか?</string>
+    <string name="msg_loaded">\'<xliff:g id="string">%s</xliff:g>\'読込まれました</string>
     <string name="menuAddCurrent">現在値を追加</string>
     <string name="msg_fully_working">完全動作</string>
     <string name="msg_capcheck_not_rooted">CPU tunerがrootアクセス出来ません\n全てのCPUチューニング関連機能は動作しません。\nあなたの端末はrootアクセス権限がありますか?\nCPU tunerにルートアクセス権限を許可していますか?</string>
@@ -250,7 +247,7 @@
     <string name="msg_capcheck_work_but_cannot_set_frequency">周波数を設定出来ずに動作中です。\nそれでも良好な動作結果を得ることが出来ます。</string>
     <string name="msg_premail_working">大部分ののガバナーは動作中です。\n動作していないガバナーはほとんどの場合カーネル/ROMに問題があります。次の3つの解決方法があります:\n1)動作するガバナーを使用し他を無視する。それでも良好な動作結果を得ることが出来るでしょう。\n2)新しいカーネルをフラッシュする\n3)新しいROMをフラッシュする</string>
     <string name="labelCurrentFrequency">現在値</string>
-    <string name="prefScreenLegal">Legal stuff</string>
+    <string name="prefScreenLegal">法的条項</string>
     <string name="prefLegalOxigenIcons">Tab icon ライセンス</string>
     <string name="prefLegalOxigenIconsLong">oxigen iconの使用を許諾されています。素敵なアイコンに感謝します。</string>
     <string name="virtual_governor">仮想ガバナー</string>
@@ -261,7 +258,7 @@
     <string name="msgDeleteVirtGovNotPossible">１つ以上のプロファイルで使用されているためこの仮想ガバナーを削除できません。</string>
     <string name="labelName">名前:</string>
     <string name="hintVirtualGovernorName">仮想ガバナー名</string>
-    <string name="prefCatGUI">ﾕｰｻﾞｰｲﾝﾀｰﾌｪｰｽ</string>
+    <string name="prefCatGUI">ユーザインターフェース</string>
     <string name="prefCatDisplay">表示</string>
     <string name="labelPowersaveBias">ﾊﾟﾜｰｾｰﾌﾞ嵩上値:</string>
     <string name="labelVirtualGovernor">仮想ガバナー:</string>
@@ -277,7 +274,7 @@
     <string name="msg_threshhold_NaN">しきい値は整数でなければなりません。</string>
     <string name="msg_minimal_frequency_bigger_than_the_maximal">最小周波数は最大周波数より小さい必要があります。</string>
     <string name="msgDeleteTriggerNotPossible">１つ以上のトリガーに使用されているためこのプロファイルを削除できません。</string>
-    <string name="prefBasics">Basics</string>
+    <string name="prefBasics">基本機能</string>
     <string name="labelScript">スクリプト:</string>
     <string name="hintScriptToRun">ガバナー変更後に動作するスクリプト</string>
     <string name="label_governor_tresholds">しきい値:</string>
@@ -332,7 +329,7 @@
     <string name="prefVritualGovernorsListLong">仮想ガバナーは予めCPUガバナーに設定されています。</string>
     <string name="virtualGovernorsList">仮想ガバナー</string>
     <string name="prefBatteryHotTempMsg">バッテリ高温プロファイルへのしきい値を設定します。<br />
-整数値で°Cを指定します.</string>
+整数値で°Cを指定します</string>
     <string name="prefBatteryHotTempLong">バッテリ高温プロファイルのしきい値設定</string>
     <string name="prefBatteryHotTemp">バッテリ高温時</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">プロファイル切替は通話中に許可されています。モバイルデータは本オプションの状態に関わらず通話中には切替されません。</string>
@@ -355,7 +352,7 @@
     <string name="prefKeyProfiles">プロファイルとトリガー</string>
     <string name="prefBuyMeABeer">ビールを寄付して下さい</string>
     <string name="prefAllowManualServiceChangesOn">手動で変更したサービスの状態を変更せず、以後トリガー変更は発生させない。</string>
-    <string name="prefAllowManualServiceChangesOff">手動で変更した場合でもサービスの状態を変更する。.</string>
+    <string name="prefAllowManualServiceChangesOff">手動で変更した場合でもサービスの状態を変更する。</string>
     <string name="prefAllowManualServiceChanges">手動サービス変更</string>
     <string name="prefCpuFreqMsg">周波数リストはｽﾍﾟｰｽで分割する</string>
     <string name="prefCpuFreq">設定されたCPU周波数</string>
@@ -406,7 +403,7 @@
     <string name="labelPowerProfile">プロファイル: </string>
     <string name="spinnerPromptGov">ガバナーを選択</string>
     <string name="buApplyCurProfile">現在のCPUﾌﾟﾛﾌｧｲﾙに適用</string>
-    <string name="notEnabled">not enabled</string>
+    <string name="notEnabled">無効</string>
     <string name="triggersExplain">トリガー定義はバッテリ量に左右され適用されます。状態が異なると（例えばデバイスはバッテリ駆動中・AC駆動中・ディスプレイロック中）それぞれ別のプロファイルが適用されます。</string>
     <string name="explainGovOnDemand">パフォーマンスを重視しCPU使用率に基いて周波数をダイナミックに変更する。 </string>
     <string name="explainGovConservative">パワーセービングを重視しCPU使用率に基づいて周波数をダイナミックに変更する。</string>
@@ -418,9 +415,9 @@
     <string name="label2g">2G</string>
     <string name="label3g">3G</string>
     <string name="label3g2gPrev">2/3G?</string>
-    <string name="labelSyncOn">sync</string>
-    <string name="labelSyncOff"><strike>sync</strike></string>
-    <string name="labelSyncPrev">sync?</string>
+    <string name="labelSyncOn">同期</string>
+    <string name="labelSyncOff"><strike>同期</strike></string>
+    <string name="labelSyncPrev">同期?</string>
     <string name="labelWifiOn">wifi</string>
     <string name="labelWifiOff"><strike>wifi</strike></string>
     <string name="labelWifiPrev">wifi?</string>
@@ -529,5 +526,49 @@
     <string name="label_avgerage">平均: </string>
     <string name="label_tresh_up">上限: </string>
     <string name="label_tresh_down">下限: </string>
+    <string name="cbInclSwitchLog">メールにスイッチログを含める</string>
+    <string name="name_extention_widget">Widget</string>
+    <string name="desc_extention_widget">ホームスクリーンから素早くCPU tunerの機能へアクセスすることが出来ます。</string>
+    <string name="prefCatWidget">Widget</string>
+    <string name="prefHasWidget">Widget有効化</string>
+    <string name="msgWidgetLoading">読込中…</string>
+    <string name="msg_widgets_not_installed">CPU tuner ウィジェットは無効です。</string>
+    <string name="title_install_widget_dia">ウィジェットはインストールされていません</string>
+    <string name="msg_install_widget_dia">ウィジェット機能拡張がインストールされるまで追加することは出来ません</string>
+    <string name="buNeg_install_widget_dia">必要ありません</string>
+    <string name="buPos_install_widget_dia">インストールする</string>
+
+    <string-array name="deviceStatesCurrent">
+        <item>有効</item>
+        <item>無効</item>
+        <item>パルス</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+        <item>2G のみ</item>
+        <item>3G/2G</item>
+        <item>3G のみ</item>
+    </string-array>
+
+    <string name="tigger_name_all">全て</string>
+    <string name="tigger_name_batteryfull">バッテリ フル</string>
+    <string name="tigger_name_batteryused">バッテリ 使用中</string>
+    <string name="tigger_name_batterylow">バッテリ 低</string>
+    <string name="tigger_name_batteryempty">バッテリ 消耗</string>
+    <string name="tigger_name_batterycritical">バッテリ 致命的</string>
+    <string name="profile_name_performance">パフォーマンス</string>
+    <string name="profile_name_good">良好</string>
+    <string name="profile_name_normal">ノーマル</string>
+    <string name="profile_name_screenoff">スクリーン off</string>
+    <string name="profile_name_screenon">スクリーン on</string>
+    <string name="profile_name_powersave">パワーセーブ</string>
+    <string name="profile_name_extremepowersave">極度のパワーセーブ</string>
+    <string name="gov_name_fullspeed">フルスピード</string>
+    <string name="gov_name_normal">通常</string>
+    <string name="gov_name_extremeSaveBattery">極度のバッテリ節約</string>
+    <string name="gov_name_saveBattery">バッテリ節約</string>
+    <string name="prefWidgetUI">表示された情報</string>
+    <string name="prefShowIcon">CPU tuner アイコン</string>
+    <string name="prefShowIconLong">CPU tuner ランチャーに使用されるアイコン</string>
+    <string name="title_cannot_save">保存失敗</string>
 
 </resources>
