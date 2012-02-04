@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="configuration_title_sophisticated">Sophisticated</string>
+    <string name="configuration_title_sophisticated">ｿﾌｨｽﾃｹｰﾃｯﾄﾞ</string>
     <string name="configuration_description_sophisticated">バッテリレベルに基づいたトリガーがCPUを制御します。サービススイッチは有効化されません。</string>
-    <string name="configuration_title_uniform">Uniform</string>
+    <string name="configuration_title_uniform">ﾕﾆﾌｫｰﾑ</string>
     <string name="configuration_description_uniform">バッテリレベルに関係なくデバイスの状態に基づいてCPUを制御します。サービススイッチは有効化されません</string>
-    <string name="configuration_title_simplePowerful">Simple &amp; Powerful</string>
+    <string name="configuration_title_simplePowerful">ｼﾝﾌﾟﾙ &amp; ﾊﾟﾜﾌﾙ</string>
     <string name="configuration_description_simplePowerful">http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html で D.により投稿されたプロファイルからモバイルデータスイッチを除いたものです。</string>
-    <string name="configuration_title_extreme">Extreme</string>
+    <string name="configuration_title_extreme">ｴｸｽﾄﾘｰﾑ</string>
     <string name="configuration_description_extreme">これは古いデフォルト設定です。Sophisticatedに似ていますが、はるかに厳格な設定を使用します。バッテリ節約中にはCPUパフォーマンスが悪化します。</string>
     <string name="labelMessage">メッセージ:</string>
     <string name="labelState">状態:</string>
