@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
 import ch.amana.android.cputuner.provider.db.DBBackendConfigurationAutoload;
@@ -49,7 +48,7 @@ public class CpuTunerProvider extends ContentProvider {
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		Logger.logStacktrace("Deleting entry " + uri);
+		//		Logger.logStacktrace("Deleting entry " + uri);
 		int count = 0;
 		switch (sUriMatcher.match(uri)) {
 		case TRIGGER:
