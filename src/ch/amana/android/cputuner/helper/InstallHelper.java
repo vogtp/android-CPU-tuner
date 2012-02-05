@@ -21,6 +21,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
@@ -32,7 +33,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
 public class InstallHelper {
 
-	private static final int VERSION = 5;
+	private static final int VERSION = 6;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -71,6 +72,9 @@ public class InstallHelper {
 			settings.setMinFrequencyDefault(minCpuFreq);
 			settings.setMaxFrequencyDefault(maxCpuFreq);
 
+		case 5:
+			Logger.i("Initalising cpu tuner to level 6");
+			ModelAccess.getInstace(ctx).clearPowerUsage();
 		}
 		settings.migrateSettings();
 		settings.setDefaultProfilesVersion(VERSION);

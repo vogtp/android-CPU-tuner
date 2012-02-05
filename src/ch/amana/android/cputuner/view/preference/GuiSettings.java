@@ -11,6 +11,7 @@ import ch.amana.android.cputuner.hw.BatteryHandler;
 import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 
@@ -71,6 +72,7 @@ public class GuiSettings extends BaseSettings {
 					}
 					break;
 				}
+				ModelAccess.getInstace(GuiSettings.this).clearPowerUsage();
 				return true;
 			}
 		});

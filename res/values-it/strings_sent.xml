@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="not_supported">Not supported!</string>
+    <string name="msg_no_battery_current">You device does not support battery current tracking.</string>
+    <string name="msg_no_avg_battery_current">You device does not support average battery current tracking.</string>
+
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Valore medio</item>
+        <item>Valore corrente</item>
+        <item>Battery % per hour</item>
+        <item>Nessun calcolo</item>
+    </string-array>
+
     <string name="prefWidgetUI">Displayed information</string>
     <string name="prefShowIcon">CPU tuner icon</string>
     <string name="prefShowIconLong">Used to launch CPU tuner</string>
