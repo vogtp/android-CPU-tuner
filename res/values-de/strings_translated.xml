@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="tigger_name_all">Alle</string>
+    <string name="tigger_name_batteryfull">Batterie voll</string>
+    <string name="tigger_name_batteryused">Batterie fast voll</string>
+    <string name="tigger_name_batterylow">Batterie tief</string>
+    <string name="tigger_name_batteryempty">Batterie leer</string>
+    <string name="tigger_name_batterycritical">Batterie kritisch</string>
+    <string name="profile_name_performance">Leistung</string>
+    <string name="profile_name_good">Gut</string>
+    <string name="profile_name_normal">Normal</string>
+    <string name="profile_name_screenoff">Bildschirm aus</string>
+    <string name="profile_name_screenon">Bildschirm an</string>
+    <string name="profile_name_powersave">Energiesparen</string>
+    <string name="profile_name_extremepowersave">Extremes Energiesparen</string>
+    <string name="gov_name_fullspeed">Volle Geschwindigkeit</string>
+    <string name="gov_name_normal">Normal</string>
+    <string name="gov_name_extremeSaveBattery">Extremes Batterie Sparen</string>
+    <string name="gov_name_saveBattery">Batterie Sparen</string>
+    <string name="configuration_title_sophisticated">Ausgefeilt</string>
+    <string name="configuration_description_sophisticated">Basierend auf den Ladezustand werden etliche Trigger angewandt, um die CPU zu tunen. 
+      Es werden keine Dienste umgeschalten.</string>
+    <string name="configuration_title_uniform">Einheitlich</string>
+    <string name="configuration_description_uniform">Die CPU wird unabhängig vom Ladezustand durch den Zustand des Gerätes gesteuert. Es werden keine Dienste umgeschalten.</string>
+    <string name="configuration_title_simplePowerful">Einfach &amp; mächtig</string>
+    <string name="configuration_description_simplePowerful">Diese Konfiguration wird von D. in seinem Blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) beschrieben. Es werden keine Dienste umgeschalten.</string>
+    <string name="configuration_title_extreme">Extrem</string>
+    <string name="configuration_description_extreme">Ähnlich wie \'Ausgefeilt\', aber es werden wesentlich rigorosere Einstellungen verwendet. Dadurch wird mehr Batteries gespahrt, aber die Geschwindigkeit des Gerätes wird schlecht.</string>
     <string name="labelMessage">Nachricht:</string>
     <string name="labelState">Frequenz:</string>
     <string name="labelTime">Zeit:</string>
@@ -122,7 +148,7 @@
     <string-array name="prefCalcPowerUsageEntries">
         <item>Mittelwert</item>
         <item>Aktueller Wert</item>
-        <!-- <item>Battery % per hour</item> -->
+        <item>Batterie % pro Stunde</item>
         <item>Keine Berechnung</item>
     </string-array>
 
@@ -192,7 +218,7 @@
     </string-array>
 
     <string name="auto">Auto</string>
-    <string name="msg_manual_profile">Manuelles Profil</string>
+    <string name="msg_manual_profile">Manuell</string>
     <string name="labelPowersaveBias">Gewichtung Energiesparmodus:</string>
     <string name="msg_up_threshhold_has_to_be_between_0_and_100">Der obere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>
     <string name="msg_down_threshhold_has_to_be_between_0_and_100">Der untere Schwellenwert wird in % angegeben und muss zwischen 0 und 100 sein.</string>
@@ -253,7 +279,7 @@
     <string name="delete">Löschen</string>
     <string name="msg_delete_configuration">Lösche Konfiguration \'<xliff:g id="string">%s</xliff:g>\'?</string>
     <string name="msg_replace_with_current">		Ersetze Konfiguration \'<xliff:g id="string">%s</xliff:g>\' mit der Aktuellen?</string>
-    <string name="msg_load_configuration">		Mach Konfiguration \'<xliff:g id="string">%s</xliff:g>\' zur aktulle aktiven?</string>
+    <string name="msg_load_configuration">Lade \'<xliff:g id="string">%s</xliff:g>\' als aktulle Konfiguration?</string>
     <string name="msg_loaded">		Geladen: \'<xliff:g id="string">%s</xliff:g>\'</string>
     <string name="menuAddCurrent">Aktuelle hinzufügen</string>
     <string name="msg_cannot_load_virtual_governor">Der virtuelle Regler kann nicht geladen werden…</string>
@@ -461,11 +487,6 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
         <item>3G/2G</item>
         <item>Zurück zum vorherigen</item>
         <item>Nur 3G</item>
-    </string-array>
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Durchschnittlicher Wert</item>
-        <item>Aktueller Wert</item>
-        <item>Keine Berechnung</item>
     </string-array>
     <string-array name="prefUserLevelEntries">
         <item><b>Anfänger</b>: CPU Tuner versucht schlau zu sein.</item>

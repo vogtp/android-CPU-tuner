@@ -24,6 +24,7 @@
         <item>Deutsch (de)</item>
         <item>Française (fr)</item>
         <item>Italiano (it)</item>
+        <item>日本語 (ja)</item>
         <item>Ελληνικά (el)</item>
     </string-array>
     <string-array name="prefLanguageValues">
@@ -32,6 +33,7 @@
         <item>de</item>
         <item>fr</item>
         <item>it</item>
+        <item>ja</item>
         <item>el</item>
     </string-array>
     <string-array name="prefMulticoreValues">
@@ -50,5 +52,16 @@
         <item>2</item>
         <item>0</item>
     </string-array>
+
+    <integer-array name="deviceStatesCurrentValues">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </integer-array>
+    <integer-array name="mobiledataStatesCurrentValues">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </integer-array>
 
 </resources>

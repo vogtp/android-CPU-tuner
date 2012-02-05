@@ -18,7 +18,7 @@ import ch.amana.android.cputuner.model.ProfileModel;
 
 public class CpuHandler extends HardwareHandler {
 
-	public static final File DUMMY_FILE = new File("");
+	public static final File DUMMY_FILE = new File("/dev/null");
 	public static final String GOV_ONDEMAND = "ondemand";
 	public static final String GOV_POWERSAVE = "powersave";
 	public static final String GOV_CONSERVATIVE = "conservative";
@@ -88,6 +88,10 @@ public class CpuHandler extends HardwareHandler {
 			}
 		}
 		return instance;
+	}
+
+	public boolean isMultiCore() {
+		return false;
 	}
 
 	public ProfileModel getCurrentCpuSettings() {
@@ -331,14 +335,6 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean hasAvailCpuFreq() {
 		return availCpuFreq;
-	}
-
-	public boolean hasUpThreshold() {
-		return (getFile(GOV_TRESHOLD_UP, getCurCpuGov())).exists();
-	}
-
-	public boolean hasDownThreshold() {
-		return (getFile(GOV_TRESHOLD_DOWN, getCurCpuGov())).exists();
 	}
 
 	public String getCpuTimeinstate() {

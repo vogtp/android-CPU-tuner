@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefCatWidgetDebug"
+    android:title="DEBUG" >
+
+    <CheckBoxPreference
+        android:key="prefKeyHasWidget"
+        android:title="@string/prefHasWidget" />
+
+    <Preference android:key="prefKeyAppwidgetCount" />
+
+</PreferenceScreen>

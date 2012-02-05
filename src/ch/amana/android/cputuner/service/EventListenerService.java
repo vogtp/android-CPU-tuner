@@ -4,15 +4,15 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.log.SwitchLog;
-import ch.amana.android.cputuner.receiver.BatteryReceiver;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
+import ch.amana.android.cputuner.receiver.EventListenerReceiver;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
+import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class EventListenerService extends Service {
 
@@ -41,8 +41,8 @@ public class EventListenerService extends Service {
 
 	private void startCpuTuner() {
 		Context ctx = getApplicationContext();
-		Logger.w("Starting cpu tuner services (" + ctx.getString(R.string.version) + ")");
-		BatteryReceiver.registerBatteryReceiver(ctx);
+		Logger.w("Starting cpu tuner services (" + SettingsStorage.getInstance(ctx).getVersionName() + ")");
+		EventListenerReceiver.registerEventListenerReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
@@ -56,17 +56,19 @@ public class EventListenerService extends Service {
 		if (settingsStorage.isRunStatisticsService()) {
 			StatisticsReceiver.register(ctx);
 		}
+		ProfileAppwidgetProvider.enableWidget(ctx, settingsStorage.hasWidget());
 	}
 
 	private void stopCpuTuner() {
 		Context context = getApplicationContext();
-		Logger.w("Stopping cpu tuner services (" + context.getString(R.string.version) + ")");
+		Logger.w("Stopping cpu tuner services (" + SettingsStorage.getInstance(context).getVersionName() + ")");
 		Logger.logStacktrace("Stopping cputuner services");
 		Context ctx = context.getApplicationContext();
 		CallPhoneStateListener.unregister(ctx);
-		BatteryReceiver.unregisterBatteryReceiver(ctx);
+		EventListenerReceiver.unregisterEventListenerReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
 		StatisticsReceiver.unregister(ctx);
+		ProfileAppwidgetProvider.updateView(context);
 		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
 		case SettingsStorage.STATUSBAR_RUNNING:
 			Notifier.stopStatusbarNotifications(ctx);
@@ -81,6 +83,7 @@ public class EventListenerService extends Service {
 		SwitchLog.stop(ctx);
 		stopSelf();
 	}
+
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub

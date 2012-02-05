@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.hw;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -18,6 +19,11 @@ public class CpuHandlerMulticore extends CpuHandler {
 	public CpuHandlerMulticore(String[] cpus) {
 		super();
 		this.cpus = cpus;
+	}
+
+	@Override
+	public boolean isMultiCore() {
+		return true;
 	}
 
 	@Override
@@ -141,42 +147,35 @@ public class CpuHandlerMulticore extends CpuHandler {
 		String idx = name + subDir;
 		File[] files = fileMap.get(idx);
 		if (files == null) {
+			ArrayList<File> fileList = new ArrayList<File>(cpus.length);
 			File file;
 			file = new File(CPU_BASE_DIR + cpus[0] + subDir, name);
-			if (file.exists()) {
+			if (fileOk(file)) {
 				// get the other cpu files
-				files = new File[cpus.length];
-				files[0] = file;
+				fileList.add(0, file);
 				for (int i = 1; i < cpus.length; i++) {
 					file = new File(CPU_BASE_DIR + cpus[i] + subDir, name);
-					if (file.exists()) {
-						files[i] = file;
-					} else {
-						files[i] = CpuHandler.DUMMY_FILE;
+					if (fileOk(file)) {
+						fileList.add(i, file);
 					}
 				}
 			} else {
 				file = new File(CPU_BASE_DIR + CPUFREQ_DIR + subDir, name);
-				if (file.exists()) {
-					files = new File[1];
-					files[0] = file;
+				if (fileOk(file)) {
+					fileList.add(0, file);
 				} else {
 					file = new File(CPU_BASE_DIR + subDir, name);
-					if (file.exists()) {
-						files = new File[1];
-						files[0] = file;
+					if (fileOk(file)) {
+						fileList.add(0, file);
 					} else {
 						file = new File(CPU_BASE_DIR + cpus[0] + CPUFREQ_DIR + subDir, name);
-						if (file.exists()) {
+						if (fileOk(file)) {
 							// get the other cpu files
-							files = new File[cpus.length];
-							files[0] = file;
+							fileList.add(0, file);
 							for (int i = 1; i < cpus.length; i++) {
 								file = new File(CPU_BASE_DIR + cpus[i] + CPUFREQ_DIR + subDir, name);
-								if (file.exists()) {
-									files[i] = file;
-								} else {
-									files[i] = CpuHandler.DUMMY_FILE;
+								if (fileOk(file)) {
+									fileList.add(i, file);
 								}
 							}
 						}
@@ -185,13 +184,30 @@ public class CpuHandlerMulticore extends CpuHandler {
 				}
 			}
 
+			files = new File[fileList.size()];
+			files = fileList.toArray(files);
+
 			if (files == null) {
 				files = new File[0];
 			}
 
 			fileMap.put(idx, files);
 		}
+		if (Logger.DEBUG) {
+			String s = "";
+			for (int i = 0; i < files.length; i++) {
+				s = s + " " + files[i].getAbsolutePath();
+			}
+			Logger.w("Files for " + name + ": " + s);
+		}
 		return files;
+	}
+
+	private boolean fileOk(File file) {
+		if (file == null || !file.exists()) {
+			return false;
+		}
+		return !"/".equals(file.getAbsolutePath());
 	}
 
 	private boolean writeFiles(File[] files, String value) {

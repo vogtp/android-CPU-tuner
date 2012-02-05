@@ -4,6 +4,18 @@ V
 * bug fixes
 - 
 
+V 3.3.0 
+* features
+- a widget (as extension)
+- switch services from current tab
+- battery level in notification
+- track power consumption in battery % per hour
+- translated (de, it and ja) trigger, profile and virtual governor names (on system configuration load)
+- minor things
+* bug fixes
+- fix profile "none" after manual profile changes
+- fix crashes
+
 V 3.2.2
 * features
 - 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefCatWidget"
+    android:title="@string/prefCatWidget" >
+
+    <PreferenceCategory
+        android:key="prefKeyWidgetUI"
+        android:title="@string/prefWidgetUI" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeyShowIcon"
+            android:summary="@string/prefShowIconLong"
+            android:title="@string/prefShowIcon" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeyShowTrigger"
+            android:title="@string/labelCurrentTrigger" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeyShowProfile"
+            android:title="@string/labelCurrentProfile" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefKeyShowGovernor"
+            android:title="@string/labelGovernor" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeyShowBattery"
+            android:title="@string/labelCurrentBattery" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeyShowServices"
+            android:title="@string/labelServices" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

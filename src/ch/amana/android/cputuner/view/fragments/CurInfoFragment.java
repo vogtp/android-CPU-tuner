@@ -1,8 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -28,7 +25,6 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser;
 import ch.amana.android.cputuner.helper.CpuFrequencyChooser.FrequencyChangeCallback;
@@ -50,9 +46,8 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateCh
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
+import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
-
-import com.markupartist.android.widget.ActionBar.Action;
 
 public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback, StateChangeListener {
 
@@ -84,6 +79,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TextView tvManualServiceChanges;
 	// FIXME ugly way to get around destruction of fragments on orientation change
 	private CurInfoFragment lastInstanceCreated;
+	private ServiceSwitcher serviceSwitcher;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +113,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		trBattery = (TableRow) v.findViewById(R.id.TableRowBattery);
 		trPower = (TableRow) v.findViewById(R.id.TableRowPower);
 		tvManualServiceChanges = (TextView) v.findViewById(R.id.tvManualServiceChanges);
+		serviceSwitcher = (ServiceSwitcher) v.findViewById(R.id.serviceSwitcher);
+		serviceSwitcher.setButtonClickable(true);
+		serviceSwitcher.setButtonPadding(getResources().getDimension(R.dimen.cur_info_servicebutton_padding));
 		return v;
 	}
 
@@ -251,6 +250,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		if (getActivity() == null) {
 			return;
 		}
+		if (serviceSwitcher != null) {
+			serviceSwitcher.startReceiver();
+			serviceSwitcher.updateAllButtonStateFromSystem();
+		}
 		if (governorFragment != null) {
 			governorFragment.updateVirtGov(true);
 		}
@@ -288,18 +291,12 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void deviceStatusChanged() {
-		if (tvAcPower == null) {
+		if (tvAcPower == null || isDetached()) {
 			return;
 		}
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
-		StringBuilder bat = new StringBuilder();
-		bat.append(powerProfiles.getBatteryLevel()).append("%");
-		bat.append(" (");
-		if (powerProfiles.isBatteryHot()) {
-			bat.append(getString(R.string.label_hot)).append(" ");
-		}
-		bat.append(powerProfiles.getBatteryTemperature()).append(" °C)");
-		tvBatteryLevel.setText(bat.toString());
+
+		tvBatteryLevel.setText(powerProfiles.getBatteryInfo());
 		StringBuilder currentText = new StringBuilder();
 		BatteryHandler batteryHandler = BatteryHandler.getInstance();
 		int currentNow = batteryHandler.getBatteryCurrentNow();
@@ -321,6 +318,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		} else {
 			trBatteryCurrent.setVisibility(View.GONE);
 		}
+		serviceSwitcher.updateAllButtonStateFromSystem();
 	}
 
 	@Override
@@ -405,9 +403,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void setMaxCpuFreq(int val) {
 		if (val != cpuHandler.getMaxCpuFreq()) {
-			if (cpuHandler.setMaxCpuFreq(val)) {
-				Toast.makeText(getContext(), getString(R.string.msg_setting_cpu_max_freq, val), Toast.LENGTH_LONG).show();
-			}
+			cpuHandler.setMaxCpuFreq(val);
 			updateView();
 		}
 	}
@@ -415,9 +411,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void setMinCpuFreq(int val) {
 		if (val != cpuHandler.getMinCpuFreq()) {
-			if (cpuHandler.setMinCpuFreq(val)) {
-				Toast.makeText(getContext(), getString(R.string.setting_cpu_min_freq, val), Toast.LENGTH_LONG).show();
-			}
+			cpuHandler.setMinCpuFreq(val);
 			updateView();
 		}
 	}
@@ -428,26 +422,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<Action>(2);
-		actions.add(new Action() {
-			@Override
-			public void performAction(View view) {
-				updateView();
-			}
-
-			@Override
-			public int getDrawable() {
-				return R.drawable.ic_menu_refresh;
-			}
-		});
-		return actions;
-	}
-
-	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.refresh_option, menu);
 	}
 
 	@Override

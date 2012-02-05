@@ -68,4 +68,23 @@
         </TextView>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/llCpusActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:text="@string/labelActiveCpus" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvCpusActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </TextView>
+    </LinearLayout>
+
 </LinearLayout>

@@ -7,8 +7,11 @@ import android.preference.Preference.OnPreferenceClickListener;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.BatteryHandler;
+import ch.amana.android.cputuner.hw.HardwareHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.activity.UserExperianceLevelChooser;
 
@@ -41,6 +44,35 @@ public class GuiSettings extends BaseSettings {
 			public boolean onPreferenceClick(Preference preference) {
 				UserExperianceLevelChooser uec = new UserExperianceLevelChooser(GuiSettings.this, true);
 				uec.show();
+				return true;
+			}
+		});
+		findPreference("prefKeyCalcPowerUsageType").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				int newValueInt = -1;
+				try {
+					newValueInt = Integer.parseInt((String) newValue);
+				} catch (Exception e) {
+					Logger.w("Cannot parse prefKeyCalcPowerUsageType as int", e);
+					return false;
+				}
+				switch (newValueInt) {
+				case SettingsStorage.TRACK_CURRENT_AVG:
+					if (BatteryHandler.getInstance().getBatteryCurrentAverage() == HardwareHandler.NO_VALUE_INT) {
+						GuiUtils.showDialog(GuiSettings.this, R.string.not_supported, R.string.msg_no_avg_battery_current);
+						return false;
+					}
+					break;
+				case SettingsStorage.TRACK_CURRENT_CUR:
+					if (BatteryHandler.getInstance().getBatteryCurrentAverage() == HardwareHandler.NO_VALUE_INT) {
+						GuiUtils.showDialog(GuiSettings.this, R.string.not_supported, R.string.msg_no_battery_current);
+						return false;
+					}
+					break;
+				}
+				ModelAccess.getInstace(GuiSettings.this).clearPowerUsage();
 				return true;
 			}
 		});

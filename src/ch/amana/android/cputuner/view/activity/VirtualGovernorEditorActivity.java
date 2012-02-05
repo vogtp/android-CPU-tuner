@@ -11,12 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.EditorCallback;
 import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
@@ -215,11 +215,13 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		updateModel();
 		boolean ok = true;
 		if (!hasName()) {
-			Toast.makeText(this, R.string.msg_no_virtgov_name, Toast.LENGTH_LONG).show();
+			GuiUtils.showDialog(this, R.string.title_cannot_save, R.string.msg_no_virtgov_name);
+			//			Toast.makeText(this, R.string.msg_no_virtgov_name, Toast.LENGTH_LONG).show();
 			ok = false;
 		}
 		if (ok && !isNameUnique()) {
-			Toast.makeText(this, R.string.msg_virtgovname_exists, Toast.LENGTH_LONG).show();
+			GuiUtils.showDialog(this, R.string.title_cannot_save, R.string.msg_virtgovname_exists);
+			//			Toast.makeText(this, R.string.msg_virtgovname_exists, Toast.LENGTH_LONG).show();
 			ok = false;
 		}
 		if (ok) {

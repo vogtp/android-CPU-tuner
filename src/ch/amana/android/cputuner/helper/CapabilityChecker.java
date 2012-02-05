@@ -10,11 +10,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
+import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ProfileModel;
-import ch.amana.android.cputuner.receiver.BatteryReceiver;
+import ch.amana.android.cputuner.receiver.EventListenerReceiver;
 import ch.amana.android.cputuner.view.activity.CapabilityCheckerActivity;
 
 public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecker> {
@@ -216,7 +217,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			CpuTunerApplication.stopCpuTuner(ctx);
 			SettingsStorage.getInstance().userLevel = 3;
 			rooted = RootHandler.isRoot();
-			BatteryReceiver.unregisterBatteryReceiver(ctx);
+			EventListenerReceiver.unregisterEventListenerReceiver(ctx);
 
 			governors = cpuHandler.getAvailCpuGov();
 			govChecks = new HashMap<String, CapabilityChecker.GovernorResult>(governors.length);
@@ -272,6 +273,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			RootHandler.writeLog("checking governor: " + gov);
 			RootHandler.writeLog("********************************************");
 		}
+		GovernorConfig governorConfig = GovernorConfigHelper.getGovernorConfig(gov);
 		GovernorResult result = new GovernorResult(gov);
 		govChecks.put(gov, result);
 
@@ -298,24 +300,33 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			result.writeMinFreq = CheckResult.DOES_NOT_APPLY;
 			checkUserCpuFreq(result);
 		} else {
-			checkMaxCpuFreq(result);
-			checkMinCpuFreq(result);
+			if (governorConfig.hasMaxFrequency()) {
+				checkMaxCpuFreq(result);
+			} else {
+				result.readMaxFreq = CheckResult.DOES_NOT_APPLY;
+				result.writeMaxFreq = CheckResult.DOES_NOT_APPLY;
+			}
+			if (governorConfig.hasMinFrequency()) {
+				checkMinCpuFreq(result);
+			} else {
+				result.readMinFreq = CheckResult.DOES_NOT_APPLY;
+				result.writeMinFreq = CheckResult.DOES_NOT_APPLY;
+			}
 		}
 
-		if (cpuHandler.hasUpThreshold()) {
+		if (governorConfig.hasThreshholdUpFeature()) {
 			checkUpThreshold(result);
 		} else {
 			result.readUpThreshold = CheckResult.DOES_NOT_APPLY;
 			result.writeUpThreshold = CheckResult.DOES_NOT_APPLY;
 		}
 
-		if (cpuHandler.hasDownThreshold()) {
+		if (governorConfig.hasThreshholdDownFeature()) {
 			checkDownThreshold(result);
 		} else {
 			result.readDownThreshold = CheckResult.DOES_NOT_APPLY;
 			result.writeDownThreshold = CheckResult.DOES_NOT_APPLY;
 		}
-
 	}
 
 	private void checkDownThreshold(GovernorResult result) {

@@ -1,8 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="not_supported">Not supported!</string>
+    <string name="msg_no_battery_current">You device does not support battery current tracking.</string>
+    <string name="msg_no_avg_battery_current">You device does not support average battery current tracking.</string>
+
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Average value</item>
+        <item>Current value</item>
+        <item>Battery % per hour</item>
+        <item>No calculation</item>
+    </string-array>
+
+    <string name="prefWidgetUI">Displayed information</string>
+    <string name="prefShowIcon">CPU tuner icon</string>
+    <string name="prefShowIconLong">Used to launch CPU tuner</string>
+    <string name="title_cannot_save">Unable to save</string>
+    <string name="cbInclSwitchLog">Include the switch log in the mail.</string>
+    <string name="name_extention_widget">Widget</string>
+    <string name="desc_extention_widget">The widget lets you access CPU tuner function quickly from your home screen.</string>
+    <string name="prefCatWidget">Widget</string>
+    <string name="prefHasWidget">Enable Widget</string>
+    <string name="msgWidgetLoading">Loading…</string>
+    <string name="msg_widgets_not_installed">CPU tuner widget is not enabled.</string>
+    <string name="title_install_widget_dia">Widget not installed</string>
+    <string name="msg_install_widget_dia">The widget cannot be added since the widget extention is not installed</string>
+    <string name="buNeg_install_widget_dia">No, thanks.</string>
+    <string name="buPos_install_widget_dia">Get it…</string>
+
+    <string-array name="deviceStatesCurrent">
+        <item>Enable</item>
+        <item>Disable</item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+        <item>2G only</item>
+        <item>3G/2G</item>
+        <item>3G only</item>
+    </string-array>
+
+    <string name="tigger_name_all">All</string>
+    <string name="tigger_name_batteryfull">Battery full</string>
+    <string name="tigger_name_batteryused">Battery used</string>
+    <string name="tigger_name_batterylow">Battery low</string>
+    <string name="tigger_name_batteryempty">Battery empty</string>
+    <string name="tigger_name_batterycritical">Battery critical</string>
+    <string name="profile_name_performance">Performance</string>
+    <string name="profile_name_good">Good</string>
+    <string name="profile_name_normal">Normal</string>
+    <string name="profile_name_screenoff">Screen off</string>
+    <string name="profile_name_screenon">Screen on</string>
+    <string name="profile_name_powersave">Powersave</string>
+    <string name="profile_name_extremepowersave">Extreme powersave</string>
+    <string name="gov_name_fullspeed">Full speed</string>
+    <string name="gov_name_normal">Normal</string>
+    <string name="gov_name_extremeSaveBattery">Extreme Save Battery</string>
+    <string name="gov_name_saveBattery">Save Battery</string>
+    <string name="configuration_title_sophisticated">Sophisticated</string>
+    <string name="configuration_description_sophisticated">Based on the battery level quite a few triggers are used to control the CPU. No service switches are activated.</string>
+    <string name="configuration_title_uniform">Uniform</string>
+    <string name="configuration_description_uniform">The CPU is only controlled based on the state of the device regardless of the battery level. No service switches.</string>
+    <string name="configuration_title_simplePowerful">Simple &amp; powerful</string>
+    <string name="configuration_description_simplePowerful">This is the profile described by D. in his blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) without mobile data switching.</string>
+    <string name="configuration_title_extreme">Extreme</string>
+    <string name="configuration_description_extreme">This is (nearly) the old default configuration.  It is similar to Sophisticated, but uses much more rigorous setting. While battery saving is better the performance gets worse.</string>
     <string name="auto">Auto</string>
-    <string name="msg_manual_profile">manual profile</string>
+    <string name="msg_manual_profile">manual</string>
     <string name="labelMessage">Message:</string>
     <string name="labelState">State:</string>
     <string name="labelTime">Time:</string>
@@ -45,14 +108,6 @@
     <string name="call_active">Call active</string>
     <string name="battery_hot">Battery hot</string>
     <string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use -1 to log for ever.</string>
-
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Average value</item>
-        <item>Current value</item>
-        <!-- <item>Battery % per hour</item> -->
-        <item>No calculation</item>
-    </string-array>
-
     <string name="msgEnableCputuner">Enabling cpu tuner</string>
     <string name="msgDisableCputuner">Disabling cpu tuner</string>
     <string name="labelYourConfigurations">Your configurations</string>

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,10 +18,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TwoLineListItem;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 
 public class SysConfigurationsAdapter extends BaseAdapter {
 
+	private static final String RESOURCE_CONFIGURATION = "configuration_";
 	private static final String INFOTAG_NAME = "title";
 	private static final String INFOTAG_DESC = "description";
 	private static final String INFO_FILENAME = "info.json";
@@ -28,10 +31,15 @@ public class SysConfigurationsAdapter extends BaseAdapter {
 	private final LayoutInflater layoutInflator;
 	private final Context ctx;
 	private final HashMap<Integer, JSONObject> infoHash = new HashMap<Integer, JSONObject>();
+	private String language;
 
 	public SysConfigurationsAdapter(Context ctx) throws IOException {
 		super();
 		this.ctx = ctx;
+		language = SettingsStorage.getInstance().getLanguage();
+		if ("".equals(language)) {
+			language = Locale.getDefault().getLanguage().toLowerCase();
+		}
 		layoutInflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		configurationDirs = ctx.getAssets().list(BackupRestoreHelper.DIRECTORY_CONFIGURATIONS);
 		refresh();
@@ -74,13 +82,26 @@ public class SysConfigurationsAdapter extends BaseAdapter {
 		TwoLineListItem view = (convertView != null) ? (TwoLineListItem) convertView : createView(parent);
 		try {
 			JSONObject info = getInfo(position);
-			view.getText1().setText(info.getString(INFOTAG_NAME));
-			view.getText2().setText(info.getString(INFOTAG_DESC));
+			view.getText1().setText(getTranslatedString(info, INFOTAG_NAME));
+			view.getText2().setText(getTranslatedString(info, INFOTAG_DESC));
 		} catch (Throwable e) {
 			view.getText1().setText(getDirectoryName(position));
 			Logger.w("Cannot get configuration information from json object", e);
 		}
 		return view;
+	}
+
+	private String getTranslatedString(JSONObject info, String name) throws JSONException {
+		String configurationName = info.getString(INFOTAG_NAME);
+		String resString = RESOURCE_CONFIGURATION + name + "_" + configurationName;
+		try {
+			int id = ctx.getResources().getIdentifier(resString, "string", ctx.getPackageName());
+			return ctx.getString(id);
+		} catch (Exception e) {
+			Logger.w("no resource for configuration " + name + " found looking for " + resString, e);
+		}
+		
+		return info.getString(name);
 	}
 
 	private TwoLineListItem createView(ViewGroup parent) {
@@ -115,7 +136,7 @@ public class SysConfigurationsAdapter extends BaseAdapter {
 
 	public String getConfigName(int position) {
 		try {
-			return getInfo(position).getString(INFOTAG_NAME);
+			return getTranslatedString(getInfo(position), INFOTAG_NAME);
 		} catch (Throwable e) {
 			Logger.w("Error getting name from sysconfig", e);
 			return null;

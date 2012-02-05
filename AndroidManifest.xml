@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201201230"
-    android:versionName="@string/version" >
+    android:versionCode="201202050"
+    android:versionName="3.3.0" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -141,7 +141,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.BatteryReceiver" >
+        <receiver android:name=".receiver.EventListenerReceiver" >
 
             <!--
 			<intent-filter>
@@ -168,7 +168,12 @@
             -->
         </receiver>
 
-        <activity android:name=".view.activity.CpuTunerViewpagerActivity" >
+        <activity
+            android:name=".view.activity.CpuTunerViewpagerActivity"
+            android:clearTaskOnLaunch="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -339,6 +344,49 @@
         </receiver>
 
         <activity android:name=".view.preference.AdvStatisticsExtensionSettings" >
+        </activity>
+
+        <receiver
+            android:name=".view.appwidget.ProfileAppwidgetProvider"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/profile_widget" />
+        </receiver>
+        <receiver android:name=".view.appwidget.ProfileAppwidgetUpdateReceiver" >
+        </receiver>
+
+        <activity android:name=".view.preference.AppwidgetExtensionSettings" >
+        </activity>
+        <activity android:name=".view.appwidget.AppwidgetConfigureAction" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activity.PopupChooserActivity"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:finishOnTaskLaunch="true"
+            android:immersive="true"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.Transparent_Dialog" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+
+                <action android:name="ch.amana.android.cputuner.ACTION_POPUP_CHOOSER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -4,14 +4,12 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import ch.amana.android.cputuner.R;
-import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -37,10 +35,7 @@ public class SettingsMainActivity extends BaseSettings {
 		findPreference("prefKeyBuyMeABeer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsMainActivity.this, BillingProductListActiviy.class);
-				i.putExtra(BillingProductListActiviy.EXTRA_TITLE, getString(R.string.prefBuyMeABeer));
-				i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_BUY_ME_BEER);
-				startActivity(i);
+				startActivity(BillingProductListActiviy.getBeerIntent(SettingsMainActivity.this));
 				return true;
 			}
 		});
@@ -49,10 +44,7 @@ public class SettingsMainActivity extends BaseSettings {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent i = new Intent(SettingsMainActivity.this, BillingProductListActiviy.class);
-				i.putExtra(BillingProductListActiviy.EXTRA_TITLE, getString(R.string.title_extentions));
-				i.putExtra(BillingProductListActiviy.EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);
-				startActivity(i);
+				startActivity(BillingProductListActiviy.getExtentionsIntent(SettingsMainActivity.this));
 				return true;
 			}
 		});

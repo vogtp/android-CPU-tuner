@@ -6,14 +6,36 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Date;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.provider.db.DB;
 
 public class Logger {
 	private static final String TAG = "CPUTuner";
 	private static final String STACKTRACE_TAG = "CPUTunerStracktraceLog";
 
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
 
+	public static void inApp(Context ctx, String msg) {
+		if (DEBUG) {
+			Intent intent = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
+			intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, msg);
+			PowerProfiles powerProfiles = PowerProfiles.getInstance();
+			if (powerProfiles != null) {
+				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, powerProfiles.getCurrentTriggerName());
+				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, powerProfiles.getCurrentProfileName());
+				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, powerProfiles.getCurrentVirtGovName());
+				intent.putExtra(DB.SwitchLogDB.NAME_AC, powerProfiles.isAcPower() ? 1 : 0);
+				intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, powerProfiles.getBatteryLevel());
+				intent.putExtra(DB.SwitchLogDB.NAME_CALL, powerProfiles.isCallInProgress() ? 1 : 0);
+				intent.putExtra(DB.SwitchLogDB.NAME_HOT, powerProfiles.isBatteryHot() ? 1 : 0);
+				intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, powerProfiles.isScreenOff() ? 1 : 0);
+			}
+			ctx.sendBroadcast(intent);
+		}
+	}
 
 	public static void e(String msg, Throwable t) {
 		try {

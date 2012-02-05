@@ -32,6 +32,7 @@ import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
@@ -69,8 +70,8 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 
 		adapter = new SimpleCursorAdapter(act, R.layout.virtual_governor_item, null,
 				new String[] { DB.VirtualGovernor.NAME_VIRTUAL_GOVERNOR_NAME, DB.VirtualGovernor.NAME_REAL_GOVERNOR,
-						DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP },
-				new int[] { R.id.tvVirtualGovernor, R.id.tvGorvernor, R.id.tvThresholdDown, R.id.tvThresholdUp }, 0);
+						DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_DOWN, DB.VirtualGovernor.NAME_GOVERNOR_THRESHOLD_UP, DB.VirtualGovernor.NAME_USE_NUMBER_OF_CPUS },
+				new int[] { R.id.tvVirtualGovernor, R.id.tvGorvernor, R.id.tvThresholdDown, R.id.tvThresholdUp, R.id.tvCpusActive }, 0);
 
 		adapter.setViewBinder(new ViewBinder() {
 
@@ -105,6 +106,20 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 						return true;
 					}
 					((View) view.getParent()).findViewById(R.id.labelThresholdDown).setVisibility(View.VISIBLE);
+				} else if (columnIndex == VirtualGovernor.INDEX_USE_NUMBER_OF_CPUS) {
+					CpuHandler cpuHandler = CpuHandler.getInstance();
+					if (!cpuHandler.isMultiCore()) {
+						((View) view.getParent()).findViewById(R.id.llCpusActive).setVisibility(View.GONE);
+						return true;
+					}
+					((View) view.getParent()).findViewById(R.id.llCpusActive).setVisibility(View.VISIBLE);
+					int cpus = cursor.getInt(columnIndex);
+					int maxCpus = cpuHandler.getNumberOfCpus();
+					if (cpus < 1) {
+						cpus = maxCpus;
+					}
+					((TextView) view).setText(cpus + "/" + maxCpus);
+					return true;
 				}
 				return false;
 			}

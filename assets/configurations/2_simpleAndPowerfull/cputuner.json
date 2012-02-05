@@ -1,0 +1,87 @@
+{
+ "cputuner": {
+  "configurationAutoload": [],
+  "virtualGovernor": [
+   {
+    "useNumberOfCpus": "0",
+    "virtualGovernor": "Full speed",
+    "resId": "gov_name_fullspeed",
+    "_id": "1",
+    "powersaveBias": "0",
+    "governor": "conservative|ondemand|interactive|smartass|performance",
+    "script": "",
+    "governorThresholdUp": "50",
+    "governorThresholdDown": "30"
+   },
+   {
+    "useNumberOfCpus": "0",
+    "virtualGovernor": "Save Battery",
+    "resId": "gov_name_saveBattery",
+    "_id": "4",
+    "powersaveBias": "300",
+    "governor": "conservative|ondemand|interactive|smartass|performance",
+    "script": "",
+    "useNumberOfCpus": "1",
+    "governorThresholdUp": "90",
+    "governorThresholdDown": "50"
+   }
+  ],
+  "cpuProfiles": [
+   {
+    "useNumberOfCpus": "0",
+    "frequencyMax": "1113600",
+    "AIRPLANEMODE": "0",
+    "powersaveBias": "0",
+    "governor": "conservative",
+    "script": "",
+    "frequencyMin": "245000",
+    "backgroundSyncState": "0",
+    "governorThresholdUp": "50",
+    "mobiledataState": "0",
+    "governorThresholdDown": "30",
+    "wifiState": "0",
+    "mobiledataConnectionState": "0",
+    "gpsState": "0",
+    "virtualGovernor": "1",
+    "_id": "1",
+    "bluetoothState": "0",
+    "resId": "profile_name_screenon",
+    "profileName": "Screen on"
+   },
+   {
+    "useNumberOfCpus": "0",
+    "frequencyMax": "998400",
+    "AIRPLANEMODE": "0",
+    "powersaveBias": "300",
+    "governor": "conservative",
+    "script": "",
+    "frequencyMin": "245000",
+    "backgroundSyncState": "0",
+    "governorThresholdUp": "90",
+    "mobiledataState": "0",
+    "governorThresholdDown": "50",
+    "wifiState": "0",
+    "mobiledataConnectionState": "0",
+    "gpsState": "0",
+    "virtualGovernor": "4",
+    "_id": "4",
+    "bluetoothState": "0",
+    "resId": "profile_name_screenoff",
+    "profileName": "Screen off"
+   }
+  ],
+  "triggers": [
+   {
+    "hotProfileId": "-1",
+    "callInProgressProfileId": "1",
+    "screenOffProfileId": "4",
+    "triggerName": "All",
+    "resId": "tigger_name_all",
+    "_id": "1",
+    "batteryProfileId": "1",
+    "batteryLevel": "100",
+    "powerProfileId": "1"
+   }
+  ]
+ }
+}

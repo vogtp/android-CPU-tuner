@@ -17,6 +17,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.log.Notifier;
 
 public class TunerService extends IntentService {
 
@@ -91,11 +92,9 @@ public class TunerService extends IntentService {
 		if (intent.getBooleanExtra(EXTRA_IS_MANUAL_PROFILE, false)) {
 			long id = intent.getLongExtra(EXTRA_PROFILE_ID, powerProfiles.getCurrentAutoProfileId());
 			powerProfiles.setManualProfile(id);
-			powerProfiles.applyProfile(id);
 		} else {
 			if (powerProfiles.isManualProfile()) {
 				powerProfiles.setManualProfile(PowerProfiles.AUTOMATIC_PROFILE);
-				powerProfiles.reapplyProfile(true);
 			}
 		}
 	}
@@ -167,8 +166,11 @@ public class TunerService extends IntentService {
 
 	public static void handleBattery(Context ctx, String action, Intent intent) {
 		if (action == null) {
-			Logger.w("BatteryJob got null intent returning");
+			Logger.w("handleBattery got null intent returning");
 			return;
+		}
+		if (Logger.DEBUG) {
+			Logger.w("handleBattery got action "+action);
 		}
 		synchronized (lock) {
 			try {
@@ -223,6 +225,14 @@ public class TunerService extends IntentService {
 				releaseWakelock();
 			}
 		}
+		//		if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)
+		//				|| BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)
+		//				|| Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)
+		//				|| ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED.equals(action)
+		//				|| ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+		//			ctx.sendBroadcast(new Intent(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
+		//		}
+		ctx.sendBroadcast(new Intent(Notifier.BROADCAST_DEVICESTATUS_CHANGED));
 	}
 
 	private static void acquireWakelock(Context ctx) {

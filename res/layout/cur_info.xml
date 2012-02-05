@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/msgManualServiceChanges"
-                android:textColor="@color/yellow" />
+                android:textColor="@color/yellow"
+                android:visibility="gone" />
 
             <TableRow
                 android:id="@+id/TableRowTrigger"
@@ -172,6 +173,13 @@
                     android:textSize="18sp" />
             </TableRow>
         </TableLayout>
+
+        <ch.amana.android.cputuner.view.widget.ServiceSwitcher
+            android:id="@+id/serviceSwitcher"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:paddingTop="10dp" >
+        </ch.amana.android.cputuner.view.widget.ServiceSwitcher>
 
         <LinearLayout
             android:id="@+id/llGovernorFragmentAncor"

@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="configuration_title_sophisticated">Sofisticata</string>
+    <string name="configuration_description_sophisticated">Si basa sul livello della batteria. Un bel po\' di trigger sono usati per controllare la cpu. Nessun servizio di switch attivo.</string>
+    <string name="configuration_title_uniform">Uniforme</string>
+    <string name="configuration_description_uniform">La cpu è controllata basandosi sullo stato del dispositivo senza curarsi della batteria. Nessuno switch dei servizi.</string>
+    <string name="configuration_title_simplePowerful">Semplice &amp; potente</string>
+    <string name="configuration_description_simplePowerful">È il profilo descritto da D. su  http://http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html senza lo switch dei dati mobili.</string>
+    <string name="configuration_title_extreme">Extreme</string>
+    <string name="configuration_description_extreme">Si tratta (quasi) della vecchia configurazione di defaul. È simile a quella "sofisticata" ma usa delle impostazioni più rigorose. Anche se la durata della batteria è migliore le prestazioni sono inferiori.</string>
     <string name="prefConfigurationsSettings">Impostazioni Configurazioni</string>
     <string name="prefSaveConfigOnSwitch">Salva configurazione</string>
     <string name="prefSaveConfigOnSwitchFull">Salva modifiche ai profili, trigger o governor nella configurazione attuale.</string>
@@ -284,11 +292,6 @@
         <item>Rapplica Precedente</item>
         <item>Solo 3G</item>
     </string-array>
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Valore medio</item>
-        <item>Valore corrente</item>
-        <item>Nessun calcolo</item>
-    </string-array>
     <string-array name="prefUserLevelEntries">
         <item><b>Principiante</b>: cpu tuner farà per te.</item>
         <item><b>Normale</b>: cpu tuner ti darà una mano.</item>
@@ -423,14 +426,6 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="prefProfileSwitchLogSizeLong">Quante ore devono contenere. Usare -1 per registrare tutto.</string>
     <string name="auto">Auto</string>
     <string name="msg_manual_profile">manuale</string>
-
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Valore medio</item>
-        <item>Valore corrente</item>
-        <!-- <item>Battery % per hour</item> -->
-        <item>Nessun calcolo</item>
-    </string-array>
-
     <string name="msgEnableCputuner">Abilita CPU tuner</string>
     <string name="msgDisableCputuner">Disabilita CPU tuner</string>
     <string name="labelYourConfigurations">Le tue configurazioni</string>

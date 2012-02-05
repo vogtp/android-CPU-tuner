@@ -6,12 +6,12 @@ import ch.almana.android.billing.BillingManager.Managed;
 import ch.almana.android.billing.Product;
 import ch.amana.android.cputuner.R;
 
-
 public class BillingProducts {
 
 	public static final String beer = "bar.beer";
 
 	public static final String statistics = "extension.statistics";
+	public static final String widget = "extension.widget";
 
 	public static final int PRODUCT_TYPE_EXTENTIONS = 1;
 
@@ -30,8 +30,9 @@ public class BillingProducts {
 	}
 
 	public static Product[] getExtentions(Context ctx, BillingManager bm) {
-		Product[] products = new Product[1];
+		Product[] products = new Product[2];
 		products[0] = new Product(statistics, ctx.getString(R.string.name_extention_stats), ctx.getString(R.string.desc_extention_stats), Managed.MANAGED);
+		products[1] = new Product(widget, ctx.getString(R.string.name_extention_widget), ctx.getString(R.string.desc_extention_widget), Managed.MANAGED);
 
 		getPoductsCount(bm, products);
 		return products;

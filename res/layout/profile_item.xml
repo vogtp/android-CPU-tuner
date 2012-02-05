@@ -94,47 +94,10 @@
                 android:text="@string/labelServices" >
             </TextView>
 
-            <LinearLayout
-                android:id="@+id/llServiceIcons"
+            <ch.amana.android.cputuner.view.widget.ServiceSwitcher
+                android:id="@+id/serviceSwitcher"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp" >
-
-                <ImageView
-                    android:id="@+id/ivServiceMD3g"
-                    style="@style/styleServiceIcons"
-                    android:src="@drawable/serviceicon_md_2g3g" />
-
-                <ImageView
-                    android:id="@+id/ivServiceMDCon"
-                    style="@style/styleServiceIcons"
-                    android:src="@drawable/serviceicon_mobiledata_con" />
-
-                <ImageView
-                    android:id="@+id/ivServiceSync"
-                    style="@style/styleServiceIcons"
-                    android:src="@drawable/serviceicon_sync" />
-
-                <ImageView
-                    android:id="@+id/ivServiceWifi"
-                    style="@style/styleServiceIcons"
-                    android:src="@drawable/serviceicon_wifi" />
-
-                <ImageView
-                    android:id="@+id/ivServiceGPS"
-                    style="@style/styleServiceIcons"
-                    android:src="@drawable/serviceicon_gps" />
-
-                <ImageView
-                    android:id="@+id/ivServiceBluetooth"
-                    style="@style/styleServiceIcons"
-                    android:src="@drawable/serviceicon_bluetooth" />
-
-                <ImageView
-                    android:id="@+id/ivServiceAirplane"
-                    style="@style/styleServiceIcons"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/serviceicon_airplane" />
-            </LinearLayout>
+                android:layout_height="23dp" />
         </TableRow>
     </TableLayout>
 

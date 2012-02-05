@@ -20,6 +20,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.db.DB.Trigger;
 import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
 
 public class ModelAccess implements BackupRestoreCallback {
@@ -132,7 +133,7 @@ public class ModelAccess implements BackupRestoreCallback {
 				Cursor c = null;
 				try {
 					c = contentResolver.query(CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, SELECTION_BY_ID, new String[] { Long.toString(id) }, null);
-					if (c.moveToFirst()) {
+					if (c != null && c.moveToFirst()) {
 						profile = new ProfileModel(c);
 					}
 				} finally {
@@ -404,6 +405,25 @@ public class ModelAccess implements BackupRestoreCallback {
 				c = null;
 			}
 		}
+	}
+
+	public void clearPowerUsage() {
+		Cursor c = null;
+		try {
+			PowerProfiles.setUpdateTrigger(false);
+			c = contentResolver.query(Trigger.CONTENT_URI, Trigger.PROJECTION_DEFAULT, null, null, Trigger.SORTORDER_DEFAULT);
+			while (c != null && c.moveToNext()) {
+				TriggerModel trigger = new TriggerModel(c);
+				trigger.clearPowerCurrent();
+				updateTrigger(trigger);
+			}
+		} finally {
+			if (c != null && !c.isClosed()) {
+				c.close();
+			}
+			PowerProfiles.setUpdateTrigger(true);
+		}
+
 	}
 
 }

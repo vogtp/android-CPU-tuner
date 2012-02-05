@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -17,17 +18,25 @@ import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.provider.db.DB;
 
-public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
+public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter, ListAdapter {
 
 	private final String AUTO;
 	private final Cursor cursor;
 	private final LayoutInflater layoutInflator;
 	private final Context ctx;
+	private final int layout;
+	private final int textId;
 
 	public ProfileAdaper(Context context, Cursor c) {
+		this(context, c, -1, -1);
+	}
+
+	public ProfileAdaper(Context context, Cursor c, int layout, int textId) {
 		super();
 		this.ctx = context;
 		this.cursor = c;
+		this.layout = layout;
+		this.textId = textId;
 		this.layoutInflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.AUTO = context.getString(R.string.auto);
 	}
@@ -68,7 +77,7 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		TextView view = convertView != null ? (TextView) convertView : createView(parent);
+		View view = convertView != null ? convertView : createView(parent);
 		String text = "";
 		if (position > 0) {
 			try {
@@ -89,20 +98,34 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter {
 				text = ctx.getString(R.string.not_enabled);
 			}
 		}
-		view.setText(text);
+		TextView tv;
+		if (textId == -1) {
+			tv = (TextView) view;
+		} else {
+			tv = (TextView) view.findViewById(textId);
+		}
+		tv.setText(text);
 		return view;
 	}
 
-	private TextView createView(ViewGroup parent) {
-		TextView item;
-		if (parent instanceof Spinner) {
-			item = (TextView) layoutInflator.inflate(android.R.layout.simple_spinner_item, parent, false);
+	private View createView(ViewGroup parent) {
+		if (layout == -1) {
+			TextView item;
+			if (parent instanceof Spinner) {
+				item = (TextView) layoutInflator.inflate(android.R.layout.simple_spinner_item, parent, false);
+			} else {
+				item = (TextView) layoutInflator.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+			}
+			item.setSingleLine();
+			item.setEllipsize(TextUtils.TruncateAt.END);
+			return item;
 		} else {
-			item = (TextView) layoutInflator.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+			View view = layoutInflator.inflate(layout, parent, false);
+			TextView tv = (TextView) view.findViewById(textId);
+			tv.setSingleLine();
+			tv.setEllipsize(TextUtils.TruncateAt.END);
+			return view;
 		}
-		item.setSingleLine();
-		item.setEllipsize(TextUtils.TruncateAt.END);
-		return item;
 	}
 
 }

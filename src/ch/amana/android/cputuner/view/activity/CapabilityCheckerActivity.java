@@ -274,6 +274,7 @@ public class CapabilityCheckerActivity extends Activity {
 		//		String mailSubject = etSubject.getText().toString();
 		//		String mailBody = etMailBody.getText().toString();
 
+		SettingsStorage settings = SettingsStorage.getInstance(this);
 		Logger.v("Send report: getting paths");
 		File path = new File(Environment.getExternalStorageDirectory(), getPackageName());
 		File file = new File(path, "report.zip");
@@ -309,13 +310,13 @@ public class CapabilityCheckerActivity extends Activity {
 		body.append("Device nickname: ").append(DeviceInformation.getDeviceNick()).append('\n');
 		Logger.v("Send report: getting PU tuner version");
 		body.append('\n').append("------------------------------------------").append('\n');
-		body.append("CPU tuner version: ").append(getString(R.string.version)).append('\n');
+		body.append("CPU tuner version: ").append(settings.getVersionName()).append('\n');
 		Logger.v("Send report: getting Language");
 		body.append("Language: ").append(Locale.getDefault().getLanguage()).append('\n');
 		Logger.v("Send report: getting Userlevel");
-		body.append("Userlevel: ").append(SettingsStorage.getInstance().getUserLevel()).append('\n');
+		body.append("Userlevel: ").append(settings.getUserLevel()).append('\n');
 		Logger.v("Send report: getting Beta mode");
-		body.append("Beta mode: ").append(SettingsStorage.getInstance().isEnableBeta()).append('\n');
+		body.append("Beta mode: ").append(settings.isEnableBeta()).append('\n');
 		Logger.v("Send report: getting Multicore");
 		body.append("Multicore: ").append(cpuHandler.getClass().getName()).append('\n');
 		Logger.v("Send report: getting system app");

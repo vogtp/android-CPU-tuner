@@ -13,15 +13,7 @@
     </string-array>
 
     <string name="auto">Auto</string>
-    <string name="msg_manual_profile">manual profile</string>
-
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Average value</item>
-        <item>Current value</item>
-        <!-- <item>Battery % per hour</item> -->
-        <item>No calculation</item>
-    </string-array>
-
+    <string name="msg_manual_profile">manual</string>
     <string name="msgEnableCputuner">Enabling cpu tuner</string>
     <string name="msgDisableCputuner">Disabling cpu tuner</string>
     <string name="labelYourConfigurations">Your configurations</string>

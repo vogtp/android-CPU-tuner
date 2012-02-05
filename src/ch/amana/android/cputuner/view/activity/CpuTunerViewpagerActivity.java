@@ -110,6 +110,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 		}
 
+
 		String lang = settings.getLanguage();
 		if (!"".equals(lang)) {
 			GuiUtils.setLanguage(this, lang);
@@ -129,14 +130,14 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			actionBarWrapper = new ActionBarWrapper(this, bar);
 			setTitle(R.string.app_name);
 			if (Logger.DEBUG) {
-				bar.setSubtitle("DEBUG MODE" + " (" + getString(R.string.version) + ")");
+				bar.setSubtitle("DEBUG MODE" + " (" + settings.getVersionName() + ")");
 			}
 			cputunerActionBar.setVisibility(View.GONE);
 		} else {
 
 			String title = getString(R.string.app_name);
 			if (Logger.DEBUG) {
-				title = title + " - DEBUG MODE" + " (" + getString(R.string.version) + ")";
+				title = title + " - DEBUG MODE" + " (" + settings.getVersionName() + ")";
 			}
 			cputunerActionBar.setTitle(title);
 			cputunerActionBar.setHomeLogo(R.drawable.icon);
@@ -203,6 +204,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	public static Intent getStartIntent(Context ctx) {
 		Intent intent = new Intent(ctx, CpuTunerViewpagerActivity.class);
+		//		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		return intent;
 	}

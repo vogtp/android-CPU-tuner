@@ -44,7 +44,7 @@ public class VariousSettings extends BaseSettings {
 		});
 
 		StringBuffer versionSB = new StringBuffer();
-		versionSB.append(getString(R.string.label_version)).append(" ").append(getString(R.string.version));
+		versionSB.append(getString(R.string.label_version)).append(" ").append(settings.getVersionName());
 		findPreference("prefKeyVersion").setTitle(versionSB.toString());
 		findPreference("prefKeyChangelog").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 

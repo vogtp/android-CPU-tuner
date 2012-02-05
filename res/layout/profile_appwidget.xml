@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/styleWidgetOuter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/topAppWiget"
+        style="@style/styleWidgetInner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/ivCpuTunerIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon" />
+
+        <TextView
+            android:id="@+id/labelTrigger"
+            style="@style/styleAppwidgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvTrigger"
+            android:text="@string/labelCurrentTrigger" />
+
+        <TextView
+            android:id="@+id/tvTrigger"
+            style="@style/styleAppwidgetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/labelProfile"
+            style="@style/styleAppwidgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvProfile"
+            android:text="@string/labelCurrentProfile" />
+
+        <TextView
+            android:id="@+id/tvProfile"
+            style="@style/styleAppwidgetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTrigger" />
+
+        <TextView
+            android:id="@+id/labelGov"
+            style="@style/styleAppwidgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvGov"
+            android:text="@string/labelCpuGov" />
+
+        <TextView
+            android:id="@+id/tvGov"
+            style="@style/styleAppwidgetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvProfile" />
+
+        <TextView
+            android:id="@+id/labelBattery"
+            style="@style/styleAppwidgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvBattery"
+            android:text="@string/labelCurrentBattery" />
+
+        <TextView
+            android:id="@+id/tvBattery"
+            style="@style/styleAppwidgetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvGov" />
+
+        <include
+            android:id="@+id/llServiceIcons_ref"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_below="@+id/tvBattery"
+            layout="@layout/service_icons_view" />
+
+        <TextView
+            android:id="@+id/tvServiceMsg"
+            style="@style/styleAppwidgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llServiceIcons_ref"
+            android:lines="1"
+            android:text="@string/msgManualServiceChanges"
+            android:textColor="@color/yellow"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvPulse"
+            style="@style/styleAppwidgetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvServiceMsg" />
+
+        <TextView
+            android:id="@+id/tvUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="now"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="7sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.Transparent_Dialog" parent="android:Theme.Dialog">
+        <!-- <item name="android:windowIsTranslucent">true</item> -->
+        <!-- <item name="android:windowBackground">@android:color/transparent</item> -->
+        <!--
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        -->
+
+    </style>
+
     <style name="styleServiceIcons">
         <item name="android:adjustViewBounds">true</item>
         <item name="android:paddingRight">3dp</item>
-        <item name="android:layout_height">26dp</item>
-        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
+
     <style name="logText" parent="android:Widget.TextView">
         <item name="android:textSize">@dimen/statsFontSize</item>
         <item name="android:typeface">monospace</item>
     </style>
+
     <style name="psydoPrefSeparator" parent="android:Widget.TextView">
         <item name="android:textColor">@android:color/secondary_text_dark</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="profileServiceLabel" parent="android:Widget.TextView">
         <item name="android:paddingRight">5dp</item>
         <item name="android:layout_gravity">top</item>
@@ -21,15 +37,42 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
+
     <style name="styleLogEntry" parent="android:Widget.TextView">
         <item name="android:layout_marginBottom">9dp</item>
         <item name="android:layout_marginTop">9dp</item>
-<!--          <item name="android:textSize">13sp</item> -->
+        <!-- <item name="android:textSize">13sp</item> -->
         <!-- <item name="android:lines">1</item> -->
 
     </style>
+
     <style name="styleLogChildEntry" parent="android:Widget.TextView">
         <!-- <item name="android:textSize">13sp</item> -->
     </style>
+
+    <style name="styleAppwidgetValue" parent="android:Widget.TextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingLeft">2dp</item>
+    </style>
+
+    <style name="styleAppwidgetLabel" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:paddingLeft">3dp</item>
+    </style>
+
+    <style name="styleWidgetOuter">
+        <item name="android:paddingBottom">@dimen/widget_margin_vertical</item>
+        <item name="android:paddingLeft">@dimen/widget_margin_horizontal</item>
+        <item name="android:paddingRight">@dimen/widget_margin_horizontal</item>
+        <item name="android:paddingTop">@dimen/widget_margin_vertical</item>
+    </style>
+
+    <style name="styleWidgetInner">
+        <item name="android:background">@drawable/appwidget_dark_bg_clickable</item>
+    </style>
+
 </resources>
-  

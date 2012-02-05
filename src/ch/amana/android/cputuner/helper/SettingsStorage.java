@@ -9,20 +9,26 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
+import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
+import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class SettingsStorage {
 
 
+	public static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
 	private final static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
@@ -33,6 +39,7 @@ public class SettingsStorage {
 	public static final String ENABLE_STATUSBAR_NOTI = "prefKeyStatusbarNotifications";
 	public static final String PREF_KEY_ENABLE_STATISTICS_SERVICE = "prefKeyEnableStatisticsService";
 	public static final String PREF_KEY_ENABLE_SWITCH_LOG = "prefKeyEnableSwitchLog";
+	public static final String PREF_KEY_APPWIDGET_COUNT = "prefKeyAppwidgetCount";
 
 	public static final int NO_BATTERY_HOT_TEMP = 5000;
 
@@ -53,18 +60,19 @@ public class SettingsStorage {
 	public static final String PREF_KEY_MIN_FREQ = "prefKeyMinFreq";
 	public static final String PREF_KEY_MAX_FREQ = "prefKeyMaxFreq";
 
-	private static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
-	private static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
+	public static final String PREF_KEY_MIN_FREQ_DEFAULT = PREF_KEY_MIN_FREQ + "Default";
+	public static final String PREF_KEY_MAX_FREQ_DEFAULT = PREF_KEY_MAX_FREQ + "Default";
 
 	private static final String PREF_STORE_LOCAL = "local";
 
-	private static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
+	public static final String PREF_KEY_FIRST_RUN = "prefKeyFirstRun";
 
-	private static final String PREF_KEY_ADV_STATS = "prefKeyAdvStats";
+	public static final String PREF_KEY_ADV_STATS = "prefKeyAdvStats";
+	public static final String PREF_KEY_WIDGET = "prefKeyHasWidget";
 
-	private static final String PREF_KEY_TIMEINSTATE_BASELINE = "prefKeyTimeinstateBaseline";
+	public static final String PREF_KEY_TIMEINSTATE_BASELINE = "prefKeyTimeinstateBaseline";
 
-	private static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
+	public static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
 	public static final String PREF_KEY_SWITCH_CPU_SETTINGS = "prefKeySwitchCpuSetting";
 
 	public static final int STATUSBAR_NEVER = 0;
@@ -72,6 +80,9 @@ public class SettingsStorage {
 	public static final int STATUSBAR_ALWAYS = 2;
 
 	public static final boolean FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD = true;
+
+	public static final int APPWIDGET_OPENACTION_CHOOSEPROFILES = 1;
+	public static final int APPWIDGET_OPENACTION_CPUTUNER = 2;
 
 	private static SettingsStorage instance;
 	private final Context context;
@@ -120,6 +131,7 @@ public class SettingsStorage {
 	private boolean powerStrongerThanScreenoff;
 
 	private ProfileModel switchCpuSetting = ProfileModel.NO_PROFILE;
+	private int appwidgetCount = -1;
 
 
 
@@ -255,7 +267,7 @@ public class SettingsStorage {
 
 	public int getTrackCurrentType() {
 		if (trackCurrent < 0) {
-			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "1");
+			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "4");
 			try {
 				trackCurrent = Integer.parseInt(trackCurrentStr);
 			} catch (Exception e) {
@@ -592,6 +604,17 @@ public class SettingsStorage {
 		return getPreferences().getBoolean(PREF_KEY_ADV_STATS, false);
 	}
 
+	public void setHasWidget(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_WIDGET, b);
+		editor.commit();
+		ProfileAppwidgetProvider.enableWidget(context, b);
+	}
+
+	public boolean hasWidget() {
+		return getPreferences().getBoolean(PREF_KEY_WIDGET, false);
+	}
+
 	public void setTimeinstateBaseline(String timeInState) {
 		Editor editor = getPreferences().edit();
 		editor.putString(PREF_KEY_TIMEINSTATE_BASELINE, timeInState);
@@ -699,5 +722,92 @@ public class SettingsStorage {
 			enableEnableStatistics = getPreferences().getBoolean(PREF_KEY_ENABLE_STATISTICS_SERVICE, false);
 		}
 		return enableEnableStatistics;
+	}
+
+	public int getAppwdigetOpenAction() {
+		return APPWIDGET_OPENACTION_CHOOSEPROFILES;
+	}
+
+	public boolean isServiceEnabled(ServiceType type) {
+		switch (type) {
+		case wifi:
+			return isEnableSwitchWifi();
+		case bluetooth:
+			return isEnableSwitchBluetooth();
+		case mobiledataConnection:
+			return isEnableSwitchMobiledataConnection();
+		case backgroundsync:
+			return isEnableSwitchBackgroundSync();
+		case airplainMode:
+			return isEnableAirplaneMode();
+		case gps:
+			return isEnableSwitchGps();
+		case mobiledata3g:
+			return isEnableSwitchMobiledata3G();
+		default:
+			return false;
+		}
+	}
+
+	public boolean isShowWidgetIcon() {
+		return getPreferences().getBoolean("prefKeyShowIcon", true);
+	}
+
+	public boolean isShowWidgetTrigger() {
+		return getPreferences().getBoolean("prefKeyShowTrigger", true);
+	}
+
+	public boolean isShowWidgetProfile() {
+		return getPreferences().getBoolean("prefKeyShowProfile", true);
+	}
+
+	public boolean isShowWidgetGovernor() {
+		return getPreferences().getBoolean("prefKeyShowGovernor", false);
+	}
+
+	public boolean isShowWidgetBattery() {
+		return getPreferences().getBoolean("prefKeyShowBattery", true);
+	}
+
+	public boolean isShowWidgetServices() {
+		return getPreferences().getBoolean("prefKeyShowServices", true);
+	}
+
+	public int getAppWidgetsCount() {
+		if (appwidgetCount < 0) {
+			appwidgetCount = getLocalPreferences().getInt(PREF_KEY_APPWIDGET_COUNT, 0);
+		}
+		return appwidgetCount;
+	}
+
+	public void setAppWidgetsCount(int c) {
+		if (c < 0) {
+			c = 0;
+		}
+		Editor editor = getLocalPreferences().edit();
+		editor.putInt(PREF_KEY_APPWIDGET_COUNT, c);
+		editor.commit();
+	}
+
+	public boolean hasAppWidgets() {
+		return getAppWidgetsCount() > 0;
+	}
+
+	public void registerAppwidget() {
+		setAppWidgetsCount(getAppWidgetsCount() + 1);
+	}
+
+	public void unregisterAppwidget() {
+		setAppWidgetsCount(getAppWidgetsCount() - 1);
+	}
+
+	public String getVersionName() {
+		try {
+			PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			return pInfo.versionName;
+		} catch (NameNotFoundException e) {
+			Logger.i("Cannot get cpu tuner version", e);
+		}
+		return "";
 	}
 }

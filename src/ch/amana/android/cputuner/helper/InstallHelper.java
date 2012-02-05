@@ -21,6 +21,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
+import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
@@ -32,7 +33,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
 public class InstallHelper {
 
-	private static final int VERSION = 5;
+	private static final int VERSION = 6;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -61,9 +62,19 @@ public class InstallHelper {
 		case 4:
 			Logger.i("Initalising cpu tuner to level 5");
 			CpuHandler cpuHandler = CpuHandler.getInstance();
-			settings.setMinFrequencyDefault(cpuHandler.getMinCpuFreq());
-			settings.setMaxFrequencyDefault(cpuHandler.getMaxCpuFreq());
+			int minCpuFreq = cpuHandler.getMinCpuFreq();
+			int maxCpuFreq = cpuHandler.getMaxCpuFreq();
+			if (minCpuFreq == maxCpuFreq) {
+				int[] availCpuFreq = cpuHandler.getAvailCpuFreq(true);
+				minCpuFreq = availCpuFreq[0];
+				maxCpuFreq = availCpuFreq[availCpuFreq.length - 1];
+			}
+			settings.setMinFrequencyDefault(minCpuFreq);
+			settings.setMaxFrequencyDefault(maxCpuFreq);
 
+		case 5:
+			Logger.i("Initalising cpu tuner to level 6");
+			ModelAccess.getInstace(ctx).clearPowerUsage();
 		}
 		settings.migrateSettings();
 		settings.setDefaultProfilesVersion(VERSION);
@@ -137,10 +148,14 @@ public class InstallHelper {
 	public static boolean hasConfig(Context ctx) {
 		boolean ret = true;
 		ContentResolver resolver = ctx.getContentResolver();
-		ret = ret && checkCursor(resolver, DB.CpuProfile.CONTENT_URI);
-		ret = ret && checkCursor(resolver, DB.Trigger.CONTENT_URI);
-		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
-			ret = ret && checkCursor(resolver, DB.VirtualGovernor.CONTENT_URI);
+		try {
+			ret = ret && checkCursor(resolver, DB.CpuProfile.CONTENT_URI);
+			ret = ret && checkCursor(resolver, DB.Trigger.CONTENT_URI);
+			if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
+				ret = ret && checkCursor(resolver, DB.VirtualGovernor.CONTENT_URI);
+			}
+		} catch (Throwable e) {
+			return false;
 		}
 		return ret;
 	}

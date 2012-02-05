@@ -2,6 +2,7 @@ package ch.amana.android.cputuner.helper;
 
 import java.util.Locale;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.widget.Spinner;
@@ -70,6 +71,14 @@ public class GuiUtils {
 			Configuration config = new Configuration();
 			config.locale = new Locale(lang);
 			ctx.getResources().updateConfiguration(config, ctx.getResources().getDisplayMetrics());
+	}
+
+	public static void showDialog(Context ctx, int titleId, int messageId) {
+		new AlertDialog.Builder(ctx)
+				.setIconAttribute(android.R.attr.alertDialogIcon)
+				.setTitle(titleId)
+				.setMessage(messageId)
+				.setPositiveButton(android.R.string.ok, null).create().show();
 	}
 
 }

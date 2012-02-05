@@ -144,7 +144,8 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT
 						|| columnIndex == DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL) {
 
-					if (SettingsStorage.getInstance().getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
+					int trackCurrentType = SettingsStorage.getInstance().getTrackCurrentType();
+					if (trackCurrentType == SettingsStorage.TRACK_CURRENT_HIDE) {
 						((TextView) view).setText("");
 						return true;
 					}
@@ -176,7 +177,12 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 						((TextView) view).setText("-");
 						return true;
 					}
-					((TextView) view).setText(String.format("%.0f mA/h", current));
+					if (trackCurrentType == SettingsStorage.TRACK_BATTERY_LEVEL) {
+						current /= PowerProfiles.BATTERY_PER_HOUR_STORE_FACTOR;
+						((TextView) view).setText(String.format("%.2f %%/h", current));
+					} else {
+						((TextView) view).setText(String.format("%.0f mA/h", current));
+					}
 					return true;
 				}
 				return false;

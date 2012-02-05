@@ -3,6 +3,7 @@ package ch.amana.android.cputuner.view.adapter;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +17,14 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 		public boolean accept(File dir, String filename) {
 			File file = new File(dir, filename);
 			return file.isDirectory();
+		}
+	};
+
+	protected static final Comparator<File> FILE_SORT = new Comparator<File>() {
+
+		@Override
+		public int compare(File f1, File f2) {
+			return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
 		}
 	};
 
@@ -77,7 +86,7 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 		if (configDirs == null) {
 			configDirs = NO_CONFIGS;
 		}
-		Arrays.sort(configDirs);
+		Arrays.sort(configDirs, FILE_SORT);
 	}
 
 	public boolean hasConfig(String name) {

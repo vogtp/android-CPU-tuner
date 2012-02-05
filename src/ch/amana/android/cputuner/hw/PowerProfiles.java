@@ -4,11 +4,11 @@ import java.util.EnumMap;
 
 import android.content.Context;
 import android.content.Intent;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
-import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
@@ -40,8 +40,9 @@ public class PowerProfiles {
 
 	public static final long AUTOMATIC_PROFILE = -1;
 
-	private static final long MILLIES_TO_HOURS = 1000 * 60 * 60;
+	private static final double MILLIES_TO_HOURS = 1000d * 60d * 60d;
 
+	public static final int BATTERY_PER_HOUR_STORE_FACTOR = 1000;
 	public static final long NO_PROFILE = -1;
 
 	private final Context context;
@@ -71,8 +72,8 @@ public class PowerProfiles {
 
 	private boolean wifiManaged3gState = false;
 
-	EnumMap<ServiceType, Boolean> manualServiceChanges = new EnumMap<ServiceType, Boolean>(ServiceType.class);
-	EnumMap<ServiceType, Integer> lastServiceState = new EnumMap<ServiceType, Integer>(ServiceType.class);
+	private final EnumMap<ServiceType, Boolean> manualServiceChanges;
+	private final EnumMap<ServiceType, Integer> lastServiceState;
 
 	private final SettingsStorage settings;
 
@@ -90,6 +91,8 @@ public class PowerProfiles {
 
 	private PowerProfiles(Context ctx) {
 		context = ctx;
+		manualServiceChanges = new EnumMap<ServiceType, Boolean>(ServiceType.class);
+		lastServiceState = new EnumMap<ServiceType, Integer>(ServiceType.class);
 		settings = SettingsStorage.getInstance(ctx);
 		modelAccess = ModelAccess.getInstace(ctx);
 		BatteryHandler batteryHandler = BatteryHandler.getInstance();
@@ -102,6 +105,8 @@ public class PowerProfiles {
 
 	private void resetBookkeeping() {
 		manualProfileID = AUTOMATIC_PROFILE;
+		lastBatteryLevel = -1;
+		lastBatteryLevelTimestamp = -1;
 		initActiveStates();
 	}
 
@@ -219,10 +224,6 @@ public class PowerProfiles {
 
 			Intent intent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
 			if (settings.isEnableLogProfileSwitches()) {
-				StringBuilder sb = new StringBuilder();
-				sb.append(currentTrigger.getName()).append(" -> ");
-				sb.append(currentProfile.getProfileName());
-				intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, sb.toString());
 				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
 				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
 				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
@@ -236,14 +237,35 @@ public class PowerProfiles {
 				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
 				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
 			}
+
+			lastBatteryLevel = -1;
+			lastBatteryLevelTimestamp = -1;
 			context.sendBroadcast(intent);
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);
 		}
 	}
 
-	private String getServiceTypeName(ServiceType type) {
-		return type.toString();
+	public static String getServiceTypeName(Context ctx, ServiceType type) {
+		switch (type) {
+		case wifi:
+			return ctx.getString(R.string.labelWifi);
+		case airplainMode:
+			return ctx.getString(R.string.labelAirplaneMode);
+		case bluetooth:
+			return ctx.getString(R.string.labelBluetooth);
+		case backgroundsync:
+			return ctx.getString(R.string.labelBackgroundSync);
+		case mobiledata3g:
+			return ctx.getString(R.string.labelMobileData32G);
+		case mobiledataConnection:
+			return ctx.getString(R.string.labelMobileDataConn);
+		case gps:
+			return ctx.getString(R.string.labelGPS);
+
+		default:
+			return type.toString();
+		}
 	}
 
 	private int evaluateState(ServiceType type, int state) {
@@ -265,12 +287,12 @@ public class PowerProfiles {
 			return NO_STATE;
 		}
 		if (state == SERVICE_STATE_PREV) {
-			Logger.v("Switching " + getServiceTypeName(type) + "  to last state which was " + lastState);
+			Logger.v("Switching " + getServiceTypeName(context, type) + "  to last state which was " + lastState);
 			ret = lastState;
 		} else if (settings.isAllowManualServiceChanges()) {
 			int lastSavedState = ServicesHandler.getServiceState(context, type);
 			if (lastSavedState != lastState && !wasPulsing && lastSavedState != SERVICE_STATE_LEAVE) {
-				Logger.v("Not switching " + getServiceTypeName(type) + " since it changed since last time");
+				Logger.v("Not switching " + getServiceTypeName(context, type) + " since it changed since last time");
 				manualServiceChanges.put(type, true);
 				return NO_STATE;
 			}
@@ -382,8 +404,10 @@ public class PowerProfiles {
 		if (currentTrigger == null || settings.getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 			return;
 		}
+
 		long powerCurrentSum = 0;
 		long powerCurrentCnt = 0;
+
 		if (callInProgress) {
 			powerCurrentSum = currentTrigger.getPowerCurrentSumCall();
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntCall();
@@ -401,7 +425,7 @@ public class PowerProfiles {
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntBattery();
 		}
 
-		if (powerCurrentSum > Long.MAX_VALUE / 2) {
+		if (powerCurrentCnt >= 10) {
 			powerCurrentSum = powerCurrentSum / 2;
 			powerCurrentCnt = powerCurrentCnt / 2;
 		}
@@ -410,34 +434,29 @@ public class PowerProfiles {
 		switch (settings.getTrackCurrentType()) {
 		case SettingsStorage.TRACK_CURRENT_AVG:
 			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentAverage();
+			powerCurrentCnt++;
 			break;
 
 		case SettingsStorage.TRACK_BATTERY_LEVEL:
-			if (lastBatteryLevel != batteryLevel) {
-				if (lastBatteryLevelTimestamp != -1) {
-					long deltaBat = lastBatteryLevel - batteryLevel;
-					long deltaT = System.currentTimeMillis() - lastBatteryLevelTimestamp;
-					if (deltaBat > 0 && deltaT > 0) {
-						double db = (double) deltaBat / (double) deltaT;
-						db = db * MILLIES_TO_HOURS;
-						if (powerCurrentCnt > 0) {
-							powerCurrentCnt = 2;
-						} else {
-							powerCurrentCnt = 0;
-						}
-						powerCurrentCnt = 2 * powerCurrentSum + Math.round(db);
-					}
-				}
-				lastBatteryLevel = batteryLevel;
-				lastBatteryLevelTimestamp = System.currentTimeMillis();
+			long now = System.currentTimeMillis();
+			if (lastBatteryLevel > -1) { // && lastBatteryLevel > batteryLevel) {
+				double battDiff = batteryLevel - lastBatteryLevel;
+				double dt = now - lastBatteryLevelTimestamp;
+				double battPerH = battDiff * MILLIES_TO_HOURS / dt;
+				powerCurrentSum += Math.round(battPerH * BATTERY_PER_HOUR_STORE_FACTOR);
+				powerCurrentCnt++;
+				Logger.inApp(context, "Track battery: last:" + lastBatteryLevel + "% sum:" + powerCurrentSum + " cnt:" + powerCurrentCnt + " %/h" + battPerH);
 			}
+
+			lastBatteryLevel = batteryLevel;
+			lastBatteryLevelTimestamp = now;
 			break;
 
 		default:
 			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentNow();
+			powerCurrentCnt++;
 			break;
 		}
-		powerCurrentCnt++;
 		if (callInProgress) {
 			currentTrigger.setPowerCurrentSumCall(powerCurrentSum);
 			currentTrigger.setPowerCurrentCntCall(powerCurrentCnt);
@@ -591,7 +610,11 @@ public class PowerProfiles {
 
 	public void setManualProfile(long manualProfileID) {
 		this.manualProfileID = manualProfileID;
-		applyProfile(manualProfileID);
+		if (manualProfileID > -1) {
+			applyProfile(manualProfileID, true);
+		} else {
+			reapplyProfile(true);
+		}
 	}
 
 	public boolean hasManualServicesChanges() {
@@ -613,6 +636,45 @@ public class PowerProfiles {
 
 	public String getCurrentVirtGovName() {
 		return ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName();
+	}
+
+	public CharSequence getBatteryInfo() {
+		StringBuilder bat = new StringBuilder();
+		bat.append(getBatteryLevel()).append("%");
+		bat.append(" (");
+		if (isBatteryHot()) {
+			bat.append(context.getString(R.string.label_hot)).append(" ");
+		}
+		bat.append(getBatteryTemperature()).append(" °C)");
+		return bat.toString();
+	}
+
+	public void setServiceState(ServiceType type, int state) {
+		switch (type) {
+		case wifi:
+			applyWifiState(state);
+			break;
+		case bluetooth:
+			applyBluetoothState(state);
+			break;
+		case mobiledataConnection:
+			applyMobiledataConnectionState(state);
+			break;
+		case backgroundsync:
+			applyBackgroundSyncState(state);
+			break;
+		case airplainMode:
+			applyAirplanemodeState(state);
+			break;
+		case gps:
+			applyGpsState(state);
+			break;
+		case mobiledata3g:
+			applyMobiledata3GState(state);
+			break;
+		default:
+			Logger.e("Did not find service type " + type.toString() + " to apply new state.");
+		}
 	}
 
 }

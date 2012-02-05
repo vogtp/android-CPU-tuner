@@ -64,7 +64,11 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
 					StringBuilder sb = new StringBuilder();
 					sb.append(logDateFormat.format(now)).append(": ");
-					sb.append(cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE));
+					String msg = cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE);
+					if (msg == null) {
+						msg = cursor.getString(DB.SwitchLogDB.INDEX_TRIGGER) + " -> " + cursor.getString(DB.SwitchLogDB.INDEX_PROFILE);
+					}
+					sb.append(msg);
 					TextView textView = (TextView) view;
 					textView.setText(sb.toString());
 					textView.setTextColor(Color.LTGRAY);

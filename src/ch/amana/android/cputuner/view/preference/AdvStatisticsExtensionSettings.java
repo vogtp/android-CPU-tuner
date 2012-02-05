@@ -22,7 +22,7 @@ public class AdvStatisticsExtensionSettings extends BaseSettings {
 		}
 		addPreferencesFromResource(R.xml.settings_adv_stats_extention);
 
-		findPreference("prefKeyAdvStats").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+		findPreference(SettingsStorage.PREF_KEY_ADV_STATS).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				try {
