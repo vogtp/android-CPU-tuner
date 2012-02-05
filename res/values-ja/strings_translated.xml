@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="configuration_title_sophisticated">ｿﾌｨｽﾃｹｰﾃｯﾄﾞ</string>
+    <string name="configuration_title_sophisticated">洗練</string>
     <string name="configuration_description_sophisticated">バッテリレベルに基づいたトリガーがCPUを制御します。サービススイッチは有効化されません。</string>
-    <string name="configuration_title_uniform">ﾕﾆﾌｫｰﾑ</string>
+    <string name="configuration_title_uniform">均一</string>
     <string name="configuration_description_uniform">バッテリレベルに関係なくデバイスの状態に基づいてCPUを制御します。サービススイッチは有効化されません</string>
-    <string name="configuration_title_simplePowerful">ｼﾝﾌﾟﾙ &amp; ﾊﾟﾜﾌﾙ</string>
+    <string name="configuration_title_simplePowerful">シンプル&amp;パワフル</string>
     <string name="configuration_description_simplePowerful">http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html で D.により投稿されたプロファイルからモバイルデータスイッチを除いたものです。</string>
-    <string name="configuration_title_extreme">ｴｸｽﾄﾘｰﾑ</string>
-    <string name="configuration_description_extreme">これは古いデフォルト設定です。Sophisticatedに似ていますが、はるかに厳格な設定を使用します。バッテリ節約中にはCPUパフォーマンスが悪化します。</string>
+    <string name="configuration_title_extreme">エクストリーム</string>
+    <string name="configuration_description_extreme">これは以前のデフォルト設定です。「洗練」に似ていますが、遥かに厳格な設定を使用します。バッテリ節約中にはCPUパフォーマンスが悪化します。</string>
     <string name="labelMessage">メッセージ:</string>
     <string name="labelState">状態:</string>
     <string name="labelTime">時間:</string>
@@ -328,8 +328,7 @@
     <string name="msgNoIssuesFound">問題は見つかりませんでした</string>
     <string name="prefVritualGovernorsListLong">仮想ガバナーは予めCPUガバナーに設定されています。</string>
     <string name="virtualGovernorsList">仮想ガバナー</string>
-    <string name="prefBatteryHotTempMsg">バッテリ高温プロファイルへのしきい値を設定します。<br />
-整数値で°Cを指定します</string>
+    <string name="prefBatteryHotTempMsg">バッテリ高温プロファイルへのしきい値を設定します。<br />整数値で°Cを指定します</string>
     <string name="prefBatteryHotTempLong">バッテリ高温プロファイルのしきい値設定</string>
     <string name="prefBatteryHotTemp">バッテリ高温時</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">プロファイル切替は通話中に許可されています。モバイルデータは本オプションの状態に関わらず通話中には切替されません。</string>
@@ -382,8 +381,8 @@
     <string name="prefCatSystem">バックエンド</string>
     <string name="prefEnableProfiles">プロファイルの有効化</string>
     <string name="prefSetCpuSetting">CPU設定</string>
-    <string name="profileBatteryGood">Good Battery</string>
-    <string name="profileBatteryCrtitical">Critical Battery</string>
+    <string name="profileBatteryGood">バッテリ良好</string>
+    <string name="profileBatteryCrtitical">致命的なバッテリ</string>
     <string name="profileBatteryPower">バッテリ駆動</string>
     <string name="profileAcPower">充電中</string>
     <string name="profileScreenOff">スクリーンオフ</string>
@@ -526,6 +525,7 @@
     <string name="label_avgerage">平均: </string>
     <string name="label_tresh_up">上限: </string>
     <string name="label_tresh_down">下限: </string>
+
     <string name="cbInclSwitchLog">メールにスイッチログを含める</string>
     <string name="name_extention_widget">Widget</string>
     <string name="desc_extention_widget">ホームスクリーンから素早くCPU tunerの機能へアクセスすることが出来ます。</string>
@@ -557,7 +557,7 @@
     <string name="tigger_name_batterycritical">バッテリ 致命的</string>
     <string name="profile_name_performance">パフォーマンス</string>
     <string name="profile_name_good">良好</string>
-    <string name="profile_name_normal">ノーマル</string>
+    <string name="profile_name_normal">通常</string>
     <string name="profile_name_screenoff">スクリーン off</string>
     <string name="profile_name_screenon">スクリーン on</string>
     <string name="profile_name_powersave">パワーセーブ</string>
@@ -566,6 +566,7 @@
     <string name="gov_name_normal">通常</string>
     <string name="gov_name_extremeSaveBattery">極度のバッテリ節約</string>
     <string name="gov_name_saveBattery">バッテリ節約</string>
+
     <string name="prefWidgetUI">表示された情報</string>
     <string name="prefShowIcon">CPU tuner アイコン</string>
     <string name="prefShowIconLong">CPU tuner ランチャーに使用されるアイコン</string>
