@@ -3,6 +3,11 @@
   
 
 
+    <string name="not_supported">Not supported!</string>
+    <string name="msg_no_battery_current">You device does not support battery current tracking.</string>
+    <string name="msg_no_avg_battery_current">You device does not support average battery current tracking.</string>
+
+
     <string-array name="prefCalcPowerUsageEntries">
         <item>Average value</item>
         <item>Current value</item>
