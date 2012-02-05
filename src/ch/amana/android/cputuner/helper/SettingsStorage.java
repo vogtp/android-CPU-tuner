@@ -267,7 +267,7 @@ public class SettingsStorage {
 
 	public int getTrackCurrentType() {
 		if (trackCurrent < 0) {
-			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "1");
+			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "4");
 			try {
 				trackCurrent = Integer.parseInt(trackCurrentStr);
 			} catch (Exception e) {
