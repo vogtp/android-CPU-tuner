@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Valore medio</item>
+        <item>Valore corrente</item>
+        <item>Battery % per hour</item>
+        <item>Nessun calcolo</item>
+    </string-array>
+
 </resources>

@@ -280,11 +280,6 @@
         <item>Επιστροφή στην πρ. κατάσταση</item>
         <item>Μόνο 3G</item>
     </string-array>
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Μέση τιμή</item>
-        <item>Τρέχουσα τιμή</item>
-        <item>Χωρίς υπολογισμό</item>
-    </string-array>
     <string-array name="prefUserLevelEntries">
         <item><b>Αρχάριος</b>: Το cpu tuner προσπαθεί να είναι "έξυπνο".</item>
         <item><b>Κανονικός</b>: Το cpu tuner σε υποστηρίζει.</item>

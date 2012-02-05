@@ -51,14 +51,6 @@
     <string name="call_active">Call active</string>
     <string name="battery_hot">バッテリ高温</string>
     <string name="prefProfileSwitchLogSizeLong">プロファイル切替ログを何時間記録するかを指定します。-1を指定すると永久に記録します。</string>
-
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>平均値</item>
-        <item>現在値</item>
-        <!-- <item>Battery % per hour</item> -->
-        <item>計算しない</item>
-    </string-array>
-
     <string name="msgEnableCputuner">cpu tunerを有効化</string>
     <string name="msgDisableCputuner">cpu tunerを無効化</string>
     <string name="labelYourConfigurations">あなたの設定</string>
@@ -328,7 +320,8 @@
     <string name="msgNoIssuesFound">問題は見つかりませんでした</string>
     <string name="prefVritualGovernorsListLong">仮想ガバナーは予めCPUガバナーに設定されています。</string>
     <string name="virtualGovernorsList">仮想ガバナー</string>
-    <string name="prefBatteryHotTempMsg">バッテリ高温プロファイルへのしきい値を設定します。<br />整数値で°Cを指定します</string>
+    <string name="prefBatteryHotTempMsg">バッテリ高温プロファイルへのしきい値を設定します。<br />
+整数値で°Cを指定します</string>
     <string name="prefBatteryHotTempLong">バッテリ高温プロファイルのしきい値設定</string>
     <string name="prefBatteryHotTemp">バッテリ高温時</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">プロファイル切替は通話中に許可されています。モバイルデータは本オプションの状態に関わらず通話中には切替されません。</string>
@@ -525,7 +518,6 @@
     <string name="label_avgerage">平均: </string>
     <string name="label_tresh_up">上限: </string>
     <string name="label_tresh_down">下限: </string>
-
     <string name="cbInclSwitchLog">メールにスイッチログを含める</string>
     <string name="name_extention_widget">Widget</string>
     <string name="desc_extention_widget">ホームスクリーンから素早くCPU tunerの機能へアクセスすることが出来ます。</string>
@@ -566,7 +558,6 @@
     <string name="gov_name_normal">通常</string>
     <string name="gov_name_extremeSaveBattery">極度のバッテリ節約</string>
     <string name="gov_name_saveBattery">バッテリ節約</string>
-
     <string name="prefWidgetUI">表示された情報</string>
     <string name="prefShowIcon">CPU tuner アイコン</string>
     <string name="prefShowIconLong">CPU tuner ランチャーに使用されるアイコン</string>

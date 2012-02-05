@@ -292,11 +292,6 @@
         <item>Rapplica Precedente</item>
         <item>Solo 3G</item>
     </string-array>
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Valore medio</item>
-        <item>Valore corrente</item>
-        <item>Nessun calcolo</item>
-    </string-array>
     <string-array name="prefUserLevelEntries">
         <item><b>Principiante</b>: cpu tuner farà per te.</item>
         <item><b>Normale</b>: cpu tuner ti darà una mano.</item>
@@ -431,14 +426,6 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="prefProfileSwitchLogSizeLong">Quante ore devono contenere. Usare -1 per registrare tutto.</string>
     <string name="auto">Auto</string>
     <string name="msg_manual_profile">manuale</string>
-
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Valore medio</item>
-        <item>Valore corrente</item>
-        <!-- <item>Battery % per hour</item> -->
-        <item>Nessun calcolo</item>
-    </string-array>
-
     <string name="msgEnableCputuner">Abilita CPU tuner</string>
     <string name="msgDisableCputuner">Disabilita CPU tuner</string>
     <string name="labelYourConfigurations">Le tue configurazioni</string>

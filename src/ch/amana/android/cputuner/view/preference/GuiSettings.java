@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.preference;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -44,7 +45,7 @@ public class GuiSettings extends BaseSettings {
 				return true;
 			}
 		});
-
+		ListPreference prefKeyCalcPowerUsageType = (ListPreference) findPreference("prefKeyCalcPowerUsageType");
 		findPreference("prefKeyStatusbarAddToChoice").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override

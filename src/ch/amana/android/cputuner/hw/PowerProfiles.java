@@ -9,7 +9,6 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
-import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
@@ -41,8 +40,9 @@ public class PowerProfiles {
 
 	public static final long AUTOMATIC_PROFILE = -1;
 
-	private static final long MILLIES_TO_HOURS = 1000 * 60 * 60;
+	private static final double MILLIES_TO_HOURS = 1000d * 60d * 60d;
 
+	public static final int BATTERY_PER_HOUR_STORE_FACTOR = 1000;
 	public static final long NO_PROFILE = -1;
 
 	private final Context context;
@@ -105,6 +105,8 @@ public class PowerProfiles {
 
 	private void resetBookkeeping() {
 		manualProfileID = AUTOMATIC_PROFILE;
+		lastBatteryLevel = -1;
+		lastBatteryLevelTimestamp = -1;
 		initActiveStates();
 	}
 
@@ -222,10 +224,6 @@ public class PowerProfiles {
 
 			Intent intent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
 			if (settings.isEnableLogProfileSwitches()) {
-				StringBuilder sb = new StringBuilder();
-				sb.append(currentTrigger.getName()).append(" -> ");
-				sb.append(currentProfile.getProfileName());
-				intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, sb.toString());
 				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
 				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
 				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
@@ -239,6 +237,9 @@ public class PowerProfiles {
 				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
 				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
 			}
+
+			lastBatteryLevel = -1;
+			lastBatteryLevelTimestamp = -1;
 			context.sendBroadcast(intent);
 		} catch (Throwable e) {
 			Logger.e("Failure while appling a profile", e);
@@ -403,8 +404,10 @@ public class PowerProfiles {
 		if (currentTrigger == null || settings.getTrackCurrentType() == SettingsStorage.TRACK_CURRENT_HIDE) {
 			return;
 		}
+
 		long powerCurrentSum = 0;
 		long powerCurrentCnt = 0;
+
 		if (callInProgress) {
 			powerCurrentSum = currentTrigger.getPowerCurrentSumCall();
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntCall();
@@ -422,7 +425,7 @@ public class PowerProfiles {
 			powerCurrentCnt = currentTrigger.getPowerCurrentCntBattery();
 		}
 
-		if (powerCurrentSum > Long.MAX_VALUE / 2) {
+		if (powerCurrentCnt >= 10) {
 			powerCurrentSum = powerCurrentSum / 2;
 			powerCurrentCnt = powerCurrentCnt / 2;
 		}
@@ -431,34 +434,29 @@ public class PowerProfiles {
 		switch (settings.getTrackCurrentType()) {
 		case SettingsStorage.TRACK_CURRENT_AVG:
 			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentAverage();
+			powerCurrentCnt++;
 			break;
 
 		case SettingsStorage.TRACK_BATTERY_LEVEL:
-			if (lastBatteryLevel != batteryLevel) {
-				if (lastBatteryLevelTimestamp != -1) {
-					long deltaBat = lastBatteryLevel - batteryLevel;
-					long deltaT = System.currentTimeMillis() - lastBatteryLevelTimestamp;
-					if (deltaBat > 0 && deltaT > 0) {
-						double db = (double) deltaBat / (double) deltaT;
-						db = db * MILLIES_TO_HOURS;
-						if (powerCurrentCnt > 0) {
-							powerCurrentCnt = 2;
-						} else {
-							powerCurrentCnt = 0;
-						}
-						powerCurrentCnt = 2 * powerCurrentSum + Math.round(db);
-					}
-				}
-				lastBatteryLevel = batteryLevel;
-				lastBatteryLevelTimestamp = System.currentTimeMillis();
+			long now = System.currentTimeMillis();
+			if (lastBatteryLevel > -1) { // && lastBatteryLevel > batteryLevel) {
+				double battDiff = batteryLevel - lastBatteryLevel;
+				double dt = now - lastBatteryLevelTimestamp;
+				double battPerH = battDiff * MILLIES_TO_HOURS / dt;
+				powerCurrentSum += Math.round(battPerH * BATTERY_PER_HOUR_STORE_FACTOR);
+				powerCurrentCnt++;
+				Logger.inApp(context, "Track battery: last:" + lastBatteryLevel + "% sum:" + powerCurrentSum + " cnt:" + powerCurrentCnt + " %/h" + battPerH);
 			}
+
+			lastBatteryLevel = batteryLevel;
+			lastBatteryLevelTimestamp = now;
 			break;
 
 		default:
 			powerCurrentSum += BatteryHandler.getInstance().getBatteryCurrentNow();
+			powerCurrentCnt++;
 			break;
 		}
-		powerCurrentCnt++;
 		if (callInProgress) {
 			currentTrigger.setPowerCurrentSumCall(powerCurrentSum);
 			currentTrigger.setPowerCurrentCntCall(powerCurrentCnt);

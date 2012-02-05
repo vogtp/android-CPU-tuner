@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Μέση τιμή</item>
+        <item>Τρέχουσα τιμή</item>
+        <item>Battery % per hour</item>
+        <item>Χωρίς υπολογισμό</item>
+    </string-array>
+
     <string name="prefWidgetUI">Displayed information</string>
     <string name="prefShowIcon">CPU tuner icon</string>
     <string name="prefShowIconLong">Used to launch CPU tuner</string>

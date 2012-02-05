@@ -148,7 +148,7 @@
     <string-array name="prefCalcPowerUsageEntries">
         <item>Mittelwert</item>
         <item>Aktueller Wert</item>
-        <!-- <item>Battery % per hour</item> -->
+        <item>Batterie % pro Stunde</item>
         <item>Keine Berechnung</item>
     </string-array>
 
@@ -487,11 +487,6 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
         <item>3G/2G</item>
         <item>Zurück zum vorherigen</item>
         <item>Nur 3G</item>
-    </string-array>
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Durchschnittlicher Wert</item>
-        <item>Aktueller Wert</item>
-        <item>Keine Berechnung</item>
     </string-array>
     <string-array name="prefUserLevelEntries">
         <item><b>Anfänger</b>: CPU Tuner versucht schlau zu sein.</item>

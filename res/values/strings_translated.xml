@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Average value</item>
+        <item>Current value</item>
+        <item>Battery % per hour</item>
+        <item>No calculation</item>
+    </string-array>
+
     <string name="prefWidgetUI">Displayed information</string>
     <string name="prefShowIcon">CPU tuner icon</string>
     <string name="prefShowIconLong">Used to launch CPU tuner</string>
@@ -97,14 +104,6 @@
     <string name="call_active">Call active</string>
     <string name="battery_hot">Battery hot</string>
     <string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use -1 to log for ever.</string>
-
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Average value</item>
-        <item>Current value</item>
-        <!-- <item>Battery % per hour</item> -->
-        <item>No calculation</item>
-    </string-array>
-
     <string name="msgEnableCputuner">Enabling cpu tuner</string>
     <string name="msgDisableCputuner">Disabling cpu tuner</string>
     <string name="labelYourConfigurations">Your configurations</string>
