@@ -2,8 +2,7 @@
 <lint>
     <issue id="ContentDescription" severity="ignore" />
     <issue id="MissingPrefix" severity="ignore" />
-    <issue id="MissingTranslation" severity="error">
-        <ignore path="res/values/version.xml" />
+    <issue id="MissingTranslation" severity="warning">
         <ignore path="res/values/strings_untranslatable.xml" />
     </issue>
     <issue id="NestedWeights">
