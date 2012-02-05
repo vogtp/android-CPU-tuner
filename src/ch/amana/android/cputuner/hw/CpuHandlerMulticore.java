@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.hw;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -146,42 +147,35 @@ public class CpuHandlerMulticore extends CpuHandler {
 		String idx = name + subDir;
 		File[] files = fileMap.get(idx);
 		if (files == null) {
+			ArrayList<File> fileList = new ArrayList<File>(cpus.length);
 			File file;
 			file = new File(CPU_BASE_DIR + cpus[0] + subDir, name);
 			if (fileOk(file)) {
 				// get the other cpu files
-				files = new File[cpus.length];
-				files[0] = file;
+				fileList.add(0, file);
 				for (int i = 1; i < cpus.length; i++) {
 					file = new File(CPU_BASE_DIR + cpus[i] + subDir, name);
 					if (fileOk(file)) {
-						files[i] = file;
-					} else {
-						files[i] = CpuHandler.DUMMY_FILE;
+						fileList.add(i, file);
 					}
 				}
 			} else {
 				file = new File(CPU_BASE_DIR + CPUFREQ_DIR + subDir, name);
 				if (fileOk(file)) {
-					files = new File[1];
-					files[0] = file;
+					fileList.add(0, file);
 				} else {
 					file = new File(CPU_BASE_DIR + subDir, name);
 					if (fileOk(file)) {
-						files = new File[1];
-						files[0] = file;
+						fileList.add(0, file);
 					} else {
 						file = new File(CPU_BASE_DIR + cpus[0] + CPUFREQ_DIR + subDir, name);
 						if (fileOk(file)) {
 							// get the other cpu files
-							files = new File[cpus.length];
-							files[0] = file;
+							fileList.add(0, file);
 							for (int i = 1; i < cpus.length; i++) {
 								file = new File(CPU_BASE_DIR + cpus[i] + CPUFREQ_DIR + subDir, name);
 								if (fileOk(file)) {
-									files[i] = file;
-								} else {
-									files[i] = CpuHandler.DUMMY_FILE;
+									fileList.add(i, file);
 								}
 							}
 						}
@@ -189,6 +183,9 @@ public class CpuHandlerMulticore extends CpuHandler {
 					}
 				}
 			}
+
+			files = new File[fileList.size()];
+			files = fileList.toArray(files);
 
 			if (files == null) {
 				files = new File[0];
