@@ -49,7 +49,7 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			Logger.e("ServiceSwitcher got action: " + action);
+			Logger.d("ServiceSwitcher got action: " + action);
 			//			if (Logger.DEBUG) {
 			//				// FIXME remove
 			//				Logger.d("***********************************************");
