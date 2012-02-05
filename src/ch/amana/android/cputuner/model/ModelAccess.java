@@ -132,7 +132,7 @@ public class ModelAccess implements BackupRestoreCallback {
 				Cursor c = null;
 				try {
 					c = contentResolver.query(CpuProfile.CONTENT_URI, DB.CpuProfile.PROJECTION_DEFAULT, SELECTION_BY_ID, new String[] { Long.toString(id) }, null);
-					if (c.moveToFirst()) {
+					if (c != null && c.moveToFirst()) {
 						profile = new ProfileModel(c);
 					}
 				} finally {
