@@ -128,24 +128,14 @@
   ],
   "triggers": [
    {
-    "powerCurrentSumCall": "702",
-    "powerCurrentSumLocked": "343",
-    "powerCurrentCntHot": "0",
     "hotProfileId": "-1",
-    "powerCurrentCntPower": "1",
-    "powerCurrentSumHot": "0",
-    "powerCurrentCntBattery": "5",
-    "powerCurrentCntCall": "3",
     "callInProgressProfileId": "1",
-    "powerCurrentSumPower": "215",
     "screenOffProfileId": "4",
     "triggerName": "All",
     "resId": "tigger_name_all",
     "_id": "1",
-    "powerCurrentCntLocked": "5",
     "batteryProfileId": "3",
     "batteryLevel": "100",
-    "powerCurrentSumBattery": "214",
     "powerProfileId": "1"
    }
   ]

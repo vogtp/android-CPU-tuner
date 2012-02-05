@@ -181,7 +181,6 @@
    {
     "hotProfileId": "-1",
     "callInProgressProfileId": "2",
-    "powerCurrentSumPower": "296",
     "screenOffProfileId": "4",
     "resId": "tigger_name_batterylow",
     "triggerName": "Battery low",
