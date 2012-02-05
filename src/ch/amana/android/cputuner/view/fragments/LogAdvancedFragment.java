@@ -85,6 +85,9 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 			@Override
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 				if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE && view.getId() == R.id.tvMsg) {
+					if (cursor.getString(columnIndex) != null) {
+						return false;
+					}
 					String profile = cursor.getString(DB.SwitchLogDB.INDEX_PROFILE);
 					if (profile != null) {
 						((TextView) view).setText(profile);

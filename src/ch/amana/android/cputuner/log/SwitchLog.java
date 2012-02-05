@@ -59,30 +59,27 @@ public class SwitchLog extends BroadcastReceiver {
 		}
 		if (ACTION_FLUSH_LOG.equals(intent.getAction())) {
 			flushLogToDB(context);
+			return;
 		}
-		String logEntry = intent.getStringExtra(EXTRA_LOG_ENTRY);
-		if (logEntry != null) {
-			long now = System.currentTimeMillis();
-			ContentValues values = new ContentValues();
-			values.put(DB.SwitchLogDB.NAME_TIME, now);
-			values.put(DB.SwitchLogDB.NAME_MESSAGE, logEntry);
-			values.put(DB.SwitchLogDB.NAME_TRIGGER, intent.getStringExtra(DB.SwitchLogDB.NAME_TRIGGER));
-			values.put(DB.SwitchLogDB.NAME_PROFILE, intent.getStringExtra(DB.SwitchLogDB.NAME_PROFILE));
-			values.put(DB.SwitchLogDB.NAME_VIRTGOV, intent.getStringExtra(DB.SwitchLogDB.NAME_VIRTGOV));
-			values.put(DB.SwitchLogDB.NAME_AC, intent.getIntExtra(DB.SwitchLogDB.NAME_AC, -1));
-			values.put(DB.SwitchLogDB.NAME_BATTERY, intent.getIntExtra(DB.SwitchLogDB.NAME_BATTERY, -1));
-			values.put(DB.SwitchLogDB.NAME_CALL, intent.getIntExtra(DB.SwitchLogDB.NAME_CALL, -1));
-			values.put(DB.SwitchLogDB.NAME_HOT, intent.getIntExtra(DB.SwitchLogDB.NAME_HOT, -1));
-			values.put(DB.SwitchLogDB.NAME_LOCKED, intent.getIntExtra(DB.SwitchLogDB.NAME_LOCKED, -1));
+		ContentValues values = new ContentValues();
+		values.put(DB.SwitchLogDB.NAME_TIME, System.currentTimeMillis());
+		values.put(DB.SwitchLogDB.NAME_MESSAGE, intent.getStringExtra(EXTRA_LOG_ENTRY));
+		values.put(DB.SwitchLogDB.NAME_TRIGGER, intent.getStringExtra(DB.SwitchLogDB.NAME_TRIGGER));
+		values.put(DB.SwitchLogDB.NAME_PROFILE, intent.getStringExtra(DB.SwitchLogDB.NAME_PROFILE));
+		values.put(DB.SwitchLogDB.NAME_VIRTGOV, intent.getStringExtra(DB.SwitchLogDB.NAME_VIRTGOV));
+		values.put(DB.SwitchLogDB.NAME_AC, intent.getIntExtra(DB.SwitchLogDB.NAME_AC, -1));
+		values.put(DB.SwitchLogDB.NAME_BATTERY, intent.getIntExtra(DB.SwitchLogDB.NAME_BATTERY, -1));
+		values.put(DB.SwitchLogDB.NAME_CALL, intent.getIntExtra(DB.SwitchLogDB.NAME_CALL, -1));
+		values.put(DB.SwitchLogDB.NAME_HOT, intent.getIntExtra(DB.SwitchLogDB.NAME_HOT, -1));
+		values.put(DB.SwitchLogDB.NAME_LOCKED, intent.getIntExtra(DB.SwitchLogDB.NAME_LOCKED, -1));
 
-			Builder opp = ContentProviderOperation.newInsert(DB.SwitchLogDB.CONTENT_URI);
-			opp.withValues(values);
-			operations.add(opp.build());
-			if (operations.size() > 10 || intent.getBooleanExtra(EXTRA_FLUSH_LOG, false)) {
-				flushLogToDB(context);
-			}
-
+		Builder opp = ContentProviderOperation.newInsert(DB.SwitchLogDB.CONTENT_URI);
+		opp.withValues(values);
+		operations.add(opp.build());
+		if (operations.size() > 10 || intent.getBooleanExtra(EXTRA_FLUSH_LOG, false)) {
+			flushLogToDB(context);
 		}
+
 	}
 
 	private void flushLogToDB(Context context) {

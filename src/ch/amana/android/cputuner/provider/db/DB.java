@@ -440,7 +440,7 @@ public interface DB {
 		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV, NAME_BATTERY, NAME_LOCKED, NAME_AC,
 				NAME_CALL, NAME_HOT };
 		public static final String[] PROJECTION_DEFAULT = colNames;
-		public static final String[] PROJECTION_NORMAL_LOG = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE };
+		public static final String[] PROJECTION_NORMAL_LOG = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE, NAME_TRIGGER, NAME_PROFILE };
 
 		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
 		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
