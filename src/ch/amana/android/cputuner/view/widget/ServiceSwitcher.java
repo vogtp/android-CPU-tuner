@@ -3,14 +3,7 @@ package ch.amana.android.cputuner.view.widget;
 import java.util.EnumMap;
 import java.util.Map;
 
-import android.bluetooth.BluetoothAdapter;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
-import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,68 +30,10 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 	public static final int ALPHA_ON = 1000;
 	public static final int ALPHA_OFF = 40;
 	public static final int ALPHA_LEAVE = 100;
-	private static Object lock = new Object();
 
 	private final Map<ServiceType, ImageView> serviceButtonMap = new EnumMap<ServiceType, ImageView>(ServiceType.class);
 	private Context ctx;
 	private SettingsStorage settings;
-	private ServiceChangeReceiver receiver;
-
-	class ServiceChangeReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			Logger.d("ServiceSwitcher got action: " + action);
-			if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
-				updateButtonStateFromSystem(ServiceType.wifi);
-			} else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
-				updateButtonStateFromSystem(ServiceType.bluetooth);
-			} else if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(action)) {
-				updateButtonStateFromSystem(ServiceType.airplainMode);
-			} else if (ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED.equals(action)) {
-				updateButtonStateFromSystem(ServiceType.backgroundsync);
-			} else if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
-				updateButtonStateFromSystem(ServiceType.mobiledata3g);
-				updateButtonStateFromSystem(ServiceType.mobiledataConnection);
-			} else {
-				updateButtonStateFromSystem(ServiceType.mobiledata3g);
-				updateButtonStateFromSystem(ServiceType.mobiledataConnection);
-			}
-		}
-
-	}
-
-	public static void registerReceiver(Context context, BroadcastReceiver receiver) {
-		synchronized (lock) {
-			if (receiver != null) {
-				// bt: ok wifi: ok airplaine: ok md: yes 3g: yes
-				// snyc: ?  
-				// gps: not supported
-				context.registerReceiver(receiver, new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION));
-				context.registerReceiver(receiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
-				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
-				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED));
-				context.registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-				context.registerReceiver(receiver, new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED));
-				Logger.i("Registered service change receiver");
-
-			}
-		}
-	}
-
-	public static void unregisterReceiver(Context context, BroadcastReceiver receiver) {
-		synchronized (lock) {
-			if (receiver != null) {
-				try {
-					context.unregisterReceiver(receiver);
-					Logger.i("Unegistered service change receiver");
-				} catch (Throwable e) {
-					Logger.w("Could not unregister service change receiver", e);
-				}
-			}
-		}
-	}
 
 	public ServiceSwitcher(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -158,12 +93,6 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 			state = PowerProfiles.SERVICE_STATE_PULSE;
 		}
 		setButtuonState(st, state);
-	}
-
-	@Override
-	protected void onDetachedFromWindow() {
-		unregisterReceiver(ctx, receiver);
-		super.onDetachedFromWindow();
 	}
 
 	public void setButtuonState(String serviceType, int state) {
@@ -305,16 +234,5 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		}
 	}
 
-	public void startReceiver() {
-		if (receiver == null) {
-			receiver = new ServiceChangeReceiver();
-			registerReceiver(ctx, receiver);
-		}
-	}
-
-	public void stopReceiver() {
-		unregisterReceiver(ctx, receiver);
-		receiver = null;
-	}
 
 }

@@ -250,10 +250,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		if (getActivity() == null) {
 			return;
 		}
-		if (serviceSwitcher != null) {
-			serviceSwitcher.startReceiver();
-			serviceSwitcher.updateAllButtonStateFromSystem();
-		}
 		if (governorFragment != null) {
 			governorFragment.updateVirtGov(true);
 		}
