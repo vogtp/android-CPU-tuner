@@ -108,4 +108,20 @@ public class Logger {
 		}
 	}
 
+	private void logIntentExtras(Intent intent) {
+		if (DEBUG) {
+			try {
+				if (intent == null || intent.getExtras() == null) {
+					return;
+				}
+				String action = intent.getAction();
+				Logger.d("***********************************************");
+				for (String key : intent.getExtras().keySet()) {
+					Logger.d(action + " extra " + key + " -> " + intent.getExtras().get(key));
+				}
+
+			} catch (Exception e) {
+			}
+		}
+	}
 }
