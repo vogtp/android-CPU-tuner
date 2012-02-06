@@ -50,17 +50,6 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			Logger.d("ServiceSwitcher got action: " + action);
-			//			if (Logger.DEBUG) {
-			//				// FIXME remove
-			//				Logger.d("***********************************************");
-			//				for (String key : intent.getExtras().keySet()) {
-			//					try {
-			//						Logger.d(action + " extra " + key + " -> " + intent.getExtras().get(key));
-			//					} catch (Exception e) {
-			//						// TODO: handle exception
-			//					}
-			//				}
-			//			}
 			if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
 				updateButtonStateFromSystem(ServiceType.wifi);
 			} else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
@@ -203,11 +192,11 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 				icon.setImageResource(R.drawable.serviceicon_md_2g3g);
 				setAnimation(icon, R.anim.back);
 			}
-			//			if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
-			//				icon.setAlpha(ALPHA_LEAVE);
-			//			} else {
-			//				icon.setAlpha(ALPHA_ON);
-			//			}
+			if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
+				icon.setAlpha(ALPHA_LEAVE);
+			} else {
+				icon.setAlpha(ALPHA_ON);
+			}
 		} else {
 			setServiceStateIcon(icon, state);
 		}
@@ -284,7 +273,7 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 			statusValues = ctx.getResources().getIntArray(R.array.mobiledataStatesCurrentValues);
 		}
 		int status = statusValues[position];
-		PowerProfiles.getInstance(ctx).setServiceState(type, status);
+		PowerProfiles.getInstance(ctx).setServiceState(type, status, true);
 	}
 
 	public static ArrayAdapter<CharSequence> getServiceStateAdapter(Context ctx, ServiceType type) {
