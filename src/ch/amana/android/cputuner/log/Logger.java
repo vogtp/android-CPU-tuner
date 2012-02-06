@@ -82,33 +82,44 @@ public class Logger {
 
 	public static void logStacktrace(String msg) {
 		if (!Logger.DEBUG) {
-			return;
+			logToFile(msg, new Exception());
+			;
 		}
-		logStacktrace(msg, new Exception());
 	}
 
 	public static void logStacktrace(String msg, Throwable e) {
 		if (!Logger.DEBUG) {
-			return;
-		}
-		Log.d(STACKTRACE_TAG, msg, e);
-		try {
-			Writer w = new FileWriter("/mnt/sdcard/cputuner.log", true);
-			w.write("**************  Stacktrace ***********************\n");
-			w.write((new Date()).toString());
-			w.write("\n");
-			w.write(msg);
-			w.write("\n");
-			e.printStackTrace(new PrintWriter(w));
-			w.write("**************************************************\n");
-			w.flush();
-			w.close();
-		} catch (IOException e1) {
-			Logger.w("Cannot write stacktrage log", e1);
+			logToFile(msg, new Exception());
 		}
 	}
 
-	private void logIntentExtras(Intent intent) {
+	public static void logToFile(String msg, Throwable e) {
+		if (Logger.DEBUG) {
+			if (e != null) {
+				Log.d(STACKTRACE_TAG, msg, e);
+			} else {
+				Log.d(TAG, msg, e);
+			}
+			try {
+				Writer w = new FileWriter("/mnt/sdcard/cputuner.log", true);
+				w.write("**************  Stacktrace ***********************\n");
+				w.write((new Date()).toString());
+				w.write("\n");
+				w.write(msg);
+				if (e != null) {
+					w.write("\n");
+					e.printStackTrace(new PrintWriter(w));
+				}
+				w.write("**************************************************\n");
+				w.flush();
+				w.close();
+			} catch (IOException e1) {
+				Logger.w("Cannot write stacktrage log", e1);
+			}
+		}
+	}
+
+	public static void logIntentExtras(Intent intent) {
 		if (DEBUG) {
 			try {
 				if (intent == null || intent.getExtras() == null) {
@@ -117,7 +128,7 @@ public class Logger {
 				String action = intent.getAction();
 				Logger.d("***********************************************");
 				for (String key : intent.getExtras().keySet()) {
-					Logger.d(action + " extra " + key + " -> " + intent.getExtras().get(key));
+					logToFile(action + " extra " + key + " -> " + intent.getExtras().get(key), null);
 				}
 
 			} catch (Exception e) {
