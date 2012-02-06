@@ -22,7 +22,6 @@ import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
-import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class SettingsStorage {
 
@@ -267,7 +266,7 @@ public class SettingsStorage {
 
 	public int getTrackCurrentType() {
 		if (trackCurrent < 0) {
-			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "4");
+			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "3"); 
 			try {
 				trackCurrent = Integer.parseInt(trackCurrentStr);
 			} catch (Exception e) {
@@ -608,7 +607,6 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(PREF_KEY_WIDGET, b);
 		editor.commit();
-		ProfileAppwidgetProvider.enableWidget(context, b);
 	}
 
 	public boolean hasWidget() {
