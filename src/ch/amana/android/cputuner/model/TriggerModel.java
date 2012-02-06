@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import ch.almana.android.importexportdb.importer.JSONBundle;
-import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class TriggerModel {
@@ -306,10 +305,6 @@ public class TriggerModel {
 		powerCurrentCntHot = 0;
 		powerCurrentSumCall = 0;
 		powerCurrentCntCall = 0;
-		TriggerModel ppCurrentTrigger = PowerProfiles.getInstance().getCurrentTrigger();
-		if (ppCurrentTrigger != null && ppCurrentTrigger != this && ppCurrentTrigger.getName().equals(name)) {
-			ppCurrentTrigger.clearPowerCurrent();
-		}
 	}
 
 	@Override
