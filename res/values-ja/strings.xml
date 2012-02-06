@@ -8,6 +8,12 @@
     <string-array name="prefCalcPowerUsageEntries">
         <item>平均値</item>
         <item>現在値</item>
+        <!-- <item>Battery % per hour</item> -->
+        <item>計算しない</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntriesBeta">
+        <item>平均値</item>
+        <item>現在値</item>
         <item>Battery % per hour</item>
         <item>計算しない</item>
     </string-array>
