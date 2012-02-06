@@ -10,6 +10,12 @@
     <string-array name="prefCalcPowerUsageValues">
         <item>1</item>
         <item>2</item>
+        <!-- <item>4</item> -->
+        <item>3</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageValuesBeta">
+        <item>1</item>
+        <item>2</item>
         <item>4</item>
         <item>3</item>
     </string-array>
@@ -54,11 +60,16 @@
     </string-array>
 
     <integer-array name="deviceStatesCurrentValues">
+
+        <!-- <item>0</item> -->
         <item>1</item>
         <item>2</item>
         <item>4</item>
     </integer-array>
     <integer-array name="mobiledataStatesCurrentValues">
+
+        <!-- <item>0</item> -->
+
         <item>1</item>
         <item>2</item>
         <item>4</item>

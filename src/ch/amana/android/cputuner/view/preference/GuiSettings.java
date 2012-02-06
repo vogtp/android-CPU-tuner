@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.view.preference;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -47,7 +48,14 @@ public class GuiSettings extends BaseSettings {
 				return true;
 			}
 		});
-		findPreference("prefKeyCalcPowerUsageType").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+		ListPreference prefCalcPowerUsageType = (ListPreference) findPreference("prefKeyCalcPowerUsageType");
+
+		if (settings.isEnableBeta()) {
+			prefCalcPowerUsageType.setEntryValues(R.array.prefCalcPowerUsageValuesBeta);
+			prefCalcPowerUsageType.setEntries(R.array.prefCalcPowerUsageEntriesBeta);
+		}
+
+		prefCalcPowerUsageType.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {

@@ -8,7 +8,7 @@
     <string-array name="prefCalcPowerUsageEntries">
         <item>Μέση τιμή</item>
         <item>Τρέχουσα τιμή</item>
-        <item>Battery % per hour</item>
+        <!-- <item>Battery % per hour</item> -->
         <item>Χωρίς υπολογισμό</item>
     </string-array>
 

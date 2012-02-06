@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Mittelwert</item>
+        <item>Aktueller Wert</item>
+        <!-- <item>Batterie % pro Stunde</item> -->
+        <item>Keine Berechnung</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntriesBeta">
+        <item>Mittelwert</item>
+        <item>Aktueller Wert</item>
+        <item>Batterie % pro Stunde</item>
+        <item>Keine Berechnung</item>
+    </string-array>
+
     <string name="not_supported">Not supported!</string>
     <string name="msg_no_battery_current">You device does not support battery current tracking.</string>
     <string name="msg_no_avg_battery_current">You device does not support average battery current tracking.</string>
@@ -19,18 +32,6 @@
     <string name="msg_install_widget_dia">The widget cannot be added since the widget extention is not installed</string>
     <string name="buNeg_install_widget_dia">No, thanks.</string>
     <string name="buPos_install_widget_dia">Get it…</string>
-
-    <string-array name="deviceStatesCurrent">
-        <item>Enable</item>
-        <item>Disable</item>
-        <item>Pulse</item>
-    </string-array>
-    <string-array name="mobiledataStatesCurrent">
-        <item>2G only</item>
-        <item>3G/2G</item>
-        <item>3G only</item>
-    </string-array>
-
     <string name="prefCatEngine">Engine</string>
     <string name="prefCatHelper">Helper</string>
 

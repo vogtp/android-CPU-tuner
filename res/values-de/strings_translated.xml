@@ -144,14 +144,6 @@
     <string name="label_no_configuration">CPU Tuner hat festgestellt, das die aktuelle Konfiguration nicht verwendbar ist. Soll eine neue Konfiguration geladen werden?</string>
     <string name="load">Laden</string>
     <string name="cont">Weiter</string>
-
-    <string-array name="prefCalcPowerUsageEntries">
-        <item>Mittelwert</item>
-        <item>Aktueller Wert</item>
-        <item>Batterie % pro Stunde</item>
-        <item>Keine Berechnung</item>
-    </string-array>
-
     <string name="msgEnableCputuner">Aktiviere CPU Tuner</string>
     <string name="msgDisableCputuner">Deaktiviere CPU Tuner</string>
     <string name="labelYourConfigurations">Meine Konfigurationen</string>
@@ -209,14 +201,6 @@
     <string name="msg_delete_autoload_configuration">Lösche diese Auto-Laden Konfiguration?</string>
     <string name="prefNetworkModeOnWifiConnected">Netzwerkmodus falls Wifi verbunden ist</string>
     <string name="prefNetworkModeOnWifiConnectedLong">Wähle den Netzwerkmodus der verwendet wird falls Wifi Verbindung besteht. Wenn die Verbindung nicht mehr besteht geht CPU Tuner zurück zum vorherigen.</string>
-
-    <string-array name="mobiledataOnWifiStatesEnties">
-        <item>Unverändert lassen</item>
-        <item>Nur 2G</item>
-        <item>3G/2G</item>
-        <item>Nur 3G</item>
-    </string-array>
-
     <string name="auto">Auto</string>
     <string name="msg_manual_profile">Manuell</string>
     <string name="labelPowersaveBias">Gewichtung Energiesparmodus:</string>
@@ -460,6 +444,22 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
     <string name="labelMobiledataOff"><strike>MD</strike></string>
     <string name="labelMobiledataPrev">MD?</string>
 
+    <string-array name="deviceStatesCurrent">
+        <item>Ein</item>
+        <item>Aus</item>
+        <item>Pulsieren</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+        <item>Nur 2G</item>
+        <item>3G/2G</item>
+        <item>Nur 3G</item>
+    </string-array>
+    <string-array name="mobiledataOnWifiStatesEnties">
+        <item>Unverändert lassen</item>
+        <item>Nur 2G</item>
+        <item>3G/2G</item>
+        <item>Nur 3G</item>
+    </string-array>
     <string-array name="deviceStates">
         <item>Unverändert lassen</item>
         <item>Ein</item>
