@@ -173,7 +173,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 						return true;
 					}
 					current /= cnt;
-					if (current < -10000 || current > 10000) {
+					if (current < -1000000 || current > 1000000) {
 						((TextView) view).setText("-");
 						return true;
 					}
