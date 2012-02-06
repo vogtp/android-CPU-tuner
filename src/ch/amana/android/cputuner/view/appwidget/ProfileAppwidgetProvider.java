@@ -220,10 +220,10 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
 				setAlpha(views, id, ServiceSwitcher.ALPHA_OFF);
 			} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
-				//			setAnimation(icon, R.anim.back);
+				setAnimation(views, id, R.anim.back);
 			} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-				//			setAnimation(icon, R.anim.pluse);
-			} else {
+				setAnimation(views, id, R.anim.pluse);
+			} else { 
 				setAlpha(views, id, ServiceSwitcher.ALPHA_ON);
 			}
 		}
@@ -237,17 +237,8 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		views.setInt(id, "setAlpha", alpha);
 	}
 
-	public static void enableWidget(Context ctx, boolean b) {
-		// This only works post 3.1 and pre 4.0
-		//		PackageManager pm = ctx.getApplicationContext().getPackageManager();
-		//		//		pm.setComponentEnabledSetting(
-		//		//                new ComponentName("com.example.android.apis", ".appwidget.ExampleBroadcastReceiver"),
-		//		//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-		//		//                PackageManager.DONT_KILL_APP);
-		//		ComponentName componentName = new ComponentName("ch.amana.android.cputuner", ".view.appwidget.ProfileAppwidgetProvider");
-		//		ComponentName componentName2 = new ComponentName(ctx, ProfileAppwidgetProvider.class);
-		//		int state = b ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-		//		pm.setComponentEnabledSetting(componentName, state, PackageManager.DONT_KILL_APP);
+	private static void setAnimation(RemoteViews views, int id, int anim) {
+		views.setInt(id, "setAnimation", anim);
 	}
 
 }
