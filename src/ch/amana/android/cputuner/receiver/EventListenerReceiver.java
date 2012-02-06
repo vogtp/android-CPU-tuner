@@ -65,6 +65,9 @@ public class EventListenerReceiver extends BroadcastReceiver {
 			if (Logger.DEBUG) {
 				String action = intent == null ? "null intent" : intent.getAction();
 				Logger.i("EventListenerReceiver got intent with action " + action);
+				if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
+					Logger.logIntentExtras(intent);
+				}
 			}
 			if (SettingsStorage.FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD) {
 					TunerService.handleBattery(context, intent.getAction(), intent);
