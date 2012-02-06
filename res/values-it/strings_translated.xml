@@ -562,4 +562,52 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
         <item>Solo 3G </item>
     </string-array>
 
+    <string name="not_supported">Non supportato! </string>
+    <string name="msg_no_battery_current">Il tuo dispositivo non supporta il tracking corrente della batteria.</string>
+    <string name="msg_no_avg_battery_current">Il tuo dispositivo non supporta il tracking medio della batteria.</string>
+    <string name="prefWidgetUI">Informazioni Visualizzate</string>
+    <string name="prefShowIcon">Icona di CUP tuner</string>
+    <string name="prefShowIconLong">Usata per lanciare CPU tuner</string>
+    <string name="title_cannot_save">Impossibile Salvare</string>
+    <string name="cbInclSwitchLog">Includi il log switch nella mail.</string>
+    <string name="name_extention_widget">Widget</string>
+    <string name="desc_extention_widget">Il widget ti permette di accedere alle funzioni di CPU tuner velocemente dalla tua home.</string>
+    <string name="prefCatWidget">Widget</string>
+    <string name="prefHasWidget">Abilita Widget</string>
+    <string name="msgWidgetLoading">Caricamento…</string>
+    <string name="msg_widgets_not_installed">Il widget di CPU tuner non è attivo.</string>
+    <string name="title_install_widget_dia">Widget non installato</string>
+    <string name="msg_install_widget_dia">Il widget non può essere aggiunto perché l’estensione non è installata </string>
+    <string name="buNeg_install_widget_dia">No, grazie.</string>
+    <string name="buPos_install_widget_dia">Ottienilo…</string>
+
+    <string-array name="deviceStatesCurrent">
+        <item>Abilita</item>
+        <item>Disabilita</item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+        <item>Solo 2G</item>
+        <item>3G/2G</item>
+        <item>Solo 3G</item>
+    </string-array>
+
+    <string name="tigger_name_all">Tutti</string>
+    <string name="tigger_name_batteryfull">Batteria carica</string>
+    <string name="tigger_name_batteryused">Batteria usata</string>
+    <string name="tigger_name_batterylow">Batteria quasi scarica</string>
+    <string name="tigger_name_batteryempty">Batteria scarica</string>
+    <string name="tigger_name_batterycritical">Batteria critica</string>
+    <string name="profile_name_performance">Performance</string>
+    <string name="profile_name_good">Buono</string>
+    <string name="profile_name_normal">Normale</string>
+    <string name="profile_name_screenoff">Schermo spento</string>
+    <string name="profile_name_screenon">Schermo acceso</string>
+    <string name="profile_name_powersave">Risparmio energetico</string>
+    <string name="profile_name_extremepowersave">Risparmio energetico massimo</string>
+    <string name="gov_name_fullspeed">Velocità massima</string>
+    <string name="gov_name_normal">Normale</string>
+    <string name="gov_name_extremeSaveBattery">Risparmio energetico estremo </string>
+    <string name="gov_name_saveBattery">Risparmio energetico</string>
+
 </resources>
