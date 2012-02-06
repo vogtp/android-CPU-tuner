@@ -279,8 +279,9 @@ public class PowerProfiles {
 			}
 			PulseHelper.getInstance(context).pulse(type, false);
 		} else {
-			if (ServicesHandler.isWifiConnected(context)) {
-				ret = settings.getNetworkStateOnWifi();
+			int wifiState = settings.getNetworkStateOnWifi();
+			if (wifiState != SERVICE_STATE_LEAVE && ServicesHandler.isWifiConnected(context)) {
+					state = wifiState;
 			}
 		}
 		if (state == SERVICE_STATE_LEAVE) {
@@ -650,7 +651,7 @@ public class PowerProfiles {
 	}
 
 	public void setServiceState(ServiceType type, int state, boolean manual) {
-		manualServiceChanges.put(type, manual);
+		//		manualServiceChanges.put(type, manual);
 		//		if (state == SERVICE_STATE_LEAVE) { 
 		//			state = evaluateState(type, state);
 		//			if (state == SERVICE_STATE_LEAVE) {

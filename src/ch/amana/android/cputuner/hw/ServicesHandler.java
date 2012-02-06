@@ -14,6 +14,7 @@ import ch.amana.android.cputuner.log.Logger;
 
 public class ServicesHandler {
 
+	// /system/frameworks/base/telephony/java/com/android/internal/telephony/RILConstants.java
 	/**
 	 * The preferred network mode 7 = Global 6 = EvDo only 5 = CDMA w/o EvDo 4 =
 	 * CDMA / EvDo auto 3 = GSM / WCDMA auto 2 = WCDMA only 1 = GSM only 0 = GSM
@@ -244,7 +245,16 @@ public class ServicesHandler {
 		case gps:
 			return isGpsEnabled(context) ? PowerProfiles.SERVICE_STATE_ON : PowerProfiles.SERVICE_STATE_OFF;
 		case mobiledata3g:
-			return getMobiledataState(context);
+			switch (getMobiledataState(context)) {
+			case MODE_2G_3G_PREFERRD:
+				return PowerProfiles.SERVICE_STATE_2G_3G;
+			case MODE_2G_ONLY:
+				return PowerProfiles.SERVICE_STATE_2G;
+			case MODE_3G_ONLY:
+				return PowerProfiles.SERVICE_STATE_3G;
+			default:
+				return PowerProfiles.SERVICE_STATE_LEAVE;
+			}
 		default:
 			Logger.e("Did not find service type " + type.toString() + " for getting service state.");
 		}
