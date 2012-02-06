@@ -439,7 +439,7 @@ public class PowerProfiles {
 
 		case SettingsStorage.TRACK_BATTERY_LEVEL:
 			long now = System.currentTimeMillis();
-			if (lastBatteryLevel > -1) { // && lastBatteryLevel > batteryLevel) {
+			if (lastBatteryLevel > -1 && lastBatteryLevel != batteryLevel) {
 				double battDiff = batteryLevel - lastBatteryLevel;
 				double dt = now - lastBatteryLevelTimestamp;
 				double battPerH = battDiff * MILLIES_TO_HOURS / dt;
@@ -649,7 +649,15 @@ public class PowerProfiles {
 		return bat.toString();
 	}
 
-	public void setServiceState(ServiceType type, int state) {
+	public void setServiceState(ServiceType type, int state, boolean manual) {
+		manualServiceChanges.put(type, manual);
+		//		if (state == SERVICE_STATE_LEAVE) { 
+		//			state = evaluateState(type, state);
+		//			if (state == SERVICE_STATE_LEAVE) {
+		//				state = evaluateState(type, SERVICE_STATE_PREV);
+		//			}
+		//			manualServiceChanges.put(type, false);
+		//		}
 		switch (type) {
 		case wifi:
 			applyWifiState(state);
