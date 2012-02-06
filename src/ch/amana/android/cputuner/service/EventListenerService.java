@@ -55,8 +55,7 @@ public class EventListenerService extends Service {
 		}
 		if (settingsStorage.isRunStatisticsService()) {
 			StatisticsReceiver.register(ctx);
-		}
-		ProfileAppwidgetProvider.enableWidget(ctx, settingsStorage.hasWidget());
+		} 
 	}
 
 	private void stopCpuTuner() {
