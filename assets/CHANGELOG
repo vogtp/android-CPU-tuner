@@ -9,7 +9,7 @@ V 3.3.0
 - a widget (as extension)
 - switch services from current tab
 - show battery level in notification
-- track power consumption in battery % per hour
+- track power consumption in battery % per hour (beta and not quite working)
 - translated (de, it and ja) trigger, profile and virtual governor names (on system configuration load)
 - lots minor changes
 * bug fixes
