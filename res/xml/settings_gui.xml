@@ -22,7 +22,7 @@
         </Preference>
 
         <ListPreference
-            android:defaultValue="4"
+            android:defaultValue="3"
             android:entries="@array/prefCalcPowerUsageEntries"
             android:entryValues="@array/prefCalcPowerUsageValues"
             android:key="prefKeyCalcPowerUsageType"
