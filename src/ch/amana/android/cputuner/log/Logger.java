@@ -8,6 +8,7 @@ import java.util.Date;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -16,7 +17,7 @@ public class Logger {
 	private static final String TAG = "CPUTuner";
 	private static final String STACKTRACE_TAG = "CPUTunerStracktraceLog";
 
-	public final static boolean DEBUG = true;
+	public final static boolean DEBUG = false;
 
 	public static void inApp(Context ctx, String msg) {
 		if (DEBUG) {
@@ -125,11 +126,15 @@ public class Logger {
 				if (intent == null || intent.getExtras() == null) {
 					return;
 				}
+				Bundle extras = intent.getExtras();
 				String action = intent.getAction();
-				Logger.d("***********************************************");
-				for (String key : intent.getExtras().keySet()) {
-					logToFile(action + " extra " + key + " -> " + intent.getExtras().get(key), null);
+				StringBuilder sb = new StringBuilder();
+				sb.append("action: ").append(action);
+				for (String key : extras.keySet()) {
+					sb.append(" extra: ").append( key).append( " -> ");
+					sb.append(extras.get(key)).append("\n");
 				}
+				logToFile(sb.toString(),null);
 
 			} catch (Exception e) {
 			}
