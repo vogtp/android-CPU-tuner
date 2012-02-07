@@ -19,7 +19,7 @@
     <string name="cbInclSwitchLog">Include the switch log in the mail.</string>
     <string name="name_extention_widget">Widget</string>
     <string name="desc_extention_widget">The widget lets you access CPU tuner function quickly from your home screen.</string>
-    <string name="prefCatWidget">Widget</string>
+    <string name="prefCatWidget">Widget extension</string>
     <string name="prefHasWidget">Enable Widget</string>
     <string name="msgWidgetLoading">Loading…</string>
     <string name="msg_widgets_not_installed">CPU tuner widget is not enabled.</string>
