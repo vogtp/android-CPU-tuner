@@ -77,7 +77,7 @@ public class GuiUtils {
 	public static void showDialog(Context ctx, int titleId, int messageId) {
 		try {
 			new AlertDialog.Builder(ctx)
-					.setIconAttribute(android.R.attr.alertDialogIcon)
+					//	.setIconAttribute(android.R.attr.alertDialogIcon)
 					.setTitle(titleId)
 					.setMessage(messageId)
 					.setPositiveButton(android.R.string.ok, null).create().show();
