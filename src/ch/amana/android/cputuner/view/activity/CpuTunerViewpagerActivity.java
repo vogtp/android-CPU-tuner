@@ -214,9 +214,9 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		//		return pagerAdapter.onPrepareOptionsMenu(menu);
 		menu.clear();
 		MenuInflater menuInflater = getMenuInflater();
-		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
 		menuInflater.inflate(R.menu.gerneral_help_menu, menu);
 		menuInflater.inflate(R.menu.gerneral_options_menu, menu);
+		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
 		return true;
 	}
 

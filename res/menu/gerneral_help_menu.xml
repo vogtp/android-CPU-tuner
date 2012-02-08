@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/itemMenuHelp" android:title="@string/labelHelpTab"
-		android:menuCategory="system" android:icon="@android:drawable/ic_menu_help"></item> 
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemMenuHelp"
+        android:icon="@android:drawable/ic_menu_help"
+        android:menuCategory="system"
+        android:title="@string/labelHelpTab">
+    </item>
+
 </menu>

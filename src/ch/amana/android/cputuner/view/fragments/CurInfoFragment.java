@@ -1,5 +1,8 @@
 package ch.amana.android.cputuner.view.fragments;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -48,6 +51,8 @@ import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
+
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback, StateChangeListener {
 
@@ -420,6 +425,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
+		if (SettingsStorage.getInstance().hasHoloTheme()) {
+			menu.findItem(R.id.itemMenuHelp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		}
 	}
 
 	@Override
@@ -435,5 +443,24 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Action> getActions() {
+		List<Action> actions = new ArrayList<Action>(2);
+		actions.add(new Action() {
+			@Override
+			public void performAction(View view) {
+				Intent i = new Intent(getActivity(), HelpActivity.class);
+				i.putExtra(HelpActivity.EXTRA_HELP_PAGE, HelpActivity.PAGE_INDEX);
+				getActivity().startActivity(i);
+			}
+
+			@Override
+			public int getDrawable() {
+				return android.R.drawable.ic_menu_help;
+			}
+		});
+		return actions;
 	}
 }
