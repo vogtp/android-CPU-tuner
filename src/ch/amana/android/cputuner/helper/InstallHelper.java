@@ -111,7 +111,11 @@ public class InstallHelper {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = ctx.getPackageManager().getLaunchIntentForPackage("com.noshufou.android.su");
-						ctx.startActivity(intent);
+						if (intent != null) {
+							ctx.startActivity(intent);
+						} else {
+							ctx.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pname:com.noshufou.android.su")));
+						}
 					}
 				});
 			}
