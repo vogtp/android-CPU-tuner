@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.hw.CpuHandler;
 
@@ -68,17 +69,21 @@ public class GuiUtils {
 	}
 
 	public static void setLanguage(Context ctx, String lang) {
-			Configuration config = new Configuration();
-			config.locale = new Locale(lang);
-			ctx.getResources().updateConfiguration(config, ctx.getResources().getDisplayMetrics());
+		Configuration config = new Configuration();
+		config.locale = new Locale(lang);
+		ctx.getResources().updateConfiguration(config, ctx.getResources().getDisplayMetrics());
 	}
 
 	public static void showDialog(Context ctx, int titleId, int messageId) {
-		new AlertDialog.Builder(ctx)
-				.setIconAttribute(android.R.attr.alertDialogIcon)
-				.setTitle(titleId)
-				.setMessage(messageId)
-				.setPositiveButton(android.R.string.ok, null).create().show();
+		try {
+			new AlertDialog.Builder(ctx)
+					.setIconAttribute(android.R.attr.alertDialogIcon)
+					.setTitle(titleId)
+					.setMessage(messageId)
+					.setPositiveButton(android.R.string.ok, null).create().show();
+		} catch (Throwable e) {
+			Toast.makeText(ctx, messageId, Toast.LENGTH_LONG).show();
+		}
 	}
 
 }
