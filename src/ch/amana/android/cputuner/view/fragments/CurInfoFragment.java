@@ -451,9 +451,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				Intent i = new Intent(getActivity(), HelpActivity.class);
+				Intent i = new Intent(view.getContext(), HelpActivity.class);
 				i.putExtra(HelpActivity.EXTRA_HELP_PAGE, HelpActivity.PAGE_INDEX);
-				getActivity().startActivity(i);
+				view.getContext().startActivity(i);
 			}
 
 			@Override
