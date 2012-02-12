@@ -440,7 +440,7 @@ public class PowerProfiles {
 
 		case SettingsStorage.TRACK_BATTERY_LEVEL:
 			long now = System.currentTimeMillis();
-			if (lastBatteryLevel > -1 && lastBatteryLevel != batteryLevel) {
+			if (lastBatteryLevel > -1 && lastBatteryLevel < batteryLevel) {
 				double battDiff = batteryLevel - lastBatteryLevel;
 				double dt = now - lastBatteryLevelTimestamp;
 				double battPerH = battDiff * MILLIES_TO_HOURS / dt;
