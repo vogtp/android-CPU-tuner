@@ -384,4 +384,29 @@ public class CpuHandler extends HardwareHandler {
 		return sb.toString();
 	}
 
+	private boolean hasFile(File file) {
+		return file != null && file != DUMMY_FILE && file.exists();
+	}
+
+	public boolean hasThreshholdUp() {
+		return hasFile(getFile(GOV_TRESHOLD_UP, getCurCpuGov()));
+	}
+
+
+	public boolean hasThreshholdDown() {
+		return hasFile(getFile(GOV_TRESHOLD_DOWN, getCurCpuGov()));
+	}
+
+	public boolean hasPowersaveBias() {
+		return hasFile(getFile(POWERSAVE_BIAS, getCurCpuGov()));
+	}
+
+	public boolean hasMinFrequency() {
+		return hasFile(getFile(SCALING_MIN_FREQ));
+	}
+
+	public boolean hasMaxFrequency() {
+		return hasFile(getFile(SCALING_MAX_FREQ));
+	}
+
 }
