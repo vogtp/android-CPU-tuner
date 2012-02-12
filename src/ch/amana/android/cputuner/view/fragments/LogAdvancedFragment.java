@@ -214,10 +214,11 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	}
 
 	private void markLog(Context context) {
-		Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
-		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, context.getString(R.string.msgMarkLog));
-		i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);
-		context.sendBroadcast(i);
+		SwitchLog.addToLog(context, context.getString(R.string.msgMarkLog), true);
+		//		Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
+		//		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, context.getString(R.string.msgMarkLog));
+		//		i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);
+		//		context.sendBroadcast(i);
 	}
 
 	@Override

@@ -68,17 +68,17 @@ public class GovernorConfigHelper {
 		
 		@Override
 		public boolean hasThreshholdUpFeature() {
-			return true;
+			return CpuHandler.getInstance().hasThreshholdUp();
 		}
 		
 		@Override
 		public boolean hasThreshholdDownFeature() {
-			return false;
+			return CpuHandler.getInstance().hasThreshholdDown();
 		}
 
 		@Override
 		public boolean hasPowersaveBias() {
-			return true;
+			return CpuHandler.getInstance().hasPowersaveBias();
 		}
 
 		@Override
@@ -93,12 +93,12 @@ public class GovernorConfigHelper {
 
 		@Override
 		public boolean hasMinFrequency() {
-			return true;
+			return CpuHandler.getInstance().hasMinFrequency();
 		}
 
 		@Override
 		public boolean hasMaxFrequency() {
-			return true;
+			return CpuHandler.getInstance().hasMaxFrequency();
 		}
 	};
 

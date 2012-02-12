@@ -29,4 +29,9 @@
         <item>3G only</item>
     </string-array>
 
+    <string name="log_msg_cpu_tuner_started">CPU tuner started</string>
+    <string name="log_msg_cpu_tuner_stoped">CPU tuner stoped</string>
+    <string name="log_msg_switchlog_start">Log start</string>
+    <string name="log_msg_switchlog_stop">Log stop</string>
+
 </resources>

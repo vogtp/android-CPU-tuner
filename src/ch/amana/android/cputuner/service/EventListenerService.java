@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
@@ -56,19 +57,21 @@ public class EventListenerService extends Service {
 		if (settingsStorage.isRunStatisticsService()) {
 			StatisticsReceiver.register(ctx);
 		} 
+		SwitchLog.addToLog(ctx, ctx.getString(R.string.log_msg_cpu_tuner_started));
 	}
 
 	private void stopCpuTuner() {
-		Context context = getApplicationContext();
-		Logger.w("Stopping cpu tuner services (" + SettingsStorage.getInstance(context).getVersionName() + ")");
+		Context ctx = getApplicationContext();
+		SettingsStorage settings = SettingsStorage.getInstance(ctx);
+		Logger.w("Stopping cpu tuner services (" + settings.getVersionName() + ")");
 		Logger.logStacktrace("Stopping cputuner services");
-		Context ctx = context.getApplicationContext();
+		SwitchLog.addToLog(ctx, ctx.getString(R.string.log_msg_cpu_tuner_stoped));
 		CallPhoneStateListener.unregister(ctx);
 		EventListenerReceiver.unregisterEventListenerReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
 		StatisticsReceiver.unregister(ctx);
-		ProfileAppwidgetProvider.updateView(context);
-		switch (SettingsStorage.getInstance(ctx).isStatusbarAddto()) {
+		ProfileAppwidgetProvider.updateView(ctx);
+		switch (settings.isStatusbarAddto()) {
 		case SettingsStorage.STATUSBAR_RUNNING:
 			Notifier.stopStatusbarNotifications(ctx);
 			break;

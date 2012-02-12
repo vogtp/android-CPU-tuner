@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
@@ -195,12 +194,10 @@ public class BackupRestoreHelper {
 				throw new Exception("Cannot restore configuration", e);
 			} finally {
 				CpuTunerProvider.setNotifyChanges(true);
-				Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
 				StringBuilder msg = new StringBuilder(context.getString(R.string.msg_config_loaded)).append(" ");
 				msg.append(name.replaceFirst("\\d+_", ""));
 				msg.append(" ").append(context.getString(R.string.msg_config));
-				i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, msg.toString());
-				context.sendBroadcast(i);
+				SwitchLog.addToLog(context, msg.toString());
 			}
 		}
 	}

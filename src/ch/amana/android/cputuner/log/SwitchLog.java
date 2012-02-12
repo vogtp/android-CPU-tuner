@@ -9,14 +9,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.db.DB;
 
 public class SwitchLog extends BroadcastReceiver {
 	private static SwitchLog instance;
 
-	public static final String ACTION_ADD_TO_LOG = "ch.amana.android.cputuner.ACTION_ADD_TO_LOG";
+	private static final String ACTION_ADD_TO_LOG = "ch.amana.android.cputuner.ACTION_ADD_TO_LOG";
 	public static final String ACTION_FLUSH_LOG = "ch.amana.android.cputuner.ACTION_FLUSH_LOG";
 	public static final String EXTRA_LOG_ENTRY = DB.SwitchLogDB.NAME_MESSAGE;
 	public static final String EXTRA_FLUSH_LOG = "EXTRA_FLUSH_LOG";
@@ -29,6 +31,7 @@ public class SwitchLog extends BroadcastReceiver {
 		if (instance == null) {
 			instance = new SwitchLog(ctx);
 		}
+		instance.onReceive(ctx, getLogIntent(ctx.getString(R.string.log_msg_switchlog_start), false));
 		ctx.registerReceiver(instance, new IntentFilter(Notifier.BROADCAST_PROFILE_CHANGED));
 		ctx.registerReceiver(instance, new IntentFilter(ACTION_ADD_TO_LOG));
 		ctx.registerReceiver(instance, new IntentFilter(ACTION_FLUSH_LOG));
@@ -36,6 +39,7 @@ public class SwitchLog extends BroadcastReceiver {
 
 	public static void stop(Context ctx) {
 		try {
+			instance.onReceive(ctx, getLogIntent(ctx.getString(R.string.log_msg_switchlog_stop), false));
 			instance.flushLogToDB(ctx);
 			ctx.unregisterReceiver(instance);
 		} catch (Throwable e) {
@@ -57,7 +61,7 @@ public class SwitchLog extends BroadcastReceiver {
 		if (intent == null) {
 			return;
 		}
-		if (ACTION_FLUSH_LOG.equals(intent.getAction())) {
+		if (ACTION_FLUSH_LOG.equals(intent.getAction()) || intent.getBooleanExtra(ACTION_FLUSH_LOG, false)) {
 			flushLogToDB(context);
 			return;
 		}
@@ -97,6 +101,33 @@ public class SwitchLog extends BroadcastReceiver {
 		} catch (Exception e) {
 			Logger.w("Cannot flush to switch log");
 		}
+	}
+
+	public static void addToLog(Context ctx, String msg) {
+		addToLog(ctx, msg, false);
+	}
+	public static void addToLog(Context ctx, String msg, boolean flush) {
+		ctx.sendBroadcast(getLogIntent(msg, flush));
+	}
+
+	private static Intent getLogIntent(String msg, boolean flush) {
+		Intent intent = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
+		intent.putExtra(SwitchLog.EXTRA_LOG_ENTRY, msg);
+		if (flush) {
+			intent.putExtra(SwitchLog.EXTRA_FLUSH_LOG, flush);
+		}
+		PowerProfiles powerProfiles = PowerProfiles.getInstance();
+		if (powerProfiles != null) {
+			intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, powerProfiles.getCurrentTriggerName());
+			intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, powerProfiles.getCurrentProfileName());
+			intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, powerProfiles.getCurrentVirtGovName());
+			intent.putExtra(DB.SwitchLogDB.NAME_AC, powerProfiles.isAcPower() ? 1 : 0);
+			intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, powerProfiles.getBatteryLevel());
+			intent.putExtra(DB.SwitchLogDB.NAME_CALL, powerProfiles.isCallInProgress() ? 1 : 0);
+			intent.putExtra(DB.SwitchLogDB.NAME_HOT, powerProfiles.isBatteryHot() ? 1 : 0);
+			intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, powerProfiles.isScreenOff() ? 1 : 0);
+		}
+		return intent;
 	}
 
 }
