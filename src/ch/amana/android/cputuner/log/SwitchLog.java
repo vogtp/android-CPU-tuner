@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
@@ -37,16 +38,24 @@ public class SwitchLog extends BroadcastReceiver {
 		ctx.registerReceiver(instance, new IntentFilter(ACTION_FLUSH_LOG));
 	}
 
-	public static void stop(Context ctx) {
-		try {
-			instance.onReceive(ctx, getLogIntent(ctx.getString(R.string.log_msg_switchlog_stop), false));
-			instance.flushLogToDB(ctx);
-			ctx.unregisterReceiver(instance);
-		} catch (Throwable e) {
-		}
-		instance = null;
+	public static void stop(final Context ctx) {
+		// make sure all messages are received
+		Handler h = new Handler();
+		h.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if (instance != null) {
+						instance.onReceive(ctx, getLogIntent(ctx.getString(R.string.log_msg_switchlog_stop), false));
+						instance.flushLogToDB(ctx);
+						ctx.unregisterReceiver(instance);
+					}
+				} catch (Throwable e) {
+				}
+				instance = null;
+			}
+		}, 2000);
 	}
-
 
 	public SwitchLog(Context ctx) {
 		super();
@@ -106,6 +115,7 @@ public class SwitchLog extends BroadcastReceiver {
 	public static void addToLog(Context ctx, String msg) {
 		addToLog(ctx, msg, false);
 	}
+
 	public static void addToLog(Context ctx, String msg, boolean flush) {
 		ctx.sendBroadcast(getLogIntent(msg, flush));
 	}
