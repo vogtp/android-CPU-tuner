@@ -6,7 +6,8 @@ V
 
 V 3.3.2
 * features
-- 
+- log start and stop in switchlog
+- clear all power usage from menu
 * bug fixes
 - fix crashes
 

@@ -33,5 +33,7 @@
     <string name="log_msg_cpu_tuner_stoped">CPU tuner stoped</string>
     <string name="log_msg_switchlog_start">Log start</string>
     <string name="log_msg_switchlog_stop">Log stop</string>
+    <string name="menuItemClearAllPowerCurrent">Clear power usage</string>
+    <string name="msg_clear_power_consumption_of_all_triggers">Clear power consumption of all triggers?</string>
 
 </resources>

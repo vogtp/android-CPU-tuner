@@ -267,7 +267,8 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	private void clearPowerConsumtion(final Uri uri) {
 		final Activity act = getActivity();
 		final ContentResolver resolver = act.getContentResolver();
-		Cursor c = resolver.query(uri, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
+		Cursor c = null;
+		c = resolver.query(uri, DB.Trigger.PROJECTION_DEFAULT, null, null, DB.Trigger.SORTORDER_DEFAULT);
 		if (c.moveToFirst()) {
 			final TriggerModel triggerModel = new TriggerModel(c);
 			Builder alertBuilder = new AlertDialog.Builder(act);
@@ -280,7 +281,6 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 					triggerModel.clearPowerCurrent();
 					try {
 						PowerProfiles.setUpdateTrigger(false);
-						//						resolver.update(DB.Trigger.CONTENT_URI, triggerModel.getValues(), DB.NAME_ID + "=?", new String[] { triggerModel.getDbId() + "" });
 						triggerModel.clearPowerCurrent();
 						ModelAccess.getInstace(getActivity()).updateTrigger(triggerModel, false);
 					} catch (Exception e) {
@@ -297,7 +297,22 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 		if (c != null && !c.isClosed()) {
 			c.close();
 		}
-		PowerProfiles.getInstance().reapplyProfile(true);
+	}
+
+	private void clearAllPowerConsumtion() {
+		final Activity act = getActivity();
+		Builder alertBuilder = new AlertDialog.Builder(act);
+		alertBuilder.setTitle(R.string.menuItemClearPowerCurrent);
+		alertBuilder.setMessage(getResources().getString(R.string.msg_clear_power_consumption_of_all_triggers));
+		alertBuilder.setNegativeButton(android.R.string.no, null);
+		alertBuilder.setPositiveButton(android.R.string.yes, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ModelAccess.getInstace(act).clearPowerUsage();
+			}
+		});
+		AlertDialog alert = alertBuilder.create();
+		alert.show();
 	}
 
 	private void deleteTrigger(final Uri uri) {
@@ -320,6 +335,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.list_option, menu);
+		inflater.inflate(R.menu.triggerlist_option, menu);
 	}
 
 	@Override
@@ -338,6 +354,10 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 		case R.id.menuItemInsert:
 			act.startActivity(new Intent(Intent.ACTION_INSERT, DB.Trigger.CONTENT_URI));
 			return true;
+		case R.id.menuItemClearAllPowerCurrent:
+			clearAllPowerConsumtion();
+			return true;
+
 		}
 		return false;
 	}
