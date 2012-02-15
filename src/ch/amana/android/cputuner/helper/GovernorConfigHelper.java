@@ -30,44 +30,6 @@ public class GovernorConfigHelper {
 		
 		@Override
 		public boolean hasThreshholdUpFeature() {
-			return true;
-		}
-		
-		@Override
-		public boolean hasThreshholdDownFeature() {
-			return true;
-		}
-
-		@Override
-		public boolean hasPowersaveBias() {
-			return true;
-		}
-
-		@Override
-		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
-			return null;
-		}
-
-		@Override
-		public boolean hasNewLabelCpuFreqMax() {
-			return false;
-		}
-
-		@Override
-		public boolean hasMinFrequency() {
-			return true;
-		}
-
-		@Override
-		public boolean hasMaxFrequency() {
-			return true;
-		}
-	};
-	
-	private static final GovernorConfig GOV_ONDEMAND = new GovernorConfig() {
-		
-		@Override
-		public boolean hasThreshholdUpFeature() {
 			return CpuHandler.getInstance().hasThreshholdUp();
 		}
 		
@@ -99,6 +61,44 @@ public class GovernorConfigHelper {
 		@Override
 		public boolean hasMaxFrequency() {
 			return CpuHandler.getInstance().hasMaxFrequency();
+		}
+	};
+	
+	private static final GovernorConfig GOV_ONDEMAND = new GovernorConfig() {
+		
+		@Override
+		public boolean hasThreshholdUpFeature() {
+			return true;
+		}
+		
+		@Override
+		public boolean hasThreshholdDownFeature() {
+			return false;
+		}
+
+		@Override
+		public boolean hasPowersaveBias() {
+			return true;
+		}
+
+		@Override
+		public CharSequence getNewLabelCpuFreqMax(Context ctx) {
+			return null;
+		}
+
+		@Override
+		public boolean hasNewLabelCpuFreqMax() {
+			return false;
+		}
+
+		@Override
+		public boolean hasMinFrequency() {
+			return true;
+		}
+
+		@Override
+		public boolean hasMaxFrequency() {
+			return true;
 		}
 	};
 
