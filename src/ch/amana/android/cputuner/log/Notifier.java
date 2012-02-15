@@ -20,7 +20,7 @@ public class Notifier extends BroadcastReceiver {
 	public static final String BROADCAST_PROFILE_CHANGED = "ch.amana.android.cputuner.profileChanged";
 	public static final String BROADCAST_DEVICESTATUS_CHANGED = "ch.amana.android.cputuner.deviceStatusChanged";
 
-	private static final int NOTIFICATION_PROFILE = 1;
+	public static final int NOTIFICATION_ID = 1;
 	private final NotificationManager notificationManager;
 	private final Context context;
 	private String contentTitle;
@@ -31,7 +31,7 @@ public class Notifier extends BroadcastReceiver {
 	private Notification notification;
 	private int icon;
 
-	public static void startStatusbarNotifications(Context ctx) {
+	public static Notification startStatusbarNotifications(Context ctx) {
 		if (instance == null) {
 			instance = new Notifier(ctx);
 		}
@@ -39,12 +39,13 @@ public class Notifier extends BroadcastReceiver {
 		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_PROFILE_CHANGED));
 		ctx.registerReceiver(instance, new IntentFilter(BROADCAST_DEVICESTATUS_CHANGED));
 		instance.notifyStatus();
+		return instance.notification;
 	}
 
 	public static void stopStatusbarNotifications(Context ctx) {
 		try {
 			ctx.unregisterReceiver(instance);
-			instance.notificationManager.cancel(NOTIFICATION_PROFILE);
+			instance.notificationManager.cancel(NOTIFICATION_ID);
 		} catch (Throwable e) {
 		}
 		instance = null;
@@ -100,7 +101,7 @@ public class Notifier extends BroadcastReceiver {
 			notification.when = System.currentTimeMillis();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 			try {
-				notificationManager.notify(NOTIFICATION_PROFILE, notification);
+				notificationManager.notify(NOTIFICATION_ID, notification);
 			} catch (Exception e) {
 				Logger.e("Cannot notify " + notification);
 			}

@@ -1,5 +1,6 @@
 package ch.amana.android.cputuner.service;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -43,12 +44,16 @@ public class EventListenerService extends Service {
 	private void startCpuTuner() {
 		Context ctx = getApplicationContext();
 		Logger.w("Starting cpu tuner services (" + SettingsStorage.getInstance(ctx).getVersionName() + ")");
+		// move to receiver ctx.getPackageManager().setComponentEnabledSetting(new ComponentName(ctx, getClass()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 		EventListenerReceiver.registerEventListenerReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
 		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
-			Notifier.startStatusbarNotifications(ctx);
+			Notification n = Notifier.startStatusbarNotifications(ctx);
+			if (n != null) {
+				startForeground(Notifier.NOTIFICATION_ID, n);
+			}
 		}
 		SettingsStorage settingsStorage = SettingsStorage.getInstance();
 		if (settingsStorage.isEnableLogProfileSwitches()) {
@@ -83,6 +88,7 @@ public class EventListenerService extends Service {
 			break;
 		}
 		SwitchLog.stop(ctx);
+		// ctx.getPackageManager().setComponentEnabledSetting(new ComponentName(ctx, getClass()), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
 		stopSelf();
 	}
 
