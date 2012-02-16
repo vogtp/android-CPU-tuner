@@ -14,7 +14,6 @@ import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.receiver.CallPhoneStateListener;
 import ch.amana.android.cputuner.receiver.EventListenerReceiver;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
-import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class EventListenerService extends Service {
 
@@ -75,7 +74,6 @@ public class EventListenerService extends Service {
 		EventListenerReceiver.unregisterEventListenerReceiver(ctx);
 		ctx.stopService(new Intent(ctx, ConfigurationAutoloadService.class));
 		StatisticsReceiver.unregister(ctx);
-		ProfileAppwidgetProvider.updateView(ctx);
 		switch (settings.isStatusbarAddto()) {
 		case SettingsStorage.STATUSBAR_RUNNING:
 			Notifier.stopStatusbarNotifications(ctx);
