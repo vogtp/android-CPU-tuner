@@ -130,9 +130,6 @@ public class SettingsStorage {
 	private boolean powerStrongerThanScreenoff;
 
 	private ProfileModel switchCpuSetting = ProfileModel.NO_PROFILE;
-	private int appwidgetCount = -1;
-
-
 
 
 	public void forgetValues() {
@@ -769,34 +766,6 @@ public class SettingsStorage {
 
 	public boolean isShowWidgetServices() {
 		return getPreferences().getBoolean("prefKeyShowServices", true);
-	}
-
-	public int getAppWidgetsCount() {
-		if (appwidgetCount < 0) {
-			appwidgetCount = getLocalPreferences().getInt(PREF_KEY_APPWIDGET_COUNT, 0);
-		}
-		return appwidgetCount;
-	}
-
-	public void setAppWidgetsCount(int c) {
-		if (c < 0) {
-			c = 0;
-		}
-		Editor editor = getLocalPreferences().edit();
-		editor.putInt(PREF_KEY_APPWIDGET_COUNT, c);
-		editor.commit();
-	}
-
-	public boolean hasAppWidgets() {
-		return getAppWidgetsCount() > 0;
-	}
-
-	public void registerAppwidget() {
-		setAppWidgetsCount(getAppWidgetsCount() + 1);
-	}
-
-	public void unregisterAppwidget() {
-		setAppWidgetsCount(getAppWidgetsCount() - 1);
 	}
 
 	public String getVersionName() {
