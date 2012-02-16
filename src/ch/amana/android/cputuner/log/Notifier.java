@@ -57,10 +57,10 @@ public class Notifier extends BroadcastReceiver {
 			return;
 		}
 		notifyStatus();
-		//if (SettingsStorage.getInstance(context).hasAppWidgets()) {
+		if (SettingsStorage.getInstance(context).hasWidget()) {
 			// the widget checks if it exists
 			ProfileAppwidgetProvider.updateView(context);
-		//}
+		}
 	}
 
 	public Notifier(final Context ctx) {
