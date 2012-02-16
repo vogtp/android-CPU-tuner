@@ -76,12 +76,13 @@
             style="@style/styleAppwidgetValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvGov" />
+            android:layout_below="@+id/tvGov"
+            android:paddingBottom="5dp" />
 
         <include
             android:id="@+id/llServiceIcons_ref"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="65dp"
             android:layout_below="@+id/tvBattery"
             layout="@layout/service_icons_view" />
 

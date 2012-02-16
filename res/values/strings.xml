@@ -35,5 +35,7 @@
     <string name="log_msg_switchlog_stop">Log stop</string>
     <string name="menuItemClearAllPowerCurrent">Clear power usage</string>
     <string name="msg_clear_power_consumption_of_all_triggers">Clear power consumption of all triggers?</string>
+    <string name="labelAppWidgetProfile2x1">CPU tuner (small)</string>
+    <string name="labelAppWidgetProfile2x2">CPU tuner</string>
 
 </resources>

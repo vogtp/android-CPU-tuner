@@ -6,9 +6,12 @@ V
 
 V 3.3.2
 * features
+- smaller widget and a new tiny widget
 - log start and stop in switchlog
 - clear all power usage from menu
 * bug fixes
+- prevent background process from being killed (if notification is shown)
+- fix capabilities check
 - fix crashes
 
 V 3.3.1

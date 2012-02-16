@@ -54,13 +54,14 @@
         <item name="android:ellipsize">end</item>
         <item name="android:lines">1</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:paddingTop">3dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingTop">4dp</item>
         <item name="android:paddingLeft">2dp</item>
     </style>
 
     <style name="styleAppwidgetLabel" parent="android:Widget.TextView">
         <item name="android:textColor">@android:color/darker_gray</item>
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">9sp</item>
         <item name="android:paddingLeft">3dp</item>
     </style>
 

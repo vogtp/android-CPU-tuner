@@ -26,18 +26,6 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 	private static int intentId = 100;
 
 	@Override
-	public void onEnabled(Context context) {
-		super.onEnabled(context);
-		SettingsStorage.getInstance(context).registerAppwidget();
-	}
-
-	@Override
-	public void onDisabled(Context context) {
-		SettingsStorage.getInstance(context).unregisterAppwidget();
-		super.onDisabled(context);
-	}
-
-	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		updateView(context);
 	}
@@ -164,7 +152,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		}
 		if (powerProfiles.isManualProfile()) {
 			StringBuilder sb = new StringBuilder(powerProfiles.getCurrentProfileName());
-			sb.append(" (").append(context.getString(R.string.msg_manual_profile)).append(")");
+			sb.append("\n(").append(context.getString(R.string.msg_manual_profile)).append(")");
 			views.setTextColor(R.id.tvProfile, Color.YELLOW);
 			views.setTextViewText(R.id.tvProfile, sb.toString());
 		} else {

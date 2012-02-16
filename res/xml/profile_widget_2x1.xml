@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="ch.amana.android.cputuner.view.appwidget.AppwidgetConfigureAction"
+    android:initialLayout="@layout/profile_appwidget"
+    android:minHeight="40dp"
+    android:minResizeHeight="40dp"
+    android:minResizeWidth="40dp"
+    android:minWidth="110dp"
+    android:previewImage="@drawable/widget_2x1_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0" >
+
+</appwidget-provider>

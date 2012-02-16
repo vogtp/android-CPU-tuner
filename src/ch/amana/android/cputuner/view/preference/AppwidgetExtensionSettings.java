@@ -24,9 +24,7 @@ public class AppwidgetExtensionSettings extends BaseSettings {
 
 		if (Logger.DEBUG) {
 			addPreferencesFromResource(R.xml.settings_widget_extention_debug);
-			Preference prefWidgetCount = findPreference(SettingsStorage.PREF_KEY_APPWIDGET_COUNT);
 			Preference prefEnableWidget = findPreference(SettingsStorage.PREF_KEY_WIDGET);
-			prefWidgetCount.setTitle("Count: " + SettingsStorage.getInstance(this).getAppWidgetsCount());
 			prefEnableWidget.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				@Override
 				public boolean onPreferenceChange(Preference preference, Object newValue) {

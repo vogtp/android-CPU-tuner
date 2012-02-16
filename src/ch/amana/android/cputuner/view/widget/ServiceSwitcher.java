@@ -55,6 +55,8 @@ public class ServiceSwitcher extends LinearLayout implements View.OnClickListene
 		settings = SettingsStorage.getInstance();
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		addView(inflater.inflate(R.layout.service_icons_view, null));
+		LinearLayout llServices = (LinearLayout) findViewById(R.id.llServiceIcons);
+		llServices.setOrientation(LinearLayout.HORIZONTAL);
 		initaliseButton(R.id.ivServiceAirplane);
 		initaliseButton(R.id.ivServiceAirplane);
 		initaliseButton(R.id.ivServiceBluetooth);

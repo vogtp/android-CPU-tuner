@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201202092"
-    android:versionName="3.3.2-pre2" >
+    android:versionCode="201202160"
+    android:versionName="3.3.2-pre5" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -348,7 +348,8 @@
 
         <receiver
             android:name=".view.appwidget.ProfileAppwidgetProvider"
-            android:enabled="true" >
+            android:enabled="true"
+            android:label="@string/labelAppWidgetProfile2x2" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
@@ -358,9 +359,22 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/profile_widget" />
+                android:resource="@xml/profile_widget_2x2" />
         </receiver>
-        <receiver android:name=".view.appwidget.ProfileAppwidgetUpdateReceiver" >
+        <receiver
+            android:name=".view.appwidget.ProfileAppwidgetProvider2x1"
+            android:enabled="true"
+            android:label="@string/labelAppWidgetProfile2x1" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/profile_widget_2x1" />
         </receiver>
 
         <activity android:name=".view.preference.AppwidgetExtensionSettings" >

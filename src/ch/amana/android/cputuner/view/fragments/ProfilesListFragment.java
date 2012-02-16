@@ -146,7 +146,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 						columnIndex == DB.CpuProfile.INDEX_MOBILEDATA_CONNECTION_STATE ||
 						columnIndex == DB.CpuProfile.INDEX_AIRPLANEMODE_STATE ||
 						columnIndex == DB.CpuProfile.INDEX_GPS_STATE) {
-					ServiceSwitcher serviceSwitcher = (ServiceSwitcher) view.getParent().getParent();
+					ServiceSwitcher serviceSwitcher = (ServiceSwitcher) view.getParent().getParent().getParent();
 					serviceSwitcher.setButtuonState((String) view.getTag(), cursor.getInt(columnIndex));
 					return true;
 				}
