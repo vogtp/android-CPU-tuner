@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import android.text.TextUtils;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.IGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
@@ -233,5 +234,17 @@ public class CpuHandlerMulticore extends CpuHandler {
 			}
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public String getCpuTimeinstate() {
+		File[] files = getFiles(TIME_IN_STATE, CPU_STATS_DIR);
+		for (int i = 0; i < files.length; i++) {
+			String tis = RootHandler.readFile(files[i]);
+			if (!RootHandler.NOT_AVAILABLE.equals(tis) && !TextUtils.isEmpty(tis)) {
+				return tis;
+			}
+		}
+		return RootHandler.NOT_AVAILABLE;
 	}
 }
