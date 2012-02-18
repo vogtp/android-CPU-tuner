@@ -9,8 +9,10 @@ import android.app.AlertDialog.Builder;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -36,6 +38,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
+import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -224,6 +227,12 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		updateStatistics(getActivity());
+	}
+
 	private void updateStatistics(Context context) {
 		StatsAdvancedFragment self = this;
 		if (getActivity() == null) {
@@ -239,6 +248,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 			}
 			self = lastInstanceCreated;
 		}
+		context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
 		self.getLoaderManager().restartLoader(0, null, self);
 		self.setDataState(LoadingState.LOADING);
 	}
@@ -302,6 +312,14 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 				resolver.delete(DB.TimeInStateIndex.CONTENT_URI, null, null);
 				resolver.delete(DB.TimeInStateValue.CONTENT_URI, null, null);
 				updateStatistics(ctx);
+				Handler h = new Handler();
+				h.postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						updateStatistics(ctx);
+					}
+				}, 2000);
 			}
 		});
 		AlertDialog alert = alertBuilder.create();
