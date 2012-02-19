@@ -110,7 +110,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="now"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textSize="7sp"
             android:visibility="gone" />
