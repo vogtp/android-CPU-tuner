@@ -174,9 +174,13 @@ public class CpuHandlerMulticore extends CpuHandler {
 							// get the other cpu files
 							fileList.add(0, file);
 							for (int i = 1; i < cpus.length; i++) {
-								file = new File(CPU_BASE_DIR + cpus[i] + CPUFREQ_DIR + subDir, name);
-								if (fileOk(file)) {
-									fileList.add(i, file);
+								try {
+									file = new File(CPU_BASE_DIR + cpus[i] + CPUFREQ_DIR + subDir, name);
+									if (fileOk(file)) {
+										fileList.add(i, file);
+									}
+								} catch (IndexOutOfBoundsException e) {
+									Logger.w("What cpu index? " + i, e);
 								}
 							}
 						}
