@@ -34,17 +34,26 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		if (Logger.DEBUG) {
 			Logger.v("ProfileAppWidget update");
 		}
-		ComponentName compName = new ComponentName(ctx, ProfileAppwidgetProvider.class);
+		ComponentName compName2x2 = new ComponentName(ctx, ProfileAppwidgetProvider.class);
+		ComponentName compName2x1 = new ComponentName(ctx, ProfileAppwidgetProvider2x1.class);
 		AppWidgetManager manager = AppWidgetManager.getInstance(ctx);
-		int[] appWidgetIds = manager.getAppWidgetIds(compName);
-		if (appWidgetIds != null && appWidgetIds.length > 0) {
+		int[] appWidgetIds2x2 = manager.getAppWidgetIds(compName2x2);
+		int[] appWidgetIds2x1 = manager.getAppWidgetIds(compName2x1);
+		boolean has2x2 = appWidgetIds2x2 != null && appWidgetIds2x2.length > 0;
+		boolean has2x1 = appWidgetIds2x1 != null && appWidgetIds2x1.length > 0;
+		if (has2x2 || has2x1) {
 			RemoteViews rViews;
 			if (SettingsStorage.getInstance(ctx).hasWidget()) {
 				rViews = createAppWidgetView(ctx);
 			} else {
 				rViews = createNotEnabledView(ctx);
 			}
-			manager.updateAppWidget(compName, rViews);
+			if (has2x2) {
+				manager.updateAppWidget(compName2x2, rViews);
+			}
+			if (has2x1) {
+				manager.updateAppWidget(compName2x1, rViews);
+			}
 		}
 	}
 
