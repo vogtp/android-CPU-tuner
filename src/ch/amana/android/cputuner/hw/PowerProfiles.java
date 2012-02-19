@@ -281,7 +281,7 @@ public class PowerProfiles {
 		} else {
 			int wifiState = settings.getNetworkStateOnWifi();
 			if (wifiState != SERVICE_STATE_LEAVE && ServicesHandler.isWifiConnected(context)) {
-					state = wifiState;
+				state = wifiState;
 			}
 		}
 		if (state == SERVICE_STATE_LEAVE) {
@@ -636,7 +636,11 @@ public class PowerProfiles {
 	}
 
 	public String getCurrentVirtGovName() {
-		return ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName();
+		try {
+			return ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName();
+		} catch (Exception e) {
+			return RootHandler.NOT_AVAILABLE;
+		}
 	}
 
 	public CharSequence getBatteryInfo() {
