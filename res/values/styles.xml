@@ -18,6 +18,7 @@
         <item name="android:paddingRight">3dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/appwidget_button_center</item>
     </style>
 
     <style name="logText" parent="android:Widget.TextView">
