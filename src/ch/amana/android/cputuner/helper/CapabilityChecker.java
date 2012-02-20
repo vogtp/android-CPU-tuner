@@ -37,6 +37,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 
 	@Override
 	protected void onPostExecute(CapabilityChecker result) {
+		RootHandler.clearLogLocation();
 		if (ctx instanceof CapabilityCheckerActivity) {
 			((CapabilityCheckerActivity) ctx).dispalyChecks();
 		}
@@ -251,7 +252,10 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 
 			for (int i = 0; i < governors.length; i++) {
 				String gov = governors[i];
-				// pd.setMessage("Governor: " + gov);
+				try {
+					wait(500);
+				} catch (Throwable e) {
+				}
 				checkGov(gov);
 			}
 		} catch (Throwable t) {

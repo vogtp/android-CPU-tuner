@@ -153,8 +153,6 @@ public class CapabilityCheckerActivity extends Activity {
 		openLogFile(FILE_CAPABILITIESCHECK);
 		checker = CapabilityChecker.getCapabilityChecker(this);
 
-		closeLogFile();
-
 		tvSummary = (TextView) findViewById(R.id.tvSummary);
 		tvMailMessage = (TextView) findViewById(R.id.tvMailMessage);
 		tvDeviceInfo = (TextView) findViewById(R.id.tvDeviceInfo);
@@ -231,7 +229,6 @@ public class CapabilityCheckerActivity extends Activity {
 	}
 
 	private void openLogFile(String fileName) {
-
 		RootHandler.setLogLocation(getFilePath(fileName));
 	}
 
