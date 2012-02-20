@@ -61,16 +61,18 @@ public class RootHandler {
 					writeLog(msg);
 					Logger.i(msg);
 				}
-				copyStreamToLog("OUT", p.getInputStream(), out);
-				copyStreamToLog("ERR", p.getErrorStream(), err);
 				if (p.exitValue() != 255) {
 					success = true;
 				}
-				if (Logger.DEBUG && out != null && !TextUtils.isEmpty(out)) {
-					Logger.v(cmd.trim() + " stdout: " + out);
-				}
-				if (Logger.DEBUG && err != null && !TextUtils.isEmpty(err)) {
-					Logger.v(cmd.trim() + " stderr: " + err);
+				if (Logger.DEBUG) {
+					copyStreamToLog("OUT", p.getInputStream(), out);
+					copyStreamToLog("ERR", p.getErrorStream(), err);
+					if (out != null && !TextUtils.isEmpty(out)) {
+						Logger.v(cmd.trim() + " stdout: " + out);
+					}
+					if (err != null && !TextUtils.isEmpty(err)) {
+						Logger.v(cmd.trim() + " stderr: " + err);
+					}
 				}
 			} catch (InterruptedException e) {
 				Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
