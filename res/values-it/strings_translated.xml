@@ -580,18 +580,6 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="msg_install_widget_dia">Il widget non può essere aggiunto perché l’estensione non è installata </string>
     <string name="buNeg_install_widget_dia">No, grazie.</string>
     <string name="buPos_install_widget_dia">Ottienilo…</string>
-
-    <string-array name="deviceStatesCurrent">
-        <item>Abilita</item>
-        <item>Disabilita</item>
-        <item>Pulse</item>
-    </string-array>
-    <string-array name="mobiledataStatesCurrent">
-        <item>Solo 2G</item>
-        <item>3G/2G</item>
-        <item>Solo 3G</item>
-    </string-array>
-
     <string name="tigger_name_all">Tutti</string>
     <string name="tigger_name_batteryfull">Batteria carica</string>
     <string name="tigger_name_batteryused">Batteria usata</string>

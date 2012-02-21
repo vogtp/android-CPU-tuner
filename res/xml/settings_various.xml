@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="@string/prefVarious"
-	android:key="prefKeyVarious"
-	android:summary="@string/prefVariousLong"
->
-	<Preference android:key="prefKeyVersion"></Preference>
-	<Preference
-		android:key="prefKeyChangelog"
-		android:title="@string/prefChangelog"
-	></Preference> 
-	<PreferenceCategory
-		android:title="@string/prefScreenLegal"
-		android:key="prefKeyLegal"
-	>
-		<Preference
-			android:key="prefKeyLegalGnomeIcons"
-			android:summary="@string/prefLegalGnomeIconsLong"
-			android:title="@string/prefLegalGnomeIcons"
-		></Preference>
-		<Preference
-			android:summary="@string/prefLegalServiceIconsLong"
-			android:title="@string/prefLegalServiceIcons"
-			android:key="prefKeyLegalServiceIcons"
-		></Preference>
-		<!-- <Preference android:key="prefKeyLegalOxigenIcons"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefKeyVarious"
+    android:summary="@string/prefVariousLong"
+    android:title="@string/prefVarious" ><Preference android:key="prefKeyVersion" >
+    </Preference>
+    <Preference
+        android:key="prefKeyChangelog"
+        android:title="@string/prefChangelog" >
+    </Preference>
+
+    <PreferenceCategory
+        android:key="prefKeyLegal"
+        android:title="@string/prefScreenLegal" >
+        <Preference
+            android:key="prefKeyLegalGnomeIcons"
+            android:summary="@string/prefLegalGnomeIconsLong"
+            android:title="@string/prefLegalGnomeIcons" >
+        </Preference>
+        <Preference
+            android:key="prefKeyLegalServiceIcons"
+            android:summary="@string/prefLegalServiceIconsLong"
+            android:title="@string/prefLegalServiceIcons" >
+        </Preference>
+        <!--
+             <Preference android:key="prefKeyLegalOxigenIcons"
 			android:title="@string/prefLegalOxigenIcons" android:summary="@string/prefLegalOxigenIconsLong"></Preference>
-		-->
-	</PreferenceCategory>
+        -->
+    </PreferenceCategory>
+
 </PreferenceScreen>

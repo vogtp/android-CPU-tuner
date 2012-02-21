@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Mittelwert</item>
+        <item>Aktueller Wert</item>
+        <!-- <item>Batterie % pro Stunde</item> -->
+        <item>Keine Berechnung</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntriesBeta">
+        <item>Mittelwert</item>
+        <item>Aktueller Wert</item>
+        <item>Batterie % pro Stunde</item>
+        <item>Keine Berechnung</item>
+    </string-array>
+
     <string name="not_supported">Nicht unterstützt!</string>
     <string name="msg_no_battery_current">Diese Gerät unterstützt die Berechnung des aktuellen Stromverbrauches nicht.</string>
     <string name="msg_no_avg_battery_current">Diese Gerät unterstützt die Berechnung des mittleren Stromverbrauches nicht.</string>
