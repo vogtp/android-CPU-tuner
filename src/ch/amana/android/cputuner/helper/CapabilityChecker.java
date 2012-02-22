@@ -252,10 +252,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 
 			for (int i = 0; i < governors.length; i++) {
 				String gov = governors[i];
-				try {
-					wait(500);
-				} catch (Throwable e) {
-				}
+				sleep(100);
 				checkGov(gov);
 			}
 		} catch (Throwable t) {
@@ -268,6 +265,13 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 				pd.dismiss();
 			} catch (Throwable e) {
 			}
+		}
+	}
+
+	private void sleep(long time) {
+		try {
+			wait(time);
+		} catch (Throwable e) {
 		}
 	}
 
@@ -285,6 +289,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			RootHandler.writeLog("*** check setting governor ***");
 		}
 		cpuHandler.setCurGov(gov);
+		sleep(50);
 		String activeGov = cpuHandler.getCurCpuGov();
 		if (RootHandler.NOT_AVAILABLE.equals(activeGov)) {
 			result.readGovernor = CheckResult.FAILURE;
@@ -298,7 +303,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 				result.writeGovernor = CheckResult.FAILURE;
 			}
 		}
-
+		sleep(50);
 		if (CpuHandler.GOV_USERSPACE.equals(gov)) {
 			result.readMinFreq = CheckResult.DOES_NOT_APPLY;
 			result.writeMinFreq = CheckResult.DOES_NOT_APPLY;
@@ -318,6 +323,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			}
 		}
 
+		sleep(50);
 		if (governorConfig.hasThreshholdUpFeature()) {
 			checkUpThreshold(result);
 		} else {
@@ -325,6 +331,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			result.writeUpThreshold = CheckResult.DOES_NOT_APPLY;
 		}
 
+		sleep(50);
 		if (governorConfig.hasThreshholdDownFeature()) {
 			checkDownThreshold(result);
 		} else {
@@ -344,10 +351,12 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readDownThreshold = CheckResult.SUCCESS;
 		cpuHandler.setGovThresholdUp(99);
+		sleep(50);
 		if (Logger.DEBUG) {
 			RootHandler.writeLog("*** Writing down threshold 1 ***");
 		}
 		cpuHandler.setGovThresholdDown(80);
+		sleep(50);
 		int readThresh = cpuHandler.getGovThresholdDown();
 		if (readThresh != 80) {
 			result.writeDownThreshold = CheckResult.FAILURE;
@@ -357,6 +366,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			RootHandler.writeLog("*** Writing down threshold 2 ***");
 		}
 		cpuHandler.setGovThresholdDown(90);
+		sleep(50);
 		readThresh = cpuHandler.getGovThresholdDown();
 		if (readThresh == 90) {
 			result.writeDownThreshold = CheckResult.SUCCESS;
@@ -376,10 +386,12 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readUpThreshold = CheckResult.SUCCESS;
 		cpuHandler.setGovThresholdDown(95);
+		sleep(50);
 		if (Logger.DEBUG) {
 			RootHandler.writeLog("*** Writing up threshold 1 ***");
 		}
 		cpuHandler.setGovThresholdUp(98);
+		sleep(50);
 		int readThresh = cpuHandler.getGovThresholdUp();
 		if (readThresh != 98) {
 			result.writeUpThreshold = CheckResult.FAILURE;
@@ -389,6 +401,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			RootHandler.writeLog("*** Writing up threshold 2 ***");
 		}
 		cpuHandler.setGovThresholdUp(99);
+		sleep(50);
 		readThresh = cpuHandler.getGovThresholdUp();
 		if (readThresh == 99) {
 			result.writeUpThreshold = CheckResult.SUCCESS;
@@ -408,10 +421,12 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readMinFreq = CheckResult.SUCCESS;
 		cpuHandler.setMaxCpuFreq(maxFreq);
+		sleep(50);
 		if (Logger.DEBUG) {
 			RootHandler.writeLog("*** Writing min frequency 1 ***");
 		}
 		cpuHandler.setMinCpuFreq(minFreq);
+		sleep(50);
 		int readFreq = cpuHandler.getMinCpuFreq();
 		if (readFreq != minFreq) {
 			result.writeMinFreq = CheckResult.FAILURE;
@@ -421,6 +436,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			RootHandler.writeLog("*** Writing min frequency 2 ***");
 		}
 		cpuHandler.setMinCpuFreq(minCheckFreq);
+		sleep(50);
 		readFreq = cpuHandler.getMinCpuFreq();
 		if (readFreq == minCheckFreq) {
 			result.writeMinFreq = CheckResult.SUCCESS;
@@ -441,10 +457,12 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		}
 		result.readMaxFreq = CheckResult.SUCCESS;
 		cpuHandler.setMinCpuFreq(minFreq);
+		sleep(50);
 		if (Logger.DEBUG) {
 			RootHandler.writeLog("*** Writing max frequency 1 ***");
 		}
 		cpuHandler.setMaxCpuFreq(maxFreq);
+		sleep(50);
 		int readFreq = cpuHandler.getMaxCpuFreq();
 		if (readFreq != maxFreq) {
 			result.writeMaxFreq = CheckResult.FAILURE;
@@ -454,6 +472,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			RootHandler.writeLog("*** Writing max frequency 2 ***");
 		}
 		cpuHandler.setMaxCpuFreq(maxCheckFreq);
+		sleep(50);
 		readFreq = cpuHandler.getMaxCpuFreq();
 		if (readFreq == maxCheckFreq) {
 			result.writeMaxFreq = CheckResult.SUCCESS;
@@ -476,6 +495,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			RootHandler.writeLog("*** Writing userfrequency 1 ***");
 		}
 		cpuHandler.setUserCpuFreq(maxFreq);
+		sleep(50);
 		int readFreq = cpuHandler.getUserCpuFreq();
 		if (readFreq != maxFreq) {
 			result.writeMaxFreq = CheckResult.FAILURE;
@@ -484,7 +504,9 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		if (Logger.DEBUG) {
 			RootHandler.writeLog("*** Writing userfrequency 2 ***");
 		}
+		sleep(50);
 		cpuHandler.setUserCpuFreq(maxCheckFreq);
+		sleep(50);
 		readFreq = cpuHandler.getUserCpuFreq();
 		if (readFreq == maxCheckFreq) {
 			result.writeMaxFreq = CheckResult.SUCCESS;
