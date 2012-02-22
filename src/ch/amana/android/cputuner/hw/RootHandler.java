@@ -115,6 +115,7 @@ public class RootHandler {
 				logWriter.write(line);
 				logWriter.write("\n");
 				logWriter.flush();
+				//Runtime.getRuntime().exec("sync");
 			} catch (Exception e) {
 				Logger.w("Cannot write >" + line + "< to log file", e);
 			}
