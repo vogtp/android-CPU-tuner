@@ -637,6 +637,9 @@ public class PowerProfiles {
 
 	public String getCurrentVirtGovName() {
 		try {
+			if (currentProfile == null) {
+				return RootHandler.NOT_AVAILABLE;
+			}
 			return ModelAccess.getInstace(context).getVirtualGovernor(currentProfile.getVirtualGovernor()).getVirtualGovernorName();
 		} catch (Exception e) {
 			return RootHandler.NOT_AVAILABLE;

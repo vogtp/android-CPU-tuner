@@ -188,7 +188,7 @@ public class ModelAccess implements BackupRestoreCallback {
 				Cursor c = null;
 				try {
 					c = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, SELECTION_BY_ID, new String[] { Long.toString(id) }, null);
-					if (c.moveToFirst()) {
+					if (c != null && c.moveToFirst()) {
 						virtGov = new VirtualGovernorModel(c);
 					}
 				} finally {
