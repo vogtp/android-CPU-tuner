@@ -240,6 +240,11 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 			return false;
 		}
 
+		if (info == null) {
+			Logger.e("bad menuInfo is null");
+			return false;
+		}
+
 		final Uri uri = ContentUris.withAppendedId(DB.Trigger.CONTENT_URI, info.id);
 		switch (item.getItemId()) {
 		case R.id.menuItemDelete:
