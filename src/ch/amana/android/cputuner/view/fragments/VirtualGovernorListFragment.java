@@ -95,14 +95,14 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 				} else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP) {
 					if (cursor.getInt(columnIndex) < 1) {
 						((TextView) view).setText("");
-						((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.INVISIBLE);
+						((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.GONE);
 						return true;
 					}
 					((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.VISIBLE);
 				} else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN) {
 					if (cursor.getInt(columnIndex) < 1) {
 						((TextView) view).setText("");
-						((View) view.getParent()).findViewById(R.id.labelThresholdDown).setVisibility(View.INVISIBLE);
+						((View) view.getParent()).findViewById(R.id.labelThresholdDown).setVisibility(View.GONE);
 						return true;
 					}
 					((View) view.getParent()).findViewById(R.id.labelThresholdDown).setVisibility(View.VISIBLE);
