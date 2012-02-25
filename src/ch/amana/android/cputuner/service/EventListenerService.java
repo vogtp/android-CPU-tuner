@@ -33,7 +33,7 @@ public class EventListenerService extends Service {
 		} else if (ACTION_STOP_CPUTUNER.equals(serviceAction)) {
 			stopCpuTuner();
 		}
-		return START_STICKY;
+		return START_STICKY;// | START_CONTINUATION_MASK;
 	}
 
 	@Override
@@ -43,11 +43,14 @@ public class EventListenerService extends Service {
 	private void startCpuTuner() {
 		Context ctx = getApplicationContext();
 		Logger.w("Starting cpu tuner services (" + SettingsStorage.getInstance(ctx).getVersionName() + ")");
-		// move to receiver ctx.getPackageManager().setComponentEnabledSetting(new ComponentName(ctx, getClass()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+		//		ctx.getPackageManager().setComponentEnabledSetting(new ComponentName(ctx, getClass()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 		EventListenerReceiver.registerEventListenerReceiver(ctx);
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
+		//		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
+		//			Notifier.startStatusbarNotifications(ctx);
+		//		}
 		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
 			Notification n = Notifier.startStatusbarNotifications(ctx);
 			if (n != null) {
@@ -60,7 +63,7 @@ public class EventListenerService extends Service {
 		}
 		if (settingsStorage.isRunStatisticsService()) {
 			StatisticsReceiver.register(ctx);
-		} 
+		}
 		SwitchLog.addToLog(ctx, ctx.getString(R.string.log_msg_cpu_tuner_started));
 	}
 
