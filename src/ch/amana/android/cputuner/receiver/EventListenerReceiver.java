@@ -2,9 +2,11 @@ package ch.amana.android.cputuner.receiver;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -18,6 +20,8 @@ public class EventListenerReceiver extends BroadcastReceiver {
 
 	public static void registerEventListenerReceiver(Context context) {
 		synchronized (lock) {
+			context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, EventListenerReceiver.class), PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+					PackageManager.DONT_KILL_APP);
 			if (receiver == null) {
 				receiver = new EventListenerReceiver();
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
