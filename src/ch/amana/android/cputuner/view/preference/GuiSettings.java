@@ -1,11 +1,13 @@
 package ch.amana.android.cputuner.view.preference;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.BatteryHandler;
@@ -96,22 +98,26 @@ public class GuiSettings extends BaseSettings {
 					Logger.w("Cannot parse prefKeyStatusbarAddToChoice as int", e);
 					return false;
 				}
+				settings.setStatusbarAddto(newValueInt);
+				final Context context = getApplicationContext();
 				switch (newValueInt) {
 				case SettingsStorage.STATUSBAR_NEVER:
-					Notifier.stopStatusbarNotifications(getApplicationContext());
+					Notifier.stopStatusbarNotifications(context);
 					break;
 				case SettingsStorage.STATUSBAR_ALWAYS:
-					Notifier.startStatusbarNotifications(getApplicationContext());
+					Notifier.startStatusbarNotifications(context);
 					break;
 				case SettingsStorage.STATUSBAR_RUNNING:
 					if (settings.isEnableProfiles()) {
-						Notifier.startStatusbarNotifications(getApplicationContext());
+						Notifier.startStatusbarNotifications(context);
 					} else {
-						Notifier.stopStatusbarNotifications(getApplicationContext());
+						Notifier.stopStatusbarNotifications(context);
 					}
 					break;
 
 				}
+				CpuTunerApplication.stopCpuTuner(getApplicationContext());
+				CpuTunerApplication.startCpuTuner(getApplicationContext());
 				updateView();
 				return true;
 			}

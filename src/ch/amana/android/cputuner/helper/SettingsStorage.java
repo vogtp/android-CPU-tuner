@@ -25,7 +25,6 @@ import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 
 public class SettingsStorage {
 
-
 	public static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 	public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
@@ -131,7 +130,6 @@ public class SettingsStorage {
 
 	private ProfileModel switchCpuSetting = ProfileModel.NO_PROFILE;
 
-
 	public void forgetValues() {
 		checkedBeta = false;
 		checkedProfiles = false;
@@ -220,6 +218,13 @@ public class SettingsStorage {
 		return statusbarAddTo;
 	}
 
+	public void setStatusbarAddto(int i) {
+		statusbarAddTo = i;
+		Editor editor = getPreferences().edit();
+		editor.putString("prefKeyStatusbarAddToChoice", Integer.toString(i));
+		editor.commit();
+	}
+
 	public boolean isStatusbarNotifications() {
 		if (!checkedStatusbarNotifications) {
 			checkedStatusbarNotifications = true;
@@ -263,7 +268,7 @@ public class SettingsStorage {
 
 	public int getTrackCurrentType() {
 		if (trackCurrent < 0) {
-			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "3"); 
+			String trackCurrentStr = getPreferences().getString("prefKeyCalcPowerUsageType", "3");
 			try {
 				trackCurrent = Integer.parseInt(trackCurrentStr);
 			} catch (Exception e) {

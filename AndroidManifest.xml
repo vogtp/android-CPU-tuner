@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201202180"
-    android:versionName="3.3.2" >
+    android:versionCode="201202250"
+    android:versionName="3.3.3-rc1" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -89,6 +89,8 @@
         android:protectionLevel="dangerous" >
     </permission>
 
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+
     <application
         android:name=".application.CpuTunerApplication"
         android:allowBackup="true"
@@ -165,6 +167,17 @@
 			<intent-filter>
 				<action android:name="android.net.wifi.STATE_CHANGE"></action>
 			</intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.net.conn.BACKGROUND_DATA_SETTING_CHANGED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
             -->
         </receiver>
 
