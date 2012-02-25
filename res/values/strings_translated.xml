@@ -458,9 +458,9 @@
 		Mobiledata will never be switched during calls, regardless of the
 		state of this option.</string>
     <string name="prefSwitchProfileWhilePhoneNotIdle">Switch profile during call</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOn">Wifi will be switch off even if connected to a wifi
+    <string name="prefSwitchWifiOnConnectedNetworkOn">Wifi will be switched off even if connected to a wifi
 		network.</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOff">Wifi will not be switch off if connected to a wifi
+    <string name="prefSwitchWifiOnConnectedNetworkOff">Wifi will not be switched off if connected to a wifi
 		network.</string>
     <string name="prefSwitchWifiOnConnectedNetwork">Switch wifi if connected</string>
     <string name="prefServiceSwitches">Service Switches</string>
