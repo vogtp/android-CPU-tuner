@@ -411,74 +411,78 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 	}
 
 	private void checkMinCpuFreq(GovernorResult result) {
-		if (Logger.DEBUG) {
-			RootHandler.writeLog("*** check setting min frequencies of " + result.governor + " ***");
-		}
-		int min = cpuHandler.getMinCpuFreq();
-		if (min < 1) {
-			result.readMinFreq = CheckResult.FAILURE;
-			return;
-		}
-		result.readMinFreq = CheckResult.SUCCESS;
-		cpuHandler.setMaxCpuFreq(maxFreq);
-		sleep(50);
-		if (Logger.DEBUG) {
-			RootHandler.writeLog("*** Writing min frequency 1 ***");
-		}
-		cpuHandler.setMinCpuFreq(minFreq);
-		sleep(50);
-		int readFreq = cpuHandler.getMinCpuFreq();
-		if (readFreq != minFreq) {
-			result.writeMinFreq = CheckResult.FAILURE;
-			return;
-		}
-		if (Logger.DEBUG) {
-			RootHandler.writeLog("*** Writing min frequency 2 ***");
-		}
-		cpuHandler.setMinCpuFreq(minCheckFreq);
-		sleep(50);
-		readFreq = cpuHandler.getMinCpuFreq();
-		if (readFreq == minCheckFreq) {
-			result.writeMinFreq = CheckResult.SUCCESS;
-		} else {
-			result.writeMinFreq = CheckResult.FAILURE;
-		}
+		result.readMinFreq = CheckResult.DOES_NOT_APPLY;
+		result.writeMinFreq = CheckResult.DOES_NOT_APPLY;
+		//		if (Logger.DEBUG) {
+		//			RootHandler.writeLog("*** check setting min frequencies of " + result.governor + " ***");
+		//		}
+		//		int min = cpuHandler.getMinCpuFreq();
+		//		if (min < 1) {
+		//			result.readMinFreq = CheckResult.FAILURE;
+		//			return;
+		//		}
+		//		result.readMinFreq = CheckResult.SUCCESS;
+		//		cpuHandler.setMaxCpuFreq(maxFreq);
+		//		sleep(50);
+		//		if (Logger.DEBUG) {
+		//			RootHandler.writeLog("*** Writing min frequency 1 ***");
+		//		}
+		//		cpuHandler.setMinCpuFreq(minFreq);
+		//		sleep(50);
+		//		int readFreq = cpuHandler.getMinCpuFreq();
+		//		if (readFreq != minFreq) {
+		//			result.writeMinFreq = CheckResult.FAILURE;
+		//			return;
+		//		}
+		//		if (Logger.DEBUG) {
+		//			RootHandler.writeLog("*** Writing min frequency 2 ***");
+		//		}
+		//		cpuHandler.setMinCpuFreq(minCheckFreq);
+		//		sleep(50);
+		//		readFreq = cpuHandler.getMinCpuFreq();
+		//		if (readFreq == minCheckFreq) {
+		//			result.writeMinFreq = CheckResult.SUCCESS;
+		//		} else {
+		//			result.writeMinFreq = CheckResult.FAILURE;
+		//		}
 
 	}
 
 	private void checkMaxCpuFreq(GovernorResult result) {
-		if (Logger.DEBUG) {
-			RootHandler.writeLog("*** check setting max frequencies of " + result.governor + " ***");
-		}
-		int max = cpuHandler.getMaxCpuFreq();
-		if (max < 1) {
-			result.readMaxFreq = CheckResult.FAILURE;
-			return;
-		}
-		result.readMaxFreq = CheckResult.SUCCESS;
-		cpuHandler.setMinCpuFreq(minFreq);
-		sleep(50);
-		if (Logger.DEBUG) {
-			RootHandler.writeLog("*** Writing max frequency 1 ***");
-		}
-		cpuHandler.setMaxCpuFreq(maxFreq);
-		sleep(50);
-		int readFreq = cpuHandler.getMaxCpuFreq();
-		if (readFreq != maxFreq) {
-			result.writeMaxFreq = CheckResult.FAILURE;
-			return;
-		}
-		if (Logger.DEBUG) {
-			RootHandler.writeLog("*** Writing max frequency 2 ***");
-		}
-		cpuHandler.setMaxCpuFreq(maxCheckFreq);
-		sleep(50);
-		readFreq = cpuHandler.getMaxCpuFreq();
-		if (readFreq == maxCheckFreq) {
-			result.writeMaxFreq = CheckResult.SUCCESS;
-		} else {
-			result.writeMaxFreq = CheckResult.FAILURE;
-		}
+		result.readMaxFreq = CheckResult.DOES_NOT_APPLY;
+		result.writeMaxFreq = CheckResult.DOES_NOT_APPLY;
+		//		if (Logger.DEBUG) {
+		//			RootHandler.writeLog("*** check setting max frequencies of " + result.governor + " ***");
+		//		}
+		//		int max = cpuHandler.getMaxCpuFreq();
+		//		if (max < 1) {
+		//			result.readMaxFreq = CheckResult.FAILURE;
+		//			return;
+		//		}
+		//		result.readMaxFreq = CheckResult.SUCCESS;
+		//		cpuHandler.setMinCpuFreq(minFreq);
+		//		sleep(50);
+		//		if (Logger.DEBUG) {
+		//			RootHandler.writeLog("*** Writing max frequency 1 ***");
+		//		}
+		//		cpuHandler.setMaxCpuFreq(maxFreq);
+		//		sleep(50);
+		//		int readFreq = cpuHandler.getMaxCpuFreq();
+		//		if (readFreq != maxFreq) {
+		//			result.writeMaxFreq = CheckResult.FAILURE;
+		//			return;
+		//		}
+		//		if (Logger.DEBUG) {
+		//			RootHandler.writeLog("*** Writing max frequency 2 ***");
+		//		}
+		//		cpuHandler.setMaxCpuFreq(maxCheckFreq);
+		//		sleep(50);
+		//		readFreq = cpuHandler.getMaxCpuFreq();
+		//		if (readFreq == maxCheckFreq) {
+		//			result.writeMaxFreq = CheckResult.SUCCESS;
+		//		} else {
+		//			result.writeMaxFreq = CheckResult.FAILURE;
+		//		}
 	}
 
 	private void checkUserCpuFreq(GovernorResult result) {
