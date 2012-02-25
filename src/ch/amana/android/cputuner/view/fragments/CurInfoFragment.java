@@ -142,11 +142,11 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			fragmentTransaction.remove(governorFragment);
 			fragmentTransaction.commit();
 		}
-		if (settings.isUseVirtualGovernors() && settings.isEnableProfiles()) {
+		//		if (settings.isUseVirtualGovernors() && settings.isEnableProfiles()) {
 			governorFragment = new VirtualGovernorFragment(this, governorHelper);
-		} else {
-			governorFragment = new GovernorFragment(this, governorHelper, true);
-		}
+		//		} else {
+		//			governorFragment = new GovernorFragment(this, governorHelper, true);
+		//		}
 
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment, "governorFragment");
