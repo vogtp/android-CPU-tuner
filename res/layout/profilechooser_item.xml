@@ -5,5 +5,4 @@
     android:layout_height="match_parent"
     android:lines="1"
     android:padding="10dp"
-    android:text="profile"
     android:textAppearance="?android:attr/textAppearanceMedium" />
