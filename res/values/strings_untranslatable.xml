@@ -58,21 +58,20 @@
         <item>2</item>
         <item>0</item>
     </string-array>
-
-    <integer-array name="deviceStatesCurrentValues">
+    <string-array name="deviceStatesCurrentValues">
 
         <!-- <item>0</item> -->
         <item>1</item>
         <item>2</item>
         <item>4</item>
-    </integer-array>
-    <integer-array name="mobiledataStatesCurrentValues">
+    </string-array>
+    <string-array name="mobiledataStatesCurrentValues">
 
         <!-- <item>0</item> -->
 
         <item>1</item>
         <item>2</item>
         <item>4</item>
-    </integer-array>
+    </string-array>
 
 </resources>
