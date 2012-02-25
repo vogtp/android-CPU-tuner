@@ -4,26 +4,16 @@
     <string-array name="deviceStatesCurrent">
 
         <!-- <item>Auto</item> -->
-        <item>Enable</item>
-        <item>Disable</item>
-        <item>Pulse</item>
+        <item>Ein</item>
+        <item>Aus</item>
+        <item>Pulsieren</item>
     </string-array>
     <string-array name="mobiledataStatesCurrent">
 
         <!-- <item>Auto</item> -->
-
-        <item>2G only</item>
+        <item>Nur 2G</item>
         <item>3G/2G</item>
-        <item>3G only</item>
+        <item>Nur 3G</item>
     </string-array>
-
-    <string name="log_msg_cpu_tuner_started">CPU tuner started</string>
-    <string name="log_msg_cpu_tuner_stoped">CPU tuner stoped</string>
-    <string name="log_msg_switchlog_start">Log start</string>
-    <string name="log_msg_switchlog_stop">Log stop</string>
-    <string name="menuItemClearAllPowerCurrent">Clear power usage</string>
-    <string name="msg_clear_power_consumption_of_all_triggers">Clear power consumption of all triggers?</string>
-    <string name="labelAppWidgetProfile2x1">CPU tuner (klein)</string>
-    <string name="labelAppWidgetProfile2x2">CPU tuner</string>
 
 </resources>
