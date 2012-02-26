@@ -53,7 +53,7 @@ public class InstallHelper {
 
 	public static void initialise(final Context ctx) {
 		SettingsStorage settings = SettingsStorage.getInstance(ctx);
-		int defaultProfilesVersion = SettingsStorage.getInstance().getDefaultProfilesVersion();
+		int defaultProfilesVersion = settings.getDefaultProfilesVersion();
 		switch (defaultProfilesVersion) {
 		case 0:
 		case 1:
