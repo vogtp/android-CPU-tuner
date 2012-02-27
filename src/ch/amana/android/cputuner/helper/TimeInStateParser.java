@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import android.os.SystemClock;
 import ch.amana.android.cputuner.log.Logger;
 
 public class TimeInStateParser {
@@ -25,6 +26,9 @@ public class TimeInStateParser {
 				long time = Long.parseLong(vals[1]);
 				states.put(freq, time);
 			}
+			// add deep sleep
+			long deepSleep = (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()) / 10;
+			states.put(0, deepSleep);
 			//				parseOk = lines.length == states.size();
 		} catch (Exception e) {
 			Logger.w("cannot parse timeinstate");
