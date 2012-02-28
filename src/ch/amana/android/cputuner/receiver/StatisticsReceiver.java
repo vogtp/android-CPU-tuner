@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.helper.TimeInStateParser;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -28,6 +26,9 @@ public class StatisticsReceiver extends BroadcastReceiver {
 	private static StatisticsReceiver receiver = null;
 
 	private static TimeInStateParser oldTisParser = null;
+	private static String triggerNameOld = null;
+	private static String profileNameOld = null;
+	private static String virtGovNameOld = null;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -41,34 +42,26 @@ public class StatisticsReceiver extends BroadcastReceiver {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				final Bundle extras = i.getExtras();
-				updateStatistics(ctx, extras);
+				updateStatistics(ctx);
 			}
 
 		}).start();
 
 	}
 
-	public static void updateStatistics(Context context, Bundle extras) {
+	public static void updateStatistics(Context context) {
 		Logger.d("Adding timeinstate to input queue");
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
 		TimeInStateParser tisParser = new TimeInStateParser(timeinstate);
-		if (oldTisParser != null) {
-			if (extras == null) {
-				extras = new Bundle();
-			}
-			String triggerName = extras.getString(DB.SwitchLogDB.NAME_TRIGGER);
-			String profileName = extras.getString(DB.SwitchLogDB.NAME_PROFILE);
-			String virtGovName = extras.getString(DB.SwitchLogDB.NAME_VIRTGOV);
-			if (TextUtils.isEmpty(triggerName)) {
-				triggerName = PowerProfiles.getInstance(context).getCurrentTriggerName();
-			}
-			if (TextUtils.isEmpty(profileName)) {
-				profileName = PowerProfiles.getInstance(context).getCurrentProfileName();
-			}
-			if (TextUtils.isEmpty(virtGovName)) {
-				virtGovName = PowerProfiles.getInstance(context).getCurrentVirtGovName();
-			}
+		String triggerName = triggerNameOld;
+		String profileName = profileNameOld;
+		String virtGovName = virtGovNameOld;
+		triggerNameOld = PowerProfiles.getInstance(context).getCurrentTriggerName();
+		profileNameOld = PowerProfiles.getInstance(context).getCurrentProfileName();
+		virtGovNameOld = PowerProfiles.getInstance(context).getCurrentVirtGovName();
+
+
+		if (oldTisParser != null && triggerName != null && profileName != null && virtGovName != null) {
 			ContentResolver resolver = context.getContentResolver();
 
 			Cursor indexCursor = resolver.query(TimeInStateIndex.CONTENT_URI, DB.PROJECTION_ID, TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV, new String[] { triggerName,
