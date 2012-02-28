@@ -232,10 +232,6 @@ public class PowerProfiles {
 				intent.putExtra(DB.SwitchLogDB.NAME_CALL, callInProgress ? 1 : 0);
 				intent.putExtra(DB.SwitchLogDB.NAME_HOT, batteryHot ? 1 : 0);
 				intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, screenOff ? 1 : 0);
-			} else if (settings.isRunStatisticsService()) {
-				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
-				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
-				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
 			}
 
 			lastBatteryLevel = -1;
