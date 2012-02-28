@@ -7,6 +7,7 @@ import android.content.Intent;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.helper.UnitsHelper;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.model.ModelAccess;
@@ -649,7 +650,7 @@ public class PowerProfiles {
 		if (isBatteryHot()) {
 			bat.append(context.getString(R.string.label_hot)).append(" ");
 		}
-		bat.append(getBatteryTemperature()).append(" °C)");
+		bat.append(UnitsHelper.temperature(getBatteryTemperature())).append(")");
 		return bat.toString();
 	}
 

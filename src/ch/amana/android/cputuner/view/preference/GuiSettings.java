@@ -116,8 +116,10 @@ public class GuiSettings extends BaseSettings {
 					break;
 
 				}
-				CpuTunerApplication.stopCpuTuner(getApplicationContext());
-				CpuTunerApplication.startCpuTuner(getApplicationContext());
+				if (settings.isRunNotificationInForeground()) {
+					CpuTunerApplication.stopCpuTuner(getApplicationContext());
+					CpuTunerApplication.startCpuTuner(getApplicationContext());
+				}
 				updateView();
 				return true;
 			}

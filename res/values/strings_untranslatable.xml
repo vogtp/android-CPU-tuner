@@ -5,6 +5,11 @@
     <string name="ms">ms</string>
     <string name="percent">%</string>
 
+    <string-array name="prefUnitSystemValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
     <string-array name="prefCalcPowerUsageValues">
         <item>1</item>
         <item>2</item>

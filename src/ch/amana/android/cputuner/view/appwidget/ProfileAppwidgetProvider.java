@@ -26,9 +26,16 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 	private static int intentId = 100;
 
 	@Override
-	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+	public void onReceive(Context context, Intent intent) {
+		super.onReceive(context, intent);
 		updateView(context);
 	}
+
+	//FIXME do we need both?
+	//		@Override
+	//		public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+	//			updateView(context);
+	//		}
 
 	public static void updateView(Context ctx) {
 		if (Logger.DEBUG) {

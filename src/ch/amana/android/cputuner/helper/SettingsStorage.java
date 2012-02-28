@@ -782,4 +782,13 @@ public class SettingsStorage {
 		}
 		return "";
 	}
+
+	public boolean isRunNotificationInForeground() {
+		// FIXME remove
+		return getPreferences().getBoolean("prefKeyRunNotiInFg", false);
+	}
+
+	public String getUnitSystem() {
+		return getPreferences().getString("prefKeyUnitSystem", UnitsHelper.UNITS_DEFAULT);
+	}
 }

@@ -29,6 +29,13 @@
             android:summary="@string/prefKeyCalcPowerUsageLong"
             android:title="@string/prefKeyCalcPowerUsage" >
         </ListPreference>
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/prefUnitSystemEntries"
+            android:entryValues="@array/prefUserLevelValues"
+            android:key="prefKeyUnitSystem"
+            android:summary="@string/prefUnitSystemLong"
+            android:title="@string/prefUnitSystem" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="prefKeyCatNotifications"
@@ -49,6 +56,10 @@
             android:summaryOn="@string/prefKeyEnableProfilesOn"
             android:title="@string/prefStatusbarNotifications" >
         </CheckBoxPreference>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefKeyRunNotiInFg"
+            android:title="Forground Notifications" />
     </PreferenceCategory>
 
 </PreferenceScreen>
