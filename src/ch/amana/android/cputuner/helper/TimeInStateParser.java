@@ -23,11 +23,11 @@ public class TimeInStateParser {
 			for (int i = 0; i < lines.length; i++) {
 				String[] vals = lines[i].split(" +");
 				int freq = Integer.parseInt(vals[0]);
-				long time = Long.parseLong(vals[1]);
+				long time = Long.parseLong(vals[1]) * 10;
 				states.put(freq, time);
 			}
 			// add deep sleep
-			long deepSleep = (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()) / 10;
+			long deepSleep = (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
 			states.put(0, deepSleep);
 			//				parseOk = lines.length == states.size();
 		} catch (Exception e) {
