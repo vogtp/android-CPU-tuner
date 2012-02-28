@@ -570,8 +570,8 @@
     <string name="log_msg_cpu_tuner_stoped">CPU tuner 停止</string>
     <string name="log_msg_switchlog_start">Log 開始</string>
     <string name="log_msg_switchlog_stop">Log 停止</string>
-    <string name="menuItemClearAllPowerCurrent">Clear power usage</string>
-    <string name="msg_clear_power_consumption_of_all_triggers">全トリガーの電力消費をクリアしますか?</string>
+    <string name="menuItemClearAllPowerCurrent">電力消費量をクリア</string>
+    <string name="msg_clear_power_consumption_of_all_triggers">全トリガーの電力消費量をクリアしますか?</string>
     <string name="labelAppWidgetProfile2x1">CPU tuner (small)</string>
     <string name="labelAppWidgetProfile2x2">CPU tuner</string>
     <string name="not_supported">未サポート</string>
@@ -581,13 +581,13 @@
     <string-array name="prefCalcPowerUsageEntries">
         <item>平均値</item>
         <item>現在値</item>
-        <!-- <item>Battery % per hour</item> -->
+        <!-- <item>1時間あたりの使用率 % </item> -->
         <item>計算しない</item>
     </string-array>
     <string-array name="prefCalcPowerUsageEntriesBeta">
         <item>平均値</item>
         <item>現在値</item>
-        <item>Battery % per hour</item>
+        <item>1時間あたりの使用率 % </item>
         <item>計算しない</item>
     </string-array>
 
