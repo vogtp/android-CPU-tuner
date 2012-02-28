@@ -34,6 +34,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
+import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
@@ -118,7 +119,17 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 				PercentGraphView percentGraphView = (PercentGraphView) parent.findViewById(R.id.percentGraphView1);
 				if (columnIndex == TimeInStateValue.INDEX_STATE) {
 					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
-					((TextView) view).setText(Integer.toString(state / 1000));
+					View labelState = ((View) view.getParent()).findViewById(R.id.labelState);
+					TextView tv = ((TextView) view);
+					if (state == 0) {
+						tv.setText(R.string.deep_sleep);
+						tv.setEms(6);
+						labelState.setVisibility(View.GONE);
+					}else {
+						tv.setText(Integer.toString(state / 1000));
+						tv.setEms(3);
+						labelState.setVisibility(View.VISIBLE);
+					}
 					percentGraphView.setHiglight(state == curCpuFreq);
 					return true;
 				} else
@@ -127,7 +138,8 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 					float percent = (float) (time * 100f / totalTime);
 					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", percent));
 					percentGraphView.setPercent(percent);
-					((TextView) view).setText(Long.toString(time));
+					((TextView) view).setText(Long.toString(time) + "\n" + GuiUtils.milliesToString(time));
+					//((TextView) view).setText(Long.toString(time));
 					return true;
 				}
 				return false;
@@ -355,16 +367,17 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		switch (id) {
 		case LOADER_DATA:
 			setDataState(LoadingState.LOADING);
-			return new CursorLoader(getActivity(), TimeInStateValue.CONTENT_URI_GROUPED, null, TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV,
+			return new CursorLoader(getActivity(), TimeInStateValue.CONTENT_URI_GROUPED, null/*TimeInStateValue.PROJECTION_TIME_SUM*/,
+					TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV,
 					new String[] { trigger, profile, virtgov }, TimeInStateValue.SORTORDER_DEFAULT);
 		case LOADER_TIGGER:
-			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_TRIGGER }, null, null,
+			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, TimeInStateIndex.PROJECTION_TRIGGER, null, null,
 					TimeInStateIndex.SORTORDER_DEFAULT);
 		case LOADER_PROFILE:
-			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_PROFILE }, null, null,
+			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, TimeInStateIndex.PROJECTION_PROFILE, null, null,
 					TimeInStateIndex.SORTORDER_DEFAULT);
 		case LOADER_VIRTGOV:
-			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, new String[] { TimeInStateIndex.NAME_VIRTGOV }, null, null,
+			return new CursorLoader(getActivity(), TimeInStateIndex.CONTENT_URI_DISTINCT, TimeInStateIndex.PROJECTION_VIRTGOV, null, null,
 					TimeInStateIndex.SORTORDER_DEFAULT);
 
 		default:
