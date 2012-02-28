@@ -20,6 +20,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -124,10 +125,12 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 					if (state == 0) {
 						tv.setText(R.string.deep_sleep);
 						tv.setEms(6);
+						tv.setGravity(Gravity.LEFT);
 						labelState.setVisibility(View.GONE);
 					}else {
 						tv.setText(Integer.toString(state / 1000));
 						tv.setEms(3);
+						tv.setGravity(Gravity.RIGHT);
 						labelState.setVisibility(View.VISIBLE);
 					}
 					percentGraphView.setHiglight(state == curCpuFreq);
@@ -138,7 +141,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 					float percent = (float) (time * 100f / totalTime);
 					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", percent));
 					percentGraphView.setPercent(percent);
-					((TextView) view).setText(Long.toString(time) + "\n" + GuiUtils.milliesToString(time));
+					((TextView) view).setText(GuiUtils.milliesToString(time));
 					//((TextView) view).setText(Long.toString(time));
 					return true;
 				}
