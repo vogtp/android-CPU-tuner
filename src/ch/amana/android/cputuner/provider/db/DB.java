@@ -477,6 +477,9 @@ public interface DB {
 		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV };
 
 		public static final String[] PROJECTION_DEFAULT = colNames;
+		public static final String[] PROJECTION_TRIGGER = new String[] { TimeInStateIndex.NAME_TRIGGER };
+		public static final String[] PROJECTION_PROFILE = new String[] { TimeInStateIndex.NAME_PROFILE };
+		public static final String[] PROJECTION_VIRTGOV = new String[] { TimeInStateIndex.NAME_VIRTGOV };
 
 		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
 		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
