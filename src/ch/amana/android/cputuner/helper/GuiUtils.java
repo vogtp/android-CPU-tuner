@@ -13,6 +13,16 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 
 public class GuiUtils {
 
+	public static String milliesToString(long millies) {
+
+		long h = (long) Math.floor(millies / (60 * 60 * 1000));
+		long m = (long) Math.floor((millies - h * 60 * 60 * 1000) / (60 * 1000));
+		long s = (long) Math.floor((millies - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
+		long mi = millies % 1000;
+
+		return String.format("%02d:%02d:%02d.%03d", h, m, s, mi);
+	}
+
 	public static int setSpinner(Spinner spinner, long dbId) {
 		if (spinner == null) {
 			return Integer.MIN_VALUE;
