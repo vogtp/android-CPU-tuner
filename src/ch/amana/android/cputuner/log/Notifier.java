@@ -12,7 +12,6 @@ import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
-import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class Notifier extends BroadcastReceiver {
 
@@ -57,10 +56,10 @@ public class Notifier extends BroadcastReceiver {
 			return;
 		}
 		notifyStatus();
-		if (SettingsStorage.getInstance(context).hasWidget()) {
-			// the widget checks if it exists
-			ProfileAppwidgetProvider.updateView(context);
-		}
+		//		if (SettingsStorage.getInstance(context).hasWidget()) {
+		//			// the widget checks if it exists
+		//			ProfileAppwidgetProvider.updateView(context);
+		//		}
 	}
 
 	public Notifier(final Context ctx) {

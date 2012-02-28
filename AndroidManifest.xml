@@ -368,6 +368,9 @@
                 <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
                 <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
                 <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="ch.amana.android.cputuner.triggerChanged" />
+                <action android:name="ch.amana.android.cputuner.profileChanged" />
+                <action android:name="ch.amana.android.cputuner.deviceStatusChanged" />
             </intent-filter>
 
             <meta-data
@@ -383,6 +386,9 @@
                 <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
                 <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
                 <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="ch.amana.android.cputuner.triggerChanged" />
+                <action android:name="ch.amana.android.cputuner.profileChanged" />
+                <action android:name="ch.amana.android.cputuner.deviceStatusChanged" />
             </intent-filter>
 
             <meta-data

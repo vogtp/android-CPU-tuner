@@ -51,6 +51,7 @@ public class StatisticsReceiver extends BroadcastReceiver {
 
 	public static void updateStatistics(Context context) {
 		Logger.d("Adding timeinstate to input queue");
+		SettingsStorage settings = SettingsStorage.getInstance(context);
 		String timeinstate = CpuHandler.getInstance().getCpuTimeinstate();
 		TimeInStateParser tisParser = new TimeInStateParser(timeinstate);
 		String triggerName = triggerNameOld;

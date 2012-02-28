@@ -22,6 +22,7 @@ import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.provider.db.DB;
 import ch.amana.android.cputuner.service.TunerService;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
+import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 
 public class PopupChooserActivity extends ListActivity {
@@ -73,6 +74,10 @@ public class PopupChooserActivity extends ListActivity {
 			ArrayAdapter<CharSequence> adapter = ServiceSwitcher.getServiceStateAdapter(this, serviceType);
 			adapter.setDropDownViewResource(R.layout.profilechooser_item);
 			setListAdapter(adapter);
+		}
+		if (SettingsStorage.getInstance(this).hasWidget()) {
+			// the widget checks if it exists
+			ProfileAppwidgetProvider.updateView(this);
 		}
 	}
 

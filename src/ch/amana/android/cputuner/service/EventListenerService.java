@@ -48,16 +48,19 @@ public class EventListenerService extends Service {
 		CallPhoneStateListener.register(ctx);
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
-		//		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
-		//			Notifier.startStatusbarNotifications(ctx);
-		//		}
-		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
-			Notification n = Notifier.startStatusbarNotifications(ctx);
-			if (n != null) {
-				startForeground(Notifier.NOTIFICATION_ID, n);
+		SettingsStorage settingsStorage = SettingsStorage.getInstance();
+		if (settingsStorage.isRunNotificationInForeground()) {
+			if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
+				Notification n = Notifier.startStatusbarNotifications(ctx);
+				if (n != null) {
+					startForeground(Notifier.NOTIFICATION_ID, n);
+				}
+			}
+		} else {
+			if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
+				Notifier.startStatusbarNotifications(ctx);
 			}
 		}
-		SettingsStorage settingsStorage = SettingsStorage.getInstance();
 		if (settingsStorage.isEnableLogProfileSwitches()) {
 			SwitchLog.start(ctx);
 		}
