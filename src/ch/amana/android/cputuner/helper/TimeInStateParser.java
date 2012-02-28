@@ -53,6 +53,9 @@ public class TimeInStateParser {
 
 	public void setBaseline(TimeInStateParser bl) {
 		this.baseline = bl;
+		if (bl != null) {
+			bl.baseline = null;
+		}
 	}
 
 }
