@@ -597,5 +597,43 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
     <string name="gov_name_normal">Normale</string>
     <string name="gov_name_extremeSaveBattery">Risparmio energetico estremo </string>
     <string name="gov_name_saveBattery">Risparmio energetico</string>
+    <string name="deep_sleep">sospensione</string>
+
+    <string-array name="deviceStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>Abilita</item>
+        <item>Disabilita</item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>Solo 2G</item>
+        <item>3G/2G</item>
+        <item>Solo 3G</item>
+    </string-array>
+
+    <string name="log_msg_cpu_tuner_started">CPU tuner avviato</string>
+    <string name="log_msg_cpu_tuner_stoped">CPU tuner arrestato</string>
+    <string name="log_msg_switchlog_start">Inizio Log</string>
+    <string name="log_msg_switchlog_stop">Fine Log</string>
+    <string name="menuItemClearAllPowerCurrent">Cancella consumo</string>
+    <string name="msg_clear_power_consumption_of_all_triggers">Cancellare il consumo di tutti i trigger? </string>
+    <string name="labelAppWidgetProfile2x1">CPU tuner (piccolo)</string>
+    <string name="labelAppWidgetProfile2x2">CPU tuner</string>
+
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Valore medio</item>
+        <item>Valore corrente</item>
+        <!-- <item>Batteria % per ora</item> -->
+        <item>Nessun calcolo</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntriesBeta">
+        <item>Valore medio</item>
+        <item>Valore corrente</item>
+        <item>Batteria % per ora</item>
+        <item>Nessun calcolo</item>
+    </string-array>
 
 </resources>
