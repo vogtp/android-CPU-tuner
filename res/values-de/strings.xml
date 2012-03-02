@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="deep_sleep">Deep sleep</string>
-
-    <string-array name="deviceStatesCurrent">
-
-        <!-- <item>Auto</item> -->
-        <item>Ein</item>
-        <item>Aus</item>
-        <item>Pulsieren</item>
-    </string-array>
-    <string-array name="mobiledataStatesCurrent">
-
-        <!-- <item>Auto</item> -->
-        <item>Nur 2G</item>
-        <item>3G/2G</item>
-        <item>Nur 3G</item>
-    </string-array>
-
 </resources>
