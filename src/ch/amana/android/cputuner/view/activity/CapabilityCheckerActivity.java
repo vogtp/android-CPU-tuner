@@ -55,6 +55,7 @@ public class CapabilityCheckerActivity extends Activity {
 	private static final String FILE_GETPROP = "getProp.txt";
 
 	public static final String FILE_CAPABILITIESCHECK = "capabilitiy_check.txt";
+	private static final String PREF_SUBPATH = "shared_prefs";
 	private CapabilityChecker checker;
 	private TextView tvSummary;
 	private TableLayout tlCapabilities;
@@ -278,10 +279,6 @@ public class CapabilityCheckerActivity extends Activity {
 
 		Intent sendIntent = new Intent(Intent.ACTION_SEND);
 
-		Logger.v("Send report: getDeviceInfo");
-		getDeviceInfo();
-		Logger.v("Send report: getKernelInfo");
-		getKernelInfo();
 		Logger.v("Send report: CpuHandler.getInstance");
 		CpuHandler cpuHandler = CpuHandler.getInstance();
 
@@ -375,7 +372,11 @@ public class CapabilityCheckerActivity extends Activity {
 		try {
 			Logger.v("Send report: appending file FILE_DEVICE_INFO");
 			ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(file));
-			addFileToZip(zip, "output", FILE_DEVICE_INFO);
+
+			Logger.v("Send report: getDeviceInfo");
+			getDeviceInfo(zip);
+			Logger.v("Send report: getKernelInfo");
+			getKernelInfo(zip);
 			Logger.v("Send report: appending file FILE_CAPABILITIESCHECK");
 			addFileToZip(zip, "", CapabilityCheckerActivity.FILE_CAPABILITIESCHECK);
 			Logger.v("Send report: appending file FILE_GETPROP");
@@ -388,6 +389,9 @@ public class CapabilityCheckerActivity extends Activity {
 			addDirectoryToZip(zip, "cpufreq", new File(CpuHandler.CPU_BASE_DIR), 5);
 			Logger.v("Send report: appending file battery");
 			addDirectoryToZip(zip, "battery", new File(BatteryHandler.BATTERY_DIR), 1);
+			Logger.v("Send report: appending settings");
+			addDirectoryToZip(zip, PREF_SUBPATH, new File(getApplicationInfo().dataDir, PREF_SUBPATH), 1);
+			//			addSettingsFiles(zip);
 			zip.flush();
 			zip.close();
 
@@ -403,11 +407,11 @@ public class CapabilityCheckerActivity extends Activity {
 		}
 	}
 
-	private void addDirectoryToZip(ZipOutputStream zip, String prefix, File cpuFreqDir, int depth) {
+	private void addDirectoryToZip(ZipOutputStream zip, String prefix, File dir, int depth) {
 		if (depth < 0) {
 			return;
 		}
-		File[] cpufreqFiles = cpuFreqDir.listFiles();
+		File[] cpufreqFiles = dir.listFiles();
 		if (cpufreqFiles == null) {
 			return;
 		}
@@ -420,10 +424,8 @@ public class CapabilityCheckerActivity extends Activity {
 		}
 	}
 
-	private void getKernelInfo() {
-		openLogFile(FILE_KERNEL_CPUFREQ_CONFIG);
-		RootHandler.execute("gunzip< /proc/config.gz | grep CONFIG_CPU_FREQ");
-		closeLogFile();
+	private void getKernelInfo(ZipOutputStream zip) {
+		getFileFromCommand(zip, "gunzip < /proc/config.gz | grep CONFIG_CPU_FREQ", FILE_KERNEL_CPUFREQ_CONFIG);
 	}
 
 	private void addFileToZip(ZipOutputStream zip, String zipDir, String fileName) {
@@ -438,7 +440,6 @@ public class CapabilityCheckerActivity extends Activity {
 			zip.putNextEntry(new ZipEntry(zipDir + "/" + file.getName()));
 			FileInputStream in = new FileInputStream(file);
 			byte[] buf = new byte[1024];
-
 			int len;
 			while ((len = in.read(buf)) > 0) {
 				zip.write(buf, 0, len);
@@ -451,10 +452,34 @@ public class CapabilityCheckerActivity extends Activity {
 
 	}
 
-	private void getDeviceInfo() {
-		openLogFile(FILE_GETPROP);
-		RootHandler.execute("getprop");
-		closeLogFile();
+	private void addStringToZip(ZipOutputStream zip, String content, String filename) {
+
+		try {
+			zip.putNextEntry(new ZipEntry(filename));
+			byte[] buf = content.getBytes();
+			zip.write(buf, 0, buf.length);
+			zip.closeEntry();
+		} catch (IOException e) {
+			Logger.w("Error exporting adding text to zip ", e);
+		}
+
+	}
+
+	private void getDeviceInfo(ZipOutputStream zip) {
+		getFileFromCommand(zip, "getprop", FILE_GETPROP);
+	}
+
+	private void getFileFromCommand(ZipOutputStream zip, String cmd, String file) {
+		if (Logger.DEBUG) {
+			openLogFile(file);
+			RootHandler.execute(cmd);
+			closeLogFile();
+		} else {
+			StringBuilder out = new StringBuilder();
+			// RootHandler.execute(cmd + " > " + getFilePath(file).getAbsolutePath());
+			RootHandler.execute(cmd, out, out);
+			addStringToZip(zip, out.toString(), file);
+		}
 	}
 
 }
