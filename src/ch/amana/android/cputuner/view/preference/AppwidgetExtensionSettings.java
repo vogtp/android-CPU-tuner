@@ -1,12 +1,14 @@
 package ch.amana.android.cputuner.view.preference;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
+import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;
 
 public class AppwidgetExtensionSettings extends BaseSettings {
 
@@ -21,7 +23,21 @@ public class AppwidgetExtensionSettings extends BaseSettings {
 		}
 		addPreferencesFromResource(R.xml.settings_widget_extention);
 
+		findPreference("prefKeyWidgetTextSize").setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				Handler h = new Handler();
+				h.postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						ProfileAppwidgetProvider.updateView(getApplicationContext());
+					}
+				}, 1000);
+				return true;
+			}
+		});
 		if (Logger.DEBUG) {
 			addPreferencesFromResource(R.xml.settings_widget_extention_debug);
 			Preference prefEnableWidget = findPreference(SettingsStorage.PREF_KEY_WIDGET);
