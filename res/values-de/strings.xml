@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="prefUnitSystem">Unit System</string>
+    <string name="prefUnitSystemLong">Display the temperature in °C, °F or K.</string>
+
+    <string-array name="prefUnitSystemEntries">
+        <item>Default</item>
+        <item>Imperial</item>
+        <item>SI</item>
+    </string-array>
+
+    <string name="prefWidgetTextSize">Text Size</string>
+
+    <string-array name="prefWidgetTextSizeEntries">
+        <item>Tiny</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Big</item>
+    </string-array>
+
 </resources>
