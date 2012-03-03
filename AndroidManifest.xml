@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
-    android:versionCode="201202251"
-    android:versionName="3.3.3" >
+    android:versionCode="201203030"
+    android:versionName="3.3.4" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -14,7 +14,8 @@
         android:largeScreens="true"
         android:normalScreens="true"
         android:resizeable="true"
-        android:smallScreens="true" />
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.VIBRATE" >
     </uses-permission>
