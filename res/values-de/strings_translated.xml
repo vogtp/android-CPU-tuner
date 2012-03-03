@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="prefUnitSystem">Einheiten</string>
+    <string name="prefUnitSystemLong">Darstellung der Temperatur in °C, °F oder K.</string>
+
+    <string-array name="prefUnitSystemEntries">
+        <item>Standard</item>
+        <item>Imperial</item>
+        <item>SI</item>
+    </string-array>
+
+    <string name="prefWidgetTextSize">Text Grösse</string>
+
+    <string-array name="prefWidgetTextSizeEntries">
+        <item>Winzig</item>
+        <item>Klein</item>
+        <item>Mittel</item>
+        <item>Gross</item>
+    </string-array>
+
     <string name="deep_sleep">Tiefschlaf</string>
 
     <string-array name="deviceStatesCurrent">
