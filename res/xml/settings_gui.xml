@@ -56,10 +56,6 @@
             android:summaryOn="@string/prefKeyEnableProfilesOn"
             android:title="@string/prefStatusbarNotifications" >
         </CheckBoxPreference>
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="prefKeyRunNotiInFg"
-            android:title="Forground Notifications" />
     </PreferenceCategory>
 
 </PreferenceScreen>

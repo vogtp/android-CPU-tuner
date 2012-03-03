@@ -49,7 +49,8 @@ public class EventListenerService extends Service {
 		PowerProfiles.getInstance(ctx).reapplyProfile(true);
 		ConfigurationAutoloadService.scheduleNextEvent(ctx);
 		SettingsStorage settingsStorage = SettingsStorage.getInstance();
-		if (settingsStorage.isRunNotificationInForeground()) {
+		if (false) {
+			// TODO remove run in foreground
 			if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
 				Notification n = Notifier.startStatusbarNotifications(ctx);
 				if (n != null) {

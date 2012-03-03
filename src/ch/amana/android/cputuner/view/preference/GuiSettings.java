@@ -116,7 +116,8 @@ public class GuiSettings extends BaseSettings {
 					break;
 
 				}
-				if (settings.isRunNotificationInForeground()) {
+				if (false) {
+					// TODO remove run in foreground
 					CpuTunerApplication.stopCpuTuner(getApplicationContext());
 					CpuTunerApplication.startCpuTuner(getApplicationContext());
 				}
