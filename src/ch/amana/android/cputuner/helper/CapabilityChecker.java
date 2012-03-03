@@ -166,10 +166,10 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 			sb.append("Governor: ").append(governor).append("\n");
 			sb.append("  Governor: read: ").append(checkresultToString(readGovernor));
 			sb.append(" - write: ").append(checkresultToString(writeGovernor)).append("\n");
-			sb.append("  Min Freq: read: ").append(checkresultToString(readMinFreq));
-			sb.append(" - write: ").append(checkresultToString(writeMinFreq)).append("\n");
-			sb.append("  Max Freq: read: ").append(checkresultToString(readMaxFreq));
-			sb.append(" - write: ").append(checkresultToString(writeMaxFreq)).append("\n");
+			//			sb.append("  Min Freq: read: ").append(checkresultToString(readMinFreq));
+			//			sb.append(" - write: ").append(checkresultToString(writeMinFreq)).append("\n");
+			//			sb.append("  Max Freq: read: ").append(checkresultToString(readMaxFreq));
+			//			sb.append(" - write: ").append(checkresultToString(writeMaxFreq)).append("\n");
 			sb.append("  Up Threshold: read: ").append(checkresultToString(readUpThreshold));
 			sb.append(" - write: ").append(checkresultToString(writeUpThreshold)).append("\n");
 			sb.append("  DownThreshold: read: ").append(checkresultToString(readDownThreshold));
