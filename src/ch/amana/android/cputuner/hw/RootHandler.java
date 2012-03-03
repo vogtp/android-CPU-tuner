@@ -64,12 +64,14 @@ public class RootHandler {
 				if (p.exitValue() != 255) {
 					success = true;
 				}
-				if (Logger.DEBUG) {
+				if (out != null) {
 					copyStreamToLog("OUT", p.getInputStream(), out);
-					copyStreamToLog("ERR", p.getErrorStream(), err);
 					if (out != null && !TextUtils.isEmpty(out)) {
 						Logger.v(cmd.trim() + " stdout: " + out);
 					}
+				}
+				if (err != null) {
+					copyStreamToLog("ERR", p.getErrorStream(), err);
 					if (err != null && !TextUtils.isEmpty(err)) {
 						Logger.v(cmd.trim() + " stderr: " + err);
 					}
