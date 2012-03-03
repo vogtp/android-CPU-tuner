@@ -24,6 +24,7 @@ import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 	private static int intentId = 100;
+	private static float textSize;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -77,6 +78,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		PendingIntent mainPendingIntent;
 
 		SettingsStorage settings = SettingsStorage.getInstance(context);
+		textSize = settings.getWidgetTextSize();
 		PendingIntent startCpuTunerPendingIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
 		Intent profileChooserIntent = PopupChooserActivity.getStartIntent(context);
 		profileChooserIntent.putExtra(PopupChooserActivity.EXTRA_CHOOSER_TYPE, PopupChooserActivity.CHOOSER_TYPE_PROFILE);
@@ -104,6 +106,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.tvTrigger, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.tvTrigger, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.labelTrigger, chooseProfilePendingIntent);
+			setTextSize(views, R.id.tvTrigger);
 			if (settings.isEnableProfiles()) {
 				views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
 				views.setTextColor(R.id.tvTrigger, Color.WHITE);
@@ -120,7 +123,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.tvProfile, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.labelProfile, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.tvProfile, chooseProfilePendingIntent);
-			
+			setTextSize(views, R.id.tvProfile);
 		}else {
 			views.setViewVisibility(R.id.labelProfile, View.GONE);
 			views.setViewVisibility(R.id.tvProfile, View.GONE);
@@ -131,6 +134,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setOnClickPendingIntent(R.id.labelGov, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.tvGov, chooseProfilePendingIntent);
 			if (settings.isUseVirtualGovernors()) {
+				setTextSize(views, R.id.tvGov);
 				views.setViewVisibility(R.id.tvGov, View.VISIBLE);
 				views.setTextViewText(R.id.tvGov, powerProfiles.getCurrentVirtGovName());
 			} else {
@@ -147,10 +151,11 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.labelBattery, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.tvBattery, batteryPendingIntent);
 			views.setOnClickPendingIntent(R.id.labelBattery, batteryPendingIntent);
-
+			setTextSize(views, R.id.tvBattery);
 			views.setTextViewText(R.id.tvBattery, powerProfiles.getBatteryInfo());
 			if (powerProfiles.hasManualServicesChanges()) {
 				views.setViewVisibility(R.id.tvServiceMsg, View.VISIBLE);
+
 			} else {
 				views.setViewVisibility(R.id.tvServiceMsg, View.GONE);
 			}
@@ -201,8 +206,16 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		return views;
 	}
 
+	private static void setTextSize(RemoteViews views, int id) {
+		views.setFloat(id, "setTextSize", textSize);
+	}
+
 	private static void setServiceStateIcon(Context context, RemoteViews views, int id, ServiceType serviceType) {
 		Intent intent = PopupChooserActivity.getStartIntent(context);
+		int size = context.getResources().getDimensionPixelSize(R.dimen.widget_iconsize_medium);
+		views.setBoolean(id, "setAdjustViewBounds", true);
+		views.setInt(id, "setMaxHeight", size);
+		views.setInt(id, "setMaxWidth", size);
 		intent.putExtra(PopupChooserActivity.EXTRA_CHOOSER_TYPE, PopupChooserActivity.CHOOSER_TYPE_SERVICE);
 		intent.putExtra(PopupChooserActivity.EXTRA_SERVICE_TYPE, serviceType.toString());
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, intentId++, intent, PendingIntent.FLAG_ONE_SHOT);

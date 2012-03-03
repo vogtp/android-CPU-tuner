@@ -10,4 +10,13 @@
         <item>SI</item>
     </string-array>
 
+    <string name="prefWidgetTextSize">Text Size</string>
+
+    <string-array name="prefWidgetTextSizeEntries">
+        <item>Tiny</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Big</item>
+    </string-array>
+
 </resources>

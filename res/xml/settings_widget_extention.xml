@@ -6,6 +6,13 @@
     <PreferenceCategory
         android:key="prefKeyWidgetUI"
         android:title="@string/prefWidgetUI" >
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/prefWidgetTextSizeEntries"
+            android:entryValues="@array/prefWidgetTextSizeValues"
+            android:key="prefKeyWidgetTextSize"
+            android:title="@string/prefWidgetTextSize" />
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefKeyShowIcon"

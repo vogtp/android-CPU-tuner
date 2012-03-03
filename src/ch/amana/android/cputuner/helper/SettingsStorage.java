@@ -13,7 +13,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
@@ -791,4 +793,21 @@ public class SettingsStorage {
 	public String getUnitSystem() {
 		return getPreferences().getString("prefKeyUnitSystem", UnitsHelper.UNITS_DEFAULT);
 	}
+
+	public float getWidgetTextSize() {
+		String s = getPreferences().getString("prefKeyWidgetTextSize", "3");
+		// default is 3 medium
+		float f = context.getResources().getDimension(R.dimen.widget_textsize_medium);
+		if ("1".equals(s)) {
+			f = context.getResources().getDimension(R.dimen.widget_textsize_tiny);
+		} else if ("2".equals(s)) {
+			f = context.getResources().getDimension(R.dimen.widget_textsize_small);
+		} else if ("4".equals(s)) {
+			f = context.getResources().getDimension(R.dimen.widget_textsize_big);
+		}
+		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+		f = f / metrics.scaledDensity;
+		return f;
+	}
+
 }

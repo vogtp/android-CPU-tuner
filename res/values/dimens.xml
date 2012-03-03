@@ -7,5 +7,10 @@
     <dimen name="widget_margin_vertical">0dp</dimen>
     <dimen name="widget_margin_horizontal">0dp</dimen>
     <dimen name="cur_info_servicebutton_padding">10dp</dimen>
+    <dimen name="widget_textsize_tiny">10sp</dimen>
+    <dimen name="widget_textsize_small">12sp</dimen>
+    <dimen name="widget_textsize_medium">16sp</dimen>
+    <dimen name="widget_textsize_big">20sp</dimen>
+    <dimen name="widget_iconsize_medium">65dp</dimen>
 
 </resources>
