@@ -3,6 +3,15 @@ V
 - 
 * bug fixes
 -
+
+V 3.3.4
+* features
+- show deep sleep in adv stats 
+- change font size of widget
+- display temperature in °C, °F or K
+- translation updates
+* bug fixes
+- errors
  
 V 3.3.3
 * features
