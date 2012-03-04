@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:paddingRight="5dp"
-                    android:width="50dp" >
+                    android:width="70dp" >
                 </EditText>
 
                 <SeekBar

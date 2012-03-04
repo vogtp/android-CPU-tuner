@@ -15,44 +15,31 @@
 
         <TextView
             android:id="@+id/tvState"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:ems="3"
             android:gravity="right"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/labelState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="3"
-            android:paddingLeft="2dp"
-            android:text="@string/mhz"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
             android:id="@+id/tvTime"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:gravity="right"
             android:paddingLeft="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/tvPercent"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:ems="4"
             android:gravity="right"
             android:paddingLeft="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/labelPercent"
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:ems="1"
             android:paddingLeft="2dp"
             android:text="@string/percent"
             android:textAppearance="?android:attr/textAppearanceSmall" />

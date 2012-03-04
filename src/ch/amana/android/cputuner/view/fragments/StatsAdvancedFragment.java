@@ -120,18 +120,13 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 				PercentGraphView percentGraphView = (PercentGraphView) parent.findViewById(R.id.percentGraphView1);
 				if (columnIndex == TimeInStateValue.INDEX_STATE) {
 					int state = cursor.getInt(TimeInStateValue.INDEX_STATE);
-					View labelState = ((View) view.getParent()).findViewById(R.id.labelState);
 					TextView tv = ((TextView) view);
 					if (state == 0) {
 						tv.setText(R.string.deep_sleep);
-						tv.setEms(6);
 						tv.setGravity(Gravity.LEFT);
-						labelState.setVisibility(View.GONE);
 					}else {
-						tv.setText(Integer.toString(state / 1000));
-						tv.setEms(3);
+						tv.setText(Integer.toString(state / 1000) + " " + getString(R.string.mhz));
 						tv.setGravity(Gravity.RIGHT);
-						labelState.setVisibility(View.VISIBLE);
 					}
 					percentGraphView.setHiglight(state == curCpuFreq);
 					return true;
