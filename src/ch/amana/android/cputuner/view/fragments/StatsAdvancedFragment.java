@@ -258,7 +258,9 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 			}
 			self = lastInstanceCreated;
 		}
-		context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
+		if (context != null) {
+			context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
+		}
 		self.getLoaderManager().restartLoader(0, null, self);
 		self.setDataState(LoadingState.LOADING);
 	}
