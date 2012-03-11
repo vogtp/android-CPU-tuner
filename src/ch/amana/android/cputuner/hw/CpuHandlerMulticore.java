@@ -128,12 +128,16 @@ public class CpuHandlerMulticore extends CpuHandler {
 		for (int i = 0; i < getNumberOfCpus(); i++) {
 			StringBuilder path = new StringBuilder(CPU_BASE_DIR);
 			path.append("/").append(cpus[i]);
-			String online = RootHandler.readFile(getFiles(CPU_ONLINE)[i]);
-			if ("1".equals(online)) {
-				count++;
-				if (Logger.DEBUG) {
-					Logger.d("CPU" + i + " is online");
+			try {
+				String online = RootHandler.readFile(getFiles(CPU_ONLINE)[i]);
+				if ("1".equals(online)) {
+					count++;
+					if (Logger.DEBUG) {
+						Logger.d("CPU" + i + " is online");
+					}
 				}
+			} catch (ArrayIndexOutOfBoundsException e) {
+				Logger.w("Cannot find cpu online file for cpu" + i, e);
 			}
 		}
 		Logger.d("Found " + count + " online cpus");
