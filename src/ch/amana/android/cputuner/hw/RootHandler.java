@@ -38,13 +38,17 @@ public class RootHandler {
 	}
 
 	public static boolean execute(String cmd, StringBuilder out, StringBuilder err) {
-		Process p;
+		Process p = null;
 		boolean success = false;
 		try {
 			if (Logger.DEBUG) {
 				Logger.v("Running " + cmd);
 			}
-			p = Runtime.getRuntime().exec("su");
+			p = new ProcessBuilder()
+					.command("su")
+					.redirectErrorStream(false)
+					.start();
+			//						p = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(p.getOutputStream());
 
 			if (!cmd.endsWith(NEW_LINE)) {
@@ -54,35 +58,39 @@ public class RootHandler {
 
 			os.writeBytes("exit\n");
 			os.flush();
-			try {
-				p.waitFor();
-				if (Logger.DEBUG) {
-					String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
-					writeLog(msg);
-					Logger.i(msg);
-				}
-				if (p.exitValue() != 255) {
-					success = true;
-				}
-				if (out != null) {
-					copyStreamToLog("OUT", p.getInputStream(), out);
-					if (out != null && !TextUtils.isEmpty(out)) {
-						Logger.v(cmd.trim() + " stdout: " + out);
-					}
-				}
-				if (err != null) {
-					copyStreamToLog("ERR", p.getErrorStream(), err);
-					if (err != null && !TextUtils.isEmpty(err)) {
-						Logger.v(cmd.trim() + " stderr: " + err);
-					}
-				}
-			} catch (InterruptedException e) {
-				Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
+			//			try {
+			p.waitFor();
+			if (Logger.DEBUG) {
+				String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
+				writeLog(msg);
+				Logger.i(msg);
 			}
+			if (p.exitValue() != 255) {
+				success = true;
+			}
+			if (out != null) {
+				copyStreamToLog("OUT", p.getInputStream(), out);
+				if (out != null && !TextUtils.isEmpty(out)) {
+					Logger.v(cmd.trim() + " stdout: " + out);
+				}
+				}
+			if (err != null) {
+				copyStreamToLog("ERR", p.getErrorStream(), err);
+				if (err != null && !TextUtils.isEmpty(err)) {
+					Logger.v(cmd.trim() + " stderr: " + err);
+				}
+				}
+		} catch (InterruptedException e) {
+			Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
+			//			}
 		} catch (FileNotFoundException e) {
 			Logger.e("File not found in " + cmd);
 		} catch (IOException e) {
 			Logger.e("IO error from: " + cmd, e);
+		} finally {
+			if (p != null) {
+				p.destroy();
+			}
 		}
 		return success;
 	}
