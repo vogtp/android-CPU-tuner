@@ -18,6 +18,7 @@ import ch.amana.android.cputuner.helper.EditorActionbarHelper.ExitStatus;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
@@ -61,6 +62,10 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		if (virtualGovModel == null) {
 			virtualGovModel = new VirtualGovernorModel();
 			virtualGovModel.setVirtualGovernorName("");
+			String[] availCpuGov = CpuHandler.getInstance().getAvailCpuGov();
+			if (availCpuGov.length > 0) {
+				virtualGovModel.setGov(availCpuGov[0]);
+			}
 		}
 
 		origVirtualGovModel = new VirtualGovernorModel(virtualGovModel);
