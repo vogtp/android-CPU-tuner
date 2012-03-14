@@ -176,7 +176,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 			break;
 		case R.id.menuItemSave:
 			exitStatus = ExitStatus.save;
-			finish();
+			save();
 			break;
 		default:
 			if (GeneralMenuHelper.onOptionsItemSelected(this, item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
