@@ -38,7 +38,7 @@
         android:summary="@string/prefBatteryHotTempLong"
         android:title="@string/prefBatteryHotTemp" >
     </EditTextPreference>
-
+    <!--
     <PreferenceCategory
         android:key="prefCatSwitchCpuSettings"
         android:title="@string/prefCatSwitchCpuSettings" >
@@ -55,5 +55,6 @@
             android:summary="@string/prefSwitchCpuSettingLong"
             android:title="@string/prefSwitchCpuSetting" />
     </PreferenceCategory>
+    -->
 
 </PreferenceScreen>

@@ -14,7 +14,6 @@ import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
-import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
@@ -142,7 +141,7 @@ public class TunerService extends IntentService {
 		synchronized (lock) {
 
 			Logger.v("Got call state: " + state);
-			startSpeedUpSwitch();
+			//			startSpeedUpSwitch();
 			switch (state) {
 			case TelephonyManager.CALL_STATE_IDLE:
 				// hangup
@@ -160,7 +159,7 @@ public class TunerService extends IntentService {
 			default:
 				break;
 			}
-			endSpeedUpSwitch();
+			//			endSpeedUpSwitch();
 		}
 	}
 
@@ -198,21 +197,21 @@ public class TunerService extends IntentService {
 						powerProfiles.setAcPower(plugged > 0);
 					}
 				} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
-					startSpeedUpSwitch();
+					//					startSpeedUpSwitch();
 					powerProfiles.setAcPower(true);
-					endSpeedUpSwitch();
+					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
-					startSpeedUpSwitch();
+					//					startSpeedUpSwitch();
 					powerProfiles.setAcPower(false);
-					endSpeedUpSwitch();
+					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
-					startSpeedUpSwitch();
+					//					startSpeedUpSwitch();
 					powerProfiles.setScreenOff(true);
-					endSpeedUpSwitch();
+					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
-					startSpeedUpSwitch();
+					//					startSpeedUpSwitch();
 					powerProfiles.setScreenOff(false);
-					endSpeedUpSwitch();
+					//					endSpeedUpSwitch();
 				} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
 					// manage network state on wifi
 					int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
@@ -250,16 +249,16 @@ public class TunerService extends IntentService {
 		}
 	}
 
-	private static void startSpeedUpSwitch() {
-		SettingsStorage settings = SettingsStorage.getInstance();
-		if (settings.isEnableSwitchCpuSetting()) {
-			CpuHandler.getInstance().applyCpuSettings(settings.getSwitchCpuSetting());
-		}
-	}
-
-	private static void endSpeedUpSwitch() {
-		if (SettingsStorage.getInstance().isEnableSwitchCpuSetting()) {
-			CpuHandler.getInstance().applyCpuSettings(PowerProfiles.getInstance().getCurrentProfile());
-		}
-	}
+	//	private static void startSpeedUpSwitch() {
+	//		SettingsStorage settings = SettingsStorage.getInstance();
+	//		if (settings.isEnableSwitchCpuSetting()) {
+	//			CpuHandler.getInstance().applyCpuSettings(settings.getSwitchCpuSetting());
+	//		}
+	//	}
+	//
+	//	private static void endSpeedUpSwitch() {
+	//		if (SettingsStorage.getInstance().isEnableSwitchCpuSetting()) {
+	//			CpuHandler.getInstance().applyCpuSettings(PowerProfiles.getInstance().getCurrentProfile());
+	//		}
+	//	}
 }
