@@ -73,13 +73,13 @@ public class EventListenerReceiver extends BroadcastReceiver {
 				//	Logger.logIntentExtras(intent);
 				//}
 			}
-			if (SettingsStorage.FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD) {
-					TunerService.handleBattery(context, intent.getAction(), intent);
-			} else {
+			if (SettingsStorage.getInstance().isRunSwitchInBackground()) {
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_BATTERY);
 				i.putExtra(TunerService.EXTRA_ACTION, intent.getAction());
 				i.putExtras(intent);
 				context.startService(i);
+			} else {
+				TunerService.handleBattery(context, intent.getAction(), intent);
 			}
 		} catch (Exception e) {
 			String action = intent == null ? "null intent" : intent.getAction();

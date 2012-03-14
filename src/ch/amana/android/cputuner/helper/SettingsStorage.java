@@ -79,8 +79,6 @@ public class SettingsStorage {
 	public static final int STATUSBAR_RUNNING = 1;
 	public static final int STATUSBAR_ALWAYS = 2;
 
-	public static final boolean FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD = true;
-
 	public static final int APPWIDGET_OPENACTION_CHOOSEPROFILES = 1;
 	public static final int APPWIDGET_OPENACTION_CPUTUNER = 2;
 
@@ -127,6 +125,8 @@ public class SettingsStorage {
 	private boolean checkedEnableSwitchLog = false;
 	private boolean enableEnableStatistics;
 	private boolean checkedEnableStatistics = false;
+	private boolean checkedRunSwitchInBackground = false;
+	private boolean runSwitchInBackground;
 
 	private boolean powerStrongerThanScreenoff;
 
@@ -152,6 +152,7 @@ public class SettingsStorage {
 		checkedEnableSwitchCpuSetting = false;
 		checkedEnableSwitchLog = false;
 		checkedEnableStatistics = false;
+		checkedRunSwitchInBackground = false;
 	}
 
 	public static SettingsStorage getInstance(Context ctx) {
@@ -803,6 +804,14 @@ public class SettingsStorage {
 		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
 		f = f / metrics.scaledDensity;
 		return f;
+	}
+
+	public boolean isRunSwitchInBackground() {
+		if (!checkedRunSwitchInBackground) {
+			checkedRunSwitchInBackground = true;
+			runSwitchInBackground = getPreferences().getBoolean("prefKeyRunSwitchInBackground", true);
+		}
+		return runSwitchInBackground;
 	}
 
 }

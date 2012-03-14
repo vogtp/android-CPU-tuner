@@ -6,6 +6,12 @@
 
     <CheckBoxPreference
         android:defaultValue="true"
+        android:key="prefKeyRunSwitchInBackground"
+        android:summaryOff="@string/prefRunSwitchInBackgroundOff"
+        android:summaryOn="@string/prefRunSwitchInBackgroundOn"
+        android:title="@string/prefRunSwitchInBackground" />
+    <CheckBoxPreference
+        android:defaultValue="true"
         android:key="prefKeyPowerStrongerThanScreenoff"
         android:summaryOff="@string/prefPowerStrongerThanScreenoffOff"
         android:summaryOn="@string/prefPowerStrongerThanScreenoffOn"

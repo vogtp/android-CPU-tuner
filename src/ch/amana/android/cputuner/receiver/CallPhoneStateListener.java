@@ -22,12 +22,12 @@ public class CallPhoneStateListener extends PhoneStateListener {
 	@Override
 	public void onCallStateChanged(int state, String incomingNumber) {
 		super.onCallStateChanged(state, incomingNumber);
-		if (SettingsStorage.FIXED_PREF_RUN_PROFILECHANGE_IN_MAINTHREAD) {
-				TunerService.handlePhoneState(context, state);
-		} else {
+		if (SettingsStorage.getInstance().isRunSwitchInBackground()) {
 			Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_PHONESTATE);
 			i.putExtra(TunerService.EXTRA_PHONE_STATE, state);
 			context.startService(i);
+		} else {
+			TunerService.handlePhoneState(context, state);
 		}
 	}
 
