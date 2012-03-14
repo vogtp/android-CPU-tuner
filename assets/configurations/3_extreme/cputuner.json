@@ -25,7 +25,7 @@
     "virtualGovernor": "Extreme Save Battery",
     "resId": "gov_name_extremeSaveBattery",
     "_id": "3",
-    "useNumberOfCpus": "1",
+    "useNumberOfCpus": "0",
     "powersaveBias": "1000",
     "governorThresholdUp": "98",
     "governorThresholdDown": "90"
@@ -35,7 +35,7 @@
     "virtualGovernor": "Save Battery",
     "resId": "gov_name_saveBattery",
     "_id": "4",
-    "useNumberOfCpus": "1",
+    "useNumberOfCpus": "0",
     "powersaveBias": "300",
     "governorThresholdUp": "95",
     "governorThresholdDown": "80"

@@ -26,7 +26,7 @@
     "resId": "gov_name_extremeSaveBattery",
     "_id": "3",
     "powersaveBias": "500",
-    "useNumberOfCpus": "1",
+    "useNumberOfCpus": "0",
     "governorThresholdUp": "95",
     "governorThresholdDown": "65"
    },
@@ -36,7 +36,7 @@
     "resId": "gov_name_saveBattery",
     "_id": "4",
     "powersaveBias": "300",
-    "useNumberOfCpus": "1",
+    "useNumberOfCpus": "0",
     "governorThresholdUp": "90",
     "governorThresholdDown": "50"
    }
