@@ -58,6 +58,12 @@ public class AppwidgetExtensionSettings extends BaseSettings {
 	}
 
 	@Override
+	protected void onPause() {
+		ProfileAppwidgetProvider.updateView(getApplicationContext());
+		super.onPause();
+	}
+
+	@Override
 	protected String getHelpPage() {
 		return HelpActivity.PAGE_SETTINGS;
 	}
