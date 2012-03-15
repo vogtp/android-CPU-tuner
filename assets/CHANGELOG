@@ -5,7 +5,7 @@ V 3.3.5
 * bug fixes
 - fix insert new virtual governor does not save the governor
 - remove profile switch governor settings since it only yielded troubles
-- do not switch off CPUs by default 
+- do not ( by default) switch off CPUs 
 
 V 3.3.4
 * features
