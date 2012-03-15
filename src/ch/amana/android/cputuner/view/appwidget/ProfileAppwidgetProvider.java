@@ -79,6 +79,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 
 		SettingsStorage settings = SettingsStorage.getInstance(context);
 		textSize = settings.getWidgetTextSize();
+		int labelVisibility = settings.showWidgetLabels() ? View.VISIBLE : View.GONE;
 		PendingIntent startCpuTunerPendingIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
 		Intent profileChooserIntent = PopupChooserActivity.getStartIntent(context);
 		profileChooserIntent.putExtra(PopupChooserActivity.EXTRA_CHOOSER_TYPE, PopupChooserActivity.CHOOSER_TYPE_PROFILE);
@@ -102,7 +103,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.ivCpuTunerIcon, View.GONE);
 		}
 		if (settings.isShowWidgetTrigger()) {
-			views.setViewVisibility(R.id.labelTrigger, View.VISIBLE);
+			views.setViewVisibility(R.id.labelTrigger, labelVisibility);
 			views.setViewVisibility(R.id.tvTrigger, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.tvTrigger, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.labelTrigger, chooseProfilePendingIntent);
@@ -119,7 +120,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.labelTrigger, View.GONE);
 		}
 		if (settings.isShowWidgetProfile()) {
-			views.setViewVisibility(R.id.labelProfile, View.VISIBLE);
+			views.setViewVisibility(R.id.labelProfile, labelVisibility);
 			views.setViewVisibility(R.id.tvProfile, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.labelProfile, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.tvProfile, chooseProfilePendingIntent);
@@ -129,7 +130,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.tvProfile, View.GONE);
 		}
 		if (settings.isShowWidgetGovernor()) {
-			views.setViewVisibility(R.id.labelGov, View.VISIBLE);
+			views.setViewVisibility(R.id.labelGov, labelVisibility);
 			views.setViewVisibility(R.id.tvGov, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.labelGov, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.tvGov, chooseProfilePendingIntent);
@@ -148,7 +149,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		}
 		if (settings.isShowWidgetBattery()) {
 			views.setViewVisibility(R.id.tvBattery, View.VISIBLE);
-			views.setViewVisibility(R.id.labelBattery, View.VISIBLE);
+			views.setViewVisibility(R.id.labelBattery, labelVisibility);
 			views.setOnClickPendingIntent(R.id.tvBattery, batteryPendingIntent);
 			views.setOnClickPendingIntent(R.id.labelBattery, batteryPendingIntent);
 			setTextSize(views, R.id.tvBattery);

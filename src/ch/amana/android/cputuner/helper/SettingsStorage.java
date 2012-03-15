@@ -814,4 +814,8 @@ public class SettingsStorage {
 		return runSwitchInBackground;
 	}
 
+	public boolean showWidgetLabels() {
+		return getPreferences().getBoolean("prefKeyWidgetShowLabels", true);
+	}
+
 }

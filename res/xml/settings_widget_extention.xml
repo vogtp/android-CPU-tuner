@@ -15,6 +15,10 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
+            android:key="prefKeyWidgetShowLabels"
+            android:title="@string/prefWidgetShowLabels" />
+        <CheckBoxPreference
+            android:defaultValue="true"
             android:key="prefKeyShowIcon"
             android:summary="@string/prefShowIconLong"
             android:title="@string/prefShowIcon" />

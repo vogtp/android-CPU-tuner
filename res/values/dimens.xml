@@ -12,5 +12,6 @@
     <dimen name="widget_textsize_medium">16sp</dimen>
     <dimen name="widget_textsize_big">20sp</dimen>
     <dimen name="widget_iconsize_medium">65dp</dimen>
+    <dimen name="widget_label_normal_padding_left">65dp</dimen>
 
 </resources>
