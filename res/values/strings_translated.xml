@@ -405,7 +405,7 @@
     <string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the
 		maximal.</string>
     <string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one
-		or more tiggers!</string>
+		or more triggers!</string>
     <string name="prefBasics">Basics</string>
     <string name="labelScript">Script:</string>
     <string name="hintScriptToRun">Script to run after governor change.</string>
