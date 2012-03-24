@@ -34,6 +34,7 @@
         <item>Française (fr)</item>
         <item>Italiano (it)</item>
         <item>日本語 (ja)</item>
+        <item>Russian (ru)</item>
         <item>Ελληνικά (el)</item>
     </string-array>
     <string-array name="prefLanguageValues">
@@ -43,6 +44,7 @@
         <item>fr</item>
         <item>it</item>
         <item>ja</item>
+        <item>ru</item>
         <item>el</item>
     </string-array>
     <string-array name="prefMulticoreValues">
@@ -78,7 +80,9 @@
         <item>1</item>
         <item>2</item>
         <item>4</item>
-    </integer-array><string-array name="prefWidgetTextSizeValues">
+    </integer-array>
+
+    <string-array name="prefWidgetTextSizeValues">
         <item>1</item>
         <item>2</item>
         <item>3</item>

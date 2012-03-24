@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:installLocation="internalOnly"
     package="ch.amana.android.cputuner"
+    android:installLocation="internalOnly"
     android:versionCode="201203151"
-    android:versionName="3.3.5" >
+    android:versionName="3.3.6-ru1" >
 
     <uses-sdk
         android:minSdkVersion="7"
