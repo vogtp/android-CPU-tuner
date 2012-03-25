@@ -29,6 +29,9 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		super.onReceive(context, intent);
+		if (context == null) {
+			return;
+		}
 		updateView(context);
 	}
 

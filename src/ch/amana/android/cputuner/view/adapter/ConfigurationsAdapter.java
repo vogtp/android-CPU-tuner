@@ -68,6 +68,9 @@ public abstract class ConfigurationsAdapter extends BaseAdapter {
 	protected long getNewestFile(int position) {
 		File directory = getDirectory(position);
 		File[] files = directory.listFiles();
+		if (files == null) {
+			return 0;
+		}
 		long ts = directory.lastModified();
 		for (int i = 0; i < files.length; i++) {
 			ts = Math.max(ts, files[i].lastModified());
