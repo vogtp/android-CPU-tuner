@@ -230,6 +230,9 @@ public class CpuHandlerMulticore extends CpuHandler {
 	}
 
 	private boolean writeFiles(File[] files, String value, int i) {
+		if (i >= files.length) {
+			return false;
+		}
 		return RootHandler.writeFile(files[i], value);
 	}
 
