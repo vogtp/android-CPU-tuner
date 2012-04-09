@@ -1,5 +1,5 @@
 CPU tuner gives you control over the power consumption of your android device.
-Its prime purpose is to save as much battery as possible, but it can be used to overclock at the same time (if the kernel of your device supports it).
+Its prime purpose is to be a battery saver and to save as much battery as possible, but it can be used to overclock at the same time (if the kernel of your device supports it).
 
 Depending on triggers (based on the battery) different profiles are loaded.  Each trigger has different profiles depending of the  the state (if it is locked, on battery, on power or a phone call is being done) of you phone.
 
