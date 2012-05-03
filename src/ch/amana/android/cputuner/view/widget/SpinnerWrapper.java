@@ -45,6 +45,7 @@ public class SpinnerWrapper implements OnItemSelectedListener {
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		if (possition == pos || possition == INITIAL) {
 			// the spinner has been initalised to this value (no need to set it)
+			possition = RUNNING;
 			return;
 		}
 		possition = RUNNING;
