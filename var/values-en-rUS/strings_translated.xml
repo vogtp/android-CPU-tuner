@@ -24,13 +24,13 @@
     <string-array name="prefCalcPowerUsageEntries">
         <item>Average Value</item>
         <item>Current Value</item>
-        <!-- <item>Battery % per hour</item> -->
+        <!-- <item>Battery % per Hour</item> -->
         <item>No Calculation</item>
     </string-array>
     <string-array name="prefCalcPowerUsageEntriesBeta">
         <item>Average Value</item>
         <item>Current Value</item>
-        <item>Battery % per hour</item>
+        <item>Battery % per Hour</item>
         <item>No Calculation</item>
     </string-array>
     <string-array name="deviceStatesCurrent">
@@ -151,12 +151,10 @@
     <string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
     <string name="labelPowesaveBiasPerformance">Performance</string>
     <string name="labelPowesaveBiasPowersave">Powersave</string>
-    <string name="prefMaxFreq">Default maximum frequency</string>
-    <string name="prefMaxFreqLong">The maximum frequency to be applied when loading
-		system configurations.</string>
-    <string name="prefMinFreq">Default minimum frequency</string>
-    <string name="prefMinFreqLong">The minimum frequency to be applied when loading
-		system configurations.</string>
+    <string name="prefMaxFreq">Default Maximum Frequency</string>
+    <string name="prefMaxFreqLong">The maximum frequency to be applied when loading system configurations.</string>
+    <string name="prefMinFreq">Default Minimum Frequency</string>
+    <string name="prefMinFreqLong">The minimum frequency to be applied when loading system configurations.</string>
     <string name="prefKeyFrequencies">Frequencies for system configurations</string>
     <string name="title_triggers">Triggers</string>
     <string name="msg_title_unsaved_changes">Unsaved changes</string>
@@ -167,14 +165,14 @@
     <string name="msg_grant_root">You will be asked to grant CPU Tuner superuser
 		access. Please grant it and check the remember checkbox. Without this
 		access CPU Tuner will not work. </string>
-    <string name="labelLogTab">Profile switch log</string>
-    <string name="msg_no_profile_switch_log">No profile switch log found</string>
+    <string name="labelLogTab">Profile Switch Log</string>
+    <string name="msg_no_profile_switch_log">No profile switch log found.</string>
     <string name="menuItemInsertAsNew">Insert as new</string>
-    <string name="prefCatGUILong">Change the way it is displayed.</string>
+    <string name="prefCatGUILong">Change display settings.</string>
     <string name="prefCatSystemLong">Change the way it works.</string>
-    <string name="prefBuyMeABeerLong">Make me happier nothing more.</string>
+    <string name="prefBuyMeABeerLong">This will make me happy.</string>
     <string name="prefVariousLong">Informations about CPU Tuner.</string>
-    <string name="prefConfigurationsManageLong">Backup and restore configurations (i.e. a set of
+    <string name="prefConfigurationsManageLong">Backup and Restore configurations (i.e. a set of
 		triggers, profiles and governors).</string>
     <string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>
     <string name="prefLanguageLong">Choose a different language. (required restart)</string>
@@ -184,7 +182,7 @@
     <string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile, date, WIFI, or bluetooth) behave.</string>
     <string name="prefCpuLong">Settings concerning the CPU.</string>
     <string name="title_help_pages">Help pages</string>
-    <string name="msg_no_trigger_name">Please enter a trigger name</string>
+    <string name="msg_no_trigger_name">Please enter a trigger name.</string>
     <string name="msg_triggername_exists">A trigger with the same name already exists! Choose
 		a new name.</string>
     <string name="msg_triggerbatterylevel_exists">A trigger with the same battery level already
@@ -231,17 +229,16 @@
     <string name="extention_installed">Installed, tap to configure.</string>
     <string name="not_installed">Not installed</string>
     <string name="purchased">Purchased: </string>
-    <string name="name_buy_me_a_beer">Buy me a beer</string>
-    <string name="name_buy_me_a_whiskey">Buy me a whisky</string>
-    <string name="name_buy_cookie">Buy a cookie for my kids</string>
+    <string name="name_buy_me_a_beer">Buy me a beer.</string>
+    <string name="name_buy_me_a_whiskey">Buy me a whisky.</string>
+    <string name="name_buy_cookie">Buy a cookie for my kids.</string>
     <string name="desc_buy_beer">This will make me happy.</string>
     <string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-    <string name="desc_buy_cookie">This will keep my kids occupied and probable lets me
-		fix a bug (no promises made).</string>
+    <string name="desc_buy_cookie">This will keep my kids occupied and will give me more times to fix bugs (no promises made).</string>
     <string name="desc_buy_toy">This will keep my kids occupied for some time and
 		probable lets me implement a feature (no promises made).</string>
     <string name="name_buy_toy">Buy my kids a new toy</string>
-    <string name="prefextentionsLong">Add new features to CPU Tuner</string>
+    <string name="prefextentionsLong">Add new features to CPU Tuner.</string>
     <string name="title_changelog">Changelog</string>
     <string name="refresh">Refresh</string>
     <string name="reset">Reset</string>
@@ -260,8 +257,8 @@
         <item>Never</item>
     </string-array>
 
-    <string name="prefStatusbarAddToLong">Add to statusbar and notification area.</string>
-    <string name="prefInitialPulseDelay">Initial pulse delay</string>
+    <string name="prefStatusbarAddToLong">Add to status bar and notification area.</string>
+    <string name="prefInitialPulseDelay">Initial Pulse Delay</string>
     <string name="prefInitialPulseDelayLong">Wait for some time (in s) bevore starting the first pulse.</string>
     <string name="prefInitialPulseDelayMsg">Delay time in seconds</string>
     <string name="prefPowerStrongerThanScreenoff">On-Power is stronger than Screen-Lock profile</string>
@@ -281,7 +278,7 @@
 
     <string name="labelUseCpus_front">Use </string>
     <string name="labelUseCpus_end">CPUs</string>
-    <string name="prefMulticore">Use multicore CPU features</string>
+    <string name="prefMulticore">Use Multicore CPU Features</string>
     <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
     <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
     <string name="labelActiveCpus">Active CPUs:</string>
@@ -294,7 +291,7 @@
     </string-array>
 
     <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
-    <string name="prefConfigurationsLong">Backup and Restore (and more)</string>
+    <string name="prefConfigurationsLong">Backup and Restore (and more) ...</string>
     <string name="prefCpu">CPU Settings</string>
     <string name="prefChangelog">Show Changelog</string>
     <string name="label_version">Version:</string>
@@ -304,7 +301,7 @@
     <string name="msg_disable_cpu_tuner">Disable CPU Tuner</string>
     <string name="msg_disable_cputuner_question">Do you want to stop CPU Tuner?</string>
     <string name="prefConfigurationsSettings">Configurations Settings</string>
-    <string name="prefSaveConfigOnSwitch">Save configuration</string>
+    <string name="prefSaveConfigOnSwitch">Save Configuration</string>
     <string name="prefSaveConfigOnSwitchFull">Save changes to profiles, triggers or governors to the current configuration.</string>
     <string name="saved_at">Saved at </string>
     <string name="day_mon">Mon</string>
@@ -315,11 +312,11 @@
     <string name="day_sat">Sat</string>
     <string name="day_sun">Sun</string>
     <string name="label_weekdays">Weekdays: </string>
-    <string name="prefConfigurationsManage">Manage configurations</string>
-    <string name="prefConfigurationsAutoLoad">Autoload configurations</string>
-    <string name="title_configuration_autoload_editor">Configuration autoload editor</string>
-    <string name="hint_profile_name">Profile name</string>
-    <string name="label_profile_switches">Profile switches:</string>
+    <string name="prefConfigurationsManage">Manage Configurations</string>
+    <string name="prefConfigurationsAutoLoad">Autoload Configurations</string>
+    <string name="title_configuration_autoload_editor">Configuration Autoload Editor</string>
+    <string name="hint_profile_name">Profile Name</string>
+    <string name="label_profile_switches">Profile Switches:</string>
     <string name="not_enabled">Not enabled</string>
     <string name="prefProfileSwitchLogSize">Profile switch log size</string>
     <string name="cbExactScheduling">Use exact scheduling.</string>
@@ -341,7 +338,7 @@
     <string name="msg_rename_configuration">Rename configuration</string>
     <string name="email">e-mail</string>
     <string name="prefConfigurations">Configurations</string>
-    <string name="titleManageConfigurations">Manage configurations</string>
+    <string name="titleManageConfigurations">Manage Configurations</string>
     <string name="buAddConfiguration">Add current configuration</string>
     <string name="menuReplaceWithCurrent">Replace with current</string>
     <string name="menuLoad">Load</string>
@@ -386,12 +383,12 @@
     <string name="prefUseVirtualGovernorsLong">Virtual Governor abstract the settings of governors
 		from the profile.</string>
     <string name="label_total_transitions">Total transitions:</string>
-    <string name="prefPulseMobiledataOnWifi">Pulse mobiledata on WIFI</string>
+    <string name="prefPulseMobiledataOnWifi">Pulse Mobile Data on WIFI</string>
     <string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if WIFI is
 		connected.</string>
     <string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is
 		connected to a WIFI lan.</string>
-    <string name="prefLanguage">Choose language</string>
+    <string name="prefLanguage">Choose Language</string>
     <string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be
 		between 0 and 100.</string>
     <string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be
@@ -411,10 +408,10 @@
     <string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
     <string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
     <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
-    <string name="prefPulseDelayOn">Service on time</string>
+    <string name="prefPulseDelayOn">Service On-Time</string>
     <string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in
 		pulsed mode.</string>
-    <string name="prefPulseDelayOff">Service off time</string>
+    <string name="prefPulseDelayOff">Service Off-Time</string>
     <string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in
 		pulsed mode.</string>
     <string name="labelPulseOn">Pulse is On</string>
@@ -424,7 +421,7 @@
     <string name="labelProfilesTab">Profiles</string>
     <string name="labelHelpTab">Help</string>
     <string name="labelSettingsTab">Settings</string>
-    <string name="labelPowerUserExplain">Full control!</string>
+    <string name="labelPowerUserExplain">Full Control!</string>
     <string name="labelPowerUser">Power User</string>
     <string name="labelNormalExplain">More advanced configuration options, still
 		underclocking only possible to a point.</string>
@@ -484,11 +481,11 @@
     <string name="no">No</string>
     <string name="save">save</string>
     <string name="cancel">cancel</string>
-    <string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in power user
+    <string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in Power User
 		mode.</string>
-    <string name="prefMinSensibleFrequency">Min displayed frequency</string>
+    <string name="prefMinSensibleFrequency">Minimum Displayed Frequency</string>
     <string name="prefKeyProfiles">Profiles and Triggers</string>
-    <string name="prefBuyMeABeer">Buy me a beer</string>
+    <string name="prefBuyMeABeer">Buy me a beer.</string>
     <string name="prefAllowManualServiceChangesOn">If checked, do not change the state of a service if it was modified as long as no trigger changed took place.</string>
     <string name="prefAllowManualServiceChangesOff">If uncheck, do change the state of a service regardless if it was modified manually.</string>
     <string name="prefAllowManualServiceChanges">Manual Service Changes</string>
@@ -509,7 +506,7 @@
     <string name="menuItemEdit">Edit</string>
     <string name="menuItemDelete">Delete</string>
     <string name="prefEnableBetaMessage">nable some features which are in beta state.</string>
-    <string name="prefEnableBeta">Enable beta features</string>
+    <string name="prefEnableBeta">Enable Beta Features</string>
     <string name="prefCapabilitiesLong">Check if the devices supports API needed or if
 		there are any issues.</string>
     <string name="prefCapabilities">Check Capabilities</string>
@@ -520,8 +517,8 @@
 		access to system settings as gps.</string>
     <string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
     <string name="prefSystemApp">Install as System App</string>
-    <string name="prefToastNotifications">Toast notifications</string>
-    <string name="prefStatusbarNotifications">Statusbar notifications</string>
+    <string name="prefToastNotifications">Toast Notifications</string>
+    <string name="prefStatusbarNotifications">Status Bar Notifications</string>
     <string name="prefCatNotifications">Notifications</string>
     <string name="prefCatSystem">Backend</string>
     <string name="prefEnableProfiles">Enable profiles</string>
@@ -695,5 +692,5 @@
     <string name="label_avgerage">avg: </string>
     <string name="label_tresh_up">up: </string>
     <string name="label_tresh_down">down: </string>
-    
+
 </resources>
