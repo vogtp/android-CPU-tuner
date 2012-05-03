@@ -306,6 +306,9 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 	private void clearAllPowerConsumtion() {
 		final Activity act = getActivity();
+		if (act == null) {
+			return;
+		}
 		Builder alertBuilder = new AlertDialog.Builder(act);
 		alertBuilder.setTitle(R.string.menuItemClearPowerCurrent);
 		alertBuilder.setMessage(getResources().getString(R.string.msg_clear_power_consumption_of_all_triggers));
