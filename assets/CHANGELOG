@@ -1,6 +1,11 @@
+V 
+* features
+- 
+* bug fixes
+
 V 3.3.7
 * features
-- English translation ;) (Thanks to Micheal)
+- English translation ;) (Thanks to Michael)
 * bug fixes
 - fix memory leak
 - virtgov editor saves number of cpus
