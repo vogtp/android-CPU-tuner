@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="prefRunSwitchInBackground">Background profile switch</string>
+    <string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
+    <string name="prefRunSwitchInBackgroundOff">Profile switches are done in the foreground thread.  This may speed up the switches, but can lead to cpu tuner being not responding.</string>
+    <string name="prefWidgetShowLabels">Show Labels</string>
     <string name="prefUnitSystem">Unit System</string>
     <string name="prefUnitSystemLong">Display the temperature in °C, °F or K.</string>
 
