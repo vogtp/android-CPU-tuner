@@ -92,7 +92,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 		Fragment f = fragments.get(position);
 		if (f == null) {
 			PageInfo info = mPages.get(position);
-			f = Fragment.instantiate(context, info.clss.getName(), info.args);
+			f = Fragment.instantiate(context.getApplicationContext(), info.clss.getName(), info.args);
 			fragments.put(position, f);
 			//			if (currentPage == null) {
 			//				currentPage = f;
