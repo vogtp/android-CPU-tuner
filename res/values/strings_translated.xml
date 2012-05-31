@@ -141,7 +141,7 @@
     <string name="msgMarkLog">*** Mark ***</string>
     <string name="menuClearLog">Clear Log</string>
     <string name="enabled">Enabled</string>
-    <string name="ac_power">On AC Power</string>
+    <string name="ac_power">On Power</string>
     <string name="battery">On battery</string>
     <string name="screenOn">Screen On</string>
     <string name="screenOff">Screen Off</string>
@@ -472,7 +472,7 @@
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">If checked, \"Profile Switches\" are [allowed] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOff">If unchecked, \"Profile Switches\" are [forbidden] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
     <string name="prefSwitchProfileWhilePhoneNotIdle">Switch Profile During Call</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOn">If checked, WIFI will be switched \"on\" even if connected to a WIFI network.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOn">If checked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
     <string name="prefSwitchWifiOnConnectedNetworkOff">If unchecked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
     <string name="prefSwitchWifiOnConnectedNetwork">Switch WIFI if connected.</string>
     <string name="prefServiceSwitches">Service Switches</string>
@@ -509,7 +509,7 @@
     <string name="menuItemInsert">Insert</string>
     <string name="menuItemEdit">Edit</string>
     <string name="menuItemDelete">Delete</string>
-    <string name="prefEnableBetaMessage">nable some features which are in beta state.</string>
+    <string name="prefEnableBetaMessage">Enable some features which are in beta state.</string>
     <string name="prefEnableBeta">Enable Beta Features</string>
     <string name="prefCapabilitiesLong">Check if the devices supports API needed or if
 		there are any issues.</string>
@@ -530,7 +530,7 @@
     <string name="profileBatteryGood">Good Battery</string>
     <string name="profileBatteryCrtitical">Critical Battery</string>
     <string name="profileBatteryPower">Battery Power</string>
-    <string name="profileAcPower">AC Power</string>
+    <string name="profileAcPower">On Power</string>
     <string name="profileScreenOff">Screen is off</string>
     <string name="prefSystemPowerProfiles">System Power Profiles</string>
     <string name="prefPowerProfiles">Power Profiles</string>
@@ -541,7 +541,7 @@
     <string name="labelCurrentTrigger">Trigger:</string>
     <string name="labelCurrentProfile">Profile:</string>
     <string name="labelCurrentBattery">Battery:</string>
-    <string name="labelAcPower">AC Power:</string>
+    <string name="labelAcPower">On Power:</string>
     <string name="labelMax">Max:</string>
     <string name="labelMin">Min:</string>
     <string name="app_name">CPU Tuner</string>
