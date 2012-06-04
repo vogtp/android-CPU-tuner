@@ -24,7 +24,7 @@ public class EventListenerReceiver extends BroadcastReceiver {
 					PackageManager.DONT_KILL_APP);
 			if (receiver == null) {
 				receiver = new EventListenerReceiver();
-				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+				// context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_POWER_CONNECTED));
