@@ -38,17 +38,14 @@ public class RootHandler {
 	}
 
 	public static boolean execute(String cmd, StringBuilder out, StringBuilder err) {
-		Process p = null;
-		boolean success = false;
 		try {
 			if (Logger.DEBUG) {
 				Logger.v("Running " + cmd);
 			}
-			p = new ProcessBuilder()
+			Process p = new ProcessBuilder()
 					.command("su")
-					.redirectErrorStream(false)
 					.start();
-			//						p = Runtime.getRuntime().exec("su");
+			//			p = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(p.getOutputStream());
 
 			if (!cmd.endsWith(NEW_LINE)) {
@@ -58,41 +55,30 @@ public class RootHandler {
 
 			os.writeBytes("exit\n");
 			os.flush();
-			//			try {
-			p.waitFor();
 			if (Logger.DEBUG) {
 				String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
 				writeLog(msg);
 				Logger.i(msg);
-			}
-			if (p.exitValue() != 255) {
-				success = true;
 			}
 			if (out != null) {
 				copyStreamToLog("OUT", p.getInputStream(), out);
 				if (out != null && !TextUtils.isEmpty(out)) {
 					Logger.v(cmd.trim() + " stdout: " + out);
 				}
-				}
+			}
 			if (err != null) {
 				copyStreamToLog("ERR", p.getErrorStream(), err);
 				if (err != null && !TextUtils.isEmpty(err)) {
 					Logger.v(cmd.trim() + " stderr: " + err);
 				}
-				}
-		} catch (InterruptedException e) {
-			Logger.e("Interrupt while waiting from cmd " + cmd + " to finish", e);
-			//			}
+			}
+			return true;
 		} catch (FileNotFoundException e) {
 			Logger.e("File not found in " + cmd);
 		} catch (IOException e) {
 			Logger.e("IO error from: " + cmd, e);
-		} finally {
-			if (p != null) {
-				p.destroy();
-			}
 		}
-		return success;
+		return false;
 	}
 
 	private static void copyStreamToLog(String preAmp, InputStream in, StringBuilder result) {
@@ -231,11 +217,24 @@ public class RootHandler {
 			return false;
 		}
 		synchronized (file) {
-			String path = file.getAbsolutePath();
+			//			if (!file.canWrite()) {
+			//				RootHandler.execute("chmod g+rw " + file.getAbsolutePath());
+			//			}
+			//			if (file.canWrite()) {
+			//				try {
+			//					BufferedWriter writer = new BufferedWriter(new FileWriter(file), 256);
+			//					writer.write(val);
+			//					writer.flush();
+			//					writer.close();
+			//					return true;
+			//				} catch (IOException e) {
+			//					Logger.w("Could not write " + file.getAbsolutePath() + " tring exec cat", e);
+			//				}
+			//			}
 			if (Logger.DEBUG) {
-				Logger.w("Setting " + path + " to " + val);
+				Logger.w("Setting " + file.getAbsolutePath() + " to " + val);
 			}
-			return RootHandler.execute("echo " + val + " > " + path);
+			return RootHandler.execute("echo " + val + " > " + file.getAbsolutePath());
 		}
 	}
 
