@@ -29,6 +29,8 @@ public class RootHandler {
 
 	private static Writer logWriter;
 
+	public static boolean waitForPrcess = false;
+
 	public static boolean execute(String cmd) {
 		return execute(cmd, null, null);
 	}
@@ -55,6 +57,12 @@ public class RootHandler {
 
 			os.writeBytes("exit\n");
 			os.flush();
+			if (waitForPrcess) {
+				try {
+					p.waitFor();
+				} catch (InterruptedException e) {
+				}
+			}
 			if (Logger.DEBUG) {
 				String msg = "Command >" + cmd.trim() + "< returned " + p.exitValue();
 				writeLog(msg);
