@@ -34,6 +34,7 @@ public class CpuHandler extends HardwareHandler {
 
 	protected static final String SCALING_GOVERNOR = "scaling_governor";
 	public static final String SCALING_MAX_FREQ = "scaling_max_freq";
+	public static final String SCREEN_OFF_MAX_FREQ = "screen_off_max_freq";
 	protected static final String SCALING_MIN_FREQ = "scaling_min_freq";
 	protected static final String SCALING_SETSPEED = "scaling_setspeed";
 	protected static final String SCALING_CUR_FREQ = "scaling_cur_freq";
@@ -165,7 +166,12 @@ public class CpuHandler extends HardwareHandler {
 
 	public boolean setMaxCpuFreq(int val) {
 		Logger.i("Setting max frequency to " + val);
-		return RootHandler.writeFile(getFile(SCALING_MAX_FREQ), Integer.toString(val));
+		if (RootHandler.writeFile(getFile(SCALING_MAX_FREQ), Integer.toString(val))) {
+			 RootHandler.writeFile(getFile(SCREEN_OFF_MAX_FREQ), Integer.toString(val));
+			 return true;
+		}
+		return false;
+		//		return RootHandler.writeFile(getFile(SCALING_MAX_FREQ), Integer.toString(val));
 	}
 
 	public int getUserCpuFreq() {

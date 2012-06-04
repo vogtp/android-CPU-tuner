@@ -54,7 +54,11 @@ public class CpuHandlerMulticore extends CpuHandler {
 	@Override
 	public boolean setMaxCpuFreq(int val) {
 		Logger.i("Setting multicore max frequency to " + val);
-		return writeFiles(getFiles(SCALING_MAX_FREQ), Integer.toString(val));
+		if (writeFiles(getFiles(SCALING_MAX_FREQ), Integer.toString(val))) {
+			writeFiles(getFiles(SCREEN_OFF_MAX_FREQ), Integer.toString(val));
+			return true;
+		}
+		return false;
 	}
 
 	@Override
