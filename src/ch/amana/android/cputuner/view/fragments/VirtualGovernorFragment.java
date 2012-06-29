@@ -66,10 +66,14 @@ public class VirtualGovernorFragment extends GovernorBaseFragment {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				callback.updateModel();
+				if (callback != null) {
+					callback.updateModel();
+				}
 				getGovernorModel().setVirtualGovernor(id);
-				callback.updateModel(); // FIXME need it twice to get real gov right
-				callback.updateView();
+				if (callback != null) {
+					callback.updateModel(); // FIXME need it twice to get real gov right
+					callback.updateView();
+				}
 			}
 
 			@Override

@@ -38,7 +38,10 @@ public class VariousSettings extends BaseSettings {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent i = new Intent(Intent.ACTION_DEFAULT, Uri.parse("http://www.apache.org/licenses/LICENSE-2.0.html"));
-				startActivity(i);
+				try {
+					startActivity(i);
+				} catch (Throwable e) {
+				}
 				return true;
 			}
 		});
