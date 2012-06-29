@@ -4,6 +4,13 @@ V
 * bug fixes
 - 
 
+V 3.3.9
+* features
+- 
+* bug fixes
+- fix save in autoload config
+- fix rare crashes
+
 V 3.3.8
 * features
 - ISC optimisations

@@ -243,6 +243,8 @@ public class ConfigurationAutoloadModel {
 			return false;
 		if (minute != other.minute)
 			return false;
+		if (nextExecution != other.nextExecution)
+			return false;
 		if (weekday != other.weekday)
 			return false;
 		return true;
