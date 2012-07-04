@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="BackButton" severity="informational" />
     <issue id="ContentDescription" severity="ignore" />
     <issue id="MissingPrefix" severity="ignore" />
     <issue id="MissingTranslation" severity="warning">
@@ -12,10 +13,13 @@
         <ignore path="res/layout/user_experiance_level_chooser.xml" />
         <ignore path="res/layout/virtual_governor_fragment.xml" />
     </issue>
-    <issue id="NewApi" severity="ignore" />
+    <issue id="NewApi" severity="informational" />
     <issue id="Overdraw">
         <ignore path="res/layout/configuration_manage.xml" />
     </issue>
+    <issue id="StringFormatInvalid" severity="ignore" />
+    <issue id="TypographyQuotes" severity="informational" />
+    <issue id="UnusedIds" severity="informational" />
     <issue id="UselessParent">
         <ignore path="res/layout/capability_checker.xml" />
         <ignore path="res/layout/log_adv_item_child.xml" />
