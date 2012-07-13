@@ -4,6 +4,20 @@ V
 * bug fixes
 - 
 
+V 3.3.10
+* features
+- limit switch interval
+* bug fixes
+- fix min/max frequency spinners not updating
+- fix governor editor for small screens
+
+V 3.3.9
+* features
+- 
+* bug fixes
+- fix save in autoload config
+- fix rare crashes
+
 V 3.3.8
 * features
 - ISC optimisations

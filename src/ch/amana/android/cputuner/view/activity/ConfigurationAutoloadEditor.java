@@ -223,7 +223,7 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 			return true;
 
 		case R.id.menuItemSave:
-			finish();
+			save();
 			return true;
 
 		default:

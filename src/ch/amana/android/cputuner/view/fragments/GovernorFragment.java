@@ -234,16 +234,9 @@ public class GovernorFragment extends GovernorBaseFragment {
 
 		int up = governorModel.getGovernorThresholdUp();
 		int down = governorModel.getGovernorThresholdDown();
-		boolean hasThreshholdUp = governorConfig.hasThreshholdUpFeature();
-		boolean hasThreshholdDown = governorConfig.hasThreshholdDownFeature();
 
-		if (hasThreshholdUp) {
+		if (governorConfig.hasThreshholdUpFeature()) {
 			llGovernorThresholds.setVisibility(View.VISIBLE);
-		} else {
-			llGovernorThresholds.setVisibility(View.GONE);
-		}
-
-		if (hasThreshholdUp) {
 			labelGovThreshUp.setVisibility(View.VISIBLE);
 			etGovTreshUp.setVisibility(View.VISIBLE);
 			if (up < 2) {
@@ -254,13 +247,14 @@ public class GovernorFragment extends GovernorBaseFragment {
 			}
 			etGovTreshUp.setText(up + "");
 		} else {
+			llGovernorThresholds.setVisibility(View.GONE);
 			governorModel.setGovernorThresholdUp(0);
 			labelGovThreshUp.setVisibility(View.GONE);
 			etGovTreshUp.setVisibility(View.GONE);
 			etGovTreshUp.setText("-1");
 		}
 
-		if (hasThreshholdDown) {
+		if (governorConfig.hasThreshholdDownFeature()) {
 			labelGovThreshDown.setVisibility(View.VISIBLE);
 			etGovTreshDown.setVisibility(View.VISIBLE);
 			if (down < 1) {
@@ -273,7 +267,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 					down = up - 1;
 				}
 			}
-			etGovTreshDown.setText(down + "");
+			etGovTreshDown.setText(Integer.toString(down));
 		} else {
 			governorModel.setGovernorThresholdDown(0);
 			labelGovThreshDown.setVisibility(View.GONE);

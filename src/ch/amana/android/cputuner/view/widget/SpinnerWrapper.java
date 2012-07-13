@@ -13,7 +13,6 @@ import ch.amana.android.cputuner.helper.GuiUtils;
 public class SpinnerWrapper implements OnItemSelectedListener {
 
 	private static final int INITIAL = Integer.MIN_VALUE;
-	private static final int RUNNING = INITIAL + 1;
 	private final Spinner spinner;
 	private final Set<OnItemSelectedListener> listeners = new HashSet<AdapterView.OnItemSelectedListener>();
 	private int possition = INITIAL;
@@ -24,8 +23,10 @@ public class SpinnerWrapper implements OnItemSelectedListener {
 	}
 
 	public void setAdapter(SpinnerAdapter adapter) {
-		possition = INITIAL;
 		spinner.setAdapter(adapter);
+		if (possition != INITIAL) {
+			spinner.setSelection(possition);
+		}
 	}
 
 	public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
@@ -43,12 +44,11 @@ public class SpinnerWrapper implements OnItemSelectedListener {
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		if (possition == pos || possition == INITIAL) {
+		if (pos == INITIAL) {
 			// the spinner has been initalised to this value (no need to set it)
-			possition = RUNNING;
 			return;
 		}
-		possition = RUNNING;
+		possition = pos;
 		for (OnItemSelectedListener listener : listeners) {
 			listener.onItemSelected(parent, view, pos, id);
 		}

@@ -62,6 +62,8 @@ public class BackupRestoreHelper {
 		SQLiteDatabase db = new CpuTunerOpenHelper(cb.getContext()).getWritableDatabase();
 		ExportConfig config = new ExportConfig(db, DB.DATABASE_NAME, storagePath, ExportType.JSON);
 		config.setExcludeTable(DB.SwitchLogDB.TABLE_NAME);
+		config.setExcludeTable(DB.TimeInStateIndex.TABLE_NAME);
+		config.setExcludeTable(DB.TimeInStateValue.TABLE_NAME);
 		ExportDataTask exportDataTask = new ExportDataTask(cb);
 		exportDataTask.execute(new ExportConfig[] { config });
 	}

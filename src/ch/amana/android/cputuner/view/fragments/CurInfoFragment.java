@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.CursorLoader;
@@ -269,6 +270,17 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		}
 	}
 
+	private void updateViewDelayed() {
+		Handler h = new Handler();
+		h.postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				updateView();
+			}
+		}, 1000);
+	}
+
 	@Override
 	public void updateView() {
 		CurInfoFragment self = this;
@@ -320,6 +332,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			trBatteryCurrent.setVisibility(View.GONE);
 		}
 		serviceSwitcher.updateAllButtonStateFromSystem();
+		cpuFrequencyChooser.setMaxCpuFreq(cpuHandler.getMaxCpuFreq());
+		cpuFrequencyChooser.setMinCpuFreq(cpuHandler.getMinCpuFreq());
 	}
 
 	@Override
@@ -405,7 +419,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	public void setMaxCpuFreq(int val) {
 		if (val != cpuHandler.getMaxCpuFreq()) {
 			cpuHandler.setMaxCpuFreq(val);
-			updateView();
+			updateViewDelayed();
 		}
 	}
 
@@ -413,7 +427,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	public void setMinCpuFreq(int val) {
 		if (val != cpuHandler.getMinCpuFreq()) {
 			cpuHandler.setMinCpuFreq(val);
-			updateView();
+			updateViewDelayed();
 		}
 	}
 
