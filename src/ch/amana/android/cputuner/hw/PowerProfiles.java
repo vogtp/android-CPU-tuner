@@ -4,6 +4,7 @@ import java.util.EnumMap;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.PulseHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
@@ -46,6 +47,10 @@ public class PowerProfiles {
 	public static final int BATTERY_PER_HOUR_STORE_FACTOR = 1000;
 	public static final long NO_PROFILE = -1;
 
+	private static final Object[] LOCK = new Object[0];
+
+	private static final long SWITCH_INTERVALL = 1000;
+
 	private final Context context;
 
 	private int batteryLevel;
@@ -77,6 +82,8 @@ public class PowerProfiles {
 	private final EnumMap<ServiceType, Integer> lastServiceState;
 
 	private final SettingsStorage settings;
+
+	private long lastSwitchTime;
 
 	public static synchronized PowerProfiles getInstance(Context ctx) {
 		if (instance == null) {
@@ -199,47 +206,63 @@ public class PowerProfiles {
 			}
 		}
 
-		try {
-			currentProfile = modelAccess.getProfile(profileId);
-
-			if (currentProfile == ProfileModel.NO_PROFILE) {
-				Logger.i("no profile found");
+		synchronized (LOCK) {
+			long now = System.currentTimeMillis();
+			if (!force && lastSwitchTime > now - SWITCH_INTERVALL) {
+				final long pid = profileId;
+				Handler h = new Handler();
+				h.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						applyProfile(pid, false);
+					}
+				}, SWITCH_INTERVALL);
 				return;
 			}
 
-			CpuHandler cpuHandler = CpuHandler.getInstance();
-			cpuHandler.applyCpuSettings(currentProfile);
-			applyWifiState(currentProfile.getWifiState());
-			applyGpsState(currentProfile.getGpsState());
-			applyBluetoothState(currentProfile.getBluetoothState());
-			applyMobiledata3GState(currentProfile.getMobiledata3GState());
-			applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
-			applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
-			applyAirplanemodeState(currentProfile.getAirplainemodeState());
-			PulseHelper.getInstance(context).stopPulseIfNeeded();
 			try {
-				Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName() + "< on batterylevel " + batteryLevel + "%");
-			} catch (Exception e) {
-				Logger.w("Error printing switch profile", e);
-			}
+				currentProfile = modelAccess.getProfile(profileId);
 
-			Intent intent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
-			if (settings.isEnableLogProfileSwitches()) {
-				intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
-				intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
-				intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
-				intent.putExtra(DB.SwitchLogDB.NAME_AC, acPower ? 1 : 0);
-				intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, batteryLevel);
-				intent.putExtra(DB.SwitchLogDB.NAME_CALL, callInProgress ? 1 : 0);
-				intent.putExtra(DB.SwitchLogDB.NAME_HOT, batteryHot ? 1 : 0);
-				intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, screenOff ? 1 : 0);
-			}
+				if (currentProfile == ProfileModel.NO_PROFILE) {
+					Logger.i("no profile found");
+					return;
+				}
 
-			lastBatteryLevel = -1;
-			lastBatteryLevelTimestamp = -1;
-			context.sendBroadcast(intent);
-		} catch (Throwable e) {
-			Logger.e("Failure while appling a profile", e);
+				CpuHandler cpuHandler = CpuHandler.getInstance();
+				cpuHandler.applyCpuSettings(currentProfile);
+				applyWifiState(currentProfile.getWifiState());
+				applyGpsState(currentProfile.getGpsState());
+				applyBluetoothState(currentProfile.getBluetoothState());
+				applyMobiledata3GState(currentProfile.getMobiledata3GState());
+				applyMobiledataConnectionState(currentProfile.getMobiledataConnectionState());
+				applyBackgroundSyncState(currentProfile.getBackgroundSyncState());
+				applyAirplanemodeState(currentProfile.getAirplainemodeState());
+				PulseHelper.getInstance(context).stopPulseIfNeeded();
+				try {
+					Logger.w("Changed to profile >" + currentProfile.getProfileName() + "< using trigger >" + currentTrigger.getName() + "< on batterylevel " + batteryLevel + "%");
+				} catch (Exception e) {
+					Logger.w("Error printing switch profile", e);
+				}
+
+				Intent intent = new Intent(Notifier.BROADCAST_PROFILE_CHANGED);
+				if (settings.isEnableLogProfileSwitches()) {
+					intent.putExtra(DB.SwitchLogDB.NAME_TRIGGER, currentTrigger.getName());
+					intent.putExtra(DB.SwitchLogDB.NAME_PROFILE, currentProfile.getProfileName());
+					intent.putExtra(DB.SwitchLogDB.NAME_VIRTGOV, getCurrentVirtGovName());
+					intent.putExtra(DB.SwitchLogDB.NAME_AC, acPower ? 1 : 0);
+					intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, batteryLevel);
+					intent.putExtra(DB.SwitchLogDB.NAME_CALL, callInProgress ? 1 : 0);
+					intent.putExtra(DB.SwitchLogDB.NAME_HOT, batteryHot ? 1 : 0);
+					intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, screenOff ? 1 : 0);
+				}
+
+				lastBatteryLevel = -1;
+				lastBatteryLevelTimestamp = -1;
+				context.sendBroadcast(intent);
+			} catch (Throwable e) {
+				Logger.e("Failure while appling a profile", e);
+			}
+			lastSwitchTime = now;
 		}
 	}
 
