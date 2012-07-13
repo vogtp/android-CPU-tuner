@@ -8,6 +8,7 @@ V 3.3.10
 * features
 - 
 * bug fixes
+- limit switch interval
 - fix min/max frequency spinners not updating
 - fix governor editor for small screens
 
