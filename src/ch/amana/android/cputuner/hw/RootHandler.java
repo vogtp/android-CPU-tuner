@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.hw;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +16,7 @@ import java.io.Writer;
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 
 public class RootHandler {
@@ -166,6 +168,7 @@ public class RootHandler {
 			StringBuilder val = new StringBuilder();
 			BufferedReader reader = null;
 			try {
+				ensureAccess(file);
 				if (file.canRead()) {
 					reader = new BufferedReader(new FileReader(file), 256);
 					String line = reader.readLine();
@@ -225,24 +228,39 @@ public class RootHandler {
 			return false;
 		}
 		synchronized (file) {
-			//			if (!file.canWrite()) {
-			//				RootHandler.execute("chmod g+rw " + file.getAbsolutePath());
-			//			}
-			//			if (file.canWrite()) {
-			//				try {
-			//					BufferedWriter writer = new BufferedWriter(new FileWriter(file), 256);
-			//					writer.write(val);
-			//					writer.flush();
-			//					writer.close();
-			//					return true;
-			//				} catch (IOException e) {
-			//					Logger.w("Could not write " + file.getAbsolutePath() + " tring exec cat", e);
-			//				}
-			//			}
+			ensureAccess(file);
+			if (file.canWrite()) {
+				BufferedWriter writer = null;
+				try {
+					writer = new BufferedWriter(new FileWriter(file), 256);
+					writer.write(val);
+					writer.flush();
+					return true;
+				} catch (IOException e) {
+					Logger.w("Could not write " + file.getAbsolutePath() + " tring exec echo", e);
+				} finally {
+					if (writer != null) {
+						try {
+							writer.close();
+						} catch (IOException e) {
+						}
+					}
+				}
+			}
 			if (Logger.DEBUG) {
 				Logger.w("Setting " + file.getAbsolutePath() + " to " + val);
 			}
 			return RootHandler.execute("echo " + val + " > " + file.getAbsolutePath());
+		}
+	}
+
+	private static void ensureAccess(File file) {
+		if (!file.canWrite()) {
+			int gid = SettingsStorage.getInstance().getUserId();
+			if (gid > -1) {
+				RootHandler.execute("chgrp " + gid + " " + file.getAbsolutePath());
+			}
+			RootHandler.execute("chmod 775 " + file.getAbsolutePath());
 		}
 	}
 

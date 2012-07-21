@@ -16,16 +16,6 @@ public class CpuTunerApplication extends Application {
 		Context ctx = getApplicationContext();
 		SettingsStorage settings = SettingsStorage.getInstance(ctx);
 
-		//		if (Logger.DEBUG) {
-		//			Builder threadPolicy = new StrictMode.ThreadPolicy.Builder();
-		//			// threadPolicy.detectDiskReads();
-		//			threadPolicy.detectDiskWrites();
-		//			threadPolicy.detectNetwork();
-		//			threadPolicy.penaltyLog();
-		//			// threadPolicy.penaltyDropBox();
-		//			StrictMode.setThreadPolicy(threadPolicy.build());
-		//		}
-
 		try {
 			InstallHelper.initialise(ctx);
 

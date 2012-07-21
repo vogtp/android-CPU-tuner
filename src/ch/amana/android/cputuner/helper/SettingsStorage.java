@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -127,6 +128,8 @@ public class SettingsStorage {
 	private boolean checkedEnableStatistics = false;
 	private boolean checkedRunSwitchInBackground = false;
 	private boolean runSwitchInBackground;
+
+	private int uid = -1;
 
 	private boolean powerStrongerThanScreenoff;
 
@@ -818,4 +821,29 @@ public class SettingsStorage {
 		return getPreferences().getBoolean("prefKeyWidgetShowLabels", true);
 	}
 
+	public int getUserId() {
+		if (uid < 0) {
+			try {
+				PackageManager pm = context.getPackageManager();
+				String packageName = context.getPackageName();
+				uid = pm.getApplicationInfo(packageName, 0).uid;
+				//				int[] gids = pm.getPackageInfo(packageName, PackageManager.GET_GIDS).gids;
+				//				if (gids.length > 0) {
+				//					for (int i = 0; i < gids.length; i++) {
+				//						if (gids[i] == uid) {
+				//							gid = uid;
+				//						}
+				//					}
+				//					if (gid < 0) {
+				//						gid = gids[0];
+				//					}
+				//				} else {
+				//					gid = uid;
+				//				}
+			} catch (NameNotFoundException e) {
+				Logger.w("Cannot get UID", e);
+			}
+		}
+		return uid;
+	}
 }
