@@ -255,12 +255,12 @@ public class RootHandler {
 	}
 
 	private static void ensureAccess(File file) {
-		if (!file.canWrite()) {
+		if (SettingsStorage.getInstance().isMakeFilesWritable() && !file.canWrite()) {
 			int gid = SettingsStorage.getInstance().getUserId();
 			if (gid > -1) {
-				RootHandler.execute("chgrp " + gid + " " + file.getAbsolutePath());
+				RootHandler.execute("chgrp -R " + gid + " " + CpuHandler.CPU_BASE_DIR);
 			}
-			RootHandler.execute("chmod 775 " + file.getAbsolutePath());
+			RootHandler.execute("chmod -R 775 " + CpuHandler.CPU_BASE_DIR);
 		}
 	}
 

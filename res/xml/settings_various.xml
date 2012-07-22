@@ -2,12 +2,18 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="prefKeyVarious"
     android:summary="@string/prefVariousLong"
-    android:title="@string/prefVarious" ><Preference android:key="prefKeyVersion" >
+    android:title="@string/prefVarious" >
+
+    <Preference android:key="prefKeyVersion" >
     </Preference>
     <Preference
         android:key="prefKeyChangelog"
         android:title="@string/prefChangelog" >
     </Preference>
+    <Preference
+        android:key="prefKeyAuthorsSettings"
+        android:summary="@string/prefAuthorsSettingsLong"
+        android:title="@string/prefAuthorsSettings" />
 
     <PreferenceCategory
         android:key="prefKeyLegal"
