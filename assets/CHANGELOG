@@ -6,7 +6,7 @@ V
 
 V 3.3.12
 * features
-- write to files sysfs directly is now a setting
+- write directly to sysfs files is now a option
 * bug fixes
 - fix crashes introduced with version 3.3.11
 
