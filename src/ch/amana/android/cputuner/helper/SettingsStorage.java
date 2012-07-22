@@ -18,6 +18,7 @@ import android.util.DisplayMetrics;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
+import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.RootHandler;
@@ -857,5 +858,17 @@ public class SettingsStorage {
 			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", isJellyBean);
 		}
 		return makeFilesWritable;
+	}
+
+	public void setAuthorsDefauls() {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean("prefKeyMakeFilesWritable", true);
+		editor.putBoolean("prefKeyAllowManualServiceChanges", true);
+		editor.putString("prefKeyStatusbarAddToChoice", Integer.toString(STATUSBAR_ALWAYS));
+		editor.putBoolean("prefKeyPowerStrongerThanScreenoff", false);
+		editor.putBoolean("prefKeyAllowManualServiceChanges", true);
+		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);
+		editor.putInt(PREF_KEY_MAX_FREQ_DEFAULT, availCpuFreq[availCpuFreq.length - 1]);
+		editor.commit();
 	}
 }

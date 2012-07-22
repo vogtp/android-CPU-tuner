@@ -42,7 +42,16 @@ public class VariousSettings extends BaseSettings {
 				return true;
 			}
 		});
+		Preference authorsSettings = findPreference("prefKeyAuthorsSettings");
+		authorsSettings.setEnabled(settings.isPowerUser());
+		authorsSettings.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				settings.setAuthorsDefauls();
+				return true;
+			}
+		});
 		StringBuffer versionSB = new StringBuffer();
 		versionSB.append(getString(R.string.label_version)).append(" ").append(settings.getVersionName());
 		findPreference("prefKeyVersion").setTitle(versionSB.toString());
