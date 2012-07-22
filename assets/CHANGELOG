@@ -3,6 +3,13 @@ V
 - 
 * bug fixes
 - 
+
+V 3.3.12
+* features
+- write to files sysfs directly is now a setting
+* bug fixes
+- fix crashes introduced with version 3.3.11
+
 V 3.3.11
 * features
 - Fix for Jelly Bean

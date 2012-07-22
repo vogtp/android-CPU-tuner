@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="prefMakeFilesWritable">Write directly to files</string>
+    <string name="prefMakeFilesWritableLong">Write directly to the sysfs files.  This speeds up switching and solves problems with Jelly Bean.  But it is known to cause problems with some kernels.</string>
+
 </resources>

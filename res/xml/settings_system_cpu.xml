@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="@string/prefCpu"
-	android:key="prefKeyCpu"
-	android:summary="@string/prefCpuLong"
-> 
-	<ListPreference
-		android:entries="@array/prefMulticoreEntries"
-		android:key="prefKeyMulticore"
-		android:entryValues="@array/prefMulticoreValues"
-		android:summary="@string/prefMulticoreLong"
-		android:title="@string/prefMulticore"
-		android:defaultValue="2"
-	></ListPreference>
-	<CheckBoxPreference
-		android:title="@string/prefEnableUserspaceGovernor"
-		android:defaultValue="false"
-		android:key="prefKeyEnableUserspaceGovernor"
-		android:summaryOff="@string/prefEnableUserspaceGovernorOff"
-		android:summaryOn="@string/prefEnableUserspaceGovernorOn"
-	></CheckBoxPreference>
-	<EditTextPreference
-		android:defaultValue="400"
-		android:summary="@string/prefMinSensibleFrequencyLong"
-		android:key="prefKeyMinSensibleFrequency"
-		android:title="@string/prefMinSensibleFrequency"
-	></EditTextPreference>
-	<EditTextPreference
-		android:summary="@string/prefCpuFreqLong"
-		android:key="prefKeyCpuFreq"
-		android:title="@string/prefCpuFreq"
-		android:dialogMessage="@string/prefCpuFreqMsg"
-	></EditTextPreference>
-	<PreferenceCategory
-		android:title="@string/prefKeyFrequencies"
-		android:key="prefKeyDefaultFrequencies"
-	>
-		<ListPreference
-			android:title="@string/prefMaxFreq"
-			android:key="prefKeyMaxFreq"
-			android:summary="@string/prefMaxFreqLong"
-			android:defaultValue="-1"
-		></ListPreference>
-		<ListPreference
-			android:defaultValue="-1"
-			android:title="@string/prefMinFreq"
-			android:key="prefKeyMinFreq"
-			android:summary="@string/prefMinFreqLong"
-		></ListPreference>
-	</PreferenceCategory>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefKeyCpu"
+    android:summary="@string/prefCpuLong"
+    android:title="@string/prefCpu" >
+
+    <ListPreference
+        android:defaultValue="2"
+        android:entries="@array/prefMulticoreEntries"
+        android:entryValues="@array/prefMulticoreValues"
+        android:key="prefKeyMulticore"
+        android:summary="@string/prefMulticoreLong"
+        android:title="@string/prefMulticore" >
+    </ListPreference>
+
+    <CheckBoxPreference
+        android:key="prefKeyMakeFilesWritable"
+        android:summary="@string/prefMakeFilesWritableLong"
+        android:title="@string/prefMakeFilesWritable" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="prefKeyEnableUserspaceGovernor"
+        android:summaryOff="@string/prefEnableUserspaceGovernorOff"
+        android:summaryOn="@string/prefEnableUserspaceGovernorOn"
+        android:title="@string/prefEnableUserspaceGovernor" >
+    </CheckBoxPreference>
+
+    <EditTextPreference
+        android:defaultValue="400"
+        android:key="prefKeyMinSensibleFrequency"
+        android:summary="@string/prefMinSensibleFrequencyLong"
+        android:title="@string/prefMinSensibleFrequency" >
+    </EditTextPreference>
+    <EditTextPreference
+        android:dialogMessage="@string/prefCpuFreqMsg"
+        android:key="prefKeyCpuFreq"
+        android:summary="@string/prefCpuFreqLong"
+        android:title="@string/prefCpuFreq" >
+    </EditTextPreference>
+
+    <PreferenceCategory
+        android:key="prefKeyDefaultFrequencies"
+        android:title="@string/prefKeyFrequencies" >
+        <ListPreference
+            android:defaultValue="-1"
+            android:key="prefKeyMaxFreq"
+            android:summary="@string/prefMaxFreqLong"
+            android:title="@string/prefMaxFreq" >
+        </ListPreference>
+        <ListPreference
+            android:defaultValue="-1"
+            android:key="prefKeyMinFreq"
+            android:summary="@string/prefMinFreqLong"
+            android:title="@string/prefMinFreq" >
+        </ListPreference>
+    </PreferenceCategory>
+
 </PreferenceScreen>

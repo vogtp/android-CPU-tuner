@@ -128,6 +128,8 @@ public class SettingsStorage {
 	private boolean checkedEnableStatistics = false;
 	private boolean checkedRunSwitchInBackground = false;
 	private boolean runSwitchInBackground;
+	private boolean checkedMakeFilesWritable = false;
+	private boolean makeFilesWritable;
 
 	private int uid = -1;
 
@@ -156,6 +158,7 @@ public class SettingsStorage {
 		checkedEnableSwitchLog = false;
 		checkedEnableStatistics = false;
 		checkedRunSwitchInBackground = false;
+		checkedMakeFilesWritable = false;
 	}
 
 	public static SettingsStorage getInstance(Context ctx) {
@@ -845,5 +848,14 @@ public class SettingsStorage {
 			}
 		}
 		return uid;
+	}
+
+	public boolean isMakeFilesWritable() {
+		if (!checkedMakeFilesWritable) {
+			checkedMakeFilesWritable = true;
+			boolean isJellyBean = Build.VERSION.SDK_INT >= 16; // JB  
+			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", isJellyBean);
+		}
+		return makeFilesWritable;
 	}
 }
