@@ -19,7 +19,6 @@ import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.CpuHandler;
-import ch.amana.android.cputuner.hw.GpsHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
@@ -88,8 +87,8 @@ public class SettingsStorage {
 	private final Context context;
 	private boolean checkedBluetooth = false;
 	private boolean enableSwitchBluetooth;
-	private boolean checkedGps = false;
-	private boolean enableSwitchGps;
+	//	private boolean checkedGps = false;
+	//	private boolean enableSwitchGps;
 	private boolean checkedBeta = false;
 	private boolean enableBeta;
 	private boolean checkedProfiles = false;
@@ -310,11 +309,12 @@ public class SettingsStorage {
 	}
 
 	public boolean isEnableSwitchGps() {
-		if (!checkedGps) {
-			checkedGps = true;
-			enableSwitchGps = GpsHandler.isEnableSwitchGps(context);
-		}
-		return enableSwitchGps;
+		//		if (!checkedGps) {
+		//			checkedGps = true;
+		//			enableSwitchGps = GpsHandler.isEnableSwitchGps(context);
+		//		}
+		//		return enableSwitchGps;
+		return false;
 	}
 
 	public boolean isEnableSwitchWifi() {
