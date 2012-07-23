@@ -86,6 +86,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	// FIXME ugly way to get around destruction of fragments on orientation change
 	private CurInfoFragment lastInstanceCreated;
 	private ServiceSwitcher serviceSwitcher;
+	private TextView tvInfoFrequenciesBeginner;
+	private TextView labelCpuFreqMin;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -107,10 +109,12 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		spCpuFreqMax = (Spinner) v.findViewById(R.id.spCpuFreqMax);
 		spCpuFreqMin = (Spinner) v.findViewById(R.id.spCpuFreqMin);
 		labelCpuFreqMax = (TextView) v.findViewById(R.id.labelCpuFreqMax);
+		labelCpuFreqMin = (TextView) v.findViewById(R.id.labelCpuFreqMin);
 		sbCpuFreqMax = (SeekBar) v.findViewById(R.id.SeekBarCpuFreqMax);
 		sbCpuFreqMin = (SeekBar) v.findViewById(R.id.SeekBarCpuFreqMin);
 		trPulse = (TableRow) v.findViewById(R.id.TableRowPulse);
 		tvPulse = (TextView) v.findViewById(R.id.tvPulse);
+		tvInfoFrequenciesBeginner = (TextView) v.findViewById(R.id.tvInfoFrequenciesBeginner);
 		trMaxFreq = (TableRow) v.findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) v.findViewById(R.id.TableRowMinFreq);
 		trBatteryCurrent = (TableRow) v.findViewById(R.id.TableRowBatteryCurrent);
@@ -255,6 +259,27 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		}
 		if (getActivity() == null) {
 			return;
+		}
+		if (SettingsStorage.getInstance().isBeginnerUser()) {
+			trMaxFreq.setVisibility(View.GONE);
+			labelCpuFreqMax.setVisibility(View.GONE);
+			spCpuFreqMax.setVisibility(View.GONE);
+			sbCpuFreqMax.setVisibility(View.GONE);
+			trMinFreq.setVisibility(View.GONE);
+			labelCpuFreqMin.setVisibility(View.GONE);
+			spCpuFreqMin.setVisibility(View.GONE);
+			sbCpuFreqMin.setVisibility(View.GONE);
+			tvInfoFrequenciesBeginner.setVisibility(View.VISIBLE);
+		} else {
+			trMaxFreq.setVisibility(View.VISIBLE);
+			labelCpuFreqMax.setVisibility(View.VISIBLE);
+			spCpuFreqMax.setVisibility(View.VISIBLE);
+			sbCpuFreqMax.setVisibility(View.VISIBLE);
+			trMinFreq.setVisibility(View.VISIBLE);
+			labelCpuFreqMin.setVisibility(View.VISIBLE);
+			spCpuFreqMin.setVisibility(View.VISIBLE);
+			sbCpuFreqMin.setVisibility(View.VISIBLE);
+			tvInfoFrequenciesBeginner.setVisibility(View.GONE);
 		}
 		if (governorFragment != null) {
 			governorFragment.updateVirtGov(true);

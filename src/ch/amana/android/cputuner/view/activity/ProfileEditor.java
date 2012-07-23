@@ -82,6 +82,10 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	private TextView tvWarningManualServiceChanges;
 	private TextView tvWarningWifiConnected;
 
+	private TextView tvInfoFrequenciesBeginner;
+
+	private TextView labelCpuFreqMin;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -172,6 +176,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spCpuFreqMax = (Spinner) findViewById(R.id.spCpuFreqMax);
 		spCpuFreqMin = (Spinner) findViewById(R.id.spCpuFreqMin);
 		labelCpuFreqMax = (TextView) findViewById(R.id.labelCpuFreqMax);
+		labelCpuFreqMin = (TextView) findViewById(R.id.labelCpuFreqMin);
 		tvWarningManualServiceChanges = (TextView) findViewById(R.id.tvWarningManualServiceChanges);
 		tvWarningWifiConnected = (TextView) findViewById(R.id.tvWarningWifiConnected);
 		sbCpuFreqMax = (SeekBar) findViewById(R.id.SeekBarCpuFreqMax);
@@ -185,6 +190,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		spSync = (Spinner) findViewById(R.id.spSync);
 		trMaxFreq = (TableRow) findViewById(R.id.TableRowMaxFreq);
 		trMinFreq = (TableRow) findViewById(R.id.TableRowMinFreq);
+		tvInfoFrequenciesBeginner = (TextView) findViewById(R.id.tvInfoFrequenciesBeginner);
 
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
@@ -367,6 +373,27 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if (SettingsStorage.getInstance().isBeginnerUser()) {
+			trMaxFreq.setVisibility(View.GONE);
+			labelCpuFreqMax.setVisibility(View.GONE);
+			spCpuFreqMax.setVisibility(View.GONE);
+			sbCpuFreqMax.setVisibility(View.GONE);
+			trMinFreq.setVisibility(View.GONE);
+			labelCpuFreqMin.setVisibility(View.GONE);
+			spCpuFreqMin.setVisibility(View.GONE);
+			sbCpuFreqMin.setVisibility(View.GONE);
+			tvInfoFrequenciesBeginner.setVisibility(View.VISIBLE);
+		} else {
+			trMaxFreq.setVisibility(View.VISIBLE);
+			labelCpuFreqMax.setVisibility(View.VISIBLE);
+			spCpuFreqMax.setVisibility(View.VISIBLE);
+			sbCpuFreqMax.setVisibility(View.VISIBLE);
+			trMinFreq.setVisibility(View.VISIBLE);
+			labelCpuFreqMin.setVisibility(View.VISIBLE);
+			spCpuFreqMin.setVisibility(View.VISIBLE);
+			sbCpuFreqMin.setVisibility(View.VISIBLE);
+			tvInfoFrequenciesBeginner.setVisibility(View.GONE);
+		}
 		updateView();
 	}
 

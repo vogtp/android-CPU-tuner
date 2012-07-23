@@ -202,6 +202,15 @@
                 android:textSize="20sp" >
             </TextView>
 
+            <TextView
+                android:id="@+id/tvInfoFrequenciesBeginner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/tvCpuFreqBeginnerText" >
+            </TextView>
+
             <TableRow
                 android:id="@+id/TableRowMaxFreq"
                 android:layout_width="fill_parent"

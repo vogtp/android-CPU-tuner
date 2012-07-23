@@ -6,6 +6,7 @@ V
 
 V 3.4.0
 * features
+- disable min/max frequencies for beginners
 - make virtual governors mandatory
 - disable GPS switching (as system app)
 - let only power users switch off CPUs and warn them
