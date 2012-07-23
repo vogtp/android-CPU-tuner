@@ -374,7 +374,6 @@
     <string name="prefCatDisplay">Дисплей</string>
     <string name="labelPowersaveBias">Энергосбережение:</string>
     <string name="labelVirtualGovernor">Виртуальный регулятор:</string>
-    <string name="prefUseVirtualGovernorsLong">Настройки виртуального регулятора из профиля</string>
     <string name="label_total_transitions">Всего переходов:</string>
     <string name="prefPulseMobiledataOnWifi">Пульсировать mobiledata на wifi</string>
     <string name="prefPulseMobiledataOnWifiOn">Mobiledata соединение будет пульсировать как только wifi будет подключён.</string>
@@ -445,8 +444,7 @@
     <string name="msgNoIssuesFound">Проблемы не найдены.</string>
     <string name="prefVritualGovernorsListLong">Виртуальные регуляторы cpu.</string>
     <string name="virtualGovernorsList">Виртуальные регуляторы</string>
-    <string name="prefBatteryHotTempMsg">		Пользовательская  температура для триггера аккумулятора горячий профиль.    <br />
-		Целое значение в °C.</string>
+    <string name="prefBatteryHotTempMsg">		Пользовательская  температура для триггера аккумулятора горячий профиль.    <br />		Целое значение в °C.</string>
     <string name="prefBatteryHotTempLong">Пользовательская  температура для триггера аккумулятора горячий профиль.</string>
     <string name="prefBatteryHotTemp">Высокая температора</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Профили могут переключатся во время звонка.
@@ -596,7 +594,6 @@
         <item><b>Мощь!</b>			: Вы словно босс!</item>
     </string-array>
 
-    <string name="cbEnableVirtualGovernors">Вкл виртуальные регуляторы</string>
     <string name="userExperianceLevelExplain">Cpu tuner может работать на разных уровнях
 	В зависимоти от уровней существуют разные функции.</string>
     <string name="prefCallInProgressProfile">Вызов профиля в прогрессе</string>

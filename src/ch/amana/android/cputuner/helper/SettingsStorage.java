@@ -451,9 +451,10 @@ public class SettingsStorage {
 		return getPreferences().getBoolean("prefKeyPulseMobiledataOnWifi", true);
 	}
 
-	public boolean isUseVirtualGovernors() {
-		return getPreferences().getBoolean(PREF_KEY_USE_VIRTUAL_GOVS, true);
-	}
+	//
+	//	public boolean isUseVirtualGovernors() {
+	//		return getPreferences().getBoolean(PREF_KEY_USE_VIRTUAL_GOVS, true);
+	//	}
 
 	public void setUseVirtualGovernors(boolean b) {
 		Editor editor = getPreferences().edit();

@@ -150,9 +150,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
 		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
 		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
-		if (settings.isUseVirtualGovernors()) {
-			pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
-		}
+		pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
 		if (settings.isAdvancesStatistics()) {
 			if (settings.isRunStatisticsService()) {
 				pagerAdapter.addPage(StatsAdvancedFragment.class, R.string.labelStatisticsTab);

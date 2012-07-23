@@ -254,7 +254,6 @@
     <string name="prefCatDisplay">表示</string>
     <string name="labelPowersaveBias">ﾊﾟﾜｰｾｰﾌﾞ嵩上値:</string>
     <string name="labelVirtualGovernor">仮想ガバナー:</string>
-    <string name="prefUseVirtualGovernorsLong">仮想ガバナーではプロファイルからガバナー設定が抽出されます。</string>
     <string name="label_total_transitions">伝送総数:</string>
     <string name="prefPulseMobiledataOnWifi">Wifi接続中のﾓﾊﾞｲﾙﾃﾞｰﾀ接続</string>
     <string name="prefPulseMobiledataOnWifiOn">Wifi接続中でもﾓﾊﾞｲﾙﾃﾞｰﾀ接続を有効にする</string>
@@ -320,8 +319,7 @@
     <string name="msgNoIssuesFound">問題は見つかりませんでした</string>
     <string name="prefVritualGovernorsListLong">仮想ガバナーは予めCPUガバナーに設定されています。</string>
     <string name="virtualGovernorsList">仮想ガバナー</string>
-    <string name="prefBatteryHotTempMsg">バッテリ高温プロファイルへのしきい値を設定します。<br />
-整数値で°Cを指定します</string>
+    <string name="prefBatteryHotTempMsg">バッテリ高温プロファイルへのしきい値を設定します。<br />整数値で°Cを指定します</string>
     <string name="prefBatteryHotTempLong">バッテリ高温プロファイルのしきい値設定</string>
     <string name="prefBatteryHotTemp">バッテリ高温時</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">プロファイル切替は通話中に許可されています。モバイルデータは本オプションの状態に関わらず通話中には切替されません。</string>
@@ -457,7 +455,6 @@
         <item><b>パワーユーザー</b>: 自分でカスタマイズする</item>
     </string-array>
 
-    <string name="cbEnableVirtualGovernors">仮想ガバナーを有効化</string>
     <string name="userExperianceLevelExplain">CPU tunerは経験レベルを選択して動作を変更することが出来ます。経験レベルによってユーザの機能選択や設定変更の自由度が変わります。</string>
     <string name="prefCallInProgressProfile">通話中のﾌﾟﾛﾌｧｲﾙ</string>
     <string name="prefCallInProgressProfileLong">通話中に有効なプロファイル</string>
@@ -590,6 +587,5 @@
         <item>1時間あたりの使用率 % </item>
         <item>計算しない</item>
     </string-array>
-
 
 </resources>

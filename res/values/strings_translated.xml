@@ -384,8 +384,6 @@
     <string name="prefCatDisplay">Display</string>
     <string name="labelPowersaveBias">Powersave bias:</string>
     <string name="labelVirtualGovernor">Virtual Governor:</string>
-    <string name="prefUseVirtualGovernorsLong">Virtual Governor abstract the settings of governors
-		from the profile.</string>
     <string name="label_total_transitions">Total transitions:</string>
     <string name="prefPulseMobiledataOnWifi">Pulse Mobile Data on WIFI</string>
     <string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if WIFI is
@@ -465,8 +463,7 @@
     <string name="msgNoIssuesFound">No issues found.</string>
     <string name="prefVritualGovernorsListLong">Virtual Governors are preconfigured cpu governors.</string>
     <string name="virtualGovernorsList">Virtual Governors</string>
-    <string name="prefBatteryHotTempMsg">Set temperature to trigger \"Battery Hot\" profile.<br />
-		Integer value in °C.</string>
+    <string name="prefBatteryHotTempMsg">Set temperature to trigger \"Battery Hot\" profile.<br />		Integer value in °C.</string>
     <string name="prefBatteryHotTempLong">Set temperature to trigger \"Battery Hot\" profile.</string>
     <string name="prefBatteryHotTemp">Battery Hot Temperature</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">If checked, \"Profile Switches\" are [allowed] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
@@ -619,7 +616,6 @@
         <item><b>Power user</b>			: You\'re the boss!</item>
     </string-array>
 
-    <string name="cbEnableVirtualGovernors">Enable Virtual Governors</string>
     <string name="userExperianceLevelExplain">CPU Tuner can operate on different experience
 		levels. Depending on the level it gives you more choices and lets you
 		do more things.</string>

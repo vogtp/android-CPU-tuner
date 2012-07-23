@@ -24,12 +24,6 @@
         android:title="@string/prefCallInProgressProfile" >
     </CheckBoxPreference>
     <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="prefKeyUseVirtualGovernors"
-        android:summary="@string/prefUseVirtualGovernorsLong"
-        android:title="@string/cbEnableVirtualGovernors" >
-    </CheckBoxPreference>
-    <CheckBoxPreference
         android:defaultValue="false"
         android:key="prefKeySwitchProfileWhilePhoneNotIdle"
         android:summaryOff="@string/prefSwitchProfileWhilePhoneNotIdleOff"

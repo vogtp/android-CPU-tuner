@@ -87,8 +87,6 @@
     <string name="prefCatDisplay">Display</string>
     <string name="labelPowersaveBias">Powersave bias:</string>
     <string name="labelVirtualGovernor">Governor Virtuale:</string>
-    <string name="prefUseVirtualGovernorsLong">Il governor virtuale astrae le impostazioni
-		dei governors dal profilo.</string>
     <string name="label_total_transitions">Transizioni totali:</string>
     <string name="prefPulseMobiledataOnWifi">Connesione dati attiva sotto wifi</string>
     <string name="prefPulseMobiledataOnWifiOn">La connessione dati sarà attiva anche con il wifi connesso.</string>
@@ -147,8 +145,7 @@
     <string name="msgNoIssuesFound">Nessun problema rilevato.</string>
     <string name="prefVritualGovernorsListLong">I governor virtuali sono preconfigurati nella cpu.</string>
     <string name="virtualGovernorsList">Governor Virtuali</string>
-    <string name="prefBatteryHotTempMsg">Temperatura personalizzata per attivare il profilo batteria surriscaldata.<br />
- Valore intero in °C.</string>
+    <string name="prefBatteryHotTempMsg">Temperatura personalizzata per attivare il profilo batteria surriscaldata.<br /> Valore intero in °C.</string>
     <string name="prefBatteryHotTempLong">Temperatura personalizzata per attivare il profilo batteria surriscaldata.</string>
     <string name="prefBatteryHotTemp">Batteria surriscaldata</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Cambio di profili permesso durante le chiamate. La connessione dati non verrà modificata in chiamata, a prescindere dallo stato di questa opzione.</string>
@@ -298,7 +295,6 @@
         <item><b>Esperto</b>: Sei il Boss!</item>
     </string-array>
 
-    <string name="cbEnableVirtualGovernors">Abilita i governor virtuali</string>
     <string name="userExperianceLevelExplain">CPU tuner può operare con livelli di esperienza diversi. In base al livello che scegli avrai più scelte e potrai fare più cose.</string>
     <string name="prefCallInProgressProfile">Profilo Chiamata in Corso</string>
     <string name="prefCallInProgressProfileLong">Abilita un profilo utilizzato durante le chiamate.</string>

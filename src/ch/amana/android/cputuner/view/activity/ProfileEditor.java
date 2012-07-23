@@ -112,11 +112,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		origProfile = new ProfileModel(profile);
 
 
-		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
-			governorFragment = new VirtualGovernorFragment(this, profile);
-		} else {
-			governorFragment = new GovernorFragment(this, profile);
-		}
+		governorFragment = new VirtualGovernorFragment(this, profile);
 		if (ACTION_EDIT_SWITCHPROFILE.equals(action)) {
 			governorFragment = new GovernorFragment(this, profile);
 		}
@@ -364,11 +360,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		} else {
 			profile.readFromBundle(savedInstanceState);
 		}
-		if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
-			governorFragment = new VirtualGovernorFragment(this, profile);
-		} else {
-			governorFragment = new GovernorFragment(this, profile);
-		}
+		governorFragment = new VirtualGovernorFragment(this, profile);
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 

@@ -224,8 +224,6 @@
     <string name="prefCatDisplay">Display</string>
     <string name="labelPowersaveBias">Powersave bias:</string>
     <string name="labelVirtualGovernor">Virtual Governor:</string>
-    <string name="prefUseVirtualGovernorsLong">Virtual governor abstract the settings of governors
-		from the profile.</string>
     <string name="label_total_transitions">Total transitions:</string>
     <string name="prefPulseMobiledataOnWifi">Pulse mobiledata on wifi</string>
     <string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if wifi is

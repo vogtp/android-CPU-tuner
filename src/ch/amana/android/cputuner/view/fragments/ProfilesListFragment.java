@@ -96,12 +96,11 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 					}
 					((TextView) view).setTextColor(color);
 				} else if (columnIndex == DB.CpuProfile.INDEX_GOVERNOR) {
-					if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
-						int virtGovId = cursor.getInt(CpuProfile.INDEX_VIRTUAL_GOVERNOR);
-						if (virtGovId > -1) {
-							Cursor virtGovCursor = null;
-							try {
-								virtGovCursor = getActivity().getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
+					int virtGovId = cursor.getInt(CpuProfile.INDEX_VIRTUAL_GOVERNOR);
+					if (virtGovId > -1) {
+						Cursor virtGovCursor = null;
+						try {
+							virtGovCursor = getActivity().getContentResolver().query(VirtualGovernor.CONTENT_URI, VirtualGovernor.PROJECTION_DEFAULT, DB.SELECTION_BY_ID,
 									new String[] { virtGovId + "" }, VirtualGovernor.SORTORDER_DEFAULT);
 							if (virtGovCursor.moveToFirst()) {
 								VirtualGovernorModel vgm = new VirtualGovernorModel(virtGovCursor);
@@ -109,11 +108,10 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 								((TextView) ((View) view.getParent()).findViewById(R.id.labelGovernor)).setText(R.string.labelVirtualGovernor);
 								return true;
 							}
-							} finally {
-								if (virtGovCursor != null) {
-									virtGovCursor.close();
-									virtGovCursor = null;
-								}
+						} finally {
+							if (virtGovCursor != null) {
+								virtGovCursor.close();
+								virtGovCursor = null;
 							}
 						}
 					}
@@ -188,6 +186,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 			icon.setAlpha(ALPHA_ON);
 		}
 	}
+
 	private void setAnimation(final View v, int resID) {
 		final AnimationSet c = (AnimationSet) AnimationUtils.loadAnimation(getActivity(), resID);
 		c.setRepeatMode(Animation.RESTART);

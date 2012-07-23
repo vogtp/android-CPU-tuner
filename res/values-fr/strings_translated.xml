@@ -36,8 +36,7 @@
     <string name="msgNoIssuesFound">Aucun problème détecté.</string>
     <string name="prefVritualGovernorsListLong">Les gouverneurs virtuels sont des gouverneurs préconfigurés.</string>
     <string name="virtualGovernorsList">Gouverneurs virtuels</string>
-    <string name="prefBatteryHotTempMsg">Température personnalisée pour déclencher le profil de batterie chaude.<br />
- Valeur entière.</string>
+    <string name="prefBatteryHotTempMsg">Température personnalisée pour déclencher le profil de batterie chaude.<br /> Valeur entière.</string>
     <string name="prefBatteryHotTempLong">Température personnalisée pour déclencher le profil batterie chaude.</string>
     <string name="prefBatteryHotTemp">Température pour batterie chaude</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Les changements de profils sont autorisés durant les appels. Le connexion data ne sera jamais allumé pendant les appels, quel que soit l\'état de cette option.</string>
@@ -184,7 +183,6 @@ sur la batterie, ou si l\'écran est verrouillé) différents profils peuvent ê
         <item><b>Super utilisateur</b>: Vous êtes le patron!</item>
     </string-array>
 
-    <string name="cbEnableVirtualGovernors">Activer les gouverneurs virtuelle</string>
     <string name="userExperianceLevelExplain">CPU tuner peut fonctionner avec différents niveaux d\'expérience. Selon le niveau, il vous donne plus au moins de choix.</string>
     <string name="prefCallInProgressProfile">Profil: Appel en cours</string>
     <string name="prefCallInProgressProfileLong">Fonction bêta : Permet à un profil de se déclencher pendant les appels.</string>

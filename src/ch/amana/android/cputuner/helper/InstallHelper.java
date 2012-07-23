@@ -155,9 +155,7 @@ public class InstallHelper {
 		try {
 			ret = ret && checkCursor(resolver, DB.CpuProfile.CONTENT_URI);
 			ret = ret && checkCursor(resolver, DB.Trigger.CONTENT_URI);
-			if (SettingsStorage.getInstance().isUseVirtualGovernors()) {
-				ret = ret && checkCursor(resolver, DB.VirtualGovernor.CONTENT_URI);
-			}
+			ret = ret && checkCursor(resolver, DB.VirtualGovernor.CONTENT_URI);
 		} catch (Throwable e) {
 			return false;
 		}

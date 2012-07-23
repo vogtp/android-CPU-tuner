@@ -79,8 +79,6 @@
     <string name="prefCatDisplay">Προβολή</string>
     <string name="labelPowersaveBias">Powersave bias:</string>
     <string name="labelVirtualGovernor">Εικονικός Governor:</string>
-    <string name="prefUseVirtualGovernorsLong">Ο εικονικός governor αποσπά τις ρυθμίσεις των governors
-		απο το προφίλ.</string>
     <string name="label_total_transitions">Σύνολο μεταβάσεων:</string>
     <string name="prefPulseMobiledataOnWifi">Διατήρηση σύνδεσης δεδομένων σε wifi</string>
     <string name="prefPulseMobiledataOnWifiOn">Η σύνδεση δεδομένων θα παραμένει ενεργή έστω κι αν
@@ -148,8 +146,7 @@
     <string name="msgNoIssuesFound">Δε βρέθηκαν θέματα.</string>
     <string name="prefVritualGovernorsListLong">Εικονικοί governors είναι προκαθορισμένοι cpu governors.</string>
     <string name="virtualGovernorsList">Εικονικοί Governors</string>
-    <string name="prefBatteryHotTempMsg">Θερμοκρασία η οποία θα καλέσει το προφίλ ζεστής μπαταρίας.<br />
- Ακαίρεος αριθμός σε Β°C.</string>
+    <string name="prefBatteryHotTempMsg">Θερμοκρασία η οποία θα καλέσει το προφίλ ζεστής μπαταρίας.<br /> Ακαίρεος αριθμός σε Β°C.</string>
     <string name="prefBatteryHotTempLong">Θερμοκρασία η οποία θα καλέσει το προφίλ ζεστής μπαταρίας.</string>
     <string name="prefBatteryHotTemp">Θερμοκρασία ζεστής μπαταρίας</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Η αλλαγή προφίλ επιτρέπεται κατά τη διάρκεια κλήσης. Το mobile data δεν θα αλλάζει ότι και να δώσετε σ αυτή την επιλογή..</string>
@@ -286,7 +283,6 @@
         <item><b>Έμπειρος</b>: Είσαι το αφεντικό!</item>
     </string-array>
 
-    <string name="cbEnableVirtualGovernors">Ενεργοποίηση των εικονικών governors</string>
     <string name="userExperianceLevelExplain">Το CPU tuner μπορεί να λειτουργήσει σε διαφορετικά επίπεδα εμπειρίας. Ανάλογα με το επίπεδο σας δίνει περισσότερες επιλογές και σας επιτρέπει να κάνετε περισσότερα πράγματα.</string>
     <string name="prefCallInProgressProfile">Προφίλ σε περίπτωση τηλ. κλήσης</string>
     <string name="prefCallInProgressProfileLong">Ενεργοποιεί ένα προφίλ όταν υπάρχει τηλ. κλήση.</string>

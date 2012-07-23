@@ -88,9 +88,6 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 						color = getResources().getColor(R.color.cputuner_green);
 					}
 
-					if (!SettingsStorage.getInstance().isUseVirtualGovernors()) {
-						color = Color.DKGRAY;
-					}
 					((TextView) view).setTextColor(color);
 				} else if (columnIndex == VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_UP) {
 					if (cursor.getInt(columnIndex) < 1) {
@@ -125,7 +122,6 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 			}
 		});
 		setListAdapter(adapter);
-		getListView().setEnabled(SettingsStorage.getInstance().isUseVirtualGovernors());
 
 		getListView().setOnCreateContextMenuListener(this);
 

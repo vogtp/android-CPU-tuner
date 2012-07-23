@@ -102,7 +102,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 		if (settings.isShowWidgetIcon()) {
 			views.setViewVisibility(R.id.ivCpuTunerIcon, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.ivCpuTunerIcon, startCpuTunerPendingIntent);
-		}else {
+		} else {
 			views.setViewVisibility(R.id.ivCpuTunerIcon, View.GONE);
 		}
 		if (settings.isShowWidgetTrigger()) {
@@ -118,7 +118,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 				views.setTextViewText(R.id.tvTrigger, context.getString(R.string.notEnabled));
 				views.setTextColor(R.id.tvTrigger, Color.RED);
 			}
-		}else {
+		} else {
 			views.setViewVisibility(R.id.tvTrigger, View.GONE);
 			views.setViewVisibility(R.id.labelTrigger, View.GONE);
 		}
@@ -128,7 +128,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setOnClickPendingIntent(R.id.labelProfile, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.tvProfile, chooseProfilePendingIntent);
 			setTextSize(views, R.id.tvProfile);
-		}else {
+		} else {
 			views.setViewVisibility(R.id.labelProfile, View.GONE);
 			views.setViewVisibility(R.id.tvProfile, View.GONE);
 		}
@@ -137,16 +137,11 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setViewVisibility(R.id.tvGov, View.VISIBLE);
 			views.setOnClickPendingIntent(R.id.labelGov, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.tvGov, chooseProfilePendingIntent);
-			if (settings.isUseVirtualGovernors()) {
-				setTextSize(views, R.id.tvGov);
-				views.setViewVisibility(R.id.tvGov, View.VISIBLE);
-				views.setTextViewText(R.id.tvGov, powerProfiles.getCurrentVirtGovName());
-			} else {
-				views.setViewVisibility(R.id.labelGov, View.GONE);
-				views.setViewVisibility(R.id.tvGov, View.GONE);
-			}
-			
-		}else {
+			setTextSize(views, R.id.tvGov);
+			views.setViewVisibility(R.id.tvGov, View.VISIBLE);
+			views.setTextViewText(R.id.tvGov, powerProfiles.getCurrentVirtGovName());
+
+		} else {
 			views.setViewVisibility(R.id.labelGov, View.GONE);
 			views.setViewVisibility(R.id.tvGov, View.GONE);
 		}
@@ -163,8 +158,8 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			} else {
 				views.setViewVisibility(R.id.tvServiceMsg, View.GONE);
 			}
-			
-		}else {
+
+		} else {
 			views.setViewVisibility(R.id.tvBattery, View.GONE);
 			views.setViewVisibility(R.id.labelBattery, View.GONE);
 		}
@@ -184,9 +179,8 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setTextViewText(R.id.tvProfile, powerProfiles.getCurrentProfileName());
 			views.setTextColor(R.id.tvProfile, Color.WHITE);
 		}
-		
-		views.setViewVisibility(R.id.ivServiceGPS, View.GONE);
 
+		views.setViewVisibility(R.id.ivServiceGPS, View.GONE);
 
 		if (settings.isShowWidgetServices()) {
 			intentId = 100;
@@ -244,7 +238,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 				setAnimation(views, id, R.anim.back);
 			} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
 				setAnimation(views, id, R.anim.pluse);
-			} else { 
+			} else {
 				setAlpha(views, id, ServiceSwitcher.ALPHA_ON);
 			}
 		}

@@ -167,7 +167,7 @@ public class ModelAccess implements BackupRestoreCallback {
 		synchronized (profileCacheMutex) {
 			long id = profile.getDbId();
 			long virtualGovernor = profile.getVirtualGovernor();
-			if (SettingsStorage.getInstance().isUseVirtualGovernors() && virtualGovernor > -1) {
+			if (virtualGovernor > -1) {
 				VirtualGovernorModel vg = getVirtualGovernor(virtualGovernor);
 				vg.applyToProfile(profile);
 			}

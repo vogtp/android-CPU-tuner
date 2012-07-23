@@ -162,7 +162,6 @@
     <string name="prefCatGUI">Oberfläche</string>
     <string name="prefCatDisplay">Darstellung</string>
     <string name="labelVirtualGovernor">Virtueller Regler:</string>
-    <string name="prefUseVirtualGovernorsLong">Virtuelle Regler abstrahieren die Einstellungen der CPU Regler von den Profilen.</string>
     <string name="hintScriptToRun">Skript, das nach einer Änderung, ausgeführt wird.</string>
     <string name="msgDeleteTriggerNotPossible">Dieses Profil kann nicht gelöscht werden, da es in einem oder mehreren Auslöser verwendet wird.</string>
     <string name="prefBasics">Grundlegendes</string>
@@ -442,8 +441,7 @@
     <string name="msgNoIssuesFound">Keine Probleme gefunden.</string>
     <string name="prefVritualGovernorsListLong">Virtuelle Regler sind vorkonfigurierte Regler.</string>
     <string name="virtualGovernorsList">Virtuelle Regler</string>
-    <string name="prefBatteryHotTempMsg">Individuelle Temperatur-Auslöser für das Profil "Akku heiss".<br />
- Wert in °C.</string>
+    <string name="prefBatteryHotTempMsg">Individuelle Temperatur-Auslöser für das Profil "Akku heiss".<br /> Wert in °C.</string>
     <string name="prefBatteryHotTempLong">Individuelle Temperatur-Auslöser für das Profil "Akku heiss".</string>
     <string name="prefBatteryHotTemp">Akkutemperatur Heiss</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Während des Telefonierens können Profilwechsel erfolgen. Die mobile Verbindung wird nie während eines Anrufs wechseln, unabhängig vom Status dieser Option.</string>
@@ -560,7 +558,6 @@ geschieht bei Aktivierung aus dem Ruhezustand anstelle von Polling.</string>
         <item><b>Profi</b>: Du weisst. was Du tust.</item>
     </string-array>
 
-    <string name="cbEnableVirtualGovernors">Virtuellen Regler</string>
     <string name="userExperianceLevelExplain">CPU Tuner kennt verschiedene Erfahrungs-Stufen. Abhängig von der Erfahrungsstufe kannst Du aus einer größeren Auswahl auswählen und Du kannst mehr Änderungen vornehmen.</string>
     <string name="prefCallInProgressProfile">Profil während eines Anrufes</string>
     <string name="prefCallInProgressProfileLong">Aktiviert ein Profil, das während der Telefonverbindung angewendet wird.</string>
