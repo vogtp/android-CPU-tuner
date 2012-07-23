@@ -15,6 +15,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
@@ -871,5 +872,6 @@ public class SettingsStorage {
 		int[] availCpuFreq = CpuHandler.getInstance().getAvailCpuFreq(true);
 		editor.putInt(PREF_KEY_MAX_FREQ_DEFAULT, availCpuFreq[availCpuFreq.length - 1]);
 		editor.commit();
+		Toast.makeText(context, context.getText(R.string.mse_authors_settings_loaded), Toast.LENGTH_LONG).show();
 	}
 }

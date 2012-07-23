@@ -5,5 +5,6 @@
     <string name="prefMakeFilesWritableLong">Write directly to the sysfs files.  This speeds up switching and solves problems with Jelly Bean.  But it is known to cause problems with some kernels.</string>
     <string name="prefAuthorsSettings">Use the authors settings</string>
     <string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behavour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
+    <string name="mse_authors_settings_loaded">Authors settings loaded!</string>
 
 </resources>
