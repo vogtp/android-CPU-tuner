@@ -1,5 +1,8 @@
 package ch.amana.android.cputuner.view.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -46,6 +49,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 	private int numberOfCpus;
 
 	private CpuHandler cpuHandler;
+	private LinearLayout llUseCpus;
 
 	public GovernorFragment() {
 		super();
@@ -79,6 +83,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 		etScript = (EditText) v.findViewById(R.id.etScript);
 		llPowersaveBias = (LinearLayout) v.findViewById(R.id.llPowersaveBias);
 		sbPowersaveBias = (SeekBar) v.findViewById(R.id.sbPowersaveBias);
+		llUseCpus = (LinearLayout) v.findViewById(R.id.llUseCpus);
 		spUseCpus = new SpinnerWrapper((Spinner) v.findViewById(R.id.spUseCpus));
 		if (disableScript || !SettingsStorage.getInstance().isEnableScriptOnProfileChange()) {
 			llFragmentTop.removeView(v.findViewById(R.id.llScript));
@@ -107,8 +112,33 @@ public class GovernorFragment extends GovernorBaseFragment {
 			spUseCpus.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-					int num = numberOfCpus - position;
-					getGovernorModel().setUseNumberOfCpus(num);
+
+					final int num = numberOfCpus - position;
+					final IGovernorModel govModel = getGovernorModel();
+					if (num != numberOfCpus && num != govModel.getUseNumberOfCpus()) {
+						OnClickListener yesClick = new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								govModel.setUseNumberOfCpus(num);
+							}
+						};
+						OnClickListener noClick = new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								govModel.setUseNumberOfCpus(numberOfCpus);
+								updateView();
+							}
+						};
+						new AlertDialog.Builder(getActivity())
+								.setIconAttribute(android.R.attr.alertDialogIcon)
+								.setTitle(R.string.dia_title_switch_off_cpus)
+								.setMessage(R.string.dia_msg_switch_off_cpus)
+								.setPositiveButton(R.string.dia_yes_switch_off_cpus, yesClick)
+								.setNegativeButton(R.string.dia_no_switch_off_cpus, noClick)
+								.create().show();
+					} else {
+						govModel.setUseNumberOfCpus(num);
+					}
 				}
 
 				@Override
@@ -216,15 +246,21 @@ public class GovernorFragment extends GovernorBaseFragment {
 			}
 		}
 		tvExplainGov.setText(GuiUtils.getExplainGovernor(getActivity(), curGov));
-		if (SettingsStorage.getInstance().isPowerUser()) {
+		boolean powerUser = SettingsStorage.getInstance().isPowerUser();
+		if (powerUser) {
 			etScript.setText(governorModel.getScript());
 		}
 		sbPowersaveBias.setProgress(governorModel.getPowersaveBias());
 		updateGovernorFeatures();
 
 		int position = numberOfCpus - governorModel.getUseNumberOfCpus();
-		if (spUseCpus != null && position < spUseCpus.getAdapter().getCount()) {
-			spUseCpus.setSelection(position);
+		if (powerUser) {
+			llUseCpus.setVisibility(View.VISIBLE);
+			if (spUseCpus != null && position < spUseCpus.getAdapter().getCount()) {
+				spUseCpus.setSelection(position);
+			}
+		} else {
+			llUseCpus.setVisibility(View.GONE);
 		}
 	}
 

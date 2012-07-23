@@ -4,6 +4,14 @@ V
 * bug fixes
 - 
 
+V 3.4.0
+* features
+- make virtual governors mandatory
+- disable GPS switching (as system app)
+- let only power users switch off CPUs and warn them
+* bug fixes
+- 
+
 V 3.3.12
 * features
 - write directly to sysfs files is now a option
