@@ -256,11 +256,19 @@ public class RootHandler {
 
 	private static void ensureAccess(File file) {
 		if (SettingsStorage.getInstance().isMakeFilesWritable() && !file.canWrite()) {
+			String absolutePath = file.getAbsolutePath();
+			Logger.i("Changing permissions of " + absolutePath);
+			boolean wait = waitForPrcess;
+			waitForPrcess = true;
 			int gid = SettingsStorage.getInstance().getUserId();
+			StringBuilder cmd = new StringBuilder();
 			if (gid > -1) {
-				RootHandler.execute("chgrp -R " + gid + " " + CpuHandler.CPU_BASE_DIR);
+				cmd.append("chgrp " + gid + " " + absolutePath + " ; ");
 			}
-			RootHandler.execute("chmod -R 775 " + CpuHandler.CPU_BASE_DIR);
+			cmd.append("chmod 775 " + absolutePath);
+			RootHandler.execute(cmd.toString());
+			Logger.i("Changed permissions of " + absolutePath);
+			waitForPrcess = wait;
 		}
 	}
 
