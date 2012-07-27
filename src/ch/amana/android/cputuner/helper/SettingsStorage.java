@@ -856,10 +856,13 @@ public class SettingsStorage {
 	public boolean isMakeFilesWritable() {
 		if (!checkedMakeFilesWritable) {
 			checkedMakeFilesWritable = true;
-			boolean isJellyBean = Build.VERSION.SDK_INT >= 16; // JB  
-			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", isJellyBean);
+			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", isJellyBean());
 		}
 		return makeFilesWritable;
+	}
+
+	public boolean isJellyBean() {
+		return Build.VERSION.SDK_INT >= 16; // JB ;
 	}
 
 	public void setAuthorsDefauls() {
