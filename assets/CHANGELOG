@@ -4,6 +4,13 @@ V
 * bug fixes
 - 
 
+V  3.3.13
+* features
+- Spanish translation (Thanks to Ruben)
+- Jelly Bean optimisations
+* bug fixes
+- 
+
 V 3.3.12
 * features
 - write directly to sysfs files is now a option
