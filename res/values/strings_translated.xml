@@ -476,7 +476,7 @@
     <string name="prefSwitchProfileWhilePhoneNotIdleOff">If unchecked, \"Profile Switches\" are [forbidden] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
     <string name="prefSwitchProfileWhilePhoneNotIdle">Switch Profile During Call</string>
     <string name="prefSwitchWifiOnConnectedNetworkOn">If checked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
-    <string name="prefSwitchWifiOnConnectedNetworkOff">If unchecked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOff">If unchecked, WIFI will not be switched \"off\" if connected to a WIFI network.</string>
     <string name="prefSwitchWifiOnConnectedNetwork">Switch WIFI if connected.</string>
     <string name="prefServiceSwitches">Service Switches</string>
     <string name="prefUserLevelLong">Determines how difficult the settings are, and how
