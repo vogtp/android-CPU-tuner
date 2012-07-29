@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	
-	<string name="prefRunSwitchInBackground">Interruptor de perfil en Background</string> 
-	<string name="prefRunSwitchInBackgroundOn">Los cambios de perfil se hacen en segundo plano. Esto puede retrasar un poco el cambio, pero es como lo hace android.</string>
+
+    <string name="prefMakeFilesWritable">Escribir en archivos directamente</string>
+    <string name="prefMakeFilesWritableLong">Escribe directamente en los archivos sysfs. Esto acelera los cambios y resuelve problemas con Jelly Bean. Pero puede causar problemas con algunos kernels.</string>
+    <string name="prefAuthorsSettings">Usar los ajustes del autor</string>
+    <string name="prefAuthorsSettingsLong">Usar los ajustess que el autor recomienda. Esto puede producir un comportamiento inesperado o activar características que no funcionen en su dispositivo. No resetea todos los valores, cambia solo unso cuantos valores a los recomentados(no oficial). ¡Usar con precaución!</string>
+    <string name="prefRunSwitchInBackground">Interruptor de perfil en Background</string>
+    <string name="prefRunSwitchInBackgroundOn">Los cambios de perfil se hacen en segundo plano. Esto puede retrasar un poco el cambio, pero es como lo hace android.</string>
     <string name="prefRunSwitchInBackgroundOff">Los cambios de perfil se hacen en primer plano. Esto puede acelerar los cambios, pero puede hacer que cpu tuner no responda.</string>
     <string name="prefWidgetShowLabels">Mostrar etiquetas</string>
     <string name="prefUnitSystem">Unidad del sistema</string>
@@ -23,7 +27,7 @@
         <item>Grande</item>
     </string-array>
 
-    <string name="deep_sleep">Sueño profundo</string>  <!-- This is the translation of "Deep sleep", but there is others translations depending on where it is used-->
+    <string name="deep_sleep">Sueño profundo</string> <!-- This is the translation of "Deep sleep", but there is others translations depending on where it is used -->
 
     <string-array name="prefCalcPowerUsageEntries">
         <item>Valor medio</item>
@@ -42,9 +46,8 @@
         <!-- <item>Auto</item> -->
         <item>Activado</item>
         <item>Desactivado</item>
-        <item>Pulsación</item>	<!-- This is the translation of "Pulse", but there is others translations depending on where it is used-->
+        <item>Pulsación</item> <!-- This is the translation of "Pulse", but there is others translations depending on where it is used -->
     </string-array>
-    
     <string-array name="mobiledataStatesCurrent">
 
         <!-- <item>Auto</item> -->
@@ -104,7 +107,7 @@
     <string name="configuration_title_simplePowerful">Simple &amp; powerful</string> <!-- No translation found without context -->
     <string name="configuration_description_simplePowerful">Este es el perfíl descrito por D. en su blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) sin interruptor de datos.</string>
     <string name="configuration_title_extreme">Extremo</string>
-    <string name="configuration_description_extreme">Esta es (aproximadamente) la antigua configuración por defecto. Es similar a Sofisticada, pero usa ajustes mucho más rigurosos. Aunque aumenta el ahorro de energía, empeora el rendimiento.</string>  
+    <string name="configuration_description_extreme">Esta es (aproximadamente) la antigua configuración por defecto. Es similar a Sofisticada, pero usa ajustes mucho más rigurosos. Aunque aumenta el ahorro de energía, empeora el rendimiento.</string>
     <string name="auto">Auto</string>
     <string name="msg_manual_profile">manual</string>
     <string name="labelMessage">Mensaje:</string>
@@ -131,10 +134,10 @@
     <string name="prefEnableSwitchLog">Activar el registro de cambio de perfill</string>
     <string name="prefCatStatistics">Estadísticas</string>
     <string name="prefEnableStatistics">Activar estadísticas</string>
-    <string name="prefLogPulse">Pulsar Log para cambiar el registro</string>  <!-- I'm not sure, depend on the context -->
+    <string name="prefLogPulse">Pulsar Log para cambiar el registro</string> <!-- I'm not sure, depend on the context -->
     <string name="prefLogPulseOn">Las pulsaciones se registran en el registro de cambio de perfil</string> <!-- I'm not sure, depend on the context -->
     <string name="prefLogPulseOff">Las pulsaciones no se registran en el registro de cambio de perfil</string>
-	<string name="msg_pulse_log_on">Señal de cambio ON</string>
+    <string name="msg_pulse_log_on">Señal de cambio ON</string>
     <string name="msg_pulse_log_off">Señal de cambio OFF</string>
     <string name="msg_pulse_log_end">Parar señales</string>
     <string name="msg_capcheck_result_more_info">(Click en el resultado para más información.)</string>
@@ -357,7 +360,7 @@
     <string name="and">y</string>
     <string name="msg_capcheck_work_but_cannot_set_frequency"> Trabajando pero no se pueden ajustar las frecuencias.\n Esto aún proporciona
 		buenos resultados.</string>
-	<string name="msg_premail_working">Algunos controladores están trabajando.\nQue algunos no trabajen
+    <string name="msg_premail_working">Algunos controladores están trabajando.\nQue algunos no trabajen
 		 es posiblemente debido al kernel/ROM. Tiene tres posibilidades:
 		\n1) Usar los controladores que trabajan e ignorar el resto.
 		Esto dará probablemente aun buenos resultados.\n2) Flashear un nuevo
@@ -444,8 +447,7 @@
     <string name="msgNoIssuesFound">Ningún problema encontrado.</string>
     <string name="prefVritualGovernorsListLong">Los controladores virtuales están preconfigurados como controladores de CPU.</string>
     <string name="virtualGovernorsList">Gobernadores virtuales</string>
-    <string name="prefBatteryHotTempMsg">Ajustar la temperatura para cambiar al perfil\"Batería caliente\".<br />
-		Temperatura como número entero(°C).</string>
+    <string name="prefBatteryHotTempMsg">Ajustar la temperatura para cambiar al perfil\"Batería caliente\".<br />		Temperatura como número entero(°C).</string>
     <string name="prefBatteryHotTempLong">Ajustar la temperatura para cambiar al perfil \"Batería caliente\".</string>
     <string name="prefBatteryHotTemp">Temperatura de batería caliente</string>
     <string name="prefSwitchProfileWhilePhoneNotIdleOn">Si está marcado, los \"cambios de perfil\" están [permitidos] durante las llamadas. Los datos moviles nunca se cambiaran durante llamadas, sin importar el estado de esta opción.</string>
@@ -479,7 +481,7 @@
 		en el market son 
 		muy apreciadas…"</string>
     <string name="mailMessage"></string>
-	<string name="prefEnableBetaLong">Email Desarrolador</string>
+    <string name="prefEnableBetaLong">Email Desarrolador</string>
     <string name="prefKeyCalcPowerUsageLong">Puede consumir batería.</string>
     <string name="prefKeyCalcPowerUsage">Calcular uso de batería</string>
     <string name="menuItemClearPowerCurrent">Limpiar uso de batería</string>
@@ -528,7 +530,7 @@
 		Para un estado distinto (e.j. el dispositivo está con batería, cargando o con la pantalla apagada) 
 		se pueden aplicar otros perfiles.</string>
     <string name="explainGovOnDemand">Los cambios dinamicos de frecuencia basados en la CPU utilizan con intención de rendimiento.</string>
-	<string name="explainGovConservative">Cambiar la frecuencia dinamicamente basandose en el uso de la CPU
+    <string name="explainGovConservative">Cambiar la frecuencia dinamicamente basandose en el uso de la CPU
 		intentando ahorrar batería.</string>
     <string name="explainGovPerformance">Ajustar la frecuencia de la CPU estáticamente al máximo disponible.</string>
     <string name="explainGovPowersave">Ajustar la frecuencia de la CPU estáticamente al mínimo disponible.</string>
@@ -653,8 +655,9 @@
     <string name="msg_setting_govenor">Ajustar el controlador a %s</string>
     <string name="msg_found_some_issues">Se econtraron errores… Algunas utilidades pueden no funcionar.
 		(Click para más información.)</string>
-    <string name="label_hot">Caliente: </string> <!-- I'm not sure of these 4 lines until I see them the application --> 
+    <string name="label_hot">Caliente: </string> <!-- I'm not sure of these 4 lines until I see them the application -->
     <string name="label_avgerage">Medio: </string>
     <string name="label_tresh_up">Alto: </string>
     <string name="label_tresh_down">Bajo: </string>
+
 </resources>
