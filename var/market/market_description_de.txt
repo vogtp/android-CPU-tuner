@@ -12,7 +12,6 @@ Profile können die folgenden Änderungen vornehmen:
 - 3G/2G Verbindung
 - Hintergrunds Synchronisierung
 - WLAN Netzwerk
-- GPS (als System App)
 - Bluetooth
 - Flugmodus
 
@@ -20,6 +19,8 @@ Konfigurationen (d.h. ein Satz von Auslösern und Profilen) können basierend au
 
 Falls Du diese App verwendest dann abonniere bitte die Mailingliste cputuner-help@lists.sourceforge.net und beteilige Dich in den Foren auf https://sourceforge.net/projects/cputuner/ (Projekt-Webseite).
 Du kannst CPU tuner auf https://plus.google.com/109797451979104819882 folgen.
+
+Falls Du beim Übersetzten helfen willst, dann beteilige Dich unter  http://www.getlocalization.com/cputuner/.
 
 Falls CPU tuner beim starten abstürzt bitte deinstallieren und neu installieren.
 

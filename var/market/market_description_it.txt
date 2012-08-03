@@ -9,7 +9,6 @@ I profili possono modificare le seguenti cose::
 - cambio fra 3G/2G 
 - Synch in background 
 - wifi
-- GPS (se installato come applicazione di sistema)
 - bluethooth
 - modalit� aereo
 

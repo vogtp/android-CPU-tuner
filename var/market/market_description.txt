@@ -10,7 +10,6 @@ A profiles which can modify the following:
 - 3G/2G switch
 - background sync
 - wifi
-- GPS (if installed as system app)
 - bluethooth
 - airplane mode
 
@@ -22,7 +21,7 @@ In praise of CyanogenMod... ;)
 If you use and like this app please subscribe to the mailing list cputuner-help@lists.sourceforge.net and participate in the forums on https://sourceforge.net/projects/cputuner/ (Project webpage).
 You can follow CPU tuner on: https://plus.google.com/109797451979104819882
 
-If anybody wants to translate CPU tuner, please write an e-mail.
+If you want to help translating please join in at http://www.getlocalization.com/cputuner/.
 
 If CPU tuner crashes on start, try to uninstall and reinstall it.
 
