@@ -1,3 +1,7 @@
+*****************************************
+CPU tuner (Gerootete Geräte)
+*****************************************
+
 CPU tuner ermöglicht die volle Kontrolle über den Batterieverbrauch eines Android Gerätes.
 Der Hauptzweck ist es, so viel Batterie wie möglich zu sparen, CPU tuner kann jedoch auch übertakten (wenn der Kernel des Gerätes dies unterstützt).
 

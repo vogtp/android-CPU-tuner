@@ -1,3 +1,7 @@
+*****************************************
+CPU tuner (Rooted phones)
+*****************************************
+
 Con CPU tuner hai il controllo sul consumo del tuo dispositivo android. Il suo scopo principale � quello di risparmiare pi� batteria possibile, ma pu� venire usato anche per l'overclock (se il kernel lo permette).
 
 Basandosi sui trigger (in base alla batteria) si possono caricare differenti profili. Ogni trigger ha profili differenti in base all'utilizzo (a schermo spento, in carica, in utilizzo batteria, o in chiamata) del tuo telefono.

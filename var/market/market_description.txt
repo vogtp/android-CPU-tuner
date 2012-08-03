@@ -1,3 +1,7 @@
+*****************************************
+CPU tuner (Rooted phones)
+*****************************************
+
 CPU tuner gives you control over the power consumption of your android device.
 Its prime purpose is to be a battery saver and to save as much battery as possible, but it can be used to overclock at the same time (if the kernel of your device supports it).
 
