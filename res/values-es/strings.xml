@@ -38,7 +38,7 @@
 	<string-array name="deviceStatesCurrent">
 	<!-- 		<item>Auto</item> -->
 		<item>Desactivado</item>
-		<item>Pulsación</item>
+		<item>Temporal</item>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="mobiledataStatesCurrent">
@@ -280,7 +280,7 @@
 		<item>Disable</item>
 	</string-array>
 	<string name="prefMulticoreLong">Elija si los ajustes deben aplicarse a todos los núcleos</string>
-	<string name="prefConfigurationsLong">Copia de seguridad y restaurar (y más) ...</string>
+	<string name="prefConfigurationsLong">Copia de seguridad, restaurar y más...</string>
 	<string name="prefCpu">Ajustes CPU</string>
 	<string name="prefChangelog">Mostrar el registro de cambios</string>
 	<string name="label_version">Versión:</string>
@@ -434,12 +434,12 @@
 	<string name="prefBatteryHotTempMsg">Ajustar la temperatura para cambiar al perfil\"Batería caliente\".&lt;br /&gt;		Temperatura como número entero(°C).</string>
 	<string name="prefBatteryHotTempLong">Ajustar la temperatura para cambiar al perfil \"Batería caliente\".</string>
 	<string name="prefBatteryHotTemp">Temperatura de batería caliente</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOn">Si está marcado, los \"cambios de perfil\" están [permitidos] durante las llamadas. Los datos moviles nunca se cambiaran durante llamadas, sin importar el estado de esta opción.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOff">Si está marcado, los \"cambios de perfil\" están [permitidos] durante las llamadas. Los datos moviles nunca se cambiaran durante llamadas, sin importar el estado de esta opción.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdle">Cambiar perfil durante llamadas</string>
+	<string name="prefSwitchProfileWhilePhoneNotIdleOn">Si está marcado, los \"cambios de perfil\" están permitidos durante las llamadas. Los datos moviles nunca cambiaran durante llamadas.</string>
+	<string name="prefSwitchProfileWhilePhoneNotIdleOff">Si no está marcado, los \"cambios de perfil\" están prohibidos durante las llamadas. Los datos moviles nunca se cambiaran durante llamadas.</string>
+	<string name="prefSwitchProfileWhilePhoneNotIdle">Perfil en llamadas</string>
 	<string name="prefSwitchWifiOnConnectedNetworkOn">Si está marcado, la WIFI no se desconectará incluso si se está conectado.</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOff">Si está marcado, la WIFI se desconectará incluso si se está conectado.</string>
-	<string name="prefSwitchWifiOnConnectedNetwork">Cambiar la WIFI si está conectada.</string>
+	<string name="prefSwitchWifiOnConnectedNetworkOff">Si no está marcado, la WIFI se desconectará incluso si se está conectado.</string>
+	<string name="prefSwitchWifiOnConnectedNetwork">Cambiar WIFI si conectada.</string>
 	<string name="prefServiceSwitches">Cambios de servicios</string>
 	<string name="prefUserLevelLong">Determina cómo de dificiles son los ajustes, y cuánto usted puede interferir.</string>
 	<string name="prefUserLevel">Nivel de experiencia</string>
@@ -450,14 +450,14 @@
 	<string name="save">Guardar</string>
 	<string name="cancel">Cancelar</string>
 	<string name="prefMinSensibleFrequencyLong">Frecuencia mínima mostrada si no se está en modo \"Usuario experto\"</string>
-	<string name="prefMinSensibleFrequency">Frecuencia mínima mostrada</string>
+	<string name="prefMinSensibleFrequency">Frecuencia mínima</string>
 	<string name="prefKeyProfiles">Perfiles y disparadores</string>
 	<string name="prefBuyMeABeer">Invíteme a una cerveza.</string>
 	<string name="prefAllowManualServiceChangesOn">Si está marcado, no cambia el estado de un servicio si fue modificado y no se ha cambiado el disparador.</string>
 	<string name="prefAllowManualServiceChangesOff">Si no está marcado, cambia el estado del servicio sin importar si fue modificado manualmente.</string>
-	<string name="prefAllowManualServiceChanges">Cambio de servicio manual</string>
+	<string name="prefAllowManualServiceChanges">Cambio manual</string>
 	<string name="prefCpuFreqMsg">Lista separada por espacios de frecuencias</string>
-	<string name="prefCpuFreq">Frecuencias de CPU permitidas</string>
+	<string name="prefCpuFreq">Frecuencias de CPU</string>
 	<string name="prefCpuFreqLong">¡Dejar vacío si no está seguro!</string>
 	<string name="mailMessageOK">No se encontraron problemas…
 		Si está agradecido y 
@@ -473,10 +473,10 @@
 	<string name="menuItemEdit">Editar</string>
 	<string name="menuItemDelete">Eliminar</string>
 	<string name="prefEnableBetaMessage">Activar algunas características beta.</string>
-	<string name="prefEnableBeta">Activar características Beta</string>
-	<string name="prefCapabilitiesLong">Comprobar si el dispositivo soporta la API necesitada o si hay algún problema.</string>
+	<string name="prefEnableBeta">Características Beta</string>
+	<string name="prefCapabilitiesLong">Comprobar si el dispositivo soporta la API o si hay algún problema.</string>
 	<string name="prefCapabilities">Comprobar capacidades</string>
-	<string name="prefStatusbarAddTo">Notificaciones en la barra de estado</string>
+	<string name="prefStatusbarAddTo">Notificación en barra de estado</string>
 	<string name="prefStatusbarNotificationsOff">Si no se marca, los mensajes no serán mostrados en la barra de estado para cambios de perfil.</string>
 	<string name="prefKeyEnableProfilesOn">Si se marca, los mensajes serán mostrados en la barra de estado para cambios de perfil.</string>
 	<string name="prefSystemAppOff">No instalado como app del sistema, no tendrá acceso a ajustes del sistema como gps.</string>
@@ -485,7 +485,7 @@
 	<string name="prefToastNotifications">Toast Notifications</string>
 	<string name="prefStatusbarNotifications">Notificaciones en la barra de estado</string>
 	<string name="prefCatNotifications">Notificaciones</string>
-	<string name="prefCatSystem">Parte trasera</string>
+	<string name="prefCatSystem">Segundo plano</string>
 	<string name="prefEnableProfiles">Activar perfiles</string>
 	<string name="prefSetCpuSetting">Ajustes CPU</string>
 	<string name="profileBatteryGood">Buena batería</string>
@@ -502,14 +502,14 @@
 	<string name="labelCurrentTrigger">Disparador:</string>
 	<string name="labelCurrentProfile">Perfiles:</string>
 	<string name="labelCurrentBattery">Batería:</string>
-	<string name="labelAcPower">Carganddo:</string>
+	<string name="labelAcPower">Cargando:</string>
 	<string name="labelMax">Max:</string>
 	<string name="labelMin">Min:</string>
 	<string name="app_name">CPU Tuner</string>
 	<string name="labelPowerProfile">Perfil: </string>
 	<string name="spinnerPromptGov">Elegir controlador</string>
 	<string name="buApplyCurProfile">Aplicar el perfil de CPU actual</string>
-	<string name="notEnabled">no activado</string>
+	<string name="notEnabled">Desactivado</string>
 	<string name="triggersExplain">Los disparadores se aplican dependiendo del nivel de batería. 
 		Para un estado distinto (e.j. el dispositivo está con batería, cargando o con la pantalla apagada) 
 		se pueden aplicar otros perfiles.</string>
@@ -543,14 +543,14 @@
 		<item>Activar</item>
 		<item>Desactivar</item>
 		<item>Volver al anterior</item>
-		<item>Pulsación</item>
+		<item>Temporal</item>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
 		<item>Activar</item>
 		<item>Desactivar</item>
 		<item>Volver al anterior</item>
-		<item>Pulsación</item>
+		<item>Temporal</item>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="mobiledataStates">
@@ -572,10 +572,10 @@
 		<item><b>Experto</b>			: ¡Tú eres el jefe!</item>
 		<item><b>Power user</b>			: You\'re the boss!</item>
 	</string-array>
-	<string name="cbEnableVirtualGovernors">Activar controladores virtuales</string>
+	<string name="cbEnableVirtualGovernors">Activar controlador virtual</string>
 	<string name="userExperianceLevelExplain">CPU Tuner puede operar con distintos niveles de experiencia. Dependiendo del nivel 
 		te permite más elecciones y hacer más cosas.</string>
-	<string name="prefCallInProgressProfile">Perfil para llamada-en-progreso</string>
+	<string name="prefCallInProgressProfile">Perfil en conversación</string>
 	<string name="prefCallInProgressProfileLong">Activar un perfil que es diparado durante una llamada.</string>
 	<string name="msg_checking_capabilities">Comprobando capacidades</string>
 	<string name="msg_checking_governors">Comprobando controladores …</string>
