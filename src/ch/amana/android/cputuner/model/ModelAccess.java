@@ -393,6 +393,9 @@ public class ModelAccess implements BackupRestoreCallback {
 		Cursor c = null;
 		try {
 			c = contentResolver.query(CpuProfile.CONTENT_URI, CpuProfile.PROJECTION_DEFAULT, null, null, null);
+			if (c == null) {
+				return;
+			}
 			while (c.moveToNext()) {
 				ProfileModel profile = new ProfileModel(c);
 				VirtualGovernorModel virtualGovernor = getVirtualGovernor(profile.getVirtualGovernor());
