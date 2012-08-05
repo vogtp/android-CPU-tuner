@@ -1,7 +1,17 @@
-*****************************************
-CPU tuner (Rooted phones)
-*****************************************
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+<string name="marketTitle">
+CPU tuner (Rooted phones)
+</string>
+
+<string name="languageName">
+For the language switch I need the name of your language in your language.
+Do not translate this just enter the name of your language (e.g. English).
+</string>
+
+
+<string name="marketDesciption">
 CPU tuner gives you control over the power consumption of your android device.
 Its prime purpose is to be a battery saver and to save as much battery as possible, but it can be used to overclock at the same time (if the kernel of your device supports it).
 
@@ -31,3 +41,10 @@ Please report errors in a mail to the address listed below not in a market comme
 You best generate a capabilities report first, by going to settings then to backend and choose capabilities report, when it is done hit send (and save the mail as draft). Then describe your issue (and if possible attach a logcat output along with the zip file from the report).
 
 A note on permissions:  Yes there are a lot and potentially dangerous permissions needed, but cpu tuner does not request the network communication permission which means that cpu tuner cannot send any information back.  Further more cpu tuner is opensource so you can browse the code and check....
+
+</string>
+
+<string name="marketPromotionText">
+CPU tuner tries to save as much battery power as possible.
+</string>
+</resources>

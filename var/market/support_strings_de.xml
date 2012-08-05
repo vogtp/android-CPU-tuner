@@ -1,6 +1,16 @@
-*****************************************
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<string name="marketTitle">
 CPU tuner (Gerootete Geräte)
-*****************************************
+</string>
+
+<string name="languageName">
+Deutsch
+</string>
+
+
+<string name="marketDesciption">
 
 CPU tuner ermöglicht die volle Kontrolle über den Batterieverbrauch eines Android Gerätes.
 Der Hauptzweck ist es, so viel Batterie wie möglich zu sparen, CPU tuner kann jedoch auch übertakten (wenn der Kernel des Gerätes dies unterstützt).
@@ -26,10 +36,14 @@ Du kannst CPU tuner auf https://plus.google.com/109797451979104819882 folgen.
 
 Falls Du beim Übersetzten helfen willst, dann beteilige Dich unter  http://www.getlocalization.com/cputuner/.
 
-Falls CPU tuner beim starten abstürzt bitte deinstallieren und neu installieren.
-
 Bitte Fehler in einer Mail an die unten stehende Adresse melden und nicht in einem Marktkommentar.
 Am besten wird im voraus ein kompatibilitäts Report erstellt (im Menu unter Einstellungen, System dann Prüfen der Unterstützung), danach ein e-Mail Report generieren (und als Entwurf speichern). 
 Das Anliegen sollte möglichst genau beschreiben werden (und wenn möglich noch ein Logcat Report zusammen mit der zip Datei aus dem Report mit schicken).
 
 Zu den Berechtigungen:  Cpu tuner verlangt viele (kritische) Rechte, jedoch nicht das Netzkommunikation Recht was es cpu tuner nicht erlaubt irgendwelche Informationen zurück zu schicken. Ausserdem ist cpu tuner opensource und der Code kann geprüft werden.
+</string>
+
+<string name="marketPromotionText">
+CPU tuner versucht so viel Batterie wie möglich zu sparen.
+</string>
+</resources>
