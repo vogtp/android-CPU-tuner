@@ -29,27 +29,29 @@
     </string-array>
     <string-array name="prefLanguageEntries">
         <item>System default</item>
-        <item>English (en)</item>
         <item>Deutsch (de)</item>
+        <item>Ελληνικά (el)</item>
+        <item>English (en)</item>
         <item>Español (es)</item>
         <item>Française (fr)</item>
         <item>Italiano (it)</item>
         <item>日本語 (ja)</item>
         <item>한국어 (ko)</item>
         <item>Русский (ru)</item>
-        <item>Ελληνικά (el)</item>
+        <item>中國 (zh)</item>
     </string-array>
     <string-array name="prefLanguageValues">
         <item></item>
-        <item>en</item>
         <item>de</item>
+        <item>el</item>
+        <item>en</item>
         <item>es</item>
         <item>fr</item>
         <item>it</item>
         <item>ja</item>
         <item>ko</item>
         <item>ru</item>
-        <item>el</item>
+        <item>zh</item>
     </string-array>
     <string-array name="prefMulticoreValues">
         <item>2</item>

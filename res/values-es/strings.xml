@@ -39,13 +39,13 @@
 	<!-- 		<item>Auto</item> -->
 		<item>Desactivado</item>
 		<item>Temporal</item>
-		<item>Pulse</item>
+		<item>Pulsar</item>
 	</string-array>
 	<string-array name="mobiledataStatesCurrent">
 	<!-- 		<item>Auto</item> -->
 		<item>3G/2G</item>
 		<item>Solo 3G</item>
-		<item>3G Only</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string name="log_msg_cpu_tuner_started">CPU Tuner en funcionamiento</string>
 	<string name="log_msg_cpu_tuner_stoped">CPU Tuner detenido</string>
@@ -93,7 +93,7 @@
 	<string name="configuration_title_sophisticated">Sofisticado</string>
 	<string name="configuration_description_sophisticated">Basandose en el nivel de batería se usan bastantes disparadores para contralar la CPU.No hay interruptores de servicio activados.</string>
 	<string name="configuration_title_uniform">Uniforme</string>
-	<string name="configuration_description_uniform">La CPU se contrala basandose en el estado del dispositivo sin importar el nivel de batería. Sin interruptores de servicio.</string>
+	<string name="configuration_description_uniform">La CPU se controla basandose en el estado del dispositivo sin importar el nivel de batería. Sin interruptores de servicio.</string>
 	<string name="configuration_title_simplePowerful">Simple &amp; powerful</string>
 	<string name="configuration_description_simplePowerful">Este es el perfíl descrito por D. en su blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) sin interruptor de datos.</string>
 	<string name="configuration_title_extreme">Extremo</string>
@@ -106,7 +106,7 @@
 	<string name="prefCatSwitchCpuSettings">Ajustes de la CPU en el cambio de perfil</string>
 	<string name="prefEnableSwitchCpuSetting">Usar ajustes especiales de la CPU en el cambio de perfil</string>
 	<string name="prefEnableSwitchCpuSettingOn">Se usarán ajustes especiales en el cambio de perfil.</string>
-	<string name="prefEnableSwitchCpuSettingOff">los ajustes del perfil de la CPU The CPU se usarán en el cambio de perfil.</string>
+	<string name="prefEnableSwitchCpuSettingOff">los ajustes del perfil de la CPU se usarán en el cambio de perfil.</string>
 	<string name="prefSwitchCpuSetting">Ajustes de la CPU en el cambio de perfil</string>
 	<string name="prefSwitchCpuSettingLong">Estos ajustes de la CPU se usarán en el cambio de perfil, puede acelerar el cambio cuando la CPU está undercloking (no se recomienda).</string>
 	<string name="label_back">Hacia atrás</string>
@@ -115,7 +115,7 @@
 	<string name="prefCatEngine">Motor</string>
 	<string name="prefCatHelper">Ahuja</string>
 	<string name="msg_config_loaded">Cargado</string>
-	<string name="msg_config">configuració</string>
+	<string name="msg_config">Configuración</string>
 	<string name="all">Todo</string>
 	<string name="labelNoDataForFilter">No se encontraron datos para esta combinación de filtros.</string>
 	<string name="prefCatAdvStatistics">Ajustes avanzados y registro</string>
@@ -228,8 +228,8 @@
 	<string name="name_buy_me_a_whiskey">Invíteme a un whisky.</string>
 	<string name="name_buy_cookie">Compre una galleta para mis hijos.</string>
 	<string name="desc_buy_beer">Esto me hará feliz.</string>
-	<string name="desc_buy_whiskey">Esto me hará más feliz aún (¡Y menoss borracho!)</string>
-	<string name="desc_buy_cookie">Esto mantendŕa a mis hijos ocupados y tendré más tiempo para resolver los bugs (no prometo nada).</string>
+	<string name="desc_buy_whiskey">Esto me hará más feliz aún (¡Y menos borracho!)</string>
+	<string name="desc_buy_cookie">Esto mantendrá a mis hijos ocupados y tendré más tiempo para resolver errores(no prometo nada).</string>
 	<string name="desc_buy_toy">Esto mantendrá a mis hijos ocupados durante un tiempo y
 		probablemente me deje implementar mejoras (no prometo nada).</string>
 	<string name="name_buy_toy">Compre un juguete para mis hijos</string>
@@ -248,7 +248,7 @@
 	<string-array name="prefAddToNotificationEntries">
 		<item>Siempre</item>
 		<item>Nunca</item>
-		<item>Never</item>
+		<item>Nunca</item>
 	</string-array>
 	<string name="prefStatusbarAddToLong">Añadir a la barra de estado y al área de notificaciones.</string>
 	<string name="prefInitialPulseDelay">Retraso de la primera señal inicial</string>
@@ -264,7 +264,7 @@
 	<string-array name="mobiledataOnWifiStatesEnties">
 		<item>Sólo 2G</item>
 		<item>3G/2G</item>
-		<item>Sólo 3G</item>
+		<item>3G/2G</item>
 		<item>Solo 3G</item>
 	</string-array>
 	<string name="labelUseCpus_front">Uso </string>
@@ -275,9 +275,9 @@
 	<string name="labelActiveCpus">Activar CPUs:</string>
 	<string name="prefEnableCputuner">Activar CPU Tuner</string>
 	<string-array name="prefMulticoreEntries">
-		<item>Activado</item>
-		<item>Desactivado</item>
-		<item>Disable</item>
+		<item>Auto</item>
+		<item>Activar</item>
+		<item>Desactivar</item>
 	</string-array>
 	<string name="prefMulticoreLong">Elija si los ajustes deben aplicarse a todos los núcleos</string>
 	<string name="prefConfigurationsLong">Copia de seguridad, restaurar y más...</string>
@@ -544,33 +544,33 @@
 		<item>Desactivar</item>
 		<item>Volver al anterior</item>
 		<item>Temporal</item>
-		<item>Pulse</item>
+		<item>Pulsar</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
+		<item>Dejar sin cambios</item>
 		<item>Activar</item>
 		<item>Desactivar</item>
-		<item>Volver al anterior</item>
-		<item>Temporal</item>
-		<item>Pulse</item>
+		<item>Volver a anterior</item>
+		<item>Pulsar</item>
 	</string-array>
 	<string-array name="mobiledataStates">
-		<item>2G only</item>
+		<item>Dejar sin cambios</item>
+		<item>Solo 2G</item>
 		<item>3G/2G</item>
-		<item>Volver al anterior</item>
-		<item>3G only</item>
-		<item>3G only</item>
+		<item>Volver a anterior</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
-		<item>2G only</item>
+		<item>Dejar sin cambios</item>
+		<item>Solo 2G</item>
 		<item>3G/2G</item>
-		<item>Volver al anterior</item>
-		<item>3G only</item>
-		<item>3G only</item>
+		<item>Volver a anterior</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string-array name="prefUserLevelEntries">
-		<item><b>Normal</b>			: CPU Tuner te apoya.</item>
-		<item><b>Experto</b>			: ¡Tú eres el jefe!</item>
-		<item><b>Power user</b>			: You\'re the boss!</item>
+		<item><b>Principiante</b>			: CPU Tuner te apoya.</item>
+		<item><b>Normal</b>			: CPU Tuner te ayuda.</item>
+		<item><b>Power user</b>			: ¡Tú eres el jefe!</item>
 	</string-array>
 	<string name="cbEnableVirtualGovernors">Activar controlador virtual</string>
 	<string name="userExperianceLevelExplain">CPU Tuner puede operar con distintos niveles de experiencia. Dependiendo del nivel 
