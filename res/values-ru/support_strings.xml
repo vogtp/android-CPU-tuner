@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<string name="marketTitle">
+CPU Tuner (Телефоны с рутом)
+</string>
+
+<string name="languageName">
+Русский
+</string>
+
+
+<string name="marketDesciption">
+CPU tuner даёт Вам контроль над энергопотреблением Вашего устройства.
+Его главная задача - сохранить заряд аккумулятора на долгое время, но он так же может использоваться для разгона процессора (если ядро Вашего устройства позволяет).
+
+В зависимости от триггеров (на основании аккумулятора) будут загружены различные профили.  Каждый триггер имеет профиль зависящий от состояний (если заблокирован, аккумулятор, на питании или в состоянии звонка) Вашего телефона.
+
+В профилях существует следующие настройки:
+* CPU регуляторы это пороги мин/макс частот Вашего процессора (например - задать скорость процессора).
+* Такие сервисы:
+- Мобильная сеть
+- Переключение между 3G/2G
+- Фоновая синхронизация
+- WiFi
+- Bluethooth
+- Режим - В самолёте
+
+
+Конфигурации например - тригеры и профили) могут загружены по графику дней и времени. Это позволяет Вам настраивать приложение на режимы дня/ночи или на выходные.
+
+В похвалу CyanogenMod... ;)
+
+Если Вам нравится приложение то пишите отзывы в маркет и cputuner-help@lists.sourceforge.net и на форум https://sourceforge.net/projects/cputuner/ (Оф. страница проекта).
+Вы можете следить за CPU tuner: https://plus.google.com/109797451979104819882
+
+Если кто-то хочет перевести приложение, напишите на e-mail.
+
+Если CPU tuner крашит на старте, попробуйте переустановить его.
+
+Пожалуйста, пишите об ошибках на e-mail, а не в отзывах в маркете.
+
+А лучше всего будет, если вы будете писать о крашах через программу(прилагая лог)
+
+A note on permissions:  Yes there are a lot and potentially dangerous permissions needed, but cpu tuner does not request the network communication permission which means that cpu tuner cannot send any information back.  Further more cpu tuner is opensource so you can browse the code and check....
+</string>
+
+<string name="marketPromotionText">
+CPU tuner tries to save as much battery power as possible.
+</string>
+</resources>
