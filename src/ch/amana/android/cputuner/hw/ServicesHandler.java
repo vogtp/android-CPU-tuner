@@ -45,6 +45,8 @@ public class ServicesHandler {
 		}
 		if (getWifiManager(ctx).setWifiEnabled(enable)) {
 			Logger.i("Switched Wifi to " + enable);
+		} else {
+			Logger.w("Could not switch Wifi to " + enable);
 		}
 	}
 

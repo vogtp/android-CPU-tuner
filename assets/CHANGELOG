@@ -13,6 +13,16 @@ V 3.4.0
 * bug fixes
 - 
 
+V  3.3.13
+* features
+- Spanish translation (Thanks to Rubén)
+- Korean translation (Thanks to 시즈카)
+- Jelly Bean optimisations
+- moved translation to http://www.getlocalization.com/cputuner/
+- minor translation updates
+* bug fixes
+- fix crashes
+
 V 3.3.12
 * features
 - write directly to sysfs files is now a option

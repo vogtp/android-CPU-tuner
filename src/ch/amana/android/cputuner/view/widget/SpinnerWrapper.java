@@ -44,13 +44,15 @@ public class SpinnerWrapper implements OnItemSelectedListener {
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		if (pos == INITIAL) {
+		if (pos == INITIAL || view == null || parent == null) {
 			// the spinner has been initalised to this value (no need to set it)
 			return;
 		}
 		possition = pos;
 		for (OnItemSelectedListener listener : listeners) {
-			listener.onItemSelected(parent, view, pos, id);
+			if (listener != null) {
+				listener.onItemSelected(parent, view, pos, id);
+			}
 		}
 	}
 

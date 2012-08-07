@@ -1,3 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<string name="marketTitle">
+CPU tuner (Rooted phones)
+</string>
+
+<string name="languageName">
+日本語
+</string>
+
+
+<string name="marketDesciption">
 CPU tuner はあなたのandroid端末の電力消費量を完全制御します。
 主な使用目的は出来るだけバッテリーを節約することですが、同時に（カーネルがサポートしていれば）オーバクロックで使用することも出来ます。
 
@@ -10,7 +23,6 @@ CPU tuner はあなたのandroid端末の電力消費量を完全制御します
 - 3G/2G スイッチ
 - バックグラウンド同期
 - Wifi
-- GPS(システムアプリとしてインストール時)
 - Bluetooth
 - 機内モード
 
@@ -28,3 +40,10 @@ https://plus.google.com/109797451979104819882 CPU tunerの状態を確認する�
 設定->バックエンド->機能確認を実行しメールを送ることで機能確認レポートを送信出来ます。可能ならばスイッチ切替ログをZIPファイルとしてメールに追加します。
 
 A note on permissions:  Yes there are a lot and potentially dangerous permissions needed, but cpu tuner does not request the network communication permission which means that cpu tuner cannot send any information back.  Further more cpu tuner is opensource so you can browse the code and check....
+
+</string>
+
+<string name="marketPromotionText">
+CPU tuner tries to save as much battery power as possible.
+</string>
+</resources>

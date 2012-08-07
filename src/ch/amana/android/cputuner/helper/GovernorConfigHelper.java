@@ -26,7 +26,7 @@ public class GovernorConfigHelper {
 
 	}
 
-	public static final GovernorConfig GOV = new GovernorConfig() {
+	static class DynamicGovernorConfig implements GovernorConfig {
 		
 		@Override
 		public boolean hasThreshholdUpFeature() {
@@ -63,7 +63,9 @@ public class GovernorConfigHelper {
 			return CpuHandler.getInstance().hasMaxFrequency();
 		}
 	};
-	
+
+	public static final GovernorConfig GOV = new DynamicGovernorConfig();
+
 	private static final GovernorConfig GOV_ONDEMAND = new GovernorConfig() {
 		
 		@Override
@@ -361,7 +363,11 @@ public class GovernorConfigHelper {
 //		if (CpuHandler.GOV_.equals(governor)) {
 //			return GOV_;
 //		}
-		return GOV;
+		String curCpuGov = CpuHandler.getInstance().getCurCpuGov();
+		CpuHandler.getInstance().setCurGov(governor);
+		GovernorConfig gov = new DynamicGovernorConfig();
+		CpuHandler.getInstance().setCurGov(curCpuGov);
+		return gov;
 	}
 
 }

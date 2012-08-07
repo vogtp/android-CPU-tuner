@@ -87,7 +87,7 @@ public class TunerService extends IntentService {
 	}
 
 	private void handleManualProfile(Intent intent) {
-		PowerProfiles powerProfiles = PowerProfiles.getInstance();
+		PowerProfiles powerProfiles = PowerProfiles.getInstance(getApplicationContext());
 		if (intent.getBooleanExtra(EXTRA_IS_MANUAL_PROFILE, false)) {
 			long id = intent.getLongExtra(EXTRA_PROFILE_ID, powerProfiles.getCurrentAutoProfileId());
 			powerProfiles.setManualProfile(id);
