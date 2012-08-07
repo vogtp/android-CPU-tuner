@@ -38,7 +38,6 @@
         <item>日本語 (ja)</item>
         <item>한국어 (ko)</item>
         <item>Русский (ru)</item>
-        <item>中國 (zh)</item>
     </string-array>
     <string-array name="prefLanguageValues">
         <item></item>
@@ -51,7 +50,6 @@
         <item>ja</item>
         <item>ko</item>
         <item>ru</item>
-        <item>zh</item>
     </string-array>
     <string-array name="prefMulticoreValues">
         <item>2</item>
