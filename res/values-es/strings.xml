@@ -38,7 +38,7 @@
 	<string-array name="deviceStatesCurrent">
 	<!-- 		<item>Auto</item> -->
 		<item>Desactivado</item>
-		<item>Temporal</item>
+		<item>Desactivar</item>
 		<item>Pulsar</item>
 	</string-array>
 	<string-array name="mobiledataStatesCurrent">

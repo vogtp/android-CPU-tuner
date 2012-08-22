@@ -596,9 +596,7 @@ Ceci est probablement dû au noyau / ROM. Vous avez deux possibilités:
 1\) Installer un nouveau noyau
 
 2\) Installer une nouvelle ROM</string>
-	<string name="msg_premail_issues_cm">ous pouvez jeter un oeil à http://wiki.cyanogenmod.com, c\'est une ROM très agréable
-
-SVP ne pas écrire de courriel à moins que vous pensiez qu\'il y ait quelque chose d\'incorrect dans l\'application.</string>
+	<string name="msg_premail_issues_cm">Votre configuration a des problèmes.\nCeci est probablement dû au noyau / ROM.Vous avez deux choix:\n1)Flasher un autre kernel Linux\n2) Flasher une autre ROM\nVous pouvez jeter un oeil à http://wiki.cyanogenmod.com, ils font des ROMs pas mal.</string>
 	<string name="title_profile_editor">Éditeur de profil </string>
 	<string name="title_profiles">Profils</string>
 	<string name="title_trigger_editor">Éditeur des déclencheurs </string>
