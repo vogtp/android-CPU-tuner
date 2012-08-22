@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.amana.android.cputuner"
     android:installLocation="internalOnly"
-    android:versionCode="201208070"
-    android:versionName="3.3.13" >
+    android:versionCode="201208090"
+    android:versionName="3.3.14-fr1" >
 
     <uses-sdk
         android:minSdkVersion="7"

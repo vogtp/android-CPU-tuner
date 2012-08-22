@@ -1,50 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-<string name="marketTitle">
-CPU tuner (Rooted phones)
-</string>
+<string name="marketTitle">CPU Tuner (root)</string>
 
-<string name="languageName">
-For the language switch I need the name of your language in your language.
-Do not translate this just enter the name of your language (e.g. English).
-</string>
+<string name="languageName">Français</string>
 
 
-<string name="marketDesciption">
-CPU tuner gives you control over the power consumption of your android device.
-Its prime purpose is to be a battery saver and to save as much battery as possible, but it can be used to overclock at the same time (if the kernel of your device supports it).
+<string name="marketDesciption">CPU Tuner vous permet de contrôler la consommation de votre périphérique Android.
+Son but premier est d\'économiser la batterie autant que possible, mais il peut aussi être utilisé pour overclocker votre périphérique tout en controlant la consommation (si le noyau Linux le supporte).
+En fonction des déclencheurs (basés sur la charge de la batterie), différents profils sont chargés. Chaque déclencheur a différents profils en fonction de l\'état du périphérique (écran éteint, sur batterie, en charge ou en cours d\'appel).
+Un profil peut modifier:
+*Le gourverneur CPU, ses seuils, les fréquences min/max (i.e régle la vitesse du processeur).
+*L\'état des services réseau:
+  - Activer/désactiver la connexion data mobile de l\'opérateur, le WIFI, le bluetooth...
+  - Basculer 2G/3G
+  - Activer/désactiver la synchronisation automatique
+  - Activer/désactiver le mode avion
+Les configuration (le jeu de déclencheurs et de profils peuvent être chargé en fonction de l\'heure et du jour de la semaine. Cela vous permet d\'avoir un comportement différent la nuit, le week-end...
 
-Depending on triggers (based on the battery) different profiles are loaded.  Each trigger has different profiles depending of the the state of your phone (if it is locked, on battery, on power or a phone call is being done).
+Si vous utilisez et appréciez cette application, vous pouvez :
+- vous inscrire à la liste de diffusion suivante
+cputuner-help@lists.sourceforge.net
+- participer aux forums sur
+https://sourceforge.net/projects/cputuner/ (page web du projet).
+- suivre CPUTuner sur Google Plus à l\'adresse
+https://plus.google.com/109797451979104819882
 
-A profile can modify the following:
-* The CPU governor, its thresholds and min/max frequencies off your CPU (i.e. setCPU speed).
-* The state of services like:
-- mobiledata connection
-- 3G/2G switch
-- background sync
-- wifi
-- bluethooth
-- airplane mode
+Vous pouvez signaler les erreurs à l\'adresse e-mail ci-dessous, pas dans un commentaire de Google Play.
+Pour ce faire, vous devez de préférence générer un rapport sur les capacités de votre périphérique, quelque part dans le menu des réglages, quand cela est fait, pressez "envoyer" (et sauver le message en tant que brouillon). Alors décrivez votre problème. Attachez au mail, le fichier zip du rapport précédemment généré. Pour les pros, si vous savez faire, attachez aussi un logcat avec le mail.
+Une remarque sur les permissions: Oui, il y a potentiellement beaucoup de permissions dangereuses nécessaires, mais CPU Tuner ne demande pas la permission d\'utiliser le réseau pour communiquer. Cela signifie que CPU Tuner ne peut pas envoyer une quelconque information à qui que ce soit. De plus, les sources de CPU Tuner sont ouvertes et vous pouvez consulter le code et vérifier...</string>
 
-
-Configurations (i.e. a set of trigger and profiles) can be loaded based on the time of the day and the day of the week. This allows you to set a different behaviour during the night or the weekend.
-
-In praise of CyanogenMod... ;)
-
-If you use and like this app please subscribe to the mailing list cputuner-help@lists.sourceforge.net and participate in the forums on https://sourceforge.net/projects/cputuner/ (Project webpage).
-You can follow CPU tuner on: https://plus.google.com/109797451979104819882
-
-If you want to help translating please join in at http://www.getlocalization.com/cputuner/.
-
-Please report errors in a mail to the address listed below not in a market comment.
-You best generate a capabilities report first, by going to settings then to backend and choose capabilities report, when it is done hit send (and save the mail as draft). Then describe your issue (and if possible attach a logcat output along with the zip file from the report).
-
-A note on permissions:  Yes there are a lot and potentially dangerous permissions needed, but cpu tuner does not request the network communication permission which means that cpu tuner cannot send any information back.  Further more cpu tuner is opensource so you can browse the code and check....
-
-</string>
-
-<string name="marketPromotionText">
-CPU tuner tries to save as much battery power as possible.
-</string>
+<string name="marketPromotionText">CPU Tuner essaiera d\'économiser autant d\'énergie que possible.</string>
 </resources>
