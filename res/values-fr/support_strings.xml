@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+<<<<<<< HEAD
 <string name="marketTitle">
 CPU tuner (Rooted phones)
 </string>
@@ -47,4 +48,64 @@ A note on permissions:  Yes there are a lot and potentially dangerous permission
 <string name="marketPromotionText">
 CPU tuner tries to save as much battery power as possible.
 </string>
+=======
+    <string name="marketTitle">CPU Tuner (root)</string>
+    <string name="languageName">Français</string>
+    <string name="marketDesciption">CPU Tuner vous permet de contrôler la consommation de votre périphérique Android.
+Son but premier est d\'économiser la batterie autant que possible, mais il peut aussi être utilisé pour overclocker votre périphérique tout en controlant la consommation (si le noyau Linux le supporte).
+En fonction des déclencheurs (basés sur la charge de la batterie), différents profils sont chargés. Chaque déclencheur a différents profils en fonction de l\'état du périphérique (écran éteint, sur batterie, en charge ou en cours d\'appel).
+Un profil peut modifier:
+*Le gourverneur CPU, ses seuils, les fréquences min/max (i.e régle la vitesse du processeur).
+*L\'état des services réseau:
+  - Activer/désactiver la connexion data mobile de l\'opérateur, le WIFI, le bluetooth...
+  - Basculer 2G/3G
+  - Activer/désactiver la synchronisation automatique
+  - Activer/désactiver le mode avion
+Les configuration (le jeu de déclencheurs et de profils peuvent être chargé en fonction de l\'heure et du jour de la semaine. Cela vous permet d\'avoir un comportement différent la nuit, le week-end...
+
+Si vous utilisez et appréciez cette application, vous pouvez :
+- vous inscrire à la liste de diffusion suivante
+cputuner-help@lists.sourceforge.net
+- participer aux forums sur
+https://sourceforge.net/projects/cputuner/ (page web du projet).
+- suivre CPUTuner sur Google Plus à l\'adresse
+https://plus.google.com/109797451979104819882
+
+Vous pouvez signaler les erreurs à l\'adresse e-mail ci-dessous, pas dans un commentaire de Google Play.
+Pour ce faire, vous devez de préférence générer un rapport sur les capacités de votre périphérique, quelque part dans le menu des réglages, quand cela est fait, pressez "envoyer" (et sauver le message en tant que brouillon). Alors décrivez votre problème. Attachez au mail, le fichier zip du rapport précédemment généré. Pour les pros, si vous savez faire, attachez aussi un logcat avec le mail.
+Une remarque sur les permissions: Oui, il y a potentiellement beaucoup de permissions dangereuses nécessaires, mais CPU Tuner ne demande pas la permission d\'utiliser le réseau pour communiquer. Cela signifie que CPU Tuner ne peut pas envoyer une quelconque information à qui que ce soit. De plus, les sources de CPU Tuner sont ouvertes et vous pouvez consulter le code et vérifier...</string>
+    <string name="marketPromotionText">CPU Tuner essaiera d\'économiser autant d\'énergie que possible.</string>
+
+>>>>>>> refs/remotes/origin/master
+</resources>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="marketTitle">CPU Tuner (root)</string>
+    <string name="languageName">Français</string>
+    <string name="marketDesciption">CPU Tuner vous permet de contrôler la consommation de votre périphérique Android.
+Son but premier est d\'économiser la batterie autant que possible, mais il peut aussi être utilisé pour overclocker votre périphérique tout en controlant la consommation (si le noyau Linux le supporte).
+En fonction des déclencheurs (basés sur la charge de la batterie), différents profils sont chargés. Chaque déclencheur a différents profils en fonction de l\'état du périphérique (écran éteint, sur batterie, en charge ou en cours d\'appel).
+Un profil peut modifier:
+*Le gourverneur CPU, ses seuils, les fréquences min/max (i.e régle la vitesse du processeur).
+*L\'état des services réseau:
+  - Activer/désactiver la connexion data mobile de l\'opérateur, le WIFI, le bluetooth...
+  - Basculer 2G/3G
+  - Activer/désactiver la synchronisation automatique
+  - Activer/désactiver le mode avion
+Les configuration (le jeu de déclencheurs et de profils peuvent être chargé en fonction de l\'heure et du jour de la semaine. Cela vous permet d\'avoir un comportement différent la nuit, le week-end...
+
+Si vous utilisez et appréciez cette application, vous pouvez :
+- vous inscrire à la liste de diffusion suivante
+cputuner-help@lists.sourceforge.net
+- participer aux forums sur
+https://sourceforge.net/projects/cputuner/ (page web du projet).
+- suivre CPUTuner sur Google Plus à l\'adresse
+https://plus.google.com/109797451979104819882
+
+Vous pouvez signaler les erreurs à l\'adresse e-mail ci-dessous, pas dans un commentaire de Google Play.
+Pour ce faire, vous devez de préférence générer un rapport sur les capacités de votre périphérique, quelque part dans le menu des réglages, quand cela est fait, pressez "envoyer" (et sauver le message en tant que brouillon). Alors décrivez votre problème. Attachez au mail, le fichier zip du rapport précédemment généré. Pour les pros, si vous savez faire, attachez aussi un logcat avec le mail.
+Une remarque sur les permissions: Oui, il y a potentiellement beaucoup de permissions dangereuses nécessaires, mais CPU Tuner ne demande pas la permission d\'utiliser le réseau pour communiquer. Cela signifie que CPU Tuner ne peut pas envoyer une quelconque information à qui que ce soit. De plus, les sources de CPU Tuner sont ouvertes et vous pouvez consulter le code et vérifier...</string>
+    <string name="marketPromotionText">CPU Tuner essaiera d\'économiser autant d\'énergie que possible.</string>
+
 </resources>

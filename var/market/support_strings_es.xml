@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<string name="marketTitle">
+CPU tuner (Rooted phones)
+</string>
+
+<string name="languageName">
+Español
+</string>
+
+
+<string name="marketDesciption">
+CPU tuner le da el control sobre el consumo de energía de su dispositivo Android.
+Su principal propósito es ser un economizador de batería y así mantener tanta carga como sea posible, pero también puede ser utilizado para realizar overclock al mismo tiempo (Si el kernel de tu dispositivo lo permite). 
+
+Hay cargados diferentes perfiles, dependiendo de los triggers (disparadores)(Basado en la batería). Cada trigger (disparador) tiene diferentes perfiles dependiendo del esta de tu telefono (si está bloqueado, con batería, con una llamada entrante) 
+
+A profile which can modify the following:
+* The CPU governor its thresholds and min/max frequencies off your CPU (i.e. setCPU speed).
+* The state of services like:
+- mobiledata connection
+- 3G/2G switch
+- sincronización en segundo plano
+- WIFI
+- bluethooth
+- modo avión
+
+
+Las configuraciones (ej un conjunto de trigger y perfiles) pueden ser cargados en base a la hora del día y el día de la semana. Esto le permite establecer un comportamiento diferente durante la noche o fines de semana.
+
+In praise of CyanogenMod... ;)
+
+Si usas y te gusta esta app, porfavor suscribete a la lista de correo cputuner-help@lists.sourceforge.net y participa en el foro en https://sourceforge.net/projects/cputuner/ (Project webpage).
+Puedes seguir CPU Tuner en: https://plus.google.com/109797451979104819882
+
+Si quieres ayudar a tranducir por favor ingresa a http://www.getlocalization.com/cputuner/.
+
+Si CPU tuner crashes on start, trata de desinstalarlo e instalalo nuevamente.
+
+Por favor reportar los errores en un correo electrónico a la dirección indicada, no en un comentario del market.
+
+Es mejor generar un capabilities report primero, llendo a configuraciones>backend>check capabilities, cuando esté terminado presiona enviar (y guarda el mail como draft). Luego describe tu problema (and if possible attach a logcat output along with the zip file from the report).
+
+Nota sobre los permisos: Si, hay muchos permisos y potencialmente peligrosos que son necesarios, pero CPU Tuner no necesita permisos de comunicación a red lo que significa que CPU Tuner no puede enviar ningún tipo de información. Además CPU Tuner es de codigo abierto asi que puedes buscar el codigo y revisar...
+</string>
+
+<string name="marketPromotionText">
+CPU tuner tries to save as much battery power as possible.
+</string>
+</resources>
