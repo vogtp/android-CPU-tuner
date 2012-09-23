@@ -405,8 +405,8 @@ Sinon les changements de configurations peuvent être décalés au maximum d\'un
 	<string name="msgNoIssuesFound">Aucun problème détecté.</string>
 	<string name="prefVritualGovernorsListLong">Les gouverneurs virtuels sont des gouverneurs préconfigurés.</string>
 	<string name="virtualGovernorsList">Gouverneurs virtuels</string>
-	<string name="prefBatteryHotTempMsg">Température personnalisée pour déclencher le profil de batterie chaude.&lt;br /&gt; Valeur entière.</string>
-	<string name="prefBatteryHotTempLong">Température personnalisée pour déclencher le profil batterie chaude.</string>
+	<string name="prefBatteryHotTempMsg">Température pour déclencher le profil \"Batterie chaude\". Nombre entier en °C.</string>
+	<string name="prefBatteryHotTempLong">Température pour déclencher le profil \"Batterie chaude\"</string>
 	<string name="prefBatteryHotTemp">Température pour batterie chaude</string>
 	<string name="prefSwitchProfileWhilePhoneNotIdleOn">Les changements de profils auront lieu durant les appels. La connexion de données cellulaire ne sera jamais allumée pendant les appels, quel que soit l\'état de cette option.</string>
 	<string name="prefSwitchProfileWhilePhoneNotIdleOff">Les changements de profils sont interdits durant les appels. Le connexion data ne sera jamais allumé pendant les appels, quel que soit l\'état de cette option.</string>
