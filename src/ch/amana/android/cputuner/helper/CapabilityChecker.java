@@ -263,7 +263,7 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 		} finally {
 			CpuTunerApplication.startCpuTuner(ctx);
 			SettingsStorage.getInstance().userLevel = userLevel;
-			cpuHandler.applyCpuSettings(currentCpuSettings);
+			cpuHandler.applyCpuSettings(ctx, currentCpuSettings);
 			try {
 				pd.dismiss();
 			} catch (Throwable e) {

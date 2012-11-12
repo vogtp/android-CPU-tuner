@@ -11,6 +11,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.WeakHashMap;
 
+import android.content.Context;
+import ch.amana.android.cputuner.helper.ScriptCache;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.IGovernorModel;
@@ -59,8 +61,9 @@ public class CpuHandler extends HardwareHandler {
 
 	private static CpuHandler instance = null;
 
-	public static CpuHandler resetInstance() {
+	public static CpuHandler resetInstance(Context ctx) {
 		instance = null;
+		ScriptCache.removeScripts(ctx);
 		return getInstance();
 	}
 
@@ -100,7 +103,7 @@ public class CpuHandler extends HardwareHandler {
 		return new ProfileModel(getCurCpuGov(), getMaxCpuFreq(), getMinCpuFreq(), getGovThresholdUp(), getGovThresholdDown(), getPowersaveBias());
 	}
 
-	public void applyGovernorSettings(IGovernorModel governor) {
+	protected void applyGovernorSettings(IGovernorModel governor) {
 		setCurGov(governor.getGov());
 		int thresholdUp = governor.getGovernorThresholdUp();
 		int thresholdDown = governor.getGovernorThresholdDown();
@@ -120,14 +123,26 @@ public class CpuHandler extends HardwareHandler {
 		setPowersaveBias(governor.getPowersaveBias());
 	}
 
-	public void applyCpuSettings(ProfileModel profile) {
+	public void applyCpuSettings(Context ctx, ProfileModel profile) {
+		long pid = profile.getDbId();
+		if (!ScriptCache.hasScript(ctx, pid)) {
+			//generate script
+			ScriptCache.startRecording(ctx, pid);
+			doApplyCpuSettings(profile);
+			ScriptCache.endRecording();
+			ScriptCache.runScript(ctx, pid);
+		}
+		ScriptCache.runScript(ctx, pid);
+	}
+
+	protected void doApplyCpuSettings(ProfileModel profile) {
+		applyGovernorSettings(profile);
 		if (GOV_USERSPACE.equals(profile.getGov())) {
 			setUserCpuFreq(profile.getMaxFreq());
 		} else {
 			setMaxCpuFreq(profile.getMaxFreq());
 			setMinCpuFreq(profile.getMinFreq());
 		}
-		applyGovernorSettings(profile);
 	}
 
 	public int getCurCpuFreq() {
@@ -167,8 +182,8 @@ public class CpuHandler extends HardwareHandler {
 	public boolean setMaxCpuFreq(int val) {
 		Logger.i("Setting max frequency to " + val);
 		if (RootHandler.writeFile(getFile(SCALING_MAX_FREQ), Integer.toString(val))) {
-			 RootHandler.writeFile(getFile(SCREEN_OFF_MAX_FREQ), Integer.toString(val));
-			 return true;
+			RootHandler.writeFile(getFile(SCREEN_OFF_MAX_FREQ), Integer.toString(val));
+			return true;
 		}
 		return false;
 		//		return RootHandler.writeFile(getFile(SCALING_MAX_FREQ), Integer.toString(val));
@@ -398,7 +413,6 @@ public class CpuHandler extends HardwareHandler {
 	public boolean hasThreshholdUp() {
 		return hasFile(getFile(GOV_TRESHOLD_UP, getCurCpuGov()));
 	}
-
 
 	public boolean hasThreshholdDown() {
 		return hasFile(getFile(GOV_TRESHOLD_DOWN, getCurCpuGov()));

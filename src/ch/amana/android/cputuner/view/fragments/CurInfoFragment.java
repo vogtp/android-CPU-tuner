@@ -343,6 +343,18 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void profileChanged() {
+		getProfileInfo();
+		Handler h = new Handler();
+		h.postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				getProfileInfo();
+			}
+		}, 1000);
+	}
+
+	private void getProfileInfo() {
 		if (tvPulse == null) {
 			return;
 		}

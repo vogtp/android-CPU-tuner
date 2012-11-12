@@ -229,7 +229,7 @@ public class PowerProfiles {
 				}
 
 				CpuHandler cpuHandler = CpuHandler.getInstance();
-				cpuHandler.applyCpuSettings(currentProfile);
+				cpuHandler.applyCpuSettings(context, currentProfile);
 				applyWifiState(currentProfile.getWifiState());
 				applyGpsState(currentProfile.getGpsState());
 				applyBluetoothState(currentProfile.getBluetoothState());
@@ -290,6 +290,9 @@ public class PowerProfiles {
 
 	private int evaluateState(ServiceType type, int state) {
 		int ret = state;
+		if (state == SERVICE_STATE_LEAVE) { // new is this correct
+			return NO_STATE;
+		}
 		int lastState = lastServiceState.get(type);
 		boolean wasPulsing = PulseHelper.getInstance(context).isPulsing();
 		if (type != ServiceType.mobiledata3g) {

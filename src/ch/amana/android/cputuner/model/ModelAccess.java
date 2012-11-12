@@ -16,6 +16,7 @@ import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.InstallHelper;
+import ch.amana.android.cputuner.helper.ScriptCache;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.provider.db.DB;
@@ -100,6 +101,7 @@ public class ModelAccess implements BackupRestoreCallback {
 				backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
 			}
 		}
+		ScriptCache.removeScripts(ctx);
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs) {

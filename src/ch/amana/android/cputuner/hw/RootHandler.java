@@ -16,6 +16,7 @@ import java.io.Writer;
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
+import ch.amana.android.cputuner.helper.ScriptCache;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 
@@ -223,6 +224,11 @@ public class RootHandler {
 			}
 			return false;
 		}
+		String cmd = "echo " + val + " > " + file.getAbsolutePath();
+		if (ScriptCache.isRecoding()) {
+			ScriptCache.recordLine(cmd);
+			return true;
+		}
 		String readFile = readFile(file);
 		if (val == null || val.equals(readFile) || RootHandler.NOT_AVAILABLE.equals(readFile)) {
 			return false;
@@ -250,7 +256,7 @@ public class RootHandler {
 			if (Logger.DEBUG) {
 				Logger.w("Setting " + file.getAbsolutePath() + " to " + val);
 			}
-			return RootHandler.execute("echo " + val + " > " + file.getAbsolutePath());
+			return RootHandler.execute(cmd);
 		}
 	}
 
