@@ -33,7 +33,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
 public class InstallHelper {
 
-	private static final int VERSION = 6;
+	private static final int VERSION = 7;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -75,6 +75,9 @@ public class InstallHelper {
 		case 5:
 			Logger.i("Initalising cpu tuner to level 6");
 			ModelAccess.getInstace(ctx).clearPowerUsage();
+		case 6:
+			Logger.i("Initalising cpu tuner to level 7");
+			settings.setMakeFilesWritable(false);
 		}
 		settings.migrateSettings();
 		settings.setDefaultProfilesVersion(VERSION);

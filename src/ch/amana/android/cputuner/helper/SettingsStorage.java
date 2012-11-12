@@ -854,15 +854,20 @@ public class SettingsStorage {
 	public boolean isMakeFilesWritable() {
 		if (!checkedMakeFilesWritable) {
 			checkedMakeFilesWritable = true;
-			boolean isJellyBean = Build.VERSION.SDK_INT >= 16; // JB  
+			boolean isJellyBean = false;// Build.VERSION.SDK_INT >= 16; // JB  
 			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", isJellyBean);
 		}
 		return makeFilesWritable;
 	}
 
+	public void setMakeFilesWritable(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean("prefKeyMakeFilesWritable", b);
+		editor.commit();
+	}
+
 	public void setAuthorsDefauls() {
 		Editor editor = getPreferences().edit();
-		editor.putBoolean("prefKeyMakeFilesWritable", true);
 		editor.putBoolean("prefKeyAllowManualServiceChanges", true);
 		editor.putString("prefKeyStatusbarAddToChoice", Integer.toString(STATUSBAR_ALWAYS));
 		editor.putBoolean("prefKeyPowerStrongerThanScreenoff", false);
