@@ -212,6 +212,10 @@ public class TunerService extends IntentService {
 					//					startSpeedUpSwitch();
 					powerProfiles.setScreenOff(false);
 					//					endSpeedUpSwitch();
+				} else if (Intent.ACTION_USER_PRESENT.equals(action)) {
+					//					startSpeedUpSwitch();
+					// FIXME user is present
+					//					endSpeedUpSwitch();
 				} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
 					// manage network state on wifi
 					int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
