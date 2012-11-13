@@ -47,6 +47,10 @@ public class RootHandler {
 			if (Logger.DEBUG) {
 				Logger.v("Running " + cmd);
 			}
+			if (ScriptCache.isRecoding()) {
+				ScriptCache.recordLine(cmd);
+				return true;
+			}
 			Process p = new ProcessBuilder()
 					.command("su")
 					.start();
