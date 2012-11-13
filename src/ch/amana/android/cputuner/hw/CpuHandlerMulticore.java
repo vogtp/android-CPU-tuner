@@ -28,13 +28,13 @@ public class CpuHandlerMulticore extends CpuHandler {
 	}
 
 	@Override
-	public void applyCpuSettings(ProfileModel profile) {
-		super.applyCpuSettings(profile);
-		setNumberOfActiveCpus(profile.getUseNumberOfCpus());
+	protected void doApplyCpuSettings(ProfileModel profile) {
+		super.doApplyCpuSettings(profile);
+		//		setNumberOfActiveCpus(profile.getUseNumberOfCpus());
 	}
 
 	@Override
-	public void applyGovernorSettings(IGovernorModel governor) {
+	protected void applyGovernorSettings(IGovernorModel governor) {
 		super.applyGovernorSettings(governor);
 		setNumberOfActiveCpus(governor.getUseNumberOfCpus());
 	}

@@ -3,6 +3,27 @@ V
 - 
 * bug fixes
 - 
+
+V 
+* features
+- 
+* bug fixes
+- fix governor script execution
+
+V 3.3.16
+* features
+- jelly beans fixes
+- cache profile change scripts
+- service switch optimisations
+* bug fixes
+- 
+
+V 3.3.15
+* features
+- French and Spanish translation updates
+* bug fixes
+-
+ 
 V 3.3.14
 * features
 - Croatian translation (Thanks to D.Vidic)

@@ -81,8 +81,6 @@ public class HardwareGovernorModel implements IGovernorModel {
 
 	@Override
 	public void setVirtualGovernor(long id) {
-		VirtualGovernorModel vgm = ModelAccess.getInstace(ctx).getVirtualGovernor(id);
-		cpuHandler.applyGovernorSettings(vgm);
 		powerProfiles.getCurrentProfile().setVirtualGovernor(id);
 	}
 

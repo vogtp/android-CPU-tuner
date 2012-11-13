@@ -51,7 +51,7 @@ public abstract class BaseSettings extends PreferenceActivity {
 	protected void onPause() {
 		super.onPause();
 		SettingsStorage.getInstance().forgetValues();
-		CpuHandler.resetInstance();
+		CpuHandler.resetInstance(this);
 	}
 
 	@Override

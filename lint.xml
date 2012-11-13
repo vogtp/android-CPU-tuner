@@ -17,6 +17,9 @@
     <issue id="Overdraw">
         <ignore path="res/layout/configuration_manage.xml" />
     </issue>
+    <issue id="ProtectedPermissons">
+        <ignore path="AndroidManifest.xml" />
+    </issue>
     <issue id="StringFormatInvalid" severity="ignore" />
     <issue id="TypographyQuotes" severity="informational" />
     <issue id="UnusedIds" severity="informational" />

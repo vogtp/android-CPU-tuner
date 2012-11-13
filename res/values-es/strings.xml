@@ -37,7 +37,7 @@
 	</string-array>
 	<string-array name="deviceStatesCurrent">
 	<!-- 		<item>Auto</item> -->
-		<item>Desactivado</item>
+		<item>Activar</item>
 		<item>Desactivar</item>
 		<item>Pulsar</item>
 	</string-array>
@@ -66,7 +66,7 @@
 	<string name="name_extention_widget">Extensión del Widget</string>
 	<string name="desc_extention_widget">El widget permite acceder a las funciones de CPU Tuner rápido desde su pantalla de inicio.</string>
 	<string name="prefCatWidget">Widget</string>
-	<string name="prefHasWidget">Iniciar Widget</string>
+	<string name="prefHasWidget">Activar Widget</string>
 	<string name="msgWidgetLoading">Cargando...</string>
 	<string name="msg_widgets_not_installed">El widget de CPU Tuner no está iniciado.</string>
 	<string name="title_install_widget_dia">Widget no instalado</string>
@@ -541,8 +541,8 @@
 	<string name="labelMobiledataPrev">DM?</string>
 	<string-array name="deviceStates">
 		<item>Activar</item>
+		<item>Activar</item>
 		<item>Desactivar</item>
-		<item>Volver al anterior</item>
 		<item>Temporal</item>
 		<item>Pulsar</item>
 	</string-array>

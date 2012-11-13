@@ -856,7 +856,7 @@ public class SettingsStorage {
 	public boolean isMakeFilesWritable() {
 		if (!checkedMakeFilesWritable) {
 			checkedMakeFilesWritable = true;
-			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", isJellyBean());
+			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", false);
 		}
 		return makeFilesWritable;
 	}
@@ -865,9 +865,14 @@ public class SettingsStorage {
 		return Build.VERSION.SDK_INT >= 16; // JB ;
 	}
 
+	public void setMakeFilesWritable(boolean b) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean("prefKeyMakeFilesWritable", b);
+		editor.commit();
+	}
+
 	public void setAuthorsDefauls() {
 		Editor editor = getPreferences().edit();
-		editor.putBoolean("prefKeyMakeFilesWritable", true);
 		editor.putBoolean("prefKeyAllowManualServiceChanges", true);
 		editor.putString("prefKeyStatusbarAddToChoice", Integer.toString(STATUSBAR_ALWAYS));
 		editor.putBoolean("prefKeyPowerStrongerThanScreenoff", false);
