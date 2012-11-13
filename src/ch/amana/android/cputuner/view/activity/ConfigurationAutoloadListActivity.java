@@ -28,9 +28,8 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.ConfigurationAutoload;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.ConfigurationAutoload;
 import ch.amana.android.cputuner.service.ConfigurationAutoloadService;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
@@ -243,7 +242,7 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 			return true;
 
 		case R.id.menuItemInsertAsNew:
-			startActivity(new Intent(CpuTunerProvider.ACTION_INSERT_AS_NEW, uri));
+			startActivity(new Intent(DB.ACTION_INSERT_AS_NEW, uri));
 			return true;
 
 		default:

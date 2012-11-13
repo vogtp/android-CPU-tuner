@@ -22,9 +22,8 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
@@ -53,7 +52,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			virtualGovModel = modelAccess.getVirtualGovernor(getIntent().getData());
-		} else if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+		} else if (DB.ACTION_INSERT_AS_NEW.equals(action)) {
 			virtualGovModel = modelAccess.getVirtualGovernor(getIntent().getData());
 			virtualGovModel.setVirtualGovernorName(null);
 			virtualGovModel.setDbId(-1);
@@ -142,7 +141,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 			try {
 				String action = getIntent().getAction();
 				if (exitStatus == ExitStatus.save) {
-					if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+					if (Intent.ACTION_INSERT.equals(action) || DB.ACTION_INSERT_AS_NEW.equals(action)) {
 						modelAccess.insertVirtualGovernor(virtualGovModel);
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateVirtualGovernor(virtualGovModel);

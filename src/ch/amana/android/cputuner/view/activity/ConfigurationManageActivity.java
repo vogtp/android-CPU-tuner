@@ -30,7 +30,7 @@ import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsAdapter;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsListAdapter;
 import ch.amana.android.cputuner.view.adapter.SysConfigurationsAdapter;

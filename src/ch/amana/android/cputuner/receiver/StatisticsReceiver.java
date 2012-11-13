@@ -15,9 +15,9 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.TimeInStateIndex;
-import ch.amana.android.cputuner.provider.db.DB.TimeInStateValue;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.TimeInStateIndex;
+import ch.amana.android.cputuner.provider.DB.TimeInStateValue;
 
 public class StatisticsReceiver extends BroadcastReceiver {
 

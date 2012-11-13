@@ -13,8 +13,7 @@ import android.os.Handler;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 
 public class SwitchLog extends BroadcastReceiver {
 	private static SwitchLog instance;
@@ -105,7 +104,7 @@ public class SwitchLog extends BroadcastReceiver {
 				operations.add(opp.build());
 			}
 
-			context.getContentResolver().applyBatch(CpuTunerProvider.AUTHORITY, operations);
+			context.getContentResolver().applyBatch(DB.AUTHORITY, operations);
 			operations.clear();
 		} catch (Exception e) {
 			Logger.w("Cannot flush to switch log");

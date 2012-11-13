@@ -42,7 +42,7 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.model.HardwareGovernorModel;
 import ch.amana.android.cputuner.model.ProfileModel;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.service.TunerService;
 import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;

@@ -30,9 +30,8 @@ import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.TriggerModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.Trigger;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.Trigger;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
@@ -64,7 +63,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			triggerModel = modelAccess.getTrigger(getIntent().getData());
-		} else if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+		} else if (DB.ACTION_INSERT_AS_NEW.equals(action)) {
 			triggerModel = modelAccess.getTrigger(getIntent().getData());
 			triggerModel.setName(null);
 			triggerModel.setDbId(-1);
@@ -252,7 +251,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 			try {
 				String action = getIntent().getAction();
 				if (exitStatus == ExitStatus.save && hasChange()) {
-					if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+					if (Intent.ACTION_INSERT.equals(action) || DB.ACTION_INSERT_AS_NEW.equals(action)) {
 						modelAccess.insertTrigger(triggerModel);
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateTrigger(triggerModel);

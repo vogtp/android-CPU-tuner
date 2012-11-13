@@ -14,7 +14,7 @@ import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 
 public class ConfigurationAutoloadService extends IntentService implements BackupRestoreCallback {
 

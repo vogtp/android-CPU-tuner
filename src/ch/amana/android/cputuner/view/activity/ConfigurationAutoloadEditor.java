@@ -25,8 +25,7 @@ import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ConfigurationAutoloadModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.view.adapter.ConfigurationsSpinnerAdapter;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
@@ -56,14 +55,14 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 		setContentView(R.layout.configuration_autoload_editor);
 
 		String action = getIntent().getAction();
-		if (Intent.ACTION_EDIT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+		if (Intent.ACTION_EDIT.equals(action) || DB.ACTION_INSERT_AS_NEW.equals(action)) {
 			Cursor c = null;
 			try {
 				c = getContentResolver().query(getIntent().getData(), DB.ConfigurationAutoload.PROJECTION_DEFAULT, null, null, null);
 				if (c.moveToFirst()) {
 					caModel = new ConfigurationAutoloadModel(c);
 					origCaModel = new ConfigurationAutoloadModel(c);
-					if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+					if (DB.ACTION_INSERT_AS_NEW.equals(action)) {
 						caModel.setDbId(-1);
 						origCaModel.setDbId(-1);
 					}
@@ -138,7 +137,7 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 					return;
 				}
 				String action = getIntent().getAction();
-				if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+				if (Intent.ACTION_INSERT.equals(action) || DB.ACTION_INSERT_AS_NEW.equals(action)) {
 					Uri uri = getContentResolver().insert(DB.ConfigurationAutoload.CONTENT_URI, caModel.getValues());
 					long id = ContentUris.parseId(uri);
 					if (id > 0) {

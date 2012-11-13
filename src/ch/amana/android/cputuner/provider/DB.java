@@ -1,13 +1,17 @@
-package ch.amana.android.cputuner.provider.db;
+package ch.amana.android.cputuner.provider;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
+import ch.amana.android.cputuner.provider.CpuTunerProvider.UriTableMapping;
 
 public interface DB {
+
+	public static final String ACTION_INSERT_AS_NEW = "ch.amana.android.cputuner.ACTION_INSERT_AS_NEW";
+
+	public static final String AUTHORITY = "ch.amana.android.cputuner";
 
 	public static final String SQL_WILDCARD = "%";
 	public static final String DATABASE_NAME = "cputuner";
@@ -18,7 +22,26 @@ public interface DB {
 	public static final String[] PROJECTION_ID = new String[] { NAME_ID };
 	public static final String SELECTION_BY_ID = NAME_ID + "=?";
 
-	public class CpuTunerOpenHelper extends SQLiteOpenHelper {
+	public class UriTableConfig {
+
+		public static UriTableMapping[] map;
+
+		static {
+			map = new UriTableMapping[] {
+					ConfigurationAutoload.URI_TABLE_MAPPING,
+					CpuProfile.URI_TABLE_MAPPING,
+					SwitchLogDB.URI_TABLE_MAPPING,
+					TimeInStateIndex.URI_TABLE_MAPPING,
+					TimeInStateValue.URI_TABLE_MAPPING,
+					TimeInStateValue.URI_TABLE_MAPPING_GROUPED,
+					Trigger.URI_TABLE_MAPPING,
+					VirtualGovernor.URI_TABLE_MAPPING
+			};
+		}
+
+	}
+
+	public class OpenHelper extends SQLiteOpenHelper {
 
 		private static final int DATABASE_VERSION = 16;
 
@@ -72,7 +95,7 @@ public interface DB {
 		private static final String CREATE_TIS_VALUE_TABLE = "create table if not exists " + TimeInStateValue.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, " + DB.TimeInStateValue.NAME_IDX + " long, " + DB.TimeInStateValue.NAME_STATE + " int, " + DB.TimeInStateValue.NAME_TIME + " long )";
 
-		public CpuTunerOpenHelper(Context context) {
+		public OpenHelper(Context context) {
 			super(context, DB.DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
@@ -188,17 +211,13 @@ public interface DB {
 		}
 	}
 
+
 	public interface Trigger {
 
 		public static final String TABLE_NAME = "triggers";
-
 		public static final String CONTENT_ITEM_NAME = "trigger";
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
 
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final boolean NOTIFY_ON_CHANGE = true;
 
 		public static final String NAME_TRIGGER_NAME = "triggerName";
 		public static final String NAME_BATTERY_LEVEL = "batteryLevel";
@@ -236,11 +255,16 @@ public interface DB {
 		public static final int INDEX_POWER_CURRENT_SUM_CALL = 16;
 		public static final int INDEX_POWER_CURRENT_CNT_CALL = 17;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
+
+		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
 				NAME_BATTERY_PROFILE_ID, NAME_POWER_PROFILE_ID, NAME_POWER_CURRENT_SUM_POW, NAME_POWER_CURRENT_CNT_POW, NAME_POWER_CURRENT_SUM_BAT,
 				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK, NAME_HOT_PROFILE_ID, NAME_POWER_CURRENT_SUM_HOT,
 				NAME_POWER_CURRENT_CNT_HOT, NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL };
-		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String[] PROJECTION_BATTERY_LEVEL = new String[] { NAME_ID, NAME_BATTERY_LEVEL };
 
@@ -263,14 +287,9 @@ public interface DB {
 	public interface CpuProfile {
 
 		public static final String TABLE_NAME = "cpuProfiles";
-
 		public static final String CONTENT_ITEM_NAME = "cpuProfile";
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
 
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final boolean NOTIFY_ON_CHANGE = true;
 
 		public static final String NAME_PROFILE_NAME = "profileName";
 		public static final String NAME_GOVERNOR = "governor";
@@ -308,11 +327,16 @@ public interface DB {
 		public static final int INDEX_AIRPLANEMODE_STATE = 16;
 		public static final int INDEX_USE_NUMBER_OF_CPUS = 17;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
+
+		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_PROFILE_NAME, NAME_GOVERNOR, NAME_FREQUENCY_MAX,
 				NAME_FREQUENCY_MIN, NAME_WIFI_STATE, NAME_GPS_STATE, NAME_BLUETOOTH_STATE, NAME_MOBILEDATA_3G_STATE, NAME_GOVERNOR_THRESHOLD_UP,
 				NAME_GOVERNOR_THRESHOLD_DOWN, NAME_BACKGROUND_SYNC_STATE, NAME_VIRTUAL_GOVERNOR,
 				NAME_MOBILEDATA_CONNECTION_STATE, NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_AIRPLANEMODE_STATE, NAME_USE_NUMBER_OF_CPUS };
-		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_PROFILE_NAME = new String[] { NAME_ID, NAME_PROFILE_NAME };
 
 		public static final String SORTORDER_DEFAULT = NAME_FREQUENCY_MAX + " DESC";
@@ -328,14 +352,9 @@ public interface DB {
 	public interface VirtualGovernor {
 
 		public static final String TABLE_NAME = "virtualGovernor";
-
 		public static final String CONTENT_ITEM_NAME = "virtualGovernor";
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
 
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final boolean NOTIFY_ON_CHANGE = true;
 
 		public static final String NAME_VIRTUAL_GOVERNOR_NAME = "virtualGovernor";
 		public static final String NAME_REAL_GOVERNOR = "governor";
@@ -353,10 +372,15 @@ public interface DB {
 		public static final int INDEX_POWERSEAVE_BIAS = 6;
 		public static final int INDEX_USE_NUMBER_OF_CPUS = 7;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_VIRTUAL_GOVERNOR_NAME, NAME_REAL_GOVERNOR,
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
+
+		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_VIRTUAL_GOVERNOR_NAME, NAME_REAL_GOVERNOR,
 				NAME_GOVERNOR_THRESHOLD_UP, NAME_GOVERNOR_THRESHOLD_DOWN,
 				NAME_SCRIPT, NAME_POWERSEAVE_BIAS, NAME_USE_NUMBER_OF_CPUS };
-		public static final String[] PROJECTION_DEFAULT = colNames;
 
 		public static final String SORTORDER_DEFAULT = NAME_GOVERNOR_THRESHOLD_UP + " ASC";
 		public static final String SORTORDER_REVERSE = NAME_GOVERNOR_THRESHOLD_UP + " DESC";
@@ -371,13 +395,8 @@ public interface DB {
 
 		public static final String TABLE_NAME = "configurationAutoload";
 
-		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		public static final boolean NOTIFY_ON_CHANGE = false;
 
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
 
 		public static final String NAME_HOUR = "hour";
 		public static final String NAME_MINUTE = "minute";
@@ -393,8 +412,14 @@ public interface DB {
 		public static final int INDEX_NEXT_EXEC = 5;
 		public static final int INDEX_EXACT_SCEDULING = 6;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_HOUR, NAME_MINUTE, NAME_WEEKDAY, NAME_CONFIGURATION, NAME_NEXT_EXEC, NAME_EXACT_SCEDULING };
-		public static final String[] PROJECTION_DEFAULT = colNames;
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
+
+		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_HOUR, NAME_MINUTE, NAME_WEEKDAY, NAME_CONFIGURATION, NAME_NEXT_EXEC, NAME_EXACT_SCEDULING };
 
 		public static final String SORTORDER_DEFAULT = NAME_NEXT_EXEC + " ASC";
 		public static final String SORTORDER_REVERSE = NAME_NEXT_EXEC + " DESC";
@@ -407,13 +432,7 @@ public interface DB {
 
 		public static final String TABLE_NAME = "switchLog";
 
-		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
-
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final boolean NOTIFY_ON_CHANGE = false;
 
 		public static final String NAME_TIME = "time";
 		public static final String NAME_MESSAGE = "message";
@@ -437,9 +456,15 @@ public interface DB {
 		public static final int INDEX_CALL = 9;
 		public static final int INDEX_HOT = 10;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV, NAME_BATTERY, NAME_LOCKED, NAME_AC,
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
+		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV, NAME_BATTERY, NAME_LOCKED,
+				NAME_AC,
 				NAME_CALL, NAME_HOT };
-		public static final String[] PROJECTION_DEFAULT = colNames;
 		public static final String[] PROJECTION_NORMAL_LOG = new String[] { NAME_ID, NAME_TIME, NAME_MESSAGE, NAME_TRIGGER, NAME_PROFILE };
 
 		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
@@ -453,16 +478,7 @@ public interface DB {
 
 		public static final String TABLE_NAME = "TimeInStateIndex";
 
-		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
-		public static final String CONTENT_ITEM_NAME_DISTINCT = TABLE_NAME + "_DISTINCT";
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static String CONTENT_URI_STRING_DISTINCT = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME_DISTINCT;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
-		public static Uri CONTENT_URI_DISTINCT = Uri.parse(CONTENT_URI_STRING_DISTINCT);
-
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final boolean NOTIFY_ON_CHANGE = false;
 
 		public static final String NAME_TIME = "time";
 		public static final String NAME_TRIGGER = "trigger";
@@ -474,9 +490,17 @@ public interface DB {
 		public static final int INDEX_PROFILE = 3;
 		public static final int INDEX_VIRTGOV = 4;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_TIME, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV };
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static final String CONTENT_ITEM_NAME_DISTINCT = TABLE_NAME + "_DISTINCT";
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static String CONTENT_URI_STRING_DISTINCT = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME_DISTINCT;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		public static Uri CONTENT_URI_DISTINCT = Uri.parse(CONTENT_URI_STRING_DISTINCT);
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
 
-		public static final String[] PROJECTION_DEFAULT = colNames;
+		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_TIME, NAME_TRIGGER, NAME_PROFILE, NAME_VIRTGOV };
 		public static final String[] PROJECTION_TRIGGER = new String[] { TimeInStateIndex.NAME_TRIGGER };
 		public static final String[] PROJECTION_PROFILE = new String[] { TimeInStateIndex.NAME_PROFILE };
 		public static final String[] PROJECTION_VIRTGOV = new String[] { TimeInStateIndex.NAME_VIRTGOV };
@@ -492,17 +516,7 @@ public interface DB {
 
 		public static final String TABLE_NAME = "TimeInStateValue";
 
-		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
-		public static final String CONTENT_ITEM_NAME_GROUPED = TABLE_NAME + "GROUPED";
-		public static String CONTENT_URI_STRING = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME;
-		public static String CONTENT_URI_STRING_GROUPED = "content://" + CpuTunerProvider.AUTHORITY + "/" + CONTENT_ITEM_NAME_GROUPED;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
-		public static Uri CONTENT_URI_GROUPED = Uri.parse(CONTENT_URI_STRING_GROUPED);
-
-		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME;
-		static final String CONTENT_TYPE_GROUPED = "vnd.android.cursor.dir/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME_GROUPED;
-		static final String CONTENT_ITEM_TYPE_GROUPED = "vnd.android.cursor.item/" + CpuTunerProvider.AUTHORITY + "." + CONTENT_ITEM_NAME_GROUPED;
+		public static final boolean NOTIFY_ON_CHANGE = false;
 
 		public static final String NAME_IDX = "tisIndex";
 		public static final String NAME_STATE = "state";
@@ -512,12 +526,27 @@ public interface DB {
 		public static final int INDEX_STATE = 2;
 		public static final int INDEX_TIME = 3;
 
-		public static final String[] colNames = new String[] { NAME_ID, NAME_IDX, NAME_STATE, NAME_TIME };
+		public static final String CONTENT_ITEM_NAME_GROUPED = TABLE_NAME + "GROUPED";
+		public static String CONTENT_URI_STRING_GROUPED = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME_GROUPED;
+		public static Uri CONTENT_URI_GROUPED = Uri.parse(CONTENT_URI_STRING_GROUPED);
+		static final String CONTENT_TYPE_GROUPED = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME_GROUPED;
+		static final String CONTENT_ITEM_TYPE_GROUPED = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME_GROUPED;
+		public static final UriTableMapping URI_TABLE_MAPPING_GROUPED = new UriTableMapping(CONTENT_URI_GROUPED, TimeInStateValue.TABLE_NAME + ", " + TimeInStateIndex.TABLE_NAME,
+				CONTENT_ITEM_NAME_GROUPED, CONTENT_TYPE_GROUPED, CONTENT_ITEM_TYPE_GROUPED, NOTIFY_ON_CHANGE, "TimeInStateValue.tisIndex=TimeInStateIndex._id",
+				TimeInStateIndex.TABLE_NAME + ".");
+
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
+		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
+		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
+
 
 		public static final String[] PROJECTION_TIME_SUM = new String[] { TABLE_NAME + "." + NAME_ID + " as " + NAME_ID, NAME_IDX, NAME_STATE,
 				"total(" + TABLE_NAME + "." + NAME_TIME + ") as time" };
 
-		public static final String[] PROJECTION_DEFAULT = colNames;
+		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_IDX, NAME_STATE, NAME_TIME };
 
 		public static final String SORTORDER_DEFAULT = NAME_STATE + " ASC";
 		public static final String SORTORDER_REVERSE = NAME_STATE + " DESC";

@@ -38,9 +38,8 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.CpuProfile;
 import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
@@ -98,7 +97,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 		String action = getIntent().getAction();
 		if (Intent.ACTION_EDIT.equals(action)) {
 			profile = modelAccess.getProfile(getIntent().getData());
-		} else if (CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+		} else if (DB.ACTION_INSERT_AS_NEW.equals(action)) {
 			profile = modelAccess.getProfile(getIntent().getData());
 			profile.setProfileName(null);
 			profile.setDbId(-1);
@@ -404,7 +403,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 			try {
 				String action = getIntent().getAction();
 				if (exitStatus == ExitStatus.save) {
-					if (Intent.ACTION_INSERT.equals(action) || CpuTunerProvider.ACTION_INSERT_AS_NEW.equals(action)) {
+					if (Intent.ACTION_INSERT.equals(action) || DB.ACTION_INSERT_AS_NEW.equals(action)) {
 						modelAccess.insertProfile(profile);
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateProfile(profile);

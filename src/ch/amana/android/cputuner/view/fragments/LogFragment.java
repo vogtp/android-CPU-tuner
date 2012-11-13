@@ -26,7 +26,7 @@ import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.log.SwitchLog;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;

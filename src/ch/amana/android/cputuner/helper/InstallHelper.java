@@ -25,9 +25,9 @@ import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
-import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 

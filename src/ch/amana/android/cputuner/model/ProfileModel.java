@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import ch.almana.android.importexportdb.importer.JSONBundle;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 
 public class ProfileModel implements IGovernorModel {
 

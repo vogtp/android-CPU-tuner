@@ -40,8 +40,8 @@ import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.hw.DeviceInformation;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.OpenHelper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
 import com.markupartist.android.widget.ActionBar;
@@ -346,7 +346,7 @@ public class CapabilityCheckerActivity extends Activity {
 		body.append(cpuHandler.toString());
 
 		try {
-			DB.CpuTunerOpenHelper oh = new CpuTunerOpenHelper(this);
+			DB.OpenHelper oh = new OpenHelper(this);
 			ExportConfig config = new ExportConfig(oh.getWritableDatabase(), DB.DATABASE_NAME, new File(path, DIR_REPORT), ExportType.JSON);
 
 			CheckBox cbInclSwitchLog = (CheckBox) findViewById(R.id.cbInclSwitchLog);

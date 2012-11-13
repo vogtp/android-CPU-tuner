@@ -19,7 +19,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
 import ch.amana.android.cputuner.hw.PowerProfiles.ServiceType;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.service.TunerService;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.appwidget.ProfileAppwidgetProvider;

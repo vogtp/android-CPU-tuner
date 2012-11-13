@@ -34,8 +34,8 @@ import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.CpuTunerOpenHelper;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.OpenHelper;
 
 public class BackupRestoreHelper {
 
@@ -59,7 +59,7 @@ public class BackupRestoreHelper {
 			storagePath.mkdir();
 		}
 		// ModelAccess.getInstace(cb.getContext()).applyDelayedTriggerUpdates();
-		SQLiteDatabase db = new CpuTunerOpenHelper(cb.getContext()).getWritableDatabase();
+		SQLiteDatabase db = new OpenHelper(cb.getContext()).getWritableDatabase();
 		ExportConfig config = new ExportConfig(db, DB.DATABASE_NAME, storagePath, ExportType.JSON);
 		config.setExcludeTable(DB.SwitchLogDB.TABLE_NAME);
 		config.setExcludeTable(DB.TimeInStateIndex.TABLE_NAME);

@@ -18,10 +18,10 @@ import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
-import ch.amana.android.cputuner.provider.db.DB.Trigger;
-import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.DB.Trigger;
+import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
 
 public class ModelAccess implements BackupRestoreCallback {
 

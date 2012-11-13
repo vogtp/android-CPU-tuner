@@ -42,10 +42,9 @@ import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
-import ch.amana.android.cputuner.provider.db.DB;
-import ch.amana.android.cputuner.provider.db.DB.CpuProfile;
-import ch.amana.android.cputuner.provider.db.DB.VirtualGovernor;
+import ch.amana.android.cputuner.provider.DB;
+import ch.amana.android.cputuner.provider.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -253,7 +252,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 			return true;
 
 		case R.id.menuItemInsertAsNew:
-			startActivity(new Intent(CpuTunerProvider.ACTION_INSERT_AS_NEW, uri));
+			startActivity(new Intent(DB.ACTION_INSERT_AS_NEW, uri));
 			return true;
 
 		default:

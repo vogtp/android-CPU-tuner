@@ -14,7 +14,7 @@ import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
-import ch.amana.android.cputuner.provider.db.DB;
+import ch.amana.android.cputuner.provider.DB;
 
 public class PowerProfiles {
 
