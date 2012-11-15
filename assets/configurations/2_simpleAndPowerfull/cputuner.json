@@ -8,7 +8,10 @@
     "resId": "gov_name_fullspeed",
     "_id": "1",
     "powersaveBias": "0",
-    "governor": "conservative|ondemand|interactive|smartass|performance",
+    "governor": "{
+    	\"0\": \"ondemand|conservative|interactive|smartass|performance\",
+    	\"16\": \"interactive|ondemand|conservative|smartass|performance\"
+    	}",
     "script": "",
     "governorThresholdUp": "50",
     "governorThresholdDown": "30"

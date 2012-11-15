@@ -3,7 +3,10 @@
   "configurationAutoload": [],
   "virtualGovernor": [
    {
-    "governor": "ondemand|interactive|conservative|smartass|performance",
+    "governor": "{
+    	\"0\": \"ondemand|conservative|interactive|smartass|performance\",
+    	\"16\": \"interactive|ondemand|conservative|smartass|performance\"
+    	}",
     "virtualGovernor": "Full speed",
     "resId": "gov_name_fullspeed",
     "_id": "1",
@@ -12,7 +15,10 @@
     "governorThresholdDown": "55"
    },
    {
-    "governor": "ondemand|interactive|conservative|smartass|performance",
+   "governor": "{
+    	\"0\": \"ondemand|conservative|interactive|smartass|performance\",
+    	\"16\": \"interactive|ondemand|conservative|smartass|performance\"
+    	}",
     "virtualGovernor": "Normal",
     "resId": "gov_name_normal",
     "_id": "2",

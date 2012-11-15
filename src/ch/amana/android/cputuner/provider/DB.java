@@ -224,12 +224,12 @@ public interface DB {
 
 		public static final boolean NOTIFY_ON_CHANGE = true;
 
-		public static final String NAME_TRIGGER_NAME = TABLE_NAME + "." + "triggerName";
-		public static final String NAME_BATTERY_LEVEL = TABLE_NAME + "." + "batteryLevel";
-		public static final String NAME_SCREEN_OFF_PROFILE_ID = TABLE_NAME + "." + "screenOffProfileId";
-		public static final String NAME_BATTERY_PROFILE_ID = TABLE_NAME + "." + "batteryProfileId";
-		public static final String NAME_POWER_PROFILE_ID = TABLE_NAME + "." + "powerProfileId";
-		public static final String NAME_POWER_CURRENT_SUM_POW = TABLE_NAME + "." + "powerCurrentSumPower";
+		public static final String NAME_TRIGGER_NAME = "triggerName";
+		public static final String NAME_BATTERY_LEVEL = "batteryLevel";
+		public static final String NAME_SCREEN_OFF_PROFILE_ID = "screenOffProfileId";
+		public static final String NAME_BATTERY_PROFILE_ID = "batteryProfileId";
+		public static final String NAME_POWER_PROFILE_ID = "powerProfileId";
+		public static final String NAME_POWER_CURRENT_SUM_POW = "powerCurrentSumPower";
 		public static final String NAME_POWER_CURRENT_CNT_POW = "powerCurrentCntPower";
 		public static final String NAME_POWER_CURRENT_SUM_BAT = "powerCurrentSumBattery";
 		public static final String NAME_POWER_CURRENT_CNT_BAT = "powerCurrentCntBattery";
@@ -535,9 +535,9 @@ public interface DB {
 
 		public static final boolean NOTIFY_ON_CHANGE = false;
 
-		public static final String NAME_IDX = TABLE_NAME + "." + "tisIndex";
-		public static final String NAME_STATE = TABLE_NAME + "." + "state";
-		public static final String NAME_TIME = TABLE_NAME + "." + "time";
+		public static final String NAME_IDX = "tisIndex";
+		public static final String NAME_STATE = "state";
+		public static final String NAME_TIME = "time";
 
 		public static final int INDEX_IDX = 1;
 		public static final int INDEX_STATE = 2;

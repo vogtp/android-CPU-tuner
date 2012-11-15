@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Environment;
 import ch.almana.android.importexportdb.BackupRestoreCallback;
 import ch.almana.android.importexportdb.constants.JsonConstants;
@@ -237,6 +238,17 @@ public class BackupRestoreHelper {
 			c = contentResolver.query(DB.VirtualGovernor.CONTENT_URI, DB.VirtualGovernor.PROJECTION_DEFAULT, null, null, null);
 			while (c.moveToNext()) {
 				String govs = c.getString(DB.VirtualGovernor.INDEX_REAL_GOVERNOR);
+				try {
+					JSONObject jsonObject = new JSONObject(govs);
+					for (int i = 0; i <= Build.VERSION.SDK_INT; i++) {
+						String idx = Integer.toString(i);
+						if (jsonObject.has(idx)) {
+							govs = jsonObject.getString(idx);
+							Logger.v("For SDK_LEVEL " + idx + " found config governors " + govs);
+						}
+					}
+				} catch (JSONException e) {
+				}
 				String[] govitems = govs.split("\\|");
 				boolean found = false;
 				for (String gov : govitems) {
