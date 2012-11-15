@@ -85,6 +85,8 @@ public class PowerProfiles {
 
 	private long lastSwitchTime;
 
+	private boolean screenUnlocked;
+
 	public static synchronized PowerProfiles getInstance(Context ctx) {
 		if (instance == null) {
 			Logger.w("Creating new PowerProfiles instance");
@@ -177,12 +179,16 @@ public class PowerProfiles {
 		if (settings.isPowerStrongerThanScreenoff()) {
 			if (acPower) {
 				return currentTrigger.getPowerProfileId();
-			} else if (screenOff) {
+			} else if (isScreenOff()) {
 				return currentTrigger.getScreenOffProfileId();
+			} else if (isScreenUnlocked()) {
+				return currentTrigger.getScreenUnlockedProfileId();
 			}
 		} else {
-			if (screenOff) {
+			if (isScreenOff()) {
 				return currentTrigger.getScreenOffProfileId();
+			} else if (isScreenUnlocked()) {
+				return currentTrigger.getScreenUnlockedProfileId();
 			} else if (acPower) {
 				return currentTrigger.getPowerProfileId();
 			}
@@ -253,7 +259,13 @@ public class PowerProfiles {
 					intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, batteryLevel);
 					intent.putExtra(DB.SwitchLogDB.NAME_CALL, callInProgress ? 1 : 0);
 					intent.putExtra(DB.SwitchLogDB.NAME_HOT, batteryHot ? 1 : 0);
-					intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, screenOff ? 1 : 0);
+					long lockedType = DB.SwitchLogDB.LOCK_TYPE_LOCKED;
+					if (screenOff) {
+						lockedType = DB.SwitchLogDB.LOCK_TYPE_OFF;
+					} else if (screenUnlocked) {
+						lockedType = DB.SwitchLogDB.LOCK_TYPE_UNLOCKED;
+					}
+					intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, lockedType);
 				}
 
 				lastBatteryLevel = -1;
@@ -580,7 +592,15 @@ public class PowerProfiles {
 	}
 
 	public boolean isScreenOff() {
-		return screenOff;
+		return screenOff && !screenUnlocked;
+	}
+
+	public boolean isScreenUnlocked() {
+		return screenUnlocked;
+	}
+
+	public void setScreenUnlocked(boolean screenUnlocked) {
+		this.screenUnlocked = screenUnlocked;
 	}
 
 	public void setBatteryTemperature(int temperature) {
@@ -715,5 +735,6 @@ public class PowerProfiles {
 			Logger.e("Did not find service type " + type.toString() + " to apply new state.");
 		}
 	}
+
 
 }

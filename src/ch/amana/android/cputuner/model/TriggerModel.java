@@ -26,19 +26,21 @@ public class TriggerModel {
 	private long callInProgessProfileId;
 	private long powerCurrentSumCall;
 	private long powerCurrentCntCall;
+	private long screenUnlockedProfileId;
 
 	public TriggerModel() {
-		this("", 100, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0,0,0);
+		this("", 100, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
-	public TriggerModel(String name, int batteryLevel, long screenOffProfileId, long batteryProfileId,
-			long powerProfileId, long hotProfileId, long callInProgessProfileId,long powercurrentSumPower, long powercurrentCntPower,
+	public TriggerModel(String name, int batteryLevel, long screenOffProfileId, long screenUnlockedProfileId, long batteryProfileId,
+			long powerProfileId, long hotProfileId, long callInProgessProfileId, long powercurrentSumPower, long powercurrentCntPower,
 			long powercurrentSumBattery, long powercurrentCntBattery, long powercurrentSumScreenLocked, long powercurrentCntScreenLocked,
-				long powercurrentSumHot, long powercurrentCntHot, long powerCurrentSumCall, long powerCurrentCntCall) {
+			long powercurrentSumHot, long powercurrentCntHot, long powerCurrentSumCall, long powerCurrentCntCall) {
 		super();
 		this.name = name;
 		this.batteryLevel = batteryLevel;
 		this.screenOffProfileId = screenOffProfileId;
+		this.screenUnlockedProfileId = screenUnlockedProfileId;
 		this.batteryProfileId = batteryProfileId;
 		this.powerProfileId = powerProfileId;
 		this.hotProfileId = hotProfileId;
@@ -59,6 +61,7 @@ public class TriggerModel {
 		this(c.getString(DB.Trigger.INDEX_TRIGGER_NAME),
 				c.getInt(DB.Trigger.INDEX_BATTERY_LEVEL),
 				c.getLong(DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID),
+				c.getLong(DB.Trigger.INDEX_SCREEN_UNLOCKED_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_BATTERY_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_POWER_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_HOT_PROFILE_ID),
@@ -70,8 +73,8 @@ public class TriggerModel {
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_LCK),
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_LCK),
 				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_HOT),
- c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT), c
-				.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_CALL), c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL));
+				c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_HOT), c
+						.getLong(DB.Trigger.INDEX_POWER_CURRENT_SUM_CALL), c.getLong(DB.Trigger.INDEX_POWER_CURRENT_CNT_CALL));
 		id = c.getLong(DB.INDEX_ID);
 	}
 
@@ -94,6 +97,7 @@ public class TriggerModel {
 		bundle.putString(DB.Trigger.NAME_TRIGGER_NAME, getName());
 		bundle.putInt(DB.Trigger.NAME_BATTERY_LEVEL, getBatteryLevel());
 		bundle.putLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, getScreenOffProfileId());
+		bundle.putLong(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID, getScreenUnlockedProfileId());
 		bundle.putLong(DB.Trigger.NAME_BATTERY_PROFILE_ID, getBatteryProfileId());
 		bundle.putLong(DB.Trigger.NAME_POWER_PROFILE_ID, getPowerProfileId());
 		bundle.putLong(DB.Trigger.NAME_HOT_PROFILE_ID, getHotProfileId());
@@ -115,6 +119,7 @@ public class TriggerModel {
 		name = bundle.getString(DB.Trigger.NAME_TRIGGER_NAME);
 		batteryLevel = bundle.getInt(DB.Trigger.NAME_BATTERY_LEVEL);
 		screenOffProfileId = bundle.getLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID);
+		screenUnlockedProfileId = bundle.getLong(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID);
 		batteryProfileId = bundle.getLong(DB.Trigger.NAME_BATTERY_PROFILE_ID);
 		powerProfileId = bundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
 		hotProfileId = bundle.getLong(DB.Trigger.NAME_HOT_PROFILE_ID);
@@ -136,6 +141,7 @@ public class TriggerModel {
 		name = jsonBundle.getString(DB.Trigger.NAME_TRIGGER_NAME);
 		batteryLevel = jsonBundle.getInt(DB.Trigger.NAME_BATTERY_LEVEL);
 		screenOffProfileId = jsonBundle.getLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID);
+		screenUnlockedProfileId = jsonBundle.getLong(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID);
 		batteryProfileId = jsonBundle.getLong(DB.Trigger.NAME_BATTERY_PROFILE_ID);
 		powerProfileId = jsonBundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
 		hotProfileId = jsonBundle.getLong(DB.Trigger.NAME_HOT_PROFILE_ID);
@@ -174,6 +180,7 @@ public class TriggerModel {
 		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT, getPowerCurrentCntHot());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL, getPowerCurrentSumCall());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL, getPowerCurrentCntCall());
+		values.put(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID, getScreenUnlockedProfileId());
 		return values;
 	}
 
@@ -315,10 +322,10 @@ public class TriggerModel {
 		result = prime * result + (int) (batteryProfileId ^ (batteryProfileId >>> 32));
 		result = prime * result + (int) (callInProgessProfileId ^ (callInProgessProfileId >>> 32));
 		result = prime * result + (int) (hotProfileId ^ (hotProfileId >>> 32));
-		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + (int) (powerProfileId ^ (powerProfileId >>> 32));
 		result = prime * result + (int) (screenOffProfileId ^ (screenOffProfileId >>> 32));
+		result = prime * result + (int) (screenUnlockedProfileId ^ (screenUnlockedProfileId >>> 32));
 		return result;
 	}
 
@@ -339,8 +346,6 @@ public class TriggerModel {
 			return false;
 		if (hotProfileId != other.hotProfileId)
 			return false;
-		if (id != other.id)
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -349,6 +354,8 @@ public class TriggerModel {
 		if (powerProfileId != other.powerProfileId)
 			return false;
 		if (screenOffProfileId != other.screenOffProfileId)
+			return false;
+		if (screenUnlockedProfileId != other.screenUnlockedProfileId)
 			return false;
 		return true;
 	}
@@ -401,5 +408,13 @@ public class TriggerModel {
 
 	public void setCallInProgessProfileId(long callInProgessProfileId) {
 		this.callInProgessProfileId = callInProgessProfileId;
+	}
+
+	public void setScreenUnlockedProfileId(long setScreenUnlockedProfileId) {
+		this.screenUnlockedProfileId = setScreenUnlockedProfileId;
+	}
+
+	public long getScreenUnlockedProfileId() {
+		return screenUnlockedProfileId;
 	}
 }

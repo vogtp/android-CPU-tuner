@@ -1,657 +1,674 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="prefMakeFilesWritable">Write directly to files</string>
-	<string name="prefMakeFilesWritableLong">Write directly to the sysfs files.  This speeds up switching and solves problems with Jelly Bean.  But it is known to cause problems with some kernels.</string>
-	<string name="prefAuthorsSettings">Use the authors settings</string>
-	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behavour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
-	<string name="prefRunSwitchInBackground">Background profile switch</string>
-	<string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
-	<string name="prefRunSwitchInBackgroundOff">Profile switches are done in the foreground thread.  This may speed up the switches, but can lead to cpu tuner being not responding.</string>
-	<string name="prefWidgetShowLabels">Show Labels</string>
-	<string name="prefUnitSystem">Температура</string>
-	<string name="prefUnitSystemLong">Показывать температуру в °C, °F or K.</string>
-	<string-array name="prefUnitSystemEntries">
-		<item>По-умолчанию</item>
-		<item>Стандартный</item>
-		<item>SI</item>
-	</string-array>
-	<string name="prefWidgetTextSize">Размер текста</string>
-	<string-array name="prefWidgetTextSizeEntries">
-		<item>Мельчайший</item>
-		<item>Маленький</item>
-		<item>Средний</item>
-		<item>Большой</item>
-	</string-array>
-	<string name="deep_sleep">Глубокий сон</string>
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>Среднее значение</item>
-		<item>Текущее значение</item>
-	<!-- 		<item>Battery % per Hour</item> -->
-		<item>Нет расчёта</item>
-	</string-array>
-	<string-array name="prefCalcPowerUsageEntriesBeta">
-		<item>Среднее значение</item>
-		<item>Текущее значение</item>
-		<item>% зарядки в час</item>
-		<item>Нет расчёта</item>
-	</string-array>
-	<string-array name="deviceStatesCurrent">
-	<!-- 		<item>Auto</item> -->
-		<item>Вкл.</item>
-		<item>Выкл.</item>
-		<item>Импульс</item>
-	</string-array>
-	<string-array name="mobiledataStatesCurrent">
-	<!-- 		<item>Auto</item> -->
-		<item>2G только</item>
-		<item>3G/2G</item>
-		<item>3G только</item>
-	</string-array>
-	<string name="log_msg_cpu_tuner_started">CPU настройка началась</string>
-	<string name="log_msg_cpu_tuner_stoped">CPU настройка кончилась</string>
-	<string name="log_msg_switchlog_start">Log началось</string>
-	<string name="log_msg_switchlog_stop">Log остановилось</string>
-	<string name="menuItemClearAllPowerCurrent">Очистить энергопотребление</string>
-	<string name="msg_clear_power_consumption_of_all_triggers">Очистить энергопотребление всех триггеров?</string>
-	<string name="labelAppWidgetProfile2x1">CPU настройка(малая)</string>
-	<string name="labelAppWidgetProfile2x2">CPU настройка</string>
-	<string name="not_supported">Не поддерживается!</string>
-	<string name="msg_no_battery_current">Устройство не поддерживает напряжение аккумулятора.</string>
-	<string name="msg_no_avg_battery_current">Устройство не поддерживает среднего напряжения аккумулятора.</string>
-	<string name="prefWidgetUI">Показанная информация</string>
-	<string name="prefShowIcon">CPU иконка настройки</string>
-	<string name="prefShowIconLong">Используется для запуска настройки CPU</string>
-	<string name="title_cannot_save">Невозможно сохранить</string>
-	<string name="cbInclSwitchLog">Включить лог в письмо</string>
-	<string name="name_extention_widget">Виджет расширение</string>
-	<string name="desc_extention_widget">Виджет позволяет запустить CPU tuner с домашнего экрана.</string>
-	<string name="prefCatWidget">Виджет</string>
-	<string name="prefHasWidget">Вкл. виджет</string>
-	<string name="msgWidgetLoading">Загрузка…</string>
-	<string name="msg_widgets_not_installed">CPU tuner виджет не доступен.</string>
-	<string name="title_install_widget_dia">Виджет не установлен</string>
-	<string name="msg_install_widget_dia">Виджет не может быть добавлен, посколько расширение не установлено</string>
-	<string name="buNeg_install_widget_dia">Нет, спасибо.</string>
-	<string name="buPos_install_widget_dia">Получи его…</string>
-	<string name="tigger_name_all">Всё</string>
-	<string name="tigger_name_batteryfull">Аккумулятор полная</string>
-	<string name="tigger_name_batteryused">Аккумулятор используется</string>
-	<string name="tigger_name_batterylow">Маленький заряд аккумулятора</string>
-	<string name="tigger_name_batteryempty">Аккумулятор пуст</string>
-	<string name="tigger_name_batterycritical">Заряд критический</string>
-	<string name="profile_name_performance">Производительность</string>
-	<string name="profile_name_good">Хорошо</string>
-	<string name="profile_name_normal">Нормально</string>
-	<string name="profile_name_screenoff">Дисплей выкл.</string>
-	<string name="profile_name_screenon">Дисплей вкл.</string>
-	<string name="profile_name_powersave">Энергосбережение</string>
-	<string name="profile_name_extremepowersave">Макс. энергосбережение</string>
-	<string name="gov_name_fullspeed">Полная скорость</string>
-	<string name="gov_name_normal">Нормально</string>
-	<string name="gov_name_extremeSaveBattery">Макс. сохранение аккумулятора</string>
-	<string name="gov_name_saveBattery">Сохранение аккумулятора</string>
-	<string name="configuration_title_sophisticated">Усложненный</string>
-	<string name="configuration_description_sophisticated">На основании уровня заряда аккумулятора несколько триггеров управляют CPU. Активирован режим управления.</string>
-	<string name="configuration_title_uniform">Постоянный</string>
-	<string name="configuration_description_uniform">Управление CPU зависит от состояние устройства независимо от уровня заряда аккумулятора.</string>
-	<string name="configuration_title_simplePowerful">Простой и мощный</string>
-	<string name="configuration_description_simplePowerful">Этот профиль описан D. в его блоге (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) без переключения мобильной даты</string>
-	<string name="configuration_title_extreme">Экстрим</string>
-	<string name="configuration_description_extreme">Это (почти) старая стандартная конфигурация. Она похожа на Усложнённый, но использует более высокие параметры. Высокое сохранение заряда аккумулятора, но низкая производительность.</string>
-	<string name="auto">Авто</string>
-	<string name="msg_manual_profile">Ручной</string>
-	<string name="labelMessage">Сообщение:</string>
-	<string name="labelState">Состояние:</string>
-	<string name="labelTime">Время:</string>
-	<string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
-	<string name="prefEnableSwitchCpuSetting">Используй спец CPU настройки на переключение профиля</string>
-	<string name="prefEnableSwitchCpuSettingOn">Спец CPU настройки буду исп-ны на переключении профиля.</string>
-	<string name="prefEnableSwitchCpuSettingOff">CPU настройки из профиля будут исп-ны на переключении профиля.</string>
-	<string name="prefSwitchCpuSetting">CPU настраивается на переключение профиля</string>
-	<string name="prefSwitchCpuSettingLong">Эти CPU настройки будут использованы на переключение профиля, это может ускорить переключение профиля когда сильно разогнан (сильный разгон не рекоммендуется).</string>
-	<string name="label_back">Назад</string>
-	<string name="label_forward">Вперёд</string>
-	<string name="label_home">Домой</string>
-	<string name="prefCatEngine">Средство</string>
-	<string name="prefCatHelper">Помощник</string>
-	<string name="msg_config_loaded">Загружен</string>
-	<string name="msg_config">конфигурация</string>
-	<string name="all">Всё</string>
-	<string name="labelNoDataForFilter">Не найдено данных для этой комбинации фильтров.</string>
-	<string name="prefCatAdvStatistics">Расширенные статистики и ведение логов</string>
-	<string name="prefCatExtention">Расширение</string>
-	<string name="prefEnableExtention">Вкл расширения</string>
-	<string name="prefEnableSwitchLog">Вкл лог переключения профилей</string>
-	<string name="prefCatStatistics">Статистика</string>
-	<string name="prefEnableStatistics">Вкл статистику</string>
-	<string name="prefLogPulse">Вкл испульс для переключения лога</string>
-	<string name="prefLogPulseOn">Импульсы загружены в профиль переключения логов </string>
-	<string name="prefLogPulseOff">Импульсы не загружены в профиль переключения логов</string>
-	<string name="msg_pulse_log_on">Импульсы включены</string>
-	<string name="msg_pulse_log_off">Импульсы выключены</string>
-	<string name="msg_pulse_log_end">Остановить испульсы</string>
-	<string name="msg_capcheck_result_more_info">(Нажмите Результат для инфы.)</string>
-	<string name="menuMarkLog">Отметить</string>
-	<string name="msgMarkLog">*** Отметить ***</string>
-	<string name="menuClearLog">Очистить Логи</string>
-	<string name="enabled">Включено</string>
-	<string name="ac_power">На переменном токе</string>
-	<string name="battery">На аккумуляторе</string>
-	<string name="screenOn">Дисплей Вкл</string>
-	<string name="screenOff">Дисплей Выкл</string>
-	<string name="call_active">Вызвать актив</string>
-	<string name="battery_hot">Перегрев аккумялтора</string>
-	<string name="prefProfileSwitchLogSizeLong">Сколько часов должен профиль держать логи. Исп-уй -1 для бесконечных логов.</string>
-	<string name="msgEnableCputuner">Включается настройка cpu</string>
-	<string name="msgDisableCputuner">Выключается настройка cpu</string>
-	<string name="labelYourConfigurations">Ваши конфигурации</string>
-	<string name="labelSystemConfigurations">Системные конфигурации</string>
-	<string name="msg_cannot_delete_current_configuration">Невозможно удалить текущую конфигурацию!</string>
-	<string name="labelPowesaveBiasPerformance">Производительность</string>
-	<string name="labelPowesaveBiasPowersave">Энергосбережение</string>
-	<string name="prefMaxFreq">Максимальная частота по-умолчанию</string>
-	<string name="prefMaxFreqLong">Максимальная частота, которая должна применяться при загрузке
+
+    <string name="prefMakeFilesWritable">Write directly to files</string>
+    <string name="prefMakeFilesWritableLong">Write directly to the sysfs files.  This speeds up switching and solves problems with Jelly Bean.  But it is known to cause problems with some kernels.</string>
+    <string name="prefAuthorsSettings">Use the authors settings</string>
+    <string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behavour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
+    <string name="prefRunSwitchInBackground">Background profile switch</string>
+    <string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
+    <string name="prefRunSwitchInBackgroundOff">Profile switches are done in the foreground thread.  This may speed up the switches, but can lead to cpu tuner being not responding.</string>
+    <string name="prefWidgetShowLabels">Show Labels</string>
+    <string name="prefUnitSystem">Температура</string>
+    <string name="prefUnitSystemLong">Показывать температуру в °C, °F or K.</string>
+
+    <string-array name="prefUnitSystemEntries">
+        <item>По-умолчанию</item>
+        <item>Стандартный</item>
+        <item>SI</item>
+    </string-array>
+
+    <string name="prefWidgetTextSize">Размер текста</string>
+
+    <string-array name="prefWidgetTextSizeEntries">
+        <item>Мельчайший</item>
+        <item>Маленький</item>
+        <item>Средний</item>
+        <item>Большой</item>
+    </string-array>
+
+    <string name="deep_sleep">Глубокий сон</string>
+
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Среднее значение</item>
+        <item>Текущее значение</item>
+        <!-- <item>Battery % per Hour</item> -->
+        <item>Нет расчёта</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntriesBeta">
+        <item>Среднее значение</item>
+        <item>Текущее значение</item>
+        <item>% зарядки в час</item>
+        <item>Нет расчёта</item>
+    </string-array>
+    <string-array name="deviceStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>Вкл.</item>
+        <item>Выкл.</item>
+        <item>Импульс</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>2G только</item>
+        <item>3G/2G</item>
+        <item>3G только</item>
+    </string-array>
+
+    <string name="log_msg_cpu_tuner_started">CPU настройка началась</string>
+    <string name="log_msg_cpu_tuner_stoped">CPU настройка кончилась</string>
+    <string name="log_msg_switchlog_start">Log началось</string>
+    <string name="log_msg_switchlog_stop">Log остановилось</string>
+    <string name="menuItemClearAllPowerCurrent">Очистить энергопотребление</string>
+    <string name="msg_clear_power_consumption_of_all_triggers">Очистить энергопотребление всех триггеров?</string>
+    <string name="labelAppWidgetProfile2x1">CPU настройка(малая)</string>
+    <string name="labelAppWidgetProfile2x2">CPU настройка</string>
+    <string name="not_supported">Не поддерживается!</string>
+    <string name="msg_no_battery_current">Устройство не поддерживает напряжение аккумулятора.</string>
+    <string name="msg_no_avg_battery_current">Устройство не поддерживает среднего напряжения аккумулятора.</string>
+    <string name="prefWidgetUI">Показанная информация</string>
+    <string name="prefShowIcon">CPU иконка настройки</string>
+    <string name="prefShowIconLong">Используется для запуска настройки CPU</string>
+    <string name="title_cannot_save">Невозможно сохранить</string>
+    <string name="cbInclSwitchLog">Включить лог в письмо</string>
+    <string name="name_extention_widget">Виджет расширение</string>
+    <string name="desc_extention_widget">Виджет позволяет запустить CPU tuner с домашнего экрана.</string>
+    <string name="prefCatWidget">Виджет</string>
+    <string name="prefHasWidget">Вкл. виджет</string>
+    <string name="msgWidgetLoading">Загрузка…</string>
+    <string name="msg_widgets_not_installed">CPU tuner виджет не доступен.</string>
+    <string name="title_install_widget_dia">Виджет не установлен</string>
+    <string name="msg_install_widget_dia">Виджет не может быть добавлен, посколько расширение не установлено</string>
+    <string name="buNeg_install_widget_dia">Нет, спасибо.</string>
+    <string name="buPos_install_widget_dia">Получи его…</string>
+    <string name="tigger_name_all">Всё</string>
+    <string name="tigger_name_batteryfull">Аккумулятор полная</string>
+    <string name="tigger_name_batteryused">Аккумулятор используется</string>
+    <string name="tigger_name_batterylow">Маленький заряд аккумулятора</string>
+    <string name="tigger_name_batteryempty">Аккумулятор пуст</string>
+    <string name="tigger_name_batterycritical">Заряд критический</string>
+    <string name="profile_name_performance">Производительность</string>
+    <string name="profile_name_good">Хорошо</string>
+    <string name="profile_name_normal">Нормально</string>
+    <string name="profile_name_screenoff">Дисплей выкл.</string>
+    <string name="profile_name_screenon">Дисплей вкл.</string>
+    <string name="profile_name_powersave">Энергосбережение</string>
+    <string name="profile_name_extremepowersave">Макс. энергосбережение</string>
+    <string name="gov_name_fullspeed">Полная скорость</string>
+    <string name="gov_name_normal">Нормально</string>
+    <string name="gov_name_extremeSaveBattery">Макс. сохранение аккумулятора</string>
+    <string name="gov_name_saveBattery">Сохранение аккумулятора</string>
+    <string name="configuration_title_sophisticated">Усложненный</string>
+    <string name="configuration_description_sophisticated">На основании уровня заряда аккумулятора несколько триггеров управляют CPU. Активирован режим управления.</string>
+    <string name="configuration_title_uniform">Постоянный</string>
+    <string name="configuration_description_uniform">Управление CPU зависит от состояние устройства независимо от уровня заряда аккумулятора.</string>
+    <string name="configuration_title_simplePowerful">Простой и мощный</string>
+    <string name="configuration_description_simplePowerful">Этот профиль описан D. в его блоге (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) без переключения мобильной даты</string>
+    <string name="configuration_title_extreme">Экстрим</string>
+    <string name="configuration_description_extreme">Это (почти) старая стандартная конфигурация. Она похожа на Усложнённый, но использует более высокие параметры. Высокое сохранение заряда аккумулятора, но низкая производительность.</string>
+    <string name="auto">Авто</string>
+    <string name="msg_manual_profile">Ручной</string>
+    <string name="labelMessage">Сообщение:</string>
+    <string name="labelState">Состояние:</string>
+    <string name="labelTime">Время:</string>
+    <string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
+    <string name="prefEnableSwitchCpuSetting">Используй спец CPU настройки на переключение профиля</string>
+    <string name="prefEnableSwitchCpuSettingOn">Спец CPU настройки буду исп-ны на переключении профиля.</string>
+    <string name="prefEnableSwitchCpuSettingOff">CPU настройки из профиля будут исп-ны на переключении профиля.</string>
+    <string name="prefSwitchCpuSetting">CPU настраивается на переключение профиля</string>
+    <string name="prefSwitchCpuSettingLong">Эти CPU настройки будут использованы на переключение профиля, это может ускорить переключение профиля когда сильно разогнан (сильный разгон не рекоммендуется).</string>
+    <string name="label_back">Назад</string>
+    <string name="label_forward">Вперёд</string>
+    <string name="label_home">Домой</string>
+    <string name="prefCatEngine">Средство</string>
+    <string name="prefCatHelper">Помощник</string>
+    <string name="msg_config_loaded">Загружен</string>
+    <string name="msg_config">конфигурация</string>
+    <string name="all">Всё</string>
+    <string name="labelNoDataForFilter">Не найдено данных для этой комбинации фильтров.</string>
+    <string name="prefCatAdvStatistics">Расширенные статистики и ведение логов</string>
+    <string name="prefCatExtention">Расширение</string>
+    <string name="prefEnableExtention">Вкл расширения</string>
+    <string name="prefEnableSwitchLog">Вкл лог переключения профилей</string>
+    <string name="prefCatStatistics">Статистика</string>
+    <string name="prefEnableStatistics">Вкл статистику</string>
+    <string name="prefLogPulse">Вкл испульс для переключения лога</string>
+    <string name="prefLogPulseOn">Импульсы загружены в профиль переключения логов </string>
+    <string name="prefLogPulseOff">Импульсы не загружены в профиль переключения логов</string>
+    <string name="msg_pulse_log_on">Импульсы включены</string>
+    <string name="msg_pulse_log_off">Импульсы выключены</string>
+    <string name="msg_pulse_log_end">Остановить испульсы</string>
+    <string name="msg_capcheck_result_more_info">(Нажмите Результат для инфы.)</string>
+    <string name="menuMarkLog">Отметить</string>
+    <string name="msgMarkLog">*** Отметить ***</string>
+    <string name="menuClearLog">Очистить Логи</string>
+    <string name="enabled">Включено</string>
+    <string name="ac_power">На переменном токе</string>
+    <string name="battery">На аккумуляторе</string>
+    <string name="screenOn">Дисплей Вкл</string>
+    <string name="screenOff">Дисплей Выкл</string>
+    <string name="call_active">Вызвать актив</string>
+    <string name="battery_hot">Перегрев аккумялтора</string>
+    <string name="prefProfileSwitchLogSizeLong">Сколько часов должен профиль держать логи. Исп-уй -1 для бесконечных логов.</string>
+    <string name="msgEnableCputuner">Включается настройка cpu</string>
+    <string name="msgDisableCputuner">Выключается настройка cpu</string>
+    <string name="labelYourConfigurations">Ваши конфигурации</string>
+    <string name="labelSystemConfigurations">Системные конфигурации</string>
+    <string name="msg_cannot_delete_current_configuration">Невозможно удалить текущую конфигурацию!</string>
+    <string name="labelPowesaveBiasPerformance">Производительность</string>
+    <string name="labelPowesaveBiasPowersave">Энергосбережение</string>
+    <string name="prefMaxFreq">Максимальная частота по-умолчанию</string>
+    <string name="prefMaxFreqLong">Максимальная частота, которая должна применяться при загрузке
 конфигурации системы.</string>
-	<string name="prefMinFreq">Минимальная частота по-умолчанию</string>
-	<string name="prefMinFreqLong">Минимальная частота, которая должна применяться при загрузке
+    <string name="prefMinFreq">Минимальная частота по-умолчанию</string>
+    <string name="prefMinFreqLong">Минимальная частота, которая должна применяться при загрузке
 конфигурации системы.</string>
-	<string name="prefKeyFrequencies">Частоты для конфигурации системы</string>
-	<string name="title_triggers">Триггеры</string>
-	<string name="msg_title_unsaved_changes">Несохранённые изменения</string>
-	<string name="msg_unsaved_changes">Этот редактор содержит несохраненные изменения, если Вы закроете
+    <string name="prefKeyFrequencies">Частоты для конфигурации системы</string>
+    <string name="title_triggers">Триггеры</string>
+    <string name="msg_title_unsaved_changes">Несохранённые изменения</string>
+    <string name="msg_unsaved_changes">Этот редактор содержит несохраненные изменения, если Вы закроете
 без сохранения все изменения будут потеряны. Вы хотите сохранить изменения?</string>
-	<string name="msg_title_grant_root">Предоставить права суперпользователя</string>
-	<string name="msg_grant_root">Вы будете спрошены о предоставлении прав суперпользователя. Предоставьте их и поставьте галочку в чекбоксе.
+    <string name="msg_title_grant_root">Предоставить права суперпользователя</string>
+    <string name="msg_grant_root">Вы будете спрошены о предоставлении прав суперпользователя. Предоставьте их и поставьте галочку в чекбоксе.
 	Без прав CPU Tuner не будет работать. </string>
-	<string name="labelLogTab">Профиль переключения логов</string>
-	<string name="msg_no_profile_switch_log">Не найдено профилей переключения лгово</string>
-	<string name="menuItemInsertAsNew">Вставить как новое</string>
-	<string name="prefCatGUILong">Изменить способ отображения.</string>
-	<string name="prefCatSystemLong">Изменить способ работы.</string>
-	<string name="prefBuyMeABeerLong">Сделай меня счастливее!.</string>
-	<string name="prefVariousLong">Информаци о CPU tuner.</string>
-	<string name="prefConfigurationsManageLong">Бэкап и восстановление конфигурации (т.е. настройка
+    <string name="labelLogTab">Профиль переключения логов</string>
+    <string name="msg_no_profile_switch_log">Не найдено профилей переключения лгово</string>
+    <string name="menuItemInsertAsNew">Вставить как новое</string>
+    <string name="prefCatGUILong">Изменить способ отображения.</string>
+    <string name="prefCatSystemLong">Изменить способ работы.</string>
+    <string name="prefBuyMeABeerLong">Сделай меня счастливее!.</string>
+    <string name="prefVariousLong">Информаци о CPU tuner.</string>
+    <string name="prefConfigurationsManageLong">Бэкап и восстановление конфигурации (т.е. настройка
 		триггеров, профилей и регуляторов).</string>
-	<string name="prefConfigurationsAutoLoadLong">Загрузка конфигурации в зависимости от времени и дня недели.</string>
-	<string name="prefLanguageLong">Выберите язык. Нужен перезапуск CPU Tuner</string>
-	<string name="prefEnableCputunerOn">Cpu tuner запущен.</string>
-	<string name="prefEnableCputunerOff">Cpu tuner не запущен.</string>
-	<string name="prefKeyProfilesLong">Изменить работу профилей, триггеров и регуляторов.</string>
-	<string name="prefServiceSwitchesLong">Изменить систменые переключатели (например: дату,
+    <string name="prefConfigurationsAutoLoadLong">Загрузка конфигурации в зависимости от времени и дня недели.</string>
+    <string name="prefLanguageLong">Выберите язык. Нужен перезапуск CPU Tuner</string>
+    <string name="prefEnableCputunerOn">Cpu tuner запущен.</string>
+    <string name="prefEnableCputunerOff">Cpu tuner не запущен.</string>
+    <string name="prefKeyProfilesLong">Изменить работу профилей, триггеров и регуляторов.</string>
+    <string name="prefServiceSwitchesLong">Изменить систменые переключатели (например: дату,
 		WiFi или Bluetooth).</string>
-	<string name="prefCpuLong">Настройки относительно CPU.</string>
-	<string name="title_help_pages">Помощь</string>
-	<string name="msg_no_trigger_name">Пожалуйста, напишите имя триггера</string>
-	<string name="msg_triggername_exists">Триггер с таким именем уже существует!
+    <string name="prefCpuLong">Настройки относительно CPU.</string>
+    <string name="title_help_pages">Помощь</string>
+    <string name="msg_no_trigger_name">Пожалуйста, напишите имя триггера</string>
+    <string name="msg_triggername_exists">Триггер с таким именем уже существует!
 	Выберите другое имя.</string>
-	<string name="msg_triggerbatterylevel_exists">Триггер с таким зарядом аккумулятора уже существует!
+    <string name="msg_triggerbatterylevel_exists">Триггер с таким зарядом аккумулятора уже существует!
 	Выберите другой уровень заряда аккумулятора.</string>
-	<string name="msg_no_profile_name">Пожалуйста, напишите имя профиля</string>
-	<string name="msg_profilename_exists">Профиль с таким именем уже существует!
+    <string name="msg_no_profile_name">Пожалуйста, напишите имя профиля</string>
+    <string name="msg_profilename_exists">Профиль с таким именем уже существует!
 	Выберите другое имя профиля.</string>
-	<string name="msg_no_virtgov_name">Пожалуйста, напишите имя регулятора </string>
-	<string name="msg_virtgovname_exists">Виртуальный регулятор с таким именем уже существует!
+    <string name="msg_no_virtgov_name">Пожалуйста, напишите имя регулятора </string>
+    <string name="msg_virtgovname_exists">Виртуальный регулятор с таким именем уже существует!
 	Выберите другое имя регулятора.</string>
-	<string name="title_load_configuration">Загрузка конфигурации</string>
-	<string name="title_config_name_exists">Имя существует</string>
-	<string name="msg_config_name_exists">Конфигурация с такими именем уже существует.</string>
-	<string name="overwrite">Переписывать</string>
-	<string name="msg_empty_configuration_name">Имя конфигурации не должно быть пустое.</string>
-	<string name="label_frequency">Частота</string>
-	<string name="label_time">Время</string>
-	<string name="prefLegalServiceIcons">Иконки сервиса</string>
-	<string name="prefLegalServiceIconsLong">Лицензия использования иконок из cyanogenmod.
+    <string name="title_load_configuration">Загрузка конфигурации</string>
+    <string name="title_config_name_exists">Имя существует</string>
+    <string name="msg_config_name_exists">Конфигурация с такими именем уже существует.</string>
+    <string name="overwrite">Переписывать</string>
+    <string name="msg_empty_configuration_name">Имя конфигурации не должно быть пустое.</string>
+    <string name="label_frequency">Частота</string>
+    <string name="label_time">Время</string>
+    <string name="prefLegalServiceIcons">Иконки сервиса</string>
+    <string name="prefLegalServiceIconsLong">Лицензия использования иконок из cyanogenmod.
 		Спасибо за красивые иконки.</string>
-	<string name="title_no_configuration">Не использовать конфигурацию</string>
-	<string name="label_no_configuration">Cpu tuner обнаружил непригодные конфигурации и
+    <string name="title_no_configuration">Не использовать конфигурацию</string>
+    <string name="label_no_configuration">Cpu tuner обнаружил непригодные конфигурации и
 не в состоянии работать должным образом. Вы хотите загрузить конфигурацию?</string>
-	<string name="load">Загрузка</string>
-	<string name="cont">Продолжить</string>
-	<string name="msg_error_loadconfig">Конфигурация не действительна! Либо конфигурация испорчена или что-то пошло не так при загрузке.
+    <string name="load">Загрузка</string>
+    <string name="cont">Продолжить</string>
+    <string name="msg_error_loadconfig">Конфигурация не действительна! Либо конфигурация испорчена или что-то пошло не так при загрузке.
 	Попробуйте заново (с другим конфигом)</string>
-	<string name="msg_unusable_comfig_save">Это конфигурация не может быть сохранена, т.к. она неисправна.
+    <string name="msg_unusable_comfig_save">Это конфигурация не может быть сохранена, т.к. она неисправна.
 	Так же могут отсутствовать триггеры, профили или регуляторы.</string>
-	<string name="tvSequenceInfo">Пофили перечислены в обратном направлении. Cpu
+    <string name="tvSequenceInfo">Пофили перечислены в обратном направлении. Cpu
 		tuner начинает с конца и выбирает первый профиль, который подходит к текущему состоянию.</string>
-	<string name="msg_warning_manual_service_switches">Вы включили \"ручное обслуживание\" в настройках.    &lt;br&gt;&lt;/br&gt;		Это означает, что обслуживание не будут изменены при измене вне
+    <string name="msg_warning_manual_service_switches">Вы включили \"ручное обслуживание\" в настройках.    &lt;br&gt;&lt;/br&gt;		Это означает, что обслуживание не будут изменены при измене вне
 		cpu tuner.    &lt;br&gt;&lt;/br&gt;		Возвращение к авто обслуживанию вернёт работу к норме.</string>
-	<string name="msg_warning_not_switch_wifi_connected">Wifi не будет переключен пока подсоеденён к сети.
+    <string name="msg_warning_not_switch_wifi_connected">Wifi не будет переключен пока подсоеденён к сети.
 		Измените это настройках.</string>
-	<string name="menuUpgrade">Получить расширения</string>
-	<string name="desc_extention_stats">Расширение статистики генерирует лучше и более подробно показыват статистические данные и логи.    &lt;br&gt;&lt;/br&gt;		Это поможет Вам отлично настраивать а давать подробную информацию.</string>
-	<string name="title_products">Продукты</string>
-	<string name="title_extentions">Расширения</string>
-	<string name="name_extention_stats">Статистика и логи Расширения</string>
-	<string name="extention_installed">Установлено, нажмите для настройки.</string>
-	<string name="not_installed">Не установлено</string>
-	<string name="purchased">Оплачено: </string>
-	<string name="name_buy_me_a_beer">Купи мне пиво</string>
-	<string name="name_buy_me_a_whiskey">Купи мне виски</string>
-	<string name="name_buy_cookie">Купи печеньку для детей</string>
-	<string name="desc_buy_beer">Это сделает меня счастливым.</string>
-	<string name="desc_buy_whiskey">Это сделает меня ещё счастливым. (И меньше пей!)</string>
-	<string name="desc_buy_cookie">Это займёт моих детей и вероятно, я исправлю ошибку (не обещаю).</string>
-	<string name="desc_buy_toy">Это займёт моих детей на некоторое время и вероятно
+    <string name="menuUpgrade">Получить расширения</string>
+    <string name="desc_extention_stats">Расширение статистики генерирует лучше и более подробно показыват статистические данные и логи.    &lt;br&gt;&lt;/br&gt;		Это поможет Вам отлично настраивать а давать подробную информацию.</string>
+    <string name="title_products">Продукты</string>
+    <string name="title_extentions">Расширения</string>
+    <string name="name_extention_stats">Статистика и логи Расширения</string>
+    <string name="extention_installed">Установлено, нажмите для настройки.</string>
+    <string name="not_installed">Не установлено</string>
+    <string name="purchased">Оплачено: </string>
+    <string name="name_buy_me_a_beer">Купи мне пиво</string>
+    <string name="name_buy_me_a_whiskey">Купи мне виски</string>
+    <string name="name_buy_cookie">Купи печеньку для детей</string>
+    <string name="desc_buy_beer">Это сделает меня счастливым.</string>
+    <string name="desc_buy_whiskey">Это сделает меня ещё счастливым. (И меньше пей!)</string>
+    <string name="desc_buy_cookie">Это займёт моих детей и вероятно, я исправлю ошибку (не обещаю).</string>
+    <string name="desc_buy_toy">Это займёт моих детей на некоторое время и вероятно
 даст мне осуществить функции (не обещаю).</string>
-	<string name="name_buy_toy">Купи моим детям новую игрушку</string>
-	<string name="prefextentionsLong">И новые функции на CPU tuner</string>
-	<string name="title_changelog">Изменения</string>
-	<string name="refresh">Обновить</string>
-	<string name="reset">Сброс</string>
-	<string name="title_reset_statistics">Сбросы статистики</string>
-	<string name="msg_reset_statistics">Сброс статистики и использовать текущее состояние как
+    <string name="name_buy_toy">Купи моим детям новую игрушку</string>
+    <string name="prefextentionsLong">И новые функции на CPU tuner</string>
+    <string name="title_changelog">Изменения</string>
+    <string name="refresh">Обновить</string>
+    <string name="reset">Сброс</string>
+    <string name="title_reset_statistics">Сбросы статистики</string>
+    <string name="msg_reset_statistics">Сброс статистики и использовать текущее состояние как
 основу для будущего</string>
-	<string name="msgManualServiceChanges">Некоторые функции были изменены вручную и не будут управляться CPU Tuner до следующего запуска.    &lt;br&gt;&lt;/br&gt;		Выберите текст для сброса.</string>
-	<string name="title_reset_manual_service_switches">Сбросить функции?</string>
-	<string name="msg_reset_manual_service_switches">Вы хотите сбросить все ручные настройки
+    <string name="msgManualServiceChanges">Некоторые функции были изменены вручную и не будут управляться CPU Tuner до следующего запуска.    &lt;br&gt;&lt;/br&gt;		Выберите текст для сброса.</string>
+    <string name="title_reset_manual_service_switches">Сбросить функции?</string>
+    <string name="msg_reset_manual_service_switches">Вы хотите сбросить все ручные настройки
 		и пусть cpu tuner обрабатывает переключатели снова??</string>
-	<string name="msg_cpu_tuner_not_running">cpu tuner не запущен</string>
-	<string-array name="prefAddToNotificationEntries">
-		<item>Когда запущен</item>
-		<item>Всегда</item>
-		<item>Никогда</item>
-	</string-array>
-	<string name="prefStatusbarAddToLong">Добавить в статус бар и зону уведомлений.</string>
-	<string name="prefInitialPulseDelay">Начальная задержка импульсов</string>
-	<string name="prefInitialPulseDelayLong">Подождите немного (сек) перед стартом первого импульса.</string>
-	<string name="prefInitialPulseDelayMsg">Задержка времени в секундах</string>
-	<string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
-	<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the \"on power\" profile will be chosen.</string>
-	<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the \"screen off\" profile will be chosen.</string>
-	<string name="title_choose_experiance_level">Выберите Ваш уровень опыта</string>
-	<string name="msg_delete_autoload_configuration">Удалить автозагрузку конфигурации?</string>
-	<string name="prefNetworkModeOnWifiConnected">Netmode по wifi подключено</string>
-	<string name="prefNetworkModeOnWifiConnectedLong">Выберите сеть для подветрждения если WiFi включён. Если будет отсоединение от сеть cpu tuner возвращается к предедущей.</string>
-	<string-array name="mobiledataOnWifiStatesEnties">
-		<item>покинуть без изменений</item>
-		<item>2G только</item>
-		<item>3G/2G</item>
-		<item>3G только</item>
-	</string-array>
-	<string name="labelUseCpus_front">Исп-ть </string>
-	<string name="labelUseCpus_end">CPUs</string>
-	<string name="prefMulticore">Исп-ть многоядерность CPU</string>
-	<string name="prefForceMulticoreCodeOn">Код для многоядерных CPU используется независимо от CPU, если обнаружен. (Beta функция)</string>
-	<string name="prefForceMulticoreCodeOff">Код для многоядерных CPU используется только если многоядерный CPU обнаружен. (Beta функция)</string>
-	<string name="labelActiveCpus">Активные CPUs:</string>
-	<string name="prefEnableCputuner">Включить cpu tuner</string>
-	<string-array name="prefMulticoreEntries">
-		<item>Авто</item>
-		<item>Включить</item>
-		<item>Выключить</item>
-	</string-array>
-	<string name="prefMulticoreLong">Выберите если настройка должны идти на все ядры</string>
-	<string name="prefConfigurationsLong">Бэкап и восстановить (и другое)</string>
-	<string name="prefCpu">CPU настройки</string>
-	<string name="prefChangelog">Показать логи изменений</string>
-	<string name="label_version">Версия:</string>
-	<string name="prefLegalGnomeIcons">Главное иконка Лицензии</string>
-	<string name="prefLegalGnomeIconsLong">Лицензия использвания gnome иконок. Спасибо за
+    <string name="msg_cpu_tuner_not_running">cpu tuner не запущен</string>
+
+    <string-array name="prefAddToNotificationEntries">
+        <item>Когда запущен</item>
+        <item>Всегда</item>
+        <item>Никогда</item>
+    </string-array>
+
+    <string name="prefStatusbarAddToLong">Добавить в статус бар и зону уведомлений.</string>
+    <string name="prefInitialPulseDelay">Начальная задержка импульсов</string>
+    <string name="prefInitialPulseDelayLong">Подождите немного (сек) перед стартом первого импульса.</string>
+    <string name="prefInitialPulseDelayMsg">Задержка времени в секундах</string>
+    <string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
+    <string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the \"on power\" profile will be chosen.</string>
+    <string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the \"screen off\" profile will be chosen.</string>
+    <string name="title_choose_experiance_level">Выберите Ваш уровень опыта</string>
+    <string name="msg_delete_autoload_configuration">Удалить автозагрузку конфигурации?</string>
+    <string name="prefNetworkModeOnWifiConnected">Netmode по wifi подключено</string>
+    <string name="prefNetworkModeOnWifiConnectedLong">Выберите сеть для подветрждения если WiFi включён. Если будет отсоединение от сеть cpu tuner возвращается к предедущей.</string>
+
+    <string-array name="mobiledataOnWifiStatesEnties">
+        <item>покинуть без изменений</item>
+        <item>2G только</item>
+        <item>3G/2G</item>
+        <item>3G только</item>
+    </string-array>
+
+    <string name="labelUseCpus_front">Исп-ть </string>
+    <string name="labelUseCpus_end">CPUs</string>
+    <string name="prefMulticore">Исп-ть многоядерность CPU</string>
+    <string name="prefForceMulticoreCodeOn">Код для многоядерных CPU используется независимо от CPU, если обнаружен. (Beta функция)</string>
+    <string name="prefForceMulticoreCodeOff">Код для многоядерных CPU используется только если многоядерный CPU обнаружен. (Beta функция)</string>
+    <string name="labelActiveCpus">Активные CPUs:</string>
+    <string name="prefEnableCputuner">Включить cpu tuner</string>
+
+    <string-array name="prefMulticoreEntries">
+        <item>Авто</item>
+        <item>Включить</item>
+        <item>Выключить</item>
+    </string-array>
+
+    <string name="prefMulticoreLong">Выберите если настройка должны идти на все ядры</string>
+    <string name="prefConfigurationsLong">Бэкап и восстановить (и другое)</string>
+    <string name="prefCpu">CPU настройки</string>
+    <string name="prefChangelog">Показать логи изменений</string>
+    <string name="label_version">Версия:</string>
+    <string name="prefLegalGnomeIcons">Главное иконка Лицензии</string>
+    <string name="prefLegalGnomeIconsLong">Лицензия использвания gnome иконок. Спасибо за
 	красивые иконки.</string>
-	<string name="msg_disable_cpu_tuner">Выключить cpu tuner</string>
-	<string name="msg_disable_cputuner_question">Вы хотите остановить cpu tuner?</string>
-	<string name="prefConfigurationsSettings">Configurations Settings</string>
-	<string name="prefSaveConfigOnSwitch">Сохранить конфигурацию</string>
-	<string name="prefSaveConfigOnSwitchFull">Сохранить изменения для профиля, триггеров и регуляторов для текущей конфигурации.</string>
-	<string name="saved_at">Сохранено </string>
-	<string name="day_mon">Пнд</string>
-	<string name="day_tue">Вт</string>
-	<string name="day_wed">Ср</string>
-	<string name="day_thu">Чт</string>
-	<string name="day_fri">Пят</string>
-	<string name="day_sat">Суб</string>
-	<string name="day_sun">Вс</string>
-	<string name="label_weekdays">Будни: </string>
-	<string name="prefConfigurationsManage">Управлять конфигурациями</string>
-	<string name="prefConfigurationsAutoLoad">Автозагрузка конфигурации</string>
-	<string name="title_configuration_autoload_editor">Редактор автозагрузки конфигурации</string>
-	<string name="hint_profile_name">Имя профиля</string>
-	<string name="label_profile_switches">Переключение профиля:</string>
-	<string name="not_enabled">Не включён</string>
-	<string name="prefProfileSwitchLogSize">Профиль переключение размера лога</string>
-	<string name="cbExactScheduling">Исп-ие точного планирования.</string>
-	<string name="labelExactSchedulingExplain">Точное планирование потребляет больше заряда.\n С неточным планированием
+    <string name="msg_disable_cpu_tuner">Выключить cpu tuner</string>
+    <string name="msg_disable_cputuner_question">Вы хотите остановить cpu tuner?</string>
+    <string name="prefConfigurationsSettings">Configurations Settings</string>
+    <string name="prefSaveConfigOnSwitch">Сохранить конфигурацию</string>
+    <string name="prefSaveConfigOnSwitchFull">Сохранить изменения для профиля, триггеров и регуляторов для текущей конфигурации.</string>
+    <string name="saved_at">Сохранено </string>
+    <string name="day_mon">Пнд</string>
+    <string name="day_tue">Вт</string>
+    <string name="day_wed">Ср</string>
+    <string name="day_thu">Чт</string>
+    <string name="day_fri">Пят</string>
+    <string name="day_sat">Суб</string>
+    <string name="day_sun">Вс</string>
+    <string name="label_weekdays">Будни: </string>
+    <string name="prefConfigurationsManage">Управлять конфигурациями</string>
+    <string name="prefConfigurationsAutoLoad">Автозагрузка конфигурации</string>
+    <string name="title_configuration_autoload_editor">Редактор автозагрузки конфигурации</string>
+    <string name="hint_profile_name">Имя профиля</string>
+    <string name="label_profile_switches">Переключение профиля:</string>
+    <string name="not_enabled">Не включён</string>
+    <string name="prefProfileSwitchLogSize">Профиль переключение размера лога</string>
+    <string name="cbExactScheduling">Исп-ие точного планирования.</string>
+    <string name="labelExactSchedulingExplain">Точное планирование потребляет больше заряда.\n С неточным планированием
 	изменение конфигурации может отложиться до половины часа.</string>
-	<string name="msg_cannot_delete_configuration">Невозможно удалить конфигурацию, пока она используется в автозагрузке.</string>
-	<string name="label_load_configuration_1">Загрузка конфигурации </string>
-	<string name="label_load_configuration_2">в</string>
-	<string name="labelConfig">Конфиг:</string>
-	<string name="labelAirplaneMode">Режим - Самолёт</string>
-	<string name="labelAirplaneModeOn">AP</string>
-	<string name="labelAirplaneModeOff">&lt;strike&gt;AP&lt;/strike&gt;</string>
-	<string name="labelAirplaneModePrev">AP?</string>
-	<string name="msg_add_current_configuration">Добавить текущую конфигурацию</string>
-	<string name="msg_choose_name_for_config">Выберите имя для конфигурации</string>
-	<string name="rename">Переименовать</string>
-	<string name="msg_rename_configuration">Переименовать конфигурацию</string>
-	<string name="email">e-mail</string>
-	<string name="prefConfigurations">Конфигурации</string>
-	<string name="titleManageConfigurations">Управление конфигурациями</string>
-	<string name="buAddConfiguration">Добавить текущую конфигурацию</string>
-	<string name="menuReplaceWithCurrent">Поменять с текущей</string>
-	<string name="menuLoad">Загрузить</string>
-	<string name="delete">Удалить</string>
-	<string name="msg_delete_configuration">Удалить конфигурацию \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'?</string>
-	<string name="msg_replace_with_current">Переместить конфигурацию \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' с текущей активной?</string>
-	<string name="msg_load_configuration">Загрузить конфигурацию \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' для активизации?</string>
-	<string name="msg_loaded">Загружена \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'</string>
-	<string name="menuAddCurrent">Добавить текущую</string>
-	<string name="msg_fully_working">Полная работа</string>
-	<string name="msg_capcheck_not_rooted">Cpu tuner не имеет права суперпользователя!\nВсе CPU
+    <string name="msg_cannot_delete_configuration">Невозможно удалить конфигурацию, пока она используется в автозагрузке.</string>
+    <string name="label_load_configuration_1">Загрузка конфигурации </string>
+    <string name="label_load_configuration_2">в</string>
+    <string name="labelConfig">Конфиг:</string>
+    <string name="labelAirplaneMode">Режим - Самолёт</string>
+    <string name="labelAirplaneModeOn">AP</string>
+    <string name="labelAirplaneModeOff">&lt;strike&gt;AP&lt;/strike&gt;</string>
+    <string name="labelAirplaneModePrev">AP?</string>
+    <string name="msg_add_current_configuration">Добавить текущую конфигурацию</string>
+    <string name="msg_choose_name_for_config">Выберите имя для конфигурации</string>
+    <string name="rename">Переименовать</string>
+    <string name="msg_rename_configuration">Переименовать конфигурацию</string>
+    <string name="email">e-mail</string>
+    <string name="prefConfigurations">Конфигурации</string>
+    <string name="titleManageConfigurations">Управление конфигурациями</string>
+    <string name="buAddConfiguration">Добавить текущую конфигурацию</string>
+    <string name="menuReplaceWithCurrent">Поменять с текущей</string>
+    <string name="menuLoad">Загрузить</string>
+    <string name="delete">Удалить</string>
+    <string name="msg_delete_configuration">Удалить конфигурацию \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'?</string>
+    <string name="msg_replace_with_current">Переместить конфигурацию \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' с текущей активной?</string>
+    <string name="msg_load_configuration">Загрузить конфигурацию \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' для активизации?</string>
+    <string name="msg_loaded">Загружена \'    &lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'</string>
+    <string name="menuAddCurrent">Добавить текущую</string>
+    <string name="msg_fully_working">Полная работа</string>
+    <string name="msg_capcheck_not_rooted">Cpu tuner не имеет права суперпользователя!\nВсе CPU
 		tuning функции не будут работать.\nУ Вас есть права суперпользователя??\nДали ли вы права суперпользователя CPU tuner?</string>
-	<string name="msg_capcheck_found_some_issues">Обнаружены проблемы… Некоторые функции не будут работать.</string>
-	<string name="msg_capcheck_no_issues">Проблем не найдено...</string>
-	<string name="and">и</string>
-	<string name="msg_capcheck_work_but_cannot_set_frequency">работает но не может задать частоту.\nЭто по-прежнему даёт
+    <string name="msg_capcheck_found_some_issues">Обнаружены проблемы… Некоторые функции не будут работать.</string>
+    <string name="msg_capcheck_no_issues">Проблем не найдено...</string>
+    <string name="and">и</string>
+    <string name="msg_capcheck_work_but_cannot_set_frequency">работает но не может задать частоту.\nЭто по-прежнему даёт
 	неплохие результаты.</string>
-	<string name="msg_premail_working">Некоторые регуляторы в основном работают.\nНеработающие
+    <string name="msg_premail_working">Некоторые регуляторы в основном работают.\nНеработающие
 регуляторы не работают из-за ядра/ROM. У Вас есть 3 варианта
 :\n1) Использовать работающие, игнорируя неработающие.
 		Это по-прежнему даёт неплохие результаты.\n2) Flash новое
 		ядро\n3) Flash новый ROM</string>
-	<string name="labelCurrentFrequency">текущее</string>
-	<string name="prefScreenLegal">Оф. часть</string>
-	<string name="prefLegalOxigenIcons">Вкладка лицензионных иконок</string>
-	<string name="prefLegalOxigenIconsLong">Лицензия использованных oxigen иконок. Спасибо за
+    <string name="labelCurrentFrequency">текущее</string>
+    <string name="prefScreenLegal">Оф. часть</string>
+    <string name="prefLegalOxigenIcons">Вкладка лицензионных иконок</string>
+    <string name="prefLegalOxigenIconsLong">Лицензия использованных oxigen иконок. Спасибо за
 	красивые иконки.</string>
-	<string name="virtual_governor">виртуальный регулятор</string>
-	<string name="msg_cannot_load_virtual_governor">Не могу загрузить виртуальный регулятор...</string>
-	<string name="labelStatisticsTab">Статистика</string>
-	<string name="label_time_in_state">Время в состоянии:</string>
-	<string name="titleVirtualGovernorEditor">Редактор Виртуального Регулятора</string>
-	<string name="msgDeleteVirtGovNotPossible">Не могу удалить виртуального регулятора пока он используется в одном или другом!</string>
-	<string name="labelName">Имя:</string>
-	<string name="hintVirtualGovernorName">Имя виртуального регулятора</string>
-	<string name="prefCatGUI">Интерфейс пользователя</string>
-	<string name="prefCatDisplay">Дисплей</string>
-	<string name="labelPowersaveBias">Энергосбережение:</string>
-	<string name="labelVirtualGovernor">Виртуальный регулятор:</string>
-	<string name="prefUseVirtualGovernorsLong">Настройки виртуального регулятора из профиля</string>
-	<string name="label_total_transitions">Всего переходов:</string>
-	<string name="prefPulseMobiledataOnWifi">Пульсировать mobiledata на wifi</string>
-	<string name="prefPulseMobiledataOnWifiOn">Mobiledata соединение будет пульсировать как только wifi будет подключён.</string>
-	<string name="prefPulseMobiledataOnWifiOff">Mobiledata не будет пульсироватьть пока устройство
+    <string name="virtual_governor">виртуальный регулятор</string>
+    <string name="msg_cannot_load_virtual_governor">Не могу загрузить виртуальный регулятор...</string>
+    <string name="labelStatisticsTab">Статистика</string>
+    <string name="label_time_in_state">Время в состоянии:</string>
+    <string name="titleVirtualGovernorEditor">Редактор Виртуального Регулятора</string>
+    <string name="msgDeleteVirtGovNotPossible">Не могу удалить виртуального регулятора пока он используется в одном или другом!</string>
+    <string name="labelName">Имя:</string>
+    <string name="hintVirtualGovernorName">Имя виртуального регулятора</string>
+    <string name="prefCatGUI">Интерфейс пользователя</string>
+    <string name="prefCatDisplay">Дисплей</string>
+    <string name="labelPowersaveBias">Энергосбережение:</string>
+    <string name="labelVirtualGovernor">Виртуальный регулятор:</string>
+    <string name="prefUseVirtualGovernorsLong">Настройки виртуального регулятора из профиля</string>
+    <string name="label_total_transitions">Всего переходов:</string>
+    <string name="prefPulseMobiledataOnWifi">Пульсировать mobiledata на wifi</string>
+    <string name="prefPulseMobiledataOnWifiOn">Mobiledata соединение будет пульсировать как только wifi будет подключён.</string>
+    <string name="prefPulseMobiledataOnWifiOff">Mobiledata не будет пульсироватьть пока устройство
 		подключено к wifi lan.</string>
-	<string name="prefLanguage">Выберите язык</string>
-	<string name="msg_up_threshhold_has_to_be_between_0_and_100">Верхний порог даётся в % и должен быть от 0 до 100.</string>
-	<string name="msg_down_threshhold_has_to_be_between_0_and_100">Нижний порог даётся % и должен быть от 0 до 100.</string>
-	<string name="msg_up_threshhold_smaler_than_the_down_threshold">Верхний порог должен быть выше чем нижний.</string>
-	<string name="msg_threshhold_NaN">Порог должен указываться целом числом.</string>
-	<string name="msg_minimal_frequency_bigger_than_the_maximal">Минимальная частота должна быть меньше чем макс.</string>
-	<string name="msgDeleteTriggerNotPossible">Не могу удалить этот профиль пока он использует один и более регуляторы.</string>
-	<string name="prefBasics">Основы</string>
-	<string name="labelScript">Скрипт:</string>
-	<string name="hintScriptToRun">Скрипт для запуска после изменений регуляторов.</string>
-	<string name="label_governor_tresholds">Пороги:</string>
-	<string name="prefEnableUserspaceGovernor">Показывать регулятор пользовательского пространства.</string>
-	<string name="prefEnableUserspaceGovernorOn">Есть возможность выбрать регулятор пользовательского пространства</string>
-	<string name="prefEnableUserspaceGovernorOff">Регулятор пользовательского пространства будет отфильтрован</string>
-	<string name="prefCatPulsedServiceSwitches">Импульсные переключатели службы</string>
-	<string name="prefPulseDelayOn">Службы по времени</string>
-	<string name="prefPulseDelayOnLong">Время (в минутах) работа службы в импульсном режиме.</string>
-	<string name="prefPulseDelayOff">Служба в нерабочее время</string>
-	<string name="prefPulseDelayOffLong">Время (в минутах) выключение службы в импульсном режиме.</string>
-	<string name="labelPulseOn">Ипульс включён</string>
-	<string name="labelPulseOff">Импульс выключен</string>
-	<string name="labelCurrentTab">Текущий</string>
-	<string name="labelTriggersTab">Триггеры</string>
-	<string name="labelProfilesTab">Профили</string>
-	<string name="labelHelpTab">Помощь</string>
-	<string name="labelSettingsTab">Настройки</string>
-	<string name="labelPowerUserExplain">Полный контроль!</string>
-	<string name="labelPowerUser">Опытный пользователь</string>
-	<string name="labelNormalExplain">Более продвинутые опции конфигурации, разгон возможен только в точке.</string>
-	<string name="labelNormal">Норма</string>
-	<string name="labelBeginnerExplain">Легко для настройки и все настройки должны быть сохранены для работы… 
+    <string name="prefLanguage">Выберите язык</string>
+    <string name="msg_up_threshhold_has_to_be_between_0_and_100">Верхний порог даётся в % и должен быть от 0 до 100.</string>
+    <string name="msg_down_threshhold_has_to_be_between_0_and_100">Нижний порог даётся % и должен быть от 0 до 100.</string>
+    <string name="msg_up_threshhold_smaler_than_the_down_threshold">Верхний порог должен быть выше чем нижний.</string>
+    <string name="msg_threshhold_NaN">Порог должен указываться целом числом.</string>
+    <string name="msg_minimal_frequency_bigger_than_the_maximal">Минимальная частота должна быть меньше чем макс.</string>
+    <string name="msgDeleteTriggerNotPossible">Не могу удалить этот профиль пока он использует один и более регуляторы.</string>
+    <string name="prefBasics">Основы</string>
+    <string name="labelScript">Скрипт:</string>
+    <string name="hintScriptToRun">Скрипт для запуска после изменений регуляторов.</string>
+    <string name="label_governor_tresholds">Пороги:</string>
+    <string name="prefEnableUserspaceGovernor">Показывать регулятор пользовательского пространства.</string>
+    <string name="prefEnableUserspaceGovernorOn">Есть возможность выбрать регулятор пользовательского пространства</string>
+    <string name="prefEnableUserspaceGovernorOff">Регулятор пользовательского пространства будет отфильтрован</string>
+    <string name="prefCatPulsedServiceSwitches">Импульсные переключатели службы</string>
+    <string name="prefPulseDelayOn">Службы по времени</string>
+    <string name="prefPulseDelayOnLong">Время (в минутах) работа службы в импульсном режиме.</string>
+    <string name="prefPulseDelayOff">Служба в нерабочее время</string>
+    <string name="prefPulseDelayOffLong">Время (в минутах) выключение службы в импульсном режиме.</string>
+    <string name="labelPulseOn">Ипульс включён</string>
+    <string name="labelPulseOff">Импульс выключен</string>
+    <string name="labelCurrentTab">Текущий</string>
+    <string name="labelTriggersTab">Триггеры</string>
+    <string name="labelProfilesTab">Профили</string>
+    <string name="labelHelpTab">Помощь</string>
+    <string name="labelSettingsTab">Настройки</string>
+    <string name="labelPowerUserExplain">Полный контроль!</string>
+    <string name="labelPowerUser">Опытный пользователь</string>
+    <string name="labelNormalExplain">Более продвинутые опции конфигурации, разгон возможен только в точке.</string>
+    <string name="labelNormal">Норма</string>
+    <string name="labelBeginnerExplain">Легко для настройки и все настройки должны быть сохранены для работы… 
 	Разгон возможен только в точке.</string>
-	<string name="labelBeginner">Начинабщий</string>
-	<string name="labelBatteryHot">Перегрев аккумулятора:</string>
-	<string name="labelCallInProgress">Вызов в прогрессе:</string>
-	<string name="labelOnPower">На питании:</string>
-	<string name="labelScreenLocked">Экран заблокирован:</string>
-	<string name="labelOnBattery">На аккумуляторе:</string>
-	<string name="labelExplainTriggerProfiles">В зависимости от состояния устройства один из
+    <string name="labelBeginner">Начинабщий</string>
+    <string name="labelBatteryHot">Перегрев аккумулятора:</string>
+    <string name="labelCallInProgress">Вызов в прогрессе:</string>
+    <string name="labelOnPower">На питании:</string>
+    <string name="labelOnBattery">На аккумуляторе:</string>
+    <string name="labelExplainTriggerProfiles">В зависимости от состояния устройства один из
     следующих профилей будет выбран.</string>
-	<string name="labelBatteryLevel">Уровень аккумулятора</string>
-	<string name="labelExplainTrigger">Включение если заряд аккумулятора устройства составляет
+    <string name="labelBatteryLevel">Уровень аккумулятора</string>
+    <string name="labelExplainTrigger">Включение если заряд аккумулятора устройства составляет
     ниже уровня заряда аккумулятора и никакой другой триггер с низким и соответствующий
     уровень заряда батареи находится.</string>
-	<string name="labelGovernor">Регулятор:</string>
-	<string name="labelBluetooth">Bluetooth</string>
-	<string name="labelWifi">Wifi</string>
-	<string name="labelGPS">GPS</string>
-	<string name="labelBackgroundSync">Фон синхронизации</string>
-	<string name="labelMobileDataConn">Mobiledata Con.</string>
-	<string name="labelMobileData32G">Mobiledata 2G/3G</string>
-	<string name="labelServices">Службы:</string>
-	<string name="labelDown">Спуск:</string>
-	<string name="labelThreshsUp">Порог: Вверх:</string>
-	<string name="labelHome">Домой</string>
-	<string name="labelUsage">Использование:</string>
-	<string name="labelBuFindFeq">Найти частоту (только бета)</string>
-	<string name="msgAckAndHide">Узнать проблемы и япратать с главного экрана.</string>
-	<string name="msgNoEmail">Пожалуйста, не пишите пустые e-mails…</string>
-	<string name="labelResult">Результат</string>
-	<string name="labelCheck">Проверить</string>
-	<string name="labelAppVersion">Cpu tuner версия:</string>
-	<string name="msgNoIssuesFound">Проблемы не найдены.</string>
-	<string name="prefVritualGovernorsListLong">Виртуальные регуляторы cpu.</string>
-	<string name="virtualGovernorsList">Виртуальные регуляторы</string>
-	<string name="prefBatteryHotTempMsg">Пользовательская  температура для триггера аккумулятора горячий профиль.    &lt;br /&gt;		Целое значение в °C.</string>
-	<string name="prefBatteryHotTempLong">Пользовательская  температура для триггера аккумулятора горячий профиль.</string>
-	<string name="prefBatteryHotTemp">Высокая температора</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOn">Профили могут переключатся во время звонка.
+    <string name="labelGovernor">Регулятор:</string>
+    <string name="labelBluetooth">Bluetooth</string>
+    <string name="labelWifi">Wifi</string>
+    <string name="labelGPS">GPS</string>
+    <string name="labelBackgroundSync">Фон синхронизации</string>
+    <string name="labelMobileDataConn">Mobiledata Con.</string>
+    <string name="labelMobileData32G">Mobiledata 2G/3G</string>
+    <string name="labelServices">Службы:</string>
+    <string name="labelDown">Спуск:</string>
+    <string name="labelThreshsUp">Порог: Вверх:</string>
+    <string name="labelHome">Домой</string>
+    <string name="labelUsage">Использование:</string>
+    <string name="labelBuFindFeq">Найти частоту (только бета)</string>
+    <string name="msgAckAndHide">Узнать проблемы и япратать с главного экрана.</string>
+    <string name="msgNoEmail">Пожалуйста, не пишите пустые e-mails…</string>
+    <string name="labelResult">Результат</string>
+    <string name="labelCheck">Проверить</string>
+    <string name="labelAppVersion">Cpu tuner версия:</string>
+    <string name="msgNoIssuesFound">Проблемы не найдены.</string>
+    <string name="prefVritualGovernorsListLong">Виртуальные регуляторы cpu.</string>
+    <string name="virtualGovernorsList">Виртуальные регуляторы</string>
+    <string name="prefBatteryHotTempMsg">Пользовательская  температура для триггера аккумулятора горячий профиль.    &lt;br /&gt;		Целое значение в °C.</string>
+    <string name="prefBatteryHotTempLong">Пользовательская  температура для триггера аккумулятора горячий профиль.</string>
+    <string name="prefBatteryHotTemp">Высокая температора</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">Профили могут переключатся во время звонка.
 		Mobiledata никогда не поменяется во время звонка, независимо от настроек.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOff">Профили не могут переключаться во время звонка.
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">Профили не могут переключаться во время звонка.
 		Mobiledata никогда не поменяется во время звонка, независимо от настроек.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdle">Поменять профиль во время звоека</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOn">Wifi будет выключен, если не подключён к сети.</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOff">Wifi не будет выключен, если не подключён к сети.</string>
-	<string name="prefSwitchWifiOnConnectedNetwork">Переключить Wifi если подключён</string>
-	<string name="prefServiceSwitches">Обслуживание переключения</string>
-	<string name="prefUserLevelLong">Определяет, насколько сложны настройки, и сумеети ли Вы вмешаться.</string>
-	<string name="prefUserLevel">Уровень опыта</string>
-	<string name="prefVarious">Различный</string>
-	<string name="notAvailable">Не доступен</string>
-	<string name="yes">Да</string>
-	<string name="no">Нет</string>
-	<string name="save">сохранить</string>
-	<string name="cancel">отмена</string>
-	<string name="prefMinSensibleFrequencyLong">Минимальная отоброжаемая частота если не опытный пользователь.</string>
-	<string name="prefMinSensibleFrequency">Мин отображаемая частота</string>
-	<string name="prefKeyProfiles">Профили и триггеры</string>
-	<string name="prefBuyMeABeer">Купи мне пиво</string>
-	<string name="prefAllowManualServiceChangesOn">Не изменять состояние службы, если это было
+    <string name="prefSwitchProfileWhilePhoneNotIdle">Поменять профиль во время звоека</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOn">Wifi будет выключен, если не подключён к сети.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOff">Wifi не будет выключен, если не подключён к сети.</string>
+    <string name="prefSwitchWifiOnConnectedNetwork">Переключить Wifi если подключён</string>
+    <string name="prefServiceSwitches">Обслуживание переключения</string>
+    <string name="prefUserLevelLong">Определяет, насколько сложны настройки, и сумеети ли Вы вмешаться.</string>
+    <string name="prefUserLevel">Уровень опыта</string>
+    <string name="prefVarious">Различный</string>
+    <string name="notAvailable">Не доступен</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="save">сохранить</string>
+    <string name="cancel">отмена</string>
+    <string name="prefMinSensibleFrequencyLong">Минимальная отоброжаемая частота если не опытный пользователь.</string>
+    <string name="prefMinSensibleFrequency">Мин отображаемая частота</string>
+    <string name="prefKeyProfiles">Профили и триггеры</string>
+    <string name="prefBuyMeABeer">Купи мне пиво</string>
+    <string name="prefAllowManualServiceChangesOn">Не изменять состояние службы, если это было
 изменено вручную
 и не триггер изменения произошли с тех пор.</string>
-	<string name="prefAllowManualServiceChangesOff">Изменение службы независимо от её ручной настройки.</string>
-	<string name="prefAllowManualServiceChanges">Ручные изменения служб</string>
-	<string name="prefCpuFreqMsg">Разделенный пробелами список частот</string>
-	<string name="prefCpuFreq">Допустимые частоты CPU</string>
-	<string name="prefCpuFreqLong">Оставте пустым, если неуверены!</string>
-	<string name="mailMessageOK">Проблем не найдено…
+    <string name="prefAllowManualServiceChangesOff">Изменение службы независимо от её ручной настройки.</string>
+    <string name="prefAllowManualServiceChanges">Ручные изменения служб</string>
+    <string name="prefCpuFreqMsg">Разделенный пробелами список частот</string>
+    <string name="prefCpuFreq">Допустимые частоты CPU</string>
+    <string name="prefCpuFreqLong">Оставте пустым, если неуверены!</string>
+    <string name="mailMessageOK">Проблем не найдено…
 		Если Вам нравится приложение, пишите отзывы, комментарии и ставьте оценки в маркете\"</string>
-	<string name="mailMessage"/>
-	<string name="prefEnableBetaLong">e-mail мне</string>
-	<string name="prefKeyCalcPowerUsageLong">Возможно, это будет стоить заряда</string>
-	<string name="prefKeyCalcPowerUsage">Расчет энергопотребления</string>
-	<string name="menuItemClearPowerCurrent">Очистить энергопотребление</string>
-	<string name="menuItemInsert">Вставить</string>
-	<string name="menuItemEdit">Править</string>
-	<string name="menuItemDelete">Удалить</string>
-	<string name="prefEnableBetaMessage">Активировать несколько бета функций.</string>
-	<string name="prefEnableBeta">Включить бета функции</string>
-	<string name="prefCapabilitiesLong">Убедитесь, что устройство поддерживает API необходимости или если
+    <string name="mailMessage" />
+    <string name="prefEnableBetaLong">e-mail мне</string>
+    <string name="prefKeyCalcPowerUsageLong">Возможно, это будет стоить заряда</string>
+    <string name="prefKeyCalcPowerUsage">Расчет энергопотребления</string>
+    <string name="menuItemClearPowerCurrent">Очистить энергопотребление</string>
+    <string name="menuItemInsert">Вставить</string>
+    <string name="menuItemEdit">Править</string>
+    <string name="menuItemDelete">Удалить</string>
+    <string name="prefEnableBetaMessage">Активировать несколько бета функций.</string>
+    <string name="prefEnableBeta">Включить бета функции</string>
+    <string name="prefCapabilitiesLong">Убедитесь, что устройство поддерживает API необходимости или если
 есть какие-либо вопросы.</string>
-	<string name="prefCapabilities">Проверка возможности</string>
-	<string name="prefStatusbarAddTo">Добавить в строку уведомлений</string>
-	<string name="prefStatusbarNotificationsOff">Не показывать сообщение в строке состояния для профиля
+    <string name="prefCapabilities">Проверка возможности</string>
+    <string name="prefStatusbarAddTo">Добавить в строку уведомлений</string>
+    <string name="prefStatusbarNotificationsOff">Не показывать сообщение в строке состояния для профиля
 изменения.</string>
-	<string name="prefKeyEnableProfilesOn">Показать сообщения в строке состояния для каждого
+    <string name="prefKeyEnableProfilesOn">Показать сообщения в строке состояния для каждого
 профиля изменения.</string>
-	<string name="prefSystemAppOff">Не установлена, как система приложений, она не будет иметь
+    <string name="prefSystemAppOff">Не установлена, как система приложений, она не будет иметь
 доступ к системной настройке, как GPS.</string>
-	<string name="prefSystemAppOn">В системном приложении, может изменять GPS настройки</string>
-	<string name="prefSystemApp">Установить как системное приложение</string>
-	<string name="prefToastNotifications">Очистить уведомления</string>
-	<string name="prefStatusbarNotifications">Уведомления в строке состояния</string>
-	<string name="prefCatNotifications">Уведомления</string>
-	<string name="prefCatSystem">Backend</string>
-	<string name="prefEnableProfiles">Включить профили</string>
-	<string name="prefSetCpuSetting">CPU настройки</string>
-	<string name="profileBatteryGood">Хорошая батарея</string>
-	<string name="profileBatteryCrtitical">Критическая батарея</string>
-	<string name="profileBatteryPower">Питание батареи</string>
-	<string name="profileAcPower">AC питание</string>
-	<string name="profileScreenOff">Экран выкл.</string>
-	<string name="prefSystemPowerProfiles">Системные профили питания</string>
-	<string name="prefPowerProfiles">Профили питания</string>
-	<string name="prefCustomPowerProfiles">Пользовательские профили питания</string>
-	<string name="labelCpuFreq">Частоты:</string>
-	<string name="labelCpuGov">Регулятор:</string>
-	<string name="labelCurrent">Текущий</string>
-	<string name="labelCurrentTrigger">Триггер:</string>
-	<string name="labelCurrentProfile">Профиль:</string>
-	<string name="labelCurrentBattery">Батарея:</string>
-	<string name="labelAcPower">AC питание:</string>
-	<string name="labelMax">Макс:</string>
-	<string name="labelMin">Мин:</string>
-	<string name="app_name">CPU tuner</string>
-	<string name="labelPowerProfile">Профиль: </string>
-	<string name="spinnerPromptGov">Выбрать регулятор</string>
-	<string name="buApplyCurProfile">Подтвердить для текущего CPU профиля</string>
-	<string name="notEnabled">не включён</string>
-	<string name="triggersExplain">Триггеры определяют в зависимости от уровня заряда батареи, какие
+    <string name="prefSystemAppOn">В системном приложении, может изменять GPS настройки</string>
+    <string name="prefSystemApp">Установить как системное приложение</string>
+    <string name="prefToastNotifications">Очистить уведомления</string>
+    <string name="prefStatusbarNotifications">Уведомления в строке состояния</string>
+    <string name="prefCatNotifications">Уведомления</string>
+    <string name="prefCatSystem">Backend</string>
+    <string name="prefEnableProfiles">Включить профили</string>
+    <string name="prefSetCpuSetting">CPU настройки</string>
+    <string name="profileBatteryGood">Хорошая батарея</string>
+    <string name="profileBatteryCrtitical">Критическая батарея</string>
+    <string name="profileBatteryPower">Питание батареи</string>
+    <string name="profileAcPower">AC питание</string>
+    <string name="profileScreenOff">Экран выкл.</string>
+    <string name="prefSystemPowerProfiles">Системные профили питания</string>
+    <string name="prefPowerProfiles">Профили питания</string>
+    <string name="prefCustomPowerProfiles">Пользовательские профили питания</string>
+    <string name="labelCpuFreq">Частоты:</string>
+    <string name="labelCpuGov">Регулятор:</string>
+    <string name="labelCurrent">Текущий</string>
+    <string name="labelCurrentTrigger">Триггер:</string>
+    <string name="labelCurrentProfile">Профиль:</string>
+    <string name="labelCurrentBattery">Батарея:</string>
+    <string name="labelAcPower">AC питание:</string>
+    <string name="labelMax">Макс:</string>
+    <string name="labelMin">Мин:</string>
+    <string name="app_name">CPU tuner</string>
+    <string name="labelPowerProfile">Профиль: </string>
+    <string name="spinnerPromptGov">Выбрать регулятор</string>
+    <string name="buApplyCurProfile">Подтвердить для текущего CPU профиля</string>
+    <string name="notEnabled">не включён</string>
+    <string name="triggersExplain">Триггеры определяют в зависимости от уровня заряда батареи, какие
 Профили должны быть применены. Для разных указанных (т.е. устройство
 от батареи, на питании или с выкл. дисплеем) различных профилей.</string>
-	<string name="explainGovOnDemand">Динамично меняет частоты основанных на CPU
+    <string name="explainGovOnDemand">Динамично меняет частоты основанных на CPU
 		с фокусом на производительность.</string>
-	<string name="explainGovConservative">Динамично меняет частоты основанных на CPU
+    <string name="explainGovConservative">Динамично меняет частоты основанных на CPU
 		с фокусом на энергосбережение.</string>
-	<string name="explainGovPerformance">Ставит макс. частоту для CPU с фокусом на производительность.</string>
-	<string name="explainGovPowersave">Ставит минимальную частоту для CPU для энергосбережения.</string>
-	<string name="explainGovUserspace">Ставит пользовательскую частоту.</string>
-	<string name="explainGovInteractive">Designed for low latency burst workloads. Scaling
+    <string name="explainGovPerformance">Ставит макс. частоту для CPU с фокусом на производительность.</string>
+    <string name="explainGovPowersave">Ставит минимальную частоту для CPU для энергосбережения.</string>
+    <string name="explainGovUserspace">Ставит пользовательскую частоту.</string>
+    <string name="explainGovInteractive">Designed for low latency burst workloads. Scaling
 		is done when coming out of idle instead of polling.</string>
-	<string name="label3g2g">2/3G</string>
-	<string name="label2g">2G</string>
-	<string name="label3g">3G</string>
-	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">sync</string>
-	<string name="labelSyncOff">&lt;strike&gt;sync&lt;/strike&gt;</string>
-	<string name="labelSyncPrev">sync?</string>
-	<string name="labelWifiOn">wifi</string>
-	<string name="labelWifiOff">&lt;strike&gt;wifi&lt;/strike&gt;</string>
-	<string name="labelWifiPrev">wifi?</string>
-	<string name="labelGpsOn">GPS</string>
-	<string name="labelGpsOff">&lt;strike&gt;GPS&lt;/strike&gt;</string>
-	<string name="labelGpsPrev">GPS?</string>
-	<string name="labelBluetoothOn">BT</string>
-	<string name="labelBluetoothOff">&lt;strike&gt;BT&lt;/strike&gt;</string>
-	<string name="labelBluetoothPrev">BT?</string>
-	<string name="labelMobiledataOn">MD</string>
-	<string name="labelMobiledataOff">&lt;strike&gt;MD&lt;/strike&gt;</string>
-	<string name="labelMobiledataPrev">MD?</string>
-	<string-array name="deviceStates">
-		<item>покинуть без изменений</item>
-		<item>Вкл</item>
-		<item>Выкл</item>
-		<item>К предыдущему</item>
-		<item>Импульс</item>
-	</string-array>
-	<string-array name="deviceStatesBeta">
-		<item>покинуть без изменений</item>
-		<item>Вкл</item>
-		<item>Выкл</item>
-		<item>К предыдущему</item>
-		<item>Импульс</item>
-	</string-array>
-	<string-array name="mobiledataStates">
-		<item>покинуть без изменений</item>
-		<item>2G только</item>
-		<item>3G/2G</item>
-		<item>Back to previous</item>
-		<item>3G только</item>
-	</string-array>
-	<string-array name="mobiledataStatesBeta">
-		<item>покинуть без изменений</item>
-		<item>2G только</item>
-		<item>3G/2G</item>
-		<item>К предыдущему</item>
-		<item>3G только</item>
-	</string-array>
-	<string-array name="prefUserLevelEntries">
-		<item><b>Начинающий</b>			: cpu tuner постарается быть умным.</item>
-		<item><b>Нормальный</b>			: cpu tuner помогает Вам.</item>
-		<item><b>Мощь!</b>			: Вы словно босс!</item>
-	</string-array>
-	<string name="cbEnableVirtualGovernors">Вкл виртуальные регуляторы</string>
-	<string name="userExperianceLevelExplain">Cpu tuner может работать на разных уровнях
+    <string name="label3g2g">2/3G</string>
+    <string name="label2g">2G</string>
+    <string name="label3g">3G</string>
+    <string name="label3g2gPrev">2/3G?</string>
+    <string name="labelSyncOn">sync</string>
+    <string name="labelSyncOff">&lt;strike&gt;sync&lt;/strike&gt;</string>
+    <string name="labelSyncPrev">sync?</string>
+    <string name="labelWifiOn">wifi</string>
+    <string name="labelWifiOff">&lt;strike&gt;wifi&lt;/strike&gt;</string>
+    <string name="labelWifiPrev">wifi?</string>
+    <string name="labelGpsOn">GPS</string>
+    <string name="labelGpsOff">&lt;strike&gt;GPS&lt;/strike&gt;</string>
+    <string name="labelGpsPrev">GPS?</string>
+    <string name="labelBluetoothOn">BT</string>
+    <string name="labelBluetoothOff">&lt;strike&gt;BT&lt;/strike&gt;</string>
+    <string name="labelBluetoothPrev">BT?</string>
+    <string name="labelMobiledataOn">MD</string>
+    <string name="labelMobiledataOff">&lt;strike&gt;MD&lt;/strike&gt;</string>
+    <string name="labelMobiledataPrev">MD?</string>
+
+    <string-array name="deviceStates">
+        <item>покинуть без изменений</item>
+        <item>Вкл</item>
+        <item>Выкл</item>
+        <item>К предыдущему</item>
+        <item>Импульс</item>
+    </string-array>
+    <string-array name="deviceStatesBeta">
+        <item>покинуть без изменений</item>
+        <item>Вкл</item>
+        <item>Выкл</item>
+        <item>К предыдущему</item>
+        <item>Импульс</item>
+    </string-array>
+    <string-array name="mobiledataStates">
+        <item>покинуть без изменений</item>
+        <item>2G только</item>
+        <item>3G/2G</item>
+        <item>Back to previous</item>
+        <item>3G только</item>
+    </string-array>
+    <string-array name="mobiledataStatesBeta">
+        <item>покинуть без изменений</item>
+        <item>2G только</item>
+        <item>3G/2G</item>
+        <item>К предыдущему</item>
+        <item>3G только</item>
+    </string-array>
+    <string-array name="prefUserLevelEntries">
+        <item><b>Начинающий</b>			: cpu tuner постарается быть умным.</item>
+        <item><b>Нормальный</b>			: cpu tuner помогает Вам.</item>
+        <item><b>Мощь!</b>			: Вы словно босс!</item>
+    </string-array>
+
+    <string name="cbEnableVirtualGovernors">Вкл виртуальные регуляторы</string>
+    <string name="userExperianceLevelExplain">Cpu tuner может работать на разных уровнях
 	В зависимоти от уровней существуют разные функции.</string>
-	<string name="prefCallInProgressProfile">Вызов профиля в прогрессе</string>
-	<string name="prefCallInProgressProfileLong">Enables a profile that is triggered during phone
+    <string name="prefCallInProgressProfile">Вызов профиля в прогрессе</string>
+    <string name="prefCallInProgressProfileLong">Enables a profile that is triggered during phone
 		calls.</string>
-	<string name="msg_checking_capabilities">Проверка возможности</string>
-	<string name="msg_checking_governors">Проверка регуляторов…</string>
-	<string name="msg_not_enough_frequencies_found">Не найдены частоты</string>
-	<string name="msg_no_governors_found">Не найдены регуляторы</string>
-	<string name="msg_not_checked">не проверено</string>
-	<string name="msg_success">удачно</string>
-	<string name="msg_failure">провал</string>
-	<string name="msg_does_not_apply">не применяется</string>
-	<string name="msg_cannot_check">невозможно проверить</string>
-	<string name="explainNotAvailable">Нет объяснений к этому регулятору</string>
-	<string name="title_reset_to_default">Сброс по-умолчанию</string>
-	<string name="msg_reset_to_default">Сброс обнулит все ваши настройки, включая новые.</string>
-	<string name="msg_loading_default_profiles">Загрузка стандартного профиля</string>
-	<string name="profilename_performance">Производительность</string>
-	<string name="profilename_good">Хороший</string>
-	<string name="profilename_normal">Нормальный</string>
-	<string name="profilename_screen_off">Дисплей выкл</string>
-	<string name="profilename_extreme_powersave">Экстримальное энергосбережение</string>
-	<string name="triggername_battery_full">Полная батарея</string>
-	<string name="triggername_battery_used">Батарея исп-ся</string>
-	<string name="triggername_battery_low">Маленький заряд</string>
-	<string name="triggername_battery_empty">Пустая батарея</string>
-	<string name="triggername_battery_critical">Критическая батарея</string>
-	<string name="virtgovname_full_speed">Полная скорость</string>
-	<string name="virtgovname_normal">Нормальный</string>
-	<string name="virtgovname_save_battery">Сохранение батареи</string>
-	<string name="virtgovname_extrem_save_battery">Экстримальное сохранение батареи</string>
-	<string name="title_reboot">Перезагрузить</string>
-	<string name="msg_reboot">Автоматическая перезагрузка не удалась. Перезагрузитесь вручную
+    <string name="msg_checking_capabilities">Проверка возможности</string>
+    <string name="msg_checking_governors">Проверка регуляторов…</string>
+    <string name="msg_not_enough_frequencies_found">Не найдены частоты</string>
+    <string name="msg_no_governors_found">Не найдены регуляторы</string>
+    <string name="msg_not_checked">не проверено</string>
+    <string name="msg_success">удачно</string>
+    <string name="msg_failure">провал</string>
+    <string name="msg_does_not_apply">не применяется</string>
+    <string name="msg_cannot_check">невозможно проверить</string>
+    <string name="explainNotAvailable">Нет объяснений к этому регулятору</string>
+    <string name="title_reset_to_default">Сброс по-умолчанию</string>
+    <string name="msg_reset_to_default">Сброс обнулит все ваши настройки, включая новые.</string>
+    <string name="msg_loading_default_profiles">Загрузка стандартного профиля</string>
+    <string name="profilename_performance">Производительность</string>
+    <string name="profilename_good">Хороший</string>
+    <string name="profilename_normal">Нормальный</string>
+    <string name="profilename_screen_off">Дисплей выкл</string>
+    <string name="profilename_extreme_powersave">Экстримальное энергосбережение</string>
+    <string name="triggername_battery_full">Полная батарея</string>
+    <string name="triggername_battery_used">Батарея исп-ся</string>
+    <string name="triggername_battery_low">Маленький заряд</string>
+    <string name="triggername_battery_empty">Пустая батарея</string>
+    <string name="triggername_battery_critical">Критическая батарея</string>
+    <string name="virtgovname_full_speed">Полная скорость</string>
+    <string name="virtgovname_normal">Нормальный</string>
+    <string name="virtgovname_save_battery">Сохранение батареи</string>
+    <string name="virtgovname_extrem_save_battery">Экстримальное сохранение батареи</string>
+    <string name="title_reboot">Перезагрузить</string>
+    <string name="msg_reboot">Автоматическая перезагрузка не удалась. Перезагрузитесь вручную
 	,иначе cpu tuner не будет работать</string>
-	<string name="bu_system_reboot">System reboot (not recommended)</string>
-	<string name="title_uninstall_sys">Удалите cpu tuner как системное приложение</string>
-	<string name="bu_yes_uninstall_sys">Удалить и перезагрузиться</string>
-	<string name="msg_uninstall_sys">Нужна перезагрузка, нажав \'Uninstall and
+    <string name="bu_system_reboot">System reboot (not recommended)</string>
+    <string name="title_uninstall_sys">Удалите cpu tuner как системное приложение</string>
+    <string name="bu_yes_uninstall_sys">Удалить и перезагрузиться</string>
+    <string name="msg_uninstall_sys">Нужна перезагрузка, нажав \'Uninstall and
 		reboot\' устройство перезагрузиться.</string>
-	<string name="msg_install_sys">Нужна перезагрузка, нажав \'install and
+    <string name="msg_install_sys">Нужна перезагрузка, нажав \'install and
 		reboot\' устройство перезагрузиться.</string>
-	<string name="bu_yes_title_install_sys">Установить и перезагрузиться</string>
-	<string name="title_install_sys">Установить cpu tuner как системное приложение</string>
-	<string name="msg_has_issues">Есть проблемы</string>
-	<string name="msg_not_working">Не работает</string>
-	<string name="msg_working">Работает</string>
-	<string name="msg_premail_no_issues">Проблем не найдено…\Если Вам понравилось, комментируйте и оценивайте приложение в маркете.</string>
-	<string name="msg_premail_no_root">Cpu tuner не имеет права рута\nCpu tuner
+    <string name="bu_yes_title_install_sys">Установить и перезагрузиться</string>
+    <string name="title_install_sys">Установить cpu tuner как системное приложение</string>
+    <string name="msg_has_issues">Есть проблемы</string>
+    <string name="msg_not_working">Не работает</string>
+    <string name="msg_working">Работает</string>
+    <string name="msg_premail_no_issues">Проблем не найдено…\Если Вам понравилось, комментируйте и оценивайте приложение в маркете.</string>
+    <string name="msg_premail_no_root">Cpu tuner не имеет права рута\nCpu tuner
 		не может работать!</string>
-	<string name="msg_premail_issues">Ваш конфиг имеет проблемы… Что-то с ядром/ROM. У вас две возможности:\n1) Flash новое ядро\n2) Flash новый ROM</string>
-	<string name="msg_premail_issues_cm">Ваш конфиг имеет проблемы…\Что-то с ядром/ROM
+    <string name="msg_premail_issues">Ваш конфиг имеет проблемы… Что-то с ядром/ROM. У вас две возможности:\n1) Flash новое ядро\n2) Flash новый ROM</string>
+    <string name="msg_premail_issues_cm">Ваш конфиг имеет проблемы…\Что-то с ядром/ROM
 	.У вас две возможности:\n1) Flash новое ядро\n2) Flash новый ROM.Загляните
 		http://wiki.cyanogenmod.com у них есть много хороших ROM.</string>
-	<string name="title_profile_editor">Редактор профилей </string>
-	<string name="title_profiles">Профили</string>
-	<string name="title_trigger_editor">Редактор триггеров </string>
-	<string name="msg_delete_selected_item">Удалить выбранные объекты?</string>
-	<string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of \"%s\" trigger?</string>
-	<string name="msg_setting_cpu_max_freq">Устанавить максимальную частоту CPU на %d Hz</string>
-	<string name="setting_cpu_min_freq">Установить минимальную частоту CPU на %d Hz</string>
-	<string name="msg_setting_govenor">Установить регуляторы на %s</string>
-	<string name="msg_found_some_issues">Найдены проблемы… Некоторые функции могут не работать.
+    <string name="title_profile_editor">Редактор профилей </string>
+    <string name="title_profiles">Профили</string>
+    <string name="title_trigger_editor">Редактор триггеров </string>
+    <string name="msg_delete_selected_item">Удалить выбранные объекты?</string>
+    <string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of \"%s\" trigger?</string>
+    <string name="msg_setting_cpu_max_freq">Устанавить максимальную частоту CPU на %d Hz</string>
+    <string name="setting_cpu_min_freq">Установить минимальную частоту CPU на %d Hz</string>
+    <string name="msg_setting_govenor">Установить регуляторы на %s</string>
+    <string name="msg_found_some_issues">Найдены проблемы… Некоторые функции могут не работать.
 		(Нажмите для информации.)</string>
-	<string name="label_hot">hot: </string>
-	<string name="label_avgerage">avg: </string>
-	<string name="label_tresh_up">up: </string>
-	<string name="label_tresh_down">down: </string>
+    <string name="label_hot">hot: </string>
+    <string name="label_avgerage">avg: </string>
+    <string name="label_tresh_up">up: </string>
+    <string name="label_tresh_down">down: </string>
+
 </resources>

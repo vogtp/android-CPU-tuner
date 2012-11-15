@@ -113,7 +113,14 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 					return true;
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_LOCKED) {
 					StringBuilder sb = new StringBuilder();
-					sb.append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_LOCKED) == 0 ? R.string.screenOn : R.string.screenOff));
+					int resLock = R.string.screenLocked;
+					long lockType = cursor.getLong(DB.SwitchLogDB.INDEX_LOCKED);
+					if (lockType == DB.SwitchLogDB.LOCK_TYPE_OFF) {
+						resLock = R.string.screenOff;
+					} else if (lockType == DB.SwitchLogDB.LOCK_TYPE_UNLOCKED) {
+						resLock = R.string.screenOn;
+					}
+					sb.append(getString(resLock));
 					sb.append(", ").append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_AC) == 0 ? R.string.battery : R.string.ac_power));
 					if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
 						sb.append(", ").append(R.string.call_active);

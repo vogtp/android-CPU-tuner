@@ -131,7 +131,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 					percentGraphView.setHiglight(state == curCpuFreq);
 					return true;
 				} else
-				if (columnIndex == TimeInStateValue.INDEX_TIME) {
+				if (columnIndex == cursor.getColumnIndex(TimeInStateValue.NAME_TIME)) {
 					long time = cursor.getLong(TimeInStateValue.INDEX_TIME);
 					float percent = (float) (time * 100f / totalTime);
 					((TextView) ((View) view.getParent()).findViewById(R.id.tvPercent)).setText(String.format("%.2f", percent));

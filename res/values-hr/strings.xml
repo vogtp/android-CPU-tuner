@@ -1,681 +1,698 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="prefMakeFilesWritable">Zapisuj izravno u datoteke</string>
-	<string name="prefMakeFilesWritableLong">Piši uzravno u sysfs datoteke. Ovo ubrzava prebacivanje i riješava probleme sa Jelly Beanom. Ali poznato je da dovodi do problema sa nekim jezgrama.</string>
-	<string name="prefAuthorsSettings">Koristi postavke autora</string>
-	<string name="prefAuthorsSettingsLong">Koristi postavke koje preferira autor. Ovo može dovesti do ponašanja koje nije predviđeno ili se mogu uključiti stvari koje ne rade na tvom uređaju. Ovo ne poništava sve vrijednosti, ali mijenja neke postavke u mom neslužbenim glavnim postavkama. Koristiti s oprezom...!</string>
-	<string name="prefRunSwitchInBackground">Background profile switch</string>
-	<string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
-	<string name="prefRunSwitchInBackgroundOff">Profile switches are done in the foreground thread.  This may speed up the switches, but can lead to cpu tuner being not responding.</string>
-	<string name="prefWidgetShowLabels">Prikaži Oznake</string>
-	<string name="prefUnitSystem">Sustav Jedinica</string>
-	<string name="prefUnitSystemLong">Prikaži temperature u °C, °F ili K.</string>
-	<string-array name="prefUnitSystemEntries">
-		<item>Zadani</item>
-		<item>Imperijalni</item>
-		<item>SI</item>
-	</string-array>
-	<string name="prefWidgetTextSize">Veličina Teksta</string>
-	<string-array name="prefWidgetTextSizeEntries">
-		<item>Sitno</item>
-		<item>Malo</item>
-		<item>Srednje</item>
-		<item>Veliko</item>
-	</string-array>
-	<string name="deep_sleep">Duboki San</string>
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>Prosječna vrijednost</item>
-		<item>Trenutna Vrijednost</item>
-	<!-- 		<item>Battery % per Hour</item> -->
-		<item>Bez Proračuna</item>
-	</string-array>
-	<string-array name="prefCalcPowerUsageEntriesBeta">
-		<item>Prosječna vrijednost</item>
-		<item>Trenutna vrijednost</item>
-		<item>% baterije po satu</item>
-		<item>Bez Proračuna</item>
-	</string-array>
-	<string-array name="deviceStatesCurrent">
-	<!-- 		<item>Auto</item> -->
-		<item>Uključi</item>
-		<item>Isključi</item>
-		<item>Pulsiraj</item>
-	</string-array>
-	<string-array name="mobiledataStatesCurrent">
-	<!-- 		<item>Auto</item> -->
-		<item>Samo 2G</item>
-		<item>3G/2G</item>
-		<item>Samo 3G</item>
-	</string-array>
-	<string name="log_msg_cpu_tuner_started">CPU Tuner Pokrenut</string>
-	<string name="log_msg_cpu_tuner_stoped">CPU Tuner Zaustavljen</string>
-	<string name="log_msg_switchlog_start">Pokrenut Zapis</string>
-	<string name="log_msg_switchlog_stop">Zapis Zaustavljen</string>
-	<string name="menuItemClearAllPowerCurrent">Izbriši Korištenje Energije</string>
-	<string name="msg_clear_power_consumption_of_all_triggers">Izbrisati potrošnju energije za sve okidače?</string>
-	<string name="labelAppWidgetProfile2x1">CPU Tuner (malo)</string>
-	<string name="labelAppWidgetProfile2x2">CPU Tuner</string>
-	<string name="not_supported">Nije Podržano!</string>
-	<string name="msg_no_battery_current">Ovaj uređaj ne podržava praćenje struje baterije.</string>
-	<string name="msg_no_avg_battery_current">Ovaj uređaj ne podržava praćenje prosječne struje baterije.</string>
-	<string name="prefWidgetUI">Prikazane Informacije</string>
-	<string name="prefShowIcon">CPU Tuner ikona</string>
-	<string name="prefShowIconLong">Used to launch CPU Tuner</string>
-	<string name="title_cannot_save">Nemoguće Spremiti</string>
-	<string name="cbInclSwitchLog">Include the switch log in the mail.</string>
-	<string name="name_extention_widget">Widget Ekstenzija</string>
-	<string name="desc_extention_widget">The widget lets you access CPU Tuner function quickly from your home screen.</string>
-	<string name="prefCatWidget">Widget</string>
-	<string name="prefHasWidget">Uključi Widget</string>
-	<string name="msgWidgetLoading">Učitavam…</string>
-	<string name="msg_widgets_not_installed">CPU Tuner widget nije uključen.</string>
-	<string name="title_install_widget_dia">Widget nije instaliran</string>
-	<string name="msg_install_widget_dia">The widget cannot be added since the widget extension is not installed</string>
-	<string name="buNeg_install_widget_dia">Ne, hvala.</string>
-	<string name="buPos_install_widget_dia">Nabavi…</string>
-	<string name="tigger_name_all">All</string>
-	<string name="tigger_name_batteryfull">Baterija puna</string>
-	<string name="tigger_name_batteryused">Iskorištenost baterije</string>
-	<string name="tigger_name_batterylow">Baterija slaba</string>
-	<string name="tigger_name_batteryempty">Batterija prazna</string>
-	<string name="tigger_name_batterycritical">Baterija kritično</string>
-	<string name="profile_name_performance">Performanse</string>
-	<string name="profile_name_good">Dobro</string>
-	<string name="profile_name_normal">Normalno</string>
-	<string name="profile_name_screenoff">Ekran ugašen</string>
-	<string name="profile_name_screenon">Ekran uključen</string>
-	<string name="profile_name_powersave">Štednja</string>
-	<string name="profile_name_extremepowersave">Ekstremna štednja</string>
-	<string name="gov_name_fullspeed">Puna brzina</string>
-	<string name="gov_name_normal">Normalno</string>
-	<string name="gov_name_extremeSaveBattery">Ekstremna Štednja Baterije</string>
-	<string name="gov_name_saveBattery">Štedi Bateriju</string>
-	<string name="configuration_title_sophisticated">Sophisticated</string>
-	<string name="configuration_description_sophisticated">Based on the battery level quite a few triggers are used to control the CPU. No service switches are activated.</string>
-	<string name="configuration_title_uniform">Uniform</string>
-	<string name="configuration_description_uniform">The CPU is only controlled based on the state of the device regardless of the battery level. No service switches.</string>
-	<string name="configuration_title_simplePowerful">Simple &amp; powerful</string>
-	<string name="configuration_description_simplePowerful">This is the profile described by D. in his blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) without mobile data switching.</string>
-	<string name="configuration_title_extreme">Extreme</string>
-	<string name="configuration_description_extreme">This is (nearly) the old default configuration.  It is similar to Sophisticated, but uses much more rigorous setting. While battery saving is better the performance gets worse.</string>
-	<string name="auto">Auto</string>
-	<string name="msg_manual_profile">ručno</string>
-	<string name="labelMessage">Poruka:</string>
-	<string name="labelState">Stanje:</string>
-	<string name="labelTime">Vrijeme:</string>
-	<string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
-	<string name="prefEnableSwitchCpuSetting">Use special CPU settings on profile switch</string>
-	<string name="prefEnableSwitchCpuSettingOn">Special CPU settings will be used on profile switch.</string>
-	<string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
-	<string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
-	<string name="prefSwitchCpuSettingLong">These CPU settings will be used on profile switch, it can speed up profile switch when heavily underclocking (underclocking is not recommended).</string>
-	<string name="label_back">Idi natrag</string>
-	<string name="label_forward">Idi naprijed</string>
-	<string name="label_home">Početna</string>
-	<string name="prefCatEngine">Engine</string>
-	<string name="prefCatHelper">Pomoć</string>
-	<string name="msg_config_loaded">Loaded</string>
-	<string name="msg_config">configuration</string>
-	<string name="all">Svi</string>
-	<string name="labelNoDataForFilter">No data for this filter combination found.</string>
-	<string name="prefCatAdvStatistics">Advanced Statistics and Logging</string>
-	<string name="prefCatExtention">Extention</string>
-	<string name="prefEnableExtention">Enable Extension</string>
-	<string name="prefEnableSwitchLog">Enable profile switch log</string>
-	<string name="prefCatStatistics">Statistika</string>
-	<string name="prefEnableStatistics">Uključi statistiku</string>
-	<string name="prefLogPulse">Log pulse to switch log</string>
-	<string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
-	<string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
-	<string name="msg_pulse_log_on">Pulse switched to on</string>
-	<string name="msg_pulse_log_off">Pulse switched to off</string>
-	<string name="msg_pulse_log_end">Stop pulsing</string>
-	<string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
-	<string name="menuMarkLog">Mark</string>
-	<string name="msgMarkLog">*** Mark ***</string>
-	<string name="menuClearLog">Clear Log</string>
-	<string name="enabled">Uključeno</string>
-	<string name="ac_power">Na Punjaču</string>
-	<string name="battery">Na Bateriji</string>
-	<string name="screenOn">Ekran Uključen</string>
-	<string name="screenOff">Ekran Isključen</string>
-	<string name="call_active">Aktivni poziv</string>
-	<string name="battery_hot">Baterija vruća</string>
-	<string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use -1 to log for ever.</string>
-	<string name="msgEnableCputuner">Uključivanje CPU Tuner-a</string>
-	<string name="msgDisableCputuner">Isključivanje CPU Tuner-a</string>
-	<string name="labelYourConfigurations">Vaša konfiguracija</string>
-	<string name="labelSystemConfigurations">Konfiguracija sustava</string>
-	<string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
-	<string name="labelPowesaveBiasPerformance">Performance</string>
-	<string name="labelPowesaveBiasPowersave">Powersave</string>
-	<string name="prefMaxFreq">Default Maximum Frequency</string>
-	<string name="prefMaxFreqLong">The maximum frequency to be applied when loading system configurations.</string>
-	<string name="prefMinFreq">Default Minimum Frequency</string>
-	<string name="prefMinFreqLong">The minimum frequency to be applied when loading system configurations.</string>
-	<string name="prefKeyFrequencies">Frequencies for system configurations</string>
-	<string name="title_triggers">Triggers</string>
-	<string name="msg_title_unsaved_changes">Promjene nespremljene</string>
-	<string name="msg_unsaved_changes">This editor has unsaved changes, if you close
+
+    <string name="prefMakeFilesWritable">Zapisuj izravno u datoteke</string>
+    <string name="prefMakeFilesWritableLong">Piši uzravno u sysfs datoteke. Ovo ubrzava prebacivanje i riješava probleme sa Jelly Beanom. Ali poznato je da dovodi do problema sa nekim jezgrama.</string>
+    <string name="prefAuthorsSettings">Koristi postavke autora</string>
+    <string name="prefAuthorsSettingsLong">Koristi postavke koje preferira autor. Ovo može dovesti do ponašanja koje nije predviđeno ili se mogu uključiti stvari koje ne rade na tvom uređaju. Ovo ne poništava sve vrijednosti, ali mijenja neke postavke u mom neslužbenim glavnim postavkama. Koristiti s oprezom...!</string>
+    <string name="prefRunSwitchInBackground">Background profile switch</string>
+    <string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
+    <string name="prefRunSwitchInBackgroundOff">Profile switches are done in the foreground thread.  This may speed up the switches, but can lead to cpu tuner being not responding.</string>
+    <string name="prefWidgetShowLabels">Prikaži Oznake</string>
+    <string name="prefUnitSystem">Sustav Jedinica</string>
+    <string name="prefUnitSystemLong">Prikaži temperature u °C, °F ili K.</string>
+
+    <string-array name="prefUnitSystemEntries">
+        <item>Zadani</item>
+        <item>Imperijalni</item>
+        <item>SI</item>
+    </string-array>
+
+    <string name="prefWidgetTextSize">Veličina Teksta</string>
+
+    <string-array name="prefWidgetTextSizeEntries">
+        <item>Sitno</item>
+        <item>Malo</item>
+        <item>Srednje</item>
+        <item>Veliko</item>
+    </string-array>
+
+    <string name="deep_sleep">Duboki San</string>
+
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>Prosječna vrijednost</item>
+        <item>Trenutna Vrijednost</item>
+        <!-- <item>Battery % per Hour</item> -->
+        <item>Bez Proračuna</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntriesBeta">
+        <item>Prosječna vrijednost</item>
+        <item>Trenutna vrijednost</item>
+        <item>% baterije po satu</item>
+        <item>Bez Proračuna</item>
+    </string-array>
+    <string-array name="deviceStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>Uključi</item>
+        <item>Isključi</item>
+        <item>Pulsiraj</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>Samo 2G</item>
+        <item>3G/2G</item>
+        <item>Samo 3G</item>
+    </string-array>
+
+    <string name="log_msg_cpu_tuner_started">CPU Tuner Pokrenut</string>
+    <string name="log_msg_cpu_tuner_stoped">CPU Tuner Zaustavljen</string>
+    <string name="log_msg_switchlog_start">Pokrenut Zapis</string>
+    <string name="log_msg_switchlog_stop">Zapis Zaustavljen</string>
+    <string name="menuItemClearAllPowerCurrent">Izbriši Korištenje Energije</string>
+    <string name="msg_clear_power_consumption_of_all_triggers">Izbrisati potrošnju energije za sve okidače?</string>
+    <string name="labelAppWidgetProfile2x1">CPU Tuner (malo)</string>
+    <string name="labelAppWidgetProfile2x2">CPU Tuner</string>
+    <string name="not_supported">Nije Podržano!</string>
+    <string name="msg_no_battery_current">Ovaj uređaj ne podržava praćenje struje baterije.</string>
+    <string name="msg_no_avg_battery_current">Ovaj uređaj ne podržava praćenje prosječne struje baterije.</string>
+    <string name="prefWidgetUI">Prikazane Informacije</string>
+    <string name="prefShowIcon">CPU Tuner ikona</string>
+    <string name="prefShowIconLong">Used to launch CPU Tuner</string>
+    <string name="title_cannot_save">Nemoguće Spremiti</string>
+    <string name="cbInclSwitchLog">Include the switch log in the mail.</string>
+    <string name="name_extention_widget">Widget Ekstenzija</string>
+    <string name="desc_extention_widget">The widget lets you access CPU Tuner function quickly from your home screen.</string>
+    <string name="prefCatWidget">Widget</string>
+    <string name="prefHasWidget">Uključi Widget</string>
+    <string name="msgWidgetLoading">Učitavam…</string>
+    <string name="msg_widgets_not_installed">CPU Tuner widget nije uključen.</string>
+    <string name="title_install_widget_dia">Widget nije instaliran</string>
+    <string name="msg_install_widget_dia">The widget cannot be added since the widget extension is not installed</string>
+    <string name="buNeg_install_widget_dia">Ne, hvala.</string>
+    <string name="buPos_install_widget_dia">Nabavi…</string>
+    <string name="tigger_name_all">All</string>
+    <string name="tigger_name_batteryfull">Baterija puna</string>
+    <string name="tigger_name_batteryused">Iskorištenost baterije</string>
+    <string name="tigger_name_batterylow">Baterija slaba</string>
+    <string name="tigger_name_batteryempty">Batterija prazna</string>
+    <string name="tigger_name_batterycritical">Baterija kritično</string>
+    <string name="profile_name_performance">Performanse</string>
+    <string name="profile_name_good">Dobro</string>
+    <string name="profile_name_normal">Normalno</string>
+    <string name="profile_name_screenoff">Ekran ugašen</string>
+    <string name="profile_name_screenon">Ekran uključen</string>
+    <string name="profile_name_powersave">Štednja</string>
+    <string name="profile_name_extremepowersave">Ekstremna štednja</string>
+    <string name="gov_name_fullspeed">Puna brzina</string>
+    <string name="gov_name_normal">Normalno</string>
+    <string name="gov_name_extremeSaveBattery">Ekstremna Štednja Baterije</string>
+    <string name="gov_name_saveBattery">Štedi Bateriju</string>
+    <string name="configuration_title_sophisticated">Sophisticated</string>
+    <string name="configuration_description_sophisticated">Based on the battery level quite a few triggers are used to control the CPU. No service switches are activated.</string>
+    <string name="configuration_title_uniform">Uniform</string>
+    <string name="configuration_description_uniform">The CPU is only controlled based on the state of the device regardless of the battery level. No service switches.</string>
+    <string name="configuration_title_simplePowerful">Simple &amp; powerful</string>
+    <string name="configuration_description_simplePowerful">This is the profile described by D. in his blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) without mobile data switching.</string>
+    <string name="configuration_title_extreme">Extreme</string>
+    <string name="configuration_description_extreme">This is (nearly) the old default configuration.  It is similar to Sophisticated, but uses much more rigorous setting. While battery saving is better the performance gets worse.</string>
+    <string name="auto">Auto</string>
+    <string name="msg_manual_profile">ručno</string>
+    <string name="labelMessage">Poruka:</string>
+    <string name="labelState">Stanje:</string>
+    <string name="labelTime">Vrijeme:</string>
+    <string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
+    <string name="prefEnableSwitchCpuSetting">Use special CPU settings on profile switch</string>
+    <string name="prefEnableSwitchCpuSettingOn">Special CPU settings will be used on profile switch.</string>
+    <string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
+    <string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
+    <string name="prefSwitchCpuSettingLong">These CPU settings will be used on profile switch, it can speed up profile switch when heavily underclocking (underclocking is not recommended).</string>
+    <string name="label_back">Idi natrag</string>
+    <string name="label_forward">Idi naprijed</string>
+    <string name="label_home">Početna</string>
+    <string name="prefCatEngine">Engine</string>
+    <string name="prefCatHelper">Pomoć</string>
+    <string name="msg_config_loaded">Loaded</string>
+    <string name="msg_config">configuration</string>
+    <string name="all">Svi</string>
+    <string name="labelNoDataForFilter">No data for this filter combination found.</string>
+    <string name="prefCatAdvStatistics">Advanced Statistics and Logging</string>
+    <string name="prefCatExtention">Extention</string>
+    <string name="prefEnableExtention">Enable Extension</string>
+    <string name="prefEnableSwitchLog">Enable profile switch log</string>
+    <string name="prefCatStatistics">Statistika</string>
+    <string name="prefEnableStatistics">Uključi statistiku</string>
+    <string name="prefLogPulse">Log pulse to switch log</string>
+    <string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
+    <string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
+    <string name="msg_pulse_log_on">Pulse switched to on</string>
+    <string name="msg_pulse_log_off">Pulse switched to off</string>
+    <string name="msg_pulse_log_end">Stop pulsing</string>
+    <string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
+    <string name="menuMarkLog">Mark</string>
+    <string name="msgMarkLog">*** Mark ***</string>
+    <string name="menuClearLog">Clear Log</string>
+    <string name="enabled">Uključeno</string>
+    <string name="ac_power">Na Punjaču</string>
+    <string name="battery">Na Bateriji</string>
+    <string name="screenOn">Ekran Uključen</string>
+    <string name="screenOff">Ekran Isključen</string>
+    <string name="call_active">Aktivni poziv</string>
+    <string name="battery_hot">Baterija vruća</string>
+    <string name="prefProfileSwitchLogSizeLong">How many hours should the profile switch log contain. Use -1 to log for ever.</string>
+    <string name="msgEnableCputuner">Uključivanje CPU Tuner-a</string>
+    <string name="msgDisableCputuner">Isključivanje CPU Tuner-a</string>
+    <string name="labelYourConfigurations">Vaša konfiguracija</string>
+    <string name="labelSystemConfigurations">Konfiguracija sustava</string>
+    <string name="msg_cannot_delete_current_configuration">Cannot delete current configuration!</string>
+    <string name="labelPowesaveBiasPerformance">Performance</string>
+    <string name="labelPowesaveBiasPowersave">Powersave</string>
+    <string name="prefMaxFreq">Default Maximum Frequency</string>
+    <string name="prefMaxFreqLong">The maximum frequency to be applied when loading system configurations.</string>
+    <string name="prefMinFreq">Default Minimum Frequency</string>
+    <string name="prefMinFreqLong">The minimum frequency to be applied when loading system configurations.</string>
+    <string name="prefKeyFrequencies">Frequencies for system configurations</string>
+    <string name="title_triggers">Triggers</string>
+    <string name="msg_title_unsaved_changes">Promjene nespremljene</string>
+    <string name="msg_unsaved_changes">This editor has unsaved changes, if you close
 		without saving all changes will be lost. Do you want to save the
 		content?</string>
-	<string name="msg_title_grant_root">Grant root access.</string>
-	<string name="msg_grant_root">You will be asked to grant CPU Tuner superuser
+    <string name="msg_title_grant_root">Grant root access.</string>
+    <string name="msg_grant_root">You will be asked to grant CPU Tuner superuser
 		access. Please grant it and check the remember checkbox. Without this
 		access CPU Tuner will not work. </string>
-	<string name="labelLogTab">Profile Switch Log</string>
-	<string name="msg_no_profile_switch_log">No profile switch log found.</string>
-	<string name="menuItemInsertAsNew">Insert as new</string>
-	<string name="prefCatGUILong">Change display settings.</string>
-	<string name="prefCatSystemLong">Change the way it works.</string>
-	<string name="prefBuyMeABeerLong">To će me usrećiti.</string>
-	<string name="prefVariousLong">Informacije o CPU Tuner-u.</string>
-	<string name="prefConfigurationsManageLong">Backup and Restore configurations (i.e. a set of
+    <string name="labelLogTab">Profile Switch Log</string>
+    <string name="msg_no_profile_switch_log">No profile switch log found.</string>
+    <string name="menuItemInsertAsNew">Insert as new</string>
+    <string name="prefCatGUILong">Change display settings.</string>
+    <string name="prefCatSystemLong">Change the way it works.</string>
+    <string name="prefBuyMeABeerLong">To će me usrećiti.</string>
+    <string name="prefVariousLong">Informacije o CPU Tuner-u.</string>
+    <string name="prefConfigurationsManageLong">Backup and Restore configurations (i.e. a set of
 		triggers, profiles and governors).</string>
-	<string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>
-	<string name="prefLanguageLong">Choose a different language. (required restart)</string>
-	<string name="prefEnableCputunerOn">CPU Tuner je pokrenut.</string>
-	<string name="prefEnableCputunerOff">CPU Tuner nije pokrenut.</string>
-	<string name="prefKeyProfilesLong">Change the way profiles, triggers and governors behave.</string>
-	<string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile, date, WIFI, or bluetooth) behave.</string>
-	<string name="prefCpuLong">Podešavanja vezana za CPU.</string>
-	<string name="title_help_pages">Help pages</string>
-	<string name="msg_no_trigger_name">Please enter a trigger name.</string>
-	<string name="msg_triggername_exists">A trigger with the same name already exists! Choose
+    <string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>
+    <string name="prefLanguageLong">Choose a different language. (required restart)</string>
+    <string name="prefEnableCputunerOn">CPU Tuner je pokrenut.</string>
+    <string name="prefEnableCputunerOff">CPU Tuner nije pokrenut.</string>
+    <string name="prefKeyProfilesLong">Change the way profiles, triggers and governors behave.</string>
+    <string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile, date, WIFI, or bluetooth) behave.</string>
+    <string name="prefCpuLong">Podešavanja vezana za CPU.</string>
+    <string name="title_help_pages">Help pages</string>
+    <string name="msg_no_trigger_name">Please enter a trigger name.</string>
+    <string name="msg_triggername_exists">A trigger with the same name already exists! Choose
 		a new name.</string>
-	<string name="msg_triggerbatterylevel_exists">A trigger with the same battery level already
+    <string name="msg_triggerbatterylevel_exists">A trigger with the same battery level already
 		exists! Change the battery level.</string>
-	<string name="msg_no_profile_name">Please enter a profile name</string>
-	<string name="msg_profilename_exists">A profile with the same name already exists! Choose
+    <string name="msg_no_profile_name">Please enter a profile name</string>
+    <string name="msg_profilename_exists">A profile with the same name already exists! Choose
 		a new name.</string>
-	<string name="msg_no_virtgov_name">Please enter a Virtual Governor name</string>
-	<string name="msg_virtgovname_exists">A Virtual Governor with the same name already
+    <string name="msg_no_virtgov_name">Please enter a Virtual Governor name</string>
+    <string name="msg_virtgovname_exists">A Virtual Governor with the same name already
 		exists! Choose a new name.</string>
-	<string name="title_load_configuration">Učitaj konfiguraciju</string>
-	<string name="title_config_name_exists">Ime postoji</string>
-	<string name="msg_config_name_exists">A configuration with this name already exists.</string>
-	<string name="overwrite">Prebriši</string>
-	<string name="msg_empty_configuration_name">The configuration name must not be empty.</string>
-	<string name="label_frequency">Frequency</string>
-	<string name="label_time">Time</string>
-	<string name="prefLegalServiceIcons">Service icons License</string>
-	<string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod.
+    <string name="title_load_configuration">Učitaj konfiguraciju</string>
+    <string name="title_config_name_exists">Ime postoji</string>
+    <string name="msg_config_name_exists">A configuration with this name already exists.</string>
+    <string name="overwrite">Prebriši</string>
+    <string name="msg_empty_configuration_name">The configuration name must not be empty.</string>
+    <string name="label_frequency">Frequency</string>
+    <string name="label_time">Time</string>
+    <string name="prefLegalServiceIcons">Service icons License</string>
+    <string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod.
 		Thanks for the nice icons.</string>
-	<string name="title_no_configuration">No usable configuration</string>
-	<string name="label_no_configuration">CPU Tuner detected a unusable configuration and is
+    <string name="title_no_configuration">No usable configuration</string>
+    <string name="label_no_configuration">CPU Tuner detected a unusable configuration and is
 		unable to run properly. Do you want to load a configuration?</string>
-	<string name="load">Učitaj</string>
-	<string name="cont">Nastavi</string>
-	<string name="msg_error_loadconfig">Loading this configuration did not produce a valid
+    <string name="load">Učitaj</string>
+    <string name="cont">Nastavi</string>
+    <string name="msg_error_loadconfig">Loading this configuration did not produce a valid
 		configuration! Either the configuration is broken or something went
 		wrong while loading. Please try again (with an other config).</string>
-	<string name="msg_unusable_comfig_save">This configuration cannot be saved since it is not
+    <string name="msg_unusable_comfig_save">This configuration cannot be saved since it is not
 		usable. Triggers, Profiles or Virtual Governors are not detected</string>
-	<string name="tvSequenceInfo">The profile are listed in the reverse sequence. Cpu
+    <string name="tvSequenceInfo">The profile are listed in the reverse sequence. Cpu
 		tuner starts at the bottom and chooses the first profile that matches
 		the current state</string>
-	<string name="msg_warning_manual_service_switches">You enabled \"manual service changes\" in settings.&lt;br&gt;&lt;/br&gt;		This means that services will not get switched when changed outside
+    <string name="msg_warning_manual_service_switches">You enabled \"manual service changes\" in settings.&lt;br&gt;&lt;/br&gt;		This means that services will not get switched when changed outside
 		CPU Tuner.&lt;br&gt;&lt;/br&gt;		Pulsed services and back to previous will get applied as normal.</string>
-	<string name="msg_warning_not_switch_wifi_connected">WIFI will not switch if connected to a network.
+    <string name="msg_warning_not_switch_wifi_connected">WIFI will not switch if connected to a network.
 		Change this in settings.</string>
-	<string name="menuUpgrade">Get extensions</string>
-	<string name="desc_extention_stats">The statistics extension generates nicer and more detailed statistics and logs.&lt;br&gt;&lt;/br&gt;		It helps you to fine tune your settings by giving you additional
+    <string name="menuUpgrade">Get extensions</string>
+    <string name="desc_extention_stats">The statistics extension generates nicer and more detailed statistics and logs.&lt;br&gt;&lt;/br&gt;		It helps you to fine tune your settings by giving you additional
 		information.</string>
-	<string name="title_products">Proizvodi</string>
-	<string name="title_extentions">Ekstenzije</string>
-	<string name="name_extention_stats">Statistics and logging Extension</string>
-	<string name="extention_installed">Installed, tap to configure.</string>
-	<string name="not_installed">Not installed</string>
-	<string name="purchased">Purchased: </string>
-	<string name="name_buy_me_a_beer">Buy me a beer.</string>
-	<string name="name_buy_me_a_whiskey">Buy me a whisky.</string>
-	<string name="name_buy_cookie">Kupi keksić mojoj djeci.</string>
-	<string name="desc_buy_beer">To će me usrećiti.</string>
-	<string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more times to fix bugs (no promises made).</string>
-	<string name="desc_buy_toy">This will keep my kids occupied for some time and
+    <string name="title_products">Proizvodi</string>
+    <string name="title_extentions">Ekstenzije</string>
+    <string name="name_extention_stats">Statistics and logging Extension</string>
+    <string name="extention_installed">Installed, tap to configure.</string>
+    <string name="not_installed">Not installed</string>
+    <string name="purchased">Purchased: </string>
+    <string name="name_buy_me_a_beer">Buy me a beer.</string>
+    <string name="name_buy_me_a_whiskey">Buy me a whisky.</string>
+    <string name="name_buy_cookie">Kupi keksić mojoj djeci.</string>
+    <string name="desc_buy_beer">To će me usrećiti.</string>
+    <string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
+    <string name="desc_buy_cookie">This will keep my kids occupied and will give me more times to fix bugs (no promises made).</string>
+    <string name="desc_buy_toy">This will keep my kids occupied for some time and
 		probable lets me implement a feature (no promises made).</string>
-	<string name="name_buy_toy">Buy my kids a new toy</string>
-	<string name="prefextentionsLong">Add new features to CPU Tuner.</string>
-	<string name="title_changelog">Changelog</string>
-	<string name="refresh">Osvježi</string>
-	<string name="reset">Reset</string>
-	<string name="title_reset_statistics">Reset statistics</string>
-	<string name="msg_reset_statistics">Reset the statistics and use the current state as
+    <string name="name_buy_toy">Buy my kids a new toy</string>
+    <string name="prefextentionsLong">Add new features to CPU Tuner.</string>
+    <string name="title_changelog">Changelog</string>
+    <string name="refresh">Osvježi</string>
+    <string name="reset">Reset</string>
+    <string name="title_reset_statistics">Reset statistics</string>
+    <string name="msg_reset_statistics">Reset the statistics and use the current state as
 		baseline for the future</string>
-	<string name="msgManualServiceChanges">Some services have been manualy changed and will not be managed by CPU Tuner until the next trigger.&lt;br&gt;&lt;/br&gt;		Click text to reset.</string>
-	<string name="title_reset_manual_service_switches">Reset services?</string>
-	<string name="msg_reset_manual_service_switches">Do you want to reset all manually changed services
+    <string name="msgManualServiceChanges">Some services have been manualy changed and will not be managed by CPU Tuner until the next trigger.&lt;br&gt;&lt;/br&gt;		Click text to reset.</string>
+    <string name="title_reset_manual_service_switches">Reset services?</string>
+    <string name="msg_reset_manual_service_switches">Do you want to reset all manually changed services
 		and let CPU Tuner handle further switches again?</string>
-	<string name="msg_cpu_tuner_not_running">CPU Tuner is not running</string>
-	<string-array name="prefAddToNotificationEntries">
-		<item>When running</item>
-		<item>Uvijek</item>
-		<item>Nikad</item>
-	</string-array>
-	<string name="prefStatusbarAddToLong">Add to status bar and notification area.</string>
-	<string name="prefInitialPulseDelay">Initial Pulse Delay</string>
-	<string name="prefInitialPulseDelayLong">Wait for some time (in s) bevore starting the first pulse.</string>
-	<string name="prefInitialPulseDelayMsg">Delay time in seconds</string>
-	<string name="prefPowerStrongerThanScreenoff">On-Power is stronger than Screen-Lock profile</string>
-	<string name="prefPowerStrongerThanScreenoffOn">If checked, when power (AC or USB) is plugged-in and the screen is off, the On-Power profile will be chosen.</string>
-	<string name="prefPowerStrongerThanScreenoffOff">If unchecked, when power (AC or USB) is plugged-in and the screen is off, the Screen-Lock profile will be chosen.</string>
-	<string name="title_choose_experiance_level">Choose your experiance level</string>
-	<string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
-	<string name="prefNetworkModeOnWifiConnected">Netmode on WIFI Connection</string>
-	<string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a WIFI network is connected.  If the network is disconnected, CPU Tuner goes back to previous.</string>
-	<string-array name="mobiledataOnWifiStatesEnties">
-		<item>ostavi nepromijenjeno</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>3G only</item>
-	</string-array>
-	<string name="labelUseCpus_front">Koristi </string>
-	<string name="labelUseCpus_end">CPUs</string>
-	<string name="prefMulticore">Koristi Višejezgrene CPU Osobine</string>
-	<string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
-	<string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
-	<string name="labelActiveCpus">Aktivni CPU-i:</string>
-	<string name="prefEnableCputuner">Uključi CPU Tuner</string>
-	<string-array name="prefMulticoreEntries">
-		<item>Auto</item>
-		<item>Uključi</item>
-		<item>Isključi</item>
-	</string-array>
-	<string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
-	<string name="prefConfigurationsLong">Backup and Restore (and more) ...</string>
-	<string name="prefCpu">CPU Postavke</string>
-	<string name="prefChangelog">Show Changelog</string>
-	<string name="label_version">Verzija:</string>
-	<string name="prefLegalGnomeIcons">Main icon License</string>
-	<string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
+    <string name="msg_cpu_tuner_not_running">CPU Tuner is not running</string>
+
+    <string-array name="prefAddToNotificationEntries">
+        <item>When running</item>
+        <item>Uvijek</item>
+        <item>Nikad</item>
+    </string-array>
+
+    <string name="prefStatusbarAddToLong">Add to status bar and notification area.</string>
+    <string name="prefInitialPulseDelay">Initial Pulse Delay</string>
+    <string name="prefInitialPulseDelayLong">Wait for some time (in s) bevore starting the first pulse.</string>
+    <string name="prefInitialPulseDelayMsg">Delay time in seconds</string>
+    <string name="prefPowerStrongerThanScreenoff">On-Power is stronger than Screen-Lock profile</string>
+    <string name="prefPowerStrongerThanScreenoffOn">If checked, when power (AC or USB) is plugged-in and the screen is off, the On-Power profile will be chosen.</string>
+    <string name="prefPowerStrongerThanScreenoffOff">If unchecked, when power (AC or USB) is plugged-in and the screen is off, the Screen-Lock profile will be chosen.</string>
+    <string name="title_choose_experiance_level">Choose your experiance level</string>
+    <string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
+    <string name="prefNetworkModeOnWifiConnected">Netmode on WIFI Connection</string>
+    <string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a WIFI network is connected.  If the network is disconnected, CPU Tuner goes back to previous.</string>
+
+    <string-array name="mobiledataOnWifiStatesEnties">
+        <item>ostavi nepromijenjeno</item>
+        <item>2G only</item>
+        <item>3G/2G</item>
+        <item>3G only</item>
+    </string-array>
+
+    <string name="labelUseCpus_front">Koristi </string>
+    <string name="labelUseCpus_end">CPUs</string>
+    <string name="prefMulticore">Koristi Višejezgrene CPU Osobine</string>
+    <string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
+    <string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
+    <string name="labelActiveCpus">Aktivni CPU-i:</string>
+    <string name="prefEnableCputuner">Uključi CPU Tuner</string>
+
+    <string-array name="prefMulticoreEntries">
+        <item>Auto</item>
+        <item>Uključi</item>
+        <item>Isključi</item>
+    </string-array>
+
+    <string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
+    <string name="prefConfigurationsLong">Backup and Restore (and more) ...</string>
+    <string name="prefCpu">CPU Postavke</string>
+    <string name="prefChangelog">Show Changelog</string>
+    <string name="label_version">Verzija:</string>
+    <string name="prefLegalGnomeIcons">Main icon License</string>
+    <string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
 		nice icons.</string>
-	<string name="msg_disable_cpu_tuner">Disable CPU Tuner</string>
-	<string name="msg_disable_cputuner_question">Do you want to stop CPU Tuner?</string>
-	<string name="prefConfigurationsSettings">Configurations Settings</string>
-	<string name="prefSaveConfigOnSwitch">Save Configuration</string>
-	<string name="prefSaveConfigOnSwitchFull">Save changes to profiles, triggers or governors to the current configuration.</string>
-	<string name="saved_at">Spremljeno u</string>
-	<string name="day_mon">Pon</string>
-	<string name="day_tue">Uto</string>
-	<string name="day_wed">Sri</string>
-	<string name="day_thu">Čet</string>
-	<string name="day_fri">Pet</string>
-	<string name="day_sat">Sub</string>
-	<string name="day_sun">Ned</string>
-	<string name="label_weekdays">Weekdays: </string>
-	<string name="prefConfigurationsManage">Manage Configurations</string>
-	<string name="prefConfigurationsAutoLoad">Autoload Configurations</string>
-	<string name="title_configuration_autoload_editor">Configuration Autoload Editor</string>
-	<string name="hint_profile_name">Naziv Profila</string>
-	<string name="label_profile_switches">Profile Switches:</string>
-	<string name="not_enabled">Not enabled</string>
-	<string name="prefProfileSwitchLogSize">Profile switch log size</string>
-	<string name="cbExactScheduling">Use exact scheduling.</string>
-	<string name="labelExactSchedulingExplain">Exact scheduling consumes more battery.\nWith
+    <string name="msg_disable_cpu_tuner">Disable CPU Tuner</string>
+    <string name="msg_disable_cputuner_question">Do you want to stop CPU Tuner?</string>
+    <string name="prefConfigurationsSettings">Configurations Settings</string>
+    <string name="prefSaveConfigOnSwitch">Save Configuration</string>
+    <string name="prefSaveConfigOnSwitchFull">Save changes to profiles, triggers or governors to the current configuration.</string>
+    <string name="saved_at">Spremljeno u</string>
+    <string name="day_mon">Pon</string>
+    <string name="day_tue">Uto</string>
+    <string name="day_wed">Sri</string>
+    <string name="day_thu">Čet</string>
+    <string name="day_fri">Pet</string>
+    <string name="day_sat">Sub</string>
+    <string name="day_sun">Ned</string>
+    <string name="label_weekdays">Weekdays: </string>
+    <string name="prefConfigurationsManage">Manage Configurations</string>
+    <string name="prefConfigurationsAutoLoad">Autoload Configurations</string>
+    <string name="title_configuration_autoload_editor">Configuration Autoload Editor</string>
+    <string name="hint_profile_name">Naziv Profila</string>
+    <string name="label_profile_switches">Profile Switches:</string>
+    <string name="not_enabled">Not enabled</string>
+    <string name="prefProfileSwitchLogSize">Profile switch log size</string>
+    <string name="cbExactScheduling">Use exact scheduling.</string>
+    <string name="labelExactSchedulingExplain">Exact scheduling consumes more battery.\nWith
 		inexact scheduling the configuration change may delay up to half an
 		hour.</string>
-	<string name="msg_cannot_delete_configuration">Cannot delete configuration since it is used in
+    <string name="msg_cannot_delete_configuration">Cannot delete configuration since it is used in
 		autoloading.</string>
-	<string name="label_load_configuration_1">Učitaj konfiguraciju </string>
-	<string name="label_load_configuration_2">at</string>
-	<string name="labelConfig">Konfig:</string>
-	<string name="labelAirplaneMode">Airplane mode</string>
-	<string name="labelAirplaneModeOn">AP</string>
-	<string name="labelAirplaneModeOff">&lt;strike&gt;AP&lt;/strike&gt;</string>
-	<string name="labelAirplaneModePrev">AP?</string>
-	<string name="msg_add_current_configuration">Add current configuration</string>
-	<string name="msg_choose_name_for_config">Choose a name for the configuration</string>
-	<string name="rename">Rename</string>
-	<string name="msg_rename_configuration">Rename configuration</string>
-	<string name="email">e-mail</string>
-	<string name="prefConfigurations">Configurations</string>
-	<string name="titleManageConfigurations">Manage Configurations</string>
-	<string name="buAddConfiguration">Add current configuration</string>
-	<string name="menuReplaceWithCurrent">Zamijeni s trenutnim</string>
-	<string name="menuLoad">Učitaj</string>
-	<string name="delete">Obriši</string>
-	<string name="msg_delete_configuration">Delete configuration \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'?</string>
-	<string name="msg_replace_with_current">Replace configuration \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' with the currently active?</string>
-	<string name="msg_load_configuration">Load configuration \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' to be the active?</string>
-	<string name="msg_loaded">Loaded \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'</string>
-	<string name="menuAddCurrent">Add Current</string>
-	<string name="msg_fully_working">Fully working</string>
-	<string name="msg_capcheck_not_rooted">CPU Tuner does not have root access!\nAll CPU
+    <string name="label_load_configuration_1">Učitaj konfiguraciju </string>
+    <string name="label_load_configuration_2">at</string>
+    <string name="labelConfig">Konfig:</string>
+    <string name="labelAirplaneMode">Airplane mode</string>
+    <string name="labelAirplaneModeOn">AP</string>
+    <string name="labelAirplaneModeOff">&lt;strike&gt;AP&lt;/strike&gt;</string>
+    <string name="labelAirplaneModePrev">AP?</string>
+    <string name="msg_add_current_configuration">Add current configuration</string>
+    <string name="msg_choose_name_for_config">Choose a name for the configuration</string>
+    <string name="rename">Rename</string>
+    <string name="msg_rename_configuration">Rename configuration</string>
+    <string name="email">e-mail</string>
+    <string name="prefConfigurations">Configurations</string>
+    <string name="titleManageConfigurations">Manage Configurations</string>
+    <string name="buAddConfiguration">Add current configuration</string>
+    <string name="menuReplaceWithCurrent">Zamijeni s trenutnim</string>
+    <string name="menuLoad">Učitaj</string>
+    <string name="delete">Obriši</string>
+    <string name="msg_delete_configuration">Delete configuration \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'?</string>
+    <string name="msg_replace_with_current">Replace configuration \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' with the currently active?</string>
+    <string name="msg_load_configuration">Load configuration \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' to be the active?</string>
+    <string name="msg_loaded">Loaded \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'</string>
+    <string name="menuAddCurrent">Add Current</string>
+    <string name="msg_fully_working">Fully working</string>
+    <string name="msg_capcheck_not_rooted">CPU Tuner does not have root access!\nAll CPU
 		tuning related features will not work.\nDid root your device?\nDid you
 		grant CPU Tuner root access?</string>
-	<string name="msg_capcheck_found_some_issues">Found some issues… Some features might not work.</string>
-	<string name="msg_capcheck_no_issues">No issues found…</string>
-	<string name="and">and</string>
-	<string name="msg_capcheck_work_but_cannot_set_frequency">work but cannot set frequency.\nThis still yields
+    <string name="msg_capcheck_found_some_issues">Found some issues… Some features might not work.</string>
+    <string name="msg_capcheck_no_issues">No issues found…</string>
+    <string name="and">and</string>
+    <string name="msg_capcheck_work_but_cannot_set_frequency">work but cannot set frequency.\nThis still yields
 		quite good results.</string>
-	<string name="msg_premail_working">Some governors are mostly working.\nThe not working
+    <string name="msg_premail_working">Some governors are mostly working.\nThe not working
 		governors are most likely due to the kernel/ROM. You have three
 		possibilities:\n1) Use the working governors and ignore the other.
 		This will probably still yield nice results.\n2) Flash a new
 		kernel\n3) Flash a new ROM</string>
-	<string name="labelCurrentFrequency">current</string>
-	<string name="prefScreenLegal">Pravne stvari</string>
-	<string name="prefLegalOxigenIcons">Tab icon License</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
+    <string name="labelCurrentFrequency">current</string>
+    <string name="prefScreenLegal">Pravne stvari</string>
+    <string name="prefLegalOxigenIcons">Tab icon License</string>
+    <string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
 		nice icons.</string>
-	<string name="virtual_governor">Virtual Governor</string>
-	<string name="msg_cannot_load_virtual_governor">Cannot load Virtual Governor…</string>
-	<string name="labelStatisticsTab">Statistics</string>
-	<string name="label_time_in_state">Time in state:</string>
-	<string name="titleVirtualGovernorEditor">Virtual Governor Editor</string>
-	<string name="msgDeleteVirtGovNotPossible">Cannot delete this Virtual Governor since it is
+    <string name="virtual_governor">Virtual Governor</string>
+    <string name="msg_cannot_load_virtual_governor">Cannot load Virtual Governor…</string>
+    <string name="labelStatisticsTab">Statistics</string>
+    <string name="label_time_in_state">Time in state:</string>
+    <string name="titleVirtualGovernorEditor">Virtual Governor Editor</string>
+    <string name="msgDeleteVirtGovNotPossible">Cannot delete this Virtual Governor since it is
 		used in one or more profiles!</string>
-	<string name="labelName">Name:</string>
-	<string name="hintVirtualGovernorName">Virtual Governor Name</string>
-	<string name="prefCatGUI">User Interface</string>
-	<string name="prefCatDisplay">Display</string>
-	<string name="labelPowersaveBias">Powersave bias:</string>
-	<string name="labelVirtualGovernor">Virtual Governor:</string>
-	<string name="prefUseVirtualGovernorsLong">Virtual Governor abstract the settings of governors
+    <string name="labelName">Name:</string>
+    <string name="hintVirtualGovernorName">Virtual Governor Name</string>
+    <string name="prefCatGUI">User Interface</string>
+    <string name="prefCatDisplay">Display</string>
+    <string name="labelPowersaveBias">Powersave bias:</string>
+    <string name="labelVirtualGovernor">Virtual Governor:</string>
+    <string name="prefUseVirtualGovernorsLong">Virtual Governor abstract the settings of governors
 		from the profile.</string>
-	<string name="label_total_transitions">Total transitions:</string>
-	<string name="prefPulseMobiledataOnWifi">Pulse Mobile Data on WIFI</string>
-	<string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if WIFI is
+    <string name="label_total_transitions">Total transitions:</string>
+    <string name="prefPulseMobiledataOnWifi">Pulse Mobile Data on WIFI</string>
+    <string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if WIFI is
 		connected.</string>
-	<string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is
+    <string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is
 		connected to a WIFI lan.</string>
-	<string name="prefLanguage">Odaberi jezik</string>
-	<string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be
+    <string name="prefLanguage">Odaberi jezik</string>
+    <string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be
 		between 0 and 100.</string>
-	<string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be
+    <string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be
 		between 0 and 100.</string>
-	<string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down
+    <string name="msg_up_threshhold_smaler_than_the_down_threshold">The up threshold has to be bigger than the down
 		threshold.</string>
-	<string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
-	<string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the
+    <string name="msg_threshhold_NaN">The threshold has to be a integer number.</string>
+    <string name="msg_minimal_frequency_bigger_than_the_maximal">Minimal frequency needs to be smaller than the
 		maximal.</string>
-	<string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one
+    <string name="msgDeleteTriggerNotPossible">Cannot delete this profile since it is used in one
 		or more triggers!</string>
-	<string name="prefBasics">Basics</string>
-	<string name="labelScript">Script:</string>
-	<string name="hintScriptToRun">Script to run after governor change.</string>
-	<string name="label_governor_tresholds">Thresholds:</string>
-	<string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
-	<string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
-	<string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
-	<string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
-	<string name="prefPulseDelayOn">Service On-Time</string>
-	<string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in
+    <string name="prefBasics">Basics</string>
+    <string name="labelScript">Script:</string>
+    <string name="hintScriptToRun">Script to run after governor change.</string>
+    <string name="label_governor_tresholds">Thresholds:</string>
+    <string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
+    <string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
+    <string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
+    <string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
+    <string name="prefPulseDelayOn">Service On-Time</string>
+    <string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in
 		pulsed mode.</string>
-	<string name="prefPulseDelayOff">Service Off-Time</string>
-	<string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in
+    <string name="prefPulseDelayOff">Service Off-Time</string>
+    <string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in
 		pulsed mode.</string>
-	<string name="labelPulseOn">Pulse is On</string>
-	<string name="labelPulseOff">Pulse is Off</string>
-	<string name="labelCurrentTab">Current</string>
-	<string name="labelTriggersTab">Okidači</string>
-	<string name="labelProfilesTab">Profili</string>
-	<string name="labelHelpTab">Help</string>
-	<string name="labelSettingsTab">Podesavanje</string>
-	<string name="labelPowerUserExplain">Puna Kontrola!</string>
-	<string name="labelPowerUser">Power User</string>
-	<string name="labelNormalExplain">More advanced configuration options, still
+    <string name="labelPulseOn">Pulse is On</string>
+    <string name="labelPulseOff">Pulse is Off</string>
+    <string name="labelCurrentTab">Current</string>
+    <string name="labelTriggersTab">Okidači</string>
+    <string name="labelProfilesTab">Profili</string>
+    <string name="labelHelpTab">Help</string>
+    <string name="labelSettingsTab">Podesavanje</string>
+    <string name="labelPowerUserExplain">Puna Kontrola!</string>
+    <string name="labelPowerUser">Power User</string>
+    <string name="labelNormalExplain">More advanced configuration options, still
 		underclocking only possible to a point.</string>
-	<string name="labelNormal">Normal</string>
-	<string name="labelBeginnerExplain">Easy to configure and all setting should be save to
+    <string name="labelNormal">Normal</string>
+    <string name="labelBeginnerExplain">Easy to configure and all setting should be save to
 		use… Underclocking only possible to a point.</string>
-	<string name="labelBeginner">Beginner</string>
-	<string name="labelBatteryHot">Battery Hot:</string>
-	<string name="labelCallInProgress">Call-In Progress:</string>
-	<string name="labelOnPower">Na Punjaču:</string>
-	<string name="labelScreenLocked">Screen Locked:</string>
-	<string name="labelOnBattery">Na Bateriji:</string>
-	<string name="labelExplainTriggerProfiles">Depending on the state of the device one of the
+    <string name="labelBeginner">Beginner</string>
+    <string name="labelBatteryHot">Battery Hot:</string>
+    <string name="labelCallInProgress">Call-In Progress:</string>
+    <string name="labelOnPower">Na Punjaču:</string>
+    <string name="labelOnBattery">Na Bateriji:</string>
+    <string name="labelExplainTriggerProfiles">Depending on the state of the device one of the
 		following profiles will be chosen.</string>
-	<string name="labelBatteryLevel">Battery Level</string>
-	<string name="labelExplainTrigger">Activates if the battery charge of the device is
+    <string name="labelBatteryLevel">Battery Level</string>
+    <string name="labelExplainTrigger">Activates if the battery charge of the device is
 		below the battery level and no other trigger with a lower and matching
 		battery level is found.</string>
-	<string name="labelGovernor">Governor:</string>
-	<string name="labelBluetooth">Bluetooth</string>
-	<string name="labelWifi">WIFI</string>
-	<string name="labelGPS">GPS</string>
-	<string name="labelBackgroundSync">Pozadinska Sink.</string>
-	<string name="labelMobileDataConn">Mobiledata Con.</string>
-	<string name="labelMobileData32G">Mobiledata 2G/3G</string>
-	<string name="labelServices">Services:</string>
-	<string name="labelDown">Down:</string>
-	<string name="labelThreshsUp">Thresholds: Up:</string>
-	<string name="labelHome">Home</string>
-	<string name="labelUsage">Usage:</string>
-	<string name="labelBuFindFeq">Find frequencies (beta only)</string>
-	<string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
-	<string name="msgNoEmail">Please do not write empty e-mails…</string>
-	<string name="labelResult">Result</string>
-	<string name="labelCheck">Provjeri</string>
-	<string name="labelAppVersion">CPU Tuner inačica:</string>
-	<string name="msgNoIssuesFound">Nema problema.</string>
-	<string name="prefVritualGovernorsListLong">Virtual Governors are preconfigured cpu governors.</string>
-	<string name="virtualGovernorsList">Virtual Governors</string>
-	<string name="prefBatteryHotTempMsg">Set temperature to trigger \"Battery Hot\" profile.&lt;br /&gt;
+    <string name="labelGovernor">Governor:</string>
+    <string name="labelBluetooth">Bluetooth</string>
+    <string name="labelWifi">WIFI</string>
+    <string name="labelGPS">GPS</string>
+    <string name="labelBackgroundSync">Pozadinska Sink.</string>
+    <string name="labelMobileDataConn">Mobiledata Con.</string>
+    <string name="labelMobileData32G">Mobiledata 2G/3G</string>
+    <string name="labelServices">Services:</string>
+    <string name="labelDown">Down:</string>
+    <string name="labelThreshsUp">Thresholds: Up:</string>
+    <string name="labelHome">Home</string>
+    <string name="labelUsage">Usage:</string>
+    <string name="labelBuFindFeq">Find frequencies (beta only)</string>
+    <string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
+    <string name="msgNoEmail">Please do not write empty e-mails…</string>
+    <string name="labelResult">Result</string>
+    <string name="labelCheck">Provjeri</string>
+    <string name="labelAppVersion">CPU Tuner inačica:</string>
+    <string name="msgNoIssuesFound">Nema problema.</string>
+    <string name="prefVritualGovernorsListLong">Virtual Governors are preconfigured cpu governors.</string>
+    <string name="virtualGovernorsList">Virtual Governors</string>
+    <string name="prefBatteryHotTempMsg">Set temperature to trigger \"Battery Hot\" profile.&lt;br /&gt;
 		Integer value in °C.</string>
-	<string name="prefBatteryHotTempLong">Set temperature to trigger \"Battery Hot\" profile.</string>
-	<string name="prefBatteryHotTemp">Battery Hot Temperature</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOn">If checked, \"Profile Switches\" are [allowed] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOff">If unchecked, \"Profile Switches\" are [forbidden] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdle">Switch Profile During Call</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOn">If checked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOff">If unchecked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
-	<string name="prefSwitchWifiOnConnectedNetwork">Switch WIFI if connected.</string>
-	<string name="prefServiceSwitches">Service Switches</string>
-	<string name="prefUserLevelLong">Determines how difficult the settings are, and how
+    <string name="prefBatteryHotTempLong">Set temperature to trigger \"Battery Hot\" profile.</string>
+    <string name="prefBatteryHotTemp">Battery Hot Temperature</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">If checked, \"Profile Switches\" are [allowed] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">If unchecked, \"Profile Switches\" are [forbidden] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdle">Switch Profile During Call</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOn">If checked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOff">If unchecked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
+    <string name="prefSwitchWifiOnConnectedNetwork">Switch WIFI if connected.</string>
+    <string name="prefServiceSwitches">Service Switches</string>
+    <string name="prefUserLevelLong">Determines how difficult the settings are, and how
 		much you can interfere.</string>
-	<string name="prefUserLevel">Napredna Razina</string>
-	<string name="prefVarious">Razno</string>
-	<string name="notAvailable">nije dostupno</string>
-	<string name="yes">Da</string>
-	<string name="no">Ne</string>
-	<string name="save">Spremi</string>
-	<string name="cancel">odustani</string>
-	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in Power User
+    <string name="prefUserLevel">Napredna Razina</string>
+    <string name="prefVarious">Razno</string>
+    <string name="notAvailable">nije dostupno</string>
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+    <string name="save">Spremi</string>
+    <string name="cancel">odustani</string>
+    <string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in Power User
 		mode.</string>
-	<string name="prefMinSensibleFrequency">Minimum Displayed Frequency</string>
-	<string name="prefKeyProfiles">Profiles and Triggers</string>
-	<string name="prefBuyMeABeer">Časti me pivom</string>
-	<string name="prefAllowManualServiceChangesOn">If checked, do not change the state of a service if it was modified as long as no trigger changed took place.</string>
-	<string name="prefAllowManualServiceChangesOff">If uncheck, do change the state of a service regardless if it was modified manually.</string>
-	<string name="prefAllowManualServiceChanges">Manual Service Changes</string>
-	<string name="prefCpuFreqMsg">Space separated list of frequencies</string>
-	<string name="prefCpuFreq">Dopuštene CPU frekvencije</string>
-	<string name="prefCpuFreqLong">Ostavi prazno ako si nesiguran…!</string>
-	<string name="mailMessageOK">No issues have been found…
+    <string name="prefMinSensibleFrequency">Minimum Displayed Frequency</string>
+    <string name="prefKeyProfiles">Profiles and Triggers</string>
+    <string name="prefBuyMeABeer">Časti me pivom</string>
+    <string name="prefAllowManualServiceChangesOn">If checked, do not change the state of a service if it was modified as long as no trigger changed took place.</string>
+    <string name="prefAllowManualServiceChangesOff">If uncheck, do change the state of a service regardless if it was modified manually.</string>
+    <string name="prefAllowManualServiceChanges">Manual Service Changes</string>
+    <string name="prefCpuFreqMsg">Space separated list of frequencies</string>
+    <string name="prefCpuFreq">Dopuštene CPU frekvencije</string>
+    <string name="prefCpuFreqLong">Ostavi prazno ako si nesiguran…!</string>
+    <string name="mailMessageOK">No issues have been found…
 		If you are pleased and
 		want to give feedback, comments and good ratings
 		on the market are
 		highly appreciated…\"</string>
-	<string name="mailMessage"/>
-	<string name="prefEnableBetaLong">Email Autoru</string>
-	<string name="prefKeyCalcPowerUsageLong">May consume battery.</string>
-	<string name="prefKeyCalcPowerUsage">Calculate Power Usage</string>
-	<string name="menuItemClearPowerCurrent">Clear Power Usage</string>
-	<string name="menuItemInsert">Umetni</string>
-	<string name="menuItemEdit">Uredi</string>
-	<string name="menuItemDelete">Obriši</string>
-	<string name="prefEnableBetaMessage">Enable some features which are in beta state.</string>
-	<string name="prefEnableBeta">Enable Beta Features</string>
-	<string name="prefCapabilitiesLong">Check if the devices supports API needed or if
+    <string name="mailMessage" />
+    <string name="prefEnableBetaLong">Email Autoru</string>
+    <string name="prefKeyCalcPowerUsageLong">May consume battery.</string>
+    <string name="prefKeyCalcPowerUsage">Calculate Power Usage</string>
+    <string name="menuItemClearPowerCurrent">Clear Power Usage</string>
+    <string name="menuItemInsert">Umetni</string>
+    <string name="menuItemEdit">Uredi</string>
+    <string name="menuItemDelete">Obriši</string>
+    <string name="prefEnableBetaMessage">Enable some features which are in beta state.</string>
+    <string name="prefEnableBeta">Enable Beta Features</string>
+    <string name="prefCapabilitiesLong">Check if the devices supports API needed or if
 		there are any issues.</string>
-	<string name="prefCapabilities">Provjeri Sposobnosti</string>
-	<string name="prefStatusbarAddTo">Status Bar Notifications</string>
-	<string name="prefStatusbarNotificationsOff">If unchecked, messages will not be shown in status bar for profile changes.</string>
-	<string name="prefKeyEnableProfilesOn">If checked, messages will be shown in status bar for profile changes.</string>
-	<string name="prefSystemAppOff">Not installed as system app, it will not have
+    <string name="prefCapabilities">Provjeri Sposobnosti</string>
+    <string name="prefStatusbarAddTo">Status Bar Notifications</string>
+    <string name="prefStatusbarNotificationsOff">If unchecked, messages will not be shown in status bar for profile changes.</string>
+    <string name="prefKeyEnableProfilesOn">If checked, messages will be shown in status bar for profile changes.</string>
+    <string name="prefSystemAppOff">Not installed as system app, it will not have
 		access to system settings as gps.</string>
-	<string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
-	<string name="prefSystemApp">Instaliraj kao Sistemsku Apl.</string>
-	<string name="prefToastNotifications">Toast Notifications</string>
-	<string name="prefStatusbarNotifications">Status Bar Notifications</string>
-	<string name="prefCatNotifications">Notifications</string>
-	<string name="prefCatSystem">Backend</string>
-	<string name="prefEnableProfiles">Enable profiles</string>
-	<string name="prefSetCpuSetting">CPU Settings</string>
-	<string name="profileBatteryGood">Good Battery</string>
-	<string name="profileBatteryCrtitical">Critical Battery</string>
-	<string name="profileBatteryPower">Battery Power</string>
-	<string name="profileAcPower">Na Punjaču</string>
-	<string name="profileScreenOff">Ekran Isključen</string>
-	<string name="prefSystemPowerProfiles">System Power Profiles</string>
-	<string name="prefPowerProfiles">Power Profiles</string>
-	<string name="prefCustomPowerProfiles">Custom Power Profiles</string>
-	<string name="labelCpuFreq">Frequencies:</string>
-	<string name="labelCpuGov">Governor:</string>
-	<string name="labelCurrent">Current</string>
-	<string name="labelCurrentTrigger">Trigger:</string>
-	<string name="labelCurrentProfile">Profile:</string>
-	<string name="labelCurrentBattery">Battery:</string>
-	<string name="labelAcPower">Na Punjaču:</string>
-	<string name="labelMax">Max:</string>
-	<string name="labelMin">Min:</string>
-	<string name="app_name">CPU Tuner</string>
-	<string name="labelPowerProfile">Profil: </string>
-	<string name="spinnerPromptGov">Select governor</string>
-	<string name="buApplyCurProfile">Apply to current CPU profile</string>
-	<string name="notEnabled">nije uključeno</string>
-	<string name="triggersExplain">Triggers define depending on a battery level, what
+    <string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
+    <string name="prefSystemApp">Instaliraj kao Sistemsku Apl.</string>
+    <string name="prefToastNotifications">Toast Notifications</string>
+    <string name="prefStatusbarNotifications">Status Bar Notifications</string>
+    <string name="prefCatNotifications">Notifications</string>
+    <string name="prefCatSystem">Backend</string>
+    <string name="prefEnableProfiles">Enable profiles</string>
+    <string name="prefSetCpuSetting">CPU Settings</string>
+    <string name="profileBatteryGood">Good Battery</string>
+    <string name="profileBatteryCrtitical">Critical Battery</string>
+    <string name="profileBatteryPower">Battery Power</string>
+    <string name="profileAcPower">Na Punjaču</string>
+    <string name="profileScreenOff">Ekran Isključen</string>
+    <string name="prefSystemPowerProfiles">System Power Profiles</string>
+    <string name="prefPowerProfiles">Power Profiles</string>
+    <string name="prefCustomPowerProfiles">Custom Power Profiles</string>
+    <string name="labelCpuFreq">Frequencies:</string>
+    <string name="labelCpuGov">Governor:</string>
+    <string name="labelCurrent">Current</string>
+    <string name="labelCurrentTrigger">Trigger:</string>
+    <string name="labelCurrentProfile">Profile:</string>
+    <string name="labelCurrentBattery">Battery:</string>
+    <string name="labelAcPower">Na Punjaču:</string>
+    <string name="labelMax">Max:</string>
+    <string name="labelMin">Min:</string>
+    <string name="app_name">CPU Tuner</string>
+    <string name="labelPowerProfile">Profil: </string>
+    <string name="spinnerPromptGov">Select governor</string>
+    <string name="buApplyCurProfile">Apply to current CPU profile</string>
+    <string name="notEnabled">nije uključeno</string>
+    <string name="triggersExplain">Triggers define depending on a battery level, what
 		profiles should be applied. For different stated (i.e. the device is
 		on battery, on power or the display is locked) different profiles can
 		be applied.</string>
-	<string name="explainGovOnDemand">Dynamically changes frequency based on the CPU
+    <string name="explainGovOnDemand">Dynamically changes frequency based on the CPU
 		utilization with a focus on performance.</string>
-	<string name="explainGovConservative">Dynamically changes frequency based on the CPU
+    <string name="explainGovConservative">Dynamically changes frequency based on the CPU
 		utilization with a focus on saving power.</string>
-	<string name="explainGovPerformance">Sets the frequency statically to the highest
+    <string name="explainGovPerformance">Sets the frequency statically to the highest
 		available CPU frequency.</string>
-	<string name="explainGovPowersave">Sets the frequency statically to the lowest
+    <string name="explainGovPowersave">Sets the frequency statically to the lowest
 		available CPU frequency.</string>
-	<string name="explainGovUserspace">Sets the frequency statically to the given
+    <string name="explainGovUserspace">Sets the frequency statically to the given
 		frequency.</string>
-	<string name="explainGovInteractive">Designed for low latency burst workloads. Scaling
+    <string name="explainGovInteractive">Designed for low latency burst workloads. Scaling
 		is done when coming out of idle instead of polling.</string>
-	<string name="label3g2g">2/3G</string>
-	<string name="label2g">2G</string>
-	<string name="label3g">3G</string>
-	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">sync</string>
-	<string name="labelSyncOff">&lt;strike&gt;sync&lt;/strike&gt;</string>
-	<string name="labelSyncPrev">sinkr?</string>
-	<string name="labelWifiOn">WIFI</string>
-	<string name="labelWifiOff">&lt;strike&gt;WIFI&lt;/strike&gt;</string>
-	<string name="labelWifiPrev">WIFI?</string>
-	<string name="labelGpsOn">GPS</string>
-	<string name="labelGpsOff">&lt;strike&gt;GPS&lt;/strike&gt;</string>
-	<string name="labelGpsPrev">GPS?</string>
-	<string name="labelBluetoothOn">BT</string>
-	<string name="labelBluetoothOff">&lt;strike&gt;BT&lt;/strike&gt;</string>
-	<string name="labelBluetoothPrev">BT?</string>
-	<string name="labelMobiledataOn">MD</string>
-	<string name="labelMobiledataOff">&lt;strike&gt;MD&lt;/strike&gt;</string>
-	<string name="labelMobiledataPrev">MD?</string>
-	<string-array name="deviceStates">
-		<item>Ostavi nepromijenjeno</item>
-		<item>Uključi</item>
-		<item>Isključi</item>
-		<item>Natrag na prethodni</item>
-		<item>Pulse</item>
-	</string-array>
-	<string-array name="deviceStatesBeta">
-		<item>Ostavi nepromijenjeno</item>
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Natrag na prethodno</item>
-		<item>Pulse</item>
-	</string-array>
-	<string-array name="mobiledataStates">
-		<item>Ostavi nepromijenjeno</item>
-		<item>Samo 2G</item>
-		<item>3G/2G</item>
-		<item>Natrag na prethodno</item>
-		<item>samo 3G</item>
-	</string-array>
-	<string-array name="mobiledataStatesBeta">
-		<item>ostavi nepromijenjeno</item>
-		<item>Samo 2G</item>
-		<item>3G/2G</item>
-		<item>Natrag na prethodno</item>
-		<item>samo 3G</item>
-	</string-array>
-	<string-array name="prefUserLevelEntries">
-		<item><b>Početnik</b>			: CPU Tuner tries to be clever.</item>
-		<item><b>Normalno</b>			: CPU Tuner supports you.</item>
-		<item><b>Napredni korisnik</b>			: You\'re the boss!</item>
-	</string-array>
-	<string name="cbEnableVirtualGovernors">Enable Virtual Governors</string>
-	<string name="userExperianceLevelExplain">CPU Tuner can operate on different experience
+    <string name="label3g2g">2/3G</string>
+    <string name="label2g">2G</string>
+    <string name="label3g">3G</string>
+    <string name="label3g2gPrev">2/3G?</string>
+    <string name="labelSyncOn">sync</string>
+    <string name="labelSyncOff">&lt;strike&gt;sync&lt;/strike&gt;</string>
+    <string name="labelSyncPrev">sinkr?</string>
+    <string name="labelWifiOn">WIFI</string>
+    <string name="labelWifiOff">&lt;strike&gt;WIFI&lt;/strike&gt;</string>
+    <string name="labelWifiPrev">WIFI?</string>
+    <string name="labelGpsOn">GPS</string>
+    <string name="labelGpsOff">&lt;strike&gt;GPS&lt;/strike&gt;</string>
+    <string name="labelGpsPrev">GPS?</string>
+    <string name="labelBluetoothOn">BT</string>
+    <string name="labelBluetoothOff">&lt;strike&gt;BT&lt;/strike&gt;</string>
+    <string name="labelBluetoothPrev">BT?</string>
+    <string name="labelMobiledataOn">MD</string>
+    <string name="labelMobiledataOff">&lt;strike&gt;MD&lt;/strike&gt;</string>
+    <string name="labelMobiledataPrev">MD?</string>
+
+    <string-array name="deviceStates">
+        <item>Ostavi nepromijenjeno</item>
+        <item>Uključi</item>
+        <item>Isključi</item>
+        <item>Natrag na prethodni</item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="deviceStatesBeta">
+        <item>Ostavi nepromijenjeno</item>
+        <item>Enable</item>
+        <item>Disable</item>
+        <item>Natrag na prethodno</item>
+        <item>Pulse</item>
+    </string-array>
+    <string-array name="mobiledataStates">
+        <item>Ostavi nepromijenjeno</item>
+        <item>Samo 2G</item>
+        <item>3G/2G</item>
+        <item>Natrag na prethodno</item>
+        <item>samo 3G</item>
+    </string-array>
+    <string-array name="mobiledataStatesBeta">
+        <item>ostavi nepromijenjeno</item>
+        <item>Samo 2G</item>
+        <item>3G/2G</item>
+        <item>Natrag na prethodno</item>
+        <item>samo 3G</item>
+    </string-array>
+    <string-array name="prefUserLevelEntries">
+        <item><b>Početnik</b>			: CPU Tuner tries to be clever.</item>
+        <item><b>Normalno</b>			: CPU Tuner supports you.</item>
+        <item><b>Napredni korisnik</b>			: You\'re the boss!</item>
+    </string-array>
+
+    <string name="cbEnableVirtualGovernors">Enable Virtual Governors</string>
+    <string name="userExperianceLevelExplain">CPU Tuner can operate on different experience
 		levels. Depending on the level it gives you more choices and lets you
 		do more things.</string>
-	<string name="prefCallInProgressProfile">Razgovor u tijeku Profil</string>
-	<string name="prefCallInProgressProfileLong">Enables a profile that is triggered during phone
+    <string name="prefCallInProgressProfile">Razgovor u tijeku Profil</string>
+    <string name="prefCallInProgressProfileLong">Enables a profile that is triggered during phone
 		calls.</string>
-	<string name="msg_checking_capabilities">Checking capabilities</string>
-	<string name="msg_checking_governors">Checking governors …</string>
-	<string name="msg_not_enough_frequencies_found">Not enough frequencies found</string>
-	<string name="msg_no_governors_found">No governors found</string>
-	<string name="msg_not_checked">not checked</string>
-	<string name="msg_success">uspjeh</string>
-	<string name="msg_failure">neuspjeh</string>
-	<string name="msg_does_not_apply">does not apply</string>
-	<string name="msg_cannot_check">cannot check</string>
-	<string name="explainNotAvailable">No explanation available for this governor…</string>
-	<string name="title_reset_to_default">Reset to default</string>
-	<string name="msg_reset_to_default">Reseting to default will discard all your
+    <string name="msg_checking_capabilities">Checking capabilities</string>
+    <string name="msg_checking_governors">Checking governors …</string>
+    <string name="msg_not_enough_frequencies_found">Not enough frequencies found</string>
+    <string name="msg_no_governors_found">No governors found</string>
+    <string name="msg_not_checked">not checked</string>
+    <string name="msg_success">uspjeh</string>
+    <string name="msg_failure">neuspjeh</string>
+    <string name="msg_does_not_apply">does not apply</string>
+    <string name="msg_cannot_check">cannot check</string>
+    <string name="explainNotAvailable">No explanation available for this governor…</string>
+    <string name="title_reset_to_default">Reset to default</string>
+    <string name="msg_reset_to_default">Reseting to default will discard all your
 		modifications on triggers and profiles, including newly created.</string>
-	<string name="msg_loading_default_profiles">Loading default profiles</string>
-	<string name="profilename_performance">Performance</string>
-	<string name="profilename_good">Dobro</string>
-	<string name="profilename_normal">Normalno</string>
-	<string name="profilename_screen_off">Ekran isključen</string>
-	<string name="profilename_extreme_powersave">Ekstremna štednja</string>
-	<string name="triggername_battery_full">Baterija puna</string>
-	<string name="triggername_battery_used">Baterija iskorištena</string>
-	<string name="triggername_battery_low">Baterija nisko</string>
-	<string name="triggername_battery_empty">Baterija prazna</string>
-	<string name="triggername_battery_critical">Baterija kritično</string>
-	<string name="virtgovname_full_speed">Puna brzina</string>
-	<string name="virtgovname_normal">Normalno</string>
-	<string name="virtgovname_save_battery">Čuvaj bateriju</string>
-	<string name="virtgovname_extrem_save_battery">Ekstremno čuvanje baterije</string>
-	<string name="title_reboot">Ponovno pokretanje</string>
-	<string name="msg_reboot">The automatic (save) reboot failed. Please do a
+    <string name="msg_loading_default_profiles">Loading default profiles</string>
+    <string name="profilename_performance">Performance</string>
+    <string name="profilename_good">Dobro</string>
+    <string name="profilename_normal">Normalno</string>
+    <string name="profilename_screen_off">Ekran isključen</string>
+    <string name="profilename_extreme_powersave">Ekstremna štednja</string>
+    <string name="triggername_battery_full">Baterija puna</string>
+    <string name="triggername_battery_used">Baterija iskorištena</string>
+    <string name="triggername_battery_low">Baterija nisko</string>
+    <string name="triggername_battery_empty">Baterija prazna</string>
+    <string name="triggername_battery_critical">Baterija kritično</string>
+    <string name="virtgovname_full_speed">Puna brzina</string>
+    <string name="virtgovname_normal">Normalno</string>
+    <string name="virtgovname_save_battery">Čuvaj bateriju</string>
+    <string name="virtgovname_extrem_save_battery">Ekstremno čuvanje baterije</string>
+    <string name="title_reboot">Ponovno pokretanje</string>
+    <string name="msg_reboot">The automatic (save) reboot failed. Please do a
 		manual reboot by long pressing the power button, otherwise CPU Tuner
 		will not work.</string>
-	<string name="bu_system_reboot">Ponovno pokretanje sustava (ne preporučujem)</string>
-	<string name="title_uninstall_sys">Deinstaliraj CPU tuner kao aplikaciju sustava</string>
-	<string name="bu_yes_uninstall_sys">Deinstaliraj i ponovno pokreni</string>
-	<string name="msg_uninstall_sys">Potrebno ponovno pokrenuti, stiskajući \'deinstaliraj i ponovn pokreni\' uređaj će se ponovno pokrenuti.</string>
-	<string name="msg_install_sys">Potrebno ponovno pokrenuti, stiskajući \'instaliraj i ponovn pokreni\' uređaj će se ponovno pokrenuti.</string>
-	<string name="bu_yes_title_install_sys">Instaliraj i restartaj</string>
-	<string name="title_install_sys">Instaliraj CPU Tuner kao aplikaciju sustava</string>
-	<string name="msg_has_issues">Postoje problemi</string>
-	<string name="msg_not_working">Ne radi</string>
-	<string name="msg_working">Radi</string>
-	<string name="msg_premail_no_issues">Problemi nisu pronađeni…\nAko ste zadovoljni i želite ostaviti komentar:\nKomentari i dobre ocjene na Playu su dobrodošle…</string>
-	<string name="msg_premail_no_root">CPU Tuner nema root pristup!\nCPU Tuner
+    <string name="bu_system_reboot">Ponovno pokretanje sustava (ne preporučujem)</string>
+    <string name="title_uninstall_sys">Deinstaliraj CPU tuner kao aplikaciju sustava</string>
+    <string name="bu_yes_uninstall_sys">Deinstaliraj i ponovno pokreni</string>
+    <string name="msg_uninstall_sys">Potrebno ponovno pokrenuti, stiskajući \'deinstaliraj i ponovn pokreni\' uređaj će se ponovno pokrenuti.</string>
+    <string name="msg_install_sys">Potrebno ponovno pokrenuti, stiskajući \'instaliraj i ponovn pokreni\' uređaj će se ponovno pokrenuti.</string>
+    <string name="bu_yes_title_install_sys">Instaliraj i restartaj</string>
+    <string name="title_install_sys">Instaliraj CPU Tuner kao aplikaciju sustava</string>
+    <string name="msg_has_issues">Postoje problemi</string>
+    <string name="msg_not_working">Ne radi</string>
+    <string name="msg_working">Radi</string>
+    <string name="msg_premail_no_issues">Problemi nisu pronađeni…\nAko ste zadovoljni i želite ostaviti komentar:\nKomentari i dobre ocjene na Playu su dobrodošle…</string>
+    <string name="msg_premail_no_root">CPU Tuner nema root pristup!\nCPU Tuner
 		ne može ništa napraviti!</string>
-	<string name="msg_premail_issues">You configuration has issues…\nThis is most
+    <string name="msg_premail_issues">You configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM</string>
-	<string name="msg_premail_issues_cm">You configuration has issues…\nThis is most
+    <string name="msg_premail_issues_cm">You configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM\nYou might want to have a look at
 		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
-	<string name="title_profile_editor">Uređivanje Profila</string>
-	<string name="title_profiles">Profili</string>
-	<string name="title_trigger_editor">Uređivač okidača</string>
-	<string name="msg_delete_selected_item">Obriši odabrane stavke?</string>
-	<string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of \"%s\" trigger?</string>
-	<string name="msg_setting_cpu_max_freq">Postavljanje CPU max frekvencije na %d Hz</string>
-	<string name="setting_cpu_min_freq">Postavljanje CPU min frekvencije na %d Hz</string>
-	<string name="msg_setting_govenor">Setting governor to %s</string>
-	<string name="msg_found_some_issues">Postoje problemi… Neke značajke možda neće raditi.
+    <string name="title_profile_editor">Uređivanje Profila</string>
+    <string name="title_profiles">Profili</string>
+    <string name="title_trigger_editor">Uređivač okidača</string>
+    <string name="msg_delete_selected_item">Obriši odabrane stavke?</string>
+    <string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of \"%s\" trigger?</string>
+    <string name="msg_setting_cpu_max_freq">Postavljanje CPU max frekvencije na %d Hz</string>
+    <string name="setting_cpu_min_freq">Postavljanje CPU min frekvencije na %d Hz</string>
+    <string name="msg_setting_govenor">Setting governor to %s</string>
+    <string name="msg_found_some_issues">Postoje problemi… Neke značajke možda neće raditi.
 		(Klikni za više informacija.)</string>
-	<string name="label_hot">vruće: </string>
-	<string name="label_avgerage">pros.: </string>
-	<string name="label_tresh_up">gore: </string>
-	<string name="label_tresh_down">dolje: </string>
+    <string name="label_hot">vruće: </string>
+    <string name="label_avgerage">pros.: </string>
+    <string name="label_tresh_up">gore: </string>
+    <string name="label_tresh_down">dolje: </string>
+
 </resources>

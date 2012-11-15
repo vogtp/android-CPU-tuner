@@ -32,6 +32,7 @@ public interface DB {
 					CpuProfile.URI_TABLE_MAPPING,
 					SwitchLogDB.URI_TABLE_MAPPING,
 					TimeInStateIndex.URI_TABLE_MAPPING,
+					TimeInStateIndex.URI_TABLE_MAPPING_DISTINCT,
 					TimeInStateValue.URI_TABLE_MAPPING,
 					TimeInStateValue.URI_TABLE_MAPPING_GROUPED,
 					Trigger.URI_TABLE_MAPPING,
@@ -43,7 +44,7 @@ public interface DB {
 
 	public class OpenHelper extends SQLiteOpenHelper {
 
-		private static final int DATABASE_VERSION = 16;
+		private static final int DATABASE_VERSION = 17;
 
 		private static final String CREATE_TRIGGERS_TABLE = "create table if not exists " + Trigger.TABLE_NAME + " (" + DB.NAME_ID + " integer primary key, "
 				+ DB.Trigger.NAME_TRIGGER_NAME + " text, " + DB.Trigger.NAME_BATTERY_LEVEL + " int," + DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID + " long,"
@@ -53,7 +54,7 @@ public interface DB {
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_LCK + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_LCK + " long,"
 				+ DB.Trigger.NAME_HOT_PROFILE_ID + " long default -1," + DB.Trigger.NAME_POWER_CURRENT_SUM_HOT + " long,"
 				+ DB.Trigger.NAME_POWER_CURRENT_CNT_HOT + " long," + DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID + " long,"
-				+ DB.Trigger.NAME_POWER_CURRENT_SUM_CALL + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_CALL + " long)";
+				+ DB.Trigger.NAME_POWER_CURRENT_SUM_CALL + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_CALL + " long," + DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID + " long)";
 
 		private static final String CREATE_CPUPROFILES_TABLE = "create table if not exists " + CpuProfile.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
@@ -204,6 +205,10 @@ public interface DB {
 				db.execSQL("create index idx_tis_tigger on " + TimeInStateIndex.TABLE_NAME + " (" + TimeInStateIndex.NAME_TRIGGER + "); ");
 				db.execSQL("create index idx_tis_profile on " + TimeInStateIndex.TABLE_NAME + " (" + TimeInStateIndex.NAME_PROFILE + "); ");
 
+			case 16:
+				Logger.w("Upgrading to DB Version 16...");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID + " long;");
+
 			default:
 				Logger.w("Finished DB upgrading!");
 				break;
@@ -219,12 +224,12 @@ public interface DB {
 
 		public static final boolean NOTIFY_ON_CHANGE = true;
 
-		public static final String NAME_TRIGGER_NAME = "triggerName";
-		public static final String NAME_BATTERY_LEVEL = "batteryLevel";
-		public static final String NAME_SCREEN_OFF_PROFILE_ID = "screenOffProfileId";
-		public static final String NAME_BATTERY_PROFILE_ID = "batteryProfileId";
-		public static final String NAME_POWER_PROFILE_ID = "powerProfileId";
-		public static final String NAME_POWER_CURRENT_SUM_POW = "powerCurrentSumPower";
+		public static final String NAME_TRIGGER_NAME = TABLE_NAME + "." + "triggerName";
+		public static final String NAME_BATTERY_LEVEL = TABLE_NAME + "." + "batteryLevel";
+		public static final String NAME_SCREEN_OFF_PROFILE_ID = TABLE_NAME + "." + "screenOffProfileId";
+		public static final String NAME_BATTERY_PROFILE_ID = TABLE_NAME + "." + "batteryProfileId";
+		public static final String NAME_POWER_PROFILE_ID = TABLE_NAME + "." + "powerProfileId";
+		public static final String NAME_POWER_CURRENT_SUM_POW = TABLE_NAME + "." + "powerCurrentSumPower";
 		public static final String NAME_POWER_CURRENT_CNT_POW = "powerCurrentCntPower";
 		public static final String NAME_POWER_CURRENT_SUM_BAT = "powerCurrentSumBattery";
 		public static final String NAME_POWER_CURRENT_CNT_BAT = "powerCurrentCntBattery";
@@ -236,6 +241,7 @@ public interface DB {
 		public static final String NAME_CALL_IN_PROGRESS_PROFILE_ID = "callInProgressProfileId";
 		public static final String NAME_POWER_CURRENT_SUM_CALL = "powerCurrentSumCall";
 		public static final String NAME_POWER_CURRENT_CNT_CALL = "powerCurrentCntCall";
+		public static final String NAME_SCREEN_UNLOCKED_PROFILE_ID = "screenUnlockedProfileId";
 
 		public static final int INDEX_TRIGGER_NAME = 1;
 		public static final int INDEX_BATTERY_LEVEL = 2;
@@ -254,6 +260,7 @@ public interface DB {
 		public static final int INDEX_CALL_IN_PROGRESS_PROFILE_ID = 15;
 		public static final int INDEX_POWER_CURRENT_SUM_CALL = 16;
 		public static final int INDEX_POWER_CURRENT_CNT_CALL = 17;
+		public static final int INDEX_SCREEN_UNLOCKED_PROFILE_ID = 18;
 
 		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
 		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
@@ -264,7 +271,7 @@ public interface DB {
 		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
 				NAME_BATTERY_PROFILE_ID, NAME_POWER_PROFILE_ID, NAME_POWER_CURRENT_SUM_POW, NAME_POWER_CURRENT_CNT_POW, NAME_POWER_CURRENT_SUM_BAT,
 				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK, NAME_HOT_PROFILE_ID, NAME_POWER_CURRENT_SUM_HOT,
-				NAME_POWER_CURRENT_CNT_HOT, NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL };
+				NAME_POWER_CURRENT_CNT_HOT, NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL, NAME_SCREEN_UNLOCKED_PROFILE_ID };
 
 		public static final String[] PROJECTION_BATTERY_LEVEL = new String[] { NAME_ID, NAME_BATTERY_LEVEL };
 
@@ -434,6 +441,10 @@ public interface DB {
 
 		public static final boolean NOTIFY_ON_CHANGE = false;
 
+		public static final long LOCK_TYPE_OFF = 0;
+		public static final long LOCK_TYPE_UNLOCKED = 1;
+		public static final long LOCK_TYPE_LOCKED = 2;
+
 		public static final String NAME_TIME = "time";
 		public static final String NAME_MESSAGE = "message";
 		public static final String NAME_TRIGGER = "trigger";
@@ -490,12 +501,17 @@ public interface DB {
 		public static final int INDEX_PROFILE = 3;
 		public static final int INDEX_VIRTGOV = 4;
 
-		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
 		public static final String CONTENT_ITEM_NAME_DISTINCT = TABLE_NAME + "_DISTINCT";
-		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
 		public static String CONTENT_URI_STRING_DISTINCT = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME_DISTINCT;
-		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
 		public static Uri CONTENT_URI_DISTINCT = Uri.parse(CONTENT_URI_STRING_DISTINCT);
+		static final String CONTENT_TYPE_DISTINCT = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME_DISTINCT;
+		static final String CONTENT_ITEM_TYPE_DISTINCT = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME_DISTINCT;
+		public static final UriTableMapping URI_TABLE_MAPPING_DISTINCT = new UriTableMapping(CONTENT_URI_DISTINCT, TABLE_NAME, CONTENT_ITEM_NAME_DISTINCT, CONTENT_TYPE_DISTINCT,
+				CONTENT_ITEM_TYPE_DISTINCT, NOTIFY_ON_CHANGE, true);
+
+		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
+		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
+		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
 		static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
 		static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME;
 		public static final UriTableMapping URI_TABLE_MAPPING = new UriTableMapping(CONTENT_URI, TABLE_NAME, CONTENT_ITEM_NAME, CONTENT_TYPE, CONTENT_ITEM_TYPE, NOTIFY_ON_CHANGE);
@@ -508,7 +524,8 @@ public interface DB {
 		public static final String SORTORDER_DEFAULT = NAME_TIME + " DESC";
 		public static final String SORTORDER_REVERSE = NAME_TIME + " ASC";
 
-		public static final String SELECTION_TRIGGER_PROFILE_VIRTGOV = NAME_TRIGGER + " like ? and " + NAME_PROFILE + " like ? and " + NAME_VIRTGOV + " like ?";
+		public static final String SELECTION_TRIGGER_PROFILE_VIRTGOV = TABLE_NAME + "." + NAME_TRIGGER + " like ? and " + TABLE_NAME + "." + NAME_PROFILE + " like ? and "
+				+ TABLE_NAME + "." + NAME_VIRTGOV + " like ?";
 
 	}
 
@@ -518,9 +535,9 @@ public interface DB {
 
 		public static final boolean NOTIFY_ON_CHANGE = false;
 
-		public static final String NAME_IDX = "tisIndex";
-		public static final String NAME_STATE = "state";
-		public static final String NAME_TIME = "time";
+		public static final String NAME_IDX = TABLE_NAME + "." + "tisIndex";
+		public static final String NAME_STATE = TABLE_NAME + "." + "state";
+		public static final String NAME_TIME = TABLE_NAME + "." + "time";
 
 		public static final int INDEX_IDX = 1;
 		public static final int INDEX_STATE = 2;
@@ -533,7 +550,7 @@ public interface DB {
 		static final String CONTENT_ITEM_TYPE_GROUPED = "vnd.android.cursor.item/" + AUTHORITY + "." + CONTENT_ITEM_NAME_GROUPED;
 		public static final UriTableMapping URI_TABLE_MAPPING_GROUPED = new UriTableMapping(CONTENT_URI_GROUPED, TimeInStateValue.TABLE_NAME + ", " + TimeInStateIndex.TABLE_NAME,
 				CONTENT_ITEM_NAME_GROUPED, CONTENT_TYPE_GROUPED, CONTENT_ITEM_TYPE_GROUPED, NOTIFY_ON_CHANGE, "TimeInStateValue.tisIndex=TimeInStateIndex._id",
-				TimeInStateIndex.TABLE_NAME + ".");
+				TimeInStateValue.NAME_STATE, TimeInStateIndex.TABLE_NAME + ".", false);
 
 		public static final String CONTENT_ITEM_NAME = TABLE_NAME;
 		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;

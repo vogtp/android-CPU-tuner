@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.PowerProfiles;
+import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.provider.DB.OpenHelper;
 
 public class CpuTunerProvider extends ContentProvider {
@@ -27,14 +28,20 @@ public class CpuTunerProvider extends ContentProvider {
 		public final String contentItemType;
 		public boolean notifyOnChange;
 		public final String specialWhere;
+		public String groupBy;
 		public final String idTableName;
+		public boolean distinct;
 
 		public UriTableMapping(Uri contenUri, String tableName, String contentItemName, String contentType, String contentItemType, boolean notifyOnChange) {
-			this(contenUri, tableName, contentItemName, contentType, contentItemType, notifyOnChange, null, "");
+			this(contenUri, tableName, contentItemName, contentType, contentItemType, notifyOnChange, null, null, "", false);
+		}
+
+		public UriTableMapping(Uri contenUri, String tableName, String contentItemName, String contentType, String contentItemType, boolean notifyOnChange, boolean distinct) {
+			this(contenUri, tableName, contentItemName, contentType, contentItemType, notifyOnChange, null, null, "", distinct);
 		}
 
 		public UriTableMapping(Uri contenUri, String tableName, String contentItemName, String contentType, String contentItemType, boolean notifyOnChange, String specialWhere,
-				String idTableName) {
+				String groupBy, String idTableName, boolean distinct) {
 			super();
 			this.contenUri = contenUri;
 			this.tableName = tableName;
@@ -43,7 +50,9 @@ public class CpuTunerProvider extends ContentProvider {
 			this.contentItemType = contentItemType;
 			this.notifyOnChange = notifyOnChange;
 			this.specialWhere = specialWhere;
+			this.groupBy = groupBy;
 			this.idTableName = idTableName;
+			this.distinct = distinct;
 		}
 	}
 
@@ -124,7 +133,8 @@ public class CpuTunerProvider extends ContentProvider {
 			qb.appendWhere(utm.specialWhere);
 		}
 
-		switch (uriContentTypeMatcher.match(uri)) {
+		int match = uriContentTypeMatcher.match(uri);
+		switch (match) {
 		case CONTENT:
 			break;
 
@@ -135,10 +145,13 @@ public class CpuTunerProvider extends ContentProvider {
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
+		qb.setDistinct(utm.distinct);
 
 		// Get the database and run the query
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+		String sql = qb.buildQuery(projection, selection, selectionArgs, utm.groupBy, null, sortOrder, null);
+		Logger.d(sql);
+		Cursor c = qb.query(db, projection, selection, selectionArgs, utm.groupBy, null, sortOrder);
 		// Tell the cursor what uri to watch, so it knows when its source data
 		// changes
 		c.setNotificationUri(getContext().getContentResolver(), uri);
@@ -197,7 +210,14 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	private UriTableMapping getUriTableMap(Uri uri) {
-		return DB.UriTableConfig.map[uriTableMatcher.match(uri)];
+		int match = uriTableMatcher.match(uri);
+		UriTableMapping[] map = DB.UriTableConfig.map; //content://ch.amana.android.cputuner/TimeInStateIndex_DISTINCT
+		if (match < 0 || match > map.length - 1) {
+			ArrayIndexOutOfBoundsException e = new ArrayIndexOutOfBoundsException(match);
+			Logger.e("No uri table machting: ", e);
+			throw e;
+		}
+		return DB.UriTableConfig.map[match];
 	}
 
 	public static void deleteAllTables(Context ctx, boolean deleteAutoloadConfig) {

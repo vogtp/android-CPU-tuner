@@ -1,626 +1,643 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="prefMakeFilesWritable">파일에 직접 쓰기</string>
-	<string name="prefMakeFilesWritableLong">sysfs 파일에 직접 쓰기. 이는 전환을 빨라지게 하고 젤리빈에서의 문제를 해결합니다. 하지만 몇몇 커널에서는 문제를 일으키는 것으로 알려졌습니다.</string>
-	<string name="prefAuthorsSettings">제작자의 설정 사용</string>
-	<string name="prefAuthorsSettingsLong">제작자가 선호하는 설정 사용. 이는 예상 밖의 행동을 내거나 당신의 기기에서 제대로 동작하지 않는 것들을 활성화할 수 있습니다. 이는 모든 값을 초기화하진 않지만, 일부 설정만 제 비공식 디폴트로 변경합니다. 주의해서 사용하세요...!</string>
-	<string name="prefRunSwitchInBackground">백그라운드 프로필 전환</string>
-	<string name="prefRunSwitchInBackgroundOn">프로필 전환이 백그라운드 스레드에서 이루어집니다. 이는 전환을 약간 지연시킬 수 있지만, 안드로이드
+
+    <string name="prefMakeFilesWritable">파일에 직접 쓰기</string>
+    <string name="prefMakeFilesWritableLong">sysfs 파일에 직접 쓰기. 이는 전환을 빨라지게 하고 젤리빈에서의 문제를 해결합니다. 하지만 몇몇 커널에서는 문제를 일으키는 것으로 알려졌습니다.</string>
+    <string name="prefAuthorsSettings">제작자의 설정 사용</string>
+    <string name="prefAuthorsSettingsLong">제작자가 선호하는 설정 사용. 이는 예상 밖의 행동을 내거나 당신의 기기에서 제대로 동작하지 않는 것들을 활성화할 수 있습니다. 이는 모든 값을 초기화하진 않지만, 일부 설정만 제 비공식 디폴트로 변경합니다. 주의해서 사용하세요...!</string>
+    <string name="prefRunSwitchInBackground">백그라운드 프로필 전환</string>
+    <string name="prefRunSwitchInBackgroundOn">프로필 전환이 백그라운드 스레드에서 이루어집니다. 이는 전환을 약간 지연시킬 수 있지만, 안드로이드
 		방식입니다.</string>
-	<string name="prefRunSwitchInBackgroundOff">프로필 전환이 포어그라운드 스레드에서 이루어집니다. 이는 전환 속도를 가속시킬 수 있지만, cpu 튜너가 응답없게 할 수도 있습니다.</string>
-	<string name="prefWidgetShowLabels">라벨 표시</string>
-	<string name="prefUnitSystem">단위</string>
-	<string name="prefUnitSystemLong">°C, °F 또는 K로 온도표시.</string>
-	<string-array name="prefUnitSystemEntries">
-		<item>기본</item>
-		<item>임페리얼</item>
-		<item>SI</item>
-	</string-array>
-	<string name="prefWidgetTextSize">텍스트 사이즈</string>
-	<string-array name="prefWidgetTextSizeEntries">
-		<item>매우작은</item>
-		<item>작은</item>
-		<item>중간</item>
-		<item>큰</item>
-	</string-array>
-	<string name="deep_sleep">딥 슬립</string>
-	<string-array name="prefCalcPowerUsageEntries">
-		<item>평균 수치</item>
-		<item>현재 수치</item>
-	<!-- 		<item>Battery % per Hour</item> -->
-		<item>계산 안함</item>
-	</string-array>
-	<string-array name="prefCalcPowerUsageEntriesBeta">
-		<item>평균 수치</item>
-		<item>현재 수치</item>
-		<item>시간당 배터리 %</item>
-		<item>계산 안함</item>
-	</string-array>
-	<string-array name="deviceStatesCurrent">
-	<!-- 		<item>Auto</item> -->
-		<item>활성화</item>
-		<item>비활성화</item>
-		<item>펄스</item>
-	</string-array>
-	<string-array name="mobiledataStatesCurrent">
-	<!-- 		<item>Auto</item> -->
-		<item>2G만</item>
-		<item>3G/2G</item>
-		<item>3G만</item>
-	</string-array>
-	<string name="log_msg_cpu_tuner_started">CPU 튜너 시작됨</string>
-	<string name="log_msg_cpu_tuner_stoped">CPU 튜너 중지됨</string>
-	<string name="log_msg_switchlog_start">로그 시작</string>
-	<string name="log_msg_switchlog_stop">로그 중지</string>
-	<string name="menuItemClearAllPowerCurrent">전력 사용량 지우기</string>
-	<string name="msg_clear_power_consumption_of_all_triggers">모든 트리거의 전력 소모량을 지웁니까?</string>
-	<string name="labelAppWidgetProfile2x1">CPU 튜너 (작음)</string>
-	<string name="labelAppWidgetProfile2x2">CPU 튜너</string>
-	<string name="not_supported">지원 안함!</string>
-	<string name="msg_no_battery_current">이 기기는 배터리 전류 추적을 지원 안합니다.</string>
-	<string name="msg_no_avg_battery_current">이 기기는 평균 배터리 전류 추적을 지원안합니다.</string>
-	<string name="prefWidgetUI">표시된 정보</string>
-	<string name="prefShowIcon">CPU 튜너 아이콘</string>
-	<string name="prefShowIconLong">CPU 튜너 동작에 사용됨</string>
-	<string name="title_cannot_save">저장 불가</string>
-	<string name="cbInclSwitchLog">메일에 전환 로그 포함.</string>
-	<string name="name_extention_widget">위젯 확장</string>
-	<string name="desc_extention_widget">위젯은 CPU 튜너의 기능을 홈화면에서 접근할 수 있게 해줍니다.</string>
-	<string name="prefCatWidget">위젯</string>
-	<string name="prefHasWidget">위젯 활성화</string>
-	<string name="msgWidgetLoading">로딩중…</string>
-	<string name="msg_widgets_not_installed">CPU 튜너 위젯이 비활성됨.</string>
-	<string name="title_install_widget_dia">위젯 설치되지 않음</string>
-	<string name="msg_install_widget_dia">위젯 확장이 설치되지 않아 위젯이 추가될 수 없습니다</string>
-	<string name="buNeg_install_widget_dia">필요없음.</string>
-	<string name="buPos_install_widget_dia">설치하기…</string>
-	<string name="tigger_name_all">모두</string>
-	<string name="tigger_name_batteryfull">배터리 가득참</string>
-	<string name="tigger_name_batteryused">배터리 사용됨</string>
-	<string name="tigger_name_batterylow">배터리 적음</string>
-	<string name="tigger_name_batteryempty">배터리 없음</string>
-	<string name="tigger_name_batterycritical">배터리 위험함</string>
-	<string name="profile_name_performance">성능</string>
-	<string name="profile_name_good">양호</string>
-	<string name="profile_name_normal">보통</string>
-	<string name="profile_name_screenoff">화면 꺼짐</string>
-	<string name="profile_name_screenon">화면 켜짐</string>
-	<string name="profile_name_powersave">파워세이브</string>
-	<string name="profile_name_extremepowersave">극도의 파워세이브</string>
-	<string name="gov_name_fullspeed">풀스피드</string>
-	<string name="gov_name_normal">보통</string>
-	<string name="gov_name_extremeSaveBattery">극도의 배터리 절약</string>
-	<string name="gov_name_saveBattery">배터리 절약</string>
-	<string name="configuration_title_sophisticated">세련</string>
-	<string name="configuration_description_sophisticated">배터리 레벨에 따라 CPU를 조절하기 위해 여러 트리거가 사용됩니다. 서비스 전환은 동작 안합니다.</string>
-	<string name="configuration_title_uniform">균일</string>
-	<string name="configuration_description_uniform">배터리 레벨에 상관없이 CPU가 기기 상태에 따라 조절됩니다. 서비스 전환은 동작 안합니다.</string>
-	<string name="configuration_title_simplePowerful">간단 &amp; 강력</string>
-	<string name="configuration_description_simplePowerful">D. 가 그의 블로그에 설명한 프로필(http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html)이고 데이터 스위칭은 없습니다.</string>
-	<string name="configuration_title_extreme">극도</string>
-	<string name="configuration_description_extreme">이것은 이전의 기본적인 구성입니다. 세련과 비슷하지만, 훨씬 엄격한 구성을 사용합니다. 배터리를
+    <string name="prefRunSwitchInBackgroundOff">프로필 전환이 포어그라운드 스레드에서 이루어집니다. 이는 전환 속도를 가속시킬 수 있지만, cpu 튜너가 응답없게 할 수도 있습니다.</string>
+    <string name="prefWidgetShowLabels">라벨 표시</string>
+    <string name="prefUnitSystem">단위</string>
+    <string name="prefUnitSystemLong">°C, °F 또는 K로 온도표시.</string>
+
+    <string-array name="prefUnitSystemEntries">
+        <item>기본</item>
+        <item>임페리얼</item>
+        <item>SI</item>
+    </string-array>
+
+    <string name="prefWidgetTextSize">텍스트 사이즈</string>
+
+    <string-array name="prefWidgetTextSizeEntries">
+        <item>매우작은</item>
+        <item>작은</item>
+        <item>중간</item>
+        <item>큰</item>
+    </string-array>
+
+    <string name="deep_sleep">딥 슬립</string>
+
+    <string-array name="prefCalcPowerUsageEntries">
+        <item>평균 수치</item>
+        <item>현재 수치</item>
+        <!-- <item>Battery % per Hour</item> -->
+        <item>계산 안함</item>
+    </string-array>
+    <string-array name="prefCalcPowerUsageEntriesBeta">
+        <item>평균 수치</item>
+        <item>현재 수치</item>
+        <item>시간당 배터리 %</item>
+        <item>계산 안함</item>
+    </string-array>
+    <string-array name="deviceStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>활성화</item>
+        <item>비활성화</item>
+        <item>펄스</item>
+    </string-array>
+    <string-array name="mobiledataStatesCurrent">
+
+        <!-- <item>Auto</item> -->
+        <item>2G만</item>
+        <item>3G/2G</item>
+        <item>3G만</item>
+    </string-array>
+
+    <string name="log_msg_cpu_tuner_started">CPU 튜너 시작됨</string>
+    <string name="log_msg_cpu_tuner_stoped">CPU 튜너 중지됨</string>
+    <string name="log_msg_switchlog_start">로그 시작</string>
+    <string name="log_msg_switchlog_stop">로그 중지</string>
+    <string name="menuItemClearAllPowerCurrent">전력 사용량 지우기</string>
+    <string name="msg_clear_power_consumption_of_all_triggers">모든 트리거의 전력 소모량을 지웁니까?</string>
+    <string name="labelAppWidgetProfile2x1">CPU 튜너 (작음)</string>
+    <string name="labelAppWidgetProfile2x2">CPU 튜너</string>
+    <string name="not_supported">지원 안함!</string>
+    <string name="msg_no_battery_current">이 기기는 배터리 전류 추적을 지원 안합니다.</string>
+    <string name="msg_no_avg_battery_current">이 기기는 평균 배터리 전류 추적을 지원안합니다.</string>
+    <string name="prefWidgetUI">표시된 정보</string>
+    <string name="prefShowIcon">CPU 튜너 아이콘</string>
+    <string name="prefShowIconLong">CPU 튜너 동작에 사용됨</string>
+    <string name="title_cannot_save">저장 불가</string>
+    <string name="cbInclSwitchLog">메일에 전환 로그 포함.</string>
+    <string name="name_extention_widget">위젯 확장</string>
+    <string name="desc_extention_widget">위젯은 CPU 튜너의 기능을 홈화면에서 접근할 수 있게 해줍니다.</string>
+    <string name="prefCatWidget">위젯</string>
+    <string name="prefHasWidget">위젯 활성화</string>
+    <string name="msgWidgetLoading">로딩중…</string>
+    <string name="msg_widgets_not_installed">CPU 튜너 위젯이 비활성됨.</string>
+    <string name="title_install_widget_dia">위젯 설치되지 않음</string>
+    <string name="msg_install_widget_dia">위젯 확장이 설치되지 않아 위젯이 추가될 수 없습니다</string>
+    <string name="buNeg_install_widget_dia">필요없음.</string>
+    <string name="buPos_install_widget_dia">설치하기…</string>
+    <string name="tigger_name_all">모두</string>
+    <string name="tigger_name_batteryfull">배터리 가득참</string>
+    <string name="tigger_name_batteryused">배터리 사용됨</string>
+    <string name="tigger_name_batterylow">배터리 적음</string>
+    <string name="tigger_name_batteryempty">배터리 없음</string>
+    <string name="tigger_name_batterycritical">배터리 위험함</string>
+    <string name="profile_name_performance">성능</string>
+    <string name="profile_name_good">양호</string>
+    <string name="profile_name_normal">보통</string>
+    <string name="profile_name_screenoff">화면 꺼짐</string>
+    <string name="profile_name_screenon">화면 켜짐</string>
+    <string name="profile_name_powersave">파워세이브</string>
+    <string name="profile_name_extremepowersave">극도의 파워세이브</string>
+    <string name="gov_name_fullspeed">풀스피드</string>
+    <string name="gov_name_normal">보통</string>
+    <string name="gov_name_extremeSaveBattery">극도의 배터리 절약</string>
+    <string name="gov_name_saveBattery">배터리 절약</string>
+    <string name="configuration_title_sophisticated">세련</string>
+    <string name="configuration_description_sophisticated">배터리 레벨에 따라 CPU를 조절하기 위해 여러 트리거가 사용됩니다. 서비스 전환은 동작 안합니다.</string>
+    <string name="configuration_title_uniform">균일</string>
+    <string name="configuration_description_uniform">배터리 레벨에 상관없이 CPU가 기기 상태에 따라 조절됩니다. 서비스 전환은 동작 안합니다.</string>
+    <string name="configuration_title_simplePowerful">간단 &amp; 강력</string>
+    <string name="configuration_description_simplePowerful">D. 가 그의 블로그에 설명한 프로필(http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html)이고 데이터 스위칭은 없습니다.</string>
+    <string name="configuration_title_extreme">극도</string>
+    <string name="configuration_description_extreme">이것은 이전의 기본적인 구성입니다. 세련과 비슷하지만, 훨씬 엄격한 구성을 사용합니다. 배터리를
 		더 절약하는 반면 성능은 더 나빠집니다.</string>
-	<string name="auto">자동</string>
-	<string name="msg_manual_profile">수동</string>
-	<string name="labelMessage">메시지:</string>
-	<string name="labelState">상태:</string>
-	<string name="labelTime">시간:</string>
-	<string name="prefCatSwitchCpuSettings">프로필 전환시 CPU 구성</string>
-	<string name="prefEnableSwitchCpuSetting">프로필 전환시 특별한 CPU 구성 사용</string>
-	<string name="prefEnableSwitchCpuSettingOn">프로필 전환시 특별한 CPU 구성이 사용됩니다.</string>
-	<string name="prefEnableSwitchCpuSettingOff">프로필 전환시 프로필의 CPU 구성이 사용됩니다.</string>
-	<string name="prefSwitchCpuSetting">프로필 전환시 CPU 구성</string>
-	<string name="prefSwitchCpuSettingLong">이 CPU 구성이 프로필 전환시 사용됩니다. 	심하게 언더클러킹 시 프로필 전환을 가속할 수
+    <string name="auto">자동</string>
+    <string name="msg_manual_profile">수동</string>
+    <string name="labelMessage">메시지:</string>
+    <string name="labelState">상태:</string>
+    <string name="labelTime">시간:</string>
+    <string name="prefCatSwitchCpuSettings">프로필 전환시 CPU 구성</string>
+    <string name="prefEnableSwitchCpuSetting">프로필 전환시 특별한 CPU 구성 사용</string>
+    <string name="prefEnableSwitchCpuSettingOn">프로필 전환시 특별한 CPU 구성이 사용됩니다.</string>
+    <string name="prefEnableSwitchCpuSettingOff">프로필 전환시 프로필의 CPU 구성이 사용됩니다.</string>
+    <string name="prefSwitchCpuSetting">프로필 전환시 CPU 구성</string>
+    <string name="prefSwitchCpuSettingLong">이 CPU 구성이 프로필 전환시 사용됩니다. 	심하게 언더클러킹 시 프로필 전환을 가속할 수
 		있습니다(언더클러킹은 추천하지 않습니다).</string>
-	<string name="label_back">뒤로 가기</string>
-	<string name="label_forward">앞으로 가기</string>
-	<string name="label_home">홈</string>
-	<string name="prefCatEngine">엔진</string>
-	<string name="prefCatHelper">도우미</string>
-	<string name="msg_config_loaded">불려옴</string>
-	<string name="msg_config">구성</string>
-	<string name="all">모두</string>
-	<string name="labelNoDataForFilter">이 필터조합의 정보가 발견되지 않았습니다.</string>
-	<string name="prefCatAdvStatistics">발전된 통계와 로깅</string>
-	<string name="prefCatExtention">확장</string>
-	<string name="prefEnableExtention">확장 활성화</string>
-	<string name="prefEnableSwitchLog">프로필 전환 로그 활성화</string>
-	<string name="prefCatStatistics">통계</string>
-	<string name="prefEnableStatistics">통계 활성화</string>
-	<string name="prefLogPulse">전환 로그에 펄스 기록</string>
-	<string name="prefLogPulseOn">펄스가 프로필 전환 로그에 기록됩니다</string>
-	<string name="prefLogPulseOff">펄스가 프로필 전환 로그에 기록되지 않습니다</string>
-	<string name="msg_pulse_log_on">펄스가 켜짐</string>
-	<string name="msg_pulse_log_off">펄스가 꺼짐</string>
-	<string name="msg_pulse_log_end">펄스 중지</string>
-	<string name="msg_capcheck_result_more_info">(결과를 눌러 더 많은 정보 확인.)</string>
-	<string name="menuMarkLog">마크</string>
-	<string name="msgMarkLog">*** 마크 ***</string>
-	<string name="menuClearLog">로그 지우기</string>
-	<string name="enabled">활성됨</string>
-	<string name="ac_power">전원 사용</string>
-	<string name="battery">배터리 사용</string>
-	<string name="screenOn">화면 켜짐</string>
-	<string name="screenOff">화면 꺼짐</string>
-	<string name="call_active">전화중</string>
-	<string name="battery_hot">배터리 고온</string>
-	<string name="prefProfileSwitchLogSizeLong">프로필 전환 로그를 몇시간 기록할까요? 영구는 -1을 사용.</string>
-	<string name="msgEnableCputuner">CPU 튜너 활성화중</string>
-	<string name="msgDisableCputuner">CPU 튜너 비활성화중</string>
-	<string name="labelYourConfigurations">당신의 구성</string>
-	<string name="labelSystemConfigurations">시스템 구성</string>
-	<string name="msg_cannot_delete_current_configuration">현재 설정 삭제 불가n!</string>
-	<string name="labelPowesaveBiasPerformance">성능</string>
-	<string name="labelPowesaveBiasPowersave">파워세이브</string>
-	<string name="prefMaxFreq">기본 최대 프리퀀시</string>
-	<string name="prefMaxFreqLong">시스템 설정 로드시 사용될 최대 프리퀀시.</string>
-	<string name="prefMinFreq">기본 최소 프리퀀시</string>
-	<string name="prefMinFreqLong">시스템 설정 로드시 사용될 최소 프리퀀시.</string>
-	<string name="prefKeyFrequencies">시스템 설정 프리퀀시</string>
-	<string name="title_triggers">트리거</string>
-	<string name="msg_title_unsaved_changes">저장안된 수정내용</string>
-	<string name="msg_unsaved_changes">저장 안된 수정내용이 있습니다, 저장없이 끄면 모든 수정된 내용은 사라집니다. 내용을
+    <string name="label_back">뒤로 가기</string>
+    <string name="label_forward">앞으로 가기</string>
+    <string name="label_home">홈</string>
+    <string name="prefCatEngine">엔진</string>
+    <string name="prefCatHelper">도우미</string>
+    <string name="msg_config_loaded">불려옴</string>
+    <string name="msg_config">구성</string>
+    <string name="all">모두</string>
+    <string name="labelNoDataForFilter">이 필터조합의 정보가 발견되지 않았습니다.</string>
+    <string name="prefCatAdvStatistics">발전된 통계와 로깅</string>
+    <string name="prefCatExtention">확장</string>
+    <string name="prefEnableExtention">확장 활성화</string>
+    <string name="prefEnableSwitchLog">프로필 전환 로그 활성화</string>
+    <string name="prefCatStatistics">통계</string>
+    <string name="prefEnableStatistics">통계 활성화</string>
+    <string name="prefLogPulse">전환 로그에 펄스 기록</string>
+    <string name="prefLogPulseOn">펄스가 프로필 전환 로그에 기록됩니다</string>
+    <string name="prefLogPulseOff">펄스가 프로필 전환 로그에 기록되지 않습니다</string>
+    <string name="msg_pulse_log_on">펄스가 켜짐</string>
+    <string name="msg_pulse_log_off">펄스가 꺼짐</string>
+    <string name="msg_pulse_log_end">펄스 중지</string>
+    <string name="msg_capcheck_result_more_info">(결과를 눌러 더 많은 정보 확인.)</string>
+    <string name="menuMarkLog">마크</string>
+    <string name="msgMarkLog">*** 마크 ***</string>
+    <string name="menuClearLog">로그 지우기</string>
+    <string name="enabled">활성됨</string>
+    <string name="ac_power">전원 사용</string>
+    <string name="battery">배터리 사용</string>
+    <string name="screenOn">화면 켜짐</string>
+    <string name="screenOff">화면 꺼짐</string>
+    <string name="call_active">전화중</string>
+    <string name="battery_hot">배터리 고온</string>
+    <string name="prefProfileSwitchLogSizeLong">프로필 전환 로그를 몇시간 기록할까요? 영구는 -1을 사용.</string>
+    <string name="msgEnableCputuner">CPU 튜너 활성화중</string>
+    <string name="msgDisableCputuner">CPU 튜너 비활성화중</string>
+    <string name="labelYourConfigurations">당신의 구성</string>
+    <string name="labelSystemConfigurations">시스템 구성</string>
+    <string name="msg_cannot_delete_current_configuration">현재 설정 삭제 불가n!</string>
+    <string name="labelPowesaveBiasPerformance">성능</string>
+    <string name="labelPowesaveBiasPowersave">파워세이브</string>
+    <string name="prefMaxFreq">기본 최대 프리퀀시</string>
+    <string name="prefMaxFreqLong">시스템 설정 로드시 사용될 최대 프리퀀시.</string>
+    <string name="prefMinFreq">기본 최소 프리퀀시</string>
+    <string name="prefMinFreqLong">시스템 설정 로드시 사용될 최소 프리퀀시.</string>
+    <string name="prefKeyFrequencies">시스템 설정 프리퀀시</string>
+    <string name="title_triggers">트리거</string>
+    <string name="msg_title_unsaved_changes">저장안된 수정내용</string>
+    <string name="msg_unsaved_changes">저장 안된 수정내용이 있습니다, 저장없이 끄면 모든 수정된 내용은 사라집니다. 내용을
 		저장하겠습니까?</string>
-	<string name="msg_title_grant_root">Grant root access.</string>
-	<string name="msg_grant_root">CPU Tuner의 슈퍼유저 권한이 요구될것입니다. 수락하고 기억하기 체크박스를 선택하세요.
+    <string name="msg_title_grant_root">Grant root access.</string>
+    <string name="msg_grant_root">CPU Tuner의 슈퍼유저 권한이 요구될것입니다. 수락하고 기억하기 체크박스를 선택하세요.
 		그렇지 않으면 CPU Tuner가 작동하지 않습니다.</string>
-	<string name="labelLogTab">프로필 전환 로그</string>
-	<string name="msg_no_profile_switch_log">프로필 전환 로그가 발견되지 않음.</string>
-	<string name="menuItemInsertAsNew">새로 삽입</string>
-	<string name="prefCatGUILong">디스플레이 설정 변경.</string>
-	<string name="prefCatSystemLong">작동 방식 변경.</string>
-	<string name="prefBuyMeABeerLong">이는 저를 행복하게 해줍니다.</string>
-	<string name="prefVariousLong">CPU Tuner 정보.</string>
-	<string name="prefConfigurationsManageLong">설정 백업과 복원 (예. 트리거, 프로필, 가버너).</string>
-	<string name="prefConfigurationsAutoLoadLong">시간과 요일에 따라 설정 불러오기.</string>
-	<string name="prefLanguageLong">다른 언어 선택. (재시작 필요)</string>
-	<string name="prefEnableCputunerOn">CPU Tuner 작동중.</string>
-	<string name="prefEnableCputunerOff">CPU Tuner 미작동중.</string>
-	<string name="prefKeyProfilesLong">프로필, 트리거 그리고 가버너가 작동하는 방식 변경.</string>
-	<string name="prefServiceSwitchesLong">서비스 전환 (예. 데이터, WIFI, 또는 블루투스)이 작동하는 방식 변경.</string>
-	<string name="prefCpuLong">CPU 관련 설정.</string>
-	<string name="title_help_pages">도움</string>
-	<string name="msg_no_trigger_name">트리거 이름을 입력하세요.</string>
-	<string name="msg_triggername_exists">같은 이름의 트리거가 이미 존재합니다! 새로운 이름을 선택하세요.</string>
-	<string name="msg_triggerbatterylevel_exists">같은 배터리 레벨의 트리거가 이미 존재합니다! 배터리 레벨을 변경하세요.</string>
-	<string name="msg_no_profile_name">새 프로필 이름을 입력하세요</string>
-	<string name="msg_profilename_exists">같은 이름의 프로필이 이미 존재합니다!! 새로운 이름을 선택하세요.</string>
-	<string name="msg_no_virtgov_name">가상 가버너 이름을 입력하세요</string>
-	<string name="msg_virtgovname_exists">이미 동일 이름의 가버너가 존재합니다. 새로운 이름을 선택하세요.</string>
-	<string name="title_load_configuration">설정 불러오기</string>
-	<string name="title_config_name_exists">이름 존재함</string>
-	<string name="msg_config_name_exists">이 이름의 설정이 이미 존재합니다.</string>
-	<string name="overwrite">덮어쓰기</string>
-	<string name="msg_empty_configuration_name">설정 이름은 빈칸일 수 없습니다.</string>
-	<string name="label_frequency">프리퀀시</string>
-	<string name="label_time">시간</string>
-	<string name="prefLegalServiceIcons">서비스 아이콘 라이센스</string>
-	<string name="prefLegalServiceIconsLong">사용된 시아노겐모드의 서비스 아이콘들의 라이센스. 좋은 아이콘 감사.</string>
-	<string name="title_no_configuration">사용가능 설정 없음</string>
-	<string name="label_no_configuration">CPU Tuner가 사용 불가능한 설정을 발견했고 정상작동할 수 없습니다. 설정을
+    <string name="labelLogTab">프로필 전환 로그</string>
+    <string name="msg_no_profile_switch_log">프로필 전환 로그가 발견되지 않음.</string>
+    <string name="menuItemInsertAsNew">새로 삽입</string>
+    <string name="prefCatGUILong">디스플레이 설정 변경.</string>
+    <string name="prefCatSystemLong">작동 방식 변경.</string>
+    <string name="prefBuyMeABeerLong">이는 저를 행복하게 해줍니다.</string>
+    <string name="prefVariousLong">CPU Tuner 정보.</string>
+    <string name="prefConfigurationsManageLong">설정 백업과 복원 (예. 트리거, 프로필, 가버너).</string>
+    <string name="prefConfigurationsAutoLoadLong">시간과 요일에 따라 설정 불러오기.</string>
+    <string name="prefLanguageLong">다른 언어 선택. (재시작 필요)</string>
+    <string name="prefEnableCputunerOn">CPU Tuner 작동중.</string>
+    <string name="prefEnableCputunerOff">CPU Tuner 미작동중.</string>
+    <string name="prefKeyProfilesLong">프로필, 트리거 그리고 가버너가 작동하는 방식 변경.</string>
+    <string name="prefServiceSwitchesLong">서비스 전환 (예. 데이터, WIFI, 또는 블루투스)이 작동하는 방식 변경.</string>
+    <string name="prefCpuLong">CPU 관련 설정.</string>
+    <string name="title_help_pages">도움</string>
+    <string name="msg_no_trigger_name">트리거 이름을 입력하세요.</string>
+    <string name="msg_triggername_exists">같은 이름의 트리거가 이미 존재합니다! 새로운 이름을 선택하세요.</string>
+    <string name="msg_triggerbatterylevel_exists">같은 배터리 레벨의 트리거가 이미 존재합니다! 배터리 레벨을 변경하세요.</string>
+    <string name="msg_no_profile_name">새 프로필 이름을 입력하세요</string>
+    <string name="msg_profilename_exists">같은 이름의 프로필이 이미 존재합니다!! 새로운 이름을 선택하세요.</string>
+    <string name="msg_no_virtgov_name">가상 가버너 이름을 입력하세요</string>
+    <string name="msg_virtgovname_exists">이미 동일 이름의 가버너가 존재합니다. 새로운 이름을 선택하세요.</string>
+    <string name="title_load_configuration">설정 불러오기</string>
+    <string name="title_config_name_exists">이름 존재함</string>
+    <string name="msg_config_name_exists">이 이름의 설정이 이미 존재합니다.</string>
+    <string name="overwrite">덮어쓰기</string>
+    <string name="msg_empty_configuration_name">설정 이름은 빈칸일 수 없습니다.</string>
+    <string name="label_frequency">프리퀀시</string>
+    <string name="label_time">시간</string>
+    <string name="prefLegalServiceIcons">서비스 아이콘 라이센스</string>
+    <string name="prefLegalServiceIconsLong">사용된 시아노겐모드의 서비스 아이콘들의 라이센스. 좋은 아이콘 감사.</string>
+    <string name="title_no_configuration">사용가능 설정 없음</string>
+    <string name="label_no_configuration">CPU Tuner가 사용 불가능한 설정을 발견했고 정상작동할 수 없습니다. 설정을
 		불러오시겠습니까?</string>
-	<string name="load">불러오기</string>
-	<string name="cont">계속</string>
-	<string name="msg_error_loadconfig">이 설정을 불러오는 것은 유효한 설정을 만들지 않았습니다. 설정이 깨졌거나 불러오는 중
+    <string name="load">불러오기</string>
+    <string name="cont">계속</string>
+    <string name="msg_error_loadconfig">이 설정을 불러오는 것은 유효한 설정을 만들지 않았습니다. 설정이 깨졌거나 불러오는 중
 		잘못되었습니다. 다시 시도하세요(다른걸로).</string>
-	<string name="msg_unusable_comfig_save">이 설정은 사용 불가능하여 저장할 수 없습니다. 트리거,프로필 또는 가상 가버너가 발견되지
+    <string name="msg_unusable_comfig_save">이 설정은 사용 불가능하여 저장할 수 없습니다. 트리거,프로필 또는 가상 가버너가 발견되지
 		않았습니다</string>
-	<string name="tvSequenceInfo">프로필이 역순행으로 나열됨. Cpu tuner가 아래에서 시작해서 현재 상태에 맞는 첫
+    <string name="tvSequenceInfo">프로필이 역순행으로 나열됨. Cpu tuner가 아래에서 시작해서 현재 상태에 맞는 첫
 		프로필을 선택함</string>
-	<string name="msg_warning_manual_service_switches">당신은 설정의 \"수동 서비스 변경\" 를 활성화시킴.&lt;br&gt;&lt;/br&gt;		이는 서비스가 CPU Tuner 밖에서 변경되었을때 전환되지 않는다는 것을 뜻함&lt;br&gt;&lt;/br&gt;		펄스된 서비스와 이전으로 돌아가기는 보통으로 적용됨.</string>
-	<string name="msg_warning_not_switch_wifi_connected">네트워크에 연결되었을때 WIFI는 전환되지 않음. 이를 설정에서 바꾸시오</string>
-	<string name="menuUpgrade">확장 설치</string>
-	<string name="desc_extention_stats">통계 확장은 훨씬 멋지고 자세한 통계와 로그를 생성함.&lt;br&gt;&lt;/br&gt;		당신에게 추가 정보를 줘서 설정을 미세조정할 수 있게 도와준다.</string>
-	<string name="title_products">생산품</string>
-	<string name="title_extentions">확장</string>
-	<string name="name_extention_stats">통계와 로깅 확장</string>
-	<string name="extention_installed">설치됨, 설정하려면 탭하시오</string>
-	<string name="not_installed">설치되지 않음</string>
-	<string name="purchased">구매됨: </string>
-	<string name="name_buy_me_a_beer">맥주 사주기.</string>
-	<string name="name_buy_me_a_whiskey">위스키 사주기.</string>
-	<string name="name_buy_cookie">내 아이들 과자 사주기.</string>
-	<string name="desc_buy_beer">이는 나를 행복하게 만들어 줍니다.</string>
-	<string name="desc_buy_whiskey">이는 나를 더욱 행복하게 만들어 줍니다. (그리고 덜취하고!)</string>
-	<string name="desc_buy_cookie">이는 내 아이들을 바쁘게 만들어서 내게 버그를 고칠 시간을 더 줍니다 (보장 못함) .</string>
-	<string name="desc_buy_toy">이는 내 아이들을 오래 바쁘게 만들어서 새로운 기능을 실현하게 해준다 (보장 못함).</string>
-	<string name="name_buy_toy">내 아이들 장난감 사주기</string>
-	<string name="prefextentionsLong">CPU Tuner에 새로운 기능추가.</string>
-	<string name="title_changelog">변경사항</string>
-	<string name="refresh">새로고침</string>
-	<string name="reset">초기화</string>
-	<string name="title_reset_statistics">통계 초기화</string>
-	<string name="msg_reset_statistics">통계 초기화 하고 현제 상태를 나중의 기준치로 사용</string>
-	<string name="msgManualServiceChanges">몇몇 서비스가 수동을 변경되어 다음 트리거까지 CPU Tuner에 의해 관리되지 않음.&lt;br&gt;&lt;/br&gt;		초기화하려면 택스트 클릭.</string>
-	<string name="title_reset_manual_service_switches">서비스 초기화?</string>
-	<string name="msg_reset_manual_service_switches">모든 수동으로 변경된 서비스를 초기화하고 CPU TUner가 앞으로의 전환을 다루게 합니까?</string>
-	<string name="msg_cpu_tuner_not_running">CPU Tuner가 실행되고 있지 않음</string>
-	<string-array name="prefAddToNotificationEntries">
-		<item>실행중일때</item>
-		<item>항상</item>
-		<item>결코</item>
-	</string-array>
-	<string name="prefStatusbarAddToLong">상태 바와 알림 지역에 추가.</string>
-	<string name="prefInitialPulseDelay">처음 펄스 지연</string>
-	<string name="prefInitialPulseDelayLong">첫 펄스 시적 전 잠깐 기다림(초 단위로).</string>
-	<string name="prefInitialPulseDelayMsg">초 단위로 지연시킴</string>
-	<string name="prefPowerStrongerThanScreenoff">전원시가 화면 잠김 프로필보다 강력함</string>
-	<string name="prefPowerStrongerThanScreenoffOn">체크되면, 전원 (AC 또는 USB)이 꽂아져 있고 화면이 꺼져있으면, 전원시 프로필이
+    <string name="msg_warning_manual_service_switches">당신은 설정의 \"수동 서비스 변경\" 를 활성화시킴.&lt;br&gt;&lt;/br&gt;		이는 서비스가 CPU Tuner 밖에서 변경되었을때 전환되지 않는다는 것을 뜻함&lt;br&gt;&lt;/br&gt;		펄스된 서비스와 이전으로 돌아가기는 보통으로 적용됨.</string>
+    <string name="msg_warning_not_switch_wifi_connected">네트워크에 연결되었을때 WIFI는 전환되지 않음. 이를 설정에서 바꾸시오</string>
+    <string name="menuUpgrade">확장 설치</string>
+    <string name="desc_extention_stats">통계 확장은 훨씬 멋지고 자세한 통계와 로그를 생성함.&lt;br&gt;&lt;/br&gt;		당신에게 추가 정보를 줘서 설정을 미세조정할 수 있게 도와준다.</string>
+    <string name="title_products">생산품</string>
+    <string name="title_extentions">확장</string>
+    <string name="name_extention_stats">통계와 로깅 확장</string>
+    <string name="extention_installed">설치됨, 설정하려면 탭하시오</string>
+    <string name="not_installed">설치되지 않음</string>
+    <string name="purchased">구매됨: </string>
+    <string name="name_buy_me_a_beer">맥주 사주기.</string>
+    <string name="name_buy_me_a_whiskey">위스키 사주기.</string>
+    <string name="name_buy_cookie">내 아이들 과자 사주기.</string>
+    <string name="desc_buy_beer">이는 나를 행복하게 만들어 줍니다.</string>
+    <string name="desc_buy_whiskey">이는 나를 더욱 행복하게 만들어 줍니다. (그리고 덜취하고!)</string>
+    <string name="desc_buy_cookie">이는 내 아이들을 바쁘게 만들어서 내게 버그를 고칠 시간을 더 줍니다 (보장 못함) .</string>
+    <string name="desc_buy_toy">이는 내 아이들을 오래 바쁘게 만들어서 새로운 기능을 실현하게 해준다 (보장 못함).</string>
+    <string name="name_buy_toy">내 아이들 장난감 사주기</string>
+    <string name="prefextentionsLong">CPU Tuner에 새로운 기능추가.</string>
+    <string name="title_changelog">변경사항</string>
+    <string name="refresh">새로고침</string>
+    <string name="reset">초기화</string>
+    <string name="title_reset_statistics">통계 초기화</string>
+    <string name="msg_reset_statistics">통계 초기화 하고 현제 상태를 나중의 기준치로 사용</string>
+    <string name="msgManualServiceChanges">몇몇 서비스가 수동을 변경되어 다음 트리거까지 CPU Tuner에 의해 관리되지 않음.&lt;br&gt;&lt;/br&gt;		초기화하려면 택스트 클릭.</string>
+    <string name="title_reset_manual_service_switches">서비스 초기화?</string>
+    <string name="msg_reset_manual_service_switches">모든 수동으로 변경된 서비스를 초기화하고 CPU TUner가 앞으로의 전환을 다루게 합니까?</string>
+    <string name="msg_cpu_tuner_not_running">CPU Tuner가 실행되고 있지 않음</string>
+
+    <string-array name="prefAddToNotificationEntries">
+        <item>실행중일때</item>
+        <item>항상</item>
+        <item>결코</item>
+    </string-array>
+
+    <string name="prefStatusbarAddToLong">상태 바와 알림 지역에 추가.</string>
+    <string name="prefInitialPulseDelay">처음 펄스 지연</string>
+    <string name="prefInitialPulseDelayLong">첫 펄스 시적 전 잠깐 기다림(초 단위로).</string>
+    <string name="prefInitialPulseDelayMsg">초 단위로 지연시킴</string>
+    <string name="prefPowerStrongerThanScreenoff">전원시가 화면 잠김 프로필보다 강력함</string>
+    <string name="prefPowerStrongerThanScreenoffOn">체크되면, 전원 (AC 또는 USB)이 꽂아져 있고 화면이 꺼져있으면, 전원시 프로필이
 		선택됨</string>
-	<string name="prefPowerStrongerThanScreenoffOff">체크 해제되면, 전원 (AC 또는 USB)이 꽂아져 있고 화면이 꺼져있으면, 화면 잠김
+    <string name="prefPowerStrongerThanScreenoffOff">체크 해제되면, 전원 (AC 또는 USB)이 꽂아져 있고 화면이 꺼져있으면, 화면 잠김
 		프로필이 선택됨</string>
-	<string name="title_choose_experiance_level">당신의 경험 레벨을 선택하시오</string>
-	<string name="msg_delete_autoload_configuration">이 자동불러오기 설정을 지웁니까?</string>
-	<string name="prefNetworkModeOnWifiConnected">WIFI 연결시 넷모드</string>
-	<string name="prefNetworkModeOnWifiConnectedLong">WIFI 네트워크 연결시 적용할 네트워크 모드를 선택하시오. 네트워크가 끊기면, CPU
+    <string name="title_choose_experiance_level">당신의 경험 레벨을 선택하시오</string>
+    <string name="msg_delete_autoload_configuration">이 자동불러오기 설정을 지웁니까?</string>
+    <string name="prefNetworkModeOnWifiConnected">WIFI 연결시 넷모드</string>
+    <string name="prefNetworkModeOnWifiConnectedLong">WIFI 네트워크 연결시 적용할 네트워크 모드를 선택하시오. 네트워크가 끊기면, CPU
 		TUner는 이전으로 돌아갑니다.</string>
-	<string-array name="mobiledataOnWifiStatesEnties">
-		<item>그대로 두기</item>
-		<item>2G만</item>
-		<item>3G/2G</item>
-		<item>3G만</item>
-	</string-array>
-	<string name="labelUseCpus_front">사용 </string>
-	<string name="labelUseCpus_end">CPU들</string>
-	<string name="prefMulticore">다중코어 CPU 기능 사용</string>
-	<string name="prefForceMulticoreCodeOn">어떤 CPU가 발견되던 다중코어 CPU 코드 사용 (실험적 기능)</string>
-	<string name="prefForceMulticoreCodeOff">다중코어 CPU 발견시에만 다중코어 CPU 코드 사용 (배터 기능)</string>
-	<string name="labelActiveCpus">활성화된 CPU:</string>
-	<string name="prefEnableCputuner">CPU 튜너 활성화</string>
-	<string-array name="prefMulticoreEntries">
-		<item>자동</item>
-		<item>활성화</item>
-		<item>비활성화</item>
-	</string-array>
-	<string name="prefMulticoreLong">튜닝이 모든 코어에 적용되려면 선택하시오</string>
-	<string name="prefConfigurationsLong">백업과 복원 (그 외) ...</string>
-	<string name="prefCpu">CPU 설정</string>
-	<string name="prefChangelog">변경사항 보이기</string>
-	<string name="label_version">버전:</string>
-	<string name="prefLegalGnomeIcons">메인 아이콘 라이센스</string>
-	<string name="prefLegalGnomeIconsLong">사용된 gnome 아이콘의 라이센스. 멋진 아이콘 감사합니다.</string>
-	<string name="msg_disable_cpu_tuner">CPU 튜너 비활성화</string>
-	<string name="msg_disable_cputuner_question">CPU 튜너를 멈추시겠습니까?</string>
-	<string name="prefConfigurationsSettings">구성 설정</string>
-	<string name="prefSaveConfigOnSwitch">구성 저장</string>
-	<string name="prefSaveConfigOnSwitchFull">프로필, 트리거 또는 가버너의 변화를 현재 구성에 저장함.</string>
-	<string name="saved_at">...에 저장됨 </string>
-	<string name="day_mon">월</string>
-	<string name="day_tue">화</string>
-	<string name="day_wed">수</string>
-	<string name="day_thu">목</string>
-	<string name="day_fri">금</string>
-	<string name="day_sat">토</string>
-	<string name="day_sun">일</string>
-	<string name="label_weekdays">평일: </string>
-	<string name="prefConfigurationsManage">구성 관리</string>
-	<string name="prefConfigurationsAutoLoad">구성 자동 불러오기</string>
-	<string name="title_configuration_autoload_editor">구성 자동 불러오기 에디터</string>
-	<string name="hint_profile_name">프로필 이름</string>
-	<string name="label_profile_switches">프로필 전환:</string>
-	<string name="not_enabled">비활성됨</string>
-	<string name="prefProfileSwitchLogSize">프로필 전환 로그 크기</string>
-	<string name="cbExactScheduling">정확한 스케줄링 사용.</string>
-	<string name="labelExactSchedulingExplain">정확한 스케줄링은 배터리를 더 소모합니다.\n부정확한 스케줄링으로는 구성 변화가 30분까지 지연될 수 있습니다.</string>
-	<string name="msg_cannot_delete_configuration">자동 불러오기에 사용되어 구성을 삭제할 수 없음.</string>
-	<string name="label_load_configuration_1">구성 불러오기 </string>
-	<string name="label_load_configuration_2">위치</string>
-	<string name="labelConfig">구성:</string>
-	<string name="labelAirplaneMode">비행기 모드</string>
-	<string name="labelAirplaneModeOn">AP</string>
-	<string name="labelAirplaneModeOff">&lt;strike&gt;AP&lt;/strike&gt;</string>
-	<string name="labelAirplaneModePrev">AP?</string>
-	<string name="msg_add_current_configuration">현재 구성 추가</string>
-	<string name="msg_choose_name_for_config">구성 이름을 선택하세요</string>
-	<string name="rename">이름 바꾸기</string>
-	<string name="msg_rename_configuration">구성 이름 바꾸기</string>
-	<string name="email">이메일</string>
-	<string name="prefConfigurations">구성</string>
-	<string name="titleManageConfigurations">구성 관리</string>
-	<string name="buAddConfiguration">현재 구성 추가</string>
-	<string name="menuReplaceWithCurrent">현재구성으로 대체하기</string>
-	<string name="menuLoad">불러오기</string>
-	<string name="delete">삭제</string>
-	<string name="msg_delete_configuration">구성 삭제 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'?</string>
-	<string name="msg_replace_with_current">현재 활성화된 구성으로 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' 대체?</string>
-	<string name="msg_load_configuration">활성화되게 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' 구성 불러오기?</string>
-	<string name="msg_loaded">불려와짐 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'</string>
-	<string name="menuAddCurrent">현재값 추가</string>
-	<string name="msg_fully_working">완전히 동작함</string>
-	<string name="msg_capcheck_not_rooted">CPU 튜너가 루트 액세스가 없습니다!!\n모든 CPU 튜닝 관련 기능이 동작하지
+
+    <string-array name="mobiledataOnWifiStatesEnties">
+        <item>그대로 두기</item>
+        <item>2G만</item>
+        <item>3G/2G</item>
+        <item>3G만</item>
+    </string-array>
+
+    <string name="labelUseCpus_front">사용 </string>
+    <string name="labelUseCpus_end">CPU들</string>
+    <string name="prefMulticore">다중코어 CPU 기능 사용</string>
+    <string name="prefForceMulticoreCodeOn">어떤 CPU가 발견되던 다중코어 CPU 코드 사용 (실험적 기능)</string>
+    <string name="prefForceMulticoreCodeOff">다중코어 CPU 발견시에만 다중코어 CPU 코드 사용 (배터 기능)</string>
+    <string name="labelActiveCpus">활성화된 CPU:</string>
+    <string name="prefEnableCputuner">CPU 튜너 활성화</string>
+
+    <string-array name="prefMulticoreEntries">
+        <item>자동</item>
+        <item>활성화</item>
+        <item>비활성화</item>
+    </string-array>
+
+    <string name="prefMulticoreLong">튜닝이 모든 코어에 적용되려면 선택하시오</string>
+    <string name="prefConfigurationsLong">백업과 복원 (그 외) ...</string>
+    <string name="prefCpu">CPU 설정</string>
+    <string name="prefChangelog">변경사항 보이기</string>
+    <string name="label_version">버전:</string>
+    <string name="prefLegalGnomeIcons">메인 아이콘 라이센스</string>
+    <string name="prefLegalGnomeIconsLong">사용된 gnome 아이콘의 라이센스. 멋진 아이콘 감사합니다.</string>
+    <string name="msg_disable_cpu_tuner">CPU 튜너 비활성화</string>
+    <string name="msg_disable_cputuner_question">CPU 튜너를 멈추시겠습니까?</string>
+    <string name="prefConfigurationsSettings">구성 설정</string>
+    <string name="prefSaveConfigOnSwitch">구성 저장</string>
+    <string name="prefSaveConfigOnSwitchFull">프로필, 트리거 또는 가버너의 변화를 현재 구성에 저장함.</string>
+    <string name="saved_at">...에 저장됨 </string>
+    <string name="day_mon">월</string>
+    <string name="day_tue">화</string>
+    <string name="day_wed">수</string>
+    <string name="day_thu">목</string>
+    <string name="day_fri">금</string>
+    <string name="day_sat">토</string>
+    <string name="day_sun">일</string>
+    <string name="label_weekdays">평일: </string>
+    <string name="prefConfigurationsManage">구성 관리</string>
+    <string name="prefConfigurationsAutoLoad">구성 자동 불러오기</string>
+    <string name="title_configuration_autoload_editor">구성 자동 불러오기 에디터</string>
+    <string name="hint_profile_name">프로필 이름</string>
+    <string name="label_profile_switches">프로필 전환:</string>
+    <string name="not_enabled">비활성됨</string>
+    <string name="prefProfileSwitchLogSize">프로필 전환 로그 크기</string>
+    <string name="cbExactScheduling">정확한 스케줄링 사용.</string>
+    <string name="labelExactSchedulingExplain">정확한 스케줄링은 배터리를 더 소모합니다.\n부정확한 스케줄링으로는 구성 변화가 30분까지 지연될 수 있습니다.</string>
+    <string name="msg_cannot_delete_configuration">자동 불러오기에 사용되어 구성을 삭제할 수 없음.</string>
+    <string name="label_load_configuration_1">구성 불러오기 </string>
+    <string name="label_load_configuration_2">위치</string>
+    <string name="labelConfig">구성:</string>
+    <string name="labelAirplaneMode">비행기 모드</string>
+    <string name="labelAirplaneModeOn">AP</string>
+    <string name="labelAirplaneModeOff">&lt;strike&gt;AP&lt;/strike&gt;</string>
+    <string name="labelAirplaneModePrev">AP?</string>
+    <string name="msg_add_current_configuration">현재 구성 추가</string>
+    <string name="msg_choose_name_for_config">구성 이름을 선택하세요</string>
+    <string name="rename">이름 바꾸기</string>
+    <string name="msg_rename_configuration">구성 이름 바꾸기</string>
+    <string name="email">이메일</string>
+    <string name="prefConfigurations">구성</string>
+    <string name="titleManageConfigurations">구성 관리</string>
+    <string name="buAddConfiguration">현재 구성 추가</string>
+    <string name="menuReplaceWithCurrent">현재구성으로 대체하기</string>
+    <string name="menuLoad">불러오기</string>
+    <string name="delete">삭제</string>
+    <string name="msg_delete_configuration">구성 삭제 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'?</string>
+    <string name="msg_replace_with_current">현재 활성화된 구성으로 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' 대체?</string>
+    <string name="msg_load_configuration">활성화되게 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\' 구성 불러오기?</string>
+    <string name="msg_loaded">불려와짐 \'&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;		\'</string>
+    <string name="menuAddCurrent">현재값 추가</string>
+    <string name="msg_fully_working">완전히 동작함</string>
+    <string name="msg_capcheck_not_rooted">CPU 튜너가 루트 액세스가 없습니다!!\n모든 CPU 튜닝 관련 기능이 동작하지
 		않습니다.\n기기를 루팅하였습니까?\nCPU 튜너에 루트 액세스를 허가했습니까?</string>
-	<string name="msg_capcheck_found_some_issues">일부 문제를 발견함... 일부 기능은 동작하지 않을 수 있습니다</string>
-	<string name="msg_capcheck_no_issues">문제가 발견되지 않았습니다…</string>
-	<string name="and">그리고</string>
-	<string name="msg_capcheck_work_but_cannot_set_frequency">동작하지만 주파수를 설정할 수 없습니다.\n 그래도 꽤나 양호한 결과를 냅니다</string>
-	<string name="msg_premail_working">대부분의 가버너는 동작중입니다.\n동작하지 않는 가버너들은 커널/롬때문일 가능성이 큽니다. 세가지 해결법이 있습니다:\n1) 동작한느 가버너를 사용하고 다른걸 무시. 아마도 그래도 좋은 결과를 낼 수 있습니다.\n2)
+    <string name="msg_capcheck_found_some_issues">일부 문제를 발견함... 일부 기능은 동작하지 않을 수 있습니다</string>
+    <string name="msg_capcheck_no_issues">문제가 발견되지 않았습니다…</string>
+    <string name="and">그리고</string>
+    <string name="msg_capcheck_work_but_cannot_set_frequency">동작하지만 주파수를 설정할 수 없습니다.\n 그래도 꽤나 양호한 결과를 냅니다</string>
+    <string name="msg_premail_working">대부분의 가버너는 동작중입니다.\n동작하지 않는 가버너들은 커널/롬때문일 가능성이 큽니다. 세가지 해결법이 있습니다:\n1) 동작한느 가버너를 사용하고 다른걸 무시. 아마도 그래도 좋은 결과를 낼 수 있습니다.\n2)
 			새로운 커널 플래시\n3) 새로운 롬 플래시</string>
-	<string name="labelCurrentFrequency">현재값</string>
-	<string name="prefScreenLegal">법적조항</string>
-	<string name="prefLegalOxigenIcons">탭 아이콘 라이센스</string>
-	<string name="prefLegalOxigenIconsLong">사용된 oxygen 아이콘의 라이센스. 멋진 아이콘들 감사합니다.</string>
-	<string name="virtual_governor">가상 가버너</string>
-	<string name="msg_cannot_load_virtual_governor">가상 가버너를 불러올 수 없습니다…</string>
-	<string name="labelStatisticsTab">통계</string>
-	<string name="label_time_in_state">상태 지속 시간:</string>
-	<string name="titleVirtualGovernorEditor">가상 가버너 에디터</string>
-	<string name="msgDeleteVirtGovNotPossible">한개 또는 여러 프로필에서 사용되어 이 가상 가버너를 삭제할 수 없습니다!</string>
-	<string name="labelName">이름:</string>
-	<string name="hintVirtualGovernorName">가상 가버너 이름</string>
-	<string name="prefCatGUI">사용자 인터페이스</string>
-	<string name="prefCatDisplay">디스플레이</string>
-	<string name="labelPowersaveBias">파워세이브 성향:</string>
-	<string name="labelVirtualGovernor">가상 가버너:</string>
-	<string name="prefUseVirtualGovernorsLong">가상 가버너는 프로필의 가버너 설정을 추출합니다.</string>
-	<string name="label_total_transitions">총 전환:</string>
-	<string name="prefPulseMobiledataOnWifi">WIFI시 모바일 데이터 펄스</string>
-	<string name="prefPulseMobiledataOnWifiOn">WIFI가 연결되어 있어도 모바일 데이터 연결이 펄스됩니다</string>
-	<string name="prefPulseMobiledataOnWifiOff">기기가 WIFI 랜에 연결되어 있는동안 모바일 데이터가 펄스되지 않습니다.</string>
-	<string name="prefLanguage">언어 선택</string>
-	<string name="msg_up_threshhold_has_to_be_between_0_and_100">위 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
-	<string name="msg_down_threshhold_has_to_be_between_0_and_100">아래 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
-	<string name="msg_up_threshhold_smaler_than_the_down_threshold">위 임계는 아래 임계보다 커야 합니다.</string>
-	<string name="msg_threshhold_NaN">임계는 정수여야 합니다.</string>
-	<string name="msg_minimal_frequency_bigger_than_the_maximal">최소의 주파수는 최대의 주파수보다 작아야 합니다.</string>
-	<string name="msgDeleteTriggerNotPossible">한개 또는 여러 트리거에 사용되어 이 프로필을 지울 수 없습니다!</string>
-	<string name="prefBasics">기본</string>
-	<string name="labelScript">스크립트:</string>
-	<string name="hintScriptToRun">가버너 변환 후 실행할 스크립트.</string>
-	<string name="label_governor_tresholds">임계:</string>
-	<string name="prefEnableUserspaceGovernor">유저스페이스 가버너 보이기</string>
-	<string name="prefEnableUserspaceGovernorOn">유저스페이스 가버너를 선택하는게 가능합니다</string>
-	<string name="prefEnableUserspaceGovernorOff">유저스페이스 가버너가 필터링됩니다.</string>
-	<string name="prefCatPulsedServiceSwitches">펄스된 서비스 전환</string>
-	<string name="prefPulseDelayOn">서비스 켜진 시간</string>
-	<string name="prefPulseDelayOnLong">펄스모드에서 서비스가 켜져 있는 시간 (분으로).</string>
-	<string name="prefPulseDelayOff">서비스 꺼진 시간</string>
-	<string name="prefPulseDelayOffLong">펄스모드에서 서비스가 꺼져 있는 시간 (분으로).</string>
-	<string name="labelPulseOn">펄스 켜짐</string>
-	<string name="labelPulseOff">펄스 꺼짐</string>
-	<string name="labelCurrentTab">현재값</string>
-	<string name="labelTriggersTab">트리거</string>
-	<string name="labelProfilesTab">프로필</string>
-	<string name="labelHelpTab">도움</string>
-	<string name="labelSettingsTab">설정</string>
-	<string name="labelPowerUserExplain">전체 제어!</string>
-	<string name="labelPowerUser">파워 유저</string>
-	<string name="labelNormalExplain">더 발전된 설정 옵션.  가능한 지점까지 언더클러킹합니다.</string>
-	<string name="labelNormal">보통</string>
-	<string name="labelBeginnerExplain">설정하기 쉽고 모든 설정은 사용하기 안전합니다. 가능한 지점까지 언더클러킹함.</string>
-	<string name="labelBeginner">초심자</string>
-	<string name="labelBatteryHot">배터리 고온:</string>
-	<string name="labelCallInProgress">통화중:</string>
-	<string name="labelOnPower">전원 사용:</string>
-	<string name="labelScreenLocked">화면 잠김:</string>
-	<string name="labelOnBattery">배터리 사용:</string>
-	<string name="labelExplainTriggerProfiles">기기의 상태에 따라 다음의 프로필 중 하나가 선택됩니다.</string>
-	<string name="labelBatteryLevel">배터리 레벨</string>
-	<string name="labelExplainTrigger">만약 기기의 배터리 충전량이 배터리 레벨 아래이고 다른 더 적고 알맞은 배터리 레벨의
+    <string name="labelCurrentFrequency">현재값</string>
+    <string name="prefScreenLegal">법적조항</string>
+    <string name="prefLegalOxigenIcons">탭 아이콘 라이센스</string>
+    <string name="prefLegalOxigenIconsLong">사용된 oxygen 아이콘의 라이센스. 멋진 아이콘들 감사합니다.</string>
+    <string name="virtual_governor">가상 가버너</string>
+    <string name="msg_cannot_load_virtual_governor">가상 가버너를 불러올 수 없습니다…</string>
+    <string name="labelStatisticsTab">통계</string>
+    <string name="label_time_in_state">상태 지속 시간:</string>
+    <string name="titleVirtualGovernorEditor">가상 가버너 에디터</string>
+    <string name="msgDeleteVirtGovNotPossible">한개 또는 여러 프로필에서 사용되어 이 가상 가버너를 삭제할 수 없습니다!</string>
+    <string name="labelName">이름:</string>
+    <string name="hintVirtualGovernorName">가상 가버너 이름</string>
+    <string name="prefCatGUI">사용자 인터페이스</string>
+    <string name="prefCatDisplay">디스플레이</string>
+    <string name="labelPowersaveBias">파워세이브 성향:</string>
+    <string name="labelVirtualGovernor">가상 가버너:</string>
+    <string name="prefUseVirtualGovernorsLong">가상 가버너는 프로필의 가버너 설정을 추출합니다.</string>
+    <string name="label_total_transitions">총 전환:</string>
+    <string name="prefPulseMobiledataOnWifi">WIFI시 모바일 데이터 펄스</string>
+    <string name="prefPulseMobiledataOnWifiOn">WIFI가 연결되어 있어도 모바일 데이터 연결이 펄스됩니다</string>
+    <string name="prefPulseMobiledataOnWifiOff">기기가 WIFI 랜에 연결되어 있는동안 모바일 데이터가 펄스되지 않습니다.</string>
+    <string name="prefLanguage">언어 선택</string>
+    <string name="msg_up_threshhold_has_to_be_between_0_and_100">위 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
+    <string name="msg_down_threshhold_has_to_be_between_0_and_100">아래 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
+    <string name="msg_up_threshhold_smaler_than_the_down_threshold">위 임계는 아래 임계보다 커야 합니다.</string>
+    <string name="msg_threshhold_NaN">임계는 정수여야 합니다.</string>
+    <string name="msg_minimal_frequency_bigger_than_the_maximal">최소의 주파수는 최대의 주파수보다 작아야 합니다.</string>
+    <string name="msgDeleteTriggerNotPossible">한개 또는 여러 트리거에 사용되어 이 프로필을 지울 수 없습니다!</string>
+    <string name="prefBasics">기본</string>
+    <string name="labelScript">스크립트:</string>
+    <string name="hintScriptToRun">가버너 변환 후 실행할 스크립트.</string>
+    <string name="label_governor_tresholds">임계:</string>
+    <string name="prefEnableUserspaceGovernor">유저스페이스 가버너 보이기</string>
+    <string name="prefEnableUserspaceGovernorOn">유저스페이스 가버너를 선택하는게 가능합니다</string>
+    <string name="prefEnableUserspaceGovernorOff">유저스페이스 가버너가 필터링됩니다.</string>
+    <string name="prefCatPulsedServiceSwitches">펄스된 서비스 전환</string>
+    <string name="prefPulseDelayOn">서비스 켜진 시간</string>
+    <string name="prefPulseDelayOnLong">펄스모드에서 서비스가 켜져 있는 시간 (분으로).</string>
+    <string name="prefPulseDelayOff">서비스 꺼진 시간</string>
+    <string name="prefPulseDelayOffLong">펄스모드에서 서비스가 꺼져 있는 시간 (분으로).</string>
+    <string name="labelPulseOn">펄스 켜짐</string>
+    <string name="labelPulseOff">펄스 꺼짐</string>
+    <string name="labelCurrentTab">현재값</string>
+    <string name="labelTriggersTab">트리거</string>
+    <string name="labelProfilesTab">프로필</string>
+    <string name="labelHelpTab">도움</string>
+    <string name="labelSettingsTab">설정</string>
+    <string name="labelPowerUserExplain">전체 제어!</string>
+    <string name="labelPowerUser">파워 유저</string>
+    <string name="labelNormalExplain">더 발전된 설정 옵션.  가능한 지점까지 언더클러킹합니다.</string>
+    <string name="labelNormal">보통</string>
+    <string name="labelBeginnerExplain">설정하기 쉽고 모든 설정은 사용하기 안전합니다. 가능한 지점까지 언더클러킹함.</string>
+    <string name="labelBeginner">초심자</string>
+    <string name="labelBatteryHot">배터리 고온:</string>
+    <string name="labelCallInProgress">통화중:</string>
+    <string name="labelOnPower">전원 사용:</string>
+    <string name="labelOnBattery">배터리 사용:</string>
+    <string name="labelExplainTriggerProfiles">기기의 상태에 따라 다음의 프로필 중 하나가 선택됩니다.</string>
+    <string name="labelBatteryLevel">배터리 레벨</string>
+    <string name="labelExplainTrigger">만약 기기의 배터리 충전량이 배터리 레벨 아래이고 다른 더 적고 알맞은 배터리 레벨의
 			트리거가 없을때 동작됩니다</string>
-	<string name="labelGovernor">가버너:</string>
-	<string name="labelBluetooth">블루투스</string>
-	<string name="labelWifi">WIFI</string>
-	<string name="labelGPS">GPS</string>
-	<string name="labelBackgroundSync">백그라운드 동기화</string>
-	<string name="labelMobileDataConn">모바일데이터 연결.</string>
-	<string name="labelMobileData32G">모바일데이터 2G/3G</string>
-	<string name="labelServices">서비스:</string>
-	<string name="labelDown">아래:</string>
-	<string name="labelThreshsUp">임계: 상한:</string>
-	<string name="labelHome">홈</string>
-	<string name="labelUsage">사용:</string>
-	<string name="labelBuFindFeq">주파수 찾기 (베타만)</string>
-	<string name="msgAckAndHide">문제를 인식하고 메인 화면에서 숨기기.</string>
-	<string name="msgNoEmail">빈 이메일을 쓰지 말아주세요...</string>
-	<string name="labelResult">결과</string>
-	<string name="labelCheck">확인</string>
-	<string name="labelAppVersion">CPU 튜너 버전:</string>
-	<string name="msgNoIssuesFound">문제가 발견되지 않았습니다.</string>
-	<string name="prefVritualGovernorsListLong">가상 거버는 미리 구성된 cpu 가버너입니다.</string>
-	<string name="virtualGovernorsList">가상 가버너</string>
-	<string name="prefBatteryHotTempMsg">\"배터리 고온\" 프로필을 동작시키기위한 온도 구성.&lt;br /&gt;			°C의 정수 값.</string>
-	<string name="prefBatteryHotTempLong">\"배터리 고온\" 프로필을 동작시키기위한 온도 구성</string>
-	<string name="prefBatteryHotTemp">배터리 고온</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOn">체크되면, \"프로필 전환\" 이 전화 통화 도중 허용됩니다. 모바일 데이터 전환은 이 옵션의 상태에 관계없이 전화 통화 도중 전환되지 않습니다.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdleOff">체크해제되면, \"프로필전환\" 이 전화 통화 도중 허용되지 않습니다. 모바일 데이터 전환은	이 옵션의 상태에 관계없이 전화 통화 도중 전환되지 않습니다.</string>
-	<string name="prefSwitchProfileWhilePhoneNotIdle">전화 도중 프로필 전환</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOn">체크되면, WIFI가 WIFI 네트워크에 연결되어 있어도 \"꺼짐\"으로 전환됩니다.</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOff">체크해제되면, WIFI가 WIFI 네트워크에 연결되어 있어도 \"꺼짐\"으로 전환됩니다.</string>
-	<string name="prefSwitchWifiOnConnectedNetwork">연결되면 WIFI 전환.</string>
-	<string name="prefServiceSwitches">서비스 전환</string>
-	<string name="prefUserLevelLong">설정이 얼마나 어려운지, 그리고 얼마나 간섭할 수 있는지 결정합니다.</string>
-	<string name="prefUserLevel">경험 레벨</string>
-	<string name="prefVarious">각종설정</string>
-	<string name="notAvailable">해당없음</string>
-	<string name="yes">네</string>
-	<string name="no">아니오</string>
-	<string name="save">저장</string>
-	<string name="cancel">취소</string>
-	<string name="prefMinSensibleFrequencyLong">파워유저 모드가 아닐때 최소의 보여지는 프리퀀시.</string>
-	<string name="prefMinSensibleFrequency">최소의 보여지는 프리퀀시</string>
-	<string name="prefKeyProfiles">프로필과 트리거</string>
-	<string name="prefBuyMeABeer">맥주 사주기.</string>
-	<string name="prefAllowManualServiceChangesOn">체크되면, 트리거의 변화가 일어나지 않으면 수정되어 도서비스의 상태를 바꾸지 않는다</string>
-	<string name="prefAllowManualServiceChangesOff">체크해제되면, 수동으로 변경되는거에 상관없이 서비스의 상태를 바꾸지 않는다.</string>
-	<string name="prefAllowManualServiceChanges">수정 서비스 변경</string>
-	<string name="prefCpuFreqMsg">분리된 프리퀀시 리스트 공간</string>
-	<string name="prefCpuFreq">허용된 CPU 프리퀀시</string>
-	<string name="prefCpuFreqLong">확실하지 않으면 비워두세요…!</string>
-	<string name="mailMessageOK">문제가 발견되지 않음… 만족하셨다면 그리고 마켓에서 피드백,코맨드,좋은 평점을 주고싶다면
+    <string name="labelGovernor">가버너:</string>
+    <string name="labelBluetooth">블루투스</string>
+    <string name="labelWifi">WIFI</string>
+    <string name="labelGPS">GPS</string>
+    <string name="labelBackgroundSync">백그라운드 동기화</string>
+    <string name="labelMobileDataConn">모바일데이터 연결.</string>
+    <string name="labelMobileData32G">모바일데이터 2G/3G</string>
+    <string name="labelServices">서비스:</string>
+    <string name="labelDown">아래:</string>
+    <string name="labelThreshsUp">임계: 상한:</string>
+    <string name="labelHome">홈</string>
+    <string name="labelUsage">사용:</string>
+    <string name="labelBuFindFeq">주파수 찾기 (베타만)</string>
+    <string name="msgAckAndHide">문제를 인식하고 메인 화면에서 숨기기.</string>
+    <string name="msgNoEmail">빈 이메일을 쓰지 말아주세요...</string>
+    <string name="labelResult">결과</string>
+    <string name="labelCheck">확인</string>
+    <string name="labelAppVersion">CPU 튜너 버전:</string>
+    <string name="msgNoIssuesFound">문제가 발견되지 않았습니다.</string>
+    <string name="prefVritualGovernorsListLong">가상 거버는 미리 구성된 cpu 가버너입니다.</string>
+    <string name="virtualGovernorsList">가상 가버너</string>
+    <string name="prefBatteryHotTempMsg">\"배터리 고온\" 프로필을 동작시키기위한 온도 구성.&lt;br /&gt;			°C의 정수 값.</string>
+    <string name="prefBatteryHotTempLong">\"배터리 고온\" 프로필을 동작시키기위한 온도 구성</string>
+    <string name="prefBatteryHotTemp">배터리 고온</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOn">체크되면, \"프로필 전환\" 이 전화 통화 도중 허용됩니다. 모바일 데이터 전환은 이 옵션의 상태에 관계없이 전화 통화 도중 전환되지 않습니다.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdleOff">체크해제되면, \"프로필전환\" 이 전화 통화 도중 허용되지 않습니다. 모바일 데이터 전환은	이 옵션의 상태에 관계없이 전화 통화 도중 전환되지 않습니다.</string>
+    <string name="prefSwitchProfileWhilePhoneNotIdle">전화 도중 프로필 전환</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOn">체크되면, WIFI가 WIFI 네트워크에 연결되어 있어도 \"꺼짐\"으로 전환됩니다.</string>
+    <string name="prefSwitchWifiOnConnectedNetworkOff">체크해제되면, WIFI가 WIFI 네트워크에 연결되어 있어도 \"꺼짐\"으로 전환됩니다.</string>
+    <string name="prefSwitchWifiOnConnectedNetwork">연결되면 WIFI 전환.</string>
+    <string name="prefServiceSwitches">서비스 전환</string>
+    <string name="prefUserLevelLong">설정이 얼마나 어려운지, 그리고 얼마나 간섭할 수 있는지 결정합니다.</string>
+    <string name="prefUserLevel">경험 레벨</string>
+    <string name="prefVarious">각종설정</string>
+    <string name="notAvailable">해당없음</string>
+    <string name="yes">네</string>
+    <string name="no">아니오</string>
+    <string name="save">저장</string>
+    <string name="cancel">취소</string>
+    <string name="prefMinSensibleFrequencyLong">파워유저 모드가 아닐때 최소의 보여지는 프리퀀시.</string>
+    <string name="prefMinSensibleFrequency">최소의 보여지는 프리퀀시</string>
+    <string name="prefKeyProfiles">프로필과 트리거</string>
+    <string name="prefBuyMeABeer">맥주 사주기.</string>
+    <string name="prefAllowManualServiceChangesOn">체크되면, 트리거의 변화가 일어나지 않으면 수정되어 도서비스의 상태를 바꾸지 않는다</string>
+    <string name="prefAllowManualServiceChangesOff">체크해제되면, 수동으로 변경되는거에 상관없이 서비스의 상태를 바꾸지 않는다.</string>
+    <string name="prefAllowManualServiceChanges">수정 서비스 변경</string>
+    <string name="prefCpuFreqMsg">분리된 프리퀀시 리스트 공간</string>
+    <string name="prefCpuFreq">허용된 CPU 프리퀀시</string>
+    <string name="prefCpuFreqLong">확실하지 않으면 비워두세요…!</string>
+    <string name="mailMessageOK">문제가 발견되지 않음… 만족하셨다면 그리고 마켓에서 피드백,코맨드,좋은 평점을 주고싶다면
 			매우 환영합니다…\"</string>
-	<string name="mailMessage"/>
-	<string name="prefEnableBetaLong">개발자 이메일 보내기</string>
-	<string name="prefKeyCalcPowerUsageLong">배터리를 소비할 수 있음.</string>
-	<string name="prefKeyCalcPowerUsage">파워 사용량 계산</string>
-	<string name="menuItemClearPowerCurrent">파워 사용 지우기</string>
-	<string name="menuItemInsert">삽입</string>
-	<string name="menuItemEdit">수정</string>
-	<string name="menuItemDelete">삭제</string>
-	<string name="prefEnableBetaMessage">베타 상태에 있는 몇몇 기능 활성화.</string>
-	<string name="prefEnableBeta">베타 기능 활성화</string>
-	<string name="prefCapabilitiesLong">기기가 요구된 API를 지원하거나 문제가 있으면 체크.</string>
-	<string name="prefCapabilities">능력 체크</string>
-	<string name="prefStatusbarAddTo">상태바 알림</string>
-	<string name="prefStatusbarNotificationsOff">체크해제되면 프로필 전환 메세지가 상태바에 보여지지 않음.</string>
-	<string name="prefKeyEnableProfilesOn">체크되면, 프로필 전환 메세지가 상태바에 보여짐.</string>
-	<string name="prefSystemAppOff">시스템 어플로 설치되지 않아, gps 같은 시스템 설정에 접근하지 않음.</string>
-	<string name="prefSystemAppOn">시스템 어플임, GPS 설정 변경가능</string>
-	<string name="prefSystemApp">시스템 어플로 설치</string>
-	<string name="prefToastNotifications">토스트 알림</string>
-	<string name="prefStatusbarNotifications">상태바 알림</string>
-	<string name="prefCatNotifications">알림</string>
-	<string name="prefCatSystem">뒷부분</string>
-	<string name="prefEnableProfiles">프로필 활성화</string>
-	<string name="prefSetCpuSetting">CPU 설정</string>
-	<string name="profileBatteryGood">괜찮은 배터리량</string>
-	<string name="profileBatteryCrtitical">위험한 배터리량</string>
-	<string name="profileBatteryPower">배터리 파워</string>
-	<string name="profileAcPower">충전시</string>
-	<string name="profileScreenOff">화면이 꺼짐</string>
-	<string name="prefSystemPowerProfiles">시스템 파워 프로필</string>
-	<string name="prefPowerProfiles">파워 프로필</string>
-	<string name="prefCustomPowerProfiles">커스텀 파워 프로필</string>
-	<string name="labelCpuFreq">프리퀀시:</string>
-	<string name="labelCpuGov">거버너:</string>
-	<string name="labelCurrent">현제</string>
-	<string name="labelCurrentTrigger">트리거:</string>
-	<string name="labelCurrentProfile">프로필:</string>
-	<string name="labelCurrentBattery">배터리:</string>
-	<string name="labelAcPower">충전시:</string>
-	<string name="labelMax">최대:</string>
-	<string name="labelMin">최소:</string>
-	<string name="app_name">CPU 튜너</string>
-	<string name="labelPowerProfile">프로필: </string>
-	<string name="spinnerPromptGov">거버너 선택</string>
-	<string name="buApplyCurProfile">현재 CPU 프로필에 적용</string>
-	<string name="notEnabled">비활성화됨</string>
-	<string name="triggersExplain">배터리 레벨에 따라 트리거가 어떤 프로필이 적용될지 결정함. 다른 상태(예.배터리시,
+    <string name="mailMessage" />
+    <string name="prefEnableBetaLong">개발자 이메일 보내기</string>
+    <string name="prefKeyCalcPowerUsageLong">배터리를 소비할 수 있음.</string>
+    <string name="prefKeyCalcPowerUsage">파워 사용량 계산</string>
+    <string name="menuItemClearPowerCurrent">파워 사용 지우기</string>
+    <string name="menuItemInsert">삽입</string>
+    <string name="menuItemEdit">수정</string>
+    <string name="menuItemDelete">삭제</string>
+    <string name="prefEnableBetaMessage">베타 상태에 있는 몇몇 기능 활성화.</string>
+    <string name="prefEnableBeta">베타 기능 활성화</string>
+    <string name="prefCapabilitiesLong">기기가 요구된 API를 지원하거나 문제가 있으면 체크.</string>
+    <string name="prefCapabilities">능력 체크</string>
+    <string name="prefStatusbarAddTo">상태바 알림</string>
+    <string name="prefStatusbarNotificationsOff">체크해제되면 프로필 전환 메세지가 상태바에 보여지지 않음.</string>
+    <string name="prefKeyEnableProfilesOn">체크되면, 프로필 전환 메세지가 상태바에 보여짐.</string>
+    <string name="prefSystemAppOff">시스템 어플로 설치되지 않아, gps 같은 시스템 설정에 접근하지 않음.</string>
+    <string name="prefSystemAppOn">시스템 어플임, GPS 설정 변경가능</string>
+    <string name="prefSystemApp">시스템 어플로 설치</string>
+    <string name="prefToastNotifications">토스트 알림</string>
+    <string name="prefStatusbarNotifications">상태바 알림</string>
+    <string name="prefCatNotifications">알림</string>
+    <string name="prefCatSystem">뒷부분</string>
+    <string name="prefEnableProfiles">프로필 활성화</string>
+    <string name="prefSetCpuSetting">CPU 설정</string>
+    <string name="profileBatteryGood">괜찮은 배터리량</string>
+    <string name="profileBatteryCrtitical">위험한 배터리량</string>
+    <string name="profileBatteryPower">배터리 파워</string>
+    <string name="profileAcPower">충전시</string>
+    <string name="profileScreenOff">화면이 꺼짐</string>
+    <string name="prefSystemPowerProfiles">시스템 파워 프로필</string>
+    <string name="prefPowerProfiles">파워 프로필</string>
+    <string name="prefCustomPowerProfiles">커스텀 파워 프로필</string>
+    <string name="labelCpuFreq">프리퀀시:</string>
+    <string name="labelCpuGov">거버너:</string>
+    <string name="labelCurrent">현제</string>
+    <string name="labelCurrentTrigger">트리거:</string>
+    <string name="labelCurrentProfile">프로필:</string>
+    <string name="labelCurrentBattery">배터리:</string>
+    <string name="labelAcPower">충전시:</string>
+    <string name="labelMax">최대:</string>
+    <string name="labelMin">최소:</string>
+    <string name="app_name">CPU 튜너</string>
+    <string name="labelPowerProfile">프로필: </string>
+    <string name="spinnerPromptGov">거버너 선택</string>
+    <string name="buApplyCurProfile">현재 CPU 프로필에 적용</string>
+    <string name="notEnabled">비활성화됨</string>
+    <string name="triggersExplain">배터리 레벨에 따라 트리거가 어떤 프로필이 적용될지 결정함. 다른 상태(예.배터리시,
 			충전시, 화면이 잠겼을시)에 따라 다른 프로필이 적용될 수 있음.</string>
-	<string name="explainGovOnDemand">CPU 이용에 따라 프리퀀시를 동적으로 성능에 집중해서 변경함.</string>
-	<string name="explainGovConservative">CPU 이용에 따라 프리퀀시를 동적으로 파워 아끼는데 집중해서 변경함.</string>
-	<string name="explainGovPerformance">프리퀀시를 정적으로 가능한 가장 높은 CPU 프리퀀시에 맞춤.</string>
-	<string name="explainGovPowersave">프리퀀시를 정적으로 가능한 가장 낮은 CPU 프리퀀시에 맞춤.</string>
-	<string name="explainGovUserspace">프리퀀시를 정적으로 주어진 CPU 프리퀀시에 맞춤</string>
-	<string name="explainGovInteractive">적은 반응시간의 가득찬 업무량을 위해 디자인됨. 폴링 대신 유휴 상태에서 나올때 스케일링이
+    <string name="explainGovOnDemand">CPU 이용에 따라 프리퀀시를 동적으로 성능에 집중해서 변경함.</string>
+    <string name="explainGovConservative">CPU 이용에 따라 프리퀀시를 동적으로 파워 아끼는데 집중해서 변경함.</string>
+    <string name="explainGovPerformance">프리퀀시를 정적으로 가능한 가장 높은 CPU 프리퀀시에 맞춤.</string>
+    <string name="explainGovPowersave">프리퀀시를 정적으로 가능한 가장 낮은 CPU 프리퀀시에 맞춤.</string>
+    <string name="explainGovUserspace">프리퀀시를 정적으로 주어진 CPU 프리퀀시에 맞춤</string>
+    <string name="explainGovInteractive">적은 반응시간의 가득찬 업무량을 위해 디자인됨. 폴링 대신 유휴 상태에서 나올때 스케일링이
 			실시됨.</string>
-	<string name="label3g2g">2/3G</string>
-	<string name="label2g">2G</string>
-	<string name="label3g">3G</string>
-	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">동기화</string>
-	<string name="labelSyncOff">&lt;strike&gt;동기화&lt;/strike&gt;</string>
-	<string name="labelSyncPrev">동기화?</string>
-	<string name="labelWifiOn">WIFI</string>
-	<string name="labelWifiOff">&lt;strike&gt;WIFI&lt;/strike&gt;</string>
-	<string name="labelWifiPrev">WIFI?</string>
-	<string name="labelGpsOn">GPS</string>
-	<string name="labelGpsOff">&lt;strike&gt;GPS&lt;/strike&gt;</string>
-	<string name="labelGpsPrev">GPS?</string>
-	<string name="labelBluetoothOn">블투</string>
-	<string name="labelBluetoothOff">&lt;strike&gt;블투&lt;/strike&gt;</string>
-	<string name="labelBluetoothPrev">블투?</string>
-	<string name="labelMobiledataOn">모데</string>
-	<string name="labelMobiledataOff">&lt;strike&gt;모데&lt;/strike&gt;</string>
-	<string name="labelMobiledataPrev">모데?</string>
-	<string-array name="deviceStates">
-		<item>그대로 두기</item>
-		<item>활성화</item>
-		<item>비활성화</item>
-		<item>이전으로 돌아가기</item>
-		<item>펄스</item>
-	</string-array>
-	<string-array name="deviceStatesBeta">
-		<item>그대로 두기</item>
-		<item>활성화</item>
-		<item>비활성화</item>
-		<item>이전으로 돌아가기</item>
-		<item>펄스</item>
-	</string-array>
-	<string-array name="mobiledataStates">
-		<item>그대로 두기</item>
-		<item>2G만</item>
-		<item>3G/2G</item>
-		<item>이전으로 돌아가기</item>
-		<item>3G만</item>
-	</string-array>
-	<string-array name="mobiledataStatesBeta">
-		<item>이전으로 돌아가기</item>
-		<item>2G만</item>
-		<item>3G/2G</item>
-		<item>이전으로 돌아가기</item>
-		<item>3G만</item>
-	</string-array>
-	<string-array name="prefUserLevelEntries">
-		<item><b>초심자</b>				: CPU Tuner가 영리하게 작동합니다.</item>
-		<item><b>보통</b>				: CPU Tuner가 당신을 도와줍니다.</item>
-		<item><b>파워유저</b>				: 당신이 왕입니다!</item>
-	</string-array>
-	<string name="cbEnableVirtualGovernors">가상 가버너 활성화</string>
-	<string name="userExperianceLevelExplain">CPU 튜너가 각각 다른 경험 레벨에서 작동할 수 있음. 레벨에 따라 당신에게 더 많은
+    <string name="label3g2g">2/3G</string>
+    <string name="label2g">2G</string>
+    <string name="label3g">3G</string>
+    <string name="label3g2gPrev">2/3G?</string>
+    <string name="labelSyncOn">동기화</string>
+    <string name="labelSyncOff">&lt;strike&gt;동기화&lt;/strike&gt;</string>
+    <string name="labelSyncPrev">동기화?</string>
+    <string name="labelWifiOn">WIFI</string>
+    <string name="labelWifiOff">&lt;strike&gt;WIFI&lt;/strike&gt;</string>
+    <string name="labelWifiPrev">WIFI?</string>
+    <string name="labelGpsOn">GPS</string>
+    <string name="labelGpsOff">&lt;strike&gt;GPS&lt;/strike&gt;</string>
+    <string name="labelGpsPrev">GPS?</string>
+    <string name="labelBluetoothOn">블투</string>
+    <string name="labelBluetoothOff">&lt;strike&gt;블투&lt;/strike&gt;</string>
+    <string name="labelBluetoothPrev">블투?</string>
+    <string name="labelMobiledataOn">모데</string>
+    <string name="labelMobiledataOff">&lt;strike&gt;모데&lt;/strike&gt;</string>
+    <string name="labelMobiledataPrev">모데?</string>
+
+    <string-array name="deviceStates">
+        <item>그대로 두기</item>
+        <item>활성화</item>
+        <item>비활성화</item>
+        <item>이전으로 돌아가기</item>
+        <item>펄스</item>
+    </string-array>
+    <string-array name="deviceStatesBeta">
+        <item>그대로 두기</item>
+        <item>활성화</item>
+        <item>비활성화</item>
+        <item>이전으로 돌아가기</item>
+        <item>펄스</item>
+    </string-array>
+    <string-array name="mobiledataStates">
+        <item>그대로 두기</item>
+        <item>2G만</item>
+        <item>3G/2G</item>
+        <item>이전으로 돌아가기</item>
+        <item>3G만</item>
+    </string-array>
+    <string-array name="mobiledataStatesBeta">
+        <item>이전으로 돌아가기</item>
+        <item>2G만</item>
+        <item>3G/2G</item>
+        <item>이전으로 돌아가기</item>
+        <item>3G만</item>
+    </string-array>
+    <string-array name="prefUserLevelEntries">
+        <item><b>초심자</b>				: CPU Tuner가 영리하게 작동합니다.</item>
+        <item><b>보통</b>				: CPU Tuner가 당신을 도와줍니다.</item>
+        <item><b>파워유저</b>				: 당신이 왕입니다!</item>
+    </string-array>
+
+    <string name="cbEnableVirtualGovernors">가상 가버너 활성화</string>
+    <string name="userExperianceLevelExplain">CPU 튜너가 각각 다른 경험 레벨에서 작동할 수 있음. 레벨에 따라 당신에게 더 많은
 			선택과 할 수 있는 것을 줌.</string>
-	<string name="prefCallInProgressProfile">통화중 프로필</string>
-	<string name="prefCallInProgressProfileLong">통화중 작동되는 프로필 활성.</string>
-	<string name="msg_checking_capabilities">능력 체크중</string>
-	<string name="msg_checking_governors">거버너 체크중 …</string>
-	<string name="msg_not_enough_frequencies_found">충분한 프리퀀시가 발견되지 않음</string>
-	<string name="msg_no_governors_found">거버너 발견되지 않음</string>
-	<string name="msg_not_checked">체크되지 않음</string>
-	<string name="msg_success">성공</string>
-	<string name="msg_failure">실패</string>
-	<string name="msg_does_not_apply">적용되지 않음</string>
-	<string name="msg_cannot_check">체크할수 없음</string>
-	<string name="explainNotAvailable">이 거버너의 설명이 존재하지 않음…</string>
-	<string name="title_reset_to_default">기본으로 되돌리기</string>
-	<string name="msg_reset_to_default">기본으로 되돌리면 새로 만든것을 포함하여 프리거와 프로필의 모든 변화를 없앱니다.</string>
-	<string name="msg_loading_default_profiles">기본 프로필 불러오는 중</string>
-	<string name="profilename_performance">성능</string>
-	<string name="profilename_good">좋음</string>
-	<string name="profilename_normal">보통</string>
-	<string name="profilename_screen_off">화면꺼짐</string>
-	<string name="profilename_extreme_powersave">극도의 파워세이브</string>
-	<string name="triggername_battery_full">배터리 가득참</string>
-	<string name="triggername_battery_used">배터리 사용됨</string>
-	<string name="triggername_battery_low">배터리 적음</string>
-	<string name="triggername_battery_empty">배터리 없음</string>
-	<string name="triggername_battery_critical">배터리 위험함</string>
-	<string name="virtgovname_full_speed">풀 스피드</string>
-	<string name="virtgovname_normal">보통</string>
-	<string name="virtgovname_save_battery">배터리 아끼기</string>
-	<string name="virtgovname_extrem_save_battery">극도로 배터리 아끼기</string>
-	<string name="title_reboot">재부팅</string>
-	<string name="msg_reboot">자동 (저장) 리부팅이 실패했습니다. 전원 버튼을 눌러 수동으로 재부팅하지 않으면
+    <string name="prefCallInProgressProfile">통화중 프로필</string>
+    <string name="prefCallInProgressProfileLong">통화중 작동되는 프로필 활성.</string>
+    <string name="msg_checking_capabilities">능력 체크중</string>
+    <string name="msg_checking_governors">거버너 체크중 …</string>
+    <string name="msg_not_enough_frequencies_found">충분한 프리퀀시가 발견되지 않음</string>
+    <string name="msg_no_governors_found">거버너 발견되지 않음</string>
+    <string name="msg_not_checked">체크되지 않음</string>
+    <string name="msg_success">성공</string>
+    <string name="msg_failure">실패</string>
+    <string name="msg_does_not_apply">적용되지 않음</string>
+    <string name="msg_cannot_check">체크할수 없음</string>
+    <string name="explainNotAvailable">이 거버너의 설명이 존재하지 않음…</string>
+    <string name="title_reset_to_default">기본으로 되돌리기</string>
+    <string name="msg_reset_to_default">기본으로 되돌리면 새로 만든것을 포함하여 프리거와 프로필의 모든 변화를 없앱니다.</string>
+    <string name="msg_loading_default_profiles">기본 프로필 불러오는 중</string>
+    <string name="profilename_performance">성능</string>
+    <string name="profilename_good">좋음</string>
+    <string name="profilename_normal">보통</string>
+    <string name="profilename_screen_off">화면꺼짐</string>
+    <string name="profilename_extreme_powersave">극도의 파워세이브</string>
+    <string name="triggername_battery_full">배터리 가득참</string>
+    <string name="triggername_battery_used">배터리 사용됨</string>
+    <string name="triggername_battery_low">배터리 적음</string>
+    <string name="triggername_battery_empty">배터리 없음</string>
+    <string name="triggername_battery_critical">배터리 위험함</string>
+    <string name="virtgovname_full_speed">풀 스피드</string>
+    <string name="virtgovname_normal">보통</string>
+    <string name="virtgovname_save_battery">배터리 아끼기</string>
+    <string name="virtgovname_extrem_save_battery">극도로 배터리 아끼기</string>
+    <string name="title_reboot">재부팅</string>
+    <string name="msg_reboot">자동 (저장) 리부팅이 실패했습니다. 전원 버튼을 눌러 수동으로 재부팅하지 않으면
 			CPU튜너가 작동하지 않습니다.</string>
-	<string name="bu_system_reboot">시스템 재부팅 (비추천)</string>
-	<string name="title_uninstall_sys">CPU 튜너를 시스템 앱으로 제거Uninstall CPU Tuner as system
+    <string name="bu_system_reboot">시스템 재부팅 (비추천)</string>
+    <string name="title_uninstall_sys">CPU 튜너를 시스템 앱으로 제거Uninstall CPU Tuner as system
 			app</string>
-	<string name="bu_yes_uninstall_sys">제거하고 재부팅</string>
-	<string name="msg_uninstall_sys">재부팅 요구됨, \'제거하고 재부팅\'을 누르면 기기가 재부팅됨.</string>
-	<string name="msg_install_sys">재부팅 요구됨, \'제거하고 재부팅\'을 누르면 기기가 재부팅됨.</string>
-	<string name="bu_yes_title_install_sys">설치하고 재부팅</string>
-	<string name="title_install_sys">CPU 튜너를 시스템 앱으로 설치</string>
-	<string name="msg_has_issues">문제 있음</string>
-	<string name="msg_not_working">작동하지 않음</string>
-	<string name="msg_working">작동함</string>
-	<string name="msg_premail_no_issues">문제가 발견되지 않음nd…\n만약 만족해서 피드백을 주고싶으면 :\n마켓에서 코멘트와 좋은
+    <string name="bu_yes_uninstall_sys">제거하고 재부팅</string>
+    <string name="msg_uninstall_sys">재부팅 요구됨, \'제거하고 재부팅\'을 누르면 기기가 재부팅됨.</string>
+    <string name="msg_install_sys">재부팅 요구됨, \'제거하고 재부팅\'을 누르면 기기가 재부팅됨.</string>
+    <string name="bu_yes_title_install_sys">설치하고 재부팅</string>
+    <string name="title_install_sys">CPU 튜너를 시스템 앱으로 설치</string>
+    <string name="msg_has_issues">문제 있음</string>
+    <string name="msg_not_working">작동하지 않음</string>
+    <string name="msg_working">작동함</string>
+    <string name="msg_premail_no_issues">문제가 발견되지 않음nd…\n만약 만족해서 피드백을 주고싶으면 :\n마켓에서 코멘트와 좋은
 			평가는 매우 환영합니다…</string>
-	<string name="msg_premail_no_root">CPU 튜너가 루트 액세스가 없습니다!\nCPU 튜너가 아무것도 할 수 없음!</string>
-	<string name="msg_premail_issues">당신의 설정은 문제들이 있다…\n이는 커널/롬일 때문일 가능성이 매우 높다. 당신은 두가지
+    <string name="msg_premail_no_root">CPU 튜너가 루트 액세스가 없습니다!\nCPU 튜너가 아무것도 할 수 없음!</string>
+    <string name="msg_premail_issues">당신의 설정은 문제들이 있다…\n이는 커널/롬일 때문일 가능성이 매우 높다. 당신은 두가지
 			선택이 있다:\n1) 새 커널 플래시\n2) 새 롬 플래시</string>
-	<string name="msg_premail_issues_cm">당신의 설정은 문제가 있다...…\n이는 이는 커널/롬일 때문일 가능성이 매우 높다.
+    <string name="msg_premail_issues_cm">당신의 설정은 문제가 있다...…\n이는 이는 커널/롬일 때문일 가능성이 매우 높다.
 			당신은 두가지 선택이 있다:\n1) 새 커널 플래시\n2) 새 롬 플래시\n
 			http://wiki.cyanogenmod.com 을 한번 보는것도 괜찮다. 그곳엔 매우 좋은 롬이 있다..</string>
-	<string name="title_profile_editor">프로필 에디터 </string>
-	<string name="title_profiles">프로필</string>
-	<string name="title_trigger_editor">트리거 에디터 </string>
-	<string name="msg_delete_selected_item">선택된 아이템을 삭제합니까?</string>
-	<string name="msg_clear_power_consumption_of_named_trigger">\"%s\" 트리거의 파워 소비량을 삭제합니까?</string>
-	<string name="msg_setting_cpu_max_freq">%d Hz로 CPU의 최대 프리퀀시를 설정하는중</string>
-	<string name="setting_cpu_min_freq">%d Hz로 CPU의 최소 프리퀀시를 설정하는중</string>
-	<string name="msg_setting_govenor">%s로 거버너를 설정하는 중</string>
-	<string name="msg_found_some_issues">몇몇 문제를 발견했다... 몇몇 기능이 작동하지 않을수도 있음 (더 많은 정보는
+    <string name="title_profile_editor">프로필 에디터 </string>
+    <string name="title_profiles">프로필</string>
+    <string name="title_trigger_editor">트리거 에디터 </string>
+    <string name="msg_delete_selected_item">선택된 아이템을 삭제합니까?</string>
+    <string name="msg_clear_power_consumption_of_named_trigger">\"%s\" 트리거의 파워 소비량을 삭제합니까?</string>
+    <string name="msg_setting_cpu_max_freq">%d Hz로 CPU의 최대 프리퀀시를 설정하는중</string>
+    <string name="setting_cpu_min_freq">%d Hz로 CPU의 최소 프리퀀시를 설정하는중</string>
+    <string name="msg_setting_govenor">%s로 거버너를 설정하는 중</string>
+    <string name="msg_found_some_issues">몇몇 문제를 발견했다... 몇몇 기능이 작동하지 않을수도 있음 (더 많은 정보는
 			탭하시오.)</string>
-	<string name="label_hot">뜨거움: </string>
-	<string name="label_avgerage">평균: </string>
-	<string name="label_tresh_up">위: </string>
-	<string name="label_tresh_down">아래: </string>
+    <string name="label_hot">뜨거움: </string>
+    <string name="label_avgerage">평균: </string>
+    <string name="label_tresh_up">위: </string>
+    <string name="label_tresh_down">아래: </string>
+
 </resources>

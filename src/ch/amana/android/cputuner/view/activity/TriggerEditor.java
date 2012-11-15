@@ -40,7 +40,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 
 	private Spinner spBattery;
 	private Spinner spPower;
-	private Spinner spScreenLocked;
+	private Spinner spScreenOff;
+	private Spinner spScreenUnlocked;
 	private Spinner spHot;
 	private TriggerModel triggerModel;
 	private EditText etName;
@@ -103,7 +104,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		// TODO: battery slider?
 		sbBatteryLevel.setVisibility(View.INVISIBLE);
 		spBattery = (Spinner) findViewById(R.id.spBattery);
-		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
+		spScreenOff = (Spinner) findViewById(R.id.spScreenOff);
+		spScreenUnlocked = (Spinner) findViewById(R.id.spScreenUnlocked);
 		if (SettingsStorage.getInstance(this).isPowerStrongerThanScreenoff()) {
 			spPower = (Spinner) findViewById(R.id.spPowerStrong);
 		} else {
@@ -124,7 +126,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		sbBatteryLevel.setMax(100);
 
 		setProfilesAdapter(spBattery);
-		setProfilesAdapter(spScreenLocked);
+		setProfilesAdapter(spScreenOff);
+		setProfilesAdapter(spScreenUnlocked);
 		setProfilesAdapter(spPower);
 		setProfilesAdapter(spCall);
 		setProfilesAdapter(spHot);
@@ -173,7 +176,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		etBatteryLevel.setText(triggerModel.getBatteryLevel() + "");
 		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());
 		GuiUtils.setSpinner(spBattery, triggerModel.getBatteryProfileId());
-		GuiUtils.setSpinner(spScreenLocked, triggerModel.getScreenOffProfileId());
+		GuiUtils.setSpinner(spScreenOff, triggerModel.getScreenOffProfileId());
+		GuiUtils.setSpinner(spScreenUnlocked, triggerModel.getScreenUnlockedProfileId());
 		GuiUtils.setSpinner(spPower, triggerModel.getPowerProfileId());
 		long hotProfileId = triggerModel.getHotProfileId();
 		if (hotProfileId == -1) {
@@ -203,7 +207,8 @@ public class TriggerEditor extends Activity implements EditorCallback {
 			Logger.w("Cannot parse int from input " + etBatteryLevel.getText(), e);
 		}
 		triggerModel.setBatteryProfileId(spBattery.getSelectedItemId());
-		triggerModel.setScreenOffProfileId(spScreenLocked.getSelectedItemId());
+		triggerModel.setScreenOffProfileId(spScreenOff.getSelectedItemId());
+		triggerModel.setScreenUnlockedProfileId(spScreenUnlocked.getSelectedItemId());
 		triggerModel.setPowerProfileId(spPower.getSelectedItemId());
 		triggerModel.setCallInProgessProfileId(spCall.getSelectedItemId());
 		if (cbHot.isChecked()) {

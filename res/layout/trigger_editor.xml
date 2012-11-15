@@ -153,12 +153,34 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingRight="10dp"
-                        android:text="@string/labelScreenLocked"
+                        android:text="@string/labelScreenUnlocked"
                         android:width="@dimen/triggerEditor1Col" >
                     </TextView>
 
                     <Spinner
-                        android:id="@+id/spScreenLocked"
+                        android:id="@+id/spScreenUnlocked"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1" >
+                    </Spinner>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="10dp"
+                        android:text="@string/labelScreenOff"
+                        android:width="@dimen/triggerEditor1Col" >
+                    </TextView>
+
+                    <Spinner
+                        android:id="@+id/spScreenOff"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".1" >

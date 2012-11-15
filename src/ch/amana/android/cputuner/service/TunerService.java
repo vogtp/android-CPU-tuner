@@ -206,6 +206,7 @@ public class TunerService extends IntentService {
 					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
 					//					startSpeedUpSwitch();
+					powerProfiles.setScreenUnlocked(false);
 					powerProfiles.setScreenOff(true);
 					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
@@ -214,7 +215,7 @@ public class TunerService extends IntentService {
 					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_USER_PRESENT.equals(action)) {
 					//					startSpeedUpSwitch();
-					// FIXME user is present
+					powerProfiles.setScreenUnlocked(true);
 					//					endSpeedUpSwitch();
 				} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
 					// manage network state on wifi

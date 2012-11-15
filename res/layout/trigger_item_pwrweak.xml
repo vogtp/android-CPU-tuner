@@ -118,7 +118,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/TableRowLocked"
+            android:id="@+id/TableRowUnlocked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -126,11 +126,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/labelScreenLocked" >
+                android:text="@string/labelScreenUnlocked" >
             </TextView>
 
             <TextView
-                android:id="@+id/tvProfileScreenLocked"
+                android:id="@+id/tvProfileScreenUnlocked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".9"
@@ -140,7 +140,41 @@
             </TextView>
 
             <TextView
-                android:id="@+id/tvPowerCurrentLocked"
+                android:id="@+id/tvPowerCurrentUnlocked"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight=".1"
+                android:gravity="right"
+                android:paddingLeft="5dp"
+                android:singleLine="true" >
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRowOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="@string/labelScreenOff" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvProfileScreenOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".9"
+                android:ellipsize="end"
+                android:gravity="clip_horizontal"
+                android:singleLine="true" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvPowerCurrentOff"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
