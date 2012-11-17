@@ -477,7 +477,7 @@ public class CapabilityCheckerActivity extends Activity {
 		} else {
 			StringBuilder out = new StringBuilder();
 			// RootHandler.execute(cmd + " > " + getFilePath(file).getAbsolutePath());
-			RootHandler.execute(cmd, out, out);
+			RootHandler.execute(cmd, out);
 			addStringToZip(zip, out.toString(), file);
 		}
 	}

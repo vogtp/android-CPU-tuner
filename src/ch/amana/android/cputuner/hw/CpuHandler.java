@@ -12,7 +12,7 @@ import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 import android.content.Context;
-import ch.amana.android.cputuner.helper.ScriptCache;
+import ch.amana.android.cputuner.cache.ScriptCache;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.IGovernorModel;
