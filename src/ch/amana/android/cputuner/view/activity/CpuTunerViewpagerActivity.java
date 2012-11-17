@@ -27,18 +27,8 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
-import ch.amana.android.cputuner.view.adapter.PagerAdapter.PagerItem;
-import ch.amana.android.cputuner.view.fragments.CurInfoFragment;
-import ch.amana.android.cputuner.view.fragments.LogAdvancedFragment;
-import ch.amana.android.cputuner.view.fragments.LogFragment;
-import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
-import ch.amana.android.cputuner.view.fragments.StatsAdvancedFragment;
-import ch.amana.android.cputuner.view.fragments.StatsFragment;
-import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
-import ch.amana.android.cputuner.view.fragments.VirtualGovernorListFragment;
 import ch.amana.android.cputuner.view.widget.ActionBarWrapper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
-import ch.amana.android.cputuner.view.widget.PagerHeader;
 
 import com.markupartist.android.widget.ActionBar;
 
@@ -146,24 +136,25 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		}
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		pagerAdapter = new PagerAdapter(this, pager, (PagerHeader) findViewById(R.id.pager_header), actionBarWrapper);
-		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
-		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
-		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
-		pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
-		if (settings.isAdvancesStatistics()) {
-			if (settings.isRunStatisticsService()) {
-				pagerAdapter.addPage(StatsAdvancedFragment.class, R.string.labelStatisticsTab);
-			}
-			if (settings.isEnableLogProfileSwitches()) {
-				pagerAdapter.addPage(LogAdvancedFragment.class, R.string.labelLogTab);
-			}
-		} else {
-			pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
-			if (settings.isEnableLogProfileSwitches()) {
-				pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
-			}
-		}
+		pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
+		pager.setAdapter(pagerAdapter);
+		//		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
+		//		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
+		//		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
+		//		pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
+		//		if (settings.isAdvancesStatistics()) {
+		//			if (settings.isRunStatisticsService()) {
+		//				pagerAdapter.addPage(StatsAdvancedFragment.class, R.string.labelStatisticsTab);
+		//			}
+		//			if (settings.isEnableLogProfileSwitches()) {
+		//				pagerAdapter.addPage(LogAdvancedFragment.class, R.string.labelLogTab);
+		//			}
+		//		} else {
+		//			pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
+		//			if (settings.isEnableLogProfileSwitches()) {
+		//				pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
+		//			}
+		//		}
 	}
 
 	private boolean sanityChecks(SettingsStorage settings) {
@@ -208,25 +199,18 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	}
 
 	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 		//		return pagerAdapter.onPrepareOptionsMenu(menu);
-		menu.clear();
+		//		menu.clear();
 		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.gerneral_help_menu, menu);
+		//		menuInflater.inflate(R.menu.gerneral_help_menu, menu);
 		menuInflater.inflate(R.menu.gerneral_options_menu, menu);
-		PagerAdapter.getCurrentItem().onCreateOptionsMenu(menu, menuInflater);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		try {
-			if (((PagerItem) PagerAdapter.getCurrentItem()).onOptionsItemSelected(this, item)) {
-				return true;
-			}
-		} catch (ClassCastException e) {
-			Logger.w("Current page is not a pager item", e);
-		}
 		if (GeneralMenuHelper.onOptionsItemSelected(this, item, null)) {
 			return true;
 		}
@@ -237,16 +221,10 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		registerReceiver();
-		try {
-			PagerAdapter.getCurrentItem().onResume();
-		} catch (Exception e) {
-			Logger.e("Cannot resume current fragment", e);
-		}
 	}
 
 	@Override
 	protected void onPause() {
-		PagerAdapter.getCurrentItem().onPause();
 		unregisterReceiver();
 		super.onPause();
 	}

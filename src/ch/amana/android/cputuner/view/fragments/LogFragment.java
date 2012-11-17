@@ -109,7 +109,8 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Activity act = getActivity();
 		switch (item.getItemId()) {
 		case R.id.itemRefresh:
 			requestUpdate();

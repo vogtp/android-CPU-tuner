@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,7 +47,7 @@ public class StatsFragment extends PagerFragment {
 		OnClickListener clickListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				updateView(getActivity());
+				updateView();
 			}
 		};
 		tvStats.setOnClickListener(clickListener);
@@ -57,29 +56,21 @@ public class StatsFragment extends PagerFragment {
 
 	@Override
 	public void onResume() {
-		updateView(getActivity());
+		updateView();
 		super.onResume();
 	}
 
-	private void updateView(Context context) {
-		if (getActivity() == null) {
-			// somehow we get the wrong act
-			// FIXME this disables it but avoids crashes
-			return;
-		}
-		if (tvStats == null) {
-			return;
-		}
+	private void updateView() {
 		StringBuilder sb = new StringBuilder();
-		getTotalTransitions(context, sb);
+		getTotalTransitions(sb);
 		getTimeInState(sb);
 		tvStats.setText(sb.toString());
 	}
 
-	private void getTotalTransitions(Context context, StringBuilder sb) {
+	private void getTotalTransitions(StringBuilder sb) {
 		String totaltransitions = CpuHandler.getInstance().getCpuTotalTransitions();
-		if (context != null && !RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
-			sb.append(context.getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
+		if (!RootHandler.NOT_AVAILABLE.equals(totaltransitions)) {
+			sb.append(getString(R.string.label_total_transitions)).append(" ").append(totaltransitions).append("\n");
 			sb.append("\n");
 		}
 	}
@@ -113,7 +104,7 @@ public class StatsFragment extends PagerFragment {
 			public void performAction(View view) {
 				tvStats = (TextView) view.getRootView().findViewById(R.id.tvStats);
 				tlSwitches = (TableLayout) view.getRootView().findViewById(R.id.tlSwitches);
-				updateView(view.getContext());
+				updateView();
 			}
 
 			@Override
@@ -132,10 +123,11 @@ public class StatsFragment extends PagerFragment {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+	public boolean onOptionsItemSelected( MenuItem item) {
+		Activity act = getActivity();
 		switch (item.getItemId()) {
 		case R.id.itemRefresh:
-			updateView(getActivity());
+			updateView();
 			return true;
 		case R.id.itemUpgrade:
 			Intent i = new Intent(act, BillingProductListActiviy.class);

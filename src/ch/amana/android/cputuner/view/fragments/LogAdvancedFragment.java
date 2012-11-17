@@ -45,6 +45,7 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 
 		final Activity act = getActivity();
 		if (act == null) {
@@ -174,13 +175,14 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Context act = getActivity();
 		switch (item.getItemId()) {
 		case R.id.itemRefresh:
 			requestUpdate();
 			return true;
 		case R.id.itemMark:
-			markLog(act);
+			markLog();
 			return true;
 		case R.id.itemClear:
 			act.getContentResolver().delete(DB.SwitchLogDB.CONTENT_URI, null, null);
@@ -198,7 +200,7 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				markLog(view.getContext());
+				markLog();
 			}
 
 			@Override
@@ -220,8 +222,8 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 		return actions;
 	}
 
-	private void markLog(Context context) {
-		SwitchLog.addToLog(context, context.getString(R.string.msgMarkLog), true);
+	private void markLog() {
+		SwitchLog.addToLog(getActivity(), getString(R.string.msgMarkLog), true);
 		//		Intent i = new Intent(SwitchLog.ACTION_ADD_TO_LOG);
 		//		i.putExtra(SwitchLog.EXTRA_LOG_ENTRY, context.getString(R.string.msgMarkLog));
 		//		i.putExtra(SwitchLog.EXTRA_FLUSH_LOG, true);

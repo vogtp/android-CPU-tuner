@@ -42,7 +42,7 @@ public class SystemProfilesSettings extends BaseSettings {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
+		//		findPreference("prefKeyUseVirtualGovernors").setEnabled(!settings.isBeginnerUser());
 		//		findPreference("prefCatSwitchCpuSettings").setEnabled(SettingsStorage.getInstance(this).isPowerUser());
 	}
 

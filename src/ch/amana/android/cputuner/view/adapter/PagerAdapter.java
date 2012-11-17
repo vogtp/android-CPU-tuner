@@ -1,168 +1,104 @@
 package ch.amana.android.cputuner.view.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import android.app.Activity;
-import android.os.Bundle;
+import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
-import ch.amana.android.cputuner.view.widget.ActionBarWrapper;
-import ch.amana.android.cputuner.view.widget.PagerHeader;
+import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.view.fragments.CurInfoFragment;
+import ch.amana.android.cputuner.view.fragments.LogAdvancedFragment;
+import ch.amana.android.cputuner.view.fragments.LogFragment;
+import ch.amana.android.cputuner.view.fragments.ProfilesListFragment;
+import ch.amana.android.cputuner.view.fragments.StatsAdvancedFragment;
+import ch.amana.android.cputuner.view.fragments.StatsFragment;
+import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
+import ch.amana.android.cputuner.view.fragments.VirtualGovernorListFragment;
 
-import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
-public class PagerAdapter extends FragmentPagerAdapter
-		implements ViewPager.OnPageChangeListener, PagerHeader.OnHeaderClickListener {
-
-	private final FragmentActivity context;
-	private final ViewPager mPager;
-	private final PagerHeader mHeader;
-	private final ArrayList<PageInfo> mPages = new ArrayList<PageInfo>();
-	private static Fragment currentPage;
-	private boolean first = true;
-	private final ActionBarWrapper mActionBar;
-	private final Map<Integer, Fragment> fragments = new HashMap<Integer, Fragment>();
+public class PagerAdapter extends FragmentPagerAdapter {
 
 	public interface PagerItem {
 
-		public boolean onOptionsItemSelected(Activity act, MenuItem item);
-
-		public void onPrepareOptionsMenu(Menu menu);
-
-		public List<Action> getActions();
+		List<Action> getActions();
 
 	}
 
-	static final class PageInfo {
-		private final Class<? extends PagerItem> clss;
-		private final Bundle args;
+	private static final int FRAGMENT_CUR_INFO = 0;
+	private static final int FRAGMENT_TRIGGER_LIST = 1;
+	private static final int FRAGMENT_PROFILE_LIST = 2;
+	private static final int FRAGMENT_VIRTGOV_LIST = 3;
+	private static final int FRAGMENT_STAT = 4;
+	private static final int FRAGMENT_LOG = 5;
+	private final Context ctx;
+	private final SettingsStorage settings;
 
-		PageInfo(Class<? extends PagerItem> _clss, Bundle _args) {
-			clss = _clss;
-			args = _args;
+	public PagerAdapter(Context ctx, FragmentManager fm) {
+		super(fm);
+		this.ctx = ctx.getApplicationContext();
+		this.settings = SettingsStorage.getInstance(ctx);
+	}
+
+	//	} else {
+	//		pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
+	//		if (settings.isEnableLogProfileSwitches()) {
+	//			pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
+	//		}
+	//	}
+
+	@Override
+	public Fragment getItem(int i) {
+		switch (i) {
+		case FRAGMENT_CUR_INFO:
+			return new CurInfoFragment();
+		case FRAGMENT_TRIGGER_LIST:
+			return new TriggersListFragment();
+		case FRAGMENT_PROFILE_LIST:
+			return new ProfilesListFragment();
+		case FRAGMENT_VIRTGOV_LIST:
+			return new VirtualGovernorListFragment();
+		case FRAGMENT_STAT:
+			if (settings.isRunStatisticsService()) {
+				if (settings.isAdvancesStatistics()) {
+					return new StatsAdvancedFragment();
+				}
+				return new StatsFragment();
+			}
+		case FRAGMENT_LOG:
+			if (settings.isEnableLogProfileSwitches()) {
+				if (settings.isAdvancesStatistics()) {
+					return new LogAdvancedFragment();
+				}
+			return new LogFragment();
+			}
 		}
-	}
-
-	public PagerAdapter(FragmentActivity activity, ViewPager pager,
-			PagerHeader header, ActionBarWrapper actionBar) {
-		super(activity.getSupportFragmentManager());
-		context = activity;
-		mPager = pager;
-		mHeader = header;
-		mHeader.setOnHeaderClickListener(this);
-		mPager.setAdapter(this);
-		mPager.setOnPageChangeListener(this);
-		mActionBar = actionBar;
-	}
-
-	public void addPage(Class<? extends PagerItem> clss, int res) {
-		addPage(clss, null, res);
-	}
-
-	public void addPage(Class<? extends PagerItem> clss, String title) {
-		addPage(clss, null, title);
-	}
-
-	public void addPage(Class<? extends PagerItem> clss, Bundle args, int res) {
-		addPage(clss, null, context.getResources().getString(res));
-	}
-
-	public void addPage(Class<? extends PagerItem> clss, Bundle args, String title) {
-		PageInfo info = new PageInfo(clss, args);
-		mPages.add(info);
-		mHeader.add(0, title);
-		notifyDataSetChanged();
+		return new Fragment();
 	}
 
 	@Override
 	public int getCount() {
-		return mPages.size();
+		return 6;
 	}
 
 	@Override
-	public Fragment getItem(int position) {
-		Fragment f = fragments.get(position);
-		if (f == null) {
-			PageInfo info = mPages.get(position);
-			f = Fragment.instantiate(context.getApplicationContext(), info.clss.getName(), info.args);
-			fragments.put(position, f);
-			//			if (currentPage == null) {
-			//				currentPage = f;
-			//			}
+	public CharSequence getPageTitle(int position) {
+		switch (position) {
+		case FRAGMENT_CUR_INFO:
+			return ctx.getString(R.string.labelCurrentTab);
+		case FRAGMENT_TRIGGER_LIST:
+			return ctx.getString(R.string.labelTriggersTab);
+		case FRAGMENT_PROFILE_LIST:
+			return ctx.getString(R.string.labelProfilesTab);
+		case FRAGMENT_VIRTGOV_LIST:
+			return ctx.getString(R.string.virtualGovernorsList);
+		case FRAGMENT_STAT:
+			return ctx.getString(R.string.labelStatisticsTab);
+		case FRAGMENT_LOG:
+			return ctx.getString(R.string.labelLogTab);
 		}
-		if (first && position == 0) {
-			first = false;
-			currentPage = f;
-			addActions((PagerItem) f);
-		}
-		return f;
+		return "";
 	}
-
-	@Override
-	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-		mHeader.setPosition(position, positionOffset, positionOffsetPixels);
-	}
-
-	@Override
-	public void onPageScrollStateChanged(int state) {
-	}
-
-	@Override
-	public void onHeaderClicked(int position) {
-
-	}
-
-	@Override
-	public void onHeaderSelected(int position) {
-		mPager.setCurrentItem(position);
-	}
-
-	@Override
-	public void onPageSelected(int position) {
-		mHeader.setDisplayedPage(position);
-		Fragment oldPage = currentPage;
-		currentPage = getItem(position);
-		if (currentPage != oldPage) {
-			if (oldPage != null) {
-				oldPage.onPause();
-			}
-			currentPage.onResume();
-		}
-		addActions((PagerItem) currentPage);
-	}
-
-	private void addActions(PagerItem page) {
-		mActionBar.removeAllActions();
-		List<ActionBar.Action> actions = page.getActions();
-		if (actions == null) {
-			return;
-		}
-		for (Action action : actions) {
-			mActionBar.addAction(action);
-		}
-	}
-
-	public void onPrepareOptionsMenu(Menu menu) {
-		currentPage.onPrepareOptionsMenu(menu);
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return currentPage.onOptionsItemSelected(item);
-	}
-
-	public static Fragment getCurrentItem() {
-		if (currentPage == null) {
-			return new Fragment();
-		}
-		return currentPage;
-	}
-
 }

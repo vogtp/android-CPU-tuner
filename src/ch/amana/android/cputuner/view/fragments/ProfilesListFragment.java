@@ -48,7 +48,6 @@ import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
-import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 
 import com.markupartist.android.widget.ActionBar;
@@ -228,9 +227,6 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
-			return false;
-		}
 		super.onContextItemSelected(item);
 
 		AdapterView.AdapterContextMenuInfo info;
@@ -256,7 +252,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 			return true;
 
 		default:
-			return handleCommonMenu(getActivity(), item);
+			return handleCommonMenu(item);
 		}
 
 	}
@@ -292,20 +288,20 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
-		if (handleCommonMenu(act, item)) {
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (handleCommonMenu(item)) {
 			return true;
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_PROFILE)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(getActivity(), item, HelpActivity.PAGE_PROFILE)) {
 			return true;
 		}
 		return false;
 	}
 
-	private boolean handleCommonMenu(Activity act, MenuItem item) {
+	private boolean handleCommonMenu(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemInsert:
-			act.startActivity(new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI));
+			startActivity(new Intent(Intent.ACTION_INSERT, DB.CpuProfile.CONTENT_URI));
 			return true;
 		}
 		return false;

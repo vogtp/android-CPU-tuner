@@ -180,7 +180,7 @@
     <string name="msg_grant_root">You will be asked to grant CPU Tuner superuser
 		access. Please grant it and check the remember checkbox. Without this
 		access CPU Tuner will not work. </string>
-    <string name="labelLogTab">Profile Switch Log</string>
+    <string name="labelLogTab">Log</string>
     <string name="msg_no_profile_switch_log">No profile switch log found.</string>
     <string name="menuItemInsertAsNew">Insert as new</string>
     <string name="prefCatGUILong">Change display settings.</string>

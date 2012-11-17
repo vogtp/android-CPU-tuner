@@ -5,6 +5,7 @@
         android:id="@+id/itemMenuHelp"
         android:icon="@android:drawable/ic_menu_help"
         android:menuCategory="system"
+        android:showAsAction="ifRoom"
         android:title="@string/labelHelpTab">
     </item>
 

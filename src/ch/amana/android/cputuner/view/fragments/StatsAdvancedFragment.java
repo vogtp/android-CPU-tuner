@@ -7,14 +7,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -161,7 +158,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 				if (id > 0) {
 					profile = ((TextView) view).getText().toString();
 				}
-				updateStatistics(act);
+				updateStatistics();
 			}
 
 			@Override
@@ -175,7 +172,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 				if (id > 0) {
 					trigger = ((TextView) view).getText().toString();
 				}
-				updateStatistics(act);
+				updateStatistics();
 			}
 
 			@Override
@@ -189,7 +186,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 				if (id > 0) {
 					virtgov = ((TextView) view).getText().toString();
 				}
-				updateStatistics(act);
+				updateStatistics();
 			}
 
 			@Override
@@ -201,7 +198,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				updateStatistics(act);
+				updateStatistics();
 			}
 		});
 
@@ -240,29 +237,16 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	@Override
 	public void onResume() {
 		super.onResume();
-		updateStatistics(getActivity());
+		updateStatistics();
 	}
 
-	private void updateStatistics(Context context) {
-		StatsAdvancedFragment self = this;
-		if (getActivity() == null) {
-			// FIXME ugly way to get around destruction of fragments on orientation change
-			if (lastInstanceCreated == null) {
-				return;
-			}
-			if (lastInstanceCreated.isDetached()) {
-				FragmentManager fragmentManager = lastInstanceCreated.getFragmentManager();
-				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				fragmentTransaction.attach(lastInstanceCreated);
-				fragmentTransaction.commit();
-			}
-			self = lastInstanceCreated;
+	private void updateStatistics() {
+		Activity act = getActivity();
+		if (act != null) {
+			act.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
 		}
-		if (context != null) {
-			context.sendBroadcast(new Intent(StatisticsReceiver.BROADCAST_UPDATE_TIMEINSTATE));
-		}
-		self.getLoaderManager().restartLoader(0, null, self);
-		self.setDataState(LoadingState.LOADING);
+		getLoaderManager().restartLoader(0, null, this);
+		setDataState(LoadingState.LOADING);
 	}
 
 	@Override
@@ -271,7 +255,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				resetStatistics(view.getContext());
+				resetStatistics();
 			}
 
 			@Override
@@ -282,7 +266,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {
-				updateStatistics(view.getContext());
+				updateStatistics();
 			}
 
 			@Override
@@ -293,22 +277,8 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		return actions;
 	}
 
-	private void resetStatistics(final Context ctx) {
-		StatsAdvancedFragment self = this;
-		if (getActivity() == null) {
-			// FIXME ugly way to get around destruction of fragments on orientation change
-			if (lastInstanceCreated == null) {
-				return;
-			}
-			if (lastInstanceCreated.isDetached()) {
-				FragmentManager fragmentManager = lastInstanceCreated.getFragmentManager();
-				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				fragmentTransaction.attach(lastInstanceCreated);
-				fragmentTransaction.commit();
-			}
-			self = lastInstanceCreated;
-		}
-		final Activity act = self.getActivity();
+	private void resetStatistics() {
+		final Activity act = getActivity();
 		if (act == null) {
 			return;
 		}
@@ -320,16 +290,16 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				ContentResolver resolver = ctx.getContentResolver();
+				ContentResolver resolver = act.getContentResolver();
 				resolver.delete(DB.TimeInStateIndex.CONTENT_URI, null, null);
 				resolver.delete(DB.TimeInStateValue.CONTENT_URI, null, null);
-				updateStatistics(ctx);
+				updateStatistics();
 				Handler h = new Handler();
 				h.postDelayed(new Runnable() {
 
 					@Override
 					public void run() {
-						updateStatistics(ctx);
+						updateStatistics();
 					}
 				}, 2000);
 			}
@@ -345,14 +315,15 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Activity act = getActivity();
 		switch (item.getItemId()) {
 		case R.id.itemBaseline:
-			resetStatistics(act);
+			resetStatistics();
 			return true;
 
 		case R.id.itemRefresh:
-			updateStatistics(act);
+			updateStatistics();
 			return true;
 
 		}
@@ -433,7 +404,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 
 	@Override
 	public void profileChanged() {
-		updateStatistics(getActivity());
+		updateStatistics();
 	}
 
 	@Override

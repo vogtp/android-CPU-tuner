@@ -41,7 +41,6 @@ import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
-import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
@@ -156,8 +155,9 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
-		if (handleCommonMenu(act, item)) {
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Activity act = getActivity();
+		if (handleCommonMenu(item)) {
 			return true;
 		}
 		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_VIRTUAL_GOVERNOR)) {
@@ -174,9 +174,6 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
-			return false;
-		}
 		super.onContextItemSelected(item);
 
 		AdapterView.AdapterContextMenuInfo info;
@@ -202,16 +199,16 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 			return true;
 		}
 
-		if (handleCommonMenu(getActivity(), item)) {
+		if (handleCommonMenu(item)) {
 			return true;
 		}
 		return super.onContextItemSelected(item);
 	}
 
-	private boolean handleCommonMenu(Activity act, MenuItem item) {
+	private boolean handleCommonMenu(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuItemInsert:
-			act.startActivity(new Intent(Intent.ACTION_INSERT, DB.VirtualGovernor.CONTENT_URI));
+			startActivity(new Intent(Intent.ACTION_INSERT, DB.VirtualGovernor.CONTENT_URI));
 			return true;
 		}
 		return false;

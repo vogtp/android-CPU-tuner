@@ -48,7 +48,6 @@ import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
-import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.ProfileAdaper;
 import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
@@ -132,6 +131,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		setHasOptionsMenu(true);
 		final Activity act = getActivity();
 		cpuHandler = CpuHandler.getInstance();
 		powerProfiles = PowerProfiles.getInstance(getActivity());
@@ -147,11 +147,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			fragmentTransaction.remove(governorFragment);
 			fragmentTransaction.commit();
 		}
-		//		if (settings.isUseVirtualGovernors() && settings.isEnableProfiles()) {
-			governorFragment = new VirtualGovernorFragment(this, governorHelper);
-		//		} else {
-		//			governorFragment = new GovernorFragment(this, governorHelper, true);
-		//		}
+		governorFragment = new VirtualGovernorFragment(this, governorHelper);
 
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment, "governorFragment");
@@ -254,12 +250,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (!this.getClass().equals(PagerAdapter.getCurrentItem().getClass())) {
-			return;
-		}
-		if (getActivity() == null) {
-			return;
-		}
 		if (SettingsStorage.getInstance().isBeginnerUser()) {
 			trMaxFreq.setVisibility(View.GONE);
 			labelCpuFreqMax.setVisibility(View.GONE);
@@ -308,23 +298,9 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void updateView() {
-		CurInfoFragment self = this;
-		if (getActivity() == null) {
-			// FIXME ugly way to get around destruction of fragments on orientation change
-			if (lastInstanceCreated == null) {
-				return;
-			}
-			if (lastInstanceCreated.isDetached()) {
-				FragmentManager fragmentManager = lastInstanceCreated.getFragmentManager();
-				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				fragmentTransaction.attach(lastInstanceCreated);
-				fragmentTransaction.commit();
-			}
-			self = lastInstanceCreated;
-		}
-		self.profileChanged();
-		self.triggerChanged();
-		self.deviceStatusChanged();
+		profileChanged();
+		triggerChanged();
+		deviceStatusChanged();
 	}
 
 	@Override
@@ -380,9 +356,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	private void getProfileInfo() {
-		if (tvPulse == null) {
-			return;
-		}
 		final Activity act = getActivity();
 		SettingsStorage settings = SettingsStorage.getInstance();
 		if (PulseHelper.getInstance(act).isPulsing()) {
@@ -476,13 +449,18 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
 		if (SettingsStorage.getInstance().hasHoloTheme()) {
 			menu.findItem(R.id.itemMenuHelp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		}
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(Activity act, MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
 		case R.id.itemRefresh:
@@ -490,7 +468,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			return true;
 
 		}
-		if (GeneralMenuHelper.onOptionsItemSelected(act, item, HelpActivity.PAGE_INDEX)) {
+		if (GeneralMenuHelper.onOptionsItemSelected(getContext(), item, HelpActivity.PAGE_INDEX)) {
 			return true;
 		}
 		return false;

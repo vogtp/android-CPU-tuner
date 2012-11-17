@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/itemSettings" android:menuCategory="system"
-		android:title="@string/labelSettingsTab" android:icon="@android:drawable/ic_menu_preferences"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemMenuHelp"
+        android:icon="@android:drawable/ic_menu_help"
+        android:menuCategory="system"
+        android:showAsAction="never"
+        android:title="@string/labelHelpTab">
+    </item>
+    <item
+        android:id="@+id/itemSettings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:menuCategory="system"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/labelSettingsTab">
+    </item>
+
 </menu>
