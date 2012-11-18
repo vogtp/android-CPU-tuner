@@ -113,6 +113,7 @@ public abstract class GovernorBaseFragment extends Fragment {
 		return governor;
 	}
 
+
 	public abstract void updateModel();
 
 	public abstract void updateView();

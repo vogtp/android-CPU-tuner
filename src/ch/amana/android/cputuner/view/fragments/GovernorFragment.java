@@ -216,6 +216,12 @@ public class GovernorFragment extends GovernorBaseFragment {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		updateGovernorFeatures();
+	}
+
+	@Override
 	public void updateModel() {
 		IGovernorModel governorModel = getGovernorModel();
 		governorModel.setGovernorThresholdUp(etGovTreshUp.getText().toString());
@@ -276,7 +282,10 @@ public class GovernorFragment extends GovernorBaseFragment {
 			labelGovThreshUp.setVisibility(View.VISIBLE);
 			etGovTreshUp.setVisibility(View.VISIBLE);
 			if (up < 2) {
-				up = Integer.parseInt(origThreshUp);
+				try {
+					up = Integer.parseInt(origThreshUp);
+				} catch (NumberFormatException e) {
+				}
 			}
 			if (up < 2) {
 				up = 90;

@@ -24,7 +24,6 @@ import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
-import ch.amana.android.cputuner.view.fragments.GovernorBaseFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragment;
 import ch.amana.android.cputuner.view.fragments.GovernorFragmentCallback;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
@@ -33,7 +32,7 @@ import com.markupartist.android.widget.ActionBar;
 
 public class VirtualGovernorEditorActivity extends FragmentActivity implements GovernorFragmentCallback, EditorCallback {
 
-	private GovernorBaseFragment governorFragment;
+	private static final String TAG_GOVERNOR_FRAGMENT = "TAG_GOVERNOR_FRAGMENT";
 	private VirtualGovernorModel virtualGovModel;
 	private EditText etVirtualGovernorName;
 	private ExitStatus exitStatus = ExitStatus.undefined;
@@ -79,6 +78,7 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 				public void performAction(View view) {
 					onBackPressed();
 				}
+
 				@Override
 				public int getDrawable() {
 					return R.drawable.cputuner_back;
@@ -88,23 +88,27 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 			EditorActionbarHelper.addActions(this, cputunerActionBar);
 		}
 		etVirtualGovernorName = (EditText) findViewById(R.id.etVirtualGovernorName);
-		governorFragment = new GovernorFragment(this, virtualGovModel);
+		GovernorFragment governorFragment = new GovernorFragment(this, virtualGovModel);
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
+		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment, TAG_GOVERNOR_FRAGMENT);
 		fragmentTransaction.commit();
 	}
 
 	@Override
 	public void updateModel() {
 		virtualGovModel.setVirtualGovernorName(etVirtualGovernorName.getText().toString().trim());
-		governorFragment.updateModel();
+		getGovernorFragment().updateModel();
+	}
+
+	private GovernorFragment getGovernorFragment() {
+		return (GovernorFragment) getSupportFragmentManager().findFragmentByTag(TAG_GOVERNOR_FRAGMENT);
 	}
 
 	@Override
 	public void updateView() {
 		etVirtualGovernorName.setText(virtualGovModel.getVirtualGovernorName());
-		governorFragment.updateView();
+		getGovernorFragment().updateView();
 	}
 
 	@Override
@@ -204,9 +208,8 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 					new String[] { virtualGovModel.getVirtualGovernorName() }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == virtualGovModel.getDbId();
-			} else {
-				return true;
 			}
+			return true;
 		} finally {
 			if (cursor != null) {
 				cursor.close();
