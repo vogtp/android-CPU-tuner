@@ -31,15 +31,12 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 
 	@Override
 	protected CapabilityChecker doInBackground(Void... params) {
-		RootHandler.waitForPrcess = true;
 		doCheck();
-		RootHandler.waitForPrcess = false;
 		return this;
 	}
 
 	@Override
 	protected void onPostExecute(CapabilityChecker result) {
-		RootHandler.waitForPrcess = false;
 		RootHandler.clearLogLocation();
 		if (ctx instanceof CapabilityCheckerActivity) {
 			((CapabilityCheckerActivity) ctx).dispalyChecks();

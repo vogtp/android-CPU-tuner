@@ -30,66 +30,56 @@ public class RootHandler {
 
 	private static Writer logWriter;
 
-	public static  boolean waitForPrcess = false;
-
-	public static  boolean execute(String cmd) {
+	public static boolean execute(Command command) {
+		if (command == null) {
+			Logger.e("Command is null!", new NullPointerException());
+			return false;
+		}
 		try {
-			Command command = new Command(0, 1000, cmd) {
-				@Override
-				public void output(int id, String line) {
-				}
-			};
-			Shell shell = getShell();
-			shell.add(command);
+			getShell().add(command);
 			command.waitForFinish();
 			return command.exitCode() == 0;
 		} catch (IOException e) {
-			Logger.e("IO error from: " + cmd, e);
+			Logger.e("IO error from: " + command.getCommand(), e);
 		} catch (TimeoutException e) {
 			Logger.e("Timeout getting shell", e);
 		} catch (RootDeniedException e) {
 			Logger.e("No root", e);
 		} catch (InterruptedException e) {
-			Logger.e("Command did not finish: " + cmd, e);
+			Logger.e("Command did not finish: " + command.getCommand(), e);
 		}
 		return false;
+	}
+
+	public static boolean execute(String cmd) {
+		Command command = new Command(0, 1000, cmd) {
+			@Override
+			public void output(int id, String line) {
+			}
+		};
+		return execute(command);
 	}
 
 	public static boolean execute(String cmd, final StringBuilder result) {
-		try {
-			Command command = new Command(0, 1000, cmd) {
-				@Override
-				public void output(int id, String line) {
-					result.append(line);
-				}
-			};
-			Shell shell = getShell();
-			shell.add(command);
-			command.waitForFinish();
-			return command.exitCode() == 0;
-		} catch (IOException e) {
-			Logger.e("IO error from: " + cmd, e);
-		} catch (TimeoutException e) {
-			Logger.e("Timeout getting shell", e);
-		} catch (RootDeniedException e) {
-			Logger.e("No root", e);
-		} catch (InterruptedException e) {
-			Logger.e("Command did not finish: " + cmd, e);
-		}
-		return false;
+		Command command = new Command(0, 1000, cmd) {
+			@Override
+			public void output(int id, String line) {
+				result.append(line);
+			}
+		};
+		return execute(command);
 	}
 
-	private static Shell getShell() throws IOException, TimeoutException, RootDeniedException {
-		return RootTools.getShell(true);
+	private static synchronized Shell getShell() throws IOException, TimeoutException, RootDeniedException {
+		return RootTools.getShell(true, 1000);
 	}
 
-	public  static void writeLog(String line) {
+	public static void writeLog(String line) {
 		if (logWriter != null) {
 			try {
 				logWriter.write(line);
 				logWriter.write("\n");
 				logWriter.flush();
-				//Runtime.getRuntime().exec("sync");
 			} catch (Exception e) {
 				Logger.w("Cannot write >" + line + "< to log file", e);
 			}
@@ -114,7 +104,7 @@ public class RootHandler {
 		return isSystemApp;
 	}
 
-	public  static String[] findAppPath(Context ctx, File root) {
+	public static String[] findAppPath(Context ctx, File root) {
 		if (!root.isDirectory()) {
 			return new String[] {};
 		}
@@ -166,7 +156,6 @@ public class RootHandler {
 					try {
 						reader.close();
 					} catch (IOException e) {
-						Logger.w("Cannot close reader...", e);
 					}
 					reader = null;
 				}
@@ -184,7 +173,7 @@ public class RootHandler {
 		}
 	}
 
-	public  static boolean writeFile(File file, String val) {
+	public static boolean writeFile(File file, String val) {
 		if (file == CpuHandler.DUMMY_FILE || !file.exists()) {
 			if (Logger.DEBUG) {
 				Logger.logStacktrace(file.getAbsolutePath() + " does not exist!");
@@ -192,8 +181,8 @@ public class RootHandler {
 			return false;
 		}
 		String cmd = "echo " + val + " > " + file.getAbsolutePath();
-		if (ScriptCache.isRecoding()) {
-			ScriptCache.recordLine(cmd);
+		if (ScriptCache.getInstance().isRecoding()) {
+			ScriptCache.getInstance().recordLine(cmd);
 			return true;
 		}
 		synchronized (file) {
@@ -201,7 +190,7 @@ public class RootHandler {
 		}
 	}
 
-	public  static void setLogLocation(File file) {
+	public static void setLogLocation(File file) {
 		if (file == null) {
 			logWriter = null;
 			return;
@@ -229,7 +218,7 @@ public class RootHandler {
 		}
 	}
 
-	public  static void clearLogLocation() {
+	public static void clearLogLocation() {
 		if (logWriter != null) {
 			try {
 				logWriter.flush();

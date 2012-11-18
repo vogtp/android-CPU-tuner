@@ -101,7 +101,7 @@ public class ModelAccess implements BackupRestoreCallback {
 				backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
 			}
 		}
-		ScriptCache.removeScripts(ctx);
+		ScriptCache.getInstance().clear(ctx);
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs) {

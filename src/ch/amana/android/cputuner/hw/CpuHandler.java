@@ -12,6 +12,7 @@ import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 import android.content.Context;
+import ch.amana.android.cputuner.cache.Cache;
 import ch.amana.android.cputuner.cache.ScriptCache;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
@@ -63,7 +64,7 @@ public class CpuHandler extends HardwareHandler {
 
 	public static CpuHandler resetInstance(Context ctx) {
 		instance = null;
-		ScriptCache.removeScripts(ctx);
+		ScriptCache.getInstance().clear(ctx);
 		return getInstance();
 	}
 
@@ -125,14 +126,15 @@ public class CpuHandler extends HardwareHandler {
 
 	public void applyCpuSettings(Context ctx, ProfileModel profile) {
 		long pid = profile.getDbId();
-		if (!ScriptCache.hasScript(ctx, pid)) {
+		Cache cache = ScriptCache.getInstance();
+		if (!cache.exists(ctx, pid)) {
 			//generate script
-			ScriptCache.startRecording(ctx, pid);
+			cache.startRecording(ctx, pid);
 			doApplyCpuSettings(profile);
-			ScriptCache.endRecording();
-			ScriptCache.runScript(ctx, pid);
+			cache.endRecording();
+			cache.execute(ctx, pid);
 		}
-		ScriptCache.runScript(ctx, pid);
+		cache.execute(ctx, pid);
 	}
 
 	protected void doApplyCpuSettings(ProfileModel profile) {
