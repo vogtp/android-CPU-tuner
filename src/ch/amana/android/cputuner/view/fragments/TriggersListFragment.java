@@ -96,6 +96,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 						|| columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_SCREEN_UNLOCKED_PROFILE_ID
+						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
 					long profileId = cursor.getLong(columnIndex);

@@ -529,7 +529,6 @@ public class PowerProfiles {
 	public void setAcPower(boolean power) {
 		if (acPower != power) {
 			acPower = power;
-			sendDeviceStatusChangedBroadcast();
 			trackCurrent();
 			applyPowerProfile(false);
 		}
@@ -599,14 +598,16 @@ public class PowerProfiles {
 		return screenUnlocked;
 	}
 
-	public void setScreenUnlocked(boolean screenUnlocked) {
-		this.screenUnlocked = screenUnlocked;
+	public void setScreenUnlocked(boolean unlocked) {
+		if (screenUnlocked != unlocked) {
+			this.screenUnlocked = unlocked;
+			applyPowerProfile(false);
+		}
 	}
 
 	public void setBatteryTemperature(int temperature) {
 		if (batteryTemperature != temperature) {
 			batteryTemperature = temperature;
-			sendDeviceStatusChangedBroadcast();
 			applyPowerProfile(false);
 		}
 	}
@@ -625,7 +626,6 @@ public class PowerProfiles {
 		}
 		if (callInProgress != b) {
 			callInProgress = b;
-			sendDeviceStatusChangedBroadcast();
 			applyPowerProfile(false);
 		}
 	}
@@ -735,6 +735,5 @@ public class PowerProfiles {
 			Logger.e("Did not find service type " + type.toString() + " to apply new state.");
 		}
 	}
-
 
 }
