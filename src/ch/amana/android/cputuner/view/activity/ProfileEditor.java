@@ -146,7 +146,7 @@ public class ProfileEditor extends FragmentActivity implements GovernorFragmentC
 
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.add(R.id.llGovernorFragmentAncor, governorFragment);
+		fragmentTransaction.replace(R.id.llGovernorFragmentAncor, governorFragment);
 		fragmentTransaction.commit();
 
 		if (profile.getMinFreq() < cpuHandler.getMinimumSensibleFrequency() && settings.isBeginnerUser()) {

@@ -114,9 +114,7 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".view.activity.ProfileEditor"
-            android:configChanges="orientation" >
+        <activity android:name=".view.activity.ProfileEditor" >
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" >
                 </action>
@@ -199,9 +197,7 @@
         </activity>
         <activity android:name=".view.preference.SettingsMainActivity" >
         </activity>
-        <activity
-            android:name=".view.activity.TriggerEditor"
-            android:configChanges="orientation" >
+        <activity android:name=".view.activity.TriggerEditor" >
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" >
                 </action>
@@ -228,12 +224,11 @@
 
         <provider
             android:name=".provider.CpuTunerProvider"
-            android:authorities="ch.amana.android.cputuner" >
+            android:authorities="ch.amana.android.cputuner"
+            android:exported="false" >
         </provider>
 
-        <activity
-            android:name=".view.activity.CapabilityCheckerActivity"
-            android:configChanges="orientation" >
+        <activity android:name=".view.activity.CapabilityCheckerActivity" >
         </activity>
         <activity android:name=".view.activity.HelpActivity" >
         </activity>
