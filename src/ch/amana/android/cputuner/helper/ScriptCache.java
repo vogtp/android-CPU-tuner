@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import android.content.Context;
+import android.os.Build;
 import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 
@@ -24,7 +25,11 @@ public class ScriptCache {
 
 	protected static File getFile(Context ctx, long pid) {
 		File file = new File(getPath(ctx), pid + ".sh");
-		file.setExecutable(true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+			file.setExecutable(true);
+		}else {
+			RootHandler.execute("chmod +x "+file.getAbsolutePath());
+		}
 		return file;
 	}
 

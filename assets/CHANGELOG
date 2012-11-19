@@ -8,7 +8,7 @@ V
 * features
 - Use interactive governor on Android 4.0 and later
 * bug fixes
-- 
+- Fix sciptcache on pre Gingerbread
 
 V 3.3.17
 * features
