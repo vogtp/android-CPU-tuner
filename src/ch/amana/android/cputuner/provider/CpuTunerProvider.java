@@ -148,8 +148,6 @@ public class CpuTunerProvider extends ContentProvider {
 
 		// Get the database and run the query
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		String sql = qb.buildQuery(projection, selection, selectionArgs, utm.groupBy, null, sortOrder, null);
-		Logger.d(sql);
 		Cursor c = qb.query(db, projection, selection, selectionArgs, utm.groupBy, null, sortOrder);
 		// Tell the cursor what uri to watch, so it knows when its source data
 		// changes
