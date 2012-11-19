@@ -1,8 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -42,8 +39,8 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateChangeListener;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class TriggersListFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
@@ -60,11 +57,11 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 		int layout = SettingsStorage.getInstance().isPowerStrongerThanScreenoff() ? R.layout.trigger_item_pwrstrong : R.layout.trigger_item_pwrweak;
 		adapter = new SimpleCursorAdapter(getActivity(), layout, null, new String[] { DB.Trigger.NAME_TRIGGER_NAME, DB.Trigger.NAME_BATTERY_LEVEL,
-				DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID,
+				DB.Trigger.NAME_BATTERY_PROFILE_ID, DB.Trigger.NAME_POWER_PROFILE_ID, DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, DB.Trigger.NAME_SCREEN_LOCKED_PROFILE_ID,
 				DB.Trigger.NAME_POWER_CURRENT_CNT_POW,
 				DB.Trigger.NAME_POWER_CURRENT_CNT_BAT, DB.Trigger.NAME_POWER_CURRENT_CNT_LCK, DB.Trigger.NAME_HOT_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_HOT,
 				DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID, DB.Trigger.NAME_POWER_CURRENT_CNT_CALL }, new int[] { R.id.tvName, R.id.tvBatteryLevel, R.id.tvProfileOnBattery,
-				R.id.tvProfileOnPower, R.id.tvProfileScreenOff, R.id.tvProfileScreenUnlocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentOff,
+				R.id.tvProfileOnPower, R.id.tvProfileScreenOff, R.id.tvProfileScreenLocked, R.id.tvPowerCurrentPower, R.id.tvPowerCurrentBattery, R.id.tvPowerCurrentOff,
 				R.id.tvProfileHot,
 				R.id.tvPowerCurrentHot, R.id.tvProfileCall, R.id.tvPowerCurrentCall }, 0);
 
@@ -95,7 +92,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 				} else if (columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID
-						|| columnIndex == DB.Trigger.INDEX_SCREEN_UNLOCKED_PROFILE_ID
+						|| columnIndex == DB.Trigger.INDEX_SCREEN_LOCKED_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_HOT_PROFILE_ID
 						|| columnIndex == DB.Trigger.INDEX_CALL_IN_PROGRESS_PROFILE_ID) {
@@ -127,7 +124,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 								if ((columnIndex == DB.Trigger.INDEX_BATTERY_PROFILE_ID && powerProfiles.isOnBatteryProfile())
 										|| (columnIndex == DB.Trigger.INDEX_POWER_PROFILE_ID && powerProfiles.isAcPower())
 										|| (columnIndex == DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID && powerProfiles.isScreenOff())
-										|| (columnIndex == DB.Trigger.INDEX_SCREEN_UNLOCKED_PROFILE_ID && powerProfiles.isScreenUnlocked())) {
+										|| (columnIndex == DB.Trigger.INDEX_SCREEN_LOCKED_PROFILE_ID && powerProfiles.isScreenLocked())) {
 									color = getResources().getColor(R.color.cputuner_green);
 								}
 							}
@@ -224,7 +221,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		final Activity act = getActivity();
-		act.getMenuInflater().inflate(R.menu.db_list_context, menu);
+		act.getMenuInflater().inflate(R.menu.trigger_db_list_context, menu);
 		act.getMenuInflater().inflate(R.menu.triggerlist_context, menu);
 	}
 
@@ -247,15 +244,15 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 		final Uri uri = ContentUris.withAppendedId(DB.Trigger.CONTENT_URI, info.id);
 		switch (item.getItemId()) {
-		case R.id.menuItemDelete:
+		case R.id.menuItemDeleteTrigger:
 			deleteTrigger(uri);
 			return true;
 
-		case R.id.menuItemEdit:
+		case R.id.menuItemEditTrigger:
 			startActivity(new Intent(Intent.ACTION_EDIT, uri));
 			return true;
 
-		case R.id.menuItemInsertAsNew:
+		case R.id.menuItemInsertAsNewTrigger:
 			startActivity(new Intent(DB.ACTION_INSERT_AS_NEW, uri));
 			return true;
 
@@ -382,8 +379,8 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<ActionBar.Action>(1);
+	public ActionList getActions() {
+		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {

@@ -153,12 +153,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingRight="10dp"
-                        android:text="@string/labelScreenUnocked"
+                        android:text="@string/labelScreenLocked"
                         android:width="@dimen/triggerEditor1Col" >
                     </TextView>
 
                     <Spinner
-                        android:id="@+id/spScreenUnlocked"
+                        android:id="@+id/spScreenLocked"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".1" >

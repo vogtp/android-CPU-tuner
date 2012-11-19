@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class ActionBarWrapper {
 
@@ -38,4 +39,9 @@ public class ActionBarWrapper {
 		}
 	}
 
+	public void addActions(ActionList actions) {
+		if (cputunerActionBar != null) {
+			cputunerActionBar.addActions(actions);
+		}
+	}
 }

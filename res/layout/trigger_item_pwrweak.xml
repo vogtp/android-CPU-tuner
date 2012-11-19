@@ -126,11 +126,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/labelScreenUnocked" >
+                android:text="@string/labelScreenLocked" >
             </TextView>
 
             <TextView
-                android:id="@+id/tvProfileScreenUnlocked"
+                android:id="@+id/tvProfileScreenLocked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".9"
@@ -140,7 +140,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/tvPowerCurrentUnlocked"
+                android:id="@+id/tvPowerCurrentLocked"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

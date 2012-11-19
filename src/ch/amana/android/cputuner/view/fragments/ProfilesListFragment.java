@@ -1,8 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -50,8 +47,8 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateCh
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 
-import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class ProfilesListFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
@@ -222,7 +219,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		getActivity().getMenuInflater().inflate(R.menu.db_list_context, menu);
+		getActivity().getMenuInflater().inflate(R.menu.profile_db_list_context, menu);
 	}
 
 	@Override
@@ -239,15 +236,15 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 
 		final Uri uri = ContentUris.withAppendedId(DB.CpuProfile.CONTENT_URI, info.id);
 		switch (item.getItemId()) {
-		case R.id.menuItemDelete:
+		case R.id.menuItemDeleteProfile:
 			deleteProfile(uri);
 			return true;
 
-		case R.id.menuItemEdit:
+		case R.id.menuItemEditProfile:
 			startActivity(new Intent(Intent.ACTION_EDIT, uri));
 			return true;
 
-		case R.id.menuItemInsertAsNew:
+		case R.id.menuItemInsertAsNewProfile:
 			startActivity(new Intent(DB.ACTION_INSERT_AS_NEW, uri));
 			return true;
 
@@ -308,8 +305,8 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<ActionBar.Action>(1);
+	public ActionList getActions() {
+		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {

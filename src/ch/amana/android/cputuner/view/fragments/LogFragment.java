@@ -1,9 +1,7 @@
 package ch.amana.android.cputuner.view.fragments;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,6 +31,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateCh
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class LogFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
@@ -129,8 +128,8 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<Action>(1);
+	public ActionList getActions() {
+		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {

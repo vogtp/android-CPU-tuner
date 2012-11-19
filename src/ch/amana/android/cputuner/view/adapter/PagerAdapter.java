@@ -1,13 +1,12 @@
 package ch.amana.android.cputuner.view.adapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 import ch.amana.android.cputuner.view.fragments.CurInfoFragment;
 import ch.amana.android.cputuner.view.fragments.LogAdvancedFragment;
 import ch.amana.android.cputuner.view.fragments.LogFragment;
@@ -17,13 +16,15 @@ import ch.amana.android.cputuner.view.fragments.StatsFragment;
 import ch.amana.android.cputuner.view.fragments.TriggersListFragment;
 import ch.amana.android.cputuner.view.fragments.VirtualGovernorListFragment;
 
-import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class PagerAdapter extends FragmentPagerAdapter {
 
 	public interface PagerItem {
 
-		List<Action> getActions();
+		public ActionList getActions();
+
+		public void pageIsActive(CpuTunerViewpagerActivity cpuTunerViewpagerActivity);
 
 	}
 
@@ -41,13 +42,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
 		this.ctx = ctx.getApplicationContext();
 		this.settings = SettingsStorage.getInstance(ctx);
 	}
-
-	//	} else {
-	//		pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
-	//		if (settings.isEnableLogProfileSwitches()) {
-	//			pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
-	//		}
-	//	}
 
 	@Override
 	public Fragment getItem(int i) {
@@ -101,4 +95,5 @@ public class PagerAdapter extends FragmentPagerAdapter {
 		}
 		return "";
 	}
+
 }

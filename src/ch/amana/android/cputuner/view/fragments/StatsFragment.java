@@ -1,8 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +20,8 @@ import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.view.activity.BillingProductListActiviy;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
-import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class StatsFragment extends PagerFragment {
 
@@ -97,8 +94,8 @@ public class StatsFragment extends PagerFragment {
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<ActionBar.Action>(2);
+	public ActionList getActions() {
+		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {

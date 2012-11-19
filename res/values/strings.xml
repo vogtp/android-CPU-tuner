@@ -153,7 +153,8 @@
     <string name="enabled">Enabled</string>
     <string name="ac_power">On Power</string>
     <string name="battery">On battery</string>
-    <string name="screenOn">Screen On</string>
+    <string name="screenUnocked">Screen Unlocked</string>
+    <string name="screenLocked">Screen Locked</string>
     <string name="screenOff">Screen Off</string>
     <string name="screenLocked">Screen Locked</string>
     <string name="call_active">Call active</string>
@@ -448,7 +449,7 @@
     <string name="labelCallInProgress">Call-In Progress:</string>
     <string name="labelOnPower">On Power:</string>
     <string name="labelScreenOff">Screen Off:</string>
-    <string name="labelScreenUnocked">Screen Unlocked:</string>
+    <string name="labelScreenLocked">Screen Locked:</string>
     <string name="labelOnBattery">On Battery:</string>
     <string name="labelExplainTriggerProfiles">Depending on the state of the device one of the
 		following profiles will be chosen.</string>

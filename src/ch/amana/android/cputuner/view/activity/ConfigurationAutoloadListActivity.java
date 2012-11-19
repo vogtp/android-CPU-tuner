@@ -216,7 +216,7 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo
 			menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		getMenuInflater().inflate(R.menu.db_list_context, menu);
+		getMenuInflater().inflate(R.menu.profile_db_list_context, menu);
 	}
 
 	@Override
@@ -233,15 +233,15 @@ public class ConfigurationAutoloadListActivity extends ListActivity {
 
 		final Uri uri = ContentUris.withAppendedId(DB.ConfigurationAutoload.CONTENT_URI, info.id);
 		switch (item.getItemId()) {
-		case R.id.menuItemDelete:
+		case R.id.menuItemDeleteProfile:
 			delete(uri);
 			return true;
 
-		case R.id.menuItemEdit:
+		case R.id.menuItemEditProfile:
 			startActivity(new Intent(Intent.ACTION_EDIT, uri));
 			return true;
 
-		case R.id.menuItemInsertAsNew:
+		case R.id.menuItemInsertAsNewProfile:
 			startActivity(new Intent(DB.ACTION_INSERT_AS_NEW, uri));
 			return true;
 

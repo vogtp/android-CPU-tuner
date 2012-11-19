@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
+import ch.amana.android.cputuner.view.adapter.PagerAdapter.PagerItem;
 import ch.amana.android.cputuner.view.widget.ActionBarWrapper;
 import ch.amana.android.cputuner.view.widget.CputunerActionBar;
 
@@ -40,6 +42,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	private static final int[] lock = new int[1];
 	private CpuTunerReceiver receiver;
 	private final Set<StateChangeListener> stateChangeListeners = new HashSet<StateChangeListener>();
+	private ActionBarWrapper actionBarWrapper;
 
 	public interface StateChangeListener {
 
@@ -113,7 +116,6 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 		setContentView(R.layout.viewpager);
 
-		ActionBarWrapper actionBarWrapper;
 		CputunerActionBar cputunerActionBar = (CputunerActionBar) findViewById(R.id.abCpuTuner);
 		if (settings.hasHoloTheme()) {
 			android.app.ActionBar bar = getActionBar();
@@ -138,23 +140,24 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
 		pager.setAdapter(pagerAdapter);
-		//		pagerAdapter.addPage(CurInfoFragment.class, R.string.labelCurrentTab);
-		//		pagerAdapter.addPage(TriggersListFragment.class, R.string.labelTriggersTab);
-		//		pagerAdapter.addPage(ProfilesListFragment.class, R.string.labelProfilesTab);
-		//		pagerAdapter.addPage(VirtualGovernorListFragment.class, R.string.virtualGovernorsList);
-		//		if (settings.isAdvancesStatistics()) {
-		//			if (settings.isRunStatisticsService()) {
-		//				pagerAdapter.addPage(StatsAdvancedFragment.class, R.string.labelStatisticsTab);
-		//			}
-		//			if (settings.isEnableLogProfileSwitches()) {
-		//				pagerAdapter.addPage(LogAdvancedFragment.class, R.string.labelLogTab);
-		//			}
-		//		} else {
-		//			pagerAdapter.addPage(StatsFragment.class, R.string.labelStatisticsTab);
-		//			if (settings.isEnableLogProfileSwitches()) {
-		//				pagerAdapter.addPage(LogFragment.class, R.string.labelLogTab);
-		//			}
-		//		}
+
+		pager.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int pos) {
+				PagerItem pagerItem = (PagerItem) pagerAdapter.getItem(pos);
+				pagerItem.pageIsActive(CpuTunerViewpagerActivity.this);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+			}
+		});
+
 	}
 
 	private boolean sanityChecks(SettingsStorage settings) {
@@ -262,6 +265,10 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			} catch (Exception e) {
 			}
 		}
+	}
+
+	public ActionBarWrapper getActionBarWrapper() {
+		return actionBarWrapper;
 	}
 
 }

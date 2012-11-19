@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuItemInsertProfile"
+        android:title="@string/menuItemInsert">
+    </item>
+    <item
+        android:id="@+id/menuItemInsertAsNewProfile"
+        android:title="@string/menuItemInsertAsNew">
+    </item>
+    <item
+        android:id="@+id/menuItemEditProfile"
+        android:title="@string/menuItemEdit">
+    </item>
+    <item
+        android:id="@+id/menuItemDeleteProfile"
+        android:title="@string/menuItemDelete">
+    </item>
+
+</menu>

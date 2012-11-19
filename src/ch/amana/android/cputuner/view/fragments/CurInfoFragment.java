@@ -1,8 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -53,6 +50,7 @@ import ch.amana.android.cputuner.view.widget.ServiceSwitcher;
 import ch.amana.android.cputuner.view.widget.SpinnerWrapper;
 
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class CurInfoFragment extends PagerFragment implements GovernorFragmentCallback, FrequencyChangeCallback, StateChangeListener {
 
@@ -82,17 +80,10 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	private TableRow trPower;
 	private ProfileAdaper profileAdapter;
 	private TextView tvManualServiceChanges;
-	// FIXME ugly way to get around destruction of fragments on orientation change
-	private CurInfoFragment lastInstanceCreated;
 	private ServiceSwitcher serviceSwitcher;
 	private TextView tvInfoFrequenciesBeginner;
 	private TextView labelCpuFreqMin;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		lastInstanceCreated = this;
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -139,7 +130,6 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		cpuFrequencyChooser = new CpuFrequencyChooser(this, sbCpuFreqMin, spCpuFreqMin, sbCpuFreqMax, spCpuFreqMax);
 
 		governorHelper = new HardwareGovernorModel(act);
-		SettingsStorage settings = SettingsStorage.getInstance(getContext());
 		FragmentManager fragmentManager = getFragmentManager();
 		governorFragment = (GovernorBaseFragment) fragmentManager.findFragmentByTag("governorFragment");
 		if (governorFragment != null) {
@@ -475,8 +465,8 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<Action>(2);
+	public ActionList getActions() {
+		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {

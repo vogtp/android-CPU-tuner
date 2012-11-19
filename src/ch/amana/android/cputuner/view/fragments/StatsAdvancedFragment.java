@@ -1,8 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -44,8 +41,8 @@ import ch.amana.android.cputuner.view.activity.HelpActivity;
 import ch.amana.android.cputuner.view.adapter.AdvStatsFilterAdaper;
 import ch.amana.android.cputuner.view.widget.PercentGraphView;
 
-import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class StatsAdvancedFragment extends PagerListFragment implements LoaderCallbacks<Cursor>, StateChangeListener {
 
@@ -250,8 +247,8 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<ActionBar.Action>(1);
+	public ActionList getActions() {
+		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {

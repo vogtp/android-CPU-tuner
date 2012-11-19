@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuItemInsertTrigger"
+        android:title="@string/menuItemInsert">
+    </item>
+    <item
+        android:id="@+id/menuItemInsertAsNewTrigger"
+        android:title="@string/menuItemInsertAsNew">
+    </item>
+    <item
+        android:id="@+id/menuItemEditTrigger"
+        android:title="@string/menuItemEdit">
+    </item>
+    <item
+        android:id="@+id/menuItemDeleteTrigger"
+        android:title="@string/menuItemDelete">
+    </item>
+
+</menu>
