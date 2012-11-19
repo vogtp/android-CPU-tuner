@@ -278,11 +278,6 @@ public class Notifier extends BroadcastReceiver {
 			views.setViewVisibility(R.id.llServiceIcons_ref, View.GONE);
 		}
 
-		if (Logger.DEBUG) {
-			views.setViewVisibility(R.id.tvUpdate, View.VISIBLE);
-			views.setTextViewText(R.id.tvUpdate, SettingsStorage.dateTimeFormat.format(System.currentTimeMillis()));
-		}
-
 		return views;
 	}
 
