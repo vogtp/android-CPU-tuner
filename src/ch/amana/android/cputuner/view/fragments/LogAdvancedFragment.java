@@ -1,8 +1,6 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,6 +31,7 @@ import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity.StateCh
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
 import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class LogAdvancedFragment extends PagerFragment implements StateChangeListener {
 
@@ -114,14 +113,18 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 					return true;
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_LOCKED) {
 					StringBuilder sb = new StringBuilder();
-					int resLock = R.string.screenLocked;
+					int resLock = -1;
 					long lockType = cursor.getLong(DB.SwitchLogDB.INDEX_LOCKED);
 					if (lockType == DB.SwitchLogDB.LOCK_TYPE_OFF) {
 						resLock = R.string.screenOff;
 					} else if (lockType == DB.SwitchLogDB.LOCK_TYPE_UNLOCKED) {
-						resLock = R.string.screenOn;
+						resLock = R.string.screenUnocked;
+					} else if (lockType == DB.SwitchLogDB.LOCK_TYPE_LOCKED) {
+						resLock = R.string.screenLocked;
 					}
-					sb.append(getString(resLock));
+					if (resLock != -1) {
+						sb.append(getString(resLock));
+					}
 					sb.append(", ").append(getString(cursor.getInt(DB.SwitchLogDB.INDEX_AC) == 0 ? R.string.battery : R.string.ac_power));
 					if (cursor.getInt(DB.SwitchLogDB.INDEX_CALL) != 0) {
 						sb.append(", ").append(R.string.call_active);
@@ -195,8 +198,8 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 	}
 
 	@Override
-	public List<Action> getActions() {
-		List<Action> actions = new ArrayList<Action>(2);
+	public ActionList getActions() {
+		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
 			public void performAction(View view) {

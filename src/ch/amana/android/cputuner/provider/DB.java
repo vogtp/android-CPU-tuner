@@ -54,7 +54,7 @@ public interface DB {
 				+ DB.Trigger.NAME_POWER_CURRENT_SUM_LCK + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_LCK + " long,"
 				+ DB.Trigger.NAME_HOT_PROFILE_ID + " long default -1," + DB.Trigger.NAME_POWER_CURRENT_SUM_HOT + " long,"
 				+ DB.Trigger.NAME_POWER_CURRENT_CNT_HOT + " long," + DB.Trigger.NAME_CALL_IN_PROGRESS_PROFILE_ID + " long,"
-				+ DB.Trigger.NAME_POWER_CURRENT_SUM_CALL + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_CALL + " long," + DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID + " long)";
+				+ DB.Trigger.NAME_POWER_CURRENT_SUM_CALL + " long," + DB.Trigger.NAME_POWER_CURRENT_CNT_CALL + " long," + DB.Trigger.NAME_SCREEN_LOCKED_PROFILE_ID + " long)";
 
 		private static final String CREATE_CPUPROFILES_TABLE = "create table if not exists " + CpuProfile.TABLE_NAME + " (" + DB.NAME_ID
 				+ " integer primary key, "
@@ -207,7 +207,7 @@ public interface DB {
 
 			case 16:
 				Logger.w("Upgrading to DB Version 16...");
-				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID + " long;");
+				db.execSQL("alter table " + Trigger.TABLE_NAME + " add column " + Trigger.NAME_SCREEN_LOCKED_PROFILE_ID + " long;");
 
 			default:
 				Logger.w("Finished DB upgrading!");
@@ -241,7 +241,7 @@ public interface DB {
 		public static final String NAME_CALL_IN_PROGRESS_PROFILE_ID = "callInProgressProfileId";
 		public static final String NAME_POWER_CURRENT_SUM_CALL = "powerCurrentSumCall";
 		public static final String NAME_POWER_CURRENT_CNT_CALL = "powerCurrentCntCall";
-		public static final String NAME_SCREEN_UNLOCKED_PROFILE_ID = "screenUnlockedProfileId";
+		public static final String NAME_SCREEN_LOCKED_PROFILE_ID = "screenLockedProfileId";
 
 		public static final int INDEX_TRIGGER_NAME = 1;
 		public static final int INDEX_BATTERY_LEVEL = 2;
@@ -260,7 +260,7 @@ public interface DB {
 		public static final int INDEX_CALL_IN_PROGRESS_PROFILE_ID = 15;
 		public static final int INDEX_POWER_CURRENT_SUM_CALL = 16;
 		public static final int INDEX_POWER_CURRENT_CNT_CALL = 17;
-		public static final int INDEX_SCREEN_UNLOCKED_PROFILE_ID = 18;
+		public static final int INDEX_SCREEN_LOCKED_PROFILE_ID = 18;
 
 		public static String CONTENT_URI_STRING = "content://" + AUTHORITY + "/" + CONTENT_ITEM_NAME;
 		public static Uri CONTENT_URI = Uri.parse(CONTENT_URI_STRING);
@@ -271,7 +271,7 @@ public interface DB {
 		public static final String[] PROJECTION_DEFAULT = new String[] { NAME_ID, NAME_TRIGGER_NAME, NAME_BATTERY_LEVEL, NAME_SCREEN_OFF_PROFILE_ID,
 				NAME_BATTERY_PROFILE_ID, NAME_POWER_PROFILE_ID, NAME_POWER_CURRENT_SUM_POW, NAME_POWER_CURRENT_CNT_POW, NAME_POWER_CURRENT_SUM_BAT,
 				NAME_POWER_CURRENT_CNT_BAT, NAME_POWER_CURRENT_SUM_LCK, NAME_POWER_CURRENT_CNT_LCK, NAME_HOT_PROFILE_ID, NAME_POWER_CURRENT_SUM_HOT,
-				NAME_POWER_CURRENT_CNT_HOT, NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL, NAME_SCREEN_UNLOCKED_PROFILE_ID };
+				NAME_POWER_CURRENT_CNT_HOT, NAME_CALL_IN_PROGRESS_PROFILE_ID, NAME_POWER_CURRENT_SUM_CALL, NAME_POWER_CURRENT_CNT_CALL, NAME_SCREEN_LOCKED_PROFILE_ID };
 
 		public static final String[] PROJECTION_BATTERY_LEVEL = new String[] { NAME_ID, NAME_BATTERY_LEVEL };
 
@@ -441,9 +441,9 @@ public interface DB {
 
 		public static final boolean NOTIFY_ON_CHANGE = false;
 
-		public static final long LOCK_TYPE_OFF = 0;
-		public static final long LOCK_TYPE_UNLOCKED = 1;
-		public static final long LOCK_TYPE_LOCKED = 2;
+		public static final int LOCK_TYPE_OFF = 0;
+		public static final int LOCK_TYPE_UNLOCKED = 1;
+		public static final int LOCK_TYPE_LOCKED = 2;
 
 		public static final String NAME_TIME = "time";
 		public static final String NAME_MESSAGE = "message";

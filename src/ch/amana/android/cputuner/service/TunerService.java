@@ -197,26 +197,16 @@ public class TunerService extends IntentService {
 						powerProfiles.setAcPower(plugged > 0);
 					}
 				} else if (Intent.ACTION_POWER_CONNECTED.equals(action)) {
-					//					startSpeedUpSwitch();
 					powerProfiles.setAcPower(true);
-					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_POWER_DISCONNECTED.equals(action)) {
-					//					startSpeedUpSwitch();
 					powerProfiles.setAcPower(false);
-					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
-					//					startSpeedUpSwitch();
-					powerProfiles.setScreenUnlocked(false);
+					// setScreenOff(ture) sets screenLocked to true as well (not the other way round)
 					powerProfiles.setScreenOff(true);
-					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_SCREEN_ON.equals(action)) {
-					//					startSpeedUpSwitch();
 					powerProfiles.setScreenOff(false);
-					//					endSpeedUpSwitch();
 				} else if (Intent.ACTION_USER_PRESENT.equals(action)) {
-					//					startSpeedUpSwitch();
-					powerProfiles.setScreenUnlocked(true);
-					//					endSpeedUpSwitch();
+					powerProfiles.setScreenLocked(false);
 				} else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {
 					// manage network state on wifi
 					int state = SettingsStorage.getInstance().getNetworkStateOnWifi();
@@ -254,16 +244,4 @@ public class TunerService extends IntentService {
 		}
 	}
 
-	//	private static void startSpeedUpSwitch() {
-	//		SettingsStorage settings = SettingsStorage.getInstance();
-	//		if (settings.isEnableSwitchCpuSetting()) {
-	//			CpuHandler.getInstance().applyCpuSettings(settings.getSwitchCpuSetting());
-	//		}
-	//	}
-	//
-	//	private static void endSpeedUpSwitch() {
-	//		if (SettingsStorage.getInstance().isEnableSwitchCpuSetting()) {
-	//			CpuHandler.getInstance().applyCpuSettings(PowerProfiles.getInstance().getCurrentProfile());
-	//		}
-	//	}
 }

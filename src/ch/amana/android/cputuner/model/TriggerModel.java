@@ -14,6 +14,7 @@ public class TriggerModel {
 	private long batteryProfileId;
 	private long powerProfileId;
 	private long hotProfileId;
+	private long screenLockedProfileId;
 	private long id = -1;
 	private long powerCurrentSumPower;
 	private long powerCurrentCntPower;
@@ -26,13 +27,12 @@ public class TriggerModel {
 	private long callInProgessProfileId;
 	private long powerCurrentSumCall;
 	private long powerCurrentCntCall;
-	private long screenUnlockedProfileId;
 
 	public TriggerModel() {
 		this("", 100, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
-	public TriggerModel(String name, int batteryLevel, long screenOffProfileId, long screenUnlockedProfileId, long batteryProfileId,
+	public TriggerModel(String name, int batteryLevel, long screenOffProfileId, long screenLockedProfileId, long batteryProfileId,
 			long powerProfileId, long hotProfileId, long callInProgessProfileId, long powercurrentSumPower, long powercurrentCntPower,
 			long powercurrentSumBattery, long powercurrentCntBattery, long powercurrentSumScreenLocked, long powercurrentCntScreenLocked,
 			long powercurrentSumHot, long powercurrentCntHot, long powerCurrentSumCall, long powerCurrentCntCall) {
@@ -40,7 +40,7 @@ public class TriggerModel {
 		this.name = name;
 		this.batteryLevel = batteryLevel;
 		this.screenOffProfileId = screenOffProfileId;
-		this.screenUnlockedProfileId = screenUnlockedProfileId;
+		this.screenLockedProfileId = screenLockedProfileId;
 		this.batteryProfileId = batteryProfileId;
 		this.powerProfileId = powerProfileId;
 		this.hotProfileId = hotProfileId;
@@ -61,7 +61,7 @@ public class TriggerModel {
 		this(c.getString(DB.Trigger.INDEX_TRIGGER_NAME),
 				c.getInt(DB.Trigger.INDEX_BATTERY_LEVEL),
 				c.getLong(DB.Trigger.INDEX_SCREEN_OFF_PROFILE_ID),
-				c.getLong(DB.Trigger.INDEX_SCREEN_UNLOCKED_PROFILE_ID),
+				c.getLong(DB.Trigger.INDEX_SCREEN_LOCKED_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_BATTERY_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_POWER_PROFILE_ID),
 				c.getLong(DB.Trigger.INDEX_HOT_PROFILE_ID),
@@ -97,7 +97,7 @@ public class TriggerModel {
 		bundle.putString(DB.Trigger.NAME_TRIGGER_NAME, getName());
 		bundle.putInt(DB.Trigger.NAME_BATTERY_LEVEL, getBatteryLevel());
 		bundle.putLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID, getScreenOffProfileId());
-		bundle.putLong(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID, getScreenUnlockedProfileId());
+		bundle.putLong(DB.Trigger.NAME_SCREEN_LOCKED_PROFILE_ID, getScreenLockedProfileId());
 		bundle.putLong(DB.Trigger.NAME_BATTERY_PROFILE_ID, getBatteryProfileId());
 		bundle.putLong(DB.Trigger.NAME_POWER_PROFILE_ID, getPowerProfileId());
 		bundle.putLong(DB.Trigger.NAME_HOT_PROFILE_ID, getHotProfileId());
@@ -119,7 +119,7 @@ public class TriggerModel {
 		name = bundle.getString(DB.Trigger.NAME_TRIGGER_NAME);
 		batteryLevel = bundle.getInt(DB.Trigger.NAME_BATTERY_LEVEL);
 		screenOffProfileId = bundle.getLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID);
-		screenUnlockedProfileId = bundle.getLong(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID);
+		screenLockedProfileId = bundle.getLong(DB.Trigger.NAME_SCREEN_LOCKED_PROFILE_ID);
 		batteryProfileId = bundle.getLong(DB.Trigger.NAME_BATTERY_PROFILE_ID);
 		powerProfileId = bundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
 		hotProfileId = bundle.getLong(DB.Trigger.NAME_HOT_PROFILE_ID);
@@ -141,7 +141,7 @@ public class TriggerModel {
 		name = jsonBundle.getString(DB.Trigger.NAME_TRIGGER_NAME);
 		batteryLevel = jsonBundle.getInt(DB.Trigger.NAME_BATTERY_LEVEL);
 		screenOffProfileId = jsonBundle.getLong(DB.Trigger.NAME_SCREEN_OFF_PROFILE_ID);
-		screenUnlockedProfileId = jsonBundle.getLong(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID);
+		screenLockedProfileId = jsonBundle.getLong(DB.Trigger.NAME_SCREEN_LOCKED_PROFILE_ID);
 		batteryProfileId = jsonBundle.getLong(DB.Trigger.NAME_BATTERY_PROFILE_ID);
 		powerProfileId = jsonBundle.getLong(DB.Trigger.NAME_POWER_PROFILE_ID);
 		hotProfileId = jsonBundle.getLong(DB.Trigger.NAME_HOT_PROFILE_ID);
@@ -180,7 +180,7 @@ public class TriggerModel {
 		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_HOT, getPowerCurrentCntHot());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_SUM_CALL, getPowerCurrentSumCall());
 		values.put(DB.Trigger.NAME_POWER_CURRENT_CNT_CALL, getPowerCurrentCntCall());
-		values.put(DB.Trigger.NAME_SCREEN_UNLOCKED_PROFILE_ID, getScreenUnlockedProfileId());
+		values.put(DB.Trigger.NAME_SCREEN_LOCKED_PROFILE_ID, getScreenLockedProfileId());
 		return values;
 	}
 
@@ -325,7 +325,7 @@ public class TriggerModel {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + (int) (powerProfileId ^ (powerProfileId >>> 32));
 		result = prime * result + (int) (screenOffProfileId ^ (screenOffProfileId >>> 32));
-		result = prime * result + (int) (screenUnlockedProfileId ^ (screenUnlockedProfileId >>> 32));
+		result = prime * result + (int) (screenLockedProfileId ^ (screenLockedProfileId >>> 32));
 		return result;
 	}
 
@@ -355,7 +355,7 @@ public class TriggerModel {
 			return false;
 		if (screenOffProfileId != other.screenOffProfileId)
 			return false;
-		if (screenUnlockedProfileId != other.screenUnlockedProfileId)
+		if (screenLockedProfileId != other.screenLockedProfileId)
 			return false;
 		return true;
 	}
@@ -410,11 +410,11 @@ public class TriggerModel {
 		this.callInProgessProfileId = callInProgessProfileId;
 	}
 
-	public void setScreenUnlockedProfileId(long setScreenUnlockedProfileId) {
-		this.screenUnlockedProfileId = setScreenUnlockedProfileId;
+	public void setScreenLockedProfileId(long screenLocked) {
+		this.screenLockedProfileId = screenLocked;
 	}
 
-	public long getScreenUnlockedProfileId() {
-		return screenUnlockedProfileId;
+	public long getScreenLockedProfileId() {
+		return screenLockedProfileId;
 	}
 }

@@ -41,7 +41,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 	private Spinner spBattery;
 	private Spinner spPower;
 	private Spinner spScreenOff;
-	private Spinner spScreenUnlocked;
+	private Spinner spScreenLocked;
 	private Spinner spHot;
 	private TriggerModel triggerModel;
 	private EditText etName;
@@ -105,7 +105,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		sbBatteryLevel.setVisibility(View.INVISIBLE);
 		spBattery = (Spinner) findViewById(R.id.spBattery);
 		spScreenOff = (Spinner) findViewById(R.id.spScreenOff);
-		spScreenUnlocked = (Spinner) findViewById(R.id.spScreenUnlocked);
+		spScreenLocked = (Spinner) findViewById(R.id.spScreenLocked);
 		if (SettingsStorage.getInstance(this).isPowerStrongerThanScreenoff()) {
 			spPower = (Spinner) findViewById(R.id.spPowerStrong);
 		} else {
@@ -127,7 +127,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 
 		setProfilesAdapter(spBattery);
 		setProfilesAdapter(spScreenOff);
-		setProfilesAdapter(spScreenUnlocked);
+		setProfilesAdapter(spScreenLocked);
 		setProfilesAdapter(spPower);
 		setProfilesAdapter(spCall);
 		setProfilesAdapter(spHot);
@@ -177,7 +177,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		sbBatteryLevel.setProgress(triggerModel.getBatteryLevel());
 		GuiUtils.setSpinner(spBattery, triggerModel.getBatteryProfileId());
 		GuiUtils.setSpinner(spScreenOff, triggerModel.getScreenOffProfileId());
-		GuiUtils.setSpinner(spScreenUnlocked, triggerModel.getScreenUnlockedProfileId());
+		GuiUtils.setSpinner(spScreenLocked, triggerModel.getScreenLockedProfileId());
 		GuiUtils.setSpinner(spPower, triggerModel.getPowerProfileId());
 		long hotProfileId = triggerModel.getHotProfileId();
 		if (hotProfileId == -1) {
@@ -208,7 +208,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		}
 		triggerModel.setBatteryProfileId(spBattery.getSelectedItemId());
 		triggerModel.setScreenOffProfileId(spScreenOff.getSelectedItemId());
-		triggerModel.setScreenUnlockedProfileId(spScreenUnlocked.getSelectedItemId());
+		triggerModel.setScreenLockedProfileId(spScreenLocked.getSelectedItemId());
 		triggerModel.setPowerProfileId(spPower.getSelectedItemId());
 		triggerModel.setCallInProgessProfileId(spCall.getSelectedItemId());
 		if (cbHot.isChecked()) {

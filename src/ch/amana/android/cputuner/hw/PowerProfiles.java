@@ -85,7 +85,7 @@ public class PowerProfiles {
 
 	private long lastSwitchTime;
 
-	private boolean screenUnlocked;
+	private boolean screenLocked;
 
 	public static synchronized PowerProfiles getInstance(Context ctx) {
 		if (instance == null) {
@@ -179,16 +179,16 @@ public class PowerProfiles {
 		if (settings.isPowerStrongerThanScreenoff()) {
 			if (acPower) {
 				return currentTrigger.getPowerProfileId();
-			} else if (isScreenOff()) {
+			} else if (screenOff) {
 				return currentTrigger.getScreenOffProfileId();
-			} else if (isScreenUnlocked()) {
-				return currentTrigger.getScreenUnlockedProfileId();
+			} else if (screenLocked) {
+				return currentTrigger.getScreenLockedProfileId();
 			}
 		} else {
-			if (isScreenOff()) {
+			if (screenOff) {
 				return currentTrigger.getScreenOffProfileId();
-			} else if (isScreenUnlocked()) {
-				return currentTrigger.getScreenUnlockedProfileId();
+			} else if (screenLocked) {
+				return currentTrigger.getScreenLockedProfileId();
 			} else if (acPower) {
 				return currentTrigger.getPowerProfileId();
 			}
@@ -259,11 +259,11 @@ public class PowerProfiles {
 					intent.putExtra(DB.SwitchLogDB.NAME_BATTERY, batteryLevel);
 					intent.putExtra(DB.SwitchLogDB.NAME_CALL, callInProgress ? 1 : 0);
 					intent.putExtra(DB.SwitchLogDB.NAME_HOT, batteryHot ? 1 : 0);
-					long lockedType = DB.SwitchLogDB.LOCK_TYPE_LOCKED;
+					int lockedType = DB.SwitchLogDB.LOCK_TYPE_UNLOCKED;
 					if (screenOff) {
 						lockedType = DB.SwitchLogDB.LOCK_TYPE_OFF;
-					} else if (screenUnlocked) {
-						lockedType = DB.SwitchLogDB.LOCK_TYPE_UNLOCKED;
+					} else if (screenLocked) {
+						lockedType = DB.SwitchLogDB.LOCK_TYPE_LOCKED;
 					}
 					intent.putExtra(DB.SwitchLogDB.NAME_LOCKED, lockedType);
 				}
@@ -534,9 +534,12 @@ public class PowerProfiles {
 		}
 	}
 
-	public void setScreenOff(boolean b) {
-		if (screenOff != b) {
-			screenOff = b;
+	public void setScreenOff(boolean off) {
+		if (screenOff != off) {
+			screenOff = off;
+			if (off) {
+				screenLocked = true;
+			}
 			trackCurrent();
 			applyPowerProfile(false);
 		}
@@ -591,16 +594,16 @@ public class PowerProfiles {
 	}
 
 	public boolean isScreenOff() {
-		return screenOff && !screenUnlocked;
+		return screenOff && !screenLocked;
 	}
 
-	public boolean isScreenUnlocked() {
-		return screenUnlocked;
+	public boolean isScreenLocked() {
+		return screenLocked;
 	}
 
-	public void setScreenUnlocked(boolean unlocked) {
-		if (screenUnlocked != unlocked) {
-			this.screenUnlocked = unlocked;
+	public void setScreenLocked(boolean locked) {
+		if (screenLocked != locked) {
+			this.screenLocked = locked;
 			applyPowerProfile(false);
 		}
 	}

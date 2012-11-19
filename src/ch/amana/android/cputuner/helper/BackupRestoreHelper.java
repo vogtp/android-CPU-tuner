@@ -140,8 +140,8 @@ public class BackupRestoreHelper {
 				String name = getTranslatedName(jsonObject.getString(JSON_TAG_RES_ID));
 				tr.setName(name);
 			}
-			if (tr.getScreenUnlockedProfileId() == 0) {
-				tr.setScreenUnlockedProfileId(tr.getScreenOffProfileId());
+			if (tr.getScreenLockedProfileId() == 0) {
+				tr.setScreenLockedProfileId(tr.getScreenOffProfileId());
 			}
 			contentResolver.insert(DB.Trigger.CONTENT_URI, tr.getValues());
 		}
