@@ -6,6 +6,7 @@ V
 
 V 
 * features
+- New screen off and locked profiles
 - New shell backend (thanks to stericson)
 - UI optimisations
 - Use interactive governor on Android 4.0 and later
