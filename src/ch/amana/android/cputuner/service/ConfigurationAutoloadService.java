@@ -85,6 +85,7 @@ public class ConfigurationAutoloadService extends IntentService implements Backu
 		}
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		if (ACTION_SCEDULE_AUTOLOAD.equals(intent.getAction())) {

@@ -200,6 +200,7 @@ public class InstallHelper {
 		alert.show();
 	}
 
+	@SuppressWarnings("null")
 	private static void updateDefaultProfiles(Context ctx) {
 		try {
 			PowerProfiles.setUpdateTrigger(false);

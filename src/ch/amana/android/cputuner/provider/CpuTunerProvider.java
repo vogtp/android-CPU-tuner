@@ -59,7 +59,6 @@ public class CpuTunerProvider extends ContentProvider {
 
 	private static final int CONTENT = 1;
 	private static final int CONTENT_ITEM = 2;
-	private static final int CONTENT_GROUPBY = 3;
 
 	private static final UriMatcher uriTableMatcher;
 

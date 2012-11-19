@@ -6,11 +6,13 @@ V
 
 V 
 * features
-- New shell backend
+- New shell backend (thanks to stericson)
 - UI optimisations
 - Use interactive governor on Android 4.0 and later
+- Do not start after frequent reboots
 * bug fixes
-- Fix sciptcache on pre Gingerbread
+- Fix scriptcache on pre Gingerbread devices
+- Fix profile editor orientation changes
 
 V 3.3.17
 * features

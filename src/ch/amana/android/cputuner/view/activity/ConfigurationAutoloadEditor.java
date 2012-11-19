@@ -276,9 +276,8 @@ public class ConfigurationAutoloadEditor extends Activity implements EditorCallb
 					new String[] { Integer.toString(caModel.getHour()), Integer.toString(caModel.getMinute()), Integer.toString(caModel.getWeekday()) }, null);
 			if (cursor.moveToFirst()) {
 				return cursor.getLong(DB.INDEX_ID) == caModel.getDbId();
-			} else {
-				return true;
 			}
+			return true;
 		} finally {
 			if (cursor != null) {
 				cursor.close();

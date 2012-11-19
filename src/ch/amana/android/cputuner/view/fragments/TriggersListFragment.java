@@ -197,6 +197,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 		}
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public void onDestroy() {
 		Activity act = getActivity();
@@ -266,6 +267,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 
 	}
 
+	@SuppressWarnings("null")
 	private void clearPowerConsumtion(final Uri uri) {
 		final Activity act = getActivity();
 		final ContentResolver resolver = act.getContentResolver();

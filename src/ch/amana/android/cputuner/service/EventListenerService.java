@@ -57,10 +57,9 @@ public class EventListenerService extends Service {
 					startForeground(Notifier.NOTIFICATION_ID, n);
 				}
 			}
-		} else {
-			if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
-				Notifier.startStatusbarNotifications(ctx);
-			}
+		}
+		if (SettingsStorage.getInstance(ctx).isStatusbarAddto() != SettingsStorage.STATUSBAR_NEVER) {
+			Notifier.startStatusbarNotifications(ctx);
 		}
 		if (settingsStorage.isEnableLogProfileSwitches()) {
 			SwitchLog.start(ctx);

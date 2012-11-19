@@ -205,8 +205,6 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 
 	private int maxFreq;
 
-	private int minCheckFreq;
-
 	private int maxCheckFreq;
 	private final ProgressDialog pd;
 	private final CpuHandler cpuHandler;
@@ -244,10 +242,6 @@ public class CapabilityChecker extends AsyncTask<Void, Integer, CapabilityChecke
 				res.writeMinFreq = CheckResult.CANNOT_CHECK;
 				govChecks.put(noFreqs, res);
 				return;
-			}
-			if (freqs.length > 3) {
-				minCheckFreq = freqs[1];
-				maxCheckFreq = freqs[freqs.length - 2];
 			}
 
 			for (int i = 0; i < governors.length; i++) {

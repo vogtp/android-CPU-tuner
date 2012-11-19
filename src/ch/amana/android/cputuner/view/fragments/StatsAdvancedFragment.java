@@ -66,7 +66,6 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	private AdvStatsFilterAdaper triggerAdapter;
 	private AdvStatsFilterAdaper virtgovAdapter;
 	// FIXME ugly way to get around destruction of fragments on orientation change
-	private static StatsAdvancedFragment lastInstanceCreated;
 
 	enum LoadingState {
 		LOADING, HASDATA, NODATA
@@ -83,12 +82,6 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		pbWait = (ProgressBar) v.findViewById(R.id.pbWait);
 		labelNoDataForFilter = (TextView) v.findViewById(R.id.labelNoDataForFilter);
 		return v;
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		this.lastInstanceCreated = this;
 	}
 
 	@Override

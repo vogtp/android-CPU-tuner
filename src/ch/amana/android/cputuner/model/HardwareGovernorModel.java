@@ -9,12 +9,10 @@ import ch.amana.android.cputuner.log.Logger;
 
 public class HardwareGovernorModel implements IGovernorModel {
 
-	private final Context ctx;
 	private final CpuHandler cpuHandler;
 	private final PowerProfiles powerProfiles;
 
 	public HardwareGovernorModel(Context ctx) {
-		this.ctx = ctx.getApplicationContext();
 		this.cpuHandler = CpuHandler.getInstance();
 		this.powerProfiles = PowerProfiles.getInstance(ctx);
 	}

@@ -244,7 +244,7 @@ public class TriggerEditor extends Activity implements EditorCallback {
 		Cursor cursor = cursorLoader.loadInBackground();
 
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor, new String[] { DB.CpuProfile.NAME_PROFILE_NAME },
-				new int[] { android.R.id.text1 });
+				new int[] { android.R.id.text1 }, 0);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
 	}

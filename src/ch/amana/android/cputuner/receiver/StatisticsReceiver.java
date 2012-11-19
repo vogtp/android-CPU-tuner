@@ -37,7 +37,6 @@ public class StatisticsReceiver extends BroadcastReceiver {
 			return;
 		}
 		final Context ctx = context;
-		final Intent i = intent;
 
 		new Thread(new Runnable() {
 			@Override
@@ -49,6 +48,7 @@ public class StatisticsReceiver extends BroadcastReceiver {
 
 	}
 
+	@SuppressWarnings("null")
 	private static void updateStatistics(Context context) {
 		try {
 			Logger.d("Adding timeinstate to input queue");

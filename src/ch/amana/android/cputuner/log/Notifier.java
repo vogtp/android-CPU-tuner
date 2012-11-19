@@ -140,20 +140,9 @@ public class Notifier extends BroadcastReceiver {
 						.setOngoing(true);
 
 				intentId = 100;
-				if (false) {
-				setServiceIcon(builder, ServiceType.mobiledata3g);
-				setServiceIcon(builder, ServiceType.mobiledataConnection);
-				setServiceIcon(builder, ServiceType.wifi);
-				setServiceIcon(builder, ServiceType.airplainMode);
-				setServiceIcon(builder, ServiceType.backgroundsync);
-				setServiceIcon(builder, ServiceType.bluetooth);
-				}else {
-					RemoteViews views = createAppWidgetView(context);
-					
-					builder.setContent(views);
-					
-				}
-				
+
+				RemoteViews views = createAppWidgetView(context);
+				builder.setContent(views);
 
 				notification = builder.build();
 
@@ -169,46 +158,6 @@ public class Notifier extends BroadcastReceiver {
 		return notification;
 	}
 
-	private void setServiceIcon(Builder builder, ServiceType serviceType) {
-		// TODO Auto-generated method stub
-		int imgRes = 0;
-		Intent intent = PopupChooserActivity.getStartIntent(context);
-		intent.putExtra(PopupChooserActivity.EXTRA_CHOOSER_TYPE, PopupChooserActivity.CHOOSER_TYPE_SERVICE);
-		intent.putExtra(PopupChooserActivity.EXTRA_SERVICE_TYPE, serviceType.toString());
-		PendingIntent pendingIntent = PendingIntent.getActivity(context, intentId++, intent, PendingIntent.FLAG_ONE_SHOT);
-		int state = ServicesHandler.getServiceState(context, serviceType);
-		switch (serviceType) {
-		case mobiledata3g:
-			if (state == PowerProfiles.SERVICE_STATE_2G) {
-				imgRes = R.drawable.serviceicon_md_2g;
-			} else if (state == PowerProfiles.SERVICE_STATE_2G_3G) {
-				imgRes = R.drawable.serviceicon_md_2g3g;
-			} else if (state == PowerProfiles.SERVICE_STATE_3G) {
-				imgRes = R.drawable.serviceicon_md_3g;
-			} else {
-				imgRes = R.drawable.serviceicon_md_2g3g;
-			}
-			break;
-		case airplainMode:
-			imgRes = R.drawable.serviceicon_airplane;
-			break;
-		case backgroundsync:
-			imgRes = R.drawable.serviceicon_sync;
-			break;
-		case bluetooth:
-			imgRes = R.drawable.serviceicon_bluetooth;
-			break;
-		case mobiledataConnection:
-			imgRes = R.drawable.serviceicon_mobiledata_con;
-			break;
-		case wifi:
-			imgRes = R.drawable.serviceicon_wifi;
-			break;
-		}
-
-		builder.addAction(imgRes, null, pendingIntent);
-	}
-	
 	static RemoteViews createAppWidgetView(Context context) {
 		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.profile_appwidget);
 		PendingIntent mainPendingIntent;

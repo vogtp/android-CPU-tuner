@@ -53,10 +53,9 @@ public class SystemAppHelper implements OnClickListener {
 				Logger.w("Successfully moved package from " + from + " to " + to + " rebooting now");
 				reboot();
 				return true;
-			} else {
-				Logger.w("Could not move package from " + from + " to "
-						+ to);
 			}
+			Logger.w("Could not move package from " + from + " to "
+					+ to);
 		} else {
 			Logger.w("Did not find cputuner apk in " + from +
 					" to moving to " + to);

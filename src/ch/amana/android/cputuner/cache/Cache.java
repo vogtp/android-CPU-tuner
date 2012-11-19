@@ -10,9 +10,8 @@ public abstract class Cache {
 		if (instance == null) {
 			if (true) {
 				instance = new CommandCache();
-			} else {
-				instance = new ScriptCache();
 			}
+			instance = new ScriptCache();
 		}
 		return instance;
 	}

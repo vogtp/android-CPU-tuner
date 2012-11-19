@@ -54,9 +54,8 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter, ListAd
 		if (position == 0) {
 			if (SettingsStorage.getInstance().isEnableProfiles()) {
 				return AUTO;
-			} else {
-				return ctx.getString(R.string.not_enabled);
 			}
+			return ctx.getString(R.string.not_enabled);
 		} else if (position > 0) {
 			return cursor.move(position - 1);
 		} else {
@@ -119,13 +118,12 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter, ListAd
 			item.setSingleLine();
 			item.setEllipsize(TextUtils.TruncateAt.END);
 			return item;
-		} else {
-			View view = layoutInflator.inflate(layout, parent, false);
-			TextView tv = (TextView) view.findViewById(textId);
-			tv.setSingleLine();
-			tv.setEllipsize(TextUtils.TruncateAt.END);
-			return view;
 		}
+		View view = layoutInflator.inflate(layout, parent, false);
+		TextView tv = (TextView) view.findViewById(textId);
+		tv.setSingleLine();
+		tv.setEllipsize(TextUtils.TruncateAt.END);
+		return view;
 	}
 
 }

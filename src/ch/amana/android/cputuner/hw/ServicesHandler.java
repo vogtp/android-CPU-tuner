@@ -27,7 +27,7 @@ public class ServicesHandler {
 
 	private static final String MODIFY_NETWORK_MODE = "com.android.internal.telephony.MODIFY_NETWORK_MODE";
 	private static final String NETWORK_MODE = "networkMode";
-	private static final String REQUEST_NETWORK_MODE = "com.android.internal.telephony.REQUEST_NETWORK_MODE";
+	//	private static final String REQUEST_NETWORK_MODE = "com.android.internal.telephony.REQUEST_NETWORK_MODE";
 
 	private static WifiManager wifi;
 

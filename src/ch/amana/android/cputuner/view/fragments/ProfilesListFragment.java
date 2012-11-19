@@ -22,12 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
@@ -52,9 +47,6 @@ import com.markupartist.android.widget.ActionBar.ActionList;
 
 public class ProfilesListFragment extends PagerListFragment implements StateChangeListener, LoaderCallbacks<Cursor> {
 
-	private static final int ALPHA_ON = 200;
-	private static final int ALPHA_OFF = 40;
-	private static final int ALPHA_LEAVE = 100;
 	private SimpleCursorAdapter adapter;
 
 	@Override
@@ -156,6 +148,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 		}
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public void onDestroy() {
 		Activity act = getActivity();
@@ -165,46 +158,6 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 			}
 		}
 		super.onDestroy();
-	}
-
-	private void setServiceStateIcon(ImageView icon, int state) {
-		icon.clearAnimation();
-		if (state == PowerProfiles.SERVICE_STATE_LEAVE) {
-			icon.setAlpha(ALPHA_LEAVE);
-		} else if (state == PowerProfiles.SERVICE_STATE_OFF) {
-			icon.setAlpha(ALPHA_OFF);
-		} else if (state == PowerProfiles.SERVICE_STATE_PREV) {
-			setAnimation(icon, R.anim.back);
-		} else if (state == PowerProfiles.SERVICE_STATE_PULSE) {
-			setAnimation(icon, R.anim.pluse);
-		} else {
-			icon.setAlpha(ALPHA_ON);
-		}
-	}
-
-	private void setAnimation(final View v, int resID) {
-		final AnimationSet c = (AnimationSet) AnimationUtils.loadAnimation(getActivity(), resID);
-		c.setRepeatMode(Animation.RESTART);
-		c.setRepeatCount(Animation.INFINITE);
-		c.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				Logger.i("Repeat anim");
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				v.clearAnimation();
-				v.startAnimation(c);
-			}
-		});
-
-		v.clearAnimation();
-		v.startAnimation(c);
 	}
 
 	@Override
