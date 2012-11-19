@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.CursorLoader;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +23,6 @@ import android.widget.SimpleCursorTreeAdapter.ViewBinder;
 import android.widget.TextView;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
-import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.SwitchLog;
 import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.provider.DB.SwitchLogDB;
@@ -95,12 +95,10 @@ public class LogAdvancedFragment extends PagerFragment implements StateChangeLis
 					}
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_TIME) {
 					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
-					String timeString;
+					String timeString = DateFormat.getTimeFormat(getActivity()).format(now);
 					if (view.getId() == R.id.tvDateTimeDetail) {
-						timeString = SettingsStorage.dateTimeFormat.format(now);
-					} else {
-						timeString = SettingsStorage.timeFormat.format(now);
-					}
+						timeString = " " + DateFormat.getDateFormat(getActivity()).format(now);
+					} 
 					((TextView) view).setText(timeString);
 					return true;
 				} else if (columnIndex == DB.SwitchLogDB.INDEX_BATTERY) {

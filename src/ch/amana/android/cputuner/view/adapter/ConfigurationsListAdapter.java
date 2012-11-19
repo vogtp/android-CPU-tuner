@@ -4,6 +4,7 @@ import java.util.Date;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TwoLineListItem;
@@ -12,8 +13,11 @@ import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public class ConfigurationsListAdapter extends ConfigurationsAdapter {
 
+	private final Context ctx;
+
 	public ConfigurationsListAdapter(Context ctx) {
 		super(ctx);
+		this.ctx = ctx.getApplicationContext();
 	}
 
 	@Override
@@ -28,7 +32,7 @@ public class ConfigurationsListAdapter extends ConfigurationsAdapter {
 		}
 		StringBuilder savedAtStr = new StringBuilder();
 		savedAtStr.append(parent.getResources().getText(R.string.saved_at)).append(" ");
-		savedAtStr.append(SettingsStorage.getInstance().getSimpledateformat().format(new Date(getNewestFile(position))));
+		savedAtStr.append(DateFormat.getDateFormat(ctx).format(new Date(getNewestFile(position))));
 		view.getText2().setText(savedAtStr);
 		return view;
 	}

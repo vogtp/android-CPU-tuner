@@ -1,7 +1,5 @@
 package ch.amana.android.cputuner.helper;
 
-import java.text.SimpleDateFormat;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,11 +26,6 @@ import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 
 public class SettingsStorage {
-
-	public static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-	public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-
-	private final static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
 	private static final String PREF_KEY_USER_LEVEL = "prefKeyUserLevel";
 	private static final String PREF_KEY_USER_LEVEL_SET = "prefKeyUserLevelSet";
@@ -495,10 +488,6 @@ public class SettingsStorage {
 
 	public String getCurrentConfiguration() {
 		return getPreferences().getString(PREF_KEY_CONFIGURATION, "");
-	}
-
-	public SimpleDateFormat getSimpledateformat() {
-		return simpleDateFormat;
 	}
 
 	public boolean isSaveConfiguration() {
