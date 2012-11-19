@@ -88,6 +88,9 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 					if (cursor.getInt(columnIndex) < 1) {
 						((TextView) view).setText("");
 						((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.GONE);
+						if (cursor.getInt(VirtualGovernor.INDEX_GOVERNOR_THRESHOLD_DOWN) < 1) {
+							((View) view.getParent().getParent()).findViewById(R.id.llTresholds).setVisibility(View.GONE);
+						}
 						return true;
 					}
 					((View) view.getParent()).findViewById(R.id.labelThresholdUp).setVisibility(View.VISIBLE);
@@ -125,6 +128,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 		}
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public void onDestroy() {
 		Activity act = getActivity();
