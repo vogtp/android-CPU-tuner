@@ -708,5 +708,6 @@
     <string name="label_avgerage">avg: </string>
     <string name="label_tresh_up">up: </string>
     <string name="label_tresh_down">down: </string>
+    <string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 
 </resources>

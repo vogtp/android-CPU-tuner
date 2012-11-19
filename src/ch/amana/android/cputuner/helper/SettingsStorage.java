@@ -76,6 +76,7 @@ public class SettingsStorage {
 
 	public static final String PREF_KEY_TOTALTRANSITIONS_BASELINE = "prefKeyTotaltransitionsBaseline";
 	public static final String PREF_KEY_SWITCH_CPU_SETTINGS = "prefKeySwitchCpuSetting";
+	private static final String PREF_KEY_LASTBOOT = "prefKeyLastBoot";
 
 	public static final int STATUSBAR_NEVER = 0;
 	public static final int STATUSBAR_RUNNING = 1;
@@ -881,5 +882,15 @@ public class SettingsStorage {
 		editor.putInt(PREF_KEY_MAX_FREQ_DEFAULT, availCpuFreq[availCpuFreq.length - 1]);
 		editor.commit();
 		Toast.makeText(context, context.getText(R.string.mse_authors_settings_loaded), Toast.LENGTH_LONG).show();
+	}
+
+	public long getLastBoot() {
+		return getPreferences().getLong(PREF_KEY_LASTBOOT, -1);
+	}
+
+	public void setLastBoot(long boot) {
+		Editor editor = getPreferences().edit();
+		editor.putLong(PREF_KEY_LASTBOOT, boot);
+		editor.commit();
 	}
 }
