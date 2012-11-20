@@ -709,6 +709,6 @@
     <string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
     <string name="prefUseScriptCache">"Use scripts "</string>
     <string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-    <string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+    <string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 
 </resources>
