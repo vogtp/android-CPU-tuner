@@ -17,7 +17,7 @@ public class ScriptCache extends Cache {
 
 	public ScriptCache(Context ctx) {
 		super();
-		this.ctx = ctx;
+		this.ctx = ctx.getApplicationContext();
 	}
 
 	@Override

@@ -27,6 +27,7 @@ import ch.amana.android.cputuner.receiver.StatisticsReceiver;
 
 public class SettingsStorage {
 
+	public static final String PREF_KEY_USE_SCRIPT_CACHE = "prefKeyUseScriptCache";
 	private static final String PREF_KEY_USER_LEVEL = "prefKeyUserLevel";
 	private static final String PREF_KEY_USER_LEVEL_SET = "prefKeyUserLevelSet";
 	public static final String NO_VALUE = "noValue";
@@ -870,6 +871,12 @@ public class SettingsStorage {
 	}
 
 	public boolean isUseScriptcache() {
-		return getPreferences().getBoolean("prefKeyUseScriptCache", false);
+		return getPreferences().getBoolean(PREF_KEY_USE_SCRIPT_CACHE, false);
+	}
+
+	public void setUseScriptcache(boolean useScriptCache) {
+		Editor editor = getPreferences().edit();
+		editor.putBoolean(PREF_KEY_USE_SCRIPT_CACHE, useScriptCache);
+		editor.commit();
 	}
 }

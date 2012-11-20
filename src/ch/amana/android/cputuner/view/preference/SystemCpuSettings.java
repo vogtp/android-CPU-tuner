@@ -2,7 +2,10 @@ package ch.amana.android.cputuner.view.preference;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import ch.amana.android.cputuner.R;
+import ch.amana.android.cputuner.cache.Cache;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.hw.CpuHandler;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
@@ -35,6 +38,22 @@ public class SystemCpuSettings extends BaseSettings {
 		minDefaultFreq = (ListPreference) findPreference(SettingsStorage.PREF_KEY_MIN_FREQ);
 		minDefaultFreq.setEntries(freqs);
 		minDefaultFreq.setEntryValues(freqs);
+
+		findPreference(SettingsStorage.PREF_KEY_USE_SCRIPT_CACHE).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				if (newValue instanceof Boolean) {
+					Boolean useScriptCache = (Boolean) newValue;
+					if (useScriptCache != settings.isUseScriptcache()) {
+						settings.setUseScriptcache(useScriptCache);
+						Cache.reset(SystemCpuSettings.this);
+						return true;
+					}
+				}
+				return false;
+			}
+		});
 	}
 
 	@Override

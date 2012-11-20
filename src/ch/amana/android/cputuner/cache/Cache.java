@@ -25,6 +25,11 @@ public abstract class Cache {
 		return instance;
 	}
 
+	public static void reset(Context ctx) {
+		instance = null;
+		getInstance(ctx);
+	}
+
 	public abstract void clear();
 
 	public abstract boolean execute(long pid);
@@ -38,5 +43,6 @@ public abstract class Cache {
 	public abstract boolean isRecoding();
 
 	public abstract void recordLine(String cmd);
+
 
 }
