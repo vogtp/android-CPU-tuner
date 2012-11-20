@@ -8,9 +8,9 @@ V 3.3.4
 * features
 - New screen off and locked profiles
 - New shell backend (thanks to stericson)
-- UI optimisations
 - Use interactive governor on Android 4.0 and later
 - Do not start after frequent reboots
+- UI optimisations
 * bug fixes
 - Fix scriptcache on pre Gingerbread devices
 - Fix profile editor orientation changes
