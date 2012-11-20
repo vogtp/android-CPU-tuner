@@ -130,7 +130,7 @@ public class GovernorFragment extends GovernorBaseFragment {
 							}
 						};
 						new AlertDialog.Builder(getActivity())
-								.setIconAttribute(android.R.attr.alertDialogIcon)
+								//								.setIconAttribute(android.R.attr.alertDialogIcon)
 								.setTitle(R.string.dia_title_switch_off_cpus)
 								.setMessage(R.string.dia_msg_switch_off_cpus)
 								.setPositiveButton(R.string.dia_yes_switch_off_cpus, yesClick)
