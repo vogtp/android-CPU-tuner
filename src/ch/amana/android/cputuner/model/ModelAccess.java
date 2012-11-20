@@ -93,6 +93,7 @@ public class ModelAccess implements BackupRestoreCallback {
 	}
 
 	public void configChanged() {
+		ScriptCache.getInstance(ctx).clear();
 		if (InstallHelper.hasConfig(ctx)) {
 			if (settings.isEnableProfiles()) {
 				PowerProfiles.getInstance().reapplyProfile(false);
@@ -101,7 +102,6 @@ public class ModelAccess implements BackupRestoreCallback {
 				backupRestoreHelper.backupConfiguration(settings.getCurrentConfiguration());
 			}
 		}
-		ScriptCache.getInstance().clear(ctx);
 	}
 
 	private void update(final Uri uri, final ContentValues values, final String where, final String[] selectionArgs) {

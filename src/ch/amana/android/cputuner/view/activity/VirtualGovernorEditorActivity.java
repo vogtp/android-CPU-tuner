@@ -150,6 +150,8 @@ public class VirtualGovernorEditorActivity extends FragmentActivity implements G
 					} else if (Intent.ACTION_EDIT.equals(action)) {
 						modelAccess.updateVirtualGovernor(virtualGovModel);
 					}
+					modelAccess.updateProfileFromVirtualGovernor();// FIXME needed since gov information is in profile
+					modelAccess.clearCache(); // FIXME needed since gov information is in profile
 				}
 			} catch (Exception e) {
 				Logger.w("Cannot insert or update", e);
