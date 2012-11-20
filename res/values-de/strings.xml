@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string name="prefAuthorsSettings">Verwende die Einstellungen des Autors.</string>
-	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
+	<string name="prefAuthorsSettingsLong">Verwende die Einstellungen, die der Autor bevorzugt. Dies könnte unerwartetem Verhalten führen oder Dinge tun die auf dem Gerät nicht ganz funktionieren. Es werden nicht alle Werte gesetzt, sondern nur ein paar Einstellungen auf meinem inoffizielle Standard geändert. Mit Vorsicht zu geniessem...!</string>
 	<string name="mse_authors_settings_loaded">Einstellungen geladen!</string>
 	<string name="dia_title_switch_off_cpus">CPUs ausschalten?</string>
 	<string name="dia_msg_switch_off_cpus">CPUs ausschalten kann, bei gewissen Kernel, Probleme bereiten.  Obwohl es zu Einsparungen führen kann, kann es auch das Gerät abstürzen lassen.</string>
 	<string name="dia_yes_switch_off_cpus">CPUs ausschalten</string>
-	<string name="dia_no_switch_off_cpus">Be safe</string>
+	<string name="dia_no_switch_off_cpus">Sicherheit</string>
 	<string name="prefRunSwitchInBackground">Profil wechsel im Hintergrund</string>
 	<string name="prefRunSwitchInBackgroundOn">Profil Wechsel werden im Hintergrund durchgeführt.  Dies mag den Wechsel ein wenig verzögern, ist aber der Weg wie es unter Android laufen sollte.</string>
 	<string name="prefRunSwitchInBackgroundOff">Profil Wechsel werden im Vordergrund durchgeführt.  Dies mag den Wechsel beschleunigen, kann aber dazu führen, dass CPU tuner nicht antwortet.</string>
 	<string name="prefWidgetShowLabels">Zeige Beschriftung</string>
 	<string name="prefUnitSystem">Einheiten</string>
 	<string name="prefUnitSystemLong">Darstellung der Temperatur in °C, °F oder K.</string>
-	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
+	<string name="tvCpuFreqBeginnerText">Min und max CPU Frequenzen sind für Anfänger deaktiviert, da sie die Batterieleistung im Allgemeinen nicht verbessern. Mit höherer Erfahrungsstufe können sie trotzdem geändert werden.</string>
 	<string-array name="prefUnitSystemEntries">
 		<item>Standard</item>
 		<item>Imperial</item>
@@ -346,7 +346,7 @@ Dies ergibt jedoch noch immer gute resultate</string>
 	<string name="labelCurrentFrequency">Aktuell</string>
 	<string name="prefScreenLegal">Rechtiliches</string>
 	<string name="prefLegalOxigenIcons">Tab Icon Lizenz</string>
-	<string name="prefLegalOxigenIconsLong">Lizenz des benutzen Oxigen Icon. Danke für die schönen Icon.</string>
+	<string name="prefLegalOxigenIconsLong">Lizenz des benutzen Oxygen Icon. Danke für die schönen Icon.</string>
 	<string name="virtual_governor">Virtuelle Regler</string>
 	<string name="msg_cannot_load_virtual_governor">Der virtuelle Regler kann nicht geladen werden…</string>
 	<string name="labelStatisticsTab">Statistik</string>
@@ -394,8 +394,8 @@ Dies ergibt jedoch noch immer gute resultate</string>
 	<string name="labelPowerUser">Profi</string>
 	<string name="labelNormalExplain">Mehr erweiterte Konfigurationsoptionen. Untertakten ist nur beschränkt möglich.</string>
 	<string name="labelNormal">Normal</string>
-	<string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
-		use… Underclocking only possible to a point.</string>
+	<string name="labelBeginnerExplain">Einfach zu konfigurieren alle Einstellungen sollte sicher sein. 
+Untertakten geht nur beschränkt.</string>
 	<string name="labelBeginner">Anfänger</string>
 	<string name="labelBatteryHot">Batterie heiss:</string>
 	<string name="labelCallInProgress">Während Anruf:</string>
@@ -443,7 +443,7 @@ Dies ergibt jedoch noch immer gute resultate</string>
 	<string name="notAvailable">Nicht verfügbar</string>
 	<string name="yes">Ja</string>
 	<string name="no">Nein</string>
-	<string name="save">Sichern</string>
+	<string name="save">Speichern</string>
 	<string name="cancel">Abbrechen</string>
 	<string name="prefMinSensibleFrequencyLong">Minimale Frequenz anzeigen, wenn nicht im Profi-Modus.</string>
 	<string name="prefMinSensibleFrequency">Min. angezeigte Frequenz</string>

@@ -244,7 +244,7 @@
 	<string name="prefPowerStrongerThanScreenoff">\"Sur batterie\" prévaut sur \"Ecran éteint\"</string>
 	<string name="prefPowerStrongerThanScreenoffOn">Lors du chargement (Secteur ou USB) et si l\'écran est éteint, le profil \"Branché\" sera choisi.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">Lors du chargement (Secteur ou USB) et si l\'écran est éteint, le profil \"Ecran éteint\" sera choisi.</string>
-	<string name="title_choose_experiance_level">Choisissez votre niveau d\'expérience</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">Effacer cette configuration prédéfinie?</string>
 	<string name="prefNetworkModeOnWifiConnected">Mode réseau sur connexion WIFI</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Permet de choisir le mode de réseau cellulaire si une connexion WIFI existe. Si le réseau cellulaire est déconnecté, CPU Tuner reviendra sur le mode précédent.</string>
@@ -332,7 +332,8 @@ Sinon les changements de configurations peuvent être décalés au maximum d\'un
 	<string name="labelCurrentFrequency">courant</string>
 	<string name="prefScreenLegal">Informations légales</string>
 	<string name="prefLegalOxigenIcons">Licence de l\'icône de l\'index</string>
-	<string name="prefLegalOxigenIconsLong">Licence pour l\'icône oxigen. Merci pour ces jolies icônes.</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
+		nice icons.</string>
 	<string name="virtual_governor">Gouverneur Virtuel</string>
 	<string name="msg_cannot_load_virtual_governor">Impossible de charger le Gouverneur Virtuel</string>
 	<string name="labelStatisticsTab">Statistiques</string>
@@ -429,8 +430,8 @@ Sinon les changements de configurations peuvent être décalés au maximum d\'un
 	<string name="notAvailable">pas disponible</string>
 	<string name="yes">Oui</string>
 	<string name="no">Non</string>
-	<string name="save">enregistrer</string>
-	<string name="cancel">annuler</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">La fréquence minimum possible si vous n\'êtes pas en mode \"Utilisateur Avancé\".</string>
 	<string name="prefMinSensibleFrequency">Fréquence minimum possible</string>
 	<string name="prefKeyProfiles">Profils et déclencheurs</string>
@@ -621,5 +622,5 @@ Ceci est probablement dû au noyau / ROM. Vous avez deux possibilités:
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

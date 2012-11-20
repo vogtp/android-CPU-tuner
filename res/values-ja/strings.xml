@@ -123,7 +123,7 @@
 	<string name="all">全て</string>
 	<string name="labelNoDataForFilter">このフィルタコンビネーションのデータがありません。</string>
 	<string name="prefCatAdvStatistics">高度な統計とログ取得</string>
-	<string name="prefCatExtention">拡張機能</string>
+	<string name="prefCatExtention">Extension</string>
 	<string name="prefEnableExtention">拡張機能を有効化</string>
 	<string name="prefEnableSwitchLog">ﾌﾟﾛﾌｧｲﾙ切替ログの有効化</string>
 	<string name="prefCatStatistics">統計情報</string>
@@ -244,7 +244,7 @@
 	<string name="prefPowerStrongerThanScreenoff">on powerﾌﾟﾛﾌｧｲﾙを優先</string>
 	<string name="prefPowerStrongerThanScreenoffOn">電源ONでスクリーンがオフの場合\"on power\"プロファイルが選択されます。</string>
 	<string name="prefPowerStrongerThanScreenoffOff">電源ONでスクリーンオフの場合\"screen off\"プロファイルが選択されます。</string>
-	<string name="title_choose_experiance_level">習熟レベルを選択</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">この自動読込設定を削除しますか?</string>
 	<string name="prefNetworkModeOnWifiConnected">Wifi接続時のﾈｯﾄﾜｰｸﾓｰﾄﾞ</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Wifi接続中のネットワークモードを選択して下さい。ネットワーク切断時、CPU tunerは以前の設定に戻ります。</string>
@@ -330,7 +330,8 @@
 	<string name="labelCurrentFrequency">現在値</string>
 	<string name="prefScreenLegal">法的条項</string>
 	<string name="prefLegalOxigenIcons">Tab icon ライセンス</string>
-	<string name="prefLegalOxigenIconsLong">oxigen iconの使用を許諾されています。素敵なアイコンに感謝します。</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
+		nice icons.</string>
 	<string name="virtual_governor">仮想ガバナー</string>
 	<string name="msg_cannot_load_virtual_governor">仮想ガバナーを読み込みできません...</string>
 	<string name="labelStatisticsTab">統計情報</string>
@@ -427,8 +428,8 @@
 	<string name="notAvailable">存在しない</string>
 	<string name="yes">はい</string>
 	<string name="no">いいえ</string>
-	<string name="save">保存</string>
-	<string name="cancel">キャンセル</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">パワーユーザーモード以外での最小表示周波数</string>
 	<string name="prefMinSensibleFrequency">最小表示周波数</string>
 	<string name="prefKeyProfiles">プロファイルとトリガー</string>
@@ -609,5 +610,5 @@
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

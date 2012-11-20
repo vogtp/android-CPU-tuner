@@ -123,7 +123,7 @@
 	<string name="all">All</string>
 	<string name="labelNoDataForFilter">No data for this filter combination found.</string>
 	<string name="prefCatAdvStatistics">Advanced Statistics and Logging</string>
-	<string name="prefCatExtention">Extention</string>
+	<string name="prefCatExtention">Extension</string>
 	<string name="prefEnableExtention">Enable Extension</string>
 	<string name="prefEnableSwitchLog">Enable profile switch log</string>
 	<string name="prefCatStatistics">Statistics</string>
@@ -266,7 +266,7 @@
 	<string name="prefPowerStrongerThanScreenoff">On-Power is stronger than Screen-Lock profile</string>
 	<string name="prefPowerStrongerThanScreenoffOn">If checked, when power (AC or USB) is plugged-in and the screen is off, the On-Power profile will be chosen.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">If unchecked, when power (AC or USB) is plugged-in and the screen is off, the Screen-Lock profile will be chosen.</string>
-	<string name="title_choose_experiance_level">Choose your experiance level</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode on WIFI Connection</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a WIFI network is connected.  If the network is disconnected, CPU Tuner goes back to previous.</string>
@@ -361,8 +361,8 @@
 	<string name="labelCurrentFrequency">τρέχων</string>
 	<string name="prefScreenLegal">Νομικά θέματα</string>
 	<string name="prefLegalOxigenIcons">Καρτέλα άδειας χρήσης εικονιδίου</string>
-	<string name="prefLegalOxigenIconsLong">Άδεια για τη χρήση εικόνων oxygen. Ευχαριστώ για τα 
-	ωραία εικονίδια.</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
+		nice icons.</string>
 	<string name="virtual_governor">Εικονικός governor</string>
 	<string name="msg_cannot_load_virtual_governor">Δε μπορεί να γίνει φόρτωση του εικονικού governor…</string>
 	<string name="labelStatisticsTab">Στατιστικά</string>
@@ -463,8 +463,8 @@
 	<string name="notAvailable">Μη διαθέσιμο</string>
 	<string name="yes">Ναι</string>
 	<string name="no">Όχι</string>
-	<string name="save">Αποθήκευση</string>
-	<string name="cancel">Άκυρο</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">Μικρότερη συχνότητα που θα φαίνεται αν δεν είστε σε επίπεδο προχωριμένου χρήστη.</string>
 	<string name="prefMinSensibleFrequency">Μικρότερη  τιμή συχνότητας που θα προβάλλεται</string>
 	<string name="prefKeyProfiles">Προφίλ και εναύσματα</string>
@@ -659,5 +659,5 @@
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

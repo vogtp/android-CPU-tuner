@@ -123,7 +123,7 @@
 	<string name="all">Всё</string>
 	<string name="labelNoDataForFilter">Не найдено данных для этой комбинации фильтров.</string>
 	<string name="prefCatAdvStatistics">Расширенные статистики и ведение логов</string>
-	<string name="prefCatExtention">Расширение</string>
+	<string name="prefCatExtention">Extension</string>
 	<string name="prefEnableExtention">Вкл расширения</string>
 	<string name="prefEnableSwitchLog">Вкл лог переключения профилей</string>
 	<string name="prefCatStatistics">Статистика</string>
@@ -264,7 +264,7 @@
 	<string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
 	<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the \"on power\" profile will be chosen.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the \"screen off\" profile will be chosen.</string>
-	<string name="title_choose_experiance_level">Выберите Ваш уровень опыта</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">Удалить автозагрузку конфигурации?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode по wifi подключено</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Выберите сеть для подветрждения если WiFi включён. Если будет отсоединение от сеть cpu tuner возвращается к предедущей.</string>
@@ -358,8 +358,8 @@
 	<string name="labelCurrentFrequency">текущее</string>
 	<string name="prefScreenLegal">Оф. часть</string>
 	<string name="prefLegalOxigenIcons">Вкладка лицензионных иконок</string>
-	<string name="prefLegalOxigenIconsLong">Лицензия использованных oxigen иконок. Спасибо за
-	красивые иконки.</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
+		nice icons.</string>
 	<string name="virtual_governor">виртуальный регулятор</string>
 	<string name="msg_cannot_load_virtual_governor">Не могу загрузить виртуальный регулятор...</string>
 	<string name="labelStatisticsTab">Статистика</string>
@@ -462,8 +462,8 @@
 	<string name="notAvailable">Не доступен</string>
 	<string name="yes">Да</string>
 	<string name="no">Нет</string>
-	<string name="save">сохранить</string>
-	<string name="cancel">отмена</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">Минимальная отоброжаемая частота если не опытный пользователь.</string>
 	<string name="prefMinSensibleFrequency">Мин отображаемая частота</string>
 	<string name="prefKeyProfiles">Профили и триггеры</string>
@@ -664,5 +664,5 @@
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

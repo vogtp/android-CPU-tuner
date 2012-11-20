@@ -10,23 +10,23 @@
 	<string name="prefRunSwitchInBackground">Background profile switch</string>
 	<string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
 	<string name="prefRunSwitchInBackgroundOff">Profile switches are done in the foreground thread.  This may speed up the switches, but can lead to cpu tuner being not responding.</string>
-	<string name="prefWidgetShowLabels">Показати позначки</string>
+	<string name="prefWidgetShowLabels">Show Labels</string>
 	<string name="prefUnitSystem">Unit System</string>
-	<string name="prefUnitSystemLong">Показати температуру в °C, °F або K.</string>
+	<string name="prefUnitSystemLong">Wyświetl temperaturę w °C, °F albo K.</string>
 	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
 	<string-array name="prefUnitSystemEntries">
 		<item>Default</item>
 		<item>Imperial</item>
 		<item>SI</item>
 	</string-array>
-	<string name="prefWidgetTextSize">Розмір тексту</string>
+	<string name="prefWidgetTextSize">Wielkość tekstu</string>
 	<string-array name="prefWidgetTextSizeEntries">
 		<item>Tiny</item>
 		<item>Small</item>
 		<item>Medium</item>
 		<item>Big</item>
 	</string-array>
-	<string name="deep_sleep">Глибокий сон</string>
+	<string name="deep_sleep">Deep Sleep</string>
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Average Value</item>
 		<item>Current Value</item>
@@ -51,49 +51,49 @@
 		<item>3G/2G</item>
 		<item>3G Only</item>
 	</string-array>
-	<string name="log_msg_cpu_tuner_started">CPU Tuner увімкнутий</string>
-	<string name="log_msg_cpu_tuner_stoped">CPU Tuner зупинений</string>
-	<string name="log_msg_switchlog_start">Log увімкнений</string>
-	<string name="log_msg_switchlog_stop">Log зупинений</string>
+	<string name="log_msg_cpu_tuner_started">CPU Tuner Started</string>
+	<string name="log_msg_cpu_tuner_stoped">CPU Tuner Stopped</string>
+	<string name="log_msg_switchlog_start">Log Start</string>
+	<string name="log_msg_switchlog_stop">Log Stop</string>
 	<string name="menuItemClearAllPowerCurrent">Clear Power Usage</string>
 	<string name="msg_clear_power_consumption_of_all_triggers">Clear power consumption of all triggers?</string>
-	<string name="labelAppWidgetProfile2x1">CPU Tuner (малий)</string>
+	<string name="labelAppWidgetProfile2x1">CPU Tuner (small)</string>
 	<string name="labelAppWidgetProfile2x2">CPU Tuner</string>
 	<string name="not_supported">Not Supported!</string>
 	<string name="msg_no_battery_current">This device does not support battery current tracking.</string>
 	<string name="msg_no_avg_battery_current">This device does not support average battery current tracking.</string>
-	<string name="prefWidgetUI">Відображена інформація</string>
-	<string name="prefShowIcon">CPU Tuner ікона</string>
+	<string name="prefWidgetUI">Displayed Information</string>
+	<string name="prefShowIcon">CPU Tuner icon</string>
 	<string name="prefShowIconLong">Used to launch CPU Tuner</string>
-	<string name="title_cannot_save">Неможливо зберегти</string>
+	<string name="title_cannot_save">Unable to Save</string>
 	<string name="cbInclSwitchLog">Include the switch log in the mail.</string>
 	<string name="name_extention_widget">Widget Extension</string>
 	<string name="desc_extention_widget">The widget lets you access CPU Tuner function quickly from your home screen.</string>
 	<string name="prefCatWidget">Widget</string>
-	<string name="prefHasWidget">Enable Widget</string>
-	<string name="msgWidgetLoading">Завантаження...</string>
-	<string name="msg_widgets_not_installed">CPU Tuner widget is not enabled.</string>
-	<string name="title_install_widget_dia">Widget not installed</string>
+	<string name="prefHasWidget">Włącz Widget</string>
+	<string name="msgWidgetLoading">Ładowanie...</string>
+	<string name="msg_widgets_not_installed">CPU Tuner widget nie jest włączony.</string>
+	<string name="title_install_widget_dia">Widget nie zainstalowany</string>
 	<string name="msg_install_widget_dia">The widget cannot be added since the widget extension is not installed</string>
-	<string name="buNeg_install_widget_dia">Ні, дякую.</string>
-	<string name="buPos_install_widget_dia">Взяти це...</string>
-	<string name="tigger_name_all">Все</string>
-	<string name="tigger_name_batteryfull">Батарея повна</string>
-	<string name="tigger_name_batteryused">Батарея у використанні</string>
-	<string name="tigger_name_batterylow">Батарея низький рівень</string>
-	<string name="tigger_name_batteryempty">Батарея порожня</string>
-	<string name="tigger_name_batterycritical">Батарея критичний рівень</string>
-	<string name="profile_name_performance">Продуктивність</string>
-	<string name="profile_name_good">Добре</string>
-	<string name="profile_name_normal">Норма</string>
-	<string name="profile_name_screenoff">Екран вимкнений</string>
-	<string name="profile_name_screenon">Екран увімкнений</string>
-	<string name="profile_name_powersave">Powersave</string>
-	<string name="profile_name_extremepowersave">Extreme powersave</string>
-	<string name="gov_name_fullspeed">Повна швидкість</string>
-	<string name="gov_name_normal">Норма</string>
-	<string name="gov_name_extremeSaveBattery">Суперзбереження батареї</string>
-	<string name="gov_name_saveBattery">Збереження батареї</string>
+	<string name="buNeg_install_widget_dia">Nie, dziękuję.</string>
+	<string name="buPos_install_widget_dia">Get it…</string>
+	<string name="tigger_name_all">Wszystkie</string>
+	<string name="tigger_name_batteryfull">Bateria pełna</string>
+	<string name="tigger_name_batteryused">Battery used</string>
+	<string name="tigger_name_batterylow">Battery low</string>
+	<string name="tigger_name_batteryempty">Battery empty</string>
+	<string name="tigger_name_batterycritical">Battery critical</string>
+	<string name="profile_name_performance">Performance</string>
+	<string name="profile_name_good">Good</string>
+	<string name="profile_name_normal">Normal</string>
+	<string name="profile_name_screenoff">Screen off</string>
+	<string name="profile_name_screenon">Screen on</string>
+	<string name="profile_name_powersave">Energooszczędny</string>
+	<string name="profile_name_extremepowersave">Ekstremalnie energooszczędny</string>
+	<string name="gov_name_fullspeed">Full speed</string>
+	<string name="gov_name_normal">Normal</string>
+	<string name="gov_name_extremeSaveBattery">Extreme Save Battery</string>
+	<string name="gov_name_saveBattery">Save Battery</string>
 	<string name="configuration_title_sophisticated">Sophisticated</string>
 	<string name="configuration_description_sophisticated">Based on the battery level quite a few triggers are used to control the CPU. No service switches are activated.</string>
 	<string name="configuration_title_uniform">Uniform</string>
@@ -102,20 +102,20 @@
 	<string name="configuration_description_simplePowerful">This is the profile described by D. in his blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) without mobile data switching.</string>
 	<string name="configuration_title_extreme">Extreme</string>
 	<string name="configuration_description_extreme">This is (nearly) the old default configuration.  It is similar to Sophisticated, but uses much more rigorous setting. While battery saving is better the performance gets worse.</string>
-	<string name="auto">Auto</string>
-	<string name="msg_manual_profile">manual</string>
-	<string name="labelMessage">Повідомлення:</string>
-	<string name="labelState">Стан:</string>
-	<string name="labelTime">Час:</string>
+	<string name="auto">Automatycznie</string>
+	<string name="msg_manual_profile">Manualnie</string>
+	<string name="labelMessage">Wiadomość</string>
+	<string name="labelState">State:</string>
+	<string name="labelTime">Time:</string>
 	<string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
 	<string name="prefEnableSwitchCpuSetting">Use special CPU settings on profile switch</string>
 	<string name="prefEnableSwitchCpuSettingOn">Special CPU settings will be used on profile switch.</string>
 	<string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
 	<string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
 	<string name="prefSwitchCpuSettingLong">These CPU settings will be used on profile switch, it can speed up profile switch when heavily underclocking (underclocking is not recommended).</string>
-	<string name="label_back">Назад</string>
-	<string name="label_forward">Уперед</string>
-	<string name="label_home">Додому</string>
+	<string name="label_back">Go back</string>
+	<string name="label_forward">Go forward</string>
+	<string name="label_home">Home</string>
 	<string name="prefCatEngine">Engine</string>
 	<string name="prefCatHelper">Helper</string>
 	<string name="msg_config_loaded">Loaded</string>
@@ -137,7 +137,7 @@
 	<string name="msg_capcheck_result_more_info">(Tap result for more information.)</string>
 	<string name="menuMarkLog">Mark</string>
 	<string name="msgMarkLog">*** Mark ***</string>
-	<string name="menuClearLog">Clear Log</string>
+	<string name="menuClearLog">Wyczyść Log</string>
 	<string name="enabled">Enabled</string>
 	<string name="ac_power">On Power</string>
 	<string name="battery">On battery</string>
@@ -179,9 +179,9 @@
 	<string name="prefConfigurationsManageLong">Backup and Restore configurations (i.e. a set of
 		triggers, profiles and governors).</string>
 	<string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>
-	<string name="prefLanguageLong">Оберіть іншу мову (потребує перезапуск)</string>
-	<string name="prefEnableCputunerOn">CPU Tuner працює.</string>
-	<string name="prefEnableCputunerOff">CPU Tuner не працює.</string>
+	<string name="prefLanguageLong">Choose a different language. (required restart)</string>
+	<string name="prefEnableCputunerOn">CPU Tuner is running.</string>
+	<string name="prefEnableCputunerOff">CPU Tuner is not running.</string>
 	<string name="prefKeyProfilesLong">Change the way profiles, triggers and governors behave.</string>
 	<string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile, date, WIFI, or bluetooth) behave.</string>
 	<string name="prefCpuLong">Settings concerning the CPU.</string>

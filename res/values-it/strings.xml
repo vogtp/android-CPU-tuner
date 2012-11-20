@@ -123,7 +123,7 @@
 	<string name="all">Tutte</string>
 	<string name="labelNoDataForFilter">Nessun dato trovato per questa combinazione.</string>
 	<string name="prefCatAdvStatistics">Statistiche avanzate e log </string>
-	<string name="prefCatExtention">Estensioni</string>
+	<string name="prefCatExtention">Extension</string>
 	<string name="prefEnableExtention">Abilita Extension</string>
 	<string name="prefEnableSwitchLog">Abilita log del cambio profilo </string>
 	<string name="prefCatStatistics">Statistiche</string>
@@ -247,7 +247,7 @@
 	<string name="prefPowerStrongerThanScreenoff">On power è dominante rispetto al profilo screen off </string>
 	<string name="prefPowerStrongerThanScreenoffOn">Se in on power e a schermo spento verrà scelto on power.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">Se in on power e a schermo spento verrà scelto il profilo screen off.</string>
-	<string name="title_choose_experiance_level">Scegli il tuo livello di esperienza</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">Cancella questa configurazione in autoload?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode con wifi connesso</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Scegli una modalità di rete da applicare se connessi a una rete wifi. Se la rete è disconnessa CPU tuner tornerà alla precedente.</string>
@@ -341,7 +341,7 @@
 	<string name="labelCurrentFrequency">in uso</string>
 	<string name="prefScreenLegal">Note legali</string>
 	<string name="prefLegalOxigenIcons">Tab icon License</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
 		nice icons.</string>
 	<string name="virtual_governor">governor virtuale</string>
 	<string name="msg_cannot_load_virtual_governor">Impossibile caricare il governor virtuale…</string>
@@ -442,8 +442,8 @@
 	<string name="notAvailable">non disponibile</string>
 	<string name="yes">sì</string>
 	<string name="no">no</string>
-	<string name="save">salva</string>
-	<string name="cancel">annulla</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">Frequenza minima mostrata se non sei in modalià esperto.</string>
 	<string name="prefMinSensibleFrequency">Frequenza minima</string>
 	<string name="prefKeyProfiles">Profili e Trigger</string>
@@ -653,5 +653,5 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

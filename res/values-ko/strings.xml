@@ -126,7 +126,7 @@
 	<string name="all">모두</string>
 	<string name="labelNoDataForFilter">이 필터조합의 정보가 발견되지 않았습니다.</string>
 	<string name="prefCatAdvStatistics">발전된 통계와 로깅</string>
-	<string name="prefCatExtention">확장</string>
+	<string name="prefCatExtention">Extension</string>
 	<string name="prefEnableExtention">확장 활성화</string>
 	<string name="prefEnableSwitchLog">프로필 전환 로그 활성화</string>
 	<string name="prefCatStatistics">통계</string>
@@ -255,7 +255,7 @@
 		선택됨</string>
 	<string name="prefPowerStrongerThanScreenoffOff">체크 해제되면, 전원 (AC 또는 USB)이 꽂아져 있고 화면이 꺼져있으면, 화면 잠김
 		프로필이 선택됨</string>
-	<string name="title_choose_experiance_level">당신의 경험 레벨을 선택하시오</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">이 자동불러오기 설정을 지웁니까?</string>
 	<string name="prefNetworkModeOnWifiConnected">WIFI 연결시 넷모드</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">WIFI 네트워크 연결시 적용할 네트워크 모드를 선택하시오. 네트워크가 끊기면, CPU
@@ -344,7 +344,8 @@
 	<string name="labelCurrentFrequency">현재값</string>
 	<string name="prefScreenLegal">법적조항</string>
 	<string name="prefLegalOxigenIcons">탭 아이콘 라이센스</string>
-	<string name="prefLegalOxigenIconsLong">사용된 oxygen 아이콘의 라이센스. 멋진 아이콘들 감사합니다.</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
+		nice icons.</string>
 	<string name="virtual_governor">가상 가버너</string>
 	<string name="msg_cannot_load_virtual_governor">가상 가버너를 불러올 수 없습니다…</string>
 	<string name="labelStatisticsTab">통계</string>
@@ -442,8 +443,8 @@
 	<string name="notAvailable">해당없음</string>
 	<string name="yes">네</string>
 	<string name="no">아니오</string>
-	<string name="save">저장</string>
-	<string name="cancel">취소</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">파워유저 모드가 아닐때 최소의 보여지는 프리퀀시.</string>
 	<string name="prefMinSensibleFrequency">최소의 보여지는 프리퀀시</string>
 	<string name="prefKeyProfiles">프로필과 트리거</string>
@@ -634,5 +635,5 @@
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

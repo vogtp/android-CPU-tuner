@@ -123,7 +123,7 @@
 	<string name="all">All</string>
 	<string name="labelNoDataForFilter">No data for this filter combination found.</string>
 	<string name="prefCatAdvStatistics">Advanced Statistics and Logging</string>
-	<string name="prefCatExtention">Extention</string>
+	<string name="prefCatExtention">Extension</string>
 	<string name="prefEnableExtention">Enable Extension</string>
 	<string name="prefEnableSwitchLog">Enable profile switch log</string>
 	<string name="prefCatStatistics">Statistics</string>
@@ -266,7 +266,7 @@
 	<string name="prefPowerStrongerThanScreenoff">Laddning är prioriterat över Låsskärmsprofilen</string>
 	<string name="prefPowerStrongerThanScreenoffOn">If checked, when power (AC or USB) is plugged-in and the screen is off, the On-Power profile will be chosen.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">If unchecked, when power (AC or USB) is plugged-in and the screen is off, the Screen-Lock profile will be chosen.</string>
-	<string name="title_choose_experiance_level">Choose your experiance level</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode on WIFI Connection</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a WIFI network is connected.  If the network is disconnected, CPU Tuner goes back to previous.</string>
@@ -363,7 +363,7 @@
 	<string name="labelCurrentFrequency">current</string>
 	<string name="prefScreenLegal">Legal stuff</string>
 	<string name="prefLegalOxigenIcons">Tab icon License</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxigen icons. Thanks for the
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
 		nice icons.</string>
 	<string name="virtual_governor">Virtual Governor</string>
 	<string name="msg_cannot_load_virtual_governor">Cannot load Virtual Governor…</string>
@@ -477,8 +477,8 @@
 	<string name="notAvailable">not available</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
-	<string name="save">save</string>
-	<string name="cancel">cancel</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in Power User
 		mode.</string>
 	<string name="prefMinSensibleFrequency">Minimum Displayed Frequency</string>
@@ -691,5 +691,5 @@
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

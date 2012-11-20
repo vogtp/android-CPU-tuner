@@ -123,7 +123,7 @@
 	<string name="all">Todo</string>
 	<string name="labelNoDataForFilter">No se encontraron datos para esta combinación de filtros.</string>
 	<string name="prefCatAdvStatistics">Ajustes avanzados y registro</string>
-	<string name="prefCatExtention">Extensión</string>
+	<string name="prefCatExtention">Extension</string>
 	<string name="prefEnableExtention">Activar extensión</string>
 	<string name="prefEnableSwitchLog">Activar el registro de cambio de perfill</string>
 	<string name="prefCatStatistics">Estadísticas</string>
@@ -263,7 +263,7 @@
 	<string name="prefPowerStrongerThanScreenoff">El perfil Cargando tiene más prioridad que el Pantalla-Bloqueada</string>
 	<string name="prefPowerStrongerThanScreenoffOn">Si está marcado, cuando se está cargando (AC o USB) y la pantalla está apagada, el perfil Cargando será el escogido.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">Si no está marcado, cuando se está cargando (AC o USB) y la pantalla está apagada, el perfil Pantalla-Bloqueada será el escogido.</string>
-	<string name="title_choose_experiance_level">Elija su nivel de experiencia</string>
+	<string name="title_choose_experiance_level">Choose your experience level</string>
 	<string name="msg_delete_autoload_configuration">¿Eliminar la configuracion autocargada?</string>
 	<string name="prefNetworkModeOnWifiConnected">Modo de red en conexiones WIFI</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Elije el modo de red a aplicar cuando se conecta a una WIFI. Si la red es desconectada, CPU Tuner volvera al estado previo.</string>
@@ -358,7 +358,8 @@
 	<string name="labelCurrentFrequency">actual</string>
 	<string name="prefScreenLegal">Temas legales</string>
 	<string name="prefLegalOxigenIcons">Licencia de la pestaña de iconos</string>
-	<string name="prefLegalOxigenIconsLong">Licencia de uso de los iconos Oxigen. Gracias por estos bonitos iconos.</string>
+	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
+		nice icons.</string>
 	<string name="virtual_governor">Controlador virtual</string>
 	<string name="msg_cannot_load_virtual_governor">No se puede cargar el controlador virtual…</string>
 	<string name="labelStatisticsTab">Estadísticas</string>
@@ -455,8 +456,8 @@
 	<string name="notAvailable">No disponible</string>
 	<string name="yes">Si</string>
 	<string name="no">No</string>
-	<string name="save">Guardar</string>
-	<string name="cancel">Cancelar</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 	<string name="prefMinSensibleFrequencyLong">Frecuencia mínima mostrada si no se está en modo \"Usuario experto\"</string>
 	<string name="prefMinSensibleFrequency">Frecuencia mínima</string>
 	<string name="prefKeyProfiles">Perfiles y disparadores</string>
@@ -652,5 +653,5 @@
 	<string name="msg_not_starting_after_reboot">No iniciar CPU Tuner cuando el dispositivo se reinicie frecuentemente.</string>
 	<string name="prefUseScriptCache">\"Usar scripts\"</string>
 	<string name="prefUseScriptCacheOn">Usar la consola de scripts para guardar los cambios de cpu</string>
-	<string name="prefUseScriptCacheOff">Guardar los cambios de cpu internamente</string>
+	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>
