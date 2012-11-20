@@ -328,7 +328,7 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 		switch (id) {
 		case LOADER_DATA:
 			setDataState(LoadingState.LOADING);
-			return new CursorLoader(getActivity(), TimeInStateValue.CONTENT_URI_GROUPED, null/*TimeInStateValue.PROJECTION_TIME_SUM*/,
+			return new CursorLoader(getActivity(), TimeInStateValue.CONTENT_URI_GROUPED, TimeInStateValue.PROJECTION_TIME_SUM,
 					TimeInStateIndex.SELECTION_TRIGGER_PROFILE_VIRTGOV,
 					new String[] { trigger, profile, virtgov }, TimeInStateValue.SORTORDER_DEFAULT);
 		case LOADER_TIGGER:
