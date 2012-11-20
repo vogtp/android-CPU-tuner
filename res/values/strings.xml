@@ -7,7 +7,7 @@
     <string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
     <string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
     <string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
-    <string name="dia_no_switch_off_cpus">Be save</string>
+    <string name="dia_no_switch_off_cpus">Be safe</string>
     <string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experiance level to access this feature.</string>
     <string name="prefRunSwitchInBackground">Background profile switch</string>
     <string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
@@ -440,7 +440,7 @@
     <string name="labelNormalExplain">More advanced configuration options, still
 		underclocking only possible to a point.</string>
     <string name="labelNormal">Normal</string>
-    <string name="labelBeginnerExplain">Easy to configure and all setting should be save to
+    <string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
 		use… Underclocking only possible to a point.</string>
     <string name="labelBeginner">Beginner</string>
     <string name="labelBatteryHot">Battery Hot:</string>
