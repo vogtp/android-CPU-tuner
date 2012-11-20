@@ -696,11 +696,13 @@ public class PowerProfiles {
 	public CharSequence getBatteryInfo() {
 		StringBuilder bat = new StringBuilder();
 		bat.append(getBatteryLevel()).append("%");
-		bat.append(" (");
 		if (isBatteryHot()) {
-			bat.append(context.getString(R.string.label_hot)).append(" ");
+			bat.append(" ").append(context.getString(R.string.label_hot)).append(" ");
 		}
-		bat.append(UnitsHelper.temperature(getBatteryTemperature())).append(")");
+		int temperature = getBatteryTemperature();
+		if (temperature > 0) {
+			bat.append(" (").append(UnitsHelper.temperature(temperature)).append(")");
+		}
 		return bat.toString();
 	}
 
