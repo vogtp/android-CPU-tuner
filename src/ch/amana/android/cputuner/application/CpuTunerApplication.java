@@ -19,7 +19,7 @@ public class CpuTunerApplication extends Application {
 		try {
 			InstallHelper.initialise(ctx);
 
-			if (settings.isEnableProfiles()) {
+			if (settings.isEnableCpuTuner()) {
 				startCpuTuner(ctx);
 			} else {
 				if (SettingsStorage.getInstance(ctx).isStatusbarAddto() == SettingsStorage.STATUSBAR_ALWAYS) {

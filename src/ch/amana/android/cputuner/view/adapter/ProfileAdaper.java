@@ -52,7 +52,7 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter, ListAd
 	@Override
 	public Object getItem(int position) {
 		if (position == 0) {
-			if (SettingsStorage.getInstance().isEnableProfiles()) {
+			if (SettingsStorage.getInstance().isEnableCpuTuner()) {
 				return AUTO;
 			}
 			return ctx.getString(R.string.not_enabled);
@@ -87,7 +87,7 @@ public class ProfileAdaper extends BaseAdapter implements SpinnerAdapter, ListAd
 				Logger.i("Cannot get profilename from cursor", e);
 			}
 		} else {
-			if (SettingsStorage.getInstance().isEnableProfiles()) {
+			if (SettingsStorage.getInstance().isEnableCpuTuner()) {
 				CharSequence profileName = ModelAccess.getInstace(parent.getContext()).getProfileName(PowerProfiles.getInstance().getCurrentAutoProfileId());
 				text = AUTO;
 				if (!PowerProfiles.UNKNOWN.equals(profileName)) {

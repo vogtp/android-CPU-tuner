@@ -191,7 +191,7 @@ public class SettingsStorage {
 		return context.getSharedPreferences(PREF_STORE_LOCAL, 0);
 	}
 
-	public void setEnableProfiles(boolean b) {
+	public void setEnableCpuTuner(boolean b) {
 		enableProfiles = b;
 		Editor editor = getPreferences().edit();
 		editor.putBoolean(ENABLE_PROFILES, b);
@@ -203,7 +203,7 @@ public class SettingsStorage {
 		}
 	}
 
-	public boolean isEnableProfiles() {
+	public boolean isEnableCpuTuner() {
 		if (!checkedProfiles) {
 			checkedProfiles = true;
 			enableProfiles = getPreferences().getBoolean(ENABLE_PROFILES, false);

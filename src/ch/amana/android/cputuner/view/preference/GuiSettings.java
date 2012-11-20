@@ -108,7 +108,7 @@ public class GuiSettings extends BaseSettings {
 					Notifier.startStatusbarNotifications(context);
 					break;
 				case SettingsStorage.STATUSBAR_RUNNING:
-					if (settings.isEnableProfiles()) {
+					if (settings.isEnableCpuTuner()) {
 						Notifier.startStatusbarNotifications(context);
 					} else {
 						Notifier.stopStatusbarNotifications(context);

@@ -39,10 +39,10 @@ public class BootReceiver extends BroadcastReceiver {
 			if (milliesSinceBoot < MIN_DELTA_BOOT) {
 				Logger.w("CPU tuner bootstart: NOT starting since device is booting to frequent");
 				Toast.makeText(context, R.string.msg_not_starting_after_reboot, Toast.LENGTH_LONG).show();
-				settings.setEnableProfiles(false);
+				settings.setEnableCpuTuner(false);
 				return;
 			}
-			if (settings.isEnableProfiles()) {
+			if (settings.isEnableCpuTuner()) {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {

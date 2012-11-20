@@ -178,7 +178,7 @@ public class CpuTunerProvider extends ContentProvider {
 	}
 
 	private void notifyChange(Uri uri) {
-		if (notifyChanges && SettingsStorage.getInstance().isEnableProfiles() && getUriTableMap(uri).notifyOnChange) {
+		if (notifyChanges && SettingsStorage.getInstance().isEnableCpuTuner() && getUriTableMap(uri).notifyOnChange) {
 			PowerProfiles.getInstance(getContext()).reapplyProfile(true);
 		}
 		getContext().getContentResolver().notifyChange(uri, null);

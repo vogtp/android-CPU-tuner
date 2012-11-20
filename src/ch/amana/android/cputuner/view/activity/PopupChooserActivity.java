@@ -85,7 +85,7 @@ public class PopupChooserActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		if (chooserType == CHOOSER_TYPE_PROFILE) {
-			if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableProfiles()) {
+			if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableCpuTuner()) {
 				return;
 			}
 			Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);

@@ -83,7 +83,7 @@ public class TriggersListFragment extends PagerListFragment implements StateChan
 				PowerProfiles powerProfiles = PowerProfiles.getInstance(activity);
 				TriggerModel currentTrigger = powerProfiles.getCurrentTrigger();
 				boolean isCurrentTrigger = currentTrigger != null && currentTrigger.getDbId() == cursor.getLong(DB.INDEX_ID)
-						&& SettingsStorage.getInstance().isEnableProfiles();
+						&& SettingsStorage.getInstance().isEnableCpuTuner();
 				if (columnIndex == DB.Trigger.INDEX_TRIGGER_NAME) {
 					if (isCurrentTrigger) {
 						color = getResources().getColor(R.color.cputuner_green);

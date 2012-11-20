@@ -111,7 +111,7 @@ public class ProfileAppwidgetProvider extends AppWidgetProvider {
 			views.setOnClickPendingIntent(R.id.tvTrigger, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.labelTrigger, chooseProfilePendingIntent);
 			setTextSize(views, R.id.tvTrigger);
-			if (settings.isEnableProfiles()) {
+			if (settings.isEnableCpuTuner()) {
 				views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
 				views.setTextColor(R.id.tvTrigger, Color.WHITE);
 			} else {

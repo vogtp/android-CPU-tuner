@@ -61,14 +61,14 @@ public class SettingsMainActivity extends BaseSettings {
 						alertBuilder.setNegativeButton(R.string.no, new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								settings.setEnableProfiles(true);
+								settings.setEnableCpuTuner(true);
 								((CheckBoxPreference) preference).setChecked(true);
 							}
 						});
 						alertBuilder.setPositiveButton(R.string.yes, new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								settings.setEnableProfiles(false);
+								settings.setEnableCpuTuner(false);
 								((CheckBoxPreference) preference).setChecked(false);
 							}
 						});
@@ -76,7 +76,7 @@ public class SettingsMainActivity extends BaseSettings {
 						alert.show();
 						return false;
 					}
-					settings.setEnableProfiles(true);
+					settings.setEnableCpuTuner(true);
 					return true;
 				}
 				return false;

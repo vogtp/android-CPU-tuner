@@ -153,7 +153,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, final int pos, final long id) {
-				if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableProfiles()) {
+				if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableCpuTuner()) {
 					return;
 				}
 				Intent i = new Intent(TunerService.ACTION_TUNERSERVICE_MANUAL_PROFILE);
@@ -361,7 +361,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		} else {
 			trConfig.setVisibility(View.GONE);
 		}
-		if (settings.isEnableProfiles()) {
+		if (settings.isEnableCpuTuner()) {
 			updateProfileSpinner();
 			tvCurrentTrigger.setText(powerProfiles.getCurrentTriggerName());
 			tvCurrentTrigger.setTextColor(Color.LTGRAY);

@@ -144,7 +144,7 @@ public class ConfigurationManageActivity extends ListActivity implements OnItemC
 		super.onPause();
 		if (firstRun) {
 			Toast.makeText(this, getString(loadingSuccess ? R.string.msgEnableCputuner : R.string.msgDisableCputuner), Toast.LENGTH_LONG).show();
-			settings.setEnableProfiles(loadingSuccess);
+			settings.setEnableCpuTuner(loadingSuccess);
 			SettingsStorage.getInstance().firstRunDone();
 			startActivity(CpuTunerViewpagerActivity.getStartIntent(this));
 		}

@@ -79,7 +79,7 @@ public class VirtualGovernorListFragment extends PagerListFragment implements St
 					}
 					long virtGovId = PowerProfiles.getInstance(activity).getCurrentProfile().getVirtualGovernor();
 					int color = Color.LTGRAY;
-					if (virtGovId == cursor.getLong(DB.INDEX_ID) && SettingsStorage.getInstance().isEnableProfiles()) {
+					if (virtGovId == cursor.getLong(DB.INDEX_ID) && SettingsStorage.getInstance().isEnableCpuTuner()) {
 						color = getResources().getColor(R.color.cputuner_green);
 					}
 

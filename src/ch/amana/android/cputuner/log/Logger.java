@@ -15,7 +15,7 @@ public class Logger {
 	private static final String TAG = "CPUTuner";
 	private static final String STACKTRACE_TAG = "CPUTunerStracktraceLog";
 
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
 
 	public static void inApp(Context ctx, String msg) {
 		if (DEBUG) {

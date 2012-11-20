@@ -78,7 +78,7 @@ public class ProfilesListFragment extends PagerListFragment implements StateChan
 				if (columnIndex == DB.CpuProfile.INDEX_PROFILE_NAME) {
 					ProfileModel currentProfile = PowerProfiles.getInstance(getActivity()).getCurrentProfile();
 					int color = Color.LTGRAY;
-					if (currentProfile != null && currentProfile.getDbId() == cursor.getLong(DB.INDEX_ID) && SettingsStorage.getInstance().isEnableProfiles()) {
+					if (currentProfile != null && currentProfile.getDbId() == cursor.getLong(DB.INDEX_ID) && SettingsStorage.getInstance().isEnableCpuTuner()) {
 						color = getResources().getColor(R.color.cputuner_green);
 					}
 					((TextView) view).setTextColor(color);

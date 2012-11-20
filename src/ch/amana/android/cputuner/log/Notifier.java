@@ -85,7 +85,7 @@ public class Notifier extends BroadcastReceiver {
 		if (!PowerProfiles.UNKNOWN.equals(profileName)) {
 			StringBuffer sb = new StringBuffer(25);
 			String contentText = null;
-			if (SettingsStorage.getInstance().isEnableProfiles()) {
+			if (SettingsStorage.getInstance().isEnableCpuTuner()) {
 				sb.append(context.getString(R.string.labelCurrentProfile));
 				sb.append(" ").append(PowerProfiles.getInstance().getCurrentProfileName());
 				if (PowerProfiles.getInstance().isManualProfile()) {
@@ -121,7 +121,7 @@ public class Notifier extends BroadcastReceiver {
 		boolean isDisplayNotification = SettingsStorage.getInstance().isStatusbarNotifications();
 		int iconNew = R.drawable.icon;
 		boolean jellyBean = SettingsStorage.getInstance().isJellyBean();
-		if (!SettingsStorage.getInstance().isEnableProfiles()) {
+		if (!SettingsStorage.getInstance().isEnableCpuTuner()) {
 			iconNew = R.drawable.icon_red;
 		} else if (PowerProfiles.getInstance().isManualProfile()) {
 			iconNew = R.drawable.icon_yellow;
@@ -244,7 +244,7 @@ public class Notifier extends BroadcastReceiver {
 			views.setOnClickPendingIntent(R.id.tvTrigger, chooseProfilePendingIntent);
 			views.setOnClickPendingIntent(R.id.labelTrigger, chooseProfilePendingIntent);
 			setTextSize(views, R.id.tvTrigger);
-			if (settings.isEnableProfiles()) {
+			if (settings.isEnableCpuTuner()) {
 				views.setTextViewText(R.id.tvTrigger, powerProfiles.getCurrentTriggerName());
 				views.setTextColor(R.id.tvTrigger, Color.WHITE);
 			} else {
