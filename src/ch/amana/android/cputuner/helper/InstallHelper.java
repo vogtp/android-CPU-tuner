@@ -23,17 +23,19 @@ import ch.amana.android.cputuner.hw.RootHandler;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
+import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
 import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.provider.DB.CpuProfile;
+import ch.amana.android.cputuner.provider.DB.Trigger;
 import ch.amana.android.cputuner.provider.DB.VirtualGovernor;
 import ch.amana.android.cputuner.view.activity.ConfigurationManageActivity;
 import ch.amana.android.cputuner.view.activity.CpuTunerViewpagerActivity;
 
 public class InstallHelper {
 
-	private static final int VERSION = 7;
+	private static final int VERSION = 8;
 
 	static class CpuGovernorSettings {
 		String gov;
@@ -78,6 +80,18 @@ public class InstallHelper {
 		case 6:
 			Logger.i("Initalising cpu tuner to level 7");
 			// settings.setMakeFilesWritable(false);
+		case 7:
+			Logger.i("Initalising cpu tuner to level 8");
+			ContentResolver resolver = ctx.getContentResolver();
+			Cursor c = resolver.query(Trigger.CONTENT_URI, Trigger.PROJECTION_DEFAULT, null, null, null);
+			while (c.moveToNext()) {
+				TriggerModel tr = new TriggerModel(c);
+				tr.setScreenLockedProfileId(tr.getScreenOffProfileId());
+				resolver.update(Trigger.CONTENT_URI, tr.getValues(), DB.SELECTION_BY_ID, new String[] { Long.toString(tr.getDbId()) });
+			}
+			if (c != null) {
+				c.close();
+			}
 		}
 		settings.migrateSettings();
 		settings.setDefaultProfilesVersion(VERSION);
