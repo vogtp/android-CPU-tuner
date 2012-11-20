@@ -13,9 +13,15 @@ public class ScriptCache extends Cache {
 
 	private FileWriter writer = null;
 	private boolean clearCache = true;
+	private final Context ctx;
+
+	public ScriptCache(Context ctx) {
+		super();
+		this.ctx = ctx;
+	}
 
 	@Override
-	public void clear(Context ctx) {
+	public void clear() {
 		if (!RootHandler.execute("rm -rf " + getPath(ctx).getAbsolutePath() + "/*")) {
 			RootHandler.execute("rm " + getPath(ctx).getAbsolutePath() + "/*");
 		}
@@ -36,19 +42,19 @@ public class ScriptCache extends Cache {
 	}
 
 	@Override
-	public boolean execute(Context ctx, long pid) {
+	public boolean execute(long pid) {
 		return RootHandler.execute(getFile(ctx, pid).getAbsolutePath());
 	}
 
 	@Override
-	public boolean exists(Context ctx, long pid) {
+	public boolean exists(long pid) {
 		return getFile(ctx, pid).exists();
 	}
 
 	@Override
-	public void startRecording(Context ctx, long pid) {
+	public void startRecording(long pid) {
 		if (clearCache) {
-			clear(ctx);
+			clear();
 			clearCache = false;
 		}
 		try {

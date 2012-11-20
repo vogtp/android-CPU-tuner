@@ -1,6 +1,7 @@
 package ch.amana.android.cputuner.cache;
 
 import android.content.Context;
+import ch.amana.android.cputuner.helper.SettingsStorage;
 
 public abstract class Cache {
 
@@ -8,21 +9,29 @@ public abstract class Cache {
 
 	public static Cache getInstance() {
 		if (instance == null) {
-			if (true) {
-				instance = new CommandCache();
-			}
-			instance = new ScriptCache();
+			// no way to access script cache in this case
+			instance = new CommandCache();
 		}
 		return instance;
 	}
 
-	public abstract void clear(Context ctx);
+	public static Cache getInstance(Context ctx) {
+		if (instance == null) {
+			if (SettingsStorage.getInstance(ctx).isUseScriptcache()) {
+				instance = new ScriptCache(ctx);
+			}
+			instance = new CommandCache();
+		}
+		return instance;
+	}
 
-	public abstract boolean execute(Context ctx, long pid);
+	public abstract void clear();
 
-	public abstract boolean exists(Context ctx, long pid);
+	public abstract boolean execute(long pid);
 
-	public abstract void startRecording(Context ctx, long pid);
+	public abstract boolean exists(long pid);
+
+	public abstract void startRecording(long pid);
 
 	public abstract void endRecording();
 

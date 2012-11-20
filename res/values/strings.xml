@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="prefMakeFilesWritable">Write directly to files</string>
-    <string name="prefMakeFilesWritableLong">Write directly to the sysfs files.  This speeds up switching and solves problems with Jelly Bean.  But it is known to cause problems with some kernels.</string>
     <string name="prefAuthorsSettings">Use the authors settings</string>
     <string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behavour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
     <string name="mse_authors_settings_loaded">Authors settings loaded!</string>
@@ -709,5 +707,8 @@
     <string name="label_tresh_up">up: </string>
     <string name="label_tresh_down">down: </string>
     <string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
+    <string name="prefUseScriptCache">"Use scripts "</string>
+    <string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
+    <string name="prefUseScriptCacheOff">Cache the cpu switche command internally</string>
 
 </resources>

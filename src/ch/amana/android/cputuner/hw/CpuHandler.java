@@ -64,7 +64,7 @@ public class CpuHandler extends HardwareHandler {
 
 	public static CpuHandler resetInstance(Context ctx) {
 		instance = null;
-		ScriptCache.getInstance().clear(ctx);
+		ScriptCache.getInstance(ctx).clear();
 		return getInstance();
 	}
 
@@ -126,15 +126,15 @@ public class CpuHandler extends HardwareHandler {
 
 	public void applyCpuSettings(Context ctx, ProfileModel profile) {
 		long pid = profile.getDbId();
-		Cache cache = ScriptCache.getInstance();
-		if (!cache.exists(ctx, pid)) {
+		Cache cache = ScriptCache.getInstance(ctx);
+		if (!cache.exists(pid)) {
 			//generate script
-			cache.startRecording(ctx, pid);
+			cache.startRecording(pid);
 			doApplyCpuSettings(profile);
 			cache.endRecording();
-			cache.execute(ctx, pid);
+			cache.execute(pid);
 		}
-		cache.execute(ctx, pid);
+		cache.execute(pid);
 	}
 
 	protected void doApplyCpuSettings(ProfileModel profile) {

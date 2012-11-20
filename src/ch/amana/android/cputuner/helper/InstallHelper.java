@@ -77,7 +77,7 @@ public class InstallHelper {
 			ModelAccess.getInstace(ctx).clearPowerUsage();
 		case 6:
 			Logger.i("Initalising cpu tuner to level 7");
-			settings.setMakeFilesWritable(false);
+			// settings.setMakeFilesWritable(false);
 		}
 		settings.migrateSettings();
 		settings.setDefaultProfilesVersion(VERSION);

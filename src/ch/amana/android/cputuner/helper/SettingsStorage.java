@@ -843,22 +843,8 @@ public class SettingsStorage {
 		return uid;
 	}
 
-	public boolean isMakeFilesWritable() {
-		if (!checkedMakeFilesWritable) {
-			checkedMakeFilesWritable = true;
-			makeFilesWritable = getPreferences().getBoolean("prefKeyMakeFilesWritable", false);
-		}
-		return makeFilesWritable;
-	}
-
 	public boolean isJellyBean() {
 		return Build.VERSION.SDK_INT >= 16; // JB ;
-	}
-
-	public void setMakeFilesWritable(boolean b) {
-		Editor editor = getPreferences().edit();
-		editor.putBoolean("prefKeyMakeFilesWritable", b);
-		editor.commit();
 	}
 
 	public void setAuthorsDefauls() {
@@ -881,5 +867,9 @@ public class SettingsStorage {
 		Editor editor = getPreferences().edit();
 		editor.putLong(PREF_KEY_LASTBOOT, boot);
 		editor.commit();
+	}
+
+	public boolean isUseScriptcache() {
+		return getPreferences().getBoolean("prefKeyUseScriptCache", false);
 	}
 }

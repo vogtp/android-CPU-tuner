@@ -14,9 +14,12 @@
     </ListPreference>
 
     <CheckBoxPreference
-        android:key="prefKeyMakeFilesWritable"
-        android:summary="@string/prefMakeFilesWritableLong"
-        android:title="@string/prefMakeFilesWritable" />
+        android:defaultValue="false"
+        android:key="prefKeyUseScriptCache"
+        android:summaryOff="@string/prefUseScriptCacheOff"
+        android:summaryOn="@string/prefUseScriptCacheOn"
+        android:title="@string/prefUseScriptCache" />
+    prefKeyUseScriptCacheprefKeyUseScriptCacheprefKeyUseScriptCache
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="prefKeyEnableUserspaceGovernor"

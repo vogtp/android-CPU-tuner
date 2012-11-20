@@ -276,6 +276,7 @@ public class PowerProfiles {
 			}
 			lastSwitchTime = now;
 		}
+
 	}
 
 	public static String getServiceTypeName(Context ctx, ServiceType type) {

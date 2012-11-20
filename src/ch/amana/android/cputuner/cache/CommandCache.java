@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import android.content.Context;
 import ch.amana.android.cputuner.hw.RootHandler;
 
 import com.stericson.RootTools.execution.Command;
@@ -18,12 +17,12 @@ public class CommandCache extends Cache {
 	private long profileId = NO_PROFILE;
 
 	@Override
-	public void clear(Context ctx) {
+	public void clear() {
 		commands.clear();
 	}
 
 	@Override
-	public boolean execute(Context ctx, long pid) {
+	public boolean execute(long pid) {
 		String[] cmds = commands.get(pid);
 		Command command = new Command(0, cmds) {
 
@@ -35,12 +34,12 @@ public class CommandCache extends Cache {
 	}
 
 	@Override
-	public boolean exists(Context ctx, long pid) {
+	public boolean exists(long pid) {
 		return commands.containsKey(pid);
 	}
 
 	@Override
-	public void startRecording(Context ctx, long pid) {
+	public void startRecording(long pid) {
 		lines.clear();
 		profileId = pid;
 	}
