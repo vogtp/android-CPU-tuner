@@ -4,7 +4,7 @@ V
 * bug fixes
 - 
 
-V 
+V 3.3.4
 * features
 - New screen off and locked profiles
 - New shell backend (thanks to stericson)
@@ -14,6 +14,7 @@ V
 * bug fixes
 - Fix scriptcache on pre Gingerbread devices
 - Fix profile editor orientation changes
+- Minor fixes
 
 V 3.3.17
 * features
