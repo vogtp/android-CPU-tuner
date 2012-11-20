@@ -136,7 +136,7 @@ public class Notifier extends BroadcastReceiver {
 						.setContentTitle(context.getString(R.string.app_name))
 						.setSubText(contentText)
 						//						.setWhen(System.currentTimeMillis())
-						.setSmallIcon(R.drawable.icon)
+						.setSmallIcon(icon)
 						.setOngoing(true);
 
 				intentId = 100;
@@ -153,12 +153,10 @@ public class Notifier extends BroadcastReceiver {
 					builder.setContent(views);
 					
 				}
-				
 
 				notification = builder.build();
 
 			} else {
-
 				notification = new Notification(icon, contentText, System.currentTimeMillis());
 			}
 			contentIntent = PendingIntent.getActivity(context, 0, CpuTunerViewpagerActivity.getStartIntent(context), 0);
