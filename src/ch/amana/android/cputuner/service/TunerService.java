@@ -233,15 +233,23 @@ public class TunerService extends IntentService {
 		if (pm == null) {
 			pm = (PowerManager) ctx.getApplicationContext().getSystemService(Context.POWER_SERVICE);
 		}
-		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
-		wakeLock.acquire();
+		if (wakeLock == null) {
+			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
+		}
+		wakeLock.acquire(5000);
 	}
 
 	private static void releaseWakelock() {
 		if (wakeLock != null && wakeLock.isHeld()) {
 			wakeLock.release();
-			wakeLock = null;
 		}
+	}
+
+	public static boolean hasWakelock() {
+		if (wakeLock == null) {
+			return false;
+		}
+		return wakeLock.isHeld();
 	}
 
 }

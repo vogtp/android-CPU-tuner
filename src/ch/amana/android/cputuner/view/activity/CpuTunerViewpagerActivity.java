@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
 import ch.amana.android.cputuner.helper.GuiUtils;
@@ -27,6 +28,7 @@ import ch.amana.android.cputuner.helper.InstallHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;
 import ch.amana.android.cputuner.log.Notifier;
+import ch.amana.android.cputuner.service.TunerService;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter;
 import ch.amana.android.cputuner.view.adapter.PagerAdapter.PagerItem;
 import ch.amana.android.cputuner.view.widget.ActionBarWrapper;
@@ -224,6 +226,9 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		registerReceiver();
+		if (TunerService.hasWakelock()) {
+			Toast.makeText(this, "Still holding a wakelock!", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override
