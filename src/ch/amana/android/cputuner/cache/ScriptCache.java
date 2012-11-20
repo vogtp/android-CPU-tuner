@@ -14,9 +14,6 @@ public class ScriptCache extends Cache {
 	private FileWriter writer = null;
 	private boolean clearCache = true;
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#removeScripts(android.content.Context)
-	 */
 	@Override
 	public void clear(Context ctx) {
 		if (!RootHandler.execute("rm -rf " + getPath(ctx).getAbsolutePath() + "/*")) {
@@ -38,25 +35,16 @@ public class ScriptCache extends Cache {
 		return file;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#runScript(android.content.Context, long)
-	 */
 	@Override
 	public boolean execute(Context ctx, long pid) {
 		return RootHandler.execute(getFile(ctx, pid).getAbsolutePath());
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#hasScript(android.content.Context, long)
-	 */
 	@Override
 	public boolean exists(Context ctx, long pid) {
 		return getFile(ctx, pid).exists();
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#startRecording(android.content.Context, long)
-	 */
 	@Override
 	public void startRecording(Context ctx, long pid) {
 		if (clearCache) {
@@ -71,9 +59,6 @@ public class ScriptCache extends Cache {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#endRecording()
-	 */
 	@Override
 	public void endRecording() {
 		if (writer != null) {
@@ -88,17 +73,11 @@ public class ScriptCache extends Cache {
 		writer = null;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#isRecoding()
-	 */
 	@Override
 	public boolean isRecoding() {
 		return writer != null;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#recordLine(java.lang.String)
-	 */
 	@Override
 	public void recordLine(String cmd) {
 		if (writer == null || cmd == null) {

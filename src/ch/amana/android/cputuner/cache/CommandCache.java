@@ -17,17 +17,11 @@ public class CommandCache extends Cache {
 	List<String> lines = new ArrayList<String>();
 	private long profileId = NO_PROFILE;
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#removeScripts(android.content.Context)
-	 */
 	@Override
 	public void clear(Context ctx) {
 		commands.clear();
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#runScript(android.content.Context, long)
-	 */
 	@Override
 	public boolean execute(Context ctx, long pid) {
 		String[] cmds = commands.get(pid);
@@ -40,26 +34,17 @@ public class CommandCache extends Cache {
 		return RootHandler.execute(command);
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#hasScript(android.content.Context, long)
-	 */
 	@Override
 	public boolean exists(Context ctx, long pid) {
 		return commands.containsKey(pid);
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#startRecording(android.content.Context, long)
-	 */
 	@Override
 	public void startRecording(Context ctx, long pid) {
 		lines.clear();
 		profileId = pid;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#endRecording()
-	 */
 	@Override
 	public void endRecording() {
 		String[] cmds = lines.toArray(new String[lines.size()]);
@@ -67,17 +52,11 @@ public class CommandCache extends Cache {
 		profileId = NO_PROFILE;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#isRecoding()
-	 */
 	@Override
 	public boolean isRecoding() {
 		return profileId != NO_PROFILE;
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.amana.android.cputuner.cache.ICache#recordLine(java.lang.String)
-	 */
 	@Override
 	public void recordLine(String cmd) {
 		lines.add(cmd);
