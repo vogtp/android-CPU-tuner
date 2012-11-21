@@ -159,7 +159,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-
+		((PagerItem) pagerAdapter.getItem(0)).pageIsActive(this);
 	}
 
 	private boolean sanityChecks(SettingsStorage settings) {
@@ -198,7 +198,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 
 	public static Intent getStartIntent(Context ctx) {
 		Intent intent = new Intent(ctx, CpuTunerViewpagerActivity.class);
-		//		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+		//	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		return intent;
 	}
@@ -226,7 +226,7 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		registerReceiver();
-		if (TunerService.hasWakelock()) {
+		if (Logger.DEBUG && TunerService.hasWakelock()) {
 			Toast.makeText(this, "Still holding a wakelock!", Toast.LENGTH_LONG).show();
 		}
 	}

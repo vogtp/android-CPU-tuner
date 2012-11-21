@@ -35,7 +35,7 @@ public class TunerService extends IntentService {
 
 	private static PowerManager pm;
 	private static WakeLock wakeLock = null;
-	private static Object lock = new Object();
+	private static int[] lock = new int[0];
 
 	public TunerService() {
 		super("cpu tuner background worker");
@@ -134,7 +134,7 @@ public class TunerService extends IntentService {
 		PendingIntent operation = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
 		am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, -1, operation);
-		//			am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, 0, operation);
+		//		am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, 0, operation);
 	}
 
 	public static void handlePhoneState(Context context, int state) {
@@ -236,20 +236,31 @@ public class TunerService extends IntentService {
 		if (wakeLock == null) {
 			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
 		}
-		wakeLock.acquire(5000);
+		synchronized (lock) {
+			wakeLock.acquire(5000);
+		}
 	}
 
 	private static void releaseWakelock() {
-		if (wakeLock != null && wakeLock.isHeld()) {
-			wakeLock.release();
+		synchronized (lock) {
+			if (wakeLock != null && wakeLock.isHeld()) {
+				try {
+					Logger.v("Release wake lock");
+					wakeLock.release();
+				} catch (Throwable t) {
+					//ignore
+				}
+			}
 		}
 	}
 
 	public static boolean hasWakelock() {
-		if (wakeLock == null) {
-			return false;
+		synchronized (lock) {
+			if (wakeLock == null) {
+				return false;
+			}
+			return wakeLock.isHeld();
 		}
-		return wakeLock.isHeld();
 	}
 
 }
