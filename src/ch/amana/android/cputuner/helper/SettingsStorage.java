@@ -722,7 +722,7 @@ public class SettingsStorage {
 	public boolean isRunStatisticsService() {
 		if (!checkedEnableStatistics) {
 			checkedEnableStatistics = true;
-			enableEnableStatistics = getPreferences().getBoolean(PREF_KEY_ENABLE_STATISTICS_SERVICE, false);
+			enableEnableStatistics = getPreferences().getBoolean(PREF_KEY_ENABLE_STATISTICS_SERVICE, true);
 		}
 		return enableEnableStatistics;
 	}
