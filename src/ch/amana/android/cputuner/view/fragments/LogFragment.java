@@ -1,6 +1,5 @@
 package ch.amana.android.cputuner.view.fragments;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
@@ -15,6 +14,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,8 +38,6 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 	private SimpleCursorAdapter adapter;
 	private final Date now = new Date();
 
-	private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("HH:mm:ss");
-
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -62,7 +60,8 @@ public class LogFragment extends PagerListFragment implements StateChangeListene
 				if (columnIndex == DB.SwitchLogDB.INDEX_MESSAGE) {
 					now.setTime(cursor.getLong(DB.SwitchLogDB.INDEX_TIME));
 					StringBuilder sb = new StringBuilder();
-					sb.append(logDateFormat.format(now)).append(": ");
+					java.text.DateFormat timeFormat = DateFormat.getTimeFormat(getActivity());
+					sb.append(timeFormat.format(now)).append(": ");
 					String msg = cursor.getString(DB.SwitchLogDB.INDEX_MESSAGE);
 					if (msg == null) {
 						msg = cursor.getString(DB.SwitchLogDB.INDEX_TRIGGER) + " -> " + cursor.getString(DB.SwitchLogDB.INDEX_PROFILE);
