@@ -401,7 +401,7 @@ Untertakten geht nur beschränkt.</string>
 	<string name="labelCallInProgress">Während Anruf:</string>
 	<string name="labelOnPower">Am Ladegerät:</string>
 	<string name="labelScreenOff">Schirm aus</string>
-	<string name="labelScreenLocked">Bildschirm aus:</string>
+	<string name="labelScreenLocked">Schirm gesperrt:</string>
 	<string name="labelOnBattery">Batteriebetrieb:</string>
 	<string name="labelExplainTriggerProfiles">Je nach Zustand des Gerätes, kann einer der folgenden Profile gewählt werden.</string>
 	<string name="labelBatteryLevel">Ladezustand:</string>

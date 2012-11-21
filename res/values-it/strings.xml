@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string name="prefAuthorsSettings">Usa le impostazioni del creatore</string>
-	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
-	<string name="mse_authors_settings_loaded">Authors settings loaded!</string>
-	<string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
-	<string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
-	<string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
-	<string name="dia_no_switch_off_cpus">Be safe</string>
+	<string name="prefAuthorsSettingsLong">Usa le impostazioni che preferisce l\'autore. Questo potrebbe portare a comportamenti inaspettati o attivare qualcosa che potrebbe non funzionare sul vostro dispositivo. Non resetta tutti i valori, ma cambia qualche impostazione rispetto alle mie impostazioni standard. Usare con attenzione...!</string>
+	<string name="mse_authors_settings_loaded">Impostazioni autore caricate</string>
+	<string name="dia_title_switch_off_cpus">Spegni le CPU?</string>
+	<string name="dia_msg_switch_off_cpus">Spegnere le cpu può dare problemi con alcuni kernel. Farlo potrebbe farti risparmiare sulla batteria ma potrebbe causare dei crash.</string>
+	<string name="dia_yes_switch_off_cpus">Spegni le CPU?</string>
+	<string name="dia_no_switch_off_cpus">Stai sicuro</string>
 	<string name="prefRunSwitchInBackground">Cambio profilo di background</string>
 	<string name="prefRunSwitchInBackgroundOn">I cambi profilo avvengono a un livello inferiore. Questo potrebbe ritardare il cambio di un po\', ma android funziona così.</string>
 	<string name="prefRunSwitchInBackgroundOff">I cambi profilo avvengono sul piano superiore. Questo potrebbe velocizzare i cambi, ma potrebbe portare al blocco di cpu tuner.</string>
 	<string name="prefWidgetShowLabels">Mostra le etichette</string>
 	<string name="prefUnitSystem">Unità di sistema</string>
 	<string name="prefUnitSystemLong">Mostra temperatura in °C, °F o K.</string>
-	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
+	<string name="tvCpuFreqBeginnerText">Le frequenze minime e massime sono disabilitate per i principianti, dal momento che modificarle non migliora la batteria in condizioni normali. Modifica il tuo livello di esperienza per accedere a questa funzione.</string>
 	<string-array name="prefUnitSystemEntries">
 		<item>Default</item>
-		<item>Imperial</item>
+		<item>Sistema imperiale</item>
 		<item>SI</item>
 	</string-array>
 	<string name="prefWidgetTextSize">Dimensione del testo</string>
 	<string-array name="prefWidgetTextSizeEntries">
-		<item>Tiny</item>
-		<item>Small</item>
-		<item>Medium</item>
-		<item>Big</item>
+		<item>Minuscolo</item>
+		<item>Piccolo</item>
+		<item>Medio</item>
+		<item>Grande</item>
 	</string-array>
 	<string name="deep_sleep">sospensione</string>
 	<string-array name="prefCalcPowerUsageEntries">
 		<item>Valore medio</item>
-		<item>Current Value</item>
+		<item>Valore attuale</item>
 	<!-- 		<item>Battery % per Hour</item> -->
 		<item>Niente conteggio</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntriesBeta">
-		<item>Average Value</item>
-		<item>Current Value</item>
+		<item>Valore Medio</item>
+		<item>Valore attuale</item>
 		<item>% di batteria per ora</item>
-		<item>No Calculation</item>
+		<item>Niente conteggio</item>
 	</string-array>
 	<string-array name="deviceStatesCurrent">
 	<!-- 		<item>Auto</item> -->
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Pulse</item>
+		<item>Abilita</item>
+		<item>Disattiva</item>
+		<item>Impulso</item>
 	</string-array>
 	<string-array name="mobiledataStatesCurrent">
 	<!-- 		<item>Auto</item> -->
-		<item>2G Only</item>
-		<item>3G/2G</item>
-		<item>3G Only</item>
+		<item>Solo 2G</item>
+		<item>2/3G</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string name="log_msg_cpu_tuner_started">CPU tuner avviato</string>
 	<string name="log_msg_cpu_tuner_stoped">CPU tuner arrestato</string>
@@ -123,7 +123,7 @@
 	<string name="all">Tutte</string>
 	<string name="labelNoDataForFilter">Nessun dato trovato per questa combinazione.</string>
 	<string name="prefCatAdvStatistics">Statistiche avanzate e log </string>
-	<string name="prefCatExtention">Extension</string>
+	<string name="prefCatExtention">Estensione</string>
 	<string name="prefEnableExtention">Abilita Extension</string>
 	<string name="prefEnableSwitchLog">Abilita log del cambio profilo </string>
 	<string name="prefCatStatistics">Statistiche</string>
@@ -141,10 +141,10 @@
 	<string name="enabled">Abilitato</string>
 	<string name="ac_power">In carica</string>
 	<string name="battery">Con batteria</string>
-	<string name="screenUnocked">Screen Unlocked</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenUnocked">Schermo sbloccato</string>
+	<string name="screenLocked">Schermo Bloccato</string>
 	<string name="screenOff">Schermo spento</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenLocked">Schermo Bloccato</string>
 	<string name="call_active">Chiamata attiva</string>
 	<string name="battery_hot">Batteria calda</string>
 	<string name="prefProfileSwitchLogSizeLong">Quante ore devono contenere. Usare -1 per registrare tutto.</string>
@@ -236,9 +236,9 @@
 	<string name="msg_reset_manual_service_switches">Vuoi resettare tutti i servizi modificati manualmente e lasciare che CPU tuner si occupi dei prossimi??</string>
 	<string name="msg_cpu_tuner_not_running">CPU tuner non è in funzione</string>
 	<string-array name="prefAddToNotificationEntries">
-		<item>When running</item>
-		<item>Always</item>
-		<item>Never</item>
+		<item>Se in esecuzione</item>
+		<item>Sempre</item>
+		<item>Mai</item>
 	</string-array>
 	<string name="prefStatusbarAddToLong">Aggiungi alla barra di status e all\'area notifiche.</string>
 	<string name="prefInitialPulseDelay">Ritardo iniziale pulse</string>
@@ -247,14 +247,14 @@
 	<string name="prefPowerStrongerThanScreenoff">On power è dominante rispetto al profilo screen off </string>
 	<string name="prefPowerStrongerThanScreenoffOn">Se in on power e a schermo spento verrà scelto on power.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">Se in on power e a schermo spento verrà scelto il profilo screen off.</string>
-	<string name="title_choose_experiance_level">Choose your experience level</string>
+	<string name="title_choose_experiance_level">Scegli il tuo livello di esperienza</string>
 	<string name="msg_delete_autoload_configuration">Cancella questa configurazione in autoload?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode con wifi connesso</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Scegli una modalità di rete da applicare se connessi a una rete wifi. Se la rete è disconnessa CPU tuner tornerà alla precedente.</string>
 	<string-array name="mobiledataOnWifiStatesEnties">
 		<item>non modificare</item>
 		<item>Solo 2G</item>
-		<item>3G/2G</item>
+		<item>2/3G</item>
 		<item>Solo 3G</item>
 	</string-array>
 	<string name="labelUseCpus_front">Usa </string>
@@ -267,7 +267,7 @@
 	<string-array name="prefMulticoreEntries">
 		<item>Abilita</item>
 		<item>Disabilita</item>
-		<item>Disable</item>
+		<item>Disattiva</item>
 	</string-array>
 	<string name="prefMulticoreLong">Scegli se le modifiche verranno applicate a tutti i core</string>
 	<string name="prefConfigurationsLong">Backup e ripristino</string>
@@ -341,8 +341,7 @@
 	<string name="labelCurrentFrequency">in uso</string>
 	<string name="prefScreenLegal">Note legali</string>
 	<string name="prefLegalOxigenIcons">Tab icon License</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
-		nice icons.</string>
+	<string name="prefLegalOxigenIconsLong">Licenza delle icone oxygen usate. Grazie per le belle icone.</string>
 	<string name="virtual_governor">governor virtuale</string>
 	<string name="msg_cannot_load_virtual_governor">Impossibile caricare il governor virtuale…</string>
 	<string name="labelStatisticsTab">Statistiche</string>
@@ -393,13 +392,12 @@
 	<string name="labelPowerUser">Esperto</string>
 	<string name="labelNormalExplain">Opzioni di configurazione più avanzate, l\' Underclock è possibile solo fino ad un certo valore.</string>
 	<string name="labelNormal">Normale</string>
-	<string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
-		use… Underclocking only possible to a point.</string>
+	<string name="labelBeginnerExplain">Facile da configurare, tutte le impostazioni dovrebbero essere sicure… L\' Underclock è possibile solo fino a un certo valore.</string>
 	<string name="labelBeginner">Principiante</string>
 	<string name="labelBatteryHot">Batt. Surr.:</string>
 	<string name="labelCallInProgress">Chiamata in Corso:</string>
 	<string name="labelOnPower">Alimentato:</string>
-	<string name="labelScreenOff">Screen Off:</string>
+	<string name="labelScreenOff">Schermo spento</string>
 	<string name="labelScreenLocked">Schermo Bloccato:</string>
 	<string name="labelOnBattery">Solo Batteria:</string>
 	<string name="labelExplainTriggerProfiles">In base allo stato del dispositivo sarà scelto uno dei seguenti profili.</string>
@@ -442,8 +440,8 @@
 	<string name="notAvailable">non disponibile</string>
 	<string name="yes">sì</string>
 	<string name="no">no</string>
-	<string name="save">Save</string>
-	<string name="cancel">Cancel</string>
+	<string name="save">Salva</string>
+	<string name="cancel">Annulla</string>
 	<string name="prefMinSensibleFrequencyLong">Frequenza minima mostrata se non sei in modalià esperto.</string>
 	<string name="prefMinSensibleFrequency">Frequenza minima</string>
 	<string name="prefKeyProfiles">Profili e Trigger</string>
@@ -542,36 +540,36 @@
 	<string name="labelMobiledataOff">&lt;strike&gt;Dati&lt;/strike&gt;</string>
 	<string name="labelMobiledataPrev">Dati?</string>
 	<string-array name="deviceStates">
-		<item>leave unchanged</item>
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Back to previous</item>
-		<item>Pulse</item>
+		<item>non modificare</item>
+		<item>Abilita</item>
+		<item>Disattiva</item>
+		<item>Torna alla precedente</item>
+		<item>Impulso</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
-		<item>leave unchanged</item>
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Back to previous</item>
-		<item>Pulse</item>
+		<item>non modificare</item>
+		<item>Abilita</item>
+		<item>Disattiva</item>
+		<item>Torna alla precedente</item>
+		<item>Impulso</item>
 	</string-array>
 	<string-array name="mobiledataStates">
-		<item>leave unchanged</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>Back to previous</item>
-		<item>3G only</item>
+		<item>non modificare</item>
+		<item>Solo 2G</item>
+		<item>2/3G</item>
+		<item>Torna alla precedente</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
-		<item>leave unchanged</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>Back to previous</item>
-		<item>3G only</item>
+		<item>non modificare</item>
+		<item>Solo 2G</item>
+		<item>2/3G</item>
+		<item>Torna alla precedente</item>
+		<item>Solo 3G</item>
 	</string-array>
 	<string-array name="prefUserLevelEntries">
-		<item><b>Beginner</b>			: CPU Tuner tries to be clever.</item>
-		<item><b>Normal</b>			: CPU Tuner supports you.</item>
+		<item><b>Principiante</b> : CPU Tuner prova a essere intelligente</item>
+		<item><b>Normale</b> : CPU Tuner ti supporta</item>
 		<item><b>Esperto</b> : Sei tu il capo!</item>
 	</string-array>
 	<string name="cbEnableVirtualGovernors">Abilita i governor virtuali</string>
@@ -650,8 +648,8 @@ Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella veri
 	<string name="label_avgerage">media </string>
 	<string name="label_tresh_up">superiore: </string>
 	<string name="label_tresh_down">inferiore: </string>
-	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
-	<string name="prefUseScriptCache">"Use scripts "</string>
-	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
+	<string name="msg_not_starting_after_reboot">CPU tuner non si avvia perché il dispositivo si riavvia troppo spesso.</string>
+	<string name="prefUseScriptCache">Usa script</string>
+	<string name="prefUseScriptCacheOn">Usa gli script della shell per mettere in cache gli switch della cpu</string>
+	<string name="prefUseScriptCacheOff">Metti il comando dello switch CPU nella cache interna</string>
 </resources>

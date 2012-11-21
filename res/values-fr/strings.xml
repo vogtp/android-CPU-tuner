@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string name="prefAuthorsSettings">Utiliser les paramètres de l\'auteur.</string>
-	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
-	<string name="mse_authors_settings_loaded">Authors settings loaded!</string>
-	<string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
-	<string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
-	<string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
-	<string name="dia_no_switch_off_cpus">Be safe</string>
+	<string name="prefAuthorsSettingsLong">Utilise les paramètres que l\'auteur préfère. Peut entrainer un comportement inattendu ou activer des fonctionnalités incompatibles avec votre matériel. Cela ne réinitialise pas toutes les valeurs, mais change seulement quelques paramètres avec ses valeurs par défaut. A utiliser avec prudence...!</string>
+	<string name="mse_authors_settings_loaded">Paramètres de l\'auteur chargés!</string>
+	<string name="dia_title_switch_off_cpus">Eteindre les processeurs?</string>
+	<string name="dia_msg_switch_off_cpus">Mettre en veille les processeurs peut générer des problèmes avec certains noyau Linux. Cela peut économiser la batterie mais peut empêcher le bon fonctionnement de votre appareil.</string>
+	<string name="dia_yes_switch_off_cpus">Veille processeurs</string>
+	<string name="dia_no_switch_off_cpus">Prudent</string>
 	<string name="prefRunSwitchInBackground">Changer profil en tâche de fond</string>
 	<string name="prefRunSwitchInBackgroundOn">Les changements de profils seront fait en tâche de fond. Cela peut retarder les changements un tout petit peu, mais c\'est inhérent à Android.</string>
 	<string name="prefRunSwitchInBackgroundOff">Les changements de profils seront fait dans le processus principal. Cela peut rendre les changements plus rapides, mais peut conduire CPU Tuner à se blqouer.</string>
 	<string name="prefWidgetShowLabels">Montrer les labels</string>
 	<string name="prefUnitSystem">Système d\'unités</string>
 	<string name="prefUnitSystemLong">Affiche la température en °C, °F, ou K.</string>
-	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
+	<string name="tvCpuFreqBeginnerText">Les réglages de fréquences minimum et maximum du processeur sont désactivées pour les débutants, car dans des conditions normales cela n\'améliore pas la durée de la charge batterie. Changez votre niveau d\'expérience pour accéder à cette fonctionnalité.</string>
 	<string-array name="prefUnitSystemEntries">
 		<item>Défaut</item>
 		<item>Impérial</item>
@@ -141,10 +141,10 @@
 	<string name="enabled">Activé</string>
 	<string name="ac_power">Branché</string>
 	<string name="battery">Sur batterie</string>
-	<string name="screenUnocked">Screen Unlocked</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenUnocked">Ecran déverrouillé</string>
+	<string name="screenLocked">Ecran verrouillé</string>
 	<string name="screenOff">Écran éteint</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenLocked">Ecran verrouillé</string>
 	<string name="call_active">Appel en cours</string>
 	<string name="battery_hot">Batterie chaude</string>
 	<string name="prefProfileSwitchLogSizeLong">Defini, en heures, combien d\'historique du journal sera gardé. Entrez -1 pour aucune limite.</string>
@@ -165,7 +165,7 @@
 	<string name="msg_unsaved_changes">Des changements non enregistrés sont présents et sont sur le point d\'être perdus. Voulez vous sauver les changements?</string>
 	<string name="msg_title_grant_root">Autoriser l\'accès root.</string>
 	<string name="msg_grant_root">Une fenêtre vous demandant les droits Super Utilisateur va apparaitre. SVP cochez la case en bas, et acceptez la demande. Si vous ne répondez pas ou refusez CPU Tuner ne fonctionnera pas.</string>
-	<string name="labelLogTab">Log</string>
+	<string name="labelLogTab">Journal</string>
 	<string name="msg_no_profile_switch_log">Aucun journal des changements de profil trouvé.</string>
 	<string name="menuItemInsertAsNew">Insérer en tant que nouveau</string>
 	<string name="prefCatGUILong">Changer les paramètres d\'affichage.</string>
@@ -244,7 +244,7 @@
 	<string name="prefPowerStrongerThanScreenoff">\"Sur batterie\" prévaut sur \"Ecran éteint\"</string>
 	<string name="prefPowerStrongerThanScreenoffOn">Lors du chargement (Secteur ou USB) et si l\'écran est éteint, le profil \"Branché\" sera choisi.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">Lors du chargement (Secteur ou USB) et si l\'écran est éteint, le profil \"Ecran éteint\" sera choisi.</string>
-	<string name="title_choose_experiance_level">Choose your experience level</string>
+	<string name="title_choose_experiance_level">Choisissez votre niveau d\'expérience</string>
 	<string name="msg_delete_autoload_configuration">Effacer cette configuration prédéfinie?</string>
 	<string name="prefNetworkModeOnWifiConnected">Mode réseau sur connexion WIFI</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Permet de choisir le mode de réseau cellulaire si une connexion WIFI existe. Si le réseau cellulaire est déconnecté, CPU Tuner reviendra sur le mode précédent.</string>
@@ -332,8 +332,7 @@ Sinon les changements de configurations peuvent être décalés au maximum d\'un
 	<string name="labelCurrentFrequency">courant</string>
 	<string name="prefScreenLegal">Informations légales</string>
 	<string name="prefLegalOxigenIcons">Licence de l\'icône de l\'index</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
-		nice icons.</string>
+	<string name="prefLegalOxigenIconsLong">Licence pour les icônes oxygen. Merci pour ces jolies icônes.</string>
 	<string name="virtual_governor">Gouverneur Virtuel</string>
 	<string name="msg_cannot_load_virtual_governor">Impossible de charger le Gouverneur Virtuel</string>
 	<string name="labelStatisticsTab">Statistiques</string>
@@ -381,13 +380,12 @@ Sinon les changements de configurations peuvent être décalés au maximum d\'un
 	<string name="labelPowerUser">Super utilisateur</string>
 	<string name="labelNormalExplain">Options de configuration avancées, surcadencement (overcloking) encore possible à ce point.</string>
 	<string name="labelNormal">Normal</string>
-	<string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
-		use… Underclocking only possible to a point.</string>
+	<string name="labelBeginnerExplain">Facile à configurer, tous les paramètres qui sont modifiables ne mettront pas en péril le bon fonctionnement de l\'appareil. Sous-cadencement possible jusqu\'à un certain point.</string>
 	<string name="labelBeginner">Débutant</string>
 	<string name="labelBatteryHot">Batterie chaude:</string>
 	<string name="labelCallInProgress">Appel en cours:</string>
 	<string name="labelOnPower">Branché:</string>
-	<string name="labelScreenOff">Screen Off:</string>
+	<string name="labelScreenOff">Ecran éteint:</string>
 	<string name="labelScreenLocked">Écran verrouillé:</string>
 	<string name="labelOnBattery">Sur batterie:</string>
 	<string name="labelExplainTriggerProfiles">Selon l\'état de l\'appareil, un des profils suivants sera choisi.</string>
@@ -430,8 +428,8 @@ Sinon les changements de configurations peuvent être décalés au maximum d\'un
 	<string name="notAvailable">pas disponible</string>
 	<string name="yes">Oui</string>
 	<string name="no">Non</string>
-	<string name="save">Save</string>
-	<string name="cancel">Cancel</string>
+	<string name="save">Enregistrer</string>
+	<string name="cancel">Annuler</string>
 	<string name="prefMinSensibleFrequencyLong">La fréquence minimum possible si vous n\'êtes pas en mode \"Utilisateur Avancé\".</string>
 	<string name="prefMinSensibleFrequency">Fréquence minimum possible</string>
 	<string name="prefKeyProfiles">Profils et déclencheurs</string>
@@ -619,8 +617,8 @@ Ceci est probablement dû au noyau / ROM. Vous avez deux possibilités:
 	<string name="label_avgerage">moy: </string>
 	<string name="label_tresh_up">haut: </string>
 	<string name="label_tresh_down">bas: </string>
-	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
-	<string name="prefUseScriptCache">"Use scripts "</string>
-	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
+	<string name="msg_not_starting_after_reboot">CPU Tuner ne sera pas démarré car l\'appareil a redémarré trop fréquemment</string>
+	<string name="prefUseScriptCache">\"Utilisation de scripts\"</string>
+	<string name="prefUseScriptCacheOn">Utilise des scripts shell pour mettre en cache les changements de fréquence.</string>
+	<string name="prefUseScriptCacheOff">Met en cache les commandes de changement de fréquence</string>
 </resources>
