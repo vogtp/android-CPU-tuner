@@ -61,12 +61,13 @@ public class PagerAdapter extends FragmentPagerAdapter {
 				}
 				return new StatsFragment();
 			}
+			// if we do not have a statistics fragment we might want a log here 
 		case FRAGMENT_LOG:
 			if (settings.isEnableLogProfileSwitches()) {
 				if (settings.isAdvancesStatistics()) {
 					return new LogAdvancedFragment();
 				}
-			return new LogFragment();
+				return new LogFragment();
 			}
 		}
 		return new Fragment();
@@ -74,7 +75,15 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		return 6;
+		int count = 4;
+		SettingsStorage settings = SettingsStorage.getInstance(ctx);
+		if (settings.isRunStatisticsService()) {
+			count++;
+		}
+		if (settings.isEnableLogProfileSwitches()) {
+			count++;
+		}
+		return count;
 	}
 
 	@Override
@@ -89,9 +98,13 @@ public class PagerAdapter extends FragmentPagerAdapter {
 		case FRAGMENT_VIRTGOV_LIST:
 			return ctx.getString(R.string.virtualGovernorsList);
 		case FRAGMENT_STAT:
-			return ctx.getString(R.string.labelStatisticsTab);
+			if (settings.isRunStatisticsService()) {
+				return ctx.getString(R.string.labelStatisticsTab);
+			}
 		case FRAGMENT_LOG:
-			return ctx.getString(R.string.labelLogTab);
+			if (settings.isEnableLogProfileSwitches()) {
+				return ctx.getString(R.string.labelLogTab);
+			}
 		}
 		return "";
 	}
