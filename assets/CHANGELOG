@@ -4,7 +4,15 @@ V
 * bug fixes
 - 
 
-V 3.3.4
+V 3.4.1
+* features
+- 
+* bug fixes
+- fix force closes
+- fix battery not updating
+- fix governor thresholds not written
+
+V 3.4.0
 * features
 - New screen off and locked profiles
 - New shell backend (thanks to stericson)
