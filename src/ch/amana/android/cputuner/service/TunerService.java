@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
@@ -236,6 +235,7 @@ public class TunerService extends IntentService {
 		}
 		if (wakeLock == null) {
 			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CPU tuner");
+			wakeLock.setReferenceCounted(false);
 		}
 		synchronized (lock) {
 			wakeLock.acquire(5000);
@@ -248,9 +248,9 @@ public class TunerService extends IntentService {
 				try {
 					Logger.v("Release wake lock");
 					wakeLock.release();
-					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-						wakeLock = null;
-					}
+					//					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+					//						wakeLock = null;
+					//					}
 				} catch (Throwable t) {
 					//ignore
 				}
