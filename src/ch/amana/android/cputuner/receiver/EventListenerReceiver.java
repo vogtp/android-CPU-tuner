@@ -24,7 +24,7 @@ public class EventListenerReceiver extends BroadcastReceiver {
 					PackageManager.DONT_KILL_APP);
 			if (receiver == null) {
 				receiver = new EventListenerReceiver();
-				// context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_USER_PRESENT));
@@ -32,7 +32,7 @@ public class EventListenerReceiver extends BroadcastReceiver {
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_POWER_DISCONNECTED));
 				context.registerReceiver(receiver, new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION));
 				// bt: ok wifi: ok airplaine: ok md: yes 3g: yes
-				// snyc: ?  
+				// snyc: ?   
 				// gps: not supported
 				context.registerReceiver(receiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 				context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
