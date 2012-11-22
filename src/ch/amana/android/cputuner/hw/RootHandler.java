@@ -44,7 +44,7 @@ public class RootHandler {
 		} catch (TimeoutException e) {
 			Logger.e("Timeout getting shell", e);
 		} catch (RootDeniedException e) {
-			Logger.e("No root", e);
+			Logger.e("Could not run as root", e);
 		} catch (InterruptedException e) {
 			Logger.e("Command did not finish: " + command.getCommand(), e);
 		}
@@ -52,6 +52,9 @@ public class RootHandler {
 	}
 
 	public static boolean execute(String cmd) {
+		if (cmd == null) {
+			return false;
+		}
 		Command command = new Command(0, 1000, cmd) {
 			@Override
 			public void output(int id, String line) {
@@ -61,6 +64,9 @@ public class RootHandler {
 	}
 
 	public static boolean execute(String cmd, final StringBuilder result) {
+		if (cmd == null) {
+			return false;
+		}
 		Command command = new Command(0, 1000, cmd) {
 			@Override
 			public void output(int id, String line) {
