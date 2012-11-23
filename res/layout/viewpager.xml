@@ -15,7 +15,7 @@
         android:layout_weight="1"
         android:background="@android:color/black" >
 
-        <android.support.v4.view.PagerTitleStrip
+        <android.support.v4.view.PagerTabStrip
             android:id="@+id/pager_title_strip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
