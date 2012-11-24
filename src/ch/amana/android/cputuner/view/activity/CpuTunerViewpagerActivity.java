@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
@@ -140,6 +141,8 @@ public class CpuTunerViewpagerActivity extends FragmentActivity {
 		}
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
+		PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_title_strip);
+		pagerTabStrip.setDrawFullUnderline(true);
 		pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
 		pager.setAdapter(pagerAdapter);
 
