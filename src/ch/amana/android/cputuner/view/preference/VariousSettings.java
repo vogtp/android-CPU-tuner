@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
+import ch.almana.android.db.view.preferences.DatabasePreferenceHelper;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.SettingsStorage;
+import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.view.activity.ChangelogActivity;
 import ch.amana.android.cputuner.view.activity.HelpActivity;
 
@@ -22,6 +24,7 @@ public class VariousSettings extends BaseSettings {
 			cputunerActionBar.setTitle(R.string.prefVarious);
 		}
 		addPreferencesFromResource(R.xml.settings_various);
+		DatabasePreferenceHelper.addDatabasePreference(this, DB.DATABASE_NAME);
 
 		findPreference("prefKeyLegalGnomeIcons").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
