@@ -65,7 +65,6 @@ public class StatsAdvancedFragment extends PagerListFragment implements LoaderCa
 	private AdvStatsFilterAdaper profileAdapter;
 	private AdvStatsFilterAdaper triggerAdapter;
 	private AdvStatsFilterAdaper virtgovAdapter;
-	// FIXME ugly way to get around destruction of fragments on orientation change
 
 	enum LoadingState {
 		LOADING, HASDATA, NODATA
