@@ -117,7 +117,7 @@ public class StatisticsReceiver extends BroadcastReceiver {
 				}
 				//			try {
 				//				Logger.w("goint to update state statistics");
-				//				ContentProviderResult[] applyBatch = resolver.applyBatch(CpuTunerProvider.AUTHORITY, operations);
+				//				ContentProviderResult[] applyBatch = resolver.applyBatch(DBProvider.AUTHORITY, operations);
 				//				Logger.w("updated state statistics");
 				//			} catch (Exception e) {
 				//				Logger.w("Cannot save time in state statistics", e);

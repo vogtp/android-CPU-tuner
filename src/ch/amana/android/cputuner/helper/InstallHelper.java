@@ -25,7 +25,7 @@ import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
+import ch.amana.android.cputuner.provider.DBProvider;
 import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.provider.DB.CpuProfile;
 import ch.amana.android.cputuner.provider.DB.Trigger;
@@ -204,7 +204,7 @@ public class InstallHelper {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				CpuTunerProvider.deleteAllTables(ctx, true);
+				DBProvider.deleteAllTables(ctx, true);
 				updateDefaultProfiles(ctx);
 
 			}

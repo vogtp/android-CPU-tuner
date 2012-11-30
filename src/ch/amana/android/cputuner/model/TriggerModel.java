@@ -3,7 +3,7 @@ package ch.amana.android.cputuner.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
-import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.almana.android.db.importexport.importer.JSONBundle;
 import ch.amana.android.cputuner.provider.DB;
 
 public class TriggerModel {

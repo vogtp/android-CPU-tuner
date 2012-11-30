@@ -15,13 +15,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Environment;
-import ch.almana.android.importexportdb.BackupRestoreCallback;
-import ch.almana.android.importexportdb.constants.JsonConstants;
-import ch.almana.android.importexportdb.exporter.ExportConfig;
-import ch.almana.android.importexportdb.exporter.ExportConfig.ExportType;
-import ch.almana.android.importexportdb.exporter.ExportDataTask;
-import ch.almana.android.importexportdb.importer.DataJsonImporter;
-import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.almana.android.db.importexport.BackupRestoreCallback;
+import ch.almana.android.db.importexport.constants.JsonConstants;
+import ch.almana.android.db.importexport.exporter.ExportConfig;
+import ch.almana.android.db.importexport.exporter.ExportConfig.ExportType;
+import ch.almana.android.db.importexport.exporter.ExportDataTask;
+import ch.almana.android.db.importexport.importer.DataJsonImporter;
+import ch.almana.android.db.importexport.importer.JSONBundle;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.GovernorConfigHelper.GovernorConfig;
 import ch.amana.android.cputuner.hw.CpuHandler;
@@ -34,9 +34,9 @@ import ch.amana.android.cputuner.model.ModelAccess;
 import ch.amana.android.cputuner.model.ProfileModel;
 import ch.amana.android.cputuner.model.TriggerModel;
 import ch.amana.android.cputuner.model.VirtualGovernorModel;
-import ch.amana.android.cputuner.provider.CpuTunerProvider;
 import ch.amana.android.cputuner.provider.DB;
 import ch.amana.android.cputuner.provider.DB.OpenHelper;
+import ch.amana.android.cputuner.provider.DBProvider;
 
 public class BackupRestoreHelper {
 
@@ -75,7 +75,7 @@ public class BackupRestoreHelper {
 
 	private void restore(DataJsonImporter dje, boolean inclAutoloadConfig) throws JSONException {
 		Context ctx = cb.getContext();
-		CpuTunerProvider.deleteAllTables(ctx, inclAutoloadConfig);
+		DBProvider.deleteAllTables(ctx, inclAutoloadConfig);
 		synchronized (ModelAccess.virtgovCacheMutex) {
 			synchronized (ModelAccess.profileCacheMutex) {
 				synchronized (ModelAccess.triggerCacheMutex) {
@@ -178,7 +178,7 @@ public class BackupRestoreHelper {
 			Logger.i("Loading configuration " + name);
 			Context context = cb.getContext();
 			try {
-				CpuTunerProvider.setNotifyChanges(false);
+				DBProvider.setNotifyChanges(false);
 				if (isUserConfig) {
 					File file = new File(getStoragePath(context, DIRECTORY_CONFIGURATIONS), name);
 					DataJsonImporter dje = new DataJsonImporter(DB.DATABASE_NAME, file);
@@ -199,7 +199,7 @@ public class BackupRestoreHelper {
 				cb.hasFinished(false);
 				throw new Exception("Cannot restore configuration", e);
 			} finally {
-				CpuTunerProvider.setNotifyChanges(true);
+				DBProvider.setNotifyChanges(true);
 				StringBuilder msg = new StringBuilder(context.getString(R.string.msg_config_loaded)).append(" ");
 				msg.append(name.replaceFirst("\\d+_", ""));
 				msg.append(" ").append(context.getString(R.string.msg_config));

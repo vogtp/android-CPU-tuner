@@ -4,27 +4,25 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import ch.almana.android.db.backend.DBBase;
+import ch.almana.android.db.backend.UriTableMapping;
 import ch.amana.android.cputuner.log.Logger;
-import ch.amana.android.cputuner.provider.CpuTunerProvider.UriTableMapping;
 
-public interface DB {
+public interface DB extends DBBase {
 
 	public static final String ACTION_INSERT_AS_NEW = "ch.amana.android.cputuner.ACTION_INSERT_AS_NEW";
 
 	public static final String AUTHORITY = "ch.amana.android.cputuner";
 
-	public static final String SQL_WILDCARD = "%";
 	public static final String DATABASE_NAME = "cputuner";
-
-	public static final String NAME_ID = "_id";
-	public static final int INDEX_ID = 0;
-
-	public static final String[] PROJECTION_ID = new String[] { NAME_ID };
-	public static final String SELECTION_BY_ID = NAME_ID + "=?";
 
 	public class UriTableConfig {
 
-		public static UriTableMapping[] map;
+		private static UriTableMapping[] map;
+
+		public static UriTableMapping[] getUriTableMapping() {
+			return map;
+		}
 
 		static {
 			map = new UriTableMapping[] {

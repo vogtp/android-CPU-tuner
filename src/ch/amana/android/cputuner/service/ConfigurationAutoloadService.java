@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
-import ch.almana.android.importexportdb.BackupRestoreCallback;
+import ch.almana.android.db.importexport.BackupRestoreCallback;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;
 import ch.amana.android.cputuner.helper.SettingsStorage;
 import ch.amana.android.cputuner.log.Logger;

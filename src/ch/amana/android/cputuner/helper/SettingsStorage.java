@@ -14,7 +14,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
-import ch.almana.android.importexportdb.importer.JSONBundle;
+import ch.almana.android.db.importexport.importer.JSONBundle;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.application.CpuTunerApplication;
 import ch.amana.android.cputuner.hw.CpuHandler;

@@ -12,7 +12,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import ch.almana.android.importexportdb.BackupRestoreCallback;
+import ch.almana.android.db.importexport.BackupRestoreCallback;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.cache.ScriptCache;
 import ch.amana.android.cputuner.helper.BackupRestoreHelper;

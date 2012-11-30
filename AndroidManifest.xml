@@ -223,7 +223,7 @@
         </activity>
 
         <provider
-            android:name=".provider.CpuTunerProvider"
+            android:name="ch.amana.android.cputuner.provider.DBProvider"
             android:authorities="ch.amana.android.cputuner"
             android:exported="false" >
         </provider>
