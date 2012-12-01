@@ -361,7 +361,7 @@ Sinon les changements de configurations peuvent être décalés au maximum d\'un
 	<string name="labelScript">Script:</string>
 	<string name="hintScriptToRun">Script à exécuter après un changement de gouverneur.</string>
 	<string name="label_governor_tresholds">Seuils:</string>
-	<string name="prefEnableUserspaceGovernor">Gouverneurs \"Userspace\".</string>
+	<string name="prefEnableUserspaceGovernor">Gouverneurs \"Userspace\"</string>
 	<string name="prefEnableUserspaceGovernorOn">Les gouverneurs en espace utilisateur dits \"Userspace\" et pourront être utilisés.</string>
 	<string name="prefEnableUserspaceGovernorOff">Les gouverneurs en espace utilisateur dits \"Userspace\" seront masqués et ne pourront pas être utilisés.</string>
 	<string name="prefCatPulsedServiceSwitches">Pulsation des services réseau</string>
@@ -617,8 +617,8 @@ Ceci est probablement dû au noyau / ROM. Vous avez deux possibilités:
 	<string name="label_avgerage">moy: </string>
 	<string name="label_tresh_up">haut: </string>
 	<string name="label_tresh_down">bas: </string>
-	<string name="msg_not_starting_after_reboot">CPU Tuner ne sera pas démarré car l\'appareil a redémarré trop fréquemment</string>
-	<string name="prefUseScriptCache">\"Utilisation de scripts\"</string>
+	<string name="msg_not_starting_after_reboot">CPU Tuner ne sera pas démarré car l\'appareil a redémarré trop fréquemment.</string>
+	<string name="prefUseScriptCache">Utilisation de scripts</string>
 	<string name="prefUseScriptCacheOn">Utilise des scripts shell pour mettre en cache les changements de fréquence.</string>
-	<string name="prefUseScriptCacheOff">Met en cache les commandes de changement de fréquence</string>
+	<string name="prefUseScriptCacheOff">Met en cache les commandes de changement de fréquence en interne.</string>
 </resources>

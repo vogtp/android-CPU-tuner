@@ -2,12 +2,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string name="prefAuthorsSettings">Użyj ustawień autora</string>
 	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
-	<string name="mse_authors_settings_loaded">Authors settings loaded!</string>
-	<string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
-	<string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
-	<string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
+	<string name="mse_authors_settings_loaded">Wczytano ustawienia autora!</string>
+	<string name="dia_title_switch_off_cpus">Wyłączać CPU?</string>
+	<string name="dia_msg_switch_off_cpus">Wyłączanie CPU powoduje problemy przy niektórych jądrach. Może to zaoszczędzić trochę baterii, ale także zawiesić telefon.</string>
+	<string name="dia_yes_switch_off_cpus">Wyłączaj CPU</string>
 	<string name="dia_no_switch_off_cpus">Be safe</string>
-	<string name="prefRunSwitchInBackground">Przełącz profil w tle</string>
+	<string name="prefRunSwitchInBackground">Przełączaj profile w tle</string>
 	<string name="prefRunSwitchInBackgroundOn">Przełączanie profili odbywa się w tle. W związku z tym może być trochę opóźnione, ale w taki sposób jest realizowane w Androidzie.</string>
 	<string name="prefRunSwitchInBackgroundOff">Przełączanie profili odbywa się natychmiast. W związku z tym następuje szybciej, ale może spowodować, że CPU Tuner nie będzie przez chwilę reagował.</string>
 	<string name="prefWidgetShowLabels">Pokaż etykiety</string>
@@ -15,29 +15,29 @@
 	<string name="prefUnitSystemLong">Wyświetl temperaturę w °C, °F albo K.</string>
 	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
 	<string-array name="prefUnitSystemEntries">
-		<item>Default</item>
-		<item>Imperial</item>
+		<item>Domyślne</item>
+		<item>Imperialne</item>
 		<item>SI</item>
 	</string-array>
 	<string name="prefWidgetTextSize">Wielkość tekstu</string>
 	<string-array name="prefWidgetTextSizeEntries">
-		<item>Tiny</item>
-		<item>Small</item>
-		<item>Medium</item>
-		<item>Big</item>
+		<item>Bardzo małe</item>
+		<item>Małe</item>
+		<item>Średnie</item>
+		<item>Duże</item>
 	</string-array>
 	<string name="deep_sleep">Tryb uśpienia</string>
 	<string-array name="prefCalcPowerUsageEntries">
-		<item>Average Value</item>
-		<item>Current Value</item>
+		<item>Wartość średnia</item>
+		<item>Wartość bieżąca</item>
 	<!-- 		<item>Battery % per Hour</item> -->
-		<item>No Calculation</item>
+		<item>Nie obliczaj</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntriesBeta">
 		<item>Wartość średnia</item>
 		<item>Wartość bieżąca</item>
-		<item>Battery % per Hour</item>
-		<item>No Calculation</item>
+		<item>% baterii na godzinę</item>
+		<item>Nie obliczaj</item>
 	</string-array>
 	<string-array name="deviceStatesCurrent">
 	<!-- 		<item>Auto</item> -->
@@ -53,28 +53,28 @@
 	</string-array>
 	<string name="log_msg_cpu_tuner_started">CPU Tuner uruchomiony</string>
 	<string name="log_msg_cpu_tuner_stoped">CPU Tuner zatrzymany</string>
-	<string name="log_msg_switchlog_start">Log Start</string>
-	<string name="log_msg_switchlog_stop">Log Stop</string>
-	<string name="menuItemClearAllPowerCurrent">Clear Power Usage</string>
-	<string name="msg_clear_power_consumption_of_all_triggers">Clear power consumption of all triggers?</string>
+	<string name="log_msg_switchlog_start">Rozpocznij logowanie</string>
+	<string name="log_msg_switchlog_stop">Zakończ logowanie</string>
+	<string name="menuItemClearAllPowerCurrent">Wyczyść poziom zużycia energii</string>
+	<string name="msg_clear_power_consumption_of_all_triggers">Wyczyścić poziomy zużycia energii we wszystkich wyzwalaczach?</string>
 	<string name="labelAppWidgetProfile2x1">CPU Tuner (mały)</string>
 	<string name="labelAppWidgetProfile2x2">CPU Tuner</string>
 	<string name="not_supported">Nieobsługiwane!</string>
-	<string name="msg_no_battery_current">Te urządzenie nie obsługuje monitorowania prądu baterii.</string>
-	<string name="msg_no_avg_battery_current">Te urządzenie nie obsługuje monitorowania średniego prądu baterii.</string>
+	<string name="msg_no_battery_current">To urządzenie nie obsługuje monitorowania prądu baterii.</string>
+	<string name="msg_no_avg_battery_current">To urządzenie nie obsługuje monitorowania średniego prądu baterii.</string>
 	<string name="prefWidgetUI">Informacje wyświetlane</string>
 	<string name="prefShowIcon">Ikona</string>
 	<string name="prefShowIconLong">Used to launch CPU Tuner</string>
 	<string name="title_cannot_save">Unable to Save</string>
 	<string name="cbInclSwitchLog">Załącz log przełączania w e-mailu.</string>
-	<string name="name_extention_widget">Widżety rozszerzeń</string>
-	<string name="desc_extention_widget">Widżet umożliwia szybki dostęp do CPU Tunera wprost z pulpitu.</string>
+	<string name="name_extention_widget">Widget</string>
+	<string name="desc_extention_widget">Widget umożliwia szybki dostęp do CPU Tuner wprost z ekranu głównego.</string>
 	<string name="prefCatWidget">Widget</string>
 	<string name="prefHasWidget">Włącz Widget</string>
 	<string name="msgWidgetLoading">Ładowanie...</string>
-	<string name="msg_widgets_not_installed">Widżet nie jest włączony.</string>
+	<string name="msg_widgets_not_installed">Widget nie jest włączony.</string>
 	<string name="title_install_widget_dia">Widget nie zainstalowany</string>
-	<string name="msg_install_widget_dia">The widget cannot be added since the widget extension is not installed</string>
+	<string name="msg_install_widget_dia">Nie można dodać widgeta, jeśli rozszerzenie \"widget\" nie jest zainstalowane</string>
 	<string name="buNeg_install_widget_dia">Nie, dziękuję.</string>
 	<string name="buPos_install_widget_dia">Pobierz...</string>
 	<string name="tigger_name_all">Wszystkie</string>
@@ -94,20 +94,20 @@
 	<string name="gov_name_normal">Normalny</string>
 	<string name="gov_name_extremeSaveBattery">Ekstremalne oszczędzanie baterii</string>
 	<string name="gov_name_saveBattery">Oszczędzanie baterii</string>
-	<string name="configuration_title_sophisticated">Złożony</string>
+	<string name="configuration_title_sophisticated">Złożona</string>
 	<string name="configuration_description_sophisticated">W oparciu o poziom baterii używanych jest zaledwie kilka przełączników do sterowania CPU. Przełączanie usług jest nieaktywne.</string>
-	<string name="configuration_title_uniform">Jednolity</string>
+	<string name="configuration_title_uniform">Jednolita</string>
 	<string name="configuration_description_uniform">Sterowanie CPU odbywa się w oparciu o stan urządzenia niezależnie od poziomu baterii. Brak przełączania usług.</string>
-	<string name="configuration_title_simplePowerful">Prosty i skuteczny</string>
+	<string name="configuration_title_simplePowerful">Prosta i skuteczna</string>
 	<string name="configuration_description_simplePowerful">Profil ten jest opisany przez D. na jego blogu (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) i nie wykonuje przełączania stanu sieci danych.</string>
-	<string name="configuration_title_extreme">Ekstremalny</string>
+	<string name="configuration_title_extreme">Ekstremalna</string>
 	<string name="configuration_description_extreme">Kiedyś domyślna konfiguracja. Podobna do profilu złożonego, jednak wykorzystuje bardziej rygorystyczne ustawienia. Oszczędza więcej baterii kosztem utraty wydajności.</string>
 	<string name="auto">Automatycznie</string>
 	<string name="msg_manual_profile">Manualnie</string>
 	<string name="labelMessage">Wiadomość</string>
 	<string name="labelState">Stan:</string>
 	<string name="labelTime">Czas:</string>
-	<string name="prefCatSwitchCpuSettings">CPU setting on profile switch </string>
+	<string name="prefCatSwitchCpuSettings">Ustawienie CPU po przełączeniu profilu</string>
 	<string name="prefEnableSwitchCpuSetting">Użyj specjalnych ustawień CPU po przełączeniu profilu</string>
 	<string name="prefEnableSwitchCpuSettingOn">Specjalne ustawienia CPU zostaną użyte po przełączeniu profilu.</string>
 	<string name="prefEnableSwitchCpuSettingOff">Po przełączeniu profilu zostaną użyte ustawienia CPU z profili.</string>
@@ -121,33 +121,33 @@
 	<string name="msg_config_loaded">Załadowano</string>
 	<string name="msg_config">konfiguracja</string>
 	<string name="all">Wszystkie</string>
-	<string name="labelNoDataForFilter">No data for this filter combination found.</string>
+	<string name="labelNoDataForFilter">Nie znaleziono wyników dla tych kombinacji filtra.</string>
 	<string name="prefCatAdvStatistics">Zaawansowane statystyki i logowanie</string>
 	<string name="prefCatExtention">Rozszerzenie</string>
-	<string name="prefEnableExtention">Enable Extension</string>
-	<string name="prefEnableSwitchLog">Enable profile switch log</string>
+	<string name="prefEnableExtention">Włącz rozszerzenie</string>
+	<string name="prefEnableSwitchLog">Włącz rozszerzenie logowania przełączeń</string>
 	<string name="prefCatStatistics">Statystyki</string>
 	<string name="prefEnableStatistics">Włącz statystyki</string>
-	<string name="prefLogPulse">Log pulse to switch log</string>
-	<string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
-	<string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
-	<string name="msg_pulse_log_on">Pulse switched to on</string>
-	<string name="msg_pulse_log_off">Pulse switched to off</string>
-	<string name="msg_pulse_log_end">Stop pulsing</string>
+	<string name="prefLogPulse">Loguj przełączenia impulsowe</string>
+	<string name="prefLogPulseOn">Przełączenia impulsowe zostaną zapisane w dzienniku przełączeń profili</string>
+	<string name="prefLogPulseOff">Przełączenia impulsowe nie zostaną zapisane w dzienniku przełączeń profili</string>
+	<string name="msg_pulse_log_on">Przełączenia impulsowe włączone</string>
+	<string name="msg_pulse_log_off">Przełączenia impulsowe wyłączone</string>
+	<string name="msg_pulse_log_end">Zatrzymaj przełączanie impulsowe</string>
 	<string name="msg_capcheck_result_more_info">(kliknij na wynik po więcej informacji)</string>
-	<string name="menuMarkLog">Mark</string>
-	<string name="msgMarkLog">*** Mark ***</string>
-	<string name="menuClearLog">Wyczyść Log</string>
+	<string name="menuMarkLog">Zaznacz</string>
+	<string name="msgMarkLog">*** Zaznaczone ***</string>
+	<string name="menuClearLog">Wyczyść dziennik</string>
 	<string name="enabled">Włączony</string>
-	<string name="ac_power">On Power</string>
+	<string name="ac_power">Podłączony</string>
 	<string name="battery">Na baterii</string>
 	<string name="screenUnocked">Ekran odblokowany</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenLocked">Ekran zablokowany</string>
 	<string name="screenOff">Ekran wyłączony</string>
-	<string name="screenLocked">Screen Locked</string>
-	<string name="call_active">Podczas rozmowy</string>
+	<string name="screenLocked">Ekran zablokowany</string>
+	<string name="call_active">Rozmowa</string>
 	<string name="battery_hot">Bateria gorąca</string>
-	<string name="prefProfileSwitchLogSizeLong">Ile godzin powinien zawierać log przełączeń. Aby logować bez ograniczeń użyj -1.</string>
+	<string name="prefProfileSwitchLogSizeLong">Ile godzin powinien zapisywać dziennik przełączeń. Aby logować bez ograniczeń, użyj -1.</string>
 	<string name="msgEnableCputuner">Włączanie CPU Tuner</string>
 	<string name="msgDisableCputuner">Wyłączanie CPU Tuner</string>
 	<string name="labelYourConfigurations">Twoje konfiguracje</string>
@@ -155,30 +155,30 @@
 	<string name="msg_cannot_delete_current_configuration">Nie można usunąć konfiguracji bieżącej!</string>
 	<string name="labelPowesaveBiasPerformance">Wydajność</string>
 	<string name="labelPowesaveBiasPowersave">Oszczędzanie energii</string>
-	<string name="prefMaxFreq">Domyślna częstotliwość maksymalna</string>
-	<string name="prefMaxFreqLong">Maksymalna częstotliwość przy ładowaniu konfiguracji systemowych.</string>
-	<string name="prefMinFreq">Domyślna częstotliwość minimalna</string>
+	<string name="prefMaxFreq">Domyślna maksymalna</string>
+	<string name="prefMaxFreqLong">Częstotliwość minimalna używana po załadowaniu konfiguracji systemowych.</string>
+	<string name="prefMinFreq">Domyślna minimalna</string>
 	<string name="prefMinFreqLong">Częstotliwość minimalna używana po załadowaniu konfiguracji.</string>
-	<string name="prefKeyFrequencies">Częstotliwości dla konfiguracji systemowych</string>
+	<string name="prefKeyFrequencies">Częstotliwości konfiguracji systemowych</string>
 	<string name="title_triggers">Wyzwalacze</string>
 	<string name="msg_title_unsaved_changes">Niezapisane zmiany</string>
 	<string name="msg_unsaved_changes">Wprowadzono zmiany, które nie zostały
 zapisane i po zamknięciu zostaną utracone.
 Czy zapisać?</string>
-	<string name="msg_title_grant_root">Przyznaj status roota.</string>
-	<string name="msg_grant_root">Zostaniesz poproszony o przyznanie CPU Tuner
-dostępu superusera. Przyznaj go i zaznacz
-pole zapamiętywania ustawienia. Bez tego dostępu CPU Tuner nie będzie funkcjonował.</string>
-	<string name="labelLogTab">Log</string>
+	<string name="msg_title_grant_root">Przyznaj uprawnienia roota.</string>
+	<string name="msg_grant_root">Zostaniesz poproszony o przyznanie CPU Tuner uprawnień superusera.
+Przyznaj je i zaznacz pole \"Zapamiętaj\".
+Bez tych uprawnień CPU Tuner nie będzie działał.</string>
+	<string name="labelLogTab">Dziennik</string>
 	<string name="msg_no_profile_switch_log">Nie znaleziono dziennika przełączeń.</string>
 	<string name="menuItemInsertAsNew">Wstaw jako nowy</string>
 	<string name="prefCatGUILong">Zmień ustawienia wyświetlania.</string>
 	<string name="prefCatSystemLong">Zmień sposób działania.</string>
-	<string name="prefBuyMeABeerLong">This will make me happy.</string>
+	<string name="prefBuyMeABeerLong">Będę szczęśliwy.</string>
 	<string name="prefVariousLong">Informacje o CPU Tuner.</string>
 	<string name="prefConfigurationsManageLong">Wykonanie lub przywrócenie kopii zapasowej
 (tj. zbioru wyzwalaczy, profili i regulatorów).</string>
-	<string name="prefConfigurationsAutoLoadLong">Load configurations based on time and weekday.</string>
+	<string name="prefConfigurationsAutoLoadLong">Ładuj konfiguracje w zależności od czasu i dnia tygodnia.</string>
 	<string name="prefLanguageLong">Zmień język (wymaga restartu).</string>
 	<string name="prefEnableCputunerOn">CPU Tuner działa.</string>
 	<string name="prefEnableCputunerOff">CPU Tuner nie działa.</string>
@@ -195,8 +195,8 @@ Wybierz inny poziom.</string>
 	<string name="msg_profilename_exists">Profil o takiej nazwie już istnieje!
 Wybierz inną.</string>
 	<string name="msg_no_virtgov_name">Wprowadź nazwę regulatora wirtualnego</string>
-	<string name="msg_virtgovname_exists">A Virtual Governor with the same name already
-		exists! Choose a new name.</string>
+	<string name="msg_virtgovname_exists">Regulator wirtualny o takiej samej nazwie już istnieje!
+Wybierz inną.</string>
 	<string name="title_load_configuration">Załaduj konfigurację</string>
 	<string name="title_config_name_exists">Nazwa istnieje</string>
 	<string name="msg_config_name_exists">Konfiguracja o takiej nazwie już istnieje.</string>
@@ -204,16 +204,16 @@ Wybierz inną.</string>
 	<string name="msg_empty_configuration_name">Nazwa konfiguracji nie może być pusta.</string>
 	<string name="label_frequency">Częstotliwość</string>
 	<string name="label_time">Czas</string>
-	<string name="prefLegalServiceIcons">Service icons License</string>
-	<string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod.
-		Thanks for the nice icons.</string>
+	<string name="prefLegalServiceIcons">Licencja ikon serwisowych</string>
+	<string name="prefLegalServiceIconsLong">Licencja użytych ikon serwisowych z cyanogenmoda.
+Dzięki za ładne ikony.</string>
 	<string name="title_no_configuration">Brak użytecznej konfiguracji</string>
 	<string name="label_no_configuration">CPU Tuner wykrył bezużyteczną konfigurację i nie może poprawnie działać.
 Czy chcesz wczytać konfigurację?</string>
 	<string name="load">Załaduj</string>
-	<string name="cont">Kontynuuj</string>
+	<string name="cont">Dalej</string>
 	<string name="msg_error_loadconfig">Załadowanie tej konfiguracji nie stworzyło poprawnej konfiguracji.
-Konfiguracja ta jest uszkodzona lub coś poszło nie tak podczas
+Jest ona uszkodzona lub coś poszło nie tak podczas
 ładowania. Spróbuj ponownie (z inną konfiguracją).</string>
 	<string name="msg_unusable_comfig_save">Konfiguracja ta nie może być zapisana, gdyż jest nieużyteczna.
 Wyzwalacze, profile oraz regulatory wirtualne nie zostały znalezione.</string>
@@ -229,47 +229,47 @@ Zmień to w ustawieniach.</string>
 		information.</string>
 	<string name="title_products">Produkty</string>
 	<string name="title_extentions">Rozszerzenia</string>
-	<string name="name_extention_stats">Statystyki i logowanie (rozszerzenie)</string>
+	<string name="name_extention_stats">Statystyki i logowanie</string>
 	<string name="extention_installed">Zainstalowane, kliknij aby skonfigurować.</string>
-	<string name="not_installed">Niezainstalowane.</string>
+	<string name="not_installed">Niezainstalowane</string>
 	<string name="purchased">Zakupiono:</string>
-	<string name="name_buy_me_a_beer">Kup mi piwo.</string>
-	<string name="name_buy_me_a_whiskey">Kup mi whisky.</string>
+	<string name="name_buy_me_a_beer">Postaw mi piwo.</string>
+	<string name="name_buy_me_a_whiskey">Postaw mi whisky.</string>
 	<string name="name_buy_cookie">Kup ciasteczko moim dzieciom.</string>
 	<string name="desc_buy_beer">Będę szczęśliwy.</string>
 	<string name="desc_buy_whiskey">Będę szczęśliwy nawet bardziej. (I mniej pijany!)</string>
-	<string name="desc_buy_cookie">Zajmie to moje dzieci na trochę i da mi czas na poprawę błędów (jednak nic nie obiecuję).</string>
-	<string name="desc_buy_toy">Zajmie to moje dzieci na trochę i prawdopodobnie
-będę mógł dodać jakąś opcję (nic nie obiecuję).</string>
+	<string name="desc_buy_cookie">Zajmie to na trochę moje dzieci i da więcej czasu na poprawę błędów (nie obiecuję).</string>
+	<string name="desc_buy_toy">Zajmie to na trochę moje dzieci i prawdopodobnie
+pozwoli dodać jakąś opcję (nie obiecuję).</string>
 	<string name="name_buy_toy">Kup zabawkę moim dzieciom</string>
-	<string name="prefextentionsLong">Dodaj nowe możliwości do CPU Tunera.</string>
-	<string name="title_changelog">Lista zmian</string>
+	<string name="prefextentionsLong">Dodaj nowe możliwości do CPU Tuner.</string>
+	<string name="title_changelog">Dziennik zmian</string>
 	<string name="refresh">Odśwież</string>
 	<string name="reset">Wyczyść</string>
 	<string name="title_reset_statistics">Wyczyść statystyki</string>
-	<string name="msg_reset_statistics">Reset the statistics and use the current state as
-		baseline for the future</string>
-	<string name="msgManualServiceChanges">Some services have been manualy changed and will not be managed by CPU Tuner until the next trigger.&lt;br&gt;&lt;/br&gt;		Click text to reset.</string>
+	<string name="msg_reset_statistics">Wyczyść statystyki i użyj obecnego stanu
+jako odniesienia na przyszłość</string>
+	<string name="msgManualServiceChanges">Niektóre usługi zostały zmienione ręcznie i nie będą zarządzane przez CPU Tuner do momentu następnego wyzwolenia.&lt;br&gt;&lt;/br&gt; Kliknij tekst, aby zresetować.</string>
 	<string name="title_reset_manual_service_switches">Zresetować usługi?</string>
-	<string name="msg_reset_manual_service_switches">Do you want to reset all manually changed services
-		and let CPU Tuner handle further switches again?</string>
+	<string name="msg_reset_manual_service_switches">Czy chcesz zresetować wszystkie zmienione ręcznie usługi
+i pozwolić CPU Tunerowi na zarządzenia ich przełączeniem?</string>
 	<string name="msg_cpu_tuner_not_running">CPU Tuner nie jest uruchomiony</string>
 	<string-array name="prefAddToNotificationEntries">
-		<item>When running</item>
-		<item>Always</item>
+		<item>Gdy uruchomiony</item>
+		<item>Zawsze</item>
 		<item>Nigdy</item>
 	</string-array>
-	<string name="prefStatusbarAddToLong">Dodaj do paska statusu i obszaru powiadomień.</string>
-	<string name="prefInitialPulseDelay">Początkowe opóźnienie impulsu</string>
-	<string name="prefInitialPulseDelayLong">Czekaj określony czas (w sekundach) przed uruchomieniem tego impulsu.</string>
+	<string name="prefStatusbarAddToLong">Dodaj do paska stanu i obszaru powiadomień.</string>
+	<string name="prefInitialPulseDelay">Opóźnienie początkowe impulsu</string>
+	<string name="prefInitialPulseDelayLong">Czekaj określony czas (w sekundach) przed uruchomieniem pierwszego impulsu.</string>
 	<string name="prefInitialPulseDelayMsg">Czas opóźnienia w sekundach</string>
 	<string name="prefPowerStrongerThanScreenoff">On-Power is stronger than Screen-Lock profile</string>
 	<string name="prefPowerStrongerThanScreenoffOn">Jeśli zaznaczone, to po podłączeniu do gniazdka lub USB i przy wyłączonym wyświetlaczu zostanie wybrany profil \"Podłączony\".</string>
 	<string name="prefPowerStrongerThanScreenoffOff">Jeśli zaznaczone, to po podłączeniu do gniazdka lub USB i przy wyłączonym wyświetlaczu zostanie wybrany profil \"Ekran zablokowany\".</string>
-	<string name="title_choose_experiance_level">Wybierz swój poziom doświadczenia</string>
+	<string name="title_choose_experiance_level">Twój poziom doświadczenia</string>
 	<string name="msg_delete_autoload_configuration">Usunąć tę automatycznie ładującą się konfigurację?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode on WIFI Connection</string>
-	<string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a WIFI network is connected.  If the network is disconnected, CPU Tuner goes back to previous.</string>
+	<string name="prefNetworkModeOnWifiConnectedLong">Wybierz tryb sieciowy do stosowania w przypadku połączonego WIFI. Jeśli sieć jest rozłączona, CPU Tuner powróci do poprzedniego stanu.</string>
 	<string-array name="mobiledataOnWifiStatesEnties">
 		<item>nie zmieniaj</item>
 		<item>tylko 2G</item>
@@ -279,28 +279,28 @@ będę mógł dodać jakąś opcję (nic nie obiecuję).</string>
 	<string name="labelUseCpus_front">Użyj</string>
 	<string name="labelUseCpus_end">CPU</string>
 	<string name="prefMulticore">Użyj wielu rdzeni</string>
-	<string name="prefForceMulticoreCodeOn">Code for multicore CPU is used regardless what CPU is detected. (Beta feature)</string>
-	<string name="prefForceMulticoreCodeOff">Code for multicore CPU is only used if a mulitcore CPU is detected. (Beta feature)</string>
+	<string name="prefForceMulticoreCodeOn">Wykonany zostanie kod przeznaczony do wielordzeniowych CPU, niezależnie od tego jaki CPU został wykryty (w wersji beta).</string>
+	<string name="prefForceMulticoreCodeOff">Kod przeznaczony do wielordzeniowych CPU zostanie wykonany tylko w przypadku wykrycia wielordzeniowego CPU (w wersji beta).</string>
 	<string name="labelActiveCpus">Aktywne CPU:</string>
-	<string name="prefEnableCputuner">Włącz CPU Tuner</string>
+	<string name="prefEnableCputuner">Uruchom CPU Tuner</string>
 	<string-array name="prefMulticoreEntries">
 		<item>Auto</item>
 		<item>Włącz</item>
 		<item>Wyłącz</item>
 	</string-array>
-	<string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
-	<string name="prefConfigurationsLong">Backup and Restore (and more) ...</string>
+	<string name="prefMulticoreLong">Wybierz czy tuning stosować do wszystkich rdzeni.</string>
+	<string name="prefConfigurationsLong">Kopia zapasowa i przywracanie (i więcej)...</string>
 	<string name="prefCpu">Ustawienia CPU</string>
-	<string name="prefChangelog">Pokaż listę zmian</string>
+	<string name="prefChangelog">Pokaż dziennik zmian</string>
 	<string name="label_version">Wersja:</string>
-	<string name="prefLegalGnomeIcons">Main icon License</string>
-	<string name="prefLegalGnomeIconsLong">License of the used gnome icon. Thanks for the
-		nice icons.</string>
-	<string name="msg_disable_cpu_tuner">Wyłącz CPU Tuner</string>
+	<string name="prefLegalGnomeIcons">Licencja głównych ikon</string>
+	<string name="prefLegalGnomeIconsLong">Licencja użytych ikon gnome.
+Dzięki za ładne ikony.</string>
+	<string name="msg_disable_cpu_tuner">Zatrzymaj CPU Tuner.</string>
 	<string name="msg_disable_cputuner_question">Czy chcesz zatrzymać CPU Tuner?</string>
 	<string name="prefConfigurationsSettings">Ustawienia konfiguracji</string>
-	<string name="prefSaveConfigOnSwitch">Save Configuration</string>
-	<string name="prefSaveConfigOnSwitchFull">Save changes to profiles, triggers or governors to the current configuration.</string>
+	<string name="prefSaveConfigOnSwitch">Zapisz konfigurację</string>
+	<string name="prefSaveConfigOnSwitchFull">Zapisz zmiany w profilach, wyzwalaczach i regulatorach do konfiguracji bieżącej.</string>
 	<string name="saved_at">Zapisany</string>
 	<string name="day_mon">Pon.</string>
 	<string name="day_tue">Wt.</string>
@@ -311,8 +311,8 @@ będę mógł dodać jakąś opcję (nic nie obiecuję).</string>
 	<string name="day_sun">Nd.</string>
 	<string name="label_weekdays">Dni tygodnia:</string>
 	<string name="prefConfigurationsManage">Zarządzanie konfiguracjami</string>
-	<string name="prefConfigurationsAutoLoad">Konfigurowanie ładowania automatycznego</string>
-	<string name="title_configuration_autoload_editor">Configuration Autoload Editor</string>
+	<string name="prefConfigurationsAutoLoad">Konfiguracja autoładowania</string>
+	<string name="title_configuration_autoload_editor">Edytor konfiguracji automatycznego ładowania</string>
 	<string name="hint_profile_name">Nazwa profilu</string>
 	<string name="label_profile_switches">Przełączanie profilu:</string>
 	<string name="not_enabled">Nieaktywny</string>
@@ -341,15 +341,15 @@ która jest ładowana automatycznie.</string>
 	<string name="menuReplaceWithCurrent">Zamień z bieżącą</string>
 	<string name="menuLoad">Załaduj</string>
 	<string name="delete">Usuń</string>
-	<string name="msg_delete_configuration">Delete configuration \'&lt;xliff:g id="string"&gt;%s&lt;/xliff:g&gt;		\'?</string>
-	<string name="msg_replace_with_current">Replace configuration \'&lt;xliff:g id="string"&gt;%s&lt;/xliff:g&gt;		\' with the currently active?</string>
-	<string name="msg_load_configuration">Load configuration \'&lt;xliff:g id="string"&gt;%s&lt;/xliff:g&gt;		\' to be the active?</string>
-	<string name="msg_loaded">Loaded \'&lt;xliff:g id="string"&gt;%s&lt;/xliff:g&gt;		\'</string>
-	<string name="menuAddCurrent">Dodaj bieżącą</string>
+	<string name="msg_delete_configuration">Skasować konfigurację \"&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;\"?</string>
+	<string name="msg_replace_with_current">Zamienić konfigurację \"&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;\" z konfiguracą aktywną?</string>
+	<string name="msg_load_configuration">Załadować konfigurację \"&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;\", aby była aktywna?</string>
+	<string name="msg_loaded">Załadowano \"&lt;xliff:g id=\"string\"&gt;%s&lt;/xliff:g&gt;\"</string>
+	<string name="menuAddCurrent">Dodaj jako aktywną</string>
 	<string name="msg_fully_working">Działa w pełni</string>
-	<string name="msg_capcheck_not_rooted">CPU Tuner does not have root access!\nAll CPU
-		tuning related features will not work.\nDid root your device?\nDid you
-		grant CPU Tuner root access?</string>
+	<string name="msg_capcheck_not_rooted">CPU Tuner nie ma dostępu roota!\n
+Wszystkie możliwości CPU Tunera nie będą działać.\nCzy zrootowałeś swój telefon?\n
+Czy przyznałeś CPU Tunerowi dostęp na prawach roota?</string>
 	<string name="msg_capcheck_found_some_issues">Znaleziono problemy... Część opcji może nie działać.</string>
 	<string name="msg_capcheck_no_issues">Nie znaleziono problemów...</string>
 	<string name="and">i</string>
@@ -361,26 +361,26 @@ Wciąż jednak daje dobre wyniki.</string>
 		This will probably still yield nice results.\n2) Flash a new
 		kernel\n3) Flash a new ROM</string>
 	<string name="labelCurrentFrequency">bieżąca</string>
-	<string name="prefScreenLegal">Legal stuff</string>
+	<string name="prefScreenLegal">Legalny towar</string>
 	<string name="prefLegalOxigenIcons">Tab icon License</string>
 	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
 		nice icons.</string>
 	<string name="virtual_governor">Regulator wirtualny</string>
-	<string name="msg_cannot_load_virtual_governor">Cannot load Virtual Governor…</string>
+	<string name="msg_cannot_load_virtual_governor">Nie udało się załadować regulatora wirtualnego...</string>
 	<string name="labelStatisticsTab">Statystyki</string>
 	<string name="label_time_in_state">Przebywa w stanie:</string>
-	<string name="titleVirtualGovernorEditor">Virtual Governor Editor</string>
-	<string name="msgDeleteVirtGovNotPossible">Cannot delete this Virtual Governor since it is
-		used in one or more profiles!</string>
+	<string name="titleVirtualGovernorEditor">Edytor regulatora wirtualnego</string>
+	<string name="msgDeleteVirtGovNotPossible">Nie udało się usunąć tego regulatora wirtualnego,
+gdyż jest używany w co najmniej jednym profilu.</string>
 	<string name="labelName">Nazwa:</string>
 	<string name="hintVirtualGovernorName">Nazwa regulatora wirtualnego</string>
 	<string name="prefCatGUI">Interfejs użytkownika</string>
 	<string name="prefCatDisplay">Display</string>
 	<string name="labelPowersaveBias">Powersave bias:</string>
 	<string name="labelVirtualGovernor">Regulator wirtualny:</string>
-	<string name="prefUseVirtualGovernorsLong">Regulator wirtualny stanowi uproszczenie ustawień
+	<string name="prefUseVirtualGovernorsLong">Regulator wirtualny jest uproszczeniem ustawień
 regulatorów profilu.</string>
-	<string name="label_total_transitions">Total transitions:</string>
+	<string name="label_total_transitions">Całkowita liczba przełączeń:</string>
 	<string name="prefPulseMobiledataOnWifi">Pulse Mobile Data on WIFI</string>
 	<string name="prefPulseMobiledataOnWifiOn">Mobiledata connection will pulse even if WIFI is
 		connected.</string>
@@ -396,19 +396,19 @@ większa niż dolna.</string>
 	<string name="msg_threshhold_NaN">Granica musi być liczbą całkowitą.</string>
 	<string name="msg_minimal_frequency_bigger_than_the_maximal">Częstotliwość minimalna musi być mniejsza
 niż maksymalna.</string>
-	<string name="msgDeleteTriggerNotPossible">Nie można usunąć tego profilu, gdyż jest używany w jednym wyzwalaczu
-lub ich większej liczbie.</string>
+	<string name="msgDeleteTriggerNotPossible">Nie można usunąć tego profilu,
+gdyż jest używany w co najmniej jednym wyzwalaczu.</string>
 	<string name="prefBasics">Podstawy</string>
-	<string name="labelScript">Script:</string>
-	<string name="hintScriptToRun">Script to run after governor change.</string>
+	<string name="labelScript">Skrypt:</string>
+	<string name="hintScriptToRun">Skrypt do uruchomienia po zmianie wykonanej przez regulator.</string>
 	<string name="label_governor_tresholds">Granice:</string>
 	<string name="prefEnableUserspaceGovernor">Show Userspace Governor</string>
 	<string name="prefEnableUserspaceGovernorOn">It is possible to choose the Userspace Governor</string>
 	<string name="prefEnableUserspaceGovernorOff">The Userspace Governor will be filtered.</string>
 	<string name="prefCatPulsedServiceSwitches">Pulsed Service Switches</string>
 	<string name="prefPulseDelayOn">Service On-Time</string>
-	<string name="prefPulseDelayOnLong">The time (in minutes) a service is on while in
-		pulsed mode.</string>
+	<string name="prefPulseDelayOnLong">Czas (w minutach) włączonej usługi
+w trybie przełączania impulsowego.</string>
 	<string name="prefPulseDelayOff">Service Off-Time</string>
 	<string name="prefPulseDelayOffLong">The time (in minutes) a service is off while in
 		pulsed mode.</string>
@@ -417,24 +417,24 @@ lub ich większej liczbie.</string>
 	<string name="labelCurrentTab">Current</string>
 	<string name="labelTriggersTab">Triggers</string>
 	<string name="labelProfilesTab">Profile</string>
-	<string name="labelHelpTab">Help</string>
+	<string name="labelHelpTab">Pomoc</string>
 	<string name="labelSettingsTab">Ustawienia</string>
 	<string name="labelPowerUserExplain">Pełna kontrola!</string>
-	<string name="labelPowerUser">Doświadczony użytkownik</string>
+	<string name="labelPowerUser">Doświadczony</string>
 	<string name="labelNormalExplain">Więcej opcji konfiguracyjnych, przetaktowanie w dół możliwe wciąż
-tylko do pewnego punktu.</string>
-	<string name="labelNormal">Normal</string>
-	<string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
-		use… Underclocking only possible to a point.</string>
+tylko do pewnej wartości.</string>
+	<string name="labelNormal">Normalny</string>
+	<string name="labelBeginnerExplain">Łatwy i bezpieczny w konfiguracji...
+Przetaktowanie w dół możliwe tylko do pewnej wartości.</string>
 	<string name="labelBeginner">Początkujący</string>
 	<string name="labelBatteryHot">Gorąca bateria:</string>
 	<string name="labelCallInProgress">Podczas rozmowy:</string>
-	<string name="labelOnPower">On Power:</string>
-	<string name="labelScreenOff">Screen Off:</string>
+	<string name="labelOnPower">Podłączony</string>
+	<string name="labelScreenOff">Ekran wyłączony:</string>
 	<string name="labelScreenLocked">Ekran zablokowany</string>
 	<string name="labelOnBattery">Na baterii</string>
-	<string name="labelExplainTriggerProfiles">Depending on the state of the device one of the
-		following profiles will be chosen.</string>
+	<string name="labelExplainTriggerProfiles">Wybrany zostanie jeden z następujących profili
+zależnie od stanu urządzenia.</string>
 	<string name="labelBatteryLevel">Poziom baterii</string>
 	<string name="labelExplainTrigger">Activates if the battery charge of the device is
 		below the battery level and no other trigger with a lower and matching
@@ -444,34 +444,34 @@ tylko do pewnego punktu.</string>
 	<string name="labelWifi">WIFI</string>
 	<string name="labelGPS">GPS</string>
 	<string name="labelBackgroundSync">Synchronizacja w tle</string>
-	<string name="labelMobileDataConn">Mobiledata Con.</string>
-	<string name="labelMobileData32G">Mobiledata 2G/3G</string>
-	<string name="labelServices">Services:</string>
-	<string name="labelDown">Down:</string>
-	<string name="labelThreshsUp">Thresholds: Up:</string>
+	<string name="labelMobileDataConn">Poł. danych</string>
+	<string name="labelMobileData32G">Dane 2G/3G</string>
+	<string name="labelServices">Usługi:</string>
+	<string name="labelDown">Dolna:</string>
+	<string name="labelThreshsUp">Granica: górna:</string>
 	<string name="labelHome">Home</string>
 	<string name="labelUsage">Usage:</string>
-	<string name="labelBuFindFeq">Find frequencies (beta only)</string>
-	<string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
-	<string name="msgNoEmail">Please do not write empty e-mails…</string>
-	<string name="labelResult">Result</string>
-	<string name="labelCheck">Check</string>
-	<string name="labelAppVersion">CPU Tuner version:</string>
+	<string name="labelBuFindFeq">Znajdź częstotliwości (wersja beta)</string>
+	<string name="msgAckAndHide">Zatwierdź błędy i ukryj na ekranie głównym.</string>
+	<string name="msgNoEmail">Nie pisz proszę pustych e-maili.</string>
+	<string name="labelResult">Wynik</string>
+	<string name="labelCheck">Sprawdzono</string>
+	<string name="labelAppVersion">Wersja CPU Tuner:</string>
 	<string name="msgNoIssuesFound">Nie znaleziono problemów.</string>
-	<string name="prefVritualGovernorsListLong">Virtual Governors are preconfigured cpu governors.</string>
-	<string name="virtualGovernorsList">Regulatory wirtualne.</string>
+	<string name="prefVritualGovernorsListLong">Regulatory wirtualne są wcześniej skonfigurowanymi regulatorami CPU.</string>
+	<string name="virtualGovernorsList">Regulatory wirtualne</string>
 	<string name="prefBatteryHotTempMsg">Wprowadź temperaturę (wartość całkowita w °C),&lt;br /&gt; która uruchomi profil \"Gorąca bateria\".</string>
 	<string name="prefBatteryHotTempLong">Wprowadź temperaturę, która uruchomi profil \"Gorąca bateria\".</string>
-	<string name="prefBatteryHotTemp">Battery Hot Temperature</string>
+	<string name="prefBatteryHotTemp">Temperatura gorącej baterii</string>
 	<string name="prefSwitchProfileWhilePhoneNotIdleOn">If checked, \"Profile Switches\" are [allowed] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
 	<string name="prefSwitchProfileWhilePhoneNotIdleOff">If unchecked, \"Profile Switches\" are [forbidden] during phone calls. Mobile Data will never be switched during phone calls, regardless of the state of this option.</string>
 	<string name="prefSwitchProfileWhilePhoneNotIdle">Switch Profile During Call</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOn">If checked, WIFI will be switched \"off\" even if connected to a WIFI network.</string>
-	<string name="prefSwitchWifiOnConnectedNetworkOff">If unchecked, WIFI will not be switched \"off\" if connected to a WIFI network.</string>
-	<string name="prefSwitchWifiOnConnectedNetwork">Switch WIFI if connected.</string>
-	<string name="prefServiceSwitches">Service Switches</string>
-	<string name="prefUserLevelLong">Determines how difficult the settings are, and how
-		much you can interfere.</string>
+	<string name="prefSwitchWifiOnConnectedNetworkOn">Zaznaczenie spowoduje, że WIFI będzie wyłączane nawet jeśli podłączone do sieci.</string>
+	<string name="prefSwitchWifiOnConnectedNetworkOff">Odznaczenie spowoduje, że WIFI nie będzie wyłączane jeśli podłączone do sieci.</string>
+	<string name="prefSwitchWifiOnConnectedNetwork">Przełącz WIFI po połączeniu.</string>
+	<string name="prefServiceSwitches">Przełączenie usług</string>
+	<string name="prefUserLevelLong">Określa stopień trudności ustawień oraz
+na jakim poziomie możesz ingerować w ustawienia.</string>
 	<string name="prefUserLevel">Poziom doświadczenia</string>
 	<string name="prefVarious">Różne</string>
 	<string name="notAvailable">niedostępne</string>
@@ -479,52 +479,52 @@ tylko do pewnego punktu.</string>
 	<string name="no">Nie</string>
 	<string name="save">Zapisz</string>
 	<string name="cancel">Anuluj</string>
-	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in Power User
-		mode.</string>
+	<string name="prefMinSensibleFrequencyLong">Minimalna wyświetlana częstotliwość w trybie innym
+niż w trybie doświadczonego użytkownika.</string>
 	<string name="prefMinSensibleFrequency">Minimum Displayed Frequency</string>
 	<string name="prefKeyProfiles">Profile i wyzwalacze</string>
 	<string name="prefBuyMeABeer">Kup mi piwo.</string>
-	<string name="prefAllowManualServiceChangesOn">If checked, do not change the state of a service if it was modified as long as no trigger changed took place.</string>
-	<string name="prefAllowManualServiceChangesOff">If uncheck, do change the state of a service regardless if it was modified manually.</string>
-	<string name="prefAllowManualServiceChanges">Manual Service Changes</string>
+	<string name="prefAllowManualServiceChangesOn">Zaznaczenie spowoduje, że stan usługi nie będzie zmieniany, jeśli został zmodyfikowany do momentu zmiany wyzwalacza.</string>
+	<string name="prefAllowManualServiceChangesOff">Odznaczenie spowoduje, że stan usługi będzie zmieniany niezależnie od tego czy został zmieniony ręcznie.</string>
+	<string name="prefAllowManualServiceChanges">Ręczne zmiany usług</string>
 	<string name="prefCpuFreqMsg">Lista częstotliwości oddzielonych spacją</string>
 	<string name="prefCpuFreq">Dopuszczalne częstotliwości CPU</string>
-	<string name="prefCpuFreqLong">Leave empty if unsure…!</string>
-	<string name="mailMessageOK">No issues have been found…
-		If you are pleased and
-		want to give feedback, comments and good ratings
-		on the market are
-		highly appreciated…"</string>
+	<string name="prefCpuFreqLong">Zostaw puste, jeśli nie masz pewności!</string>
+	<string name="mailMessageOK">Nie znaleziono problemów...
+Jeśli jesteś zadowolony i chciałbyś
+wyrazić opinię, z góry bardzo dziękuję
+za komentarz lub dobrą ocenę
+w sklepie Google Play...</string>
 	<string name="mailMessage"/>
 	<string name="prefEnableBetaLong">Wyślij e-mail do programisty</string>
 	<string name="prefKeyCalcPowerUsageLong">Może zużywać baterię.</string>
 	<string name="prefKeyCalcPowerUsage">Obliczaj zużycie energii</string>
-	<string name="menuItemClearPowerCurrent">Clear Power Usage</string>
-	<string name="menuItemInsert">Insert</string>
+	<string name="menuItemClearPowerCurrent">Wyczyść zużycie energii</string>
+	<string name="menuItemInsert">Wstaw</string>
 	<string name="menuItemEdit">Edytuj</string>
 	<string name="menuItemDelete">Usuń</string>
-	<string name="prefEnableBetaMessage">Enable some features which are in beta state.</string>
-	<string name="prefEnableBeta">Aktywuj możliwości dostępne w wersji beta</string>
+	<string name="prefEnableBetaMessage">Włącz możliwości będące w wersji beta.</string>
+	<string name="prefEnableBeta">Opcje beta</string>
 	<string name="prefCapabilitiesLong">Check if the devices supports API needed or if
 		there are any issues.</string>
 	<string name="prefCapabilities">Sprawdź możliwości</string>
-	<string name="prefStatusbarAddTo">Powiadomienia paska stanu</string>
-	<string name="prefStatusbarNotificationsOff">If unchecked, messages will not be shown in status bar for profile changes.</string>
-	<string name="prefKeyEnableProfilesOn">If checked, messages will be shown in status bar for profile changes.</string>
+	<string name="prefStatusbarAddTo">Komunikaty paska stanu</string>
+	<string name="prefStatusbarNotificationsOff">Jeśli odznaczone, komunikaty o zmianach profili nie będą pokazywane na pasku stanu.</string>
+	<string name="prefKeyEnableProfilesOn">Jeśli zaznaczone, komunikaty o zmianach profili będą pokazywane na pasku stanu.</string>
 	<string name="prefSystemAppOff">Not installed as system app, it will not have
 		access to system settings as gps.</string>
 	<string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
 	<string name="prefSystemApp">Instaluj jako aplikację systemową</string>
 	<string name="prefToastNotifications">Toast Notifications</string>
-	<string name="prefStatusbarNotifications">Powiadomienia paska statusu</string>
-	<string name="prefCatNotifications">Powiadomienia</string>
+	<string name="prefStatusbarNotifications">Komunikaty paska stanu</string>
+	<string name="prefCatNotifications">Komunikaty</string>
 	<string name="prefCatSystem">Backend</string>
 	<string name="prefEnableProfiles">Włącz profile</string>
 	<string name="prefSetCpuSetting">Ustawienia CPU</string>
 	<string name="profileBatteryGood">Good Battery</string>
-	<string name="profileBatteryCrtitical">Critical Battery</string>
+	<string name="profileBatteryCrtitical">Krytyczny poziom baterii</string>
 	<string name="profileBatteryPower">Energia baterii</string>
-	<string name="profileAcPower">On Power</string>
+	<string name="profileAcPower">Podłączony</string>
 	<string name="profileScreenOff">Ekran jest wyłączony</string>
 	<string name="prefSystemPowerProfiles">System Power Profiles</string>
 	<string name="prefPowerProfiles">Power Profiles</string>
@@ -535,7 +535,7 @@ tylko do pewnego punktu.</string>
 	<string name="labelCurrentTrigger">Wyzwalacz:</string>
 	<string name="labelCurrentProfile">Profil:</string>
 	<string name="labelCurrentBattery">Bateria:</string>
-	<string name="labelAcPower">On Power:</string>
+	<string name="labelAcPower">Podłączony:</string>
 	<string name="labelMax">Maks.:</string>
 	<string name="labelMin">Min.:</string>
 	<string name="app_name">CPU Tuner</string>
@@ -562,7 +562,7 @@ tylko do pewnego punktu.</string>
 	<string name="label3g2g">2/3G</string>
 	<string name="label2g">2G</string>
 	<string name="label3g">3G</string>
-	<string name="label3g2gPrev">2/3G</string>
+	<string name="label3g2gPrev">2/3G?</string>
 	<string name="labelSyncOn">sync</string>
 	<string name="labelSyncOff">&lt;strike&gt;sync&lt;/strike&gt;</string>
 	<string name="labelSyncPrev">sync?</string>
@@ -586,7 +586,7 @@ tylko do pewnego punktu.</string>
 		<item>Pulse</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
-		<item>leave unchanged</item>
+		<item>nie zmieniaj</item>
 		<item>Włącz</item>
 		<item>Wyłącz</item>
 		<item>Back to previous</item>
@@ -612,12 +612,11 @@ tylko do pewnego punktu.</string>
 		<item><b>Power user</b>			: You\'re the boss!</item>
 	</string-array>
 	<string name="cbEnableVirtualGovernors">Włącz regulatory wirtualne</string>
-	<string name="userExperianceLevelExplain">CPU Tuner can operate on different experience
-		levels. Depending on the level it gives you more choices and lets you
-		do more things.</string>
-	<string name="prefCallInProgressProfile">Call-In Progress Profile</string>
-	<string name="prefCallInProgressProfileLong">Enables a profile that is triggered during phone
-		calls.</string>
+	<string name="userExperianceLevelExplain">Im wyższy poziom doświadczenia,
+tym więcej możliwości konfiguracyjnych.</string>
+	<string name="prefCallInProgressProfile">Profil rozmowy</string>
+	<string name="prefCallInProgressProfileLong">Włącza profil uruchamiany
+podczas rozmów telefonicznych.</string>
 	<string name="msg_checking_capabilities">Sprawdzanie możliwości</string>
 	<string name="msg_checking_governors">Sprawdzanie regulatorów...</string>
 	<string name="msg_not_enough_frequencies_found">Nie znaleziono wystarczającej liczby częstotliwości</string>
@@ -625,7 +624,7 @@ tylko do pewnego punktu.</string>
 	<string name="msg_not_checked">nie sprawdzono</string>
 	<string name="msg_success">success</string>
 	<string name="msg_failure">failure</string>
-	<string name="msg_does_not_apply">does not apply</string>
+	<string name="msg_does_not_apply">nie dotyczy</string>
 	<string name="msg_cannot_check">cannot check</string>
 	<string name="explainNotAvailable">No explanation available for this governor…</string>
 	<string name="title_reset_to_default">Przywróć domyślne</string>
@@ -650,18 +649,18 @@ tylko do pewnego punktu.</string>
 	<string name="msg_reboot">The automatic (save) reboot failed. Please do a
 		manual reboot by long pressing the power button, otherwise CPU Tuner
 		will not work.</string>
-	<string name="bu_system_reboot">System reboot (not recommended)</string>
+	<string name="bu_system_reboot">Restart systemu (niezalecane)</string>
 	<string name="title_uninstall_sys">Uninstall CPU Tuner as system app</string>
-	<string name="bu_yes_uninstall_sys">Uninstall and reboot</string>
+	<string name="bu_yes_uninstall_sys">Odinstaluj i zrestartuj</string>
 	<string name="msg_uninstall_sys">Requires a reboot, by pressing \'Uninstall and
 		reboot\' the device will reboot.</string>
 	<string name="msg_install_sys">Requires a reboot, by pressing \'install and
 		reboot\' the device will reboot.</string>
 	<string name="bu_yes_title_install_sys">Install and reboot</string>
-	<string name="title_install_sys">Install CPU Tuner as system app</string>
+	<string name="title_install_sys">Instaluj CPU Tuner jako aplikację systemową</string>
 	<string name="msg_has_issues">Has issues</string>
-	<string name="msg_not_working">Not working</string>
-	<string name="msg_working">Working</string>
+	<string name="msg_not_working">Nie działa</string>
+	<string name="msg_working">Działa</string>
 	<string name="msg_premail_no_issues">No issues have been found…\nIf you are pleased
 		and want to give feedback:\nComments and good ratings on the market
 		are highly appreciated…</string>
@@ -675,7 +674,7 @@ tylko do pewnego punktu.</string>
 		new kernel\n2) Flash a new ROM\nYou might want to have a look at
 		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
 	<string name="title_profile_editor">Profile Editor </string>
-	<string name="title_profiles">Profiles</string>
+	<string name="title_profiles">Profile</string>
 	<string name="title_trigger_editor">Trigger Editor </string>
 	<string name="msg_delete_selected_item">Delete selected item?</string>
 	<string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of "%s" trigger?</string>
@@ -685,11 +684,11 @@ tylko do pewnego punktu.</string>
 	<string name="msg_found_some_issues">Found some issues… Some features might not work.
 		(Tap for more information.)</string>
 	<string name="label_hot">hot: </string>
-	<string name="label_avgerage">avg: </string>
-	<string name="label_tresh_up">up: </string>
-	<string name="label_tresh_down">down: </string>
-	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
-	<string name="prefUseScriptCache">"Use scripts "</string>
-	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
+	<string name="label_avgerage">śred.:</string>
+	<string name="label_tresh_up">górne:</string>
+	<string name="label_tresh_down">dolne:</string>
+	<string name="msg_not_starting_after_reboot">CPU Tuner nie został uruchomiony, gdyż telefon jest restartowany zbyt często</string>
+	<string name="prefUseScriptCache">Używaj skryptów</string>
+	<string name="prefUseScriptCacheOn">Używaj skryptów shellowych do buforowania przełączeń CPU</string>
 	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>
