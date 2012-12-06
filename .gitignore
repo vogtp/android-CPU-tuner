@@ -1,8 +1,22 @@
-gen/
 /importExportDB_src
-/bin
-bin/
 /com_markupartist_android_widget_actionbar_src
 /billingLib_src
 /TODO
 /lint.xml
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
