@@ -7,7 +7,7 @@
 	<string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
 	<string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
 	<string name="dia_no_switch_off_cpus">Be safe</string>
-	<string name="prefRunSwitchInBackground">背景切換設定檔</string>
+	<string name="prefRunSwitchInBackground">切換背景設定檔</string>
 	<string name="prefRunSwitchInBackgroundOn">設定檔切換會在背景線程中進行。這可能使切換延遲一點，但會以 Android 的方式執行。</string>
 	<string name="prefRunSwitchInBackgroundOff">設定檔切換會在前景線程中進行。這會加快切換，但可能使 CPU Tuner沒有回應。</string>
 	<string name="prefWidgetShowLabels">顯示標籤</string>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string name="prefAuthorsSettings">Usar los ajustes del autor</string>
-	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
+	<string name="prefAuthorsSettingsLong">Utilizar los ajustes que el autor recomienda. Esto puede producir un comportamiento inesperado, o activar características que no funcionen en su dispositivo. No inicializa todos los valores, solo se cambian unas cuantas configuraciones en base a mi recomendación (no oficial) ¡Usar con precaución!</string>
 	<string name="mse_authors_settings_loaded">Ajustes del autor cargados</string>
 	<string name="dia_title_switch_off_cpus">¿Apagar las CPUs?</string>
 	<string name="dia_msg_switch_off_cpus">Apagar las CPUs puede causar problemas con algunos kernels. Hacerlo ahorrará batería pero puede dañar su dispositivo.</string>
 	<string name="dia_yes_switch_off_cpus">Apagar las CPUs</string>
-	<string name="dia_no_switch_off_cpus">Be safe</string>
-	<string name="prefRunSwitchInBackground">Interruptor de perfil en Background</string>
+	<string name="dia_no_switch_off_cpus">Ir por lo seguro</string>
+	<string name="prefRunSwitchInBackground">Interruptor en Background</string>
 	<string name="prefRunSwitchInBackgroundOn">Los cambios de perfil se hacen en segundo plano. Esto puede retrasar un poco el cambio, pero es como lo hace android.</string>
 	<string name="prefRunSwitchInBackgroundOff">Los cambios de perfil se hacen en primer plano. Esto puede acelerar los cambios, pero puede hacer que cpu tuner no responda.</string>
 	<string name="prefWidgetShowLabels">Mostrar etiquetas</string>
 	<string name="prefUnitSystem">Unidad del sistema</string>
 	<string name="prefUnitSystemLong">Mostrar la temperatura en °C, °F o K.</string>
-	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
+	<string name="tvCpuFreqBeginnerText">Las frecuencias Min y Max están deshabilitadas para los usuarios principiantes, debido a que realizar dichos ajustes no implica mayor tiempo de duración de la batería, bajo condiciones normales. Cambie su nivel de experiencia para tener acceso a esta opción.</string>
 	<string-array name="prefUnitSystemEntries">
 		<item>Por defecto</item>
 		<item>Imperial</item>
@@ -47,8 +47,8 @@
 	</string-array>
 	<string-array name="mobiledataStatesCurrent">
 	<!-- 		<item>Auto</item> -->
+		<item>Solo 2G</item>
 		<item>3G/2G</item>
-		<item>Solo 3G</item>
 		<item>Solo 3G</item>
 	</string-array>
 	<string name="log_msg_cpu_tuner_started">CPU Tuner en funcionamiento</string>
@@ -56,7 +56,7 @@
 	<string name="log_msg_switchlog_start">Log iniciado</string>
 	<string name="log_msg_switchlog_stop">Log detenido</string>
 	<string name="menuItemClearAllPowerCurrent">Limpiar uso de energía</string>
-	<string name="msg_clear_power_consumption_of_all_triggers">¿Limpiar el poder consumido en todos los disparadores?</string>
+	<string name="msg_clear_power_consumption_of_all_triggers">¿Limpiar la batería consumida en todos los disparadores?</string>
 	<string name="labelAppWidgetProfile2x1">CPU Tuner (pequeño)</string>
 	<string name="labelAppWidgetProfile2x2">CPU Tuner</string>
 	<string name="not_supported">¡No soportado!</string>
@@ -95,7 +95,7 @@
 	<string name="gov_name_extremeSaveBattery">Ahorro de batería extremo</string>
 	<string name="gov_name_saveBattery">Ahorro de batería</string>
 	<string name="configuration_title_sophisticated">Sofisticado</string>
-	<string name="configuration_description_sophisticated">Basandose en el nivel de batería se usan bastantes disparadores para contralar la CPU.No hay interruptores de servicio activados.</string>
+	<string name="configuration_description_sophisticated">Basandose en el nivel de batería. Se usan bastantes disparadores para controlar la CPU.No hay interruptores de servicio activados.</string>
 	<string name="configuration_title_uniform">Uniforme</string>
 	<string name="configuration_description_uniform">La CPU se controla basandose en el estado del dispositivo sin importar el nivel de batería. Sin interruptores de servicio.</string>
 	<string name="configuration_title_simplePowerful">Simple &amp; powerful</string>
@@ -123,7 +123,7 @@
 	<string name="all">Todo</string>
 	<string name="labelNoDataForFilter">No se encontraron datos para esta combinación de filtros.</string>
 	<string name="prefCatAdvStatistics">Ajustes avanzados y registro</string>
-	<string name="prefCatExtention">Extension</string>
+	<string name="prefCatExtention">Extensión</string>
 	<string name="prefEnableExtention">Activar extensión</string>
 	<string name="prefEnableSwitchLog">Activar el registro de cambio de perfill</string>
 	<string name="prefCatStatistics">Estadísticas</string>
@@ -223,16 +223,16 @@
 	<string name="msg_warning_not_switch_wifi_connected">La WIFI no cambiara si está conectado a una red.
 		Cambie esto en ajustes.</string>
 	<string name="menuUpgrade">Instalar extensiones</string>
-	<string name="desc_extention_stats">La extensión de estadísticas genera mejores y mas destalladas estadísticas y registros.&lt;br&gt;&lt;/br&gt;		Esto lee ayudará a ajustar mejor la configuración dandodole información adicional.</string>
+	<string name="desc_extention_stats">La extensión de estadísticas genera mejores y mas detalladas estadísticas y registros.&lt;br&gt;&lt;/br&gt;		Esto le ayudará a ajustar mejor la configuración dandodole información adicional.</string>
 	<string name="title_products">Productos</string>
 	<string name="title_extentions">Estensiones</string>
-	<string name="name_extention_stats">Extensión de estadísticas y registro</string>
+	<string name="name_extention_stats">Estadísticas y registro</string>
 	<string name="extention_installed">Instalada, pulse para configurar.</string>
 	<string name="not_installed">No instalada</string>
 	<string name="purchased">Comprado: </string>
 	<string name="name_buy_me_a_beer">Invíteme a una cerveza.</string>
 	<string name="name_buy_me_a_whiskey">Invíteme a un whisky.</string>
-	<string name="name_buy_cookie">Compre una galleta para mis hijos.</string>
+	<string name="name_buy_cookie">Compre una galleta a mis hijos</string>
 	<string name="desc_buy_beer">Esto me hará feliz.</string>
 	<string name="desc_buy_whiskey">Esto me hará más feliz aún (¡Y menos borracho!)</string>
 	<string name="desc_buy_cookie">Esto mantendrá a mis hijos ocupados y tendré más tiempo para resolver errores(no prometo nada).</string>
@@ -252,30 +252,30 @@
 		y dejar que CPU Tuner los controle de nuevo?</string>
 	<string name="msg_cpu_tuner_not_running">CPU Tuner no está ejecutandose</string>
 	<string-array name="prefAddToNotificationEntries">
+		<item>En ejecución</item>
 		<item>Siempre</item>
-		<item>Nunca</item>
 		<item>Nunca</item>
 	</string-array>
 	<string name="prefStatusbarAddToLong">Añadir a la barra de estado y al área de notificaciones.</string>
-	<string name="prefInitialPulseDelay">Retraso de la primera señal inicial</string>
-	<string name="prefInitialPulseDelayLong">Espera por un tiempo (en s) antes de empezar la primera señal.</string>
+	<string name="prefInitialPulseDelay">Retraso de la primera señal temporal</string>
+	<string name="prefInitialPulseDelayLong">Espera por un tiempo (en s) antes de iniciar la cuenta a trás.</string>
 	<string name="prefInitialPulseDelayMsg">Tiempo de retraso en segundos</string>
-	<string name="prefPowerStrongerThanScreenoff">El perfil Cargando tiene más prioridad que el Pantalla-Bloqueada</string>
-	<string name="prefPowerStrongerThanScreenoffOn">Si está marcado, cuando se está cargando (AC o USB) y la pantalla está apagada, el perfil Cargando será el escogido.</string>
-	<string name="prefPowerStrongerThanScreenoffOff">Si no está marcado, cuando se está cargando (AC o USB) y la pantalla está apagada, el perfil Pantalla-Bloqueada será el escogido.</string>
-	<string name="title_choose_experiance_level">Choose your experience level</string>
+	<string name="prefPowerStrongerThanScreenoff">Cargando vs Pantalla-Bloqueada</string>
+	<string name="prefPowerStrongerThanScreenoffOn">Si está marcado, cuando se está cargando (AC o USB) y la pantalla está apagada, se escogerá el perfil Cargando.</string>
+	<string name="prefPowerStrongerThanScreenoffOff">Si no está marcado, cuando se está cargando (AC o USB) y la pantalla está apagada, se escogerá el perfil Pantalla-Bloqueada.</string>
+	<string name="title_choose_experiance_level">Elija su nivel de experiencia</string>
 	<string name="msg_delete_autoload_configuration">¿Eliminar la configuracion autocargada?</string>
-	<string name="prefNetworkModeOnWifiConnected">Modo de red en conexiones WIFI</string>
+	<string name="prefNetworkModeOnWifiConnected">Modo de red en WIFI</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Elije el modo de red a aplicar cuando se conecta a una WIFI. Si la red es desconectada, CPU Tuner volvera al estado previo.</string>
 	<string-array name="mobiledataOnWifiStatesEnties">
-		<item>Sólo 2G</item>
-		<item>3G/2G</item>
+		<item>Dejar sin cambios</item>
+		<item>Solo 2G</item>
 		<item>3G/2G</item>
 		<item>Solo 3G</item>
 	</string-array>
 	<string name="labelUseCpus_front">Uso </string>
 	<string name="labelUseCpus_end">CPUs</string>
-	<string name="prefMulticore">Usar las capacidades de una CPU Multinucleo</string>
+	<string name="prefMulticore">Usar capacidades de CPU Multinúcleo</string>
 	<string name="prefForceMulticoreCodeOn">El código para CPU multinúcleo será usado sin importar la CPU detectada. (Característica Beta)</string>
 	<string name="prefForceMulticoreCodeOff">El código para CPU multinúcleo será usado solo si se detecta una CPU multinúcleo. (Característica Beta)</string>
 	<string name="labelActiveCpus">Activar CPUs:</string>
@@ -358,8 +358,8 @@
 	<string name="labelCurrentFrequency">actual</string>
 	<string name="prefScreenLegal">Temas legales</string>
 	<string name="prefLegalOxigenIcons">Licencia de la pestaña de iconos</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
-		nice icons.</string>
+	<string name="prefLegalOxigenIconsLong">Licencia de los iconos oxigen utilizados. Gracias por estos
+bonitos iconos.</string>
 	<string name="virtual_governor">Controlador virtual</string>
 	<string name="msg_cannot_load_virtual_governor">No se puede cargar el controlador virtual…</string>
 	<string name="labelStatisticsTab">Estadísticas</string>
@@ -374,9 +374,9 @@
 	<string name="labelVirtualGovernor">Controlador virtual:</string>
 	<string name="prefUseVirtualGovernorsLong">El controlador virtual abstrae los ajustres de los controladores de perfil.</string>
 	<string name="label_total_transitions">Transiciones totales:</string>
-	<string name="prefPulseMobiledataOnWifi">Mantener conexión de datos con WIFI</string>
+	<string name="prefPulseMobiledataOnWifi">Mantener datos con WIFI</string>
 	<string name="prefPulseMobiledataOnWifiOn">La conexión de datos se activará incluso si la WIFI está conectada.</string>
-	<string name="prefPulseMobiledataOnWifiOff">&gt;La conexión de datos no se activará si la WIFI está conectada.</string>
+	<string name="prefPulseMobiledataOnWifiOff">La conexión de datos no se activará si la WIFI está conectada.</string>
 	<string name="prefLanguage">Elegir idioma</string>
 	<string name="msg_up_threshhold_has_to_be_between_0_and_100">El umbral superior viene dado en % y tiene que estar entre 0 y 100.</string>
 	<string name="msg_down_threshhold_has_to_be_between_0_and_100">El umbral inferior viene dado en % y tiene que estar entre 0 y 100.</string>
@@ -388,16 +388,16 @@
 	<string name="labelScript">Script:</string>
 	<string name="hintScriptToRun">Script a ejecutar despues del cambio de controlador.</string>
 	<string name="label_governor_tresholds">Umbrales:</string>
-	<string name="prefEnableUserspaceGovernor">Mostrar el controlador del espacio de usuario</string>
-	<string name="prefEnableUserspaceGovernorOn">Es posible elegir un controlador para el espacio de usuario</string>
-	<string name="prefEnableUserspaceGovernorOff">El controlador del espacio de usuaria será filtrado.</string>
+	<string name="prefEnableUserspaceGovernor">Ver controlador del userspace</string>
+	<string name="prefEnableUserspaceGovernorOn">Es posible elegir un controlador para el userspace</string>
+	<string name="prefEnableUserspaceGovernorOff">El controlador del userspace será filtrado.</string>
 	<string name="prefCatPulsedServiceSwitches">Cambiar al servicio señalado</string>
-	<string name="prefPulseDelayOn">Tiempo de servicio en ejecución</string>
-	<string name="prefPulseDelayOnLong">El tiempo (en minutos) que un servicio se mantendrá ejecutandose mientras que se está en modo pulsación.</string>
-	<string name="prefPulseDelayOff">Tiempo de servicio detenido</string>
-	<string name="prefPulseDelayOffLong">El tiempo (en minutos) que un servicio se mantendrá detenido mientras se está en modo pulsación.</string>
-	<string name="labelPulseOn">Pulse está activado On</string>
-	<string name="labelPulseOff">Pulse está desactivado</string>
+	<string name="prefPulseDelayOn">Tiempo en ejecución</string>
+	<string name="prefPulseDelayOnLong">El tiempo (en minutos) que un servicio se mantendrá ejecutandose mientras que se está en modo temporal.</string>
+	<string name="prefPulseDelayOff">Tiempo detenido</string>
+	<string name="prefPulseDelayOffLong">El tiempo (en minutos) que un servicio se mantendrá detenido mientras se está en modo temporal.</string>
+	<string name="labelPulseOn">Temporal está activado On</string>
+	<string name="labelPulseOff">Temporal está desactivado</string>
 	<string name="labelCurrentTab">Actual</string>
 	<string name="labelTriggersTab">Disparadores</string>
 	<string name="labelProfilesTab">Perfiles</string>
@@ -407,8 +407,8 @@
 	<string name="labelPowerUser">Usuario experto</string>
 	<string name="labelNormalExplain">Opciones de configuración más avanzadas, underclocking aún posible solo hasta un punto.</string>
 	<string name="labelNormal">Normal</string>
-	<string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
-		use… Underclocking only possible to a point.</string>
+	<string name="labelBeginnerExplain">Fácil de configurar y todos los ajustes deben ser seguros para
+ser utilizados... El reducir la frecuencia solo es posible hasta cierto punto.</string>
 	<string name="labelBeginner">Principiante</string>
 	<string name="labelBatteryHot">Batería caliente:</string>
 	<string name="labelCallInProgress">Llamada en progreso:</string>
@@ -418,7 +418,7 @@
 	<string name="labelOnBattery">Con batería:</string>
 	<string name="labelExplainTriggerProfiles">Dependiendo del estado del dispositivo se escogerá uno u otro perfil.</string>
 	<string name="labelBatteryLevel">Nivel de batería</string>
-	<string name="labelExplainTrigger">Activado si el niver de carga de la batería es bajo está por debajo del nivel de batería y ningún otro disparador con menor nivel de batería coincide.</string>
+	<string name="labelExplainTrigger">Activado si el nivel de la batería está por debajo del valor indicado y ningún otro disparador con menor nivel de batería coincide.</string>
 	<string name="labelGovernor">Controlador:</string>
 	<string name="labelBluetooth">Bluetooth</string>
 	<string name="labelWifi">WIFI</string>
@@ -440,7 +440,8 @@
 	<string name="msgNoIssuesFound">Ningún problema encontrado.</string>
 	<string name="prefVritualGovernorsListLong">Los controladores virtuales están preconfigurados como controladores de CPU.</string>
 	<string name="virtualGovernorsList">Gobernadores virtuales</string>
-	<string name="prefBatteryHotTempMsg">Ajustar la temperatura para cambiar al perfil\"Batería caliente\".&lt;br /&gt;		Temperatura como número entero(°C).</string>
+	<string name="prefBatteryHotTempMsg">Ajustar la temperatura para cambiar al perfil\"Batería caliente\".&lt;br /&gt;
+		Temperatura como número entero(°C).</string>
 	<string name="prefBatteryHotTempLong">Ajustar la temperatura para cambiar al perfil \"Batería caliente\".</string>
 	<string name="prefBatteryHotTemp">Temperatura de batería caliente</string>
 	<string name="prefSwitchProfileWhilePhoneNotIdleOn">Si está marcado, los \"cambios de perfil\" están permitidos durante las llamadas. Los datos moviles nunca cambiaran durante llamadas.</string>
@@ -456,8 +457,8 @@
 	<string name="notAvailable">No disponible</string>
 	<string name="yes">Si</string>
 	<string name="no">No</string>
-	<string name="save">Save</string>
-	<string name="cancel">Cancel</string>
+	<string name="save">Guardar</string>
+	<string name="cancel">Cancelar</string>
 	<string name="prefMinSensibleFrequencyLong">Frecuencia mínima mostrada si no se está en modo \"Usuario experto\"</string>
 	<string name="prefMinSensibleFrequency">Frecuencia mínima</string>
 	<string name="prefKeyProfiles">Perfiles y disparadores</string>
@@ -653,5 +654,5 @@
 	<string name="msg_not_starting_after_reboot">No iniciar CPU Tuner cuando el dispositivo se reinicie frecuentemente.</string>
 	<string name="prefUseScriptCache">\"Usar scripts\"</string>
 	<string name="prefUseScriptCacheOn">Usar la consola de scripts para guardar los cambios de cpu</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
+	<string name="prefUseScriptCacheOff">Precargar (cache) internamente el comando de cambio de CPU</string>
 </resources>
