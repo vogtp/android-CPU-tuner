@@ -141,7 +141,7 @@ public class BackupRestoreHelper {
 				tr.setName(name);
 			}
 			if (tr.getScreenLockedProfileId() == 0) {
-				tr.setScreenLockedProfileId(tr.getScreenOffProfileId());
+				tr.setScreenLockedProfileId(tr.getBatteryProfileId());
 			}
 			contentResolver.insert(DB.Trigger.CONTENT_URI, tr.getValues());
 		}
