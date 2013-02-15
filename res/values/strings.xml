@@ -685,10 +685,10 @@
 		are highly appreciated…</string>
     <string name="msg_premail_no_root">CPU Tuner does not have root access!\nCPU Tuner
 		cannot do anything!</string>
-    <string name="msg_premail_issues">You configuration has issues…\nThis is most
+    <string name="msg_premail_issues">Your configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM</string>
-    <string name="msg_premail_issues_cm">You configuration has issues…\nThis is most
+    <string name="msg_premail_issues_cm">Your configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM\nYou might want to have a look at
 		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
