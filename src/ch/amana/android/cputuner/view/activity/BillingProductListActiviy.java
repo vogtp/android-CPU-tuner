@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 import ch.almana.android.billing.BillingManager;
-import ch.almana.android.billing.Product;
 import ch.almana.android.billing.PurchaseListener;
+import ch.almana.android.billing.products.Product;
 import ch.amana.android.cputuner.R;
 import ch.amana.android.cputuner.helper.BillingProducts;
 import ch.amana.android.cputuner.helper.GeneralMenuHelper;
@@ -35,7 +35,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.list);
@@ -54,7 +54,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 			cputunerActionBar.setHomeAction(new ActionBar.Action() {
 
 				@Override
-				public void performAction(View view) {
+				public void performAction(final View view) {
 					onBackPressed();
 				}
 
@@ -66,7 +66,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 
 			cputunerActionBar.addAction(new Action() {
 				@Override
-				public void performAction(View view) {
+				public void performAction(final View view) {
 					refreshFromMarket();
 				}
 
@@ -110,7 +110,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	protected void onListItemClick(final ListView l, final View v, final int position, final long id) {
 		Product product = (Product) billingProductAdaper.getItem(position);
 		if (!product.isManaged() || product.getCount() < 1) {
 			try {
@@ -135,7 +135,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	}
 
 	@Override
-	public void purchaseChanged(String pid, int count) {
+	public void purchaseChanged(final String pid, final int count) {
 		updateView();
 		if (BillingProducts.statistics.equals(pid)) {
 			boolean installed = count > 0;
@@ -148,7 +148,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	}
 
 	@Override
-	public void billingSupported(boolean supported) {
+	public void billingSupported(final boolean supported) {
 		if (!supported) {
 			Toast.makeText(this, "Billing not supported!", Toast.LENGTH_LONG).show();
 			getListView().setEnabled(false);
@@ -160,7 +160,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(final Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		//		getMenuInflater().inflate(R.menu.gerneral_help_menu, menu);
 		getMenuInflater().inflate(R.menu.refresh_option, menu);
@@ -168,7 +168,7 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 
 		case R.id.itemRefresh:
@@ -188,14 +188,14 @@ public class BillingProductListActiviy extends ListActivity implements PurchaseL
 		reinitaliseOwnedItems();
 	}
 
-	public static Intent getBeerIntent(Context ctx) {
+	public static Intent getBeerIntent(final Context ctx) {
 		Intent i = new Intent(ctx, BillingProductListActiviy.class);
 		i.putExtra(EXTRA_TITLE, ctx.getString(R.string.prefBuyMeABeer));
 		i.putExtra(EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_BUY_ME_BEER);
 		return i;
 	}
 
-	public static Intent getExtentionsIntent(Context ctx) {
+	public static Intent getExtentionsIntent(final Context ctx) {
 		Intent i = new Intent(ctx, BillingProductListActiviy.class);
 		i.putExtra(EXTRA_TITLE, ctx.getString(R.string.title_extentions));
 		i.putExtra(EXTRA_PRODUCT_TYPE, BillingProducts.PRODUCT_TYPE_EXTENTIONS);

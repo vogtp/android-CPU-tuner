@@ -40,7 +40,7 @@ public class Notifier extends BroadcastReceiver {
 	private int icon;
 	private static int intentId;
 
-	public static Notification startStatusbarNotifications(Context ctx) {
+	public static Notification startStatusbarNotifications(final Context ctx) {
 		if (instance == null) {
 			instance = new Notifier(ctx);
 		}
@@ -51,7 +51,7 @@ public class Notifier extends BroadcastReceiver {
 		return instance.notification;
 	}
 
-	public static void stopStatusbarNotifications(Context ctx) {
+	public static void stopStatusbarNotifications(final Context ctx) {
 		try {
 			ctx.unregisterReceiver(instance);
 			instance.notificationManager.cancel(NOTIFICATION_ID);
@@ -61,7 +61,7 @@ public class Notifier extends BroadcastReceiver {
 	}
 
 	@Override
-	public void onReceive(Context context, Intent intent) {
+	public void onReceive(final Context context, final Intent intent) {
 		if (intent == null) {
 			return;
 		}
@@ -119,12 +119,12 @@ public class Notifier extends BroadcastReceiver {
 
 	private Notification getNotification(CharSequence contentText) {
 		boolean isDisplayNotification = SettingsStorage.getInstance().isStatusbarNotifications();
-		int iconNew = R.drawable.icon;
+		int iconNew = R.drawable.ic_menu_cputuner;
 		boolean jellyBean = SettingsStorage.getInstance().isJellyBean();
 		if (!SettingsStorage.getInstance().isEnableCpuTuner()) {
-			iconNew = R.drawable.icon_red;
+			iconNew = R.drawable.ic_menu_cputuner_red;
 		} else if (PowerProfiles.getInstance().isManualProfile()) {
-			iconNew = R.drawable.icon_yellow;
+			iconNew = R.drawable.ic_menu_cputuner_yellow;
 		}
 		if (isDisplayNotification || (notification == null || jellyBean) || icon != iconNew) {
 			if (!isDisplayNotification) {
@@ -133,28 +133,28 @@ public class Notifier extends BroadcastReceiver {
 			icon = iconNew;
 			if (jellyBean) {
 				Builder builder = new Notification.Builder(context)
-						.setContentTitle(context.getString(R.string.app_name))
-						.setSubText(contentText)
-						//						.setWhen(System.currentTimeMillis())
-						.setSmallIcon(icon)
-						.setOngoing(true);
+				.setContentTitle(context.getString(R.string.app_name))
+				.setContentText(contentText)
+				//						.setWhen(System.currentTimeMillis())
+				.setSmallIcon(icon)
+				.setOngoing(true);
 
 				intentId = 100;
 				if (false) {
-				setServiceIcon(builder, ServiceType.mobiledata3g);
-				setServiceIcon(builder, ServiceType.mobiledataConnection);
-				setServiceIcon(builder, ServiceType.wifi);
-				setServiceIcon(builder, ServiceType.airplainMode);
-				setServiceIcon(builder, ServiceType.backgroundsync);
-				setServiceIcon(builder, ServiceType.bluetooth);
+					setServiceIcon(builder, ServiceType.mobiledata3g);
+					setServiceIcon(builder, ServiceType.mobiledataConnection);
+					setServiceIcon(builder, ServiceType.wifi);
+					setServiceIcon(builder, ServiceType.airplainMode);
+					setServiceIcon(builder, ServiceType.backgroundsync);
+					setServiceIcon(builder, ServiceType.bluetooth);
 				}else {
 					RemoteViews views = createAppWidgetView(context);
-					
+
 					builder.setContent(views);
-					
+
 				}
 
-				notification = builder.build();
+				notification = builder.getNotification();
 
 			} else {
 				notification = new Notification(icon, contentText, System.currentTimeMillis());
@@ -167,7 +167,7 @@ public class Notifier extends BroadcastReceiver {
 		return notification;
 	}
 
-	private void setServiceIcon(Builder builder, ServiceType serviceType) {
+	private void setServiceIcon(final Builder builder, final ServiceType serviceType) {
 		// TODO Auto-generated method stub
 		int imgRes = 0;
 		Intent intent = PopupChooserActivity.getStartIntent(context);
@@ -203,11 +203,11 @@ public class Notifier extends BroadcastReceiver {
 			imgRes = R.drawable.serviceicon_wifi;
 			break;
 		}
-
-		builder.addAction(imgRes, null, pendingIntent);
+		builder.setContentIntent(pendingIntent);
+		// builder.addAction(imgRes, null, pendingIntent);
 	}
-	
-	static RemoteViews createAppWidgetView(Context context) {
+
+	static RemoteViews createAppWidgetView(final Context context) {
 		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.profile_appwidget);
 		PendingIntent mainPendingIntent;
 
@@ -330,11 +330,11 @@ public class Notifier extends BroadcastReceiver {
 		return views;
 	}
 
-	private static void setTextSize(RemoteViews views, int id) {
+	private static void setTextSize(final RemoteViews views, final int id) {
 		views.setFloat(id, "setTextSize", textSize);
 	}
 
-	private static void setServiceStateIcon(Context context, RemoteViews views, int id, ServiceType serviceType) {
+	private static void setServiceStateIcon(final Context context, final RemoteViews views, final int id, final ServiceType serviceType) {
 		Intent intent = PopupChooserActivity.getStartIntent(context);
 		int size = context.getResources().getDimensionPixelSize(R.dimen.widget_iconsize_medium);
 		views.setBoolean(id, "setAdjustViewBounds", true);
@@ -370,15 +370,15 @@ public class Notifier extends BroadcastReceiver {
 		}
 	}
 
-	private static void setImageResource(RemoteViews views, int id, int iconId) {
+	private static void setImageResource(final RemoteViews views, final int id, final int iconId) {
 		views.setInt(id, "setImageResource", iconId);
 	}
 
-	private static void setAlpha(RemoteViews views, int id, int alpha) {
+	private static void setAlpha(final RemoteViews views, final int id, final int alpha) {
 		views.setInt(id, "setAlpha", alpha);
 	}
 
-	private static void setAnimation(RemoteViews views, int id, int anim) {
+	private static void setAnimation(final RemoteViews views, final int id, final int anim) {
 		views.setInt(id, "setAnimation", anim);
 	}
 

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TwoLineListItem;
-import ch.almana.android.billing.Product;
+import ch.almana.android.billing.products.Product;
 import ch.amana.android.cputuner.R;
 
 public class BillingProductAdaper extends BaseAdapter {
@@ -15,7 +15,7 @@ public class BillingProductAdaper extends BaseAdapter {
 	private final LayoutInflater layoutInflator;
 	private final Context ctx;
 
-	public BillingProductAdaper(Context ctx, Product[] products) {
+	public BillingProductAdaper(final Context ctx, final Product[] products) {
 		this.ctx = ctx;
 		this.products = products;
 		this.layoutInflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -27,17 +27,17 @@ public class BillingProductAdaper extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public Object getItem(final int position) {
 		return products[position];
 	}
 
 	@Override
-	public long getItemId(int position) {
+	public long getItemId(final int position) {
 		return position;
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, final View convertView, final ViewGroup parent) {
 		TwoLineListItem view = (convertView != null) ? (TwoLineListItem) convertView : createView(parent);
 		Product p = products[position];
 		view.getText1().setText(p.getName());
@@ -56,7 +56,7 @@ public class BillingProductAdaper extends BaseAdapter {
 		return view;
 	}
 
-	private TwoLineListItem createView(ViewGroup parent) {
+	private TwoLineListItem createView(final ViewGroup parent) {
 		TwoLineListItem item = (TwoLineListItem) layoutInflator.inflate(android.R.layout.simple_list_item_2, parent, false);
 		item.getText1().setSingleLine();
 		//		item.getText2().setSingleLine();
