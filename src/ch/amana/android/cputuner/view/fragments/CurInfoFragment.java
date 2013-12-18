@@ -86,7 +86,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View v = inflater.inflate(R.layout.cur_info, container, false);
 
@@ -120,7 +120,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
+	public void onActivityCreated(final Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 		final Activity act = getActivity();
@@ -152,7 +152,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		spProfiles.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, final int pos, final long id) {
+			public void onItemSelected(final AdapterView<?> parent, final View view, final int pos, final long id) {
 				if (id == PowerProfiles.AUTOMATIC_PROFILE && !SettingsStorage.getInstance().isEnableCpuTuner()) {
 					return;
 				}
@@ -163,7 +163,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
+			public void onNothingSelected(final AdapterView<?> arg0) {
 
 			}
 		});
@@ -171,7 +171,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		OnClickListener startBattery = new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				try {
 					Intent i = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
 					startActivity(i);
@@ -194,7 +194,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		trConfig.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				Context ctx = getActivity();
 				Intent intent = new Intent(ctx, ConfigurationManageActivity.class);
 				intent.putExtra(ConfigurationManageActivity.EXTRA_CLOSE_ON_LOAD, true);
@@ -205,7 +205,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		tvManualServiceChanges.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				Builder alertBuilder = new AlertDialog.Builder(act);
 				alertBuilder.setTitle(R.string.title_reset_manual_service_switches);
 				alertBuilder.setMessage(R.string.msg_reset_manual_service_switches);
@@ -213,7 +213,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 				alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onClick(final DialogInterface dialog, final int which) {
 						powerProfiles.initActiveStates();
 						updateView();
 					}
@@ -295,7 +295,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 
 	@Override
 	public void deviceStatusChanged() {
-		if (tvAcPower == null || isDetached()) {
+		if (tvAcPower == null || isDetached() || powerProfiles == null) {
 			return;
 		}
 		tvAcPower.setText(getText(powerProfiles.isAcPower() ? R.string.yes : R.string.no));
@@ -416,7 +416,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public void setMaxCpuFreq(int val) {
+	public void setMaxCpuFreq(final int val) {
 		if (val != cpuHandler.getMaxCpuFreq()) {
 			cpuHandler.setMaxCpuFreq(val);
 			updateViewDelayed();
@@ -424,7 +424,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public void setMinCpuFreq(int val) {
+	public void setMinCpuFreq(final int val) {
 		if (val != cpuHandler.getMinCpuFreq()) {
 			cpuHandler.setMinCpuFreq(val);
 			updateViewDelayed();
@@ -437,12 +437,12 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
+	public void onPrepareOptionsMenu(final Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 		if (SettingsStorage.getInstance().hasHoloTheme()) {
 			menu.findItem(R.id.itemMenuHelp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -450,7 +450,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 
 		case R.id.itemRefresh:
@@ -469,7 +469,7 @@ public class CurInfoFragment extends PagerFragment implements GovernorFragmentCa
 		ActionList actions = new ActionList();
 		actions.add(new Action() {
 			@Override
-			public void performAction(View view) {
+			public void performAction(final View view) {
 				Intent i = new Intent(view.getContext(), HelpActivity.class);
 				i.putExtra(HelpActivity.EXTRA_HELP_PAGE, HelpActivity.PAGE_INDEX);
 				view.getContext().startActivity(i);
