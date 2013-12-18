@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-<string name="marketTitle">
-CPU tuner (Rooted phones)
-</string>
+<string name="marketTitle">CPU Tuner (需 Root 的手機)</string>
 
-<string name="languageName">
-For the language switch I need the name of your language in your language.
-Do not translate this just enter the name of your language (e.g. English).
-</string>
+<string name="languageName">我需要用您的語言在語系切換中命名.
+不要翻譯只須輸入您語系的名稱.</string>
 
 
 <string name="marketDesciption">
@@ -44,7 +40,5 @@ A note on permissions:  Yes there are a lot and potentially dangerous permission
 
 </string>
 
-<string name="marketPromotionText">
-CPU tuner tries to save as much battery power as possible.
-</string>
+<string name="marketPromotionText">CPU Tuner 會盡可能試著節省更多的電力</string>
 </resources>

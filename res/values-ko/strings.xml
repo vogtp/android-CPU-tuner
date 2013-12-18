@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string name="prefAuthorsSettings">제작자의 설정 사용</string>
-	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
-	<string name="mse_authors_settings_loaded">Authors settings loaded!</string>
-	<string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
-	<string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
-	<string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
-	<string name="dia_no_switch_off_cpus">Be safe</string>
+	<string name="prefAuthorsSettingsLong">제작자가 선호하는 설정을 사용합니다. 이는 예상 밖의 행동을 내거나 당신의 기기에서 제대로 작동하지 않는 것들을 활성화 시킬 수도 있습니다. 모든 값을 초기화시키지는 않지만 일부 설정을 제 비공식적 기본 설정으로 바꿉니다. 주의해서 사용하세요...!</string>
+	<string name="mse_authors_settings_loaded">제작자의 설정 불려옴!</string>
+	<string name="dia_title_switch_off_cpus">모든 CPU를 끕니까?</string>
+	<string name="dia_msg_switch_off_cpus">CPU를 끄는 것은 몇몇 커널에서 문제를 일으킨다고 알려져 있습니다. 이 옵션을 사용하는 것은 배터리를 조금 절약할 수 있지만 기기가 충돌할 수 있습니다.</string>
+	<string name="dia_yes_switch_off_cpus">CPU 끄기</string>
+	<string name="dia_no_switch_off_cpus">안전하게 하세요</string>
 	<string name="prefRunSwitchInBackground">백그라운드 프로필 전환</string>
-	<string name="prefRunSwitchInBackgroundOn">프로필 전환이 백그라운드 스레드에서 이루어집니다. 이는 전환을 약간 지연시킬 수 있지만, 안드로이드
-		방식입니다.</string>
-	<string name="prefRunSwitchInBackgroundOff">프로필 전환이 포어그라운드 스레드에서 이루어집니다. 이는 전환 속도를 가속시킬 수 있지만, cpu 튜너가 응답없게 할 수도 있습니다.</string>
+	<string name="prefRunSwitchInBackgroundOn">프로필 전환이 백그라운드 스레드에서 이루어집니다. 이 방식은 전환이 약간 지연될 수 있지만, 안드로이드의 기본 방식입니다.</string>
+	<string name="prefRunSwitchInBackgroundOff">프로필 전환이 포어그라운드 스레드에서 이루어집니다. 이 방식은 전환이 약간 빠를 수 있으나, cpu 튜너가 응답없게 할 수도 있습니다.</string>
 	<string name="prefWidgetShowLabels">라벨 표시</string>
 	<string name="prefUnitSystem">단위</string>
 	<string name="prefUnitSystemLong">°C, °F 또는 K로 온도표시.</string>
-	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
+	<string name="tvCpuFreqBeginnerText">정상적인 조건에서는 배터리 수명을 늘려주지 않기 때문에, 최대와 최소 CPU 주파수는 초심자에게는 제공되지 않습니다. 경험자 레벨을 바꾸어 이 기능에 접근하세요.</string>
 	<string-array name="prefUnitSystemEntries">
 		<item>기본</item>
 		<item>임페리얼</item>
@@ -62,19 +61,19 @@
 	<string name="labelAppWidgetProfile2x2">CPU 튜너</string>
 	<string name="not_supported">지원 안함!</string>
 	<string name="msg_no_battery_current">이 기기는 배터리 전류 추적을 지원 안합니다.</string>
-	<string name="msg_no_avg_battery_current">이 기기는 평균 배터리 전류 추적을 지원안합니다.</string>
+	<string name="msg_no_avg_battery_current">이 기기는 평균 배터리 전류 트래킹을 지원안합니다.</string>
 	<string name="prefWidgetUI">표시된 정보</string>
 	<string name="prefShowIcon">CPU 튜너 아이콘</string>
 	<string name="prefShowIconLong">CPU 튜너 동작에 사용됨</string>
 	<string name="title_cannot_save">저장 불가</string>
-	<string name="cbInclSwitchLog">메일에 전환 로그 포함.</string>
+	<string name="cbInclSwitchLog">메일에 전환 로그 포함시키기</string>
 	<string name="name_extention_widget">위젯 확장</string>
 	<string name="desc_extention_widget">위젯은 CPU 튜너의 기능을 홈화면에서 접근할 수 있게 해줍니다.</string>
 	<string name="prefCatWidget">위젯</string>
 	<string name="prefHasWidget">위젯 활성화</string>
-	<string name="msgWidgetLoading">로딩중…</string>
+	<string name="msgWidgetLoading">로딩중...</string>
 	<string name="msg_widgets_not_installed">CPU 튜너 위젯이 비활성됨.</string>
-	<string name="title_install_widget_dia">위젯 설치되지 않음</string>
+	<string name="title_install_widget_dia">위젯이 설치되지 않음.</string>
 	<string name="msg_install_widget_dia">위젯 확장이 설치되지 않아 위젯이 추가될 수 없습니다</string>
 	<string name="buNeg_install_widget_dia">필요없음.</string>
 	<string name="buPos_install_widget_dia">설치하기…</string>
@@ -102,17 +101,16 @@
 	<string name="configuration_title_simplePowerful">간단 &amp; 강력</string>
 	<string name="configuration_description_simplePowerful">D. 가 그의 블로그에 설명한 프로필(http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html)이고 데이터 스위칭은 없습니다.</string>
 	<string name="configuration_title_extreme">극도</string>
-	<string name="configuration_description_extreme">이것은 이전의 기본적인 구성입니다. 세련과 비슷하지만, 훨씬 엄격한 구성을 사용합니다. 배터리를
-		더 절약하는 반면 성능은 더 나빠집니다.</string>
+	<string name="configuration_description_extreme">이것은 예전의 기본 설정입니다. 세련 모드와 비슷하지만, 훨씬 엄격한 구성을 사용합니다. 배터리를 더 절약하는 반면 성능은 더 나빠집니다.</string>
 	<string name="auto">자동</string>
 	<string name="msg_manual_profile">수동</string>
 	<string name="labelMessage">메시지:</string>
 	<string name="labelState">상태:</string>
 	<string name="labelTime">시간:</string>
-	<string name="prefCatSwitchCpuSettings">프로필 전환시 CPU 구성</string>
-	<string name="prefEnableSwitchCpuSetting">프로필 전환시 특별한 CPU 구성 사용</string>
-	<string name="prefEnableSwitchCpuSettingOn">프로필 전환시 특별한 CPU 구성이 사용됩니다.</string>
-	<string name="prefEnableSwitchCpuSettingOff">프로필 전환시 프로필의 CPU 구성이 사용됩니다.</string>
+	<string name="prefCatSwitchCpuSettings">프로필 전환시 CPU 설정</string>
+	<string name="prefEnableSwitchCpuSetting">프로필 전환시 특별한 CPU 설정 사용</string>
+	<string name="prefEnableSwitchCpuSettingOn">프로필 전환시 특별한 CPU 설정이 사용됩니다.</string>
+	<string name="prefEnableSwitchCpuSettingOff">프로필 전환시 프로필의 CPU 설정이 사용됩니다.</string>
 	<string name="prefSwitchCpuSetting">프로필 전환시 CPU 구성</string>
 	<string name="prefSwitchCpuSettingLong">이 CPU 구성이 프로필 전환시 사용됩니다. 	심하게 언더클러킹 시 프로필 전환을 가속할 수
 		있습니다(언더클러킹은 추천하지 않습니다).</string>
@@ -126,7 +124,7 @@
 	<string name="all">모두</string>
 	<string name="labelNoDataForFilter">이 필터조합의 정보가 발견되지 않았습니다.</string>
 	<string name="prefCatAdvStatistics">발전된 통계와 로깅</string>
-	<string name="prefCatExtention">Extension</string>
+	<string name="prefCatExtention">확장</string>
 	<string name="prefEnableExtention">확장 활성화</string>
 	<string name="prefEnableSwitchLog">프로필 전환 로그 활성화</string>
 	<string name="prefCatStatistics">통계</string>
@@ -144,10 +142,10 @@
 	<string name="enabled">활성됨</string>
 	<string name="ac_power">전원 사용</string>
 	<string name="battery">배터리 사용</string>
-	<string name="screenUnocked">Screen Unlocked</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenUnocked">화면 잠금 해제됨</string>
+	<string name="screenLocked">화면 잠김</string>
 	<string name="screenOff">화면 꺼짐</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenLocked">화면 잠김</string>
 	<string name="call_active">전화중</string>
 	<string name="battery_hot">배터리 고온</string>
 	<string name="prefProfileSwitchLogSizeLong">프로필 전환 로그를 몇시간 기록할까요? 영구는 -1을 사용.</string>
@@ -170,7 +168,7 @@
 	<string name="msg_title_grant_root">루트 액세스 허가</string>
 	<string name="msg_grant_root">CPU 튜너의 슈퍼유저 액세스의 허가가 요청될것입니다. 수락한 후 기억 체크박스를 체크하세요.
 		그렇지 않으면 CPU 튜너가 동작하지 않습니다.</string>
-	<string name="labelLogTab">Log</string>
+	<string name="labelLogTab">로그</string>
 	<string name="msg_no_profile_switch_log">프로필 전환 로그가 발견되지 않음.</string>
 	<string name="menuItemInsertAsNew">새로 삽입</string>
 	<string name="prefCatGUILong">디스플레이 구성 변경.</string>
@@ -225,7 +223,7 @@
 	<string name="name_buy_cookie">제 아이들 과자 사주기.</string>
 	<string name="desc_buy_beer">저를 행복하게 만들어 줍니다.</string>
 	<string name="desc_buy_whiskey">저를 더욱 행복하게 만들어 줍니다. (그리고 덜 취하고!)</string>
-	<string name="desc_buy_cookie">제 아이들을 열중하게 만들어서 제게 버그를 고칠 시간을 더 줍니다 (보장 못함) .</string>
+	<string name="desc_buy_cookie">제 아이들을 바쁘게 만들어줘 제가 버그를 고칠 시간을 줍니다 (보장은 못해요)</string>
 	<string name="desc_buy_toy">제 아이들을 열중하게 만들어서 새로운 기능을 추가하게 해줍니다 (보장 못함).</string>
 	<string name="name_buy_toy">제 아이들 장난감 사주기</string>
 	<string name="prefextentionsLong">CPU 튜너에 새로운 기능추가.</string>
@@ -252,7 +250,7 @@
 		선택됨</string>
 	<string name="prefPowerStrongerThanScreenoffOff">체크 해제되면, 전원 (AC 또는 USB)이 꽂아져 있고 화면이 꺼져있으면, 화면 잠김
 		프로필이 선택됨</string>
-	<string name="title_choose_experiance_level">Choose your experience level</string>
+	<string name="title_choose_experiance_level">경험 레벨을 선택하세요</string>
 	<string name="msg_delete_autoload_configuration">이 자동 불러오기 구성을 지웁니까?</string>
 	<string name="prefNetworkModeOnWifiConnected">WIFI 연결시 넷모드</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">WIFI 네트워크 연결시 적용할 네트워크 모드를 선택하시오. 네트워크가 끊기면, CPU
@@ -341,8 +339,7 @@
 	<string name="labelCurrentFrequency">현재값</string>
 	<string name="prefScreenLegal">법적조항</string>
 	<string name="prefLegalOxigenIcons">탭 아이콘 라이센스</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
-		nice icons.</string>
+	<string name="prefLegalOxigenIconsLong">사용된 산소 아이콘의 라이센스. 멋진 아이콘 감사합니다.</string>
 	<string name="virtual_governor">가상 가버너</string>
 	<string name="msg_cannot_load_virtual_governor">가상 가버너를 불러올 수 없습니다…</string>
 	<string name="labelStatisticsTab">통계</string>
@@ -361,23 +358,23 @@
 	<string name="prefPulseMobiledataOnWifiOn">WIFI가 연결되어 있어도 모바일 데이터 연결이 펄스됩니다</string>
 	<string name="prefPulseMobiledataOnWifiOff">기기가 WIFI 랜에 연결되어 있는동안 모바일 데이터가 펄스되지 않습니다.</string>
 	<string name="prefLanguage">언어 선택</string>
-	<string name="msg_up_threshhold_has_to_be_between_0_and_100">위 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
-	<string name="msg_down_threshhold_has_to_be_between_0_and_100">아래 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
-	<string name="msg_up_threshhold_smaler_than_the_down_threshold">위 임계는 아래 임계보다 커야 합니다.</string>
-	<string name="msg_threshhold_NaN">임계는 정수여야 합니다.</string>
-	<string name="msg_minimal_frequency_bigger_than_the_maximal">최소의 주파수는 최대의 주파수보다 작아야 합니다.</string>
-	<string name="msgDeleteTriggerNotPossible">한개 또는 여러 트리거에 사용되어 이 프로필을 지울 수 없습니다!</string>
+	<string name="msg_up_threshhold_has_to_be_between_0_and_100">상한 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
+	<string name="msg_down_threshhold_has_to_be_between_0_and_100">하한 임계는 %로 주어지고 0과 100 사이어야 합니다.</string>
+	<string name="msg_up_threshhold_smaler_than_the_down_threshold">상한 임계는 아래 임계보다 커야 합니다.</string>
+	<string name="msg_threshhold_NaN">임계값은 정수여야 합니다.</string>
+	<string name="msg_minimal_frequency_bigger_than_the_maximal">최소 주파수는 최대 주파수보다 작아야 합니다.</string>
+	<string name="msgDeleteTriggerNotPossible">한개 또는 여러 트리거에 사용되고 있어 이 프로필을 지울 수 없습니다!</string>
 	<string name="prefBasics">기본</string>
 	<string name="labelScript">스크립트:</string>
-	<string name="hintScriptToRun">가버너 변환 후 실행할 스크립트.</string>
+	<string name="hintScriptToRun">가버너 변경 후 실행할 스크립트.</string>
 	<string name="label_governor_tresholds">임계:</string>
 	<string name="prefEnableUserspaceGovernor">유저스페이스 가버너 보이기</string>
 	<string name="prefEnableUserspaceGovernorOn">유저스페이스 가버너를 선택하는게 가능합니다</string>
 	<string name="prefEnableUserspaceGovernorOff">유저스페이스 가버너가 필터링됩니다.</string>
 	<string name="prefCatPulsedServiceSwitches">펄스된 서비스 전환</string>
-	<string name="prefPulseDelayOn">서비스 켜진 시간</string>
+	<string name="prefPulseDelayOn">서비스가 켜져있는 시간</string>
 	<string name="prefPulseDelayOnLong">펄스모드에서 서비스가 켜져 있는 시간 (분으로).</string>
-	<string name="prefPulseDelayOff">서비스 꺼진 시간</string>
+	<string name="prefPulseDelayOff">서비스가 꺼져있는 시간</string>
 	<string name="prefPulseDelayOffLong">펄스모드에서 서비스가 꺼져 있는 시간 (분으로).</string>
 	<string name="labelPulseOn">펄스 켜짐</string>
 	<string name="labelPulseOff">펄스 꺼짐</string>
@@ -390,13 +387,12 @@
 	<string name="labelPowerUser">파워 유저</string>
 	<string name="labelNormalExplain">더 발전된 설정 옵션.  가능한 지점까지 언더클러킹합니다.</string>
 	<string name="labelNormal">보통</string>
-	<string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
-		use… Underclocking only possible to a point.</string>
+	<string name="labelBeginnerExplain">설정하기 쉽고 사용하기 안전할 겁니다... 언더클러킹은 어느 한도까지만 가능합니다</string>
 	<string name="labelBeginner">초심자</string>
 	<string name="labelBatteryHot">배터리 고온:</string>
 	<string name="labelCallInProgress">통화중:</string>
 	<string name="labelOnPower">전원 사용:</string>
-	<string name="labelScreenOff">Screen Off:</string>
+	<string name="labelScreenOff">화면 꺼짐</string>
 	<string name="labelScreenLocked">화면 잠김:</string>
 	<string name="labelOnBattery">배터리 사용:</string>
 	<string name="labelExplainTriggerProfiles">기기의 상태에 따라 다음의 프로필 중 하나가 선택됩니다.</string>
@@ -440,8 +436,8 @@
 	<string name="notAvailable">해당없음</string>
 	<string name="yes">네</string>
 	<string name="no">아니오</string>
-	<string name="save">Save</string>
-	<string name="cancel">Cancel</string>
+	<string name="save">저장</string>
+	<string name="cancel">취소</string>
 	<string name="prefMinSensibleFrequencyLong">파워유저 모드가 아닐때 최소 표시 주파수.</string>
 	<string name="prefMinSensibleFrequency">최소 표시 주파수</string>
 	<string name="prefKeyProfiles">프로필과 트리거</string>
@@ -609,11 +605,8 @@
 	<string name="msg_premail_no_issues">문제가 발견되지 않았습니다…\n만약 만족해서 피드백을 주고싶으면 :\n마켓에서 코멘트와 좋은
 			평가를 매우 환영합니다…</string>
 	<string name="msg_premail_no_root">CPU 튜너가 루트 액세스가 없습니다!\nCPU 튜너가 아무것도 할 수 없습니다!</string>
-	<string name="msg_premail_issues">당신의 구성은 문제들이 있다…\n이는 커널/롬일 때문일 가능성이 매우 높습니다. 당신에게 두가지
-			선택이 있습니다:\n1) 새 커널 플래시\n2) 새 롬 플래시</string>
-	<string name="msg_premail_issues_cm">구성에 문제가 있습니다...…\n이는 이는 커널/롬일 때문일 가능성이 매우 높습니다.
-			당신은 두가지 선택이 있습니다:\n1) 새 커널 플래시\n2) 새 롬 플래시\n
-			http://wiki.cyanogenmod.com 을 한번 보는것도 괜찮습니다. 거기에 매우 좋은 롬들이 있습니다..</string>
+	<string name="msg_premail_issues">설정에 문제가 있씁니다…\n이는 커널/롬 때문일 가능성이 매우 높습니다. 당신에게 두 가지 선택권이 있습니다:\n1) 새로운 커널 플래싱\n2) 새로운 롬 플래싱</string>
+	<string name="msg_premail_issues_cm">설정에 문제가 있습니다...\n이는 커널/롬 때문일 가능성이 매우 높습니다. 당신에게는 두가지 선택권이 있습니다:\n1) 새로운 커널을 플래싱 한다\n2)새로운 롬을 플래싱 한다\nhttp://wiki.cyanogenmod.com여기를 한번 보시는 것도 좋습니다. 매우 좋은 롬들이 있습니다. </string>
 	<string name="title_profile_editor">프로필 에디터 </string>
 	<string name="title_profiles">프로필</string>
 	<string name="title_trigger_editor">트리거 에디터 </string>
@@ -627,8 +620,8 @@
 	<string name="label_avgerage">평균: </string>
 	<string name="label_tresh_up">위: </string>
 	<string name="label_tresh_down">아래: </string>
-	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
-	<string name="prefUseScriptCache">"Use scripts "</string>
-	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
+	<string name="msg_not_starting_after_reboot">기기가 너무 자주 재부팅 되기 때문에 CPU 튜너를 시작하지 않습니다</string>
+	<string name="prefUseScriptCache">\"스크립트 사용\"</string>
+	<string name="prefUseScriptCacheOn">CPU 전환을 캐싱 하기 위해 쉘 스크립트 사용</string>
+	<string name="prefUseScriptCacheOff">내부적으로 CPU 전환 명령 캐싱</string>
 </resources>

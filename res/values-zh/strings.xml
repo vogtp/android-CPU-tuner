@@ -2,54 +2,54 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string name="prefAuthorsSettings">使用作者的設定</string>
 	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
-	<string name="mse_authors_settings_loaded">Authors settings loaded!</string>
-	<string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
-	<string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
-	<string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
-	<string name="dia_no_switch_off_cpus">Be safe</string>
-	<string name="prefRunSwitchInBackground">切換背景設定檔</string>
+	<string name="mse_authors_settings_loaded">載入作者得設定</string>
+	<string name="dia_title_switch_off_cpus">要關閉 CPU?</string>
+	<string name="dia_msg_switch_off_cpus">在某些系統內核上關閉CPU可能會有問題. 這樣做也許會節省電池用量但造成當機.</string>
+	<string name="dia_yes_switch_off_cpus">關閉 CPU</string>
+	<string name="dia_no_switch_off_cpus">更安全</string>
+	<string name="prefRunSwitchInBackground">背景設定檔切換</string>
 	<string name="prefRunSwitchInBackgroundOn">設定檔切換會在背景線程中進行。這可能使切換延遲一點，但會以 Android 的方式執行。</string>
 	<string name="prefRunSwitchInBackgroundOff">設定檔切換會在前景線程中進行。這會加快切換，但可能使 CPU Tuner沒有回應。</string>
 	<string name="prefWidgetShowLabels">顯示標籤</string>
 	<string name="prefUnitSystem">單位系統</string>
 	<string name="prefUnitSystemLong">溫度顯示為 °C、°F 或 K。</string>
-	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
+	<string name="tvCpuFreqBeginnerText">最低與最高 CPU 頻率設定對初級使用者關閉, 因為改變它不會增進電池在正常狀態下的使用時間. 變更您的專業等級來使用此功能.</string>
 	<string-array name="prefUnitSystemEntries">
-		<item>Default</item>
+		<item>預設</item>
 		<item>Imperial</item>
 		<item>SI</item>
 	</string-array>
 	<string name="prefWidgetTextSize">字體大小</string>
 	<string-array name="prefWidgetTextSizeEntries">
-		<item>Tiny</item>
-		<item>Small</item>
-		<item>Medium</item>
-		<item>Big</item>
+		<item>更小</item>
+		<item>小</item>
+		<item>中</item>
+		<item>大</item>
 	</string-array>
 	<string name="deep_sleep">深度休眠</string>
 	<string-array name="prefCalcPowerUsageEntries">
-		<item>Average Value</item>
-		<item>Current Value</item>
+		<item>平均值</item>
+		<item>目前值</item>
 	<!-- 		<item>Battery % per Hour</item> -->
-		<item>No Calculation</item>
+		<item>不計算</item>
 	</string-array>
 	<string-array name="prefCalcPowerUsageEntriesBeta">
-		<item>Average Value</item>
-		<item>Current Value</item>
+		<item>平均值</item>
+		<item>目前值</item>
 		<item>Battery % per Hour</item>
-		<item>No Calculation</item>
+		<item>不計算</item>
 	</string-array>
 	<string-array name="deviceStatesCurrent">
 	<!-- 		<item>Auto</item> -->
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Pulse</item>
+		<item>啟用</item>
+		<item>停用</item>
+		<item>暫停</item>
 	</string-array>
 	<string-array name="mobiledataStatesCurrent">
 	<!-- 		<item>Auto</item> -->
-		<item>2G Only</item>
-		<item>3G/2G</item>
-		<item>3G Only</item>
+		<item>只使用2G</item>
+		<item>3G/2G自動</item>
+		<item>只使用 3G</item>
 	</string-array>
 	<string name="log_msg_cpu_tuner_started">CPU Tuner 已啟動</string>
 	<string name="log_msg_cpu_tuner_stoped">CPU Tuner 已停止</string>
@@ -110,20 +110,20 @@
 	<string name="prefCatSwitchCpuSettings">在設定檔切換時的 CPU 設定</string>
 	<string name="prefEnableSwitchCpuSetting">在設定檔切換時使用特殊的 CPU 設定</string>
 	<string name="prefEnableSwitchCpuSettingOn">將會在設定檔切換時使用特殊的 CPU 設定</string>
-	<string name="prefEnableSwitchCpuSettingOff">The CPU settings from the profiles will be used on profile switch.</string>
-	<string name="prefSwitchCpuSetting">CPU setting on profile switch</string>
+	<string name="prefEnableSwitchCpuSettingOff">設定檔切換將使用在本設定檔中的CPU設定</string>
+	<string name="prefSwitchCpuSetting">設定檔切換的CPU設定</string>
 	<string name="prefSwitchCpuSettingLong">這些CPU設定將會在切換設定檔時套用，當重度降頻時可以加快設定檔切換(不建議降頻)。</string>
 	<string name="label_back">上一步</string>
 	<string name="label_forward">下一步</string>
 	<string name="label_home">回首頁</string>
-	<string name="prefCatEngine">Engine</string>
+	<string name="prefCatEngine">引擎</string>
 	<string name="prefCatHelper">Helper</string>
 	<string name="msg_config_loaded">已載入</string>
 	<string name="msg_config">配置</string>
 	<string name="all">全部</string>
 	<string name="labelNoDataForFilter">No data for this filter combination found.</string>
 	<string name="prefCatAdvStatistics">進階統計與紀錄</string>
-	<string name="prefCatExtention">Extension</string>
+	<string name="prefCatExtention">擴充套件</string>
 	<string name="prefEnableExtention">啟用擴充</string>
 	<string name="prefEnableSwitchLog">啟用設定檔切換紀錄</string>
 	<string name="prefCatStatistics">統計</string>
@@ -131,20 +131,20 @@
 	<string name="prefLogPulse">Log pulse to switch log</string>
 	<string name="prefLogPulseOn">Pulses get logged in the profie switch log</string>
 	<string name="prefLogPulseOff">Pulses do not get logged in the profie switch log</string>
-	<string name="msg_pulse_log_on">Pulse switched to on</string>
-	<string name="msg_pulse_log_off">Pulse switched to off</string>
-	<string name="msg_pulse_log_end">Stop pulsing</string>
+	<string name="msg_pulse_log_on">波動開關開啟</string>
+	<string name="msg_pulse_log_off">波動開關關閉</string>
+	<string name="msg_pulse_log_end">停止波動</string>
 	<string name="msg_capcheck_result_more_info">(點擊結果查看更多資訊。)</string>
-	<string name="menuMarkLog">Mark</string>
-	<string name="msgMarkLog">*** Mark ***</string>
+	<string name="menuMarkLog">標記</string>
+	<string name="msgMarkLog">*** 標記 ***</string>
 	<string name="menuClearLog">清除紀錄</string>
 	<string name="enabled">已啟用</string>
 	<string name="ac_power">使用外部電源</string>
 	<string name="battery">使用電池</string>
-	<string name="screenUnocked">Screen Unlocked</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenUnocked">螢幕解鎖</string>
+	<string name="screenLocked">螢幕鎖定</string>
 	<string name="screenOff">螢幕關閉</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenLocked">螢幕鎖定</string>
 	<string name="call_active">Call active</string>
 	<string name="battery_hot">電池過熱</string>
 	<string name="prefProfileSwitchLogSizeLong">需要保留最近多少小時的設定檔切換紀錄。設為-1以永遠紀錄。</string>
@@ -165,10 +165,10 @@
 	<string name="msg_unsaved_changes">尚有變更未儲存，如果離開你將遺失所有沒有儲存的變更。是否要儲存內容？</string>
 	<string name="msg_title_grant_root">授予 root 權限。</string>
 	<string name="msg_grant_root">你將被要求授予 CPU Tuner 超級用戶權限，請授予並勾選\"記住\"方塊。CPU Tuner 沒有這個權限將無法運作。</string>
-	<string name="labelLogTab">Log</string>
+	<string name="labelLogTab">記錄</string>
 	<string name="msg_no_profile_switch_log">找不到設定檔切換紀錄。</string>
-	<string name="menuItemInsertAsNew">Insert as new</string>
-	<string name="prefCatGUILong">Change display settings.</string>
+	<string name="menuItemInsertAsNew">插入為新的</string>
+	<string name="prefCatGUILong">更改顯示設置</string>
 	<string name="prefCatSystemLong">Change the way it works.</string>
 	<string name="prefBuyMeABeerLong">這能讓我高興一些。</string>
 	<string name="prefVariousLong">Informations about CPU Tuner.</string>
@@ -181,8 +181,8 @@
 	<string name="prefKeyProfilesLong">Change the way profiles, triggers and governors behave.</string>
 	<string name="prefServiceSwitchesLong">Change the way service switches (e.g. mobile, date, WIFI, or bluetooth) behave.</string>
 	<string name="prefCpuLong">Settings concerning the CPU.</string>
-	<string name="title_help_pages">Help pages</string>
-	<string name="msg_no_trigger_name">Please enter a trigger name.</string>
+	<string name="title_help_pages">說明</string>
+	<string name="msg_no_trigger_name">請輸入觸發器名稱。</string>
 	<string name="msg_triggername_exists">A trigger with the same name already exists! Choose
 		a new name.</string>
 	<string name="msg_triggerbatterylevel_exists">A trigger with the same battery level already
@@ -198,8 +198,8 @@
 	<string name="msg_config_name_exists">已有一組配置使用了這個名稱。</string>
 	<string name="overwrite">覆蓋</string>
 	<string name="msg_empty_configuration_name">配置名稱不得為空。</string>
-	<string name="label_frequency">Frequency</string>
-	<string name="label_time">Time</string>
+	<string name="label_frequency">頻率</string>
+	<string name="label_time">時間</string>
 	<string name="prefLegalServiceIcons">Service icons License</string>
 	<string name="prefLegalServiceIconsLong">License of the used service icons from cyanogenmod.
 		Thanks for the nice icons.</string>
@@ -234,7 +234,7 @@
 	<string name="name_buy_cookie">Buy a cookie for my kids.</string>
 	<string name="desc_buy_beer">This will make me happy.</string>
 	<string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more times to fix bugs (no promises made).</string>
+	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more time to fix bugs (no promises made).</string>
 	<string name="desc_buy_toy">This will keep my kids occupied for some time and
 		probable lets me implement a feature (no promises made).</string>
 	<string name="name_buy_toy">Buy my kids a new toy</string>
@@ -251,9 +251,9 @@
 		and let CPU Tuner handle further switches again?</string>
 	<string name="msg_cpu_tuner_not_running">CPU Tuner is not running</string>
 	<string-array name="prefAddToNotificationEntries">
-		<item>When running</item>
-		<item>Always</item>
-		<item>Never</item>
+		<item>執行時</item>
+		<item>總是</item>
+		<item>從不</item>
 	</string-array>
 	<string name="prefStatusbarAddToLong">Add to status bar and notification area.</string>
 	<string name="prefInitialPulseDelay">Initial Pulse Delay</string>
@@ -262,15 +262,15 @@
 	<string name="prefPowerStrongerThanScreenoff">On-Power is stronger than Screen-Lock profile</string>
 	<string name="prefPowerStrongerThanScreenoffOn">If checked, when power (AC or USB) is plugged-in and the screen is off, the On-Power profile will be chosen.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">If unchecked, when power (AC or USB) is plugged-in and the screen is off, the Screen-Lock profile will be chosen.</string>
-	<string name="title_choose_experiance_level">Choose your experience level</string>
+	<string name="title_choose_experiance_level">選擇您的專業等級</string>
 	<string name="msg_delete_autoload_configuration">Delete this autoload configuration?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode on WIFI Connection</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Choose network mode to apply if a WIFI network is connected.  If the network is disconnected, CPU Tuner goes back to previous.</string>
 	<string-array name="mobiledataOnWifiStatesEnties">
 		<item>leave unchanged</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>3G only</item>
+		<item>只使用2G</item>
+		<item>3G/2G自動</item>
+		<item>只使用 3G</item>
 	</string-array>
 	<string name="labelUseCpus_front">Use </string>
 	<string name="labelUseCpus_end">CPUs</string>
@@ -280,13 +280,13 @@
 	<string name="labelActiveCpus">Active CPUs:</string>
 	<string name="prefEnableCputuner">Enable CPU Tuner</string>
 	<string-array name="prefMulticoreEntries">
-		<item>Auto</item>
-		<item>Enable</item>
-		<item>Disable</item>
+		<item>自動</item>
+		<item>啟用</item>
+		<item>停用</item>
 	</string-array>
 	<string name="prefMulticoreLong">Choose if tuning should be applied to all cores</string>
 	<string name="prefConfigurationsLong">Backup and Restore (and more) ...</string>
-	<string name="prefCpu">CPU Settings</string>
+	<string name="prefCpu">CPU 設定</string>
 	<string name="prefChangelog">Show Changelog</string>
 	<string name="label_version">Version:</string>
 	<string name="prefLegalGnomeIcons">Main icon License</string>
@@ -335,8 +335,8 @@
 	<string name="titleManageConfigurations">Manage Configurations</string>
 	<string name="buAddConfiguration">Add current configuration</string>
 	<string name="menuReplaceWithCurrent">Replace with current</string>
-	<string name="menuLoad">Load</string>
-	<string name="delete">Delete</string>
+	<string name="menuLoad">載入</string>
+	<string name="delete">刪除</string>
 	<string name="msg_delete_configuration">Delete configuration \'&lt;xliff:g id="string"&gt;%s&lt;/xliff:g&gt;		\'?</string>
 	<string name="msg_replace_with_current">Replace configuration \'&lt;xliff:g id="string"&gt;%s&lt;/xliff:g&gt;		\' with the currently active?</string>
 	<string name="msg_load_configuration">Load configuration \'&lt;xliff:g id="string"&gt;%s&lt;/xliff:g&gt;		\' to be the active?</string>
@@ -348,7 +348,7 @@
 		grant CPU Tuner root access?</string>
 	<string name="msg_capcheck_found_some_issues">Found some issues… Some features might not work.</string>
 	<string name="msg_capcheck_no_issues">No issues found…</string>
-	<string name="and">and</string>
+	<string name="and">和</string>
 	<string name="msg_capcheck_work_but_cannot_set_frequency">work but cannot set frequency.\nThis still yields
 		quite good results.</string>
 	<string name="msg_premail_working">Some governors are mostly working.\nThe not working
@@ -359,8 +359,8 @@
 	<string name="labelCurrentFrequency">current</string>
 	<string name="prefScreenLegal">Legal stuff</string>
 	<string name="prefLegalOxigenIcons">Tab icon License</string>
-	<string name="prefLegalOxigenIconsLong">License of the used oxygen icons. Thanks for the
-		nice icons.</string>
+	<string name="prefLegalOxigenIconsLong">使用 Oxygen 圖示許可. 感謝您的
+漂亮的圖示。</string>
 	<string name="virtual_governor">Virtual Governor</string>
 	<string name="msg_cannot_load_virtual_governor">Cannot load Virtual Governor…</string>
 	<string name="labelStatisticsTab">Statistics</string>
@@ -368,10 +368,10 @@
 	<string name="titleVirtualGovernorEditor">Virtual Governor Editor</string>
 	<string name="msgDeleteVirtGovNotPossible">Cannot delete this Virtual Governor since it is
 		used in one or more profiles!</string>
-	<string name="labelName">Name:</string>
+	<string name="labelName">名稱：</string>
 	<string name="hintVirtualGovernorName">Virtual Governor Name</string>
-	<string name="prefCatGUI">User Interface</string>
-	<string name="prefCatDisplay">Display</string>
+	<string name="prefCatGUI">使用者介面</string>
+	<string name="prefCatDisplay">顯示</string>
 	<string name="labelPowersaveBias">Powersave bias:</string>
 	<string name="labelVirtualGovernor">Virtual Governor:</string>
 	<string name="prefUseVirtualGovernorsLong">Virtual Governor abstract the settings of governors
@@ -382,7 +382,7 @@
 		connected.</string>
 	<string name="prefPulseMobiledataOnWifiOff">Mobiledata will not be pulsed while the device is
 		connected to a WIFI lan.</string>
-	<string name="prefLanguage">Choose Language</string>
+	<string name="prefLanguage">選擇語言</string>
 	<string name="msg_up_threshhold_has_to_be_between_0_and_100">The up threshold is given in % and has to be
 		between 0 and 100.</string>
 	<string name="msg_down_threshhold_has_to_be_between_0_and_100">The down threshold is given in % and has to be
@@ -410,19 +410,19 @@
 		pulsed mode.</string>
 	<string name="labelPulseOn">Pulse is On</string>
 	<string name="labelPulseOff">Pulse is Off</string>
-	<string name="labelCurrentTab">Current</string>
-	<string name="labelTriggersTab">Triggers</string>
-	<string name="labelProfilesTab">Profiles</string>
-	<string name="labelHelpTab">Help</string>
-	<string name="labelSettingsTab">Settings</string>
-	<string name="labelPowerUserExplain">Full Control!</string>
-	<string name="labelPowerUser">Power User</string>
+	<string name="labelCurrentTab">目前</string>
+	<string name="labelTriggersTab">觸發器</string>
+	<string name="labelProfilesTab">設定檔</string>
+	<string name="labelHelpTab">說明</string>
+	<string name="labelSettingsTab">設定</string>
+	<string name="labelPowerUserExplain">完整控制！</string>
+	<string name="labelPowerUser">進階使用者</string>
 	<string name="labelNormalExplain">More advanced configuration options, still
 		underclocking only possible to a point.</string>
 	<string name="labelNormal">Normal</string>
 	<string name="labelBeginnerExplain">Easy to configure and all setting should be safe to
 		use… Underclocking only possible to a point.</string>
-	<string name="labelBeginner">Beginner</string>
+	<string name="labelBeginner">初學者</string>
 	<string name="labelBatteryHot">Battery Hot:</string>
 	<string name="labelCallInProgress">Call-In Progress:</string>
 	<string name="labelOnPower">On Power:</string>
@@ -439,7 +439,7 @@
 	<string name="labelBluetooth">Bluetooth</string>
 	<string name="labelWifi">WIFI</string>
 	<string name="labelGPS">GPS</string>
-	<string name="labelBackgroundSync">Background Sync</string>
+	<string name="labelBackgroundSync">背景同步</string>
 	<string name="labelMobileDataConn">Mobiledata Con.</string>
 	<string name="labelMobileData32G">Mobiledata 2G/3G</string>
 	<string name="labelServices">Services:</string>
@@ -450,10 +450,10 @@
 	<string name="labelBuFindFeq">Find frequencies (beta only)</string>
 	<string name="msgAckAndHide">Acknowledge issues and hide from main screen.</string>
 	<string name="msgNoEmail">Please do not write empty e-mails…</string>
-	<string name="labelResult">Result</string>
-	<string name="labelCheck">Check</string>
+	<string name="labelResult">結果</string>
+	<string name="labelCheck">檢查</string>
 	<string name="labelAppVersion">CPU Tuner version:</string>
-	<string name="msgNoIssuesFound">No issues found.</string>
+	<string name="msgNoIssuesFound">沒有發現問題。</string>
 	<string name="prefVritualGovernorsListLong">Virtual Governors are preconfigured cpu governors.</string>
 	<string name="virtualGovernorsList">Virtual Governors</string>
 	<string name="prefBatteryHotTempMsg">Set temperature to trigger \"Battery Hot\" profile.&lt;br /&gt;		Integer value in °C.</string>
@@ -471,14 +471,14 @@
 	<string name="prefUserLevel">Experience Level</string>
 	<string name="prefVarious">Various</string>
 	<string name="notAvailable">not available</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
-	<string name="save">Save</string>
-	<string name="cancel">Cancel</string>
+	<string name="yes">是</string>
+	<string name="no">否</string>
+	<string name="save">儲存</string>
+	<string name="cancel">取消</string>
 	<string name="prefMinSensibleFrequencyLong">Minimum displayed frequency if not in Power User
 		mode.</string>
 	<string name="prefMinSensibleFrequency">Minimum Displayed Frequency</string>
-	<string name="prefKeyProfiles">Profiles and Triggers</string>
+	<string name="prefKeyProfiles">設定檔和觸發器</string>
 	<string name="prefBuyMeABeer">Buy me a beer.</string>
 	<string name="prefAllowManualServiceChangesOn">If checked, do not change the state of a service if it was modified as long as no trigger changed took place.</string>
 	<string name="prefAllowManualServiceChangesOff">If uncheck, do change the state of a service regardless if it was modified manually.</string>
@@ -496,9 +496,9 @@
 	<string name="prefKeyCalcPowerUsageLong">May consume battery.</string>
 	<string name="prefKeyCalcPowerUsage">Calculate Power Usage</string>
 	<string name="menuItemClearPowerCurrent">Clear Power Usage</string>
-	<string name="menuItemInsert">Insert</string>
-	<string name="menuItemEdit">Edit</string>
-	<string name="menuItemDelete">Delete</string>
+	<string name="menuItemInsert">插入</string>
+	<string name="menuItemEdit">編輯</string>
+	<string name="menuItemDelete">刪除</string>
 	<string name="prefEnableBetaMessage">Enable some features which are in beta state.</string>
 	<string name="prefEnableBeta">Enable Beta Features</string>
 	<string name="prefCapabilitiesLong">Check if the devices supports API needed or if
@@ -511,7 +511,7 @@
 		access to system settings as gps.</string>
 	<string name="prefSystemAppOn">Is system app, it can change GPS settings</string>
 	<string name="prefSystemApp">Install as System App</string>
-	<string name="prefToastNotifications">Toast Notifications</string>
+	<string name="prefToastNotifications">顯示通知</string>
 	<string name="prefStatusbarNotifications">Status Bar Notifications</string>
 	<string name="prefCatNotifications">Notifications</string>
 	<string name="prefCatSystem">Backend</string>
@@ -527,18 +527,18 @@
 	<string name="prefCustomPowerProfiles">Custom Power Profiles</string>
 	<string name="labelCpuFreq">Frequencies:</string>
 	<string name="labelCpuGov">Governor:</string>
-	<string name="labelCurrent">Current</string>
-	<string name="labelCurrentTrigger">Trigger:</string>
-	<string name="labelCurrentProfile">Profile:</string>
-	<string name="labelCurrentBattery">Battery:</string>
-	<string name="labelAcPower">On Power:</string>
-	<string name="labelMax">Max:</string>
-	<string name="labelMin">Min:</string>
+	<string name="labelCurrent">目前</string>
+	<string name="labelCurrentTrigger">觸發器:</string>
+	<string name="labelCurrentProfile">設定檔:</string>
+	<string name="labelCurrentBattery">電池:</string>
+	<string name="labelAcPower">使用外部電源</string>
+	<string name="labelMax">最大:</string>
+	<string name="labelMin">最小:</string>
 	<string name="app_name">CPU Tuner</string>
 	<string name="labelPowerProfile">Profile: </string>
 	<string name="spinnerPromptGov">Select governor</string>
 	<string name="buApplyCurProfile">Apply to current CPU profile</string>
-	<string name="notEnabled">not enabled</string>
+	<string name="notEnabled">無啟用</string>
 	<string name="triggersExplain">Triggers define depending on a battery level, what
 		profiles should be applied. For different stated (i.e. the device is
 		on battery, on power or the display is locked) different profiles can
@@ -559,7 +559,7 @@
 	<string name="label2g">2G</string>
 	<string name="label3g">3G</string>
 	<string name="label3g2gPrev">2/3G?</string>
-	<string name="labelSyncOn">sync</string>
+	<string name="labelSyncOn">同步</string>
 	<string name="labelSyncOff">&lt;strike&gt;sync&lt;/strike&gt;</string>
 	<string name="labelSyncPrev">sync?</string>
 	<string name="labelWifiOn">WIFI</string>
@@ -568,44 +568,44 @@
 	<string name="labelGpsOn">GPS</string>
 	<string name="labelGpsOff">&lt;strike&gt;GPS&lt;/strike&gt;</string>
 	<string name="labelGpsPrev">GPS?</string>
-	<string name="labelBluetoothOn">BT</string>
+	<string name="labelBluetoothOn">藍芽</string>
 	<string name="labelBluetoothOff">&lt;strike&gt;BT&lt;/strike&gt;</string>
-	<string name="labelBluetoothPrev">BT?</string>
+	<string name="labelBluetoothPrev">藍芽?</string>
 	<string name="labelMobiledataOn">MD</string>
 	<string name="labelMobiledataOff">&lt;strike&gt;MD&lt;/strike&gt;</string>
 	<string name="labelMobiledataPrev">MD?</string>
 	<string-array name="deviceStates">
 		<item>leave unchanged</item>
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Back to previous</item>
-		<item>Pulse</item>
+		<item>啟用</item>
+		<item>停用</item>
+		<item>回到之前設定</item>
+		<item>暫停</item>
 	</string-array>
 	<string-array name="deviceStatesBeta">
-		<item>leave unchanged</item>
-		<item>Enable</item>
-		<item>Disable</item>
-		<item>Back to previous</item>
-		<item>Pulse</item>
+		<item>不做變動</item>
+		<item>啟用</item>
+		<item>停用</item>
+		<item>回到之前設定</item>
+		<item>暫停</item>
 	</string-array>
 	<string-array name="mobiledataStates">
-		<item>leave unchanged</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>Back to previous</item>
-		<item>3G only</item>
+		<item>不做變動</item>
+		<item>只使用2G</item>
+		<item>3G/2G自動</item>
+		<item>回到之前設定</item>
+		<item>只使用 3G</item>
 	</string-array>
 	<string-array name="mobiledataStatesBeta">
-		<item>leave unchanged</item>
-		<item>2G only</item>
-		<item>3G/2G</item>
-		<item>Back to previous</item>
-		<item>3G only</item>
+		<item>不做變動</item>
+		<item>只使用2G</item>
+		<item>3G/2G自動</item>
+		<item>回到之前設定</item>
+		<item>只使用 3G</item>
 	</string-array>
 	<string-array name="prefUserLevelEntries">
-		<item><b>Beginner</b>			: CPU Tuner tries to be clever.</item>
-		<item><b>Normal</b>			: CPU Tuner supports you.</item>
-		<item><b>Power user</b>			: You\'re the boss!</item>
+		<item><b>初級使用者</b>: CPU Tuner 試著更聰明些</item>
+		<item><b>一般使用者</b>: CPU Tuner協助您.</item>
+		<item><b>進階使用者</b>: 您是老闆!</item>
 	</string-array>
 	<string name="cbEnableVirtualGovernors">Enable Virtual Governors</string>
 	<string name="userExperianceLevelExplain">CPU Tuner can operate on different experience
@@ -619,73 +619,71 @@
 	<string name="msg_not_enough_frequencies_found">Not enough frequencies found</string>
 	<string name="msg_no_governors_found">No governors found</string>
 	<string name="msg_not_checked">not checked</string>
-	<string name="msg_success">success</string>
-	<string name="msg_failure">failure</string>
+	<string name="msg_success">成功</string>
+	<string name="msg_failure">失敗</string>
 	<string name="msg_does_not_apply">does not apply</string>
-	<string name="msg_cannot_check">cannot check</string>
+	<string name="msg_cannot_check">無法查驗</string>
 	<string name="explainNotAvailable">No explanation available for this governor…</string>
 	<string name="title_reset_to_default">Reset to default</string>
 	<string name="msg_reset_to_default">Reseting to default will discard all your
 		modifications on triggers and profiles, including newly created.</string>
 	<string name="msg_loading_default_profiles">Loading default profiles</string>
-	<string name="profilename_performance">Performance</string>
-	<string name="profilename_good">Good</string>
-	<string name="profilename_normal">Normal</string>
-	<string name="profilename_screen_off">Screen off</string>
+	<string name="profilename_performance">效能</string>
+	<string name="profilename_good">好</string>
+	<string name="profilename_normal">正常</string>
+	<string name="profilename_screen_off">螢幕關閉</string>
 	<string name="profilename_extreme_powersave">Extreme powersave</string>
-	<string name="triggername_battery_full">Battery full</string>
-	<string name="triggername_battery_used">Battery used</string>
+	<string name="triggername_battery_full">電池充飽</string>
+	<string name="triggername_battery_used">電池使用中</string>
 	<string name="triggername_battery_low">Battery low</string>
-	<string name="triggername_battery_empty">Battery empty</string>
-	<string name="triggername_battery_critical">Battery critical</string>
-	<string name="virtgovname_full_speed">Full speed</string>
-	<string name="virtgovname_normal">Normal</string>
-	<string name="virtgovname_save_battery">Save Battery</string>
-	<string name="virtgovname_extrem_save_battery">Extreme Save Battery</string>
-	<string name="title_reboot">Reboot</string>
+	<string name="triggername_battery_empty">電池已用完</string>
+	<string name="triggername_battery_critical">電池嚴重不足</string>
+	<string name="virtgovname_full_speed">全速</string>
+	<string name="virtgovname_normal">正常</string>
+	<string name="virtgovname_save_battery">省電</string>
+	<string name="virtgovname_extrem_save_battery">超省電</string>
+	<string name="title_reboot">重啟</string>
 	<string name="msg_reboot">The automatic (save) reboot failed. Please do a
 		manual reboot by long pressing the power button, otherwise CPU Tuner
 		will not work.</string>
-	<string name="bu_system_reboot">System reboot (not recommended)</string>
-	<string name="title_uninstall_sys">Uninstall CPU Tuner as system app</string>
-	<string name="bu_yes_uninstall_sys">Uninstall and reboot</string>
+	<string name="bu_system_reboot">系統重啟 (不建議)</string>
+	<string name="title_uninstall_sys">將CPU Tuner由系統APP中移除</string>
+	<string name="bu_yes_uninstall_sys">反安裝並重啟</string>
 	<string name="msg_uninstall_sys">Requires a reboot, by pressing \'Uninstall and
 		reboot\' the device will reboot.</string>
 	<string name="msg_install_sys">Requires a reboot, by pressing \'install and
 		reboot\' the device will reboot.</string>
-	<string name="bu_yes_title_install_sys">Install and reboot</string>
-	<string name="title_install_sys">Install CPU Tuner as system app</string>
+	<string name="bu_yes_title_install_sys">安裝並重啟</string>
+	<string name="title_install_sys">將CPU Tuner安裝為系統APP</string>
 	<string name="msg_has_issues">Has issues</string>
-	<string name="msg_not_working">Not working</string>
-	<string name="msg_working">Working</string>
+	<string name="msg_not_working">無效</string>
+	<string name="msg_working">有效</string>
 	<string name="msg_premail_no_issues">No issues have been found…\nIf you are pleased
 		and want to give feedback:\nComments and good ratings on the market
 		are highly appreciated…</string>
 	<string name="msg_premail_no_root">CPU Tuner does not have root access!\nCPU Tuner
 		cannot do anything!</string>
-	<string name="msg_premail_issues">You configuration has issues…\nThis is most
-		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
-		new kernel\n2) Flash a new ROM</string>
-	<string name="msg_premail_issues_cm">You configuration has issues…\nThis is most
-		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
-		new kernel\n2) Flash a new ROM\nYou might want to have a look at
-		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
-	<string name="title_profile_editor">Profile Editor </string>
-	<string name="title_profiles">Profiles</string>
-	<string name="title_trigger_editor">Trigger Editor </string>
-	<string name="msg_delete_selected_item">Delete selected item?</string>
+	<string name="msg_premail_issues">您的設定有問題...\n這很可能是因為系統內核
+或ROM的關係. 您有兩個可能的方式處理:\n1) 更新系統內核\n
+2) 換個新的 ROM\n</string>
+	<string name="msg_premail_issues_cm">您的設定有問題...\n這很可能是因為系統內核或ROM的關係. 您有兩個可能的方式處理:\n1) 更新系統內核\n
+2) 換個新ROM\n可以到http://wiki.cyanogenmod.com看看有三方的ROM可使用您的手機.</string>
+	<string name="title_profile_editor">設定編輯器</string>
+	<string name="title_profiles">設定檔</string>
+	<string name="title_trigger_editor">觸發編輯器</string>
+	<string name="msg_delete_selected_item">刪除選擇的項目?</string>
 	<string name="msg_clear_power_consumption_of_named_trigger">Clear power consumption of "%s" trigger?</string>
 	<string name="msg_setting_cpu_max_freq">Setting CPU max frequency to %d Hz</string>
 	<string name="setting_cpu_min_freq">Setting CPU min frequency to %d Hz</string>
 	<string name="msg_setting_govenor">Setting governor to %s</string>
 	<string name="msg_found_some_issues">Found some issues… Some features might not work.
 		(Tap for more information.)</string>
-	<string name="label_hot">hot: </string>
-	<string name="label_avgerage">avg: </string>
-	<string name="label_tresh_up">up: </string>
-	<string name="label_tresh_down">down: </string>
+	<string name="label_hot">熱:</string>
+	<string name="label_avgerage">平均:</string>
+	<string name="label_tresh_up">上:</string>
+	<string name="label_tresh_down">下:</string>
 	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
-	<string name="prefUseScriptCache">"Use scripts "</string>
-	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
-	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
+	<string name="prefUseScriptCache">\"使用腳本\"</string>
+	<string name="prefUseScriptCacheOn">使用shell腳本以快取CPU切換</string>
+	<string name="prefUseScriptCacheOff">在內部快取 CPU 切換命令</string>
 </resources>

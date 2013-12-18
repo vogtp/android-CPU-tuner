@@ -236,7 +236,7 @@
 	<string name="name_buy_cookie">Kupi keksić mojoj djeci.</string>
 	<string name="desc_buy_beer">To će me usrećiti.</string>
 	<string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more times to fix bugs (no promises made).</string>
+	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more time to fix bugs (no promises made).</string>
 	<string name="desc_buy_toy">This will keep my kids occupied for some time and
 		probable lets me implement a feature (no promises made).</string>
 	<string name="name_buy_toy">Buy my kids a new toy</string>
@@ -662,10 +662,10 @@
 	<string name="msg_premail_no_issues">Problemi nisu pronađeni…\nAko ste zadovoljni i želite ostaviti komentar:\nKomentari i dobre ocjene na Playu su dobrodošle…</string>
 	<string name="msg_premail_no_root">CPU Tuner nema root pristup!\nCPU Tuner
 		ne može ništa napraviti!</string>
-	<string name="msg_premail_issues">You configuration has issues…\nThis is most
+	<string name="msg_premail_issues">Your configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM</string>
-	<string name="msg_premail_issues_cm">You configuration has issues…\nThis is most
+	<string name="msg_premail_issues_cm">Your configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM\nYou might want to have a look at
 		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
@@ -685,6 +685,6 @@
 	<string name="label_tresh_down">dolje: </string>
 	<string name="msg_not_starting_after_reboot">Ne uključujem CPU Tuner jer se uređaj često ponovno pokreće</string>
 	<string name="prefUseScriptCache">*Koristi skripte*</string>
-	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
+	<string name="prefUseScriptCacheOn">Koristi skripte jezgre za učitavanje CPU prebacivanja</string>
 	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>
 </resources>

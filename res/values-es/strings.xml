@@ -36,7 +36,7 @@
 	<string-array name="prefCalcPowerUsageEntriesBeta">
 		<item>Valor medio</item>
 		<item>Valor actual</item>
-		<item>Ningún calculo</item>
+		<item>% batería por hora</item>
 		<item>Ningún calculo</item>
 	</string-array>
 	<string-array name="deviceStatesCurrent">
@@ -235,7 +235,7 @@
 	<string name="name_buy_cookie">Compre una galleta a mis hijos</string>
 	<string name="desc_buy_beer">Esto me hará feliz.</string>
 	<string name="desc_buy_whiskey">Esto me hará más feliz aún (¡Y menos borracho!)</string>
-	<string name="desc_buy_cookie">Esto mantendrá a mis hijos ocupados y tendré más tiempo para resolver errores(no prometo nada).</string>
+	<string name="desc_buy_cookie">Esto mantendrá a mis hijos ocupados y me dará más tiempo para corregir los errores (no prometo nada)</string>
 	<string name="desc_buy_toy">Esto mantendrá a mis hijos ocupados durante un tiempo y
 		probablemente me deje implementar mejoras (no prometo nada).</string>
 	<string name="name_buy_toy">Compre un juguete para mis hijos</string>
@@ -630,13 +630,10 @@ ser utilizados... El reducir la frecuencia solo es posible hasta cierto punto.</
 		en el market…</string>
 	<string name="msg_premail_no_root">¡CPU Tuner no tiene acceso root!\n¡CPU Tuner
 		no puede hacer nada!</string>
-	<string name="msg_premail_issues">Su configuración tiene problemas…\nEsto es, normalmente,
-		por el kernel/ROM. Tiene dos posibilidades:\n1) Flashear un nuevo
-		kernel\n2) Flasear una nueva ROM</string>
-	<string name="msg_premail_issues_cm">Su configuración tiene problemas…\nEsto es, normalmente, 
-		por el kernel/ROM. Tiene dos posibilidades:\n1) Flashear un nuevo
-		kernel\n2) Flasear una nueva ROM\nQuizás desee echar un vistazo a
-		http://wiki.cyanogenmod.com hacen muy buenas ROMS.</string>
+	<string name="msg_premail_issues">Your configuration has issues…\nThis is most
+		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
+		new kernel\n2) Flash a new ROM</string>
+	<string name="msg_premail_issues_cm">Su configuración tiene problemas…\nEsto es, probablemente, por el kernel/ROM. Tiene dos posibilidades:\n1) Flashear un nuevo kernel\n2) Flasear una nueva ROM\n Podría serte interesante echar un ojo a http://wiki.cyanogenmod.com hacen muy buenas ROMs</string>
 	<string name="title_profile_editor">Editor de perfil </string>
 	<string name="title_profiles">Perfiles</string>
 	<string name="title_trigger_editor">Editor de desparador </string>

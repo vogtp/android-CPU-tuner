@@ -102,7 +102,7 @@
 	<string name="configuration_title_simplePowerful">Einfach &amp; mächtig</string>
 	<string name="configuration_description_simplePowerful">Diese Konfiguration wird von D. in seinem Blog (http://linux-tipps.blogspot.com/2010/12/make-your-android-power-efficient-in.html) beschrieben. Es werden keine Dienste umgeschalten.</string>
 	<string name="configuration_title_extreme">Extrem</string>
-	<string name="configuration_description_extreme">Ähnlich wie \'Ausgefeilt\', aber es werden wesentlich rigorosere Einstellungen verwendet. Dadurch wird mehr Batteries gespahrt, aber die Geschwindigkeit des Gerätes wird schlecht.</string>
+	<string name="configuration_description_extreme">Ähnlich wie \'Ausgefeilt\', aber es werden wesentlich strengere Einstellungen verwendet. Dadurch wird mehr Batterie gespart aber die Leistung des Gerätes beeinträchtigt.</string>
 	<string name="auto">Auto</string>
 	<string name="msg_manual_profile">Manuell</string>
 	<string name="labelMessage">Nachricht:</string>
@@ -227,8 +227,7 @@
 	<string name="name_buy_cookie">Kauf meinen Kindern einen Keks</string>
 	<string name="desc_buy_beer">Dies macht mich glücklich.</string>
 	<string name="desc_buy_whiskey">Dies macht mich glücklicher. (Und weniger betrunken!)</string>
-	<string name="desc_buy_cookie">Dies wird meine Kinder einige Zeit beschäftigen und hilft mir vielleicht
-	  einen Fehler zu beheben. (Ich kann aber nichts versprechen....)</string>
+	<string name="desc_buy_cookie">Dies wird meine Kinder einige Zeit beschäftigen und hilft mir vielleicht einen Fehler zu beheben. (Ich kann aber nichts versprechen ...)</string>
 	<string name="desc_buy_toy">Dies wird mein Kinder eine längere Zeit beschäftigen und hilft mir vielleicht
 	  etwas Neues zu implementieren. (Ich kann aber nichts versprechen....)</string>
 	<string name="name_buy_toy">Kauf meinen Kindern ein Spiel.</string>
@@ -618,11 +617,13 @@ Bist Du zufrieden und möchtest ein Feedback geben:\n
 Kommentare und gute Bewertungen auf dem Markt werden geschätzt…</string>
 	<string name="msg_premail_no_root">CPU Tuner verfügt nicht über Root-Zugriff!\n
 Die meisten Funktionen von CPU Tuner gehen so nicht!</string>
-	<string name="msg_premail_issues">Deine Konfiguration hat Probleme …\n
-Dies liegt wahrscheinlich am Kernels / des ROMs. Du hast zwei Möglichkeiten:\n\n
-1) Flashen eines neuen Kernels\n\n
-2) Flashen eines neuen ROMs.\n</string>
-	<string name="msg_premail_issues_cm">Vielleicht schaust Du Dir http://wiki.cyanogenmod.com an, sie machen sehr gute ROMs</string>
+	<string name="msg_premail_issues">Die Konfiguration ist fehlerhaft. Dies liegt wahrscheinlich am verwendeten Kernel/ROM. Es gibt 2 Möglichkeiten:
+1) Flashen eines neuen/anderen Kernels
+2) Flashen eines neuen/anderen ROMs</string>
+	<string name="msg_premail_issues_cm">Die Konfiguration ist fehlerhaft. Dies liegt wahrscheinlich am verwendeten Kernel/ROM. Es gibt 2 Möglichkeiten:
+1) Flashen eines neuen/anderen Kernels
+2) Flashen eines neuen/anderen ROMs
+http://wiki.cyanogenmod.com bietet eventuell geeignete ROMs</string>
 	<string name="title_profile_editor">Profil Bearbeitung </string>
 	<string name="title_profiles">Profile</string>
 	<string name="title_trigger_editor">Auslösewerte bearbeiten </string>

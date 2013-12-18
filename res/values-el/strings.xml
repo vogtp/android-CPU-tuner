@@ -238,7 +238,7 @@
 	<string name="name_buy_cookie">Buy a cookie for my kids.</string>
 	<string name="desc_buy_beer">This will make me happy.</string>
 	<string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more times to fix bugs (no promises made).</string>
+	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more time to fix bugs (no promises made).</string>
 	<string name="desc_buy_toy">This will keep my kids occupied for some time and
 		probable lets me implement a feature (no promises made).</string>
 	<string name="name_buy_toy">Buy my kids a new toy</string>
@@ -634,15 +634,13 @@
 Σας παρακαλούμε να μην στείλετε e-mail αν δεν πιστεύετε ότι υπάρχει κάτι λάθος με τον έλεγχο ή την εφαρμογή.
 
 Παρακαλώ μη γράφετε άδεια e-mails!</string>
-	<string name="msg_premail_issues">διαμόρφωση σας έχει θέματα…
-Κατά πάσα πιθανότητα οφείλονται στο kernel/ROM. Έχετε 2 επιλογές:
-
-1) Βάλτε άλλον kernel
-
-2) Βάλτε άλλη ROM</string>
-	<string name="msg_premail_issues_cm">πορεί να θέλετε να ρίξετε μια ματιά στο http://wiki.cyanogenmod.com έχουν πολύ καλές ROM
-
-Σας παρακαλούμε να μην στείλετε e-mail αν δεν πιστεύετε ότι υπάρχει κάτι λάθος με τον έλεγχο ή την εφαρμογή.</string>
+	<string name="msg_premail_issues">Your configuration has issues…\nThis is most
+		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
+		new kernel\n2) Flash a new ROM</string>
+	<string name="msg_premail_issues_cm">Your configuration has issues…\nThis is most
+		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
+		new kernel\n2) Flash a new ROM\nYou might want to have a look at
+		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
 	<string name="title_profile_editor">Συντάκτης προφίλ </string>
 	<string name="title_profiles">Προφίλ</string>
 	<string name="title_trigger_editor">Συντάκτης εναυσμάτων </string>

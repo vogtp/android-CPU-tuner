@@ -219,7 +219,7 @@
 	<string name="name_buy_cookie">Offrez des cookies à mes enfants.</string>
 	<string name="desc_buy_beer">J\'en serai ravi.</string>
 	<string name="desc_buy_whiskey">J\'en serai encore plus ravi.</string>
-	<string name="desc_buy_cookie">Ca occupera mes enfants et j\'aurai plus de temps pour corriger les bogues (ce n\'est pas une promesse).</string>
+	<string name="desc_buy_cookie">Cela gardera mes enfants occupés et me permettra éventuellement d\'avoir un peu plus de temps pour corriger des bugs (ce n\'est pas une promesse).</string>
 	<string name="desc_buy_toy">Cela gardera mes enfants occupés pour un certains temps et probablement me permettra d\'implémenter une fonctionnalité (ce n\'est pas une promesse).</string>
 	<string name="name_buy_toy">Offrez un nouveau jouet à mes enfants.</string>
 	<string name="prefextentionsLong">Ajouter des nouvelles fonctionnalités à CPU Tuner.</string>
@@ -266,7 +266,7 @@
 		<item>Activé</item>
 		<item>Désactivé</item>
 	</string-array>
-	<string name="prefMulticoreLong">Choisir si les réglages doivent s\'appliquer à tous les coeurs</string>
+	<string name="prefMulticoreLong">Choisir si les réglages doivent s\'appliquer à tous les cœurs.</string>
 	<string name="prefConfigurationsLong">Restaurer et sauvergarder (et plus)...</string>
 	<string name="prefCpu">Paramètres CPU</string>
 	<string name="prefChangelog">Afficher l\'historique des changements</string>
@@ -597,13 +597,9 @@ Si vous êtes satisfait et pouvez laisser une évaluation.
 Les commentaires et les bonnes notes sur le market sont très appréciés...</string>
 	<string name="msg_premail_no_root">CPU Tuner n\'a pas l\'accès root!
 CPU Tuner ne peut rien faire!</string>
-	<string name="msg_premail_issues">Votre configuration a des problèmes …
-Ceci est probablement dû au noyau / ROM. Vous avez deux possibilités:
-
-1\) Installer un nouveau noyau
-
-2\) Installer une nouvelle ROM</string>
-	<string name="msg_premail_issues_cm">Votre configuration a des problèmes.\nCeci est probablement dû au noyau / ROM.Vous avez deux choix:\n1)Flasher un autre kernel Linux\n2) Flasher une autre ROM\nVous pouvez jeter un oeil à http://wiki.cyanogenmod.com, ils font des ROMs pas mal.</string>
+	<string name="msg_premail_issues">Votre configuration a des problèmes … Ceci est probablement dû au noyau contenu dans la ROM. Vous avez deux possibilités: 1) Installer un nouveau noyau\n2) Installer une nouvelle ROM.\n</string>
+	<string name="msg_premail_issues_cm">Votre configuration a des problèmes … Ceci est probablement dû au noyau contenu dans la ROM. Vous avez deux possibilités: 1) Installer un nouveau noyau\n2) Installer une nouvelle ROM.\n Vous pouvez jeter un coup d’œil ici: 
+http://wiki.cyanogenmod.com, il font des ROMs sympas.</string>
 	<string name="title_profile_editor">Éditeur de profil </string>
 	<string name="title_profiles">Profils</string>
 	<string name="title_trigger_editor">Éditeur des déclencheurs </string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="prefAuthorsSettings">Use the authors settings</string>
+	<string name="prefAuthorsSettings">Gebruik de schrijver\'s instellingen</string>
 	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
 	<string name="mse_authors_settings_loaded">Authors settings loaded!</string>
 	<string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
@@ -238,7 +238,7 @@
 	<string name="name_buy_cookie">Buy a cookie for my kids.</string>
 	<string name="desc_buy_beer">This will make me happy.</string>
 	<string name="desc_buy_whiskey">This will make me even happier. (And less drunk!)</string>
-	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more times to fix bugs (no promises made).</string>
+	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more time to fix bugs (no promises made).</string>
 	<string name="desc_buy_toy">This will keep my kids occupied for some time and
 		probable lets me implement a feature (no promises made).</string>
 	<string name="name_buy_toy">Buy my kids a new toy</string>
@@ -667,10 +667,10 @@
 		are highly appreciated…</string>
 	<string name="msg_premail_no_root">CPU Tuner does not have root access!\nCPU Tuner
 		cannot do anything!</string>
-	<string name="msg_premail_issues">You configuration has issues…\nThis is most
+	<string name="msg_premail_issues">Your configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM</string>
-	<string name="msg_premail_issues_cm">You configuration has issues…\nThis is most
+	<string name="msg_premail_issues_cm">Your configuration has issues…\nThis is most
 		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
 		new kernel\n2) Flash a new ROM\nYou might want to have a look at
 		http://wiki.cyanogenmod.com they do very nice ROMS.</string>

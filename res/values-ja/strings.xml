@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="prefAuthorsSettings">Use the authors settings</string>
+	<string name="prefAuthorsSettings">製作者の設定を使う</string>
 	<string name="prefAuthorsSettingsLong">Use the settings that the authors perfers.  This might yield behaviour which is not expected or enable stuff that does not quite work on your device.  It does not reset all values, but changes only a few settings to my inoffical default. Use with caution…!</string>
 	<string name="mse_authors_settings_loaded">Authors settings loaded!</string>
 	<string name="dia_title_switch_off_cpus">Switch off CPUs?</string>
 	<string name="dia_msg_switch_off_cpus">Switching off CPUs is know to cause problems with some kernels.  Doing this might save battery but can crash your device.</string>
 	<string name="dia_yes_switch_off_cpus">Switch off CPUs</string>
 	<string name="dia_no_switch_off_cpus">Be safe</string>
-	<string name="prefRunSwitchInBackground">Background profile switch</string>
+	<string name="prefRunSwitchInBackground">バックグラウンドプロファイル転換</string>
 	<string name="prefRunSwitchInBackgroundOn">Profile switches are done in a background thread.  This may delay the switch a litte bit, but is the android way to do it.</string>
 	<string name="prefRunSwitchInBackgroundOff">Profile switches are done in the foreground thread.  This may speed up the switches, but can lead to cpu tuner being not responding.</string>
-	<string name="prefWidgetShowLabels">Show Labels</string>
+	<string name="prefWidgetShowLabels">ラベル表示</string>
 	<string name="prefUnitSystem">Unit System</string>
 	<string name="prefUnitSystemLong">Display the temperature in °C, °F or K.</string>
 	<string name="tvCpuFreqBeginnerText">Min and max CPU frequencies are disables for beginner users, since changing the it does not improve battery live in normal conditions. Change you experience level to access this feature.</string>
@@ -219,7 +219,7 @@
 	<string name="name_buy_cookie">子供にクッキーを買って下さい</string>
 	<string name="desc_buy_beer">作者が幸せな気分になります。</string>
 	<string name="desc_buy_whiskey">作者がもっと幸せな気分になります（ちょっと酔っ払います）。</string>
-	<string name="desc_buy_cookie">作者の子供たちを夢中させバグ修正が期待できます（約束出来ませんが）</string>
+	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more time to fix bugs (no promises made).</string>
 	<string name="desc_buy_toy">作者の子供たちを幾分夢中にさせ機能追加が期待出来ます（約束出来ませんが）</string>
 	<string name="name_buy_toy">子供に玩具を買って下さい</string>
 	<string name="prefextentionsLong">CPU tunerに新機能を追加</string>
@@ -591,8 +591,13 @@
 	<string name="msg_working">動作中</string>
 	<string name="msg_premail_no_issues">問題が見つかりません。\nもし気に入りフィードバックを返す場合は、\nマーケットにコメントと高い評価をつけて下さい。</string>
 	<string name="msg_premail_no_root">CPU tuner rootへのアクセス権がありません\nCPU tuner は何も出来ません</string>
-	<string name="msg_premail_issues">設定に問題があります\nほとんどの場合カーネル/ROMに問題があります。2つの可能性があります:\n1)新しいカーネルをフラッシュ\n2)新しいROMをフラッシュ</string>
-	<string name="msg_premail_issues_cm">設定に問題があります\nほとんどの場合カーネル/ROMに問題があります。2つの可能性があります:\n1)新しいカーネルをフラッシュ\n2)新しいROMをフラッシュ\n新しいROMはhttp://wiki.cyanogenmod.comを確認して下さい。</string>
+	<string name="msg_premail_issues">Your configuration has issues…\nThis is most
+		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
+		new kernel\n2) Flash a new ROM</string>
+	<string name="msg_premail_issues_cm">Your configuration has issues…\nThis is most
+		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
+		new kernel\n2) Flash a new ROM\nYou might want to have a look at
+		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
 	<string name="title_profile_editor">プロファイルエディタ</string>
 	<string name="title_profiles">プロファイル</string>
 	<string name="title_trigger_editor">トリガエディタ</string>

@@ -42,7 +42,5 @@ CPU 튜너가 켜질때 충돌한다면, 삭제후 재설치해 보세요.
 
 </string>
 
-<string name="marketPromotionText">
-CPU tuner tries to save as much battery power as possible.
-</string>
+<string name="marketPromotionText">CPU 튜너가 최대한 배터리를 절약하려 합니다.</string>
 </resources>

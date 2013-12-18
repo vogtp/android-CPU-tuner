@@ -123,7 +123,7 @@
 	<string name="all">Всё</string>
 	<string name="labelNoDataForFilter">Не найдено данных для этой комбинации фильтров.</string>
 	<string name="prefCatAdvStatistics">Расширенные статистики и ведение логов</string>
-	<string name="prefCatExtention">Extension</string>
+	<string name="prefCatExtention">Расширение</string>
 	<string name="prefEnableExtention">Вкл расширения</string>
 	<string name="prefEnableSwitchLog">Вкл лог переключения профилей</string>
 	<string name="prefCatStatistics">Статистика</string>
@@ -141,10 +141,10 @@
 	<string name="enabled">Включено</string>
 	<string name="ac_power">На переменном токе</string>
 	<string name="battery">На аккумуляторе</string>
-	<string name="screenUnocked">Screen Unlocked</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenUnocked">Экран разблокирован</string>
+	<string name="screenLocked">Экран заблокирован</string>
 	<string name="screenOff">Дисплей Выкл</string>
-	<string name="screenLocked">Screen Locked</string>
+	<string name="screenLocked">Экран заблокирован</string>
 	<string name="call_active">Вызвать актив</string>
 	<string name="battery_hot">Перегрев аккумялтора</string>
 	<string name="prefProfileSwitchLogSizeLong">Сколько часов должен профиль держать логи. Исп-уй -1 для бесконечных логов.</string>
@@ -169,7 +169,7 @@
 	<string name="msg_title_grant_root">Предоставить права суперпользователя</string>
 	<string name="msg_grant_root">Вы будете спрошены о предоставлении прав суперпользователя. Предоставьте их и поставьте галочку в чекбоксе.
 	Без прав CPU Tuner не будет работать. </string>
-	<string name="labelLogTab">Log</string>
+	<string name="labelLogTab">Журнал</string>
 	<string name="msg_no_profile_switch_log">Не найдено профилей переключения лгово</string>
 	<string name="menuItemInsertAsNew">Вставить как новое</string>
 	<string name="prefCatGUILong">Изменить способ отображения.</string>
@@ -236,7 +236,7 @@
 	<string name="name_buy_cookie">Купи печеньку для детей</string>
 	<string name="desc_buy_beer">Это сделает меня счастливым.</string>
 	<string name="desc_buy_whiskey">Это сделает меня ещё счастливым. (И меньше пей!)</string>
-	<string name="desc_buy_cookie">Это займёт моих детей и вероятно, я исправлю ошибку (не обещаю).</string>
+	<string name="desc_buy_cookie">This will keep my kids occupied and will give me more time to fix bugs (no promises made).</string>
 	<string name="desc_buy_toy">Это займёт моих детей на некоторое время и вероятно
 даст мне осуществить функции (не обещаю).</string>
 	<string name="name_buy_toy">Купи моим детям новую игрушку</string>
@@ -264,7 +264,7 @@
 	<string name="prefPowerStrongerThanScreenoff">On power is stronger than screen off profile</string>
 	<string name="prefPowerStrongerThanScreenoffOn">If on power and the screen is off the \"on power\" profile will be chosen.</string>
 	<string name="prefPowerStrongerThanScreenoffOff">If on power and the screen is off the \"screen off\" profile will be chosen.</string>
-	<string name="title_choose_experiance_level">Choose your experience level</string>
+	<string name="title_choose_experiance_level">Выберите Ваш уровень опыта</string>
 	<string name="msg_delete_autoload_configuration">Удалить автозагрузку конфигурации?</string>
 	<string name="prefNetworkModeOnWifiConnected">Netmode по wifi подключено</string>
 	<string name="prefNetworkModeOnWifiConnectedLong">Выберите сеть для подветрждения если WiFi включён. Если будет отсоединение от сеть cpu tuner возвращается к предедущей.</string>
@@ -414,7 +414,7 @@
 	<string name="labelBatteryHot">Перегрев аккумулятора:</string>
 	<string name="labelCallInProgress">Вызов в прогрессе:</string>
 	<string name="labelOnPower">На питании:</string>
-	<string name="labelScreenOff">Screen Off:</string>
+	<string name="labelScreenOff">Экран выкл.:</string>
 	<string name="labelScreenLocked">Экран заблокирован:</string>
 	<string name="labelOnBattery">На аккумуляторе:</string>
 	<string name="labelExplainTriggerProfiles">В зависимости от состояния устройства один из
@@ -462,8 +462,8 @@
 	<string name="notAvailable">Не доступен</string>
 	<string name="yes">Да</string>
 	<string name="no">Нет</string>
-	<string name="save">Save</string>
-	<string name="cancel">Cancel</string>
+	<string name="save">Сохранить</string>
+	<string name="cancel">Отмена</string>
 	<string name="prefMinSensibleFrequencyLong">Минимальная отоброжаемая частота если не опытный пользователь.</string>
 	<string name="prefMinSensibleFrequency">Мин отображаемая частота</string>
 	<string name="prefKeyProfiles">Профили и триггеры</string>
@@ -643,10 +643,13 @@
 	<string name="msg_premail_no_issues">Проблем не найдено…\Если Вам понравилось, комментируйте и оценивайте приложение в маркете.</string>
 	<string name="msg_premail_no_root">Cpu tuner не имеет права рута\nCpu tuner
 		не может работать!</string>
-	<string name="msg_premail_issues">Ваш конфиг имеет проблемы… Что-то с ядром/ROM. У вас две возможности:\n1) Flash новое ядро\n2) Flash новый ROM</string>
-	<string name="msg_premail_issues_cm">Ваш конфиг имеет проблемы…\Что-то с ядром/ROM
-	.У вас две возможности:\n1) Flash новое ядро\n2) Flash новый ROM.Загляните
-		http://wiki.cyanogenmod.com у них есть много хороших ROM.</string>
+	<string name="msg_premail_issues">Your configuration has issues…\nThis is most
+		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
+		new kernel\n2) Flash a new ROM</string>
+	<string name="msg_premail_issues_cm">Your configuration has issues…\nThis is most
+		likely due to the kernel/ROM. You have two possibilities:\n1) Flash a
+		new kernel\n2) Flash a new ROM\nYou might want to have a look at
+		http://wiki.cyanogenmod.com they do very nice ROMS.</string>
 	<string name="title_profile_editor">Редактор профилей </string>
 	<string name="title_profiles">Профили</string>
 	<string name="title_trigger_editor">Редактор триггеров </string>
@@ -661,7 +664,7 @@
 	<string name="label_avgerage">avg: </string>
 	<string name="label_tresh_up">up: </string>
 	<string name="label_tresh_down">down: </string>
-	<string name="msg_not_starting_after_reboot">Not starting cpu tuner since the device reboots to frequent</string>
+	<string name="msg_not_starting_after_reboot">Cpu tuner не запущен, так как устройство перезагружается слишком часто</string>
 	<string name="prefUseScriptCache">"Use scripts "</string>
 	<string name="prefUseScriptCacheOn">Use shell scripts to cache the cpu switches</string>
 	<string name="prefUseScriptCacheOff">Cache the cpu switch command internally</string>

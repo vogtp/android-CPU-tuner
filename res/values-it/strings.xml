@@ -222,7 +222,7 @@
 	<string name="name_buy_cookie">Pagami un biscotto per i miei bambini</string>
 	<string name="desc_buy_beer">Questo mi farà felice.</string>
 	<string name="desc_buy_whiskey">Questo mi farà ancora più felice. (E meno ubriaco!)</string>
-	<string name="desc_buy_cookie">Questo terrà i miei figli occupati e probabilmente mi farà risolvere i bug (niente promesse eh).</string>
+	<string name="desc_buy_cookie">Questo terrà i miei figli occupati e mi permetterà di spendere più tempo per fissare i bug (non è una promessa).</string>
 	<string name="desc_buy_toy">Questo terrà i miei figli occupati per un po\' e probabilmente mi darà modo di implementare altre cose (niente promesse eh).</string>
 	<string name="name_buy_toy">Compra un gioco ai miei figli</string>
 	<string name="prefextentionsLong">Aggiungi una nuova caratteristica a CPU tuner</string>
@@ -626,15 +626,13 @@ Cpu tuner non può fare nulla!
 Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella verifica o nell\'applicazione.
 
 Per favore non scrivere e-mail vuote!</string>
-	<string name="msg_premail_issues">a tua configurazione ha degli errori…
-Ciò è potenzialmente dovuto dal kernel/ROM. Hai due possibilità:
-
-1) Installa un nuovo kernel
-
-2) Installa una nuova ROM</string>
-	<string name="msg_premail_issues_cm">otresti voler dare uno sguardo a http://wiki.cyanogenmod.com loro fanno ROM davvero niente male
-
-Per favore non scrivere e-mail a meno che non pensi ci siano problemi nella verifica o nell\'applicazione.</string>
+	<string name="msg_premail_issues">La tua configurazione ha dei problemi... \nProbabilmente
+sono dovuti da kernel/ROM. Hai due possibilità:\n1) Installare un nuovo
+kernel\n2)Installare una nuova ROM</string>
+	<string name="msg_premail_issues_cm">La tua configurazione ha dei problemi... \nProbabilmente
+sono dovuti da kernel/ROM. Hai due possibilità:\n1) Installare un nuovo
+kernel\n2)Installare una nuova ROM\nPotresti voler dare uno sguardo a
+http://wiki.cyanogenmod.com realizzano buone ROM.</string>
 	<string name="title_profile_editor">Editor Profili</string>
 	<string name="title_profiles">Profili</string>
 	<string name="title_trigger_editor">Editor Trigger</string>
